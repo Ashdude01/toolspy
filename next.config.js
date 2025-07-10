@@ -11,11 +11,16 @@ const nextConfig = {
     NEXT_PUBLIC_FILE_SUFFIX: 'by-toolspy',
     NEXT_PUBLIC_TWITTER_HANDLE: '@toolspy',
     NEXT_PUBLIC_GITHUB_URL: 'https://github.com/toolspy',
+    // Image optimization services (optional)
+    NEXT_PUBLIC_CLOUDINARY_URL: process.env.NEXT_PUBLIC_CLOUDINARY_URL,
+    NEXT_PUBLIC_IMAGEKIT_URL: process.env.NEXT_PUBLIC_IMAGEKIT_URL,
   },
   output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: true,
+    unoptimized: false,
+    loader: 'custom',
+    loaderFile: './lib/image-loader.js',
   },
 };
 

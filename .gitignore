@@ -13,7 +13,7 @@ yarn-error.log*
 # Other files
 .env
 .env.local
-/Tools/*   
+/Tools/*
 
 # Runtime data
 pids
