@@ -10,6 +10,11 @@ yarn-error.log*
 /build/
 /dist/
 
+# Other files
+.env
+.env.local
+/Tools/*   
+
 # Runtime data
 pids
 *.pid
