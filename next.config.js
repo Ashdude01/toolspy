@@ -18,9 +18,7 @@ const nextConfig = {
   output: 'export',
   trailingSlash: true,
   images: {
-    unoptimized: false,
-    loader: 'custom',
-    loaderFile: './lib/image-loader.js',
+    unoptimized: true,
   },
 };
 
