@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Free online text case converter. Convert text to uppercase, lowercase, title case, camel case, snake case, and more. Fast, secure, and works offline.">
+    <meta name="keywords" content="text converter, case converter, uppercase, lowercase, title case, camel case, snake case, online tool, free">
+    <meta name="author" content="Text Converter Tool">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://textconverter.com">
+    <meta property="og:title" content="Text Case Converter - Free Online Tool">
+    <meta property="og:description" content="Convert text to uppercase, lowercase, title case, camel case, snake case, and more. Fast, secure, and works offline.">
+    <meta property="og:image" content="https://textconverter.com/og-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://textconverter.com">
+    <meta property="twitter:title" content="Text Case Converter - Free Online Tool">
+    <meta property="twitter:description" content="Convert text to uppercase, lowercase, title case, camel case, snake case, and more.">
+    <meta property="twitter:image" content="https://textconverter.com/twitter-image.jpg">
+    
+    <title>Text Case Converter - Free Online Tool</title>
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Text Case Converter",
+        "description": "Free online text case converter. Convert text to uppercase, lowercase, title case, camel case, snake case, and more.",
+        "url": "https://textconverter.com",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "Web Browser",
+        "permissions": "No special permissions required",
+        "softwareVersion": "1.0",
+        "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "ratingCount": "850",
+            "bestRating": "5",
+            "worstRating": "1"
+        },
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD"
+        },
+        "creator": {
+            "@type": "Organization",
+            "name": "Text Converter Tools",
+            "url": "https://textconverter.com"
+        },
+        "featureList": [
+            "Convert to uppercase",
+            "Convert to lowercase", 
+            "Convert to title case",
+            "Convert to camel case",
+            "Convert to snake case",
+            "Convert to kebab case",
+            "Word count and statistics",
+            "Copy to clipboard",
+            "Download as text file",
+            "Works offline"
+        ]
+    }
+    </script>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="../../assets/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../assets/favicon.svg">
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#eff6ff',
+                            100: '#dbeafe',
+                            200: '#bfdbfe',
+                            300: '#93c5fd',
+                            400: '#60a5fa',
+                            500: '#3b82f6',
+                            600: '#2563eb',
+                            700: '#1d4ed8',
+                            800: '#1e40af',
+                            900: '#1e3a8a'
+                        }
+                    },
+                    animation: {
+                        'bounce-slow': 'bounce 2s infinite',
+                        'pulse-slow': 'pulse 3s infinite',
+                        'fade-in': 'fadeIn 0.5s ease-in-out',
+                        'slide-up': 'slideUp 0.3s ease-out'
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' }
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(100%)' },
+                            '100%': { transform: 'translateY(0)' }
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Custom Styles -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .drag-over {
+            border-color: #60a5fa !important;
+            background-color: #eff6ff !important;
+        }
+        
+        .dark .drag-over {
+            background-color: rgba(59, 130, 246, 0.1) !important;
+        }
+        
+        .custom-scrollbar {
+            scrollbar-width: thin;
+            scrollbar-color: #cbd5e1 #f1f5f9;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 9999px;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-track {
+            background: #374151;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 9999px;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #6b7280;
+        }
+        
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+        
+        .dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+            background: #9ca3af;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100 transition-colors duration-300">
+    
+    <!-- Main Application Container -->
+    <div id="app">
+        <!-- Header will be inserted here by Header component -->
+        
+        <!-- Main Content will be inserted here by ToolTemplate component -->
+        
+        <!-- Footer will be inserted here by Footer component -->
+    </div>
+
+    <!-- Toast Container will be inserted here by Toast component -->
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="fixed inset-0 bg-white dark:bg-gray-900 z-50 flex items-center justify-center">
+        <div class="text-center">
+            <div class="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+            <p class="text-gray-600 dark:text-gray-300 font-medium">Loading Text Converter...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    
+    <!-- Framework Components -->
+    <script src="../../components/header.js"></script>
+    <script src="../../components/footer.js"></script>
+    <script src="../../components/toast.js"></script>
+    <script src="../../components/tool-template.js"></script>
+    
+    <!-- Framework Utilities -->
+    <script src="../../utils/file-utils.js"></script>
+    <script src="../../utils/validation.js"></script>
+    <script src="../../utils/helpers.js"></script>
+    
+    <!-- Framework Configuration -->
+    <script src="../../config/app-config.js"></script>
+    <script src="../../config/seo-config.js"></script>
+    
+    <!-- Application Configuration -->
+    <script>
+        // Configure the application
+        const appConfig = getConfig({
+            app: {
+                name: 'Text Case Converter',
+                version: '1.0.0',
+                description: 'Free online text case converter tool',
+                author: 'Text Converter Tools',
+                url: 'https://textconverter.com'
+            },
+            theme: {
+                primaryColor: '#3B82F6',
+                secondaryColor: '#9333EA'
+            }
+        });
+
+        // Configure SEO
+        const seoConfig = new SEOConfig({
+            title: 'Text Case Converter - Free Online Tool',
+            description: 'Free online text case converter. Convert text to uppercase, lowercase, title case, camel case, snake case, and more. Fast, secure, and works offline.',
+            keywords: ['text converter', 'case converter', 'uppercase', 'lowercase', 'title case', 'camel case', 'snake case'],
+            author: 'Text Converter Tools',
+            siteName: 'Text Case Converter',
+            siteUrl: 'https://textconverter.com',
+            openGraph: {
+                title: 'Text Case Converter - Free Online Tool',
+                description: 'Convert text to uppercase, lowercase, title case, camel case, snake case, and more.',
+                image: 'https://textconverter.com/og-image.jpg',
+                url: 'https://textconverter.com'
+            },
+            twitter: {
+                title: 'Text Case Converter - Free Online Tool',
+                description: 'Convert text to uppercase, lowercase, title case, camel case, snake case, and more.',
+                image: 'https://textconverter.com/twitter-image.jpg'
+            }
+        });
+
+        // Apply SEO configuration
+        seoConfig.apply();
+    </script>
+    
+    <!-- Application Logic -->
+    <script>
+        // Text conversion functions
+        const TextConverter = {
+            uppercase: (text) => text.toUpperCase(),
+            lowercase: (text) => text.toLowerCase(),
+            titleCase: (text) => text.replace(/\w\S*/g, (txt) => 
+                txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()),
+            camelCase: (text) => HelperUtils.toCamelCase(text),
+            snakeCase: (text) => HelperUtils.toSnakeCase(text),
+            kebabCase: (text) => HelperUtils.toKebabCase(text),
+            reverseText: (text) => text.split('').reverse().join(''),
+            removeSpaces: (text) => text.replace(/\s+/g, ''),
+            removeLineBreaks: (text) => text.replace(/\n+/g, ' '),
+            capitalizeWords: (text) => text.replace(/\b\w/g, (char) => char.toUpperCase()),
+            alternatingCase: (text) => text.split('').map((char, i) => 
+                i % 2 === 0 ? char.toLowerCase() : char.toUpperCase()).join(''),
+            sentenceCase: (text) => text.charAt(0).toUpperCase() + text.slice(1).toLowerCase()
+        };
+
+        // Text statistics functions
+        const TextStats = {
+            getStats: (text) => {
+                const words = text.trim().split(/\s+/).filter(word => word.length > 0);
+                const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 0);
+                const paragraphs = text.split(/\n\s*\n/).filter(p => p.trim().length > 0);
+                
+                return {
+                    characters: text.length,
+                    charactersNoSpaces: text.replace(/\s/g, '').length,
+                    words: words.length,
+                    sentences: sentences.length,
+                    paragraphs: paragraphs.length,
+                    averageWordsPerSentence: sentences.length > 0 ? Math.round(words.length / sentences.length * 100) / 100 : 0,
+                    readingTime: Math.ceil(words.length / 200) // 200 words per minute average
+                };
+            }
+        };
+
+        // Component configurations
+        window.headerConfig = {
+            title: 'Text Case Converter',
+            subtitle: 'Convert text to any case format',
+            logo: `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+            </svg>`,
+            navigationItems: [],
+            showDarkModeToggle: true
+        };
+
+        window.footerConfig = {
+            content: 'Made with ❤️ for text processing enthusiasts.',
+            subContent: 'All conversions happen locally in your browser. Your privacy is protected.',
+            links: []
+        };
+
+        // Current conversion mode
+        let currentMode = 'uppercase';
+
+        // Initialize components when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loading overlay
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            if (loadingOverlay) {
+                setTimeout(() => {
+                    loadingOverlay.style.opacity = '0';
+                    setTimeout(() => {
+                        loadingOverlay.style.display = 'none';
+                    }, 300);
+                }, 500);
+            }
+
+            // Initialize components
+            const header = new Header(window.headerConfig);
+            const footer = new Footer(window.footerConfig);
+            const toast = new Toast({ position: 'bottom-center', duration: 3000 });
+            
+            // Initialize Tool Template
+            const toolTemplate = new ToolTemplate({
+                title: 'Text Case Converter',
+                description: 'Convert your text to uppercase, lowercase, title case, camel case, snake case, and more. Perfect for developers, writers, and anyone working with text formatting.',
+                features: [
+                    'Uppercase & Lowercase',
+                    'Title & Sentence Case', 
+                    'Camel & Snake Case',
+                    'Text Statistics',
+                    'Copy & Download',
+                    'Works Offline'
+                ],
+                inputSection: {
+                    type: 'textarea',
+                    title: 'Input Text',
+                    label: 'Enter your text here',
+                    placeholder: 'Type or paste your text here to convert...',
+                    processButtonText: 'Convert Text',
+                    rows: 8
+                },
+                outputSection: {
+                    title: 'Converted Text',
+                    placeholder: 'Your converted text will appear here...'
+                },
+                showPreview: false,
+                
+                // Add custom conversion mode selector
+                customSections: [{
+                    html: `
+                        <section class="mb-8">
+                            <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                                <div class="p-6 sm:p-8">
+                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Conversion Mode</h3>
+                                    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+                                        <button onclick="setConversionMode('uppercase')" class="conversion-mode-btn bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 px-4 py-2 rounded-lg font-medium hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors duration-200" data-mode="uppercase">
+                                            UPPERCASE
+                                        </button>
+                                        <button onclick="setConversionMode('lowercase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="lowercase">
+                                            lowercase
+                                        </button>
+                                        <button onclick="setConversionMode('titleCase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="titleCase">
+                                            Title Case
+                                        </button>
+                                        <button onclick="setConversionMode('camelCase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="camelCase">
+                                            camelCase
+                                        </button>
+                                        <button onclick="setConversionMode('snakeCase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="snakeCase">
+                                            snake_case
+                                        </button>
+                                        <button onclick="setConversionMode('kebabCase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="kebabCase">
+                                            kebab-case
+                                        </button>
+                                        <button onclick="setConversionMode('reverseText')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="reverseText">
+                                            txet esreveR
+                                        </button>
+                                        <button onclick="setConversionMode('alternatingCase')" class="conversion-mode-btn bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-200 px-4 py-2 rounded-lg font-medium hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors duration-200" data-mode="alternatingCase">
+                                            aLtErNaTiNg
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    `
+                }],
+                
+                // Custom processing function
+                onProcess: async function(input) {
+                    if (!input.trim()) {
+                        throw new Error('Please enter some text to convert');
+                    }
+                    
+                    // Show processing for demonstration
+                    await HelperUtils.sleep(100);
+                    
+                    // Convert text based on selected mode
+                    const converted = TextConverter[currentMode](input);
+                    
+                    // Update statistics
+                    updateTextStatistics(input, converted);
+                    
+                    return converted;
+                },
+                
+                // Custom clear function
+                onClear: function() {
+                    clearTextStatistics();
+                    if (window.Toast) {
+                        window.Toast.success('Text cleared successfully!');
+                    }
+                },
+                
+                // Custom download function
+                onDownload: function(output) {
+                    const filename = `converted-text-${new Date().toISOString().slice(0, 10)}.txt`;
+                    FileUtils.downloadAsFile(output, filename, 'text/plain');
+                    if (window.Toast) {
+                        window.Toast.success('Text file downloaded successfully!');
+                    }
+                }
+            });
+
+            // Add text statistics section after the tool is initialized
+            addTextStatisticsSection();
+        });
+
+        // Set conversion mode
+        function setConversionMode(mode) {
+            currentMode = mode;
+            
+            // Update button states
+            document.querySelectorAll('.conversion-mode-btn').forEach(btn => {
+                btn.classList.remove('bg-blue-100', 'dark:bg-blue-900', 'text-blue-800', 'dark:text-blue-200');
+                btn.classList.add('bg-gray-100', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+            });
+            
+            const activeBtn = document.querySelector(`[data-mode="${mode}"]`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-gray-100', 'dark:bg-gray-700', 'text-gray-800', 'dark:text-gray-200');
+                activeBtn.classList.add('bg-blue-100', 'dark:bg-blue-900', 'text-blue-800', 'dark:text-blue-200');
+            }
+            
+            // Auto-convert if there's text
+            const inputText = document.getElementById('inputText');
+            if (inputText && inputText.value.trim()) {
+                const processBtn = document.getElementById('processBtn');
+                if (processBtn) {
+                    processBtn.click();
+                }
+            }
+        }
+
+        // Add text statistics section
+        function addTextStatisticsSection() {
+            const outputSection = document.getElementById('outputSection');
+            if (outputSection) {
+                const statsHTML = `
+                    <div id="textStatsSection" class="mt-8 hidden">
+                        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                            <div class="p-6 sm:p-8">
+                                <h3 class="text-xl font-semibold text-gray-900 dark:text-white mb-4">Text Statistics</h3>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <div class="text-2xl font-bold text-blue-600 dark:text-blue-400" id="charCount">0</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">Characters</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <div class="text-2xl font-bold text-green-600 dark:text-green-400" id="wordCount">0</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">Words</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <div class="text-2xl font-bold text-purple-600 dark:text-purple-400" id="sentenceCount">0</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">Sentences</div>
+                                    </div>
+                                    <div class="text-center p-4 bg-gray-50 dark:bg-gray-700 rounded-lg">
+                                        <div class="text-2xl font-bold text-orange-600 dark:text-orange-400" id="readingTime">0</div>
+                                        <div class="text-sm text-gray-600 dark:text-gray-400">Min Read</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                outputSection.insertAdjacentHTML('afterend', statsHTML);
+            }
+        }
+
+        // Update text statistics
+        function updateTextStatistics(originalText, convertedText) {
+            const stats = TextStats.getStats(originalText);
+            
+            document.getElementById('charCount').textContent = stats.characters.toLocaleString();
+            document.getElementById('wordCount').textContent = stats.words.toLocaleString();
+            document.getElementById('sentenceCount').textContent = stats.sentences.toLocaleString();
+            document.getElementById('readingTime').textContent = stats.readingTime;
+            
+            const statsSection = document.getElementById('textStatsSection');
+            if (statsSection) {
+                statsSection.classList.remove('hidden');
+                statsSection.classList.add('animate-fade-in');
+            }
+        }
+
+        // Clear text statistics
+        function clearTextStatistics() {
+            const statsSection = document.getElementById('textStatsSection');
+            if (statsSection) {
+                statsSection.classList.add('hidden');
+            }
+        }
+
+        // Make setConversionMode globally available
+        window.setConversionMode = setConversionMode;
+    </script>
+</body>
+</html> 

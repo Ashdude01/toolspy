@@ -1,0 +1,40 @@
+{
+  "name": "Text Case Converter",
+  "short_name": "TextConverter",
+  "description": "Free online text case converter. Convert text to uppercase, lowercase, title case, camel case, snake case, and more.",
+  "icons": [
+    {
+      "src": "../../assets/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#3B82F6",
+  "orientation": "portrait-primary",
+  "categories": ["utilities", "productivity", "developer"],
+  "scope": "/",
+  "lang": "en-US",
+  "dir": "ltr",
+  "id": "text-case-converter",
+  "shortcuts": [
+    {
+      "name": "Convert to Uppercase",
+      "short_name": "Uppercase",
+      "description": "Convert text to UPPERCASE",
+      "url": "/?mode=uppercase",
+      "icons": [
+        {
+          "src": "../../assets/favicon.svg",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ],
+  "prefer_related_applications": false,
+  "edge_side_panel": {
+    "preferred_width": 400
+  }
+} 

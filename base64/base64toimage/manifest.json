@@ -1,0 +1,20 @@
+{
+  "name": "Base64 to Image Converter",
+  "short_name": "Base64 Decoder",
+  "description": "Convert Base64 strings to images online. Free, fast, and secure with download, copy, and social sharing functionality.",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#8B5CF6",
+  "orientation": "portrait-primary",
+  "categories": ["utilities", "productivity", "developer"],
+  "scope": "/",
+  "lang": "en-US"
+} 

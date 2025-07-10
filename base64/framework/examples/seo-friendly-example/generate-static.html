@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEO Generator Demo - Create Static HTML</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="../../utils/seo-generator.js"></script>
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 p-8">
+    <div class="max-w-4xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 dark:text-white mb-8">
+            SEO Static Site Generator Demo
+        </h1>
+        
+        <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+            <h2 class="text-xl font-semibold mb-4">Generate SEO-Friendly Static HTML</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tool Name:</label>
+                    <input type="text" id="toolName" class="w-full px-3 py-2 border rounded-lg" value="Text Case Converter" />
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Tool Description:</label>
+                    <input type="text" id="toolDescription" class="w-full px-3 py-2 border rounded-lg" value="Convert text to uppercase, lowercase, title case, and more" />
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Site URL:</label>
+                    <input type="text" id="siteUrl" class="w-full px-3 py-2 border rounded-lg" value="https://textconverter.com" />
+                </div>
+                
+                <div>
+                    <label class="block text-sm font-medium mb-2">Keywords (comma separated):</label>
+                    <input type="text" id="keywords" class="w-full px-3 py-2 border rounded-lg" value="text converter, case converter, uppercase, lowercase" />
+                </div>
+            </div>
+            
+            <div class="mt-6">
+                <label class="block text-sm font-medium mb-2">Processing Function (JavaScript):</label>
+                <textarea id="processingFunction" rows="4" class="w-full px-3 py-2 border rounded-lg font-mono text-sm">
+// Example: Convert to uppercase
+const result = input.toUpperCase();
+return result;
+                </textarea>
+            </div>
+            
+            <div class="mt-6 flex space-x-4">
+                <button onclick="generateHTML()" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg">
+                    Generate Static HTML
+                </button>
+                <button onclick="downloadHTML()" class="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg" disabled id="downloadBtn">
+                    Download HTML
+                </button>
+                <button onclick="analyzeSEO()" class="bg-purple-600 hover:bg-purple-700 text-white px-6 py-2 rounded-lg" disabled id="analyzeBtn">
+                    Analyze SEO
+                </button>
+            </div>
+        </div>
+        
+        <div id="output" class="hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6 mb-8">
+            <h3 class="text-lg font-semibold mb-4">Generated HTML Preview</h3>
+            <textarea id="htmlOutput" rows="20" class="w-full px-3 py-2 border rounded-lg font-mono text-xs" readonly></textarea>
+        </div>
+        
+        <div id="seoAnalysis" class="hidden bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
+            <h3 class="text-lg font-semibold mb-4">SEO Analysis</h3>
+            <div id="seoScore" class="mb-4"></div>
+            <div id="seoRecommendations"></div>
+        </div>
+    </div>
+
+    <script>
+        let generator;
+        let generatedHTML = '';
+
+        // Initialize generator
+        document.addEventListener('DOMContentLoaded', function() {
+            generator = new SEOGenerator();
+            
+            // Load the SEO-friendly template
+            loadTemplate();
+        });
+
+        async function loadTemplate() {
+            try {
+                const response = await fetch('../seo-friendly-template.html');
+                const template = await response.text();
+                generator.addTemplate('seo-friendly', template);
+            } catch (error) {
+                console.error('Failed to load template:', error);
+                // Fallback template
+                const fallbackTemplate = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{TITLE}}</title>
+    <meta name="description" content="{{DESCRIPTION}}">
+    <meta name="keywords" content="{{KEYWORDS}}">
+</head>
+<body>
+    <h1>{{TOOL_TITLE}}</h1>
+    <p>{{TOOL_DESCRIPTION}}</p>
+    <form>
+        <textarea placeholder="{{INPUT_PLACEHOLDER}}"></textarea>
+        <button>{{PROCESS_BUTTON_TEXT}}</button>
+    </form>
+</body>
+</html>`;
+                generator.addTemplate('seo-friendly', fallbackTemplate);
+            }
+        }
+
+        function generateHTML() {
+            const toolName = document.getElementById('toolName').value;
+            const toolDescription = document.getElementById('toolDescription').value;
+            const siteUrl = document.getElementById('siteUrl').value;
+            const keywords = document.getElementById('keywords').value.split(',').map(k => k.trim());
+            const processingFunction = document.getElementById('processingFunction').value;
+
+            const data = {
+                // Basic Info
+                TITLE: `${toolName} - Free Online Tool`,
+                DESCRIPTION: toolDescription,
+                KEYWORDS: keywords.join(', '),
+                KEYWORDS_ARRAY: keywords,
+                AUTHOR: 'Your Name',
+                SITE_URL: siteUrl,
+                
+                // App Info
+                APP_NAME: toolName,
+                APP_SUBTITLE: toolDescription,
+                VERSION: '1.0.0',
+                
+                // Open Graph
+                OG_TYPE: 'website',
+                OG_TITLE: `${toolName} - Free Online Tool`,
+                OG_DESCRIPTION: toolDescription,
+                OG_IMAGE: `${siteUrl}/og-image.jpg`,
+                
+                // Twitter
+                TWITTER_CARD: 'summary_large_image',
+                TWITTER_TITLE: `${toolName} - Free Online Tool`,
+                TWITTER_DESCRIPTION: toolDescription,
+                TWITTER_IMAGE: `${siteUrl}/twitter-image.jpg`,
+                
+                // Tool Info
+                TOOL_TITLE: toolName,
+                TOOL_DESCRIPTION: toolDescription,
+                
+                // Input Section
+                INPUT_SECTION_TITLE: 'Input',
+                INPUT_LABEL: 'Enter your text',
+                INPUT_PLACEHOLDER: 'Type or paste your text here...',
+                PROCESS_BUTTON_TEXT: 'Convert',
+                
+                // Output Section
+                OUTPUT_SECTION_TITLE: 'Output',
+                OUTPUT_PLACEHOLDER: 'Converted text will appear here...',
+                
+                // How to Use Steps
+                STEP_1_TITLE: 'Enter Text',
+                STEP_1_DESCRIPTION: 'Type or paste your text in the input area',
+                STEP_2_TITLE: 'Convert',
+                STEP_2_DESCRIPTION: 'Click the convert button to process your text',
+                STEP_3_TITLE: 'Copy Result',
+                STEP_3_DESCRIPTION: 'Copy or download the converted text',
+                
+                // Features
+                FEATURE_BADGES: [
+                    'Fast Processing',
+                    'No Registration',
+                    'Privacy Focused',
+                    'Mobile Friendly'
+                ],
+                
+                FEATURE_LIST: [
+                    'Fast and efficient processing',
+                    'No registration required',
+                    'Privacy focused - no data sent to servers',
+                    'Mobile responsive design',
+                    'Works offline'
+                ],
+                
+                FEATURE_ITEMS: [
+                    {
+                        title: 'Fast Processing',
+                        description: 'Lightning-fast text conversion with instant results'
+                    },
+                    {
+                        title: 'Privacy Focused',
+                        description: 'All processing happens locally in your browser'
+                    },
+                    {
+                        title: 'No Registration',
+                        description: 'Use the tool immediately without any sign-up'
+                    },
+                    {
+                        title: 'Mobile Friendly',
+                        description: 'Optimized for all devices and screen sizes'
+                    }
+                ],
+                
+                // FAQ
+                FAQ_ITEMS: [
+                    {
+                        question: `How does ${toolName} work?`,
+                        answer: 'Simply paste your text, select the conversion type, and click convert. The tool processes everything locally in your browser.'
+                    },
+                    {
+                        question: 'Is my data secure?',
+                        answer: 'Yes! All text processing happens locally in your browser. No data is sent to any servers.'
+                    },
+                    {
+                        question: 'Can I use this on mobile?',
+                        answer: 'Absolutely! The tool is fully responsive and works great on all devices.'
+                    }
+                ],
+                
+                // Header/Footer
+                HEADER_LOGO: `<svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                </svg>`,
+                
+                NAVIGATION_ITEMS: [],
+                
+                FOOTER_CONTENT: 'Made with ❤️ for text processing enthusiasts.',
+                FOOTER_SUB_CONTENT: 'All conversions happen locally in your browser. Your privacy is protected.',
+                FOOTER_LINKS: [],
+                
+                // Assets
+                FAVICON_SVG: '/favicon.svg',
+                APPLE_TOUCH_ICON: '/apple-touch-icon.png',
+                MANIFEST_PATH: '/manifest.json',
+                CANONICAL_URL: siteUrl,
+                
+                // Schema.org
+                RATING_VALUE: '4.8',
+                RATING_COUNT: '1250',
+                CREATOR_NAME: 'Your Company',
+                CREATOR_URL: siteUrl,
+                
+                // Processing Logic
+                PROCESSING_FUNCTION: processingFunction,
+                DOWNLOAD_FILENAME: 'converted-text.txt',
+                
+                // Custom
+                CUSTOM_PROCESSING_LOGIC: `
+                    function processInput() {
+                        const input = document.getElementById('inputText').value;
+                        if (!input.trim()) return;
+                        
+                        try {
+                            ${processingFunction}
+                            
+                            const output = document.getElementById('outputText');
+                            output.value = result;
+                            
+                            // Enable buttons
+                            document.getElementById('copyBtn').disabled = false;
+                            document.getElementById('downloadBtn').disabled = false;
+                        } catch (error) {
+                            console.error('Processing error:', error);
+                            alert('Error processing text: ' + error.message);
+                        }
+                    }
+                `
+            };
+
+            try {
+                generatedHTML = generator.generate('seo-friendly', data);
+                
+                // Show output
+                document.getElementById('htmlOutput').value = generatedHTML;
+                document.getElementById('output').classList.remove('hidden');
+                
+                // Enable buttons
+                document.getElementById('downloadBtn').disabled = false;
+                document.getElementById('analyzeBtn').disabled = false;
+                
+                alert('✅ Static HTML generated successfully!\n\nThis HTML contains all your content directly in the source code, making it fully SEO-friendly and crawlable by search engines.');
+                
+            } catch (error) {
+                alert('Error generating HTML: ' + error.message);
+            }
+        }
+
+        function downloadHTML() {
+            if (!generatedHTML) {
+                alert('Please generate HTML first');
+                return;
+            }
+            
+            const toolName = document.getElementById('toolName').value;
+            const filename = `${toolName.toLowerCase().replace(/\s+/g, '-')}-seo-friendly.html`;
+            
+            generator.downloadHTML('seo-friendly', filename);
+        }
+
+        function analyzeSEO() {
+            if (!generatedHTML) {
+                alert('Please generate HTML first');
+                return;
+            }
+            
+            const analysis = generator.analyzeSEO(generatedHTML);
+            const validation = generator.validateHTML(generatedHTML);
+            
+            // Show analysis
+            const scoreElement = document.getElementById('seoScore');
+            const recommendationsElement = document.getElementById('seoRecommendations');
+            
+            let scoreColor = 'red';
+            if (analysis.score >= 80) scoreColor = 'green';
+            else if (analysis.score >= 60) scoreColor = 'orange';
+            
+            scoreElement.innerHTML = `
+                <div class="text-2xl font-bold" style="color: ${scoreColor}">
+                    SEO Score: ${analysis.score}/100
+                </div>
+            `;
+            
+            let recommendationsHTML = '<h4 class="font-semibold mb-2">Recommendations:</h4><ul class="list-disc pl-5 space-y-1">';
+            
+            if (analysis.recommendations.length === 0) {
+                recommendationsHTML += '<li class="text-green-600">Great! No SEO issues found.</li>';
+            } else {
+                analysis.recommendations.forEach(rec => {
+                    recommendationsHTML += `<li class="text-orange-600">${rec}</li>`;
+                });
+            }
+            
+            if (validation.issues.length > 0) {
+                recommendationsHTML += '<li class="font-semibold text-red-600 mt-2">HTML Issues:</li>';
+                validation.issues.forEach(issue => {
+                    recommendationsHTML += `<li class="text-red-600 ml-4">${issue}</li>`;
+                });
+            }
+            
+            recommendationsHTML += '</ul>';
+            recommendationsElement.innerHTML = recommendationsHTML;
+            
+            document.getElementById('seoAnalysis').classList.remove('hidden');
+        }
+    </script>
+</body>
+</html> 

@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://toolshub.app/sitemap.xml
+
+# Disallow crawling of API routes
+Disallow: /api/
+Disallow: /_next/
+
+# Allow specific tool paths
+Allow: /tools/
+Allow: /about
+Allow: /contact
+
+# Crawl delay for bots
+Crawl-delay: 1 
