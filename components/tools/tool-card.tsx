@@ -1,3 +1,4 @@
+"use client"
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -12,17 +13,19 @@ interface ToolCardProps {
 
 export function ToolCard({ tool, className }: ToolCardProps) {
   const getStatusBadge = () => {
+
+    if(window.innerWidth < 768) return null;
     switch (tool.status) {
       case 'active':
         return (
-          <Badge variant="default" className="text-xs">
+          <Badge variant="secondary" className="text-xs">
             <CheckCircle className="w-3 h-3 mr-1" />
-            Active
+            Live
           </Badge>
         );
       case 'beta':
         return (
-          <Badge variant="secondary" className="text-xs">
+          <Badge variant="outline" className="text-xs">
             Beta
           </Badge>
         );
@@ -55,15 +58,15 @@ export function ToolCard({ tool, className }: ToolCardProps) {
     <CardWrapper>
       <Card className={`h-full transition-all duration-200 ${
         isClickable 
-          ? 'hover:shadow-lg hover:scale-105 cursor-pointer' 
+          ? 'hover:shadow-lg hover:bg-gray-200 dark:hover:bg-gray-900 cursor-pointer' 
           : 'opacity-75 cursor-not-allowed'
-      } ${tool.featured ? 'ring-2 ring-primary/20' : ''}`}>
+      } ring-1 ring-primary/10`}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
               <div className="text-2xl">{tool.icon}</div>
               <div>
-                <CardTitle className="text-lg leading-tight">{tool.name}</CardTitle>
+                <CardTitle className="text-base md:text-lg leading-tight">{tool.name}</CardTitle>
                 {tool.featured && (
                   <Badge variant="secondary" className="text-xs mt-1">
                     Featured

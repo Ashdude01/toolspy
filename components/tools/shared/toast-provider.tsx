@@ -87,13 +87,13 @@ export function ToastProvider({ children }: ToastProviderProps) {
       {children}
       
       {/* Toast Container */}
-      <div className="fixed top-4 right-4 z-50 space-y-2 max-w-sm">
+      <div className="fixed bottom-5 right-4 z-50 space-y-2 max-w-sm">
         {toasts.map((toast) => (
           <div
             key={toast.id}
             className={`
               ${getToastStyle(toast.type)}
-              rounded-lg p-4 animate-in slide-in-from-top-2 duration-300
+              rounded-lg p-4 animate-in slide-in-from-bottom-2 duration-300
             `}
           >
             <div className="flex items-start space-x-3">

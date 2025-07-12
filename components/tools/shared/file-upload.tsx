@@ -4,7 +4,7 @@ import { useCallback, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { UploadCloud, Link, Clipboard, X, Cloud } from 'lucide-react';
+import { UploadCloud, Link } from 'lucide-react';
 import { validateImageFile, loadImageFromUrl, pasteImageFromClipboard, isValidUrl } from '@/lib/utils/file-utils';
 
 interface FileUploadProps {
@@ -12,7 +12,7 @@ interface FileUploadProps {
   onError: (error: string) => void;
   multiple?: boolean;
   accept?: string;
-  maxFiles?: number;
+  maxFiles: number;
   className?: string;
 }
 
@@ -21,7 +21,7 @@ export function FileUpload({
   onError, 
   multiple = false, 
   accept = 'image/*',
-  maxFiles = 10,
+  maxFiles,
   className = '' 
 }: FileUploadProps) {
   const [isDragOver, setIsDragOver] = useState(false);
@@ -42,7 +42,7 @@ export function FileUpload({
     }
     
     if (validFiles.length > maxFiles) {
-      onError(`Maximum ${maxFiles} files allowed`);
+      onError(`You can only process up to ${maxFiles} files at once. Please select fewer files.`);
       return;
     }
     
@@ -188,14 +188,14 @@ export function FileUpload({
 
           {/* Main Text */}
           <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-            Drag and drop your image here
+            Drag and drop your image{multiple ? 's' : ''} here
           </h3>
 
           {/* Action Buttons */}
           <div className="flex items-center justify-center gap-2 mb-6">
             <Button 
               variant="secondary" 
-              className="h-auto text-blue-600 hover:text-blue-700"
+              className="h-auto text-blue-600 hover:text-blue-700 text-xs sm:text-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 document.getElementById('file-input')?.click();
@@ -206,7 +206,7 @@ export function FileUpload({
             <span className="text-muted-foreground">•</span>
             <Button 
               variant="secondary" 
-              className="h-auto text-purple-600 hover:text-purple-700"
+              className="h-auto text-purple-600 hover:text-purple-700 text-xs sm:text-sm"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePaste();
@@ -219,7 +219,7 @@ export function FileUpload({
 
           {/* Supported Formats */}
           <p className="text-sm text-muted-foreground">
-            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • Max 10MB
+            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • Max 10MB{multiple ? ` • Up to ${maxFiles} files` : ''}
           </p>
 
           {/* Keyboard Shortcut Hint */}
@@ -239,7 +239,7 @@ export function FileUpload({
       </Card>
 
       {/* URL Import */}
-      {/* <Card className="p-4">
+       <Card className="p-4">
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
             <Link className="h-5 w-5 text-muted-foreground" />
@@ -259,16 +259,13 @@ export function FileUpload({
             </Button>
           </div>
           <div className="text-xs text-muted-foreground">
-            <strong>Tip:</strong> For best results, try these reliable sources:
+            <strong>Tip:</strong> For best results, try reliable sources:
             <div className="mt-1 grid grid-cols-1 sm:grid-cols-2 gap-1">
-              <span>• picsum.photos (random images)</span>
-              <span>• via.placeholder.com (placeholders)</span>
-              <span>• i.imgur.com (direct links)</span>
               <span>• Direct image URLs (.jpg, .png)</span>
             </div>
           </div>
         </div>
-      </Card> */}
+      </Card>
 
       {/* Paste from Clipboard */}
       {/* <Card className="p-4">

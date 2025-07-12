@@ -21,7 +21,6 @@ import {
 import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Separator } from "@/components/ui/separator";
 import { FileUpload } from "@/components/tools/shared/file-upload";
 import { ImagePreview } from "@/components/tools/shared/image-preview";
 import { ProgressModal } from "@/components/tools/shared/progress-modal";
@@ -40,6 +39,7 @@ import {
   Globe,
   ChevronDown,
   ChevronUp,
+  Shield,
 } from "lucide-react";
 import {
   COMPRESSION_PRESETS,
@@ -55,6 +55,10 @@ import {
   createZipFromFiles,
   downloadZip,
 } from "@/lib/utils/file-utils";
+
+// Import SEO Content Component
+import { ImageCompressorSEOContent } from "./seo-content";
+import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 
 function ImageCompressorContent() {
   const { showToast } = useToast();
@@ -211,7 +215,6 @@ function ImageCompressorContent() {
 
       const watermark = process.env.NEXT_PUBLIC_FILE_WATERMARK || "toolspy";
       downloadZip(zipBlob, `${watermark}-compressed-images.zip`);
-
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to create ZIP file";
@@ -259,13 +262,22 @@ function ImageCompressorContent() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4">
+      <div className="text-center mb-6 sm:mb-8">
+        <Badge
+          variant="outline"
+          className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
+        >
+        <Shield className="w-4 h-4 mr-2" />
+          Privacy-First • No Data Collection
+        </Badge>
+
+        {/* Main Heading */}
+        <h1 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Professional Image Compressor
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Compress images while maintaining quality with Toolspy's advanced
           compression engine. Reduce file sizes for faster loading and optimized
           storage.
@@ -274,51 +286,37 @@ function ImageCompressorContent() {
 
       {/* File Upload */}
       <FileUpload
-            onFileSelect={handleFileSelect}
-            onError={handleError}
-            multiple={false}
-            maxFiles={1}
-          />
-      {/* <Card className="border-none shadow-none">
-        <CardHeader>
-          <CardTitle className="text-center">Upload Images</CardTitle>
-          <CardDescription className="text-center">
-            Select multiple images to compress. Supports JPEG, PNG, WebP, AVIF,
-            and more.
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FileUpload
-            onFileSelect={handleFileSelect}
-            onError={handleError}
-            multiple={true}
-            maxFiles={10}
-          />
-        </CardContent>
-      </Card> */}
+        onFileSelect={handleFileSelect}
+        onError={handleError}
+        multiple={true}
+        maxFiles={5}
+        className="mb-6 sm:mb-8"
+      />
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-8">
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <CardTitle>Selected Files ({selectedFiles.length})</CardTitle>
                 <CardDescription>Files ready for compression</CardDescription>
               </div>
-              <Button variant="outline" onClick={clearAllFiles}>
+              <Button variant="outline" onClick={clearAllFiles} size="sm">
                 <Trash2 className="h-4 w-4 mr-2" />
                 Clear All
               </Button>
             </div>
           </CardHeader>
           <CardContent className="max-h-96 overflow-y-auto">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {selectedFiles.map((file, index) => (
-                <ImagePreview
+              
+                <CompactImagePreview
                   key={`${file.name}-${index}`}
                   file={file}
                   onRemove={() => removeFile(index)}
+                  className="bg-muted"
                 />
               ))}
             </div>
@@ -328,7 +326,7 @@ function ImageCompressorContent() {
 
       {/* Compression Presets */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-8">
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
             <CardTitle>Compression Presets</CardTitle>
             <CardDescription>
@@ -336,23 +334,25 @@ function ImageCompressorContent() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               {presetCards.map(({ key, icon, title, description }) => (
                 <Card
                   key={key}
                   className={`cursor-pointer transition-all duration-200 ${
                     currentPreset === key
-                      ? "ring-1 ring-primary bg-gray-400/50"
-                      : "hover:shadow-md"
+                      ? "ring-1 ring-primary bg-gray-300/50 dark:bg-gray-500/50"
+                      : "hover:shadow-md hover:ring-1 hover:ring-primary"
                   }`}
                   onClick={() => applyPreset(key)}
                 >
                   <CardContent className="p-3">
                     <div className="flex items-center space-x-2 mb-2">
                       {icon}
-                      <span className="font-semibold">{title}</span>
+                      <span className="font-semibold text-sm sm:text-base">
+                        {title}
+                      </span>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-xs sm:text-sm text-muted-foreground">
                       {description}
                     </p>
                   </CardContent>
@@ -365,9 +365,9 @@ function ImageCompressorContent() {
 
       {/* Compression Settings */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-8">
+        <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <CardTitle>Compression Settings</CardTitle>
                 <CardDescription>
@@ -375,11 +375,17 @@ function ImageCompressorContent() {
                 </CardDescription>
               </div>
               <Button
-                variant="ghost"
+                variant="secondary"
                 onClick={() => setShowAdvanced(!showAdvanced)}
+                size="sm"
               >
                 <Settings className="h-4 w-4 mr-2" />
-                {showAdvanced ? "Hide" : "Advanced"}
+                <span className="hidden sm:inline">
+                  {showAdvanced ? "Hide" : "Advanced"}
+                </span>
+                <span className="sm:hidden">
+                  {showAdvanced ? "Hide" : "Advanced"}
+                </span>
                 {showAdvanced ? (
                   <ChevronUp className="h-4 w-4 ml-2" />
                 ) : (
@@ -390,10 +396,10 @@ function ImageCompressorContent() {
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Top Row: Quality, Output Format, Target Size */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
               {/* Quality Slider */}
-              <div className="space-y-2">
-                <Label>Quality</Label>
+              <div className="space-y-2 sm:col-span-2 lg:col-span-1">
+                <Label className="text-sm font-medium">Quality</Label>
                 <div className="space-y-2">
                   <div className="text-right text-sm font-medium">
                     {quality[0]}%
@@ -411,7 +417,7 @@ function ImageCompressorContent() {
 
               {/* Target File Size */}
               <div className="space-y-2">
-                <Label>Target Size (KB)</Label>
+                <Label className="text-sm font-medium">Target Size (KB)</Label>
                 <Input
                   type="number"
                   placeholder="Auto"
@@ -419,10 +425,10 @@ function ImageCompressorContent() {
                   onChange={(e) => setTargetFileSize(e.target.value)}
                 />
               </div>
-              
+
               {/* Output Format */}
               <div className="space-y-2">
-                <Label>Output Format</Label>
+                <Label className="text-sm font-medium">Output Format</Label>
                 <Select value={outputFormat} onValueChange={setOutputFormat}>
                   <SelectTrigger>
                     <SelectValue />
@@ -447,15 +453,17 @@ function ImageCompressorContent() {
                 onChange={(e) => setEnableResize(e.target.checked)}
                 className="rounded"
               />
-              <Label htmlFor="resize-checkbox">Resize images</Label>
+              <Label htmlFor="resize-checkbox" className="text-sm font-medium">
+                Resize images
+              </Label>
             </div>
 
             {/* Resize Settings (when enabled) */}
             {enableResize && (
-              <div className="space-y-4 pl-6 border-l-2 border-muted">
-                <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-4 pl-3 sm:pl-6 border-l-2 border-muted">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label>Width (px)</Label>
+                    <Label className="text-sm font-medium">Width (px)</Label>
                     <Input
                       type="number"
                       placeholder="Auto"
@@ -464,7 +472,7 @@ function ImageCompressorContent() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label>Height (px)</Label>
+                    <Label className="text-sm font-medium">Height (px)</Label>
                     <Input
                       type="number"
                       placeholder="Auto"
@@ -479,7 +487,7 @@ function ImageCompressorContent() {
                     checked={maintainAspectRatio}
                     onCheckedChange={setMaintainAspectRatio}
                   />
-                  <Label>Maintain Aspect Ratio</Label>
+                  <Label className="text-sm">Maintain Aspect Ratio</Label>
                 </div>
               </div>
             )}
@@ -488,10 +496,10 @@ function ImageCompressorContent() {
             {showAdvanced && (
               <div className="space-y-4 pt-4">
                 {/* Bottom Row: EXIF Metadata and Progressive Encoding */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                   {/* EXIF Metadata */}
                   <div className="space-y-2">
-                    <Label>EXIF Metadata</Label>
+                    <Label className="text-sm font-medium">EXIF Metadata</Label>
                     <Select
                       value={
                         removeExifData === true
@@ -520,7 +528,7 @@ function ImageCompressorContent() {
                   </div>
 
                   {/* Progressive Encoding */}
-                  <div className="flex items-center space-x-2 pt-6">
+                  <div className="flex items-center space-x-2 pt-2 sm:pt-6">
                     <input
                       type="checkbox"
                       id="progressive-checkbox"
@@ -528,12 +536,12 @@ function ImageCompressorContent() {
                       onChange={(e) => setEnableProgressive(e.target.checked)}
                       className="rounded"
                     />
-                    <Label htmlFor="progressive-checkbox">
+                    <Label htmlFor="progressive-checkbox" className="text-sm">
                       Progressive encoding
                     </Label>
                   </div>
                 </div>
-                <p className="text-sm text-muted-foreground">
+                <p className="text-xs sm:text-sm text-muted-foreground">
                   Advanced settings allow you to fine-tune compression
                   parameters for optimal results.
                 </p>
@@ -559,21 +567,27 @@ function ImageCompressorContent() {
       {compressedResults.length > 0 && (
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
                 <CardTitle>Compression Results</CardTitle>
                 <CardDescription>
                   {compressedResults.length} image(s) compressed successfully
                 </CardDescription>
               </div>
-              <div className="flex gap-2">
-                <Button onClick={downloadAll} variant="outline">
+              <div className="flex flex-col sm:flex-row gap-2">
+                <Button onClick={downloadAll} variant="outline" size="sm">
                   <Download className="h-4 w-4 mr-2" />
-                  Download All
+                  <span className="hidden sm:inline">Download All</span>
+                  <span className="sm:hidden">All</span>
                 </Button>
-                <Button onClick={downloadAllAsZip}>
+                <Button onClick={downloadAllAsZip} size="sm">
                   <Download className="h-4 w-4 mr-2" />
-                  Download All ZIP ({compressedResults.length})
+                  <span className="hidden sm:inline">
+                    Download All ZIP ({compressedResults.length})
+                  </span>
+                  <span className="sm:hidden">
+                    ZIP ({compressedResults.length})
+                  </span>
                 </Button>
               </div>
             </div>
@@ -581,14 +595,14 @@ function ImageCompressorContent() {
           <CardContent>
             <div className="space-y-4">
               {compressedResults.map((result, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="flex items-center gap-4">
+                <div key={index} className="border rounded-lg p-3 sm:p-4">
+                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
                     {/* Thumbnail */}
-                    <div className="flex-shrink-0">
+                    <div className="flex-shrink-0 self-center sm:self-start">
                       <img
                         src={URL.createObjectURL(result.file)}
                         alt={result.file.name}
-                        className="w-16 h-16 object-cover rounded-lg border"
+                        className="w-full sm:w-16 sm:h-16 aspect-video object-cover rounded-lg border"
                         onLoad={(e) => {
                           // Clean up object URL to prevent memory leaks
                           setTimeout(() => {
@@ -601,11 +615,11 @@ function ImageCompressorContent() {
                     </div>
 
                     {/* File Info */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-medium truncate">
+                    <div className="flex-1 min-w-0 text-center sm:text-left">
+                      <h4 className="font-medium truncate text-sm sm:text-base">
                         {result.file.name}
                       </h4>
-                      <div className="flex items-center space-x-4 text-sm text-muted-foreground mt-1">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-xs sm:text-sm text-muted-foreground mt-1 space-y-1 sm:space-y-0">
                         <span>
                           Original: {formatFileSize(result.originalSize)}
                         </span>
@@ -618,6 +632,7 @@ function ImageCompressorContent() {
                               ? "default"
                               : "secondary"
                           }
+                          className="text-xs w-fit mx-auto sm:mx-0"
                         >
                           {result.compressionRatio}% saved
                         </Badge>
@@ -625,14 +640,15 @@ function ImageCompressorContent() {
                     </div>
 
                     {/* Action Buttons */}
-                    <div className="flex items-center space-x-2 flex-shrink-0">
+                    <div className="flex items-center justify-center sm:justify-start space-x-2 flex-shrink-0">
                       <Button
                         variant="outline"
                         size="sm"
                         onClick={() => copySingle(result)}
                         title="Copy to clipboard"
                       >
-                        <Copy className="h-4 w-4" />
+                        <Copy className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <span className="ml-1 sm:hidden text-xs">Copy</span>
                       </Button>
                       <Button
                         variant="outline"
@@ -640,7 +656,8 @@ function ImageCompressorContent() {
                         onClick={() => downloadSingle(result)}
                         title="Download file"
                       >
-                        <Download className="h-4 w-4" />
+                        <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <span className="ml-1 sm:hidden text-xs">Download</span>
                       </Button>
                     </div>
                   </div>
@@ -660,6 +677,9 @@ function ImageCompressorContent() {
         currentFile={compressionProgress.file}
         description="Please wait while we compress your images..."
       />
+
+      {/* SEO Content Section */}
+      <ImageCompressorSEOContent />
     </div>
   );
 }

@@ -13,7 +13,7 @@ export function HeroSection() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 py-24 sm:py-32">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 py-16 sm:py-12">
       <div className="container mx-auto px-4">
         <div className="text-center max-w-4xl mx-auto">
           {/* Badge */}
@@ -37,7 +37,7 @@ export function HeroSection() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
             <Button 
               size="lg" 
               onClick={scrollToTools}
@@ -53,10 +53,10 @@ export function HeroSection() {
             >
               View Documentation
             </Button>
-          </div>
+          </div> */}
 
           {/* Feature Highlights */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 max-w-3xl mx-auto">
             <div className="flex flex-col items-center text-center">
               <div className="rounded-full bg-primary/10 p-4 mb-3">
                 <Zap className="h-6 w-6 text-primary" />
@@ -86,7 +86,7 @@ export function HeroSection() {
                 No registration or payment required
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
       

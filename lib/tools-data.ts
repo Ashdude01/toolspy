@@ -22,7 +22,7 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
   'image-tools': {
     name: 'Professional Image Tools',
     description: 'Convert, compress, and optimize images with advanced algorithms',
-    icon: '🖼️'
+    icon: ''
   },
   'pdf-tools': {
     name: 'PDF Processing Tools', 
@@ -82,6 +82,19 @@ export const tools: Tool[] = [
     path: '/image-resizer',
     status: 'coming-soon'
   },
+  
+  {
+    id: 'image-optimizer',
+    name: 'Image Optimizer',
+    slug: 'image-optimizer',
+    description: 'Optimize images for faster loading and better performance',
+    category: 'image-tools',
+    icon: '📏',
+    tags: ['optimize', 'performance', 'compression'],
+    path: '/image-optimizer',
+    status: 'active'
+  },
+
 
   // Base64 Tools
   {
