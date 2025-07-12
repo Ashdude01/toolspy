@@ -14,7 +14,7 @@ interface ToolCardProps {
 export function ToolCard({ tool, className }: ToolCardProps) {
   const getStatusBadge = () => {
 
-    if(window.innerWidth < 768) return null;
+    if(typeof window !== 'undefined' && window.innerWidth < 768) return null;
     switch (tool.status) {
       case 'active':
         return (
