@@ -289,7 +289,7 @@ function ImageCompressorContent() {
         onFileSelect={handleFileSelect}
         onError={handleError}
         multiple={true}
-        maxFiles={5}
+        maxFiles={100}
         className="mb-6 sm:mb-8"
       />
 

@@ -20,9 +20,13 @@ import {
   Shield,
   Settings,
 } from "lucide-react";
+import { getToolBySlug, tools } from "@/lib/tools-data";
+
 
 export function ImageCompressorSEOContent() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+
+  const tool = getToolBySlug('image-compressor');
 
   const comparisonData = [
     {
@@ -219,38 +223,15 @@ export function ImageCompressorSEOContent() {
     },
   ];
 
-  const relatedTools = [
-    {
-      name: "Image to Base64 Converter",
-      description:
-        "Convert images to Base64 encoding for web embedding and data URIs",
-      href: "/image-to-base64",
-      keywords: "base64 converter, image encoding, data uri",
-    },
-    {
-      name: "Base64 to Image Decoder",
-      description:
-        "Decode Base64 strings back to image files with format detection",
-      href: "/base64-to-image",
-      keywords: "base64 decoder, image decoding",
-    },
-    {
-      name: "Image Resizer",
-      description:
-        "Resize images to specific dimensions while maintaining aspect ratio",
-      href: "/image-resizer",
-      comingSoon: true,
-      keywords: "image resize, dimension change",
-    },
-    {
-      name: "Image Format Converter",
-      description:
-        "Convert between different image formats (PNG to JPG, WebP, etc.)",
-      href: "/image-converter",
-      comingSoon: true,
-      keywords: "format converter, image conversion",
-    },
-  ];
+  const relatedTools = tools
+    .filter(tool => tool.category === 'image-tools' && tool.slug !== 'image-compressor')
+    .map(tool => ({
+      name: tool.name,
+      description: tool.description,
+      keywords: tool.tags.join(', '),
+      href: tool.path,
+      comingSoon: tool.status === 'coming-soon',
+    }));
 
   const keyBenefits = [
     "🎯 Up to 80% file size reduction without visible quality loss",
@@ -312,9 +293,9 @@ export function ImageCompressorSEOContent() {
       {/* Tool Poster Image */}
       <section className="space-y-6">
         <div className="text-center">
-          <div className="relative mx-auto max-w-4xl">
+          <div className="relative mx-auto max-w-6xl">
             <img
-              src="https://via.placeholder.com/1200x600/0ea5e9/ffffff?text=Professional+Image+Compressor+%7C+Toolspy+-+Reduce+File+Sizes+by+80%25+%7C+Advanced+Compression+Engine"
+              src={tool?.posterImage || ''}
               alt="Toolspy Professional Image Compressor - Advanced compression technology with batch processing and quality control"
               className="w-full rounded-xl shadow-lg border"
               loading="lazy"
@@ -329,7 +310,7 @@ export function ImageCompressorSEOContent() {
           <h2 className="text-3xl font-bold mb-4">
             Professional Image Compression Technology
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
+          <p className="text-lg text-muted-foreground max-w-6xl mx-auto">
             Toolspy's Professional Image Compressor is the ultimate online image
             compression tool designed to reduce file sizes while maintaining
             exceptional image quality. Our advanced compression engine supports
@@ -338,7 +319,7 @@ export function ImageCompressorSEOContent() {
             creators who need optimized images without compromising visual
             fidelity.
           </p>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto mt-4">
+          <p className="text-base text-muted-foreground max-w-6xl mx-auto mt-4">
             Whether you're optimizing images for your website, social media
             campaigns, email newsletters, or storage management, our image
             compressor delivers superior results compared to other online
@@ -352,20 +333,20 @@ export function ImageCompressorSEOContent() {
       {/* Image Gallery - How to Use */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          How to Use This Tool - Visual Guide
+          How to Use This Image Compressor
         </h3>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
           Follow these simple steps to compress your images professionally with
           Toolspy's advanced compression engine.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="p-4">
-            <img
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-4 bg-muted" >
+            {/* <img
               src="https://via.placeholder.com/800x400/f3f4f6/6b7280?text=Upload+Interface+-+Drag+and+Drop+Images"
               alt="Image Upload Interface - Drag and drop interface for easy file selection and batch processing"
               className="w-full rounded-lg mb-4"
               loading="lazy"
-            />
+            /> */}
             <h4 className="font-semibold mb-2">1. Upload Interface</h4>
             <p className="text-sm text-muted-foreground">
               Intuitive drag-and-drop interface for easy file selection. Support
@@ -373,13 +354,13 @@ export function ImageCompressorSEOContent() {
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
+          <Card className="p-4 bg-muted">
+            {/* <img
               src="https://via.placeholder.com/800x300/ddd6fe/7c3aed?text=Compression+Presets+-+Balanced+High+Quality+Max+Web"
               alt="Compression Presets - Balanced, High Quality, Max Compression, Web Optimized settings"
               className="w-full rounded-lg mb-4"
               loading="lazy"
-            />
+            /> */}
             <h4 className="font-semibold mb-2">2. Compression Presets</h4>
             <p className="text-sm text-muted-foreground">
               Four optimized presets for different compression needs: Balanced,
@@ -387,13 +368,13 @@ export function ImageCompressorSEOContent() {
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
+          <Card className="p-4 bg-muted">
+            {/* <img
               src="https://via.placeholder.com/800x500/dcfce7/16a34a?text=Advanced+Settings+-+Quality+Format+Resize+EXIF"
               alt="Advanced Settings Panel - Quality control, format conversion, resize options, EXIF management"
               className="w-full rounded-lg mb-4"
               loading="lazy"
-            />
+            /> */}
             <h4 className="font-semibold mb-2">3. Advanced Settings Panel</h4>
             <p className="text-sm text-muted-foreground">
               Professional controls for precise compression customization
@@ -401,13 +382,13 @@ export function ImageCompressorSEOContent() {
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
+          <Card className="p-4 bg-muted">
+            {/* <img
               src="https://via.placeholder.com/800x400/fef3c7/d97706?text=Results+-+Before+After+Compression+Ratio+Download"
               alt="Compression Results - Before and after comparison with compression ratio and download options"
               className="w-full rounded-lg mb-4"
               loading="lazy"
-            />
+            /> */}
             <h4 className="font-semibold mb-2">4. Compression Results</h4>
             <p className="text-sm text-muted-foreground">
               Detailed results showing file size reduction, compression ratio,
@@ -811,7 +792,7 @@ export function ImageCompressorSEOContent() {
           Explore our complete suite of professional image processing and
           conversion tools for all your needs.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {relatedTools.map((tool, index) => (
             <Card key={index} className="p-6 hover:shadow-md transition-shadow">
               <div className="flex items-start justify-between">
@@ -821,7 +802,7 @@ export function ImageCompressorSEOContent() {
                     {tool.description}
                   </p>
                   <p className="text-xs text-muted-foreground mb-4">
-                    Keywords: {tool.keywords}
+                    <b>Keywords</b>: {tool.keywords}
                   </p>
                   {tool.comingSoon ? (
                     <Badge variant="secondary">Coming Soon</Badge>
