@@ -383,6 +383,108 @@ export const tools: Tool[] = [
     }),
     posterImage: '/images/tools/heic-to-pdf.webp'
   },
+  {
+    id: 'pdf-to-word',
+    name: 'PDF to Word Converter',
+    slug: 'pdf-to-word',
+    description: 'Convert PDF documents to editable Word files instantly',
+    category: 'pdf-tools',
+    icon: '📝',
+    tags: ['pdf', 'word', 'convert', 'docx', 'editable'],
+    path: '/pdf-to-word',
+    status: 'active',
+    seo: generateSEO({
+      name: 'PDF to Word Converter',
+      slug: '/pdf-to-word',
+      description: 'Convert PDF documents to editable Word files instantly',
+      tags: ['pdf', 'word', 'convert', 'docx', 'editable']
+    })
+  },
+  {
+    id: 'split-pdf',
+    name: 'Split PDF Files',
+    slug: 'split-pdf',
+    description: 'Split large PDF documents into smaller files by page ranges',
+    category: 'pdf-tools',
+    icon: '✂️',
+    tags: ['pdf', 'split', 'divide', 'pages', 'separate'],
+    path: '/split-pdf',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Split PDF Files',
+      slug: '/split-pdf',
+      description: 'Split large PDF documents into smaller files by page ranges',
+      tags: ['pdf', 'split', 'divide', 'pages', 'separate']
+    })
+  },
+  {
+    id: 'pdf-password-remover',
+    name: 'PDF Password Remover',
+    slug: 'pdf-password-remover',
+    description: 'Remove password protection from PDF files instantly',
+    category: 'pdf-tools',
+    icon: '🔓',
+    tags: ['pdf', 'password', 'unlock', 'remove', 'decrypt'],
+    path: '/pdf-password-remover',
+    status: 'active',
+    seo: generateSEO({
+      name: 'PDF Password Remover',
+      slug: '/pdf-password-remover',
+      description: 'Remove password protection from PDF files instantly',
+      tags: ['pdf', 'password', 'unlock', 'remove', 'decrypt']
+    })
+  },
+  {
+    id: 'pdf-to-excel',
+    name: 'PDF to Excel Converter',
+    slug: 'pdf-to-excel',
+    description: 'Convert PDF documents to Excel spreadsheets for data analysis',
+    category: 'pdf-tools',
+    icon: '📊',
+    tags: ['pdf', 'excel', 'convert', 'xlsx', 'spreadsheet'],
+    path: '/pdf-to-excel',
+    status: 'active',
+    seo: generateSEO({
+      name: 'PDF to Excel Converter',
+      slug: '/pdf-to-excel',
+      description: 'Convert PDF documents to Excel spreadsheets for data analysis',
+      tags: ['pdf', 'excel', 'convert', 'xlsx', 'spreadsheet']
+    })
+  },
+  {
+    id: 'pdf-to-csv',
+    name: 'PDF to CSV Converter',
+    slug: 'pdf-to-csv',
+    description: 'Extract tabular data from PDF documents to CSV format',
+    category: 'pdf-tools',
+    icon: '📋',
+    tags: ['pdf', 'csv', 'convert', 'data', 'extract'],
+    path: '/pdf-to-csv',
+    status: 'active',
+    seo: generateSEO({
+      name: 'PDF to CSV Converter',
+      slug: '/pdf-to-csv',
+      description: 'Extract tabular data from PDF documents to CSV format',
+      tags: ['pdf', 'csv', 'convert', 'data', 'extract']
+    })
+  },
+  {
+    id: 'file-protector',
+    name: 'File Protector',
+    slug: 'file-protector',
+    description: 'Add password protection to your files for enhanced security',
+    category: 'misc-tools',
+    icon: '🔒',
+    tags: ['file', 'protect', 'password', 'security', 'encrypt'],
+    path: '/file-protector',
+    status: 'active',
+    seo: generateSEO({
+      name: 'File Protector',
+      slug: '/file-protector',
+      description: 'Add password protection to your files for enhanced security',
+      tags: ['file', 'protect', 'password', 'security', 'encrypt']
+    })
+  },
 
   // Calculators
   {

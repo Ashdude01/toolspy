@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -55,6 +55,7 @@ import {
   createZipFromFiles,
   downloadZip,
 } from "@/lib/utils/file-utils";
+import { scrollToElement } from "@/lib/utils";
 
 // Import SEO Content Component
 import { ImageCompressorSEOContent } from "./seo-content";
@@ -67,7 +68,7 @@ function ImageCompressorContent() {
     CompressionResult[]
   >([]);
   const [currentPreset, setCurrentPreset] =
-    useState<CompressionPreset>("balanced");
+    useState<CompressionPreset>("web-optimized");
   const [quality, setQuality] = useState([85]);
   const [outputFormat, setOutputFormat] = useState("original");
   const [enableResize, setEnableResize] = useState(false);
@@ -86,9 +87,11 @@ function ImageCompressorContent() {
     total: 0,
     file: "",
   });
-
+  const afterUploadRef = useRef<HTMLDivElement>(null);
+  const resultsRef = useRef<HTMLDivElement>(null);
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
+    scrollToElement(afterUploadRef, 50);
   };
 
   const handleError = (error: string) => {
@@ -152,27 +155,17 @@ function ImageCompressorContent() {
       );
 
       setCompressedResults(results);
-      console.log(
-        "Compression completed. Results:",
-        results.map((r) => ({
-          name: r.file.name,
-          size: r.file.size,
-          originalSize: r.originalSize,
-          compressedSize: r.compressedSize,
-        }))
-      );
-
       const totalSaved = results.reduce(
         (sum, result) => sum + (result.originalSize - result.compressedSize),
         0
       );
-
       showToast(
         `Compressed ${results.length} image(s), saved ${formatFileSize(
           totalSaved
         )}`,
         "success"
       );
+      scrollToElement(resultsRef);
     } catch (error) {
       showToast(
         "Compression failed: " +
@@ -250,7 +243,7 @@ function ImageCompressorContent() {
     {
       key: "max-compression" as CompressionPreset,
       icon: <Gauge className="h-5 w-5" />,
-      title: "Max Compression",
+      title: "Max Compress",
       description: "Smallest file size, lower quality",
     },
     {
@@ -269,7 +262,7 @@ function ImageCompressorContent() {
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
-        <Shield className="w-4 h-4 mr-2" />
+          <Shield className="w-4 h-4 mr-2" />
           Privacy-First • No Data Collection
         </Badge>
 
@@ -277,10 +270,9 @@ function ImageCompressorContent() {
         <h1 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Professional Image Compressor
         </h1>
-        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-sm  sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Compress images while maintaining quality with Toolspy's advanced
-          compression engine. Reduce file sizes for faster loading and optimized
-          storage.
+          compression engine. Reduce file size and optimize images.
         </p>
       </div>
 
@@ -295,95 +287,171 @@ function ImageCompressorContent() {
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <CardTitle>Selected Files ({selectedFiles.length})</CardTitle>
-                <CardDescription>Files ready for compression</CardDescription>
-              </div>
-              <Button variant="outline" onClick={clearAllFiles} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
-                Clear All
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="max-h-96 overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {selectedFiles.map((file, index) => (
-              
-                <CompactImagePreview
-                  key={`${file.name}-${index}`}
-                  file={file}
-                  onRemove={() => removeFile(index)}
-                  className="bg-muted"
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+        <div ref={afterUploadRef}>
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+            {/* Selected Files Preview */}
+            <Card className="mb-6 sm:mb-8 md:col-span-4 ">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle>
+                      Selected Files ({selectedFiles.length})
+                    </CardTitle>
+                    <CardDescription>
+                      Files ready for compression
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" onClick={clearAllFiles} size="sm">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent className="md:max-h-64 overflow-y-auto">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                  {selectedFiles.map((file, index) => (
+                    <CompactImagePreview
+                      key={`${file.name}-${index}`}
+                      file={file}
+                      onRemove={() => removeFile(index)}
+                      className="bg-muted"
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-      {/* Compression Presets */}
-      {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <CardTitle>Compression Presets</CardTitle>
-            <CardDescription>
-              Choose a preset or customize settings below
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {presetCards.map(({ key, icon, title, description }) => (
-                <Card
-                  key={key}
-                  className={`cursor-pointer transition-all duration-200 ${
-                    currentPreset === key
-                      ? "ring-1 ring-primary bg-gray-300/50 dark:bg-gray-500/50"
-                      : "hover:shadow-md hover:ring-1 hover:ring-primary"
-                  }`}
-                  onClick={() => applyPreset(key)}
-                >
-                  <CardContent className="p-3">
-                    <div className="flex items-center space-x-2 mb-2">
-                      {icon}
-                      <span className="font-semibold text-sm sm:text-base">
-                        {title}
-                      </span>
-                    </div>
-                    <p className="text-xs sm:text-sm text-muted-foreground">
-                      {description}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Compression Settings */}
-      {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <CardTitle>Compression Settings</CardTitle>
+            {/* Compression Presets */}
+            <Card className="mb-6 sm:mb-8 md:col-span-2">
+              <CardHeader>
+                <CardTitle>Compression Preset</CardTitle>
                 <CardDescription>
-                  Fine-tune compression parameters
+                  Choose a preset or customize settings below
                 </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {/* Compression Presets */}
+                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                  {presetCards.map(({ key, icon, title, description }) => (
+                    <Card
+                      key={key}
+                      className={`cursor-pointer transition-all duration-200 ${
+                        currentPreset === key
+                          ? "ring-1 ring-primary bg-gray-300/50 dark:bg-gray-500/50"
+                          : "hover:shadow-md hover:ring-1 hover:ring-primary"
+                      }`}
+                      onClick={() => applyPreset(key)}
+                    >
+                      <CardContent className="p-3">
+                        <div className="flex items-center space-x-2 mb-2">
+                          {icon}
+                          <span className="font-semibold text-sm sm:text-base">
+                            {title}
+                          </span>
+                        </div>
+                        <p className="text-xs sm:text-sm text-muted-foreground">
+                          {description}
+                        </p>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+
+          {/* Compression Settings Card */}
+          <Card className="mb-6 sm:mb-8">
+            <CardHeader>
+              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                  <CardTitle>Compression Settings</CardTitle>
+                  <CardDescription>
+                    Fine-tune compression parameters
+                  </CardDescription>
+                </div>
+                <Button
+                  variant="secondary"
+                  onClick={() => setShowAdvanced(!showAdvanced)}
+                  size="sm"
+                  className="hidden md:flex gap-1"
+                >
+                  <Settings className="h-4 w-4 mr-2" />
+                  <span className="hidden xl:inline">
+                    {showAdvanced ? "Hide" : "Advanced"}
+                  </span>
+                  <span className="xl:hidden">
+                    {showAdvanced ? "Hide" : "More"}
+                  </span>
+                  {showAdvanced ? (
+                    <ChevronUp className="h-4 w-4 ml-2" />
+                  ) : (
+                    <ChevronDown className="h-4 w-4 ml-2" />
+                  )}
+                </Button>
               </div>
+            </CardHeader>
+            <CardContent className="space-y-5">
+              {/* Top Row: Quality, Output Format, Target Size */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                {/* Quality Slider */}
+                <div className="sm:col-span-2 lg:col-span-1">
+                  <Label className="text-sm font-medium">Quality</Label>
+                  <div className="space-y-2">
+                    <div className="text-right text-sm font-medium">
+                      {quality[0]}%
+                    </div>
+                    <Slider
+                      value={quality}
+                      onValueChange={setQuality}
+                      max={100}
+                      min={1}
+                      step={1}
+                      className="w-full"
+                    />
+                  </div>
+                </div>
+
+                {/* Target File Size */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">
+                    Target Size (KB)
+                  </Label>
+                  <Input
+                    type="number"
+                    placeholder="Auto"
+                    value={targetFileSize}
+                    onChange={(e) => setTargetFileSize(e.target.value)}
+                  />
+                </div>
+
+                {/* Output Format */}
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium">Output Format</Label>
+                  <Select value={outputFormat} onValueChange={setOutputFormat}>
+                    <SelectTrigger>
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      <SelectItem value="original">Keep Original</SelectItem>
+                      <SelectItem value="jpeg">JPEG</SelectItem>
+                      <SelectItem value="png">PNG</SelectItem>
+                      <SelectItem value="webp">WebP</SelectItem>
+                      <SelectItem value="avif">AVIF</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+
+              {/* Advance Setting Button for Mobile */}
               <Button
-                variant="secondary"
+                variant="outline"
                 onClick={() => setShowAdvanced(!showAdvanced)}
                 size="sm"
+                className="md:hidden w-full"
               >
                 <Settings className="h-4 w-4 mr-2" />
-                <span className="hidden sm:inline">
-                  {showAdvanced ? "Hide" : "Advanced"}
-                </span>
-                <span className="sm:hidden">
+                <span className="inline">
                   {showAdvanced ? "Hide" : "Advanced"}
                 </span>
                 {showAdvanced ? (
@@ -392,180 +460,138 @@ function ImageCompressorContent() {
                   <ChevronDown className="h-4 w-4 ml-2" />
                 )}
               </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Top Row: Quality, Output Format, Target Size */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-              {/* Quality Slider */}
-              <div className="space-y-2 sm:col-span-2 lg:col-span-1">
-                <Label className="text-sm font-medium">Quality</Label>
-                <div className="space-y-2">
-                  <div className="text-right text-sm font-medium">
-                    {quality[0]}%
-                  </div>
-                  <Slider
-                    value={quality}
-                    onValueChange={setQuality}
-                    max={100}
-                    min={1}
-                    step={1}
-                    className="w-full"
-                  />
-                </div>
-              </div>
 
-              {/* Target File Size */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Target Size (KB)</Label>
-                <Input
-                  type="number"
-                  placeholder="Auto"
-                  value={targetFileSize}
-                  onChange={(e) => setTargetFileSize(e.target.value)}
-                />
-              </div>
-
-              {/* Output Format */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Output Format</Label>
-                <Select value={outputFormat} onValueChange={setOutputFormat}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="original">Keep Original</SelectItem>
-                    <SelectItem value="jpeg">JPEG</SelectItem>
-                    <SelectItem value="png">PNG</SelectItem>
-                    <SelectItem value="webp">WebP</SelectItem>
-                    <SelectItem value="avif">AVIF</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-
-            {/* Resize Toggle */}
-            <div className="flex items-center space-x-2">
-              <input
-                type="checkbox"
-                id="resize-checkbox"
-                checked={enableResize}
-                onChange={(e) => setEnableResize(e.target.checked)}
-                className="rounded"
-              />
-              <Label htmlFor="resize-checkbox" className="text-sm font-medium">
-                Resize images
-              </Label>
-            </div>
-
-            {/* Resize Settings (when enabled) */}
-            {enableResize && (
-              <div className="space-y-4 pl-3 sm:pl-6 border-l-2 border-muted">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Width (px)</Label>
-                    <Input
-                      type="number"
-                      placeholder="Auto"
-                      value={resizeWidth}
-                      onChange={(e) => setResizeWidth(e.target.value)}
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">Height (px)</Label>
-                    <Input
-                      type="number"
-                      placeholder="Auto"
-                      value={resizeHeight}
-                      onChange={(e) => setResizeHeight(e.target.value)}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex items-center space-x-2">
-                  <Switch
-                    checked={maintainAspectRatio}
-                    onCheckedChange={setMaintainAspectRatio}
-                  />
-                  <Label className="text-sm">Maintain Aspect Ratio</Label>
-                </div>
-              </div>
-            )}
-
-            {/* Advanced Settings (when toggled) */}
-            {showAdvanced && (
-              <div className="space-y-4 pt-4">
-                {/* Bottom Row: EXIF Metadata and Progressive Encoding */}
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                  {/* EXIF Metadata */}
-                  <div className="space-y-2">
-                    <Label className="text-sm font-medium">EXIF Metadata</Label>
-                    <Select
-                      value={
-                        removeExifData === true
-                          ? "remove"
-                          : removeExifData === false
-                          ? "keep"
-                          : "selective"
-                      }
-                      onValueChange={(value) => {
-                        if (value === "remove") setRemoveExifData(true);
-                        else if (value === "keep") setRemoveExifData(false);
-                        else setRemoveExifData("selective"); // selective
-                      }}
-                    >
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="remove">Remove All</SelectItem>
-                        <SelectItem value="keep">Preserve All</SelectItem>
-                        <SelectItem value="selective">
-                          Selective (Safe)
-                        </SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Progressive Encoding */}
-                  <div className="flex items-center space-x-2 pt-2 sm:pt-6">
+              {/* Advanced Settings (when toggled) */}
+              {showAdvanced && (
+                <div className="space-y-4">
+                  {/* Resize Toggle */}
+                  <div className="flex gap-2">
                     <input
                       type="checkbox"
-                      id="progressive-checkbox"
-                      checked={enableProgressive}
-                      onChange={(e) => setEnableProgressive(e.target.checked)}
+                      id="resize-checkbox"
+                      checked={enableResize}
+                      onChange={(e) => setEnableResize(e.target.checked)}
                       className="rounded"
                     />
-                    <Label htmlFor="progressive-checkbox" className="text-sm">
-                      Progressive encoding
+                    <Label
+                      htmlFor="resize-checkbox"
+                      className="text-sm font-medium"
+                    >
+                      Resize images
                     </Label>
                   </div>
-                </div>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  Advanced settings allow you to fine-tune compression
-                  parameters for optimal results.
-                </p>
-              </div>
-            )}
+                  {/* Resize Settings (when enabled) */}
+                  {enableResize && (
+                    <div className="space-y-4 pl-3 sm:pl-6 border-l-2 border-muted">
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">
+                            Width (px)
+                          </Label>
+                          <Input
+                            type="number"
+                            placeholder="Auto"
+                            value={resizeWidth}
+                            onChange={(e) => setResizeWidth(e.target.value)}
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label className="text-sm font-medium">
+                            Height (px)
+                          </Label>
+                          <Input
+                            type="number"
+                            placeholder="Auto"
+                            value={resizeHeight}
+                            onChange={(e) => setResizeHeight(e.target.value)}
+                          />
+                        </div>
+                      </div>
 
-            {/* Compress Button */}
-            <Button
-              onClick={handleCompress}
-              disabled={selectedFiles.length === 0 || isCompressing}
-              size="lg"
-              className="w-full"
-            >
-              {isCompressing
-                ? "Compressing..."
-                : `Compress ${selectedFiles.length} Images`}
-            </Button>
-          </CardContent>
-        </Card>
+                      <div className="flex items-center space-x-2">
+                        <Switch
+                          checked={maintainAspectRatio}
+                          onCheckedChange={setMaintainAspectRatio}
+                        />
+                        <Label className="text-sm">Maintain Aspect Ratio</Label>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Bottom Row: EXIF Metadata and Progressive Encoding */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
+                    {/* EXIF Metadata */}
+                    <div className="space-y-2">
+                      <Label className="text-sm font-medium">
+                        EXIF Metadata
+                      </Label>
+                      <Select
+                        value={
+                          removeExifData === true
+                            ? "remove"
+                            : removeExifData === false
+                            ? "keep"
+                            : "selective"
+                        }
+                        onValueChange={(value) => {
+                          if (value === "remove") setRemoveExifData(true);
+                          else if (value === "keep") setRemoveExifData(false);
+                          else setRemoveExifData("selective"); // selective
+                        }}
+                      >
+                        <SelectTrigger>
+                          <SelectValue />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="remove">Remove All</SelectItem>
+                          <SelectItem value="keep">Preserve All</SelectItem>
+                          <SelectItem value="selective">
+                            Selective (Safe)
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+
+                    {/* Progressive Encoding */}
+                    <div className="flex items-center space-x-2 pt-2 sm:pt-6">
+                      <input
+                        type="checkbox"
+                        id="progressive-checkbox"
+                        checked={enableProgressive}
+                        onChange={(e) => setEnableProgressive(e.target.checked)}
+                        className="rounded"
+                      />
+                      <Label htmlFor="progressive-checkbox" className="text-sm">
+                        Progressive encoding
+                      </Label>
+                    </div>
+                  </div>
+                  <p className="text-xs sm:text-sm text-muted-foreground">
+                    Advanced settings allow you to fine-tune compression
+                    parameters for optimal results.
+                  </p>
+                </div>
+              )}
+
+              {/* Compress Button */}
+              <Button
+                onClick={handleCompress}
+                disabled={selectedFiles.length === 0 || isCompressing}
+                size="lg"
+                className="w-full"
+              >
+                {isCompressing
+                  ? "Compressing..."
+                  : `Compress ${selectedFiles.length} Images`}
+              </Button>
+            </CardContent>
+          </Card>
+        </div>
       )}
 
       {/* Compression Results */}
       {compressedResults.length > 0 && (
-        <Card>
+        <Card ref={resultsRef}>
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>

@@ -201,7 +201,7 @@ export function FileUpload({
                 document.getElementById('file-input')?.click();
               }}
             >
-              Browse & Upload
+              Browse Files
             </Button>
             <span className="text-muted-foreground">•</span>
             <Button 
@@ -226,6 +226,55 @@ export function FileUpload({
           <p className="text-xs text-muted-foreground mt-2">
             Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Ctrl</kbd> + <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">V</kbd> to paste image
           </p>
+          
+          {/* URL Import */}
+       <Card className="p-4 mt-6" onClick={(e) => e.stopPropagation()}>
+        <div className="space-y-3">
+          <div className="flex items-center space-x-2">
+            <Link className="h-5 w-5 text-muted-foreground" />
+            <Input
+              placeholder="Enter image URL..."
+              value={urlInput}
+              onChange={(e) => setUrlInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
+              className="flex-1"
+            />
+            <Button 
+              onClick={handleUrlImport}
+              disabled={!urlInput.trim() || isLoading}
+              size="sm"
+            >
+              {isLoading ? 'Loading...' : 'Import'}
+            </Button>
+          </div>
+          {/* <div className="text-xs text-muted-foreground">
+            <strong>Tip:</strong> For best results, try reliable sources:
+            <div className="mt-1 grid grid-cols-1 sm:grid-cols-2 gap-1">
+              <span>• Direct image URLs (.jpg, .png)</span>
+            </div>
+          </div> */}
+        </div>
+      </Card>
+          {/* <div 
+            className="flex items-center space-x-2 mt-6 bg-muted rounded-md p-2"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Link className="h-5 w-5 text-muted-foreground" />
+            <Input
+              placeholder="Enter image URL..."
+              value={urlInput}
+              onChange={(e) => setUrlInput(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
+              className="flex-1 ring-1 ring-primary"
+            />
+            <Button 
+              onClick={handleUrlImport}
+              disabled={!urlInput.trim() || isLoading}
+              size="sm"
+            >
+              {isLoading ? 'Loading...' : 'Import'}
+            </Button>
+          </div> */}
         </div>
         
         <input
@@ -236,10 +285,11 @@ export function FileUpload({
           onChange={handleFileInput}
           className="hidden"
         />
+        
       </Card>
 
       {/* URL Import */}
-       <Card className="p-4">
+       {/* <Card className="p-4">
         <div className="space-y-3">
           <div className="flex items-center space-x-2">
             <Link className="h-5 w-5 text-muted-foreground" />
@@ -265,7 +315,7 @@ export function FileUpload({
             </div>
           </div>
         </div>
-      </Card>
+      </Card> */}
 
       {/* Paste from Clipboard */}
       {/* <Card className="p-4">
