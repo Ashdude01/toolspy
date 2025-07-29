@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Palette, Eye, Pipette, Zap } from "lucide-react";
+import { RelatedTools } from "@/components/tools/related-tools";
 
 export function ColorPickerSEOContent() {
   return (
@@ -289,6 +290,13 @@ export function ColorPickerSEOContent() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Related Tools */}
+      <RelatedTools 
+        currentToolSlug="color-picker"
+        title="Explore More Design Tools"
+        description="Discover other tools that complement your color picking workflow."
+      />
     </div>
   );
 } 

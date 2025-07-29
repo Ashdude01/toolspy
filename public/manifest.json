@@ -6,7 +6,7 @@
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#3b82f6",
-  "orientation": "portrait-primary",
+  "orientation": "any",
   "scope": "/",
   "lang": "en",
   "categories": ["productivity", "utilities", "developer"],
@@ -52,14 +52,14 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshot-wide.png",
+      "src": "/images/screenshot-desktop.webp",
       "sizes": "1280x720",
       "type": "image/png",
       "form_factor": "wide",
       "label": "Toolspy Desktop View"
     },
     {
-      "src": "/screenshot-mobile.png",
+      "src": "/images/screenshot-mobile.webp",
       "sizes": "750x1334",
       "type": "image/png",
       "form_factor": "narrow",

@@ -70,7 +70,7 @@ function ImageCompressorContent() {
   const [currentPreset, setCurrentPreset] =
     useState<CompressionPreset>("web-optimized");
   const [quality, setQuality] = useState([85]);
-  const [outputFormat, setOutputFormat] = useState("original");
+  const [outputFormat, setOutputFormat] = useState("webp");
   const [enableResize, setEnableResize] = useState(false);
   const [resizeWidth, setResizeWidth] = useState("");
   const [resizeHeight, setResizeHeight] = useState("");

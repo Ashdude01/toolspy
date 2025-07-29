@@ -26,7 +26,7 @@ import {
   RefreshCw,
   TrendingUp,
 } from "lucide-react";
-import { BmiCalculatorSEOContent } from "./seo-content";
+import { BMICalculatorSEOContent } from "./seo-content";
 
 interface BMIResult {
   bmi: number;
@@ -533,7 +533,7 @@ function BmiCalculatorContent() {
       </Card>
 
       {/* SEO Content Section */}
-      <BmiCalculatorSEOContent />
+      <BMICalculatorSEOContent />
     </div>
   );
 }

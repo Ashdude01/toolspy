@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
-import { HeroSection } from '@/components/sections/hero-section'
 import { ToolsSection } from '@/components/tools/tools-section'
 import { siteConfig } from '@/lib/config'
+import { HomeSeoContent } from '@/components/sections/home-seo-content'
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.description}`,
@@ -13,6 +13,7 @@ export default function HomePage() {
     <>
       {/* <HeroSection /> */}
       <ToolsSection />
+      <HomeSeoContent/>
     </>
   )
 } 

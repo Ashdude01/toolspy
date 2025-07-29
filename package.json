@@ -9,7 +9,9 @@
     "start": "next start",
     "lint": "next lint",
     "office": "next dev --hostname 192.168.1.19 -p 3000",
-    "home": "next dev --hostname 192.168.177.244 -p 3000"
+    "home": "next dev --hostname 192.168.177.244 -p 3000",
+    "convert-layouts": "node scripts/convert-layouts.js",
+    "generate-pwa-icons": "node scripts/generate-pwa-icons.js"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.14",

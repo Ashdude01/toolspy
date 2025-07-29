@@ -1,22 +1,17 @@
-import { Metadata } from 'next';
-import { getToolBySlug } from '@/lib/tools-data';
-import { generateToolMetadata } from '@/components/seo/tool-seo';
+import type { Metadata } from 'next'
+import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const tool = getToolBySlug('heic-to-pdf');
-  if (!tool) {
-    return {
-      title: 'HEIC to PDF Converter - Toolspy',
-      description: 'Convert HEIC images to PDF documents with high quality',
-    };
-  }
-  return generateToolMetadata(tool);
-}
+// Generate metadata dynamically for this tool
+export const metadata: Metadata = generateToolMetadata('heic-to-pdf')
 
 export default function HeicToPdfLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return children;
-} 
+  return (
+    <DynamicToolLayout toolSlug="heic-to-pdf">
+      {children}
+    </DynamicToolLayout>
+  )
+}

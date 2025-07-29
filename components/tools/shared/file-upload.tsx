@@ -178,7 +178,7 @@ export function FileUpload({
         onDrop={handleDrop}
         onClick={() => document.getElementById('file-input')?.click()}
       >
-        <div className="p-12 text-center">
+        <div className="p-5 md:p-12 text-center">
           {/* Cloud Upload Icon */}
           <div className="relative mb-6">
             <div className="mx-auto h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">

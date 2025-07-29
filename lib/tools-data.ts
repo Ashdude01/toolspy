@@ -35,12 +35,13 @@ export type ToolCategory =
 function generateSEO(tool: {
   name: string;
   slug: string;
+  title?: string;
   description: string;
   tags: string[];
 }): Tool['seo'] {
   const baseUrl = 'https://toolspy.com';
-  const metaTitle = `${tool.name} - Free Online Tool | Toolspy`;
-  const metaDescription = tool.description.length > 160 
+  const metaTitle = tool.title || `${tool.name} - Free Online Tool | Toolspy`;
+  const metaDescription = tool.description.length > 161 
     ? tool.description.substring(0, 157) + '...' 
     : tool.description;
   
@@ -90,7 +91,7 @@ export const tools: Tool[] = [
   // Image Tools
   {
     id: 'image-compressor',
-    name: 'Professional Image Compressor',
+    name: 'Image Compressor',
     slug: 'image-compressor',
     description: 'Compress images with Toolspy\'s advanced engine to reduce file size while maintaining quality',
     category: 'image-tools',
@@ -100,9 +101,10 @@ export const tools: Tool[] = [
     path: '/image-compressor',
     status: 'active',
     seo: generateSEO({
-      name: 'Professional Image Compressor',
+      name: 'Image Compressor',
+      title: 'Free Online Image Compressor – Compress Images | Toolspy',
       slug: '/image-compressor',
-      description: 'Compress images with Toolspy\'s advanced engine to reduce file size while maintaining quality',
+      description: "Quickly compress JPG, PNG, and GIF images online with Toolspy's free, secure, browser-based image compressor. Reduce image size without quality loss instantly",
       tags: ['compress', 'optimize', 'resize', 'jpeg', 'png', 'webp', 'toolspy']
     }),
     posterImage: '/images/tools/image-compressor.webp'
@@ -119,9 +121,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Converter',
+      title: "Free Online Image Converter – Convert Images | Toolspy",
       slug: '/image-converter',
-      description: 'Convert images between different formats (PNG, JPG, WebP, etc.)',
-      tags: ['convert', 'format', 'png', 'jpg', 'webp']
+      description: "Instantly convert images to JPG, PNG, GIF, and more with Toolspy's fast, secure, and free online image converter. No software needed—convert in your browser",
+      tags: ['convert', 'format', 'png', 'jpg', 'webp', 'avif']
     }),
     posterImage: '/images/tools/image-converter.webp'
   },

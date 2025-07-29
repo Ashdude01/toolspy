@@ -1,22 +1,17 @@
-import { Metadata } from 'next';
-import { getToolBySlug } from '@/lib/tools-data';
-import { generateToolMetadata } from '@/components/seo/tool-seo';
+import type { Metadata } from 'next'
+import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 
-export async function generateMetadata(): Promise<Metadata> {
-  const tool = getToolBySlug('color-picker');
-  if (!tool) {
-    return {
-      title: 'Color Picker - Toolspy',
-      description: 'Pick colors and get hex, RGB, HSL values',
-    };
-  }
-  return generateToolMetadata(tool);
-}
+// Generate metadata dynamically for this tool
+export const metadata: Metadata = generateToolMetadata('color-picker')
 
 export default function ColorPickerLayout({
   children,
 }: {
-  children: React.ReactNode;
+  children: React.ReactNode
 }) {
-  return children;
-} 
+  return (
+    <DynamicToolLayout toolSlug="color-picker">
+      {children}
+    </DynamicToolLayout>
+  )
+}
