@@ -7,13 +7,13 @@ import { Input } from '@/components/ui/input';
 import { Search } from 'lucide-react';
 import Link from 'next/link';
 import { toolCategories, ToolCategory, getToolsByCategory, Tool } from '@/lib/tools-data';
+import { useSearchParams } from 'next/navigation';
 
 interface CategoryToolsClientProps {
   category: ToolCategory;
-  initialSearchQuery?: string;
 }
 
-export function CategoryToolsClient({ category, initialSearchQuery = '' }: CategoryToolsClientProps) {
+export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
   // Ensure category exists before proceeding
   if (!toolCategories[category]) {
     return (
@@ -28,6 +28,10 @@ export function CategoryToolsClient({ category, initialSearchQuery = '' }: Categ
 
   const categoryInfo = toolCategories[category];
   const allCategoryTools = getToolsByCategory()[category] || [];
+  
+  // Use client-side URL parsing for search
+  const searchParams = useSearchParams();
+  const initialSearchQuery = searchParams?.get('search') || '';
   
   const [filteredTools, setFilteredTools] = useState<Tool[]>(allCategoryTools);
   const [searchTerm, setSearchTerm] = useState<string>(initialSearchQuery);
@@ -48,6 +52,13 @@ export function CategoryToolsClient({ category, initialSearchQuery = '' }: Categ
       setFilteredTools(categoryTools);
     }
   }, [category, searchTerm]);
+
+  // Update search term from URL on component mount
+  useEffect(() => {
+    if (initialSearchQuery) {
+      setSearchTerm(initialSearchQuery);
+    }
+  }, [initialSearchQuery]);
 
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 py-10">

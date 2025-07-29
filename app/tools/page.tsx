@@ -20,10 +20,6 @@ export const metadata: Metadata = {
   }
 };
 
-interface ToolsPageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
-
 function ToolsPageSkeleton() {
   return (
     <div className="container mx-auto px-4 py-8">
@@ -36,10 +32,7 @@ function ToolsPageSkeleton() {
   );
 }
 
-export default function ToolsPage({ searchParams }: ToolsPageProps) {
-  const searchQuery = typeof searchParams.search === 'string' ? searchParams.search : '';
-  const categoryQuery = typeof searchParams.category === 'string' ? searchParams.category : '';
-  
+export default function ToolsPage() {
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
@@ -61,7 +54,7 @@ export default function ToolsPage({ searchParams }: ToolsPageProps) {
 
       {/* Tools Section */}
       <Suspense fallback={<ToolsPageSkeleton />}>
-        <ToolsSection searchQuery={searchQuery} />
+        <ToolsSection />
       </Suspense>
     </div>
   );

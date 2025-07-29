@@ -8,7 +8,6 @@ interface CategoryPageProps {
   params: {
     category: string;
   };
-  searchParams: { [key: string]: string | string[] | undefined };
 }
 
 // Generate static paths for all categories
@@ -51,9 +50,8 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   };
 }
 
-export default function CategoryPage({ params, searchParams }: CategoryPageProps) {
+export default function CategoryPage({ params }: CategoryPageProps) {
   const { category } = params;
-  const searchQuery = typeof searchParams.search === 'string' ? searchParams.search : '';
   
   // Check if category exists
   if (!toolCategories[category as ToolCategory]) {
@@ -101,8 +99,7 @@ export default function CategoryPage({ params, searchParams }: CategoryPageProps
 
       {/* Category Tools Section */}
       <CategoryToolsClient 
-        category={category as ToolCategory} 
-        initialSearchQuery={searchQuery}
+        category={category as ToolCategory}
       />
     </div>
   );
