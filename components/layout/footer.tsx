@@ -63,10 +63,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="space-y-4">
             <Link href="/" className="flex items-center space-x-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-primary text-primary-foreground font-bold">
-                {siteConfig.name.charAt(0).toUpperCase()}
-              </div>
-              <span className="font-bold text-xl">{siteConfig.name}</span>
+              <span className="font-bold text-xl">{siteConfig.name}.net</span>
             </Link>
             <p className="text-sm text-muted-foreground">
               {siteConfig.description}. Free, fast, and secure online tools for professionals.

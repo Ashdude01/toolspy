@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { ToolsSection } from '@/components/tools/tools-section'
 import { siteConfig } from '@/lib/config'
 import { HomeSeoContent } from '@/components/sections/home-seo-content'
+import { HomepageSchemas } from '@/components/seo/schema-manager'
 
 export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.description}`,
@@ -11,6 +12,7 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
+      <HomepageSchemas />
       {/* <HeroSection /> */}
       <ToolsSection />
       <HomeSeoContent/>

@@ -33,7 +33,44 @@ export function Header({ onSearch }: HeaderProps) {
     Set<ToolCategory>
   >(new Set());
   const [isToolsExpanded, setIsToolsExpanded] = useState(true);
-  const { theme, setTheme } = useTheme();
+  const { theme, setTheme, resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Ensure we're mounted on the client
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Debug logging for theme values
+  useEffect(() => {
+    if (mounted) {
+      console.log('Theme Debug:', { theme, resolvedTheme, mounted });
+    }
+  }, [theme, resolvedTheme, mounted]);
+
+  // Theme cycling function
+  const cycleTheme = () => {
+    if (theme === "light") {
+      setTheme("dark");
+    } else if (theme === "dark") {
+      setTheme("system");
+    } else {
+      setTheme("light");
+    }
+  };
+
+  // Get the current theme icon based on resolved theme (actual appearance)
+  const getThemeIcon = () => {
+    if (!mounted) return <Sun className="h-4 w-4" />; // Default during hydration
+    return resolvedTheme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />;
+  };
+
+  const getThemeLabel = () => {
+    if (!mounted) return "Toggle theme"; // Default during hydration
+    if (theme === "light") return "Switch to Dark Mode";
+    if (theme === "dark") return "Switch to System Theme";
+    return "Switch to Light Mode";
+  };
 
   // Get tools by category
   const toolsByCategory = getToolsByCategory();
@@ -99,7 +136,16 @@ export function Header({ onSearch }: HeaderProps) {
               className="flex items-center space-x-2"
               onClick={closeMenu}
             >
-              {theme === "dark" ? (
+              {!mounted ? (
+                // Show default logo during hydration to prevent flash
+                <Image
+                  src="/logo/black.webp"
+                  alt="Toolspy"
+                  width={1080}
+                  height={1080}
+                  className="w-28"
+                />
+              ) : resolvedTheme === "dark" ? (
                 <Image
                   src="/logo/white.webp"
                   alt="Toolspy"
@@ -191,11 +237,11 @@ export function Header({ onSearch }: HeaderProps) {
               <Button
                 variant="ghost"
                 size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+                onClick={cycleTheme}
                 className="hidden sm:flex"
+                title={getThemeLabel()}
               >
-                <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
-                <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
+                {getThemeIcon()}
                 <span className="sr-only">Toggle theme</span>
               </Button>
 
@@ -368,20 +414,11 @@ export function Header({ onSearch }: HeaderProps) {
             <Button
               variant="secondary"
               size="lg"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+              onClick={cycleTheme}
               className="w-full justify-start text-md border-t py-6 rounded-none"
             >
-              {theme === "dark" ? (
-                <>
-                  <Sun className="mr-3 h-4 w-4" />
-                  Switch to Light Mode
-                </>
-              ) : (
-                <>
-                  <Moon className="mr-3 h-4 w-4" />
-                  Switch to Dark Mode
-                </>
-              )}
+              <span className="mr-3">{getThemeIcon()}</span>
+              {getThemeLabel()}
             </Button>
           </div>
         </div>

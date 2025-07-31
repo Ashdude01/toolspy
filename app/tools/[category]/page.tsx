@@ -3,6 +3,7 @@ import { toolCategories, ToolCategory, getToolsByCategory } from '@/lib/tools-da
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CategoryToolsClient } from '@/components/tools/category-tools-client';
+import { CategorySchemas } from '@/components/seo/schema-manager';
 
 interface CategoryPageProps {
   params: {
@@ -61,46 +62,49 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   const categoryInfo = toolCategories[category as ToolCategory];
   
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
-      {/* Breadcrumb Navigation */}
-      <div className="border-b bg-muted/30">
-        <div className="container mx-auto px-4 py-4">
-          <nav aria-label="breadcrumb">
-            <ol className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
-              <li className="inline-flex items-center gap-1.5">
-                <Link href="/" className="transition-colors hover:text-foreground">
-                  Home
-                </Link>
-              </li>
-              <li role="presentation" aria-hidden="true" className="[&>svg]:size-3.5">
-                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </li>
-              <li className="inline-flex items-center gap-1.5">
-                <Link href="/tools" className="transition-colors hover:text-foreground">
-                  Tools
-                </Link>
-              </li>
-              <li role="presentation" aria-hidden="true" className="[&>svg]:size-3.5">
-                <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
-              </li>
-              <li className="inline-flex items-center gap-1.5">
-                <span role="link" aria-disabled="true" aria-current="page" className="font-normal text-foreground">
-                  {categoryInfo.name}
-                </span>
-              </li>
-            </ol>
-          </nav>
+    <>
+      <CategorySchemas category={category as ToolCategory} />
+      <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
+        {/* Breadcrumb Navigation */}
+        <div className="border-b bg-muted/30">
+          <div className="container mx-auto px-4 py-4">
+            <nav aria-label="breadcrumb">
+              <ol className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
+                <li className="inline-flex items-center gap-1.5">
+                  <Link href="/" className="transition-colors hover:text-foreground">
+                    Home
+                  </Link>
+                </li>
+                <li role="presentation" aria-hidden="true" className="[&>svg]:size-3.5">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <Link href="/tools" className="transition-colors hover:text-foreground">
+                    Tools
+                  </Link>
+                </li>
+                <li role="presentation" aria-hidden="true" className="[&>svg]:size-3.5">
+                  <svg className="h-3.5 w-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </li>
+                <li className="inline-flex items-center gap-1.5">
+                  <span role="link" aria-disabled="true" aria-current="page" className="font-normal text-foreground">
+                    {categoryInfo.name}
+                  </span>
+                </li>
+              </ol>
+            </nav>
+          </div>
         </div>
-      </div>
 
-      {/* Category Tools Section */}
-      <CategoryToolsClient 
-        category={category as ToolCategory}
-      />
-    </div>
+        {/* Category Tools Section */}
+        <CategoryToolsClient 
+          category={category as ToolCategory}
+        />
+      </div>
+    </>
   );
 } 

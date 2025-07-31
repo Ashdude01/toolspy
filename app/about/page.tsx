@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Target, Users, Shield, Zap, Heart, Globe } from 'lucide-react';
 import Link from 'next/link';
+import { AboutSchemas } from '@/components/seo/schema-manager';
 
 export const metadata: Metadata = {
   title: 'About Toolspy - Professional Online Tools Platform',
@@ -43,7 +44,9 @@ export default function AboutPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 space-y-12">
+    <>
+      <AboutSchemas />
+      <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div className="space-y-4">
@@ -222,6 +225,7 @@ export default function AboutPage() {
           </div>
         </Card>
       </section>
-    </div>
+      </div>
+    </>
   );
 } 

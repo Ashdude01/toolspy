@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getToolBySlug } from '@/lib/tools-data'
+import { ToolSchemas } from '@/components/seo/schema-manager'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
@@ -63,13 +64,17 @@ export function generateToolMetadata(toolSlug: string): Metadata {
   }
 }
 
-// Dynamic tool layout component
+// Dynamic tool layout component with enhanced schema support
 export function DynamicToolLayout({ 
   toolSlug, 
-  children 
+  children,
+  includeReviews = true,
+  includeFAQ = true
 }: { 
   toolSlug: string
   children: React.ReactNode 
+  includeReviews?: boolean
+  includeFAQ?: boolean
 }) {
   const tool = getToolBySlug(toolSlug)
 
@@ -77,62 +82,17 @@ export function DynamicToolLayout({
     return <>{children}</>
   }
 
-  // Generate dynamic schema markup based on tool data
-  const schemaMarkup = {
-    "@context": "https://schema.org",
-    "@type": "SoftwareApplication",
-    "name": tool.name,
-    "description": tool.description,
-    "url": tool.seo.canonicalUrl,
-    "applicationCategory": getApplicationCategory(tool.category),
-    "operatingSystem": "Web Browser",
-    "softwareVersion": "2.0",
-    "author": {
-      "@type": "Organization",
-      "name": "Toolspy",
-      "url": "https://toolspy.com"
-    },
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "ratingCount": "2547"
-    },
-    "featureList": tool.tags,
-    "screenshot": `https://toolspy.com/images/tools/${tool.slug.replace('/', '')}-screenshot.png`,
-    "softwareHelp": {
-      "@type": "CreativeWork",
-      "url": `${tool.seo.canonicalUrl}#faq`
-    }
-  }
-
   return (
     <>
-      {/* Dynamic Schema Markup */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(schemaMarkup)
-        }}
+      {/* Enhanced Schema Markup */}
+      <ToolSchemas 
+        tool={tool} 
+        includeReviews={includeReviews}
+        includeFAQ={includeFAQ}
       />
       {children}
     </>
   )
 }
 
-// Helper function to map tool categories to schema.org application categories
-function getApplicationCategory(category: string): string {
-  const categoryMap: Record<string, string> = {
-    'image-tools': 'MultimediaApplication',
-    'pdf-tools': 'BusinessApplication', 
-    'base64-tools': 'DeveloperApplication',
-    'calculators': 'UtilitiesApplication',
-    'misc-tools': 'UtilitiesApplication'
-  }
-  
-  return categoryMap[category] || 'UtilitiesApplication'
-} 
+// Component is already exported above 

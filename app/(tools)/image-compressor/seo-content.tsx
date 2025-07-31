@@ -23,6 +23,7 @@ import {
 import { getToolBySlug, tools } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import Image from "next/image";
+import { registerToolFAQ } from "@/components/seo/faq-types";
 
 export function ImageCompressorSEOContent() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
@@ -870,3 +871,48 @@ export function ImageCompressorSEOContent() {
     </div>
   );
 }
+
+// Export FAQ data for schema generation
+export function getImageCompressorFAQs() {
+  return [
+    {
+      question: "How much can I reduce my image file size with this compressor?",
+      answer: "Typically, you can achieve 50-80% file size reduction while maintaining excellent visual quality. JPEG images can be compressed up to 95%, PNG images up to 70%, and WebP images up to 90%. The actual compression ratio depends on your image type, content complexity, and quality settings. Our advanced algorithms ensure optimal compression for each image format."
+    },
+    {
+      question: "Is it safe to upload my images to Toolspy's compressor?",
+      answer: "Absolutely! Our image compressor uses client-side processing, meaning your images are compressed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive images. Your data never leaves your device, making it safer than server-based compression tools."
+    },
+    {
+      question: "What image formats does the compressor support?",
+      answer: "We support all major image formats including JPEG, PNG, WebP, AVIF, BMP, and TIFF. You can also convert between formats during compression for maximum flexibility. Our tool handles both modern formats like AVIF and WebP, as well as traditional formats like JPEG and PNG with equal efficiency."
+    },
+    {
+      question: "How does batch compression work in Toolspy?",
+      answer: "You can select up to 100 images simultaneously for batch processing. Our tool processes each image individually using the same settings, providing consistent results across your entire batch. Progress is tracked in real-time with detailed status updates. You can download all compressed images individually or as a convenient ZIP file."
+    },
+    {
+      question: "Why choose Toolspy over other free image compressors like ILoveImg or CloudConvert?",
+      answer: "Toolspy offers professional-grade features like target file size control, selective EXIF removal, progressive encoding, and client-side processing. Many competitors like ILoveImg and CloudConvert lack these advanced features or require paid upgrades. Our tool provides better privacy protection, more precise quality control, and superior compression algorithms completely free."
+    },
+    {
+      question: "Can I compress images for specific platforms like Instagram, Facebook, or websites?",
+      answer: "Yes! Use our 'Web Optimized' preset or customize settings for social media requirements. For Instagram posts, we recommend 1080x1080px and under 100KB. For Facebook, use 1200x630px for optimal display. For websites, aim for 75-85% quality for the best balance of file size and visual quality."
+    },
+    {
+      question: "What is the maximum file size I can compress?",
+      answer: "Our image compressor supports files up to 50MB per image, which is larger than many competitors. ILoveImg supports up to 25MB, while ImageResizer only handles 10MB files. This makes Toolspy ideal for high-resolution photography and professional image processing needs."
+    },
+    {
+      question: "Does image compression affect image metadata and EXIF data?",
+      answer: "You have complete control over metadata handling with our advanced EXIF management system. Choose to remove all EXIF data for smaller files and privacy, preserve everything for professional workflows, or use selective removal to keep important data while removing sensitive location and camera information."
+    },
+    {
+      question: "How does progressive JPEG encoding improve web performance?",
+      answer: "Progressive JPEG encoding allows images to load in multiple passes, showing a low-quality version first that gradually improves. This enhances user experience on websites by providing immediate visual feedback, making pages feel faster even with larger images. This feature is unique to Toolspy among free compressors."
+    }
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ('image-compressor', getImageCompressorFAQs);
