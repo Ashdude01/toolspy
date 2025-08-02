@@ -1,13 +1,18 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import { ToolCard } from '@/components/tools/tool-card';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Search } from 'lucide-react';
-import Link from 'next/link';
-import { toolCategories, ToolCategory, getToolsByCategory, Tool } from '@/lib/tools-data';
-import { useSearchParams } from 'next/navigation';
+import { useState, useEffect } from "react";
+import { ToolCard } from "@/components/tools/tool-card";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Search } from "lucide-react";
+import Link from "next/link";
+import {
+  toolCategories,
+  ToolCategory,
+  getToolsByCategory,
+  Tool,
+} from "@/lib/tools-data";
+import { useSearchParams } from "next/navigation";
 
 interface CategoryToolsClientProps {
   category: ToolCategory;
@@ -28,17 +33,17 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
 
   const categoryInfo = toolCategories[category];
   const allCategoryTools = getToolsByCategory()[category] || [];
-  
+
   // Use client-side URL parsing for search
   const searchParams = useSearchParams();
-  const initialSearchQuery = searchParams?.get('search') || '';
-  
+  const initialSearchQuery = searchParams?.get("search") || "";
+
   const [filteredTools, setFilteredTools] = useState<Tool[]>(allCategoryTools);
   const [searchTerm, setSearchTerm] = useState<string>(initialSearchQuery);
 
   useEffect(() => {
     const categoryTools = getToolsByCategory()[category] || [];
-    
+
     if (searchTerm.trim()) {
       const lowercaseQuery = searchTerm.toLowerCase();
       const filtered = categoryTools.filter(
@@ -61,20 +66,20 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
   }, [initialSearchQuery]);
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 py-10">
+    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 pb-10">
       <div className="container mx-auto px-4">
         {/* Category Header */}
         <div className="text-center mb-10">
-          <div className="flex items-center justify-center space-x-4 mb-6">
-            <div className="text-5xl">{categoryInfo.icon}</div>
-            <div>
-              <h1 className="text-4xl font-bold mb-2">{categoryInfo.name}</h1>
-              <p className="text-xl text-muted-foreground">{categoryInfo.description}</p>
-            </div>
+          <div className="flex flex-col items-center justify-center mb-6">
+            <h1 className="text-4xl font-bold mb-2">{categoryInfo.name}</h1>
+            <p className="text-xl text-muted-foreground">
+              {categoryInfo.description}
+            </p>
           </div>
           <div className="bg-primary/10 inline-block px-4 py-2 rounded-full">
             <span className="text-sm font-medium">
-              {allCategoryTools.length} {allCategoryTools.length === 1 ? 'tool' : 'tools'} available
+              {allCategoryTools.length}{" "}
+              {allCategoryTools.length === 1 ? "tool" : "tools"} available
             </span>
           </div>
         </div>
@@ -104,7 +109,7 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
               <Button
                 variant="outline"
                 size="sm"
-                onClick={() => setSearchTerm('')}
+                onClick={() => setSearchTerm("")}
               >
                 Clear Search
               </Button>
@@ -121,17 +126,16 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
           ) : (
             <div className="text-center py-12">
               <p className="text-muted-foreground mb-4">
-                {searchTerm.trim() 
+                {searchTerm.trim()
                   ? `No tools found matching "${searchTerm}" in ${categoryInfo.name.toLowerCase()}.`
-                  : `No tools available in ${categoryInfo.name.toLowerCase()}.`
-                }
+                  : `No tools available in ${categoryInfo.name.toLowerCase()}.`}
               </p>
               <div className="flex justify-center gap-4">
                 {searchTerm.trim() && (
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => setSearchTerm('')}
+                    onClick={() => setSearchTerm("")}
                   >
                     Clear Search
                   </Button>
@@ -148,4 +152,4 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
       </div>
     </section>
   );
-} 
+}

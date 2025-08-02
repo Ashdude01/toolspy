@@ -28,6 +28,7 @@ interface HeaderProps {
 
 export function Header({ onSearch }: HeaderProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDesktopDropdownOpen, setIsDesktopDropdownOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [expandedCategories, setExpandedCategories] = useState<
     Set<ToolCategory>
@@ -103,17 +104,25 @@ export function Header({ onSearch }: HeaderProps) {
     setExpandedCategories(new Set());
   };
 
+  const closeDesktopDropdown = () => {
+    setIsDesktopDropdownOpen(false);
+  };
+
   // Close menu on escape key
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
         closeMenu();
+        closeDesktopDropdown();
       }
     };
 
-    if (isMenuOpen) {
+    if (isMenuOpen || isDesktopDropdownOpen) {
       document.addEventListener("keydown", handleEscape);
-      // Prevent body scroll when menu is open
+    }
+    
+    if (isMenuOpen) {
+      // Prevent body scroll when mobile menu is open
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "unset";
@@ -123,7 +132,7 @@ export function Header({ onSearch }: HeaderProps) {
       document.removeEventListener("keydown", handleEscape);
       document.body.style.overflow = "unset";
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isDesktopDropdownOpen]);
 
   return (
     <>
@@ -174,13 +183,19 @@ export function Header({ onSearch }: HeaderProps) {
               </Link>
 
               {/* Desktop Tools Dropdown */}
-              <div className="relative group">
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsDesktopDropdownOpen(true)}
+                onMouseLeave={() => setIsDesktopDropdownOpen(false)}
+              >
                 <button className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1">
                   Tools
                   <ChevronDown className="h-3 w-3" />
                 </button>
 
-                <div className="absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50">
+                <div className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
+                  isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                }`}>
                   <div className="p-4">
                     <div className="grid grid-cols-5 gap-6">
                       {(
@@ -193,6 +208,7 @@ export function Header({ onSearch }: HeaderProps) {
                           <Link
                             href={`/tools/${categoryKey}`}
                             className="block px-3 py-2 text-sm font-medium text-primary hover:bg-accent rounded-md"
+                            onClick={closeDesktopDropdown}
                           >
                             {category.icon} {category.name}
                           </Link>
@@ -209,7 +225,7 @@ export function Header({ onSearch }: HeaderProps) {
                                 onClick={
                                   tool.status === "coming-soon"
                                     ? (e) => e.preventDefault()
-                                    : undefined
+                                    : closeDesktopDropdown
                                 }
                               >
                                 {tool.icon} {tool.name}

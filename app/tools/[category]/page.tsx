@@ -64,12 +64,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   return (
     <>
       <CategorySchemas category={category as ToolCategory} />
-      <div className="min-h-screen bg-gradient-to-b from-background to-muted/10">
-        {/* Breadcrumb Navigation */}
-        <div className="border-b bg-muted/30">
+     
           <div className="container mx-auto px-4 py-4">
             <nav aria-label="breadcrumb">
-              <ol className="flex flex-wrap items-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
+              <ol className="flex flex-wrap items-center justify-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
                 <li className="inline-flex items-center gap-1.5">
                   <Link href="/" className="transition-colors hover:text-foreground">
                     Home
@@ -98,13 +96,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
               </ol>
             </nav>
           </div>
-        </div>
 
         {/* Category Tools Section */}
         <CategoryToolsClient 
           category={category as ToolCategory}
-        />
-      </div>
+        />  
     </>
   );
-} 
+}
