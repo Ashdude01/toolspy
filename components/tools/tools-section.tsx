@@ -110,7 +110,7 @@ export function ToolsSection({
 
                     {/* Main Heading */}
           <h1 className="flex flex-col items-center lg:gap-4 justify-center lg:flex-row bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out">
-           <span className="text-center">Professional Tools for </span>
+           <span className="text-center">Expert Tools for </span>
            {/* <span className="text-3xl sm:text-4xl lg:t/ext-5xl">Your </span> */}
             <TypewriterText
               staticText=""
