@@ -20,6 +20,12 @@ export const siteConfig = {
     github: process.env.NEXT_PUBLIC_GITHUB_URL || 'https://github.com/toolspy',
   },
   
+  // Analytics & Tracking
+  analytics: {
+    gtmId: process.env.NEXT_PUBLIC_GTM_ID || '',
+    enableAnalytics: !!process.env.NEXT_PUBLIC_GTM_ID,
+  },
+  
   // SEO
   keywords: [
     'online tools',

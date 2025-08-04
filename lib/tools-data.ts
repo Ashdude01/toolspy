@@ -835,6 +835,26 @@ export const tools: Tool[] = [
       tags: ['color', 'picker', 'hex', 'rgb']
     }),
     posterImage: '/images/tools/color-picker.webp'
+  },
+  {
+    id: 'google-indexing-api',
+    name: 'Google Indexing API Tool',
+    slug: 'google-indexing-api',
+    description: 'Submit website URLs to Google Indexing API for faster indexing and improved search visibility',
+    category: 'misc-tools',
+    icon: '🔍',
+    featured: true,
+    tags: ['google', 'indexing', 'seo', 'search', 'api', 'submit', 'urls'],
+    path: '/google-indexing-api',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Google Indexing API Tool',
+      title: 'Google Indexing API Tool - Submit URLs for Fast Indexing | Toolspy',
+      slug: '/google-indexing-api',
+      description: 'Submit website URLs to Google Indexing API for faster indexing and improved search visibility. Bulk URL submission with service account authentication.',
+      tags: ['google', 'indexing', 'seo', 'search', 'api', 'submit', 'urls', 'batch']
+    }),
+    posterImage: '/images/tools/google-indexing-api.webp'
   }
 ];
 
