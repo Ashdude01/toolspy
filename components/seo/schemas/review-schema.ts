@@ -9,8 +9,12 @@ function getApplicationCategory(category: ToolCategory): string {
     'pdf-tools': 'BusinessApplication',
     'base64-tools': 'DeveloperApplication',
     'calculators': 'UtilitiesApplication',
-    'misc-tools': 'UtilitiesApplication'
-  }
+    'misc-tools': 'UtilitiesApplication',
+    'json-tools': 'DeveloperApplication',
+    'ai-tools': 'MultimediaApplication',
+    'code-tools': 'DeveloperApplication',
+    'conversion-tools': 'WebApplication'
+  };
   
   return categoryMap[category] || 'UtilitiesApplication'
 }

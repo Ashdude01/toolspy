@@ -9,8 +9,12 @@ function getApplicationCategory(category: ToolCategory): string {
     'pdf-tools': 'BusinessApplication',
     'base64-tools': 'DeveloperApplication',
     'calculators': 'UtilitiesApplication',
-    'misc-tools': 'UtilitiesApplication'
-  }
+    'misc-tools': 'UtilitiesApplication',
+    'json-tools': 'DeveloperApplication',
+    'ai-tools': 'MultimediaApplication',
+    'code-tools': 'DeveloperApplication',
+    'conversion-tools': 'WebApplication'
+  };
   
   return categoryMap[category] || 'UtilitiesApplication'
 }
@@ -216,8 +220,12 @@ function getCategoryDisplayName(category: ToolCategory): string {
     'pdf-tools': 'PDF Tools',
     'base64-tools': 'Base64 Tools',
     'calculators': 'Calculators',
-    'misc-tools': 'Miscellaneous Tools'
-  }
+    'misc-tools': 'Miscellaneous Tools',
+    'json-tools': 'JSON Tools',
+    'ai-tools': 'AI Tools',
+    'code-tools': 'Code Tools',
+    'conversion-tools': 'Conversion Tools'
+  };
   
   return displayNames[category] || category
 }

@@ -29,7 +29,11 @@ export type ToolCategory =
   | 'pdf-tools' 
   | 'base64-tools' 
   | 'calculators' 
-  | 'misc-tools';
+  | 'misc-tools'
+  | 'json-tools'
+  | 'ai-tools'
+  | 'code-tools'
+  | 'conversion-tools';
 
 // Helper function to generate SEO data for tools
 function generateSEO(tool: {
@@ -63,7 +67,7 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
   'image-tools': {
     name: 'Professional Image Tools',
     description: 'Convert, compress, and optimize images with advanced algorithms',
-    icon: ''
+    icon: '🖼️'
   },
   'pdf-tools': {
     name: 'PDF Processing Tools', 
@@ -84,6 +88,26 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
     name: 'Utility Tools',
     description: 'Additional professional utilities and helpers',
     icon: '🧰'
+  },
+  'json-tools': {
+    name: 'JSON Processing Tools',
+    description: 'Format, validate, and convert JSON data with advanced features',
+    icon: '📋'
+  },
+  'ai-tools': {
+    name: 'AI-Powered Tools',
+    description: 'Intelligent tools powered by artificial intelligence',
+    icon: '🤖'
+  },
+  'code-tools': {
+    name: 'Developer Tools',
+    description: 'Code formatting, minification, and development utilities',
+    icon: '💻'
+  },
+  'conversion-tools': {
+    name: 'File Conversion Tools',
+    description: 'Convert between various file formats and media types',
+    icon: '🔄'
   }
 };
 
@@ -855,6 +879,292 @@ export const tools: Tool[] = [
       tags: ['google', 'indexing', 'seo', 'search', 'api', 'submit', 'urls', 'batch']
     }),
     posterImage: '/images/tools/google-indexing-api.webp'
+  },
+
+  // JSON Tools
+  {
+    id: 'json-formatter',
+    name: 'JSON Formatter & Validator',
+    slug: 'json-formatter',
+    description: 'Format, validate, and visualize JSON data with advanced tree view, error detection, and export options',
+    category: 'json-tools',
+    icon: '📋',
+    featured: true,
+    tags: ['json', 'formatter', 'validator', 'tree', 'beautify', 'minify', 'validate'],
+    path: '/json-formatter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'JSON Formatter & Validator',
+      title: 'Free Online JSON Formatter, Validator & Viewer – Beautify, Validate, Visualize JSON Instantly | Toolspy',
+      slug: '/json-formatter',
+      description: 'Format, validate, and visualize JSON data with our advanced online tool. Features tree view, error highlighting, minify/beautify, and secure client-side processing.',
+      tags: ['json', 'formatter', 'validator', 'tree', 'beautify', 'minify', 'validate', 'jsonlint']
+    }),
+    posterImage: '/images/tools/json-formatter.webp'
+  },
+  {
+    id: 'json-table-converter',
+    name: 'JSON Table Converter',
+    slug: 'json-table-converter',
+    description: 'Convert JSON to CSV/Excel and vice versa with advanced preview, batch processing, and intelligent data mapping',
+    category: 'json-tools',
+    icon: '🔄',
+    featured: true,
+    tags: ['json', 'csv', 'excel', 'table', 'converter', 'xlsx', 'data', 'transform'],
+    path: '/json-table-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'JSON Table Converter',
+      title: 'Convert JSON to Excel, CSV, and vice versa – Fast, Free, Secure Table Converter | Toolspy',
+      slug: '/json-table-converter',
+      description: 'Convert JSON to CSV/Excel and table data to JSON with advanced preview, batch processing, and intelligent data mapping. Supports nested objects and custom delimiters.',
+      tags: ['json', 'csv', 'excel', 'table', 'converter', 'xlsx', 'data', 'transform', 'tableconvert']
+    }),
+    posterImage: '/images/tools/json-table-converter.webp'
+  },
+
+  // Code Tools
+  {
+    id: 'code-beautifier',
+    name: 'Code Beautifier & Minifier',
+    slug: 'code-beautifier',
+    description: 'Format, minify, and analyze JavaScript, CSS, HTML code with syntax highlighting, error detection, and AI explanations',
+    category: 'code-tools',
+    icon: '💻',
+    featured: true,
+    tags: ['code', 'beautifier', 'minifier', 'javascript', 'css', 'html', 'formatter', 'prettier'],
+    path: '/code-beautifier',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Code Beautifier & Minifier',
+      title: 'Free Online Code Beautifier & Minifier – Format, Minify, and Explain Code | Toolspy',
+      slug: '/code-beautifier',
+      description: 'Format and minify JavaScript, CSS, HTML code with advanced syntax highlighting, error detection, and AI-powered code explanations. Secure client-side processing.',
+      tags: ['code', 'beautifier', 'minifier', 'javascript', 'css', 'html', 'formatter', 'prettier', 'syntax']
+    }),
+    posterImage: '/images/tools/code-beautifier.webp'
+  },
+
+  // AI Tools  
+  {
+    id: 'color-palette-generator',
+    name: 'AI Color Palette Generator',
+    slug: 'color-palette-generator',
+    description: 'Generate beautiful color palettes with AI suggestions, accessibility checking, and professional export options',
+    category: 'ai-tools',
+    icon: '🎨',
+    featured: true,
+    tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker'],
+    path: '/color-palette-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Color Palette Generator',
+      title: 'Free Color Palette Generator & Picker – AI-Powered, Accessible, Export Ready | Toolspy',
+      slug: '/color-palette-generator',
+      description: 'Generate stunning color palettes with AI insights, accessibility checking, and professional export options. Create harmonious colors for design, branding, and web development.',
+      tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker', 'coolors']
+    }),
+    posterImage: '/images/tools/color-palette-generator.webp'
+  },
+  {
+    id: 'ai-background-remover',
+    name: 'AI Background Remover',
+    slug: 'ai-background-remover',
+    description: 'Remove image backgrounds instantly with AI. Features magic brush for touch-ups, batch processing, and professional export options',
+    category: 'ai-tools',
+    icon: '✂️',
+    featured: true,
+    tags: ['ai', 'background', 'remover', 'image', 'magic brush', 'transparent', 'png', 'photo'],
+    path: '/ai-background-remover',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Background Remover',
+      title: 'Remove Image Background Online – Free AI Background Remover | Toolspy',
+      slug: '/ai-background-remover',
+      description: 'Remove backgrounds from images instantly with AI. Features magic brush for touch-ups, batch processing, and professional export options. Completely private and secure.',
+      tags: ['ai', 'background', 'remover', 'image', 'magic brush', 'transparent', 'png', 'photo', 'removebg']
+    }),
+    posterImage: '/images/tools/ai-background-remover.webp'
+  },
+  {
+    id: 'meme-generator',
+    name: 'AI Meme Generator',
+    slug: 'meme-generator',
+    description: 'Create viral memes with trending templates, AI caption suggestions, and professional editing tools for social media',
+    category: 'ai-tools',
+    icon: '😂',
+    featured: true,
+    tags: ['meme', 'generator', 'ai', 'captions', 'templates', 'viral', 'social media', 'humor'],
+    path: '/meme-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Meme Generator',
+      title: 'Free Meme Generator – Create Memes Online with AI Captions | Toolspy',
+      slug: '/meme-generator',
+      description: 'Create viral memes with trending templates, AI caption suggestions, and professional editing tools. Share to social media instantly with no watermarks.',
+      tags: ['meme', 'generator', 'ai', 'captions', 'templates', 'viral', 'social media', 'humor', 'imgflip']
+    }),
+    posterImage: '/images/tools/meme-generator.webp'
+  },
+  {
+    id: 'ai-writing-tools',
+    name: 'AI Writing Tools Suite',
+    slug: 'ai-writing-tools',
+    description: 'Complete AI writing toolkit: Paraphraser, Summarizer, Humanizer, and AI Detector with advanced customization options',
+    category: 'ai-tools',
+    icon: '✍️',
+    featured: true,
+    tags: ['ai', 'writing', 'paraphraser', 'summarizer', 'humanizer', 'detector', 'rewriter', 'tools'],
+    path: '/ai-writing-tools',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Writing Tools Suite',
+      title: 'Free AI Paraphraser, Summarizer & Humanizer – Improve Your Writing Instantly | Toolspy',
+      slug: '/ai-writing-tools',
+      description: 'Complete AI writing toolkit with paraphraser, summarizer, humanizer, and AI detector. Advanced customization options for professional, academic, and creative writing.',
+      tags: ['ai', 'writing', 'paraphraser', 'summarizer', 'humanizer', 'detector', 'rewriter', 'tools', 'quillbot']
+    }),
+    posterImage: '/images/tools/ai-writing-tools.webp'
+  },
+  {
+    id: 'ai-image-enhancer',
+    name: 'AI Image Enhancer',
+    slug: 'ai-image-enhancer',
+    description: 'Enhance photos with AI: upscale resolution, unblur images, restore old photos, and colorize black & white pictures',
+    category: 'ai-tools',
+    icon: '⭐',
+    featured: true,
+    tags: ['ai', 'image', 'enhancer', 'upscale', 'unblur', 'restore', 'colorize', 'photos'],
+    path: '/ai-image-enhancer',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Image Enhancer',
+      title: 'AI Image Enhancer – Upscale, Unblur, Restore, and Colorize Photos Online | Toolspy',
+      slug: '/ai-image-enhancer',
+      description: 'Enhance photos with AI: upscale resolution up to 4x, remove blur, restore old photos, and colorize black & white images. Professional quality with complete privacy.',
+      tags: ['ai', 'image', 'enhancer', 'upscale', 'unblur', 'restore', 'colorize', 'photos', 'topaz', 'waifu2x']
+    }),
+    posterImage: '/images/tools/ai-image-enhancer.webp'
+  },
+  {
+    id: 'ai-resume-builder',
+    name: 'AI Resume Builder',
+    slug: 'ai-resume-builder',
+    description: 'Build professional resumes with AI-powered suggestions, ATS optimization, job matching, and expert templates',
+    category: 'ai-tools',
+    icon: '📄',
+    featured: true,
+    tags: ['ai', 'resume', 'builder', 'ats', 'job', 'templates', 'career', 'cv'],
+    path: '/ai-resume-builder',
+    status: 'active',
+    seo: generateSEO({
+      name: 'AI Resume Builder',
+      title: 'Free Online Resume Builder – AI-Powered, Professional Templates | Toolspy',
+      slug: '/ai-resume-builder',
+      description: 'Build professional resumes with AI-powered content suggestions, ATS optimization, job matching, and expert templates. Get hired faster with intelligent resume building.',
+      tags: ['ai', 'resume', 'builder', 'ats', 'job', 'templates', 'career', 'cv', 'resumegenius']
+    }),
+    posterImage: '/images/tools/ai-resume-builder.webp'
+  },
+  {
+    id: 'social-media-downloader',
+    name: 'Social Media Downloader',
+    slug: 'social-media-downloader',
+    description: 'Download videos, images, and audio from YouTube, Instagram, TikTok, Twitter, and Facebook with high quality',
+    category: 'conversion-tools',
+    icon: '📱',
+    featured: true,
+    tags: ['social media', 'downloader', 'youtube', 'instagram', 'tiktok', 'twitter', 'facebook', 'video'],
+    path: '/social-media-downloader',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Social Media Downloader',
+      title: 'Free Social Media Downloader – YouTube, Instagram, TikTok Videos | Toolspy',
+      slug: '/social-media-downloader',
+      description: 'Download videos, images, and audio from YouTube, Instagram, TikTok, Twitter, and Facebook. High quality downloads with batch processing and no registration required.',
+      tags: ['social media', 'downloader', 'youtube', 'instagram', 'tiktok', 'twitter', 'facebook', 'video', 'savefrom']
+    }),
+    posterImage: '/images/tools/social-media-downloader.webp'
+  },
+  {
+    id: 'ocr-text-extractor',
+    name: 'OCR Text Extractor',
+    slug: 'ocr-text-extractor',
+    description: 'Extract text from images and PDFs with advanced OCR technology. Support for 12+ languages, batch processing, and editable results',
+    category: 'conversion-tools',
+    icon: '📄',
+    featured: true,
+    tags: ['ocr', 'text', 'extraction', 'pdf', 'image', 'scanner', 'digitize', 'multilingual'],
+    path: '/ocr-text-extractor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'OCR Text Extractor',
+      title: 'Free OCR Text Extractor – Extract Text from Images and PDFs Online | Toolspy',
+      slug: '/ocr-text-extractor',
+      description: 'Extract text from images and PDFs with advanced OCR technology. Support for 12+ languages, batch processing, editable results, and complete privacy protection.',
+      tags: ['ocr', 'text', 'extraction', 'pdf', 'image', 'scanner', 'digitize', 'multilingual', 'onlineocr']
+    }),
+    posterImage: '/images/tools/ocr-text-extractor.webp'
+  },
+  {
+    id: 'media-converter',
+    name: 'Media Converter',
+    slug: 'media-converter',
+    description: 'Convert videos, audio files, and archives between formats. Support for batch processing, quality presets, and advanced settings',
+    category: 'conversion-tools',
+    icon: '🎬',
+    featured: true,
+    tags: ['video', 'audio', 'converter', 'gif', 'archive', 'batch', 'mp4', 'mp3'],
+    path: '/media-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Media Converter',
+      title: 'Free Media Converter – Video, Audio, GIF & Archive Converter Online | Toolspy',
+      slug: '/media-converter',
+      description: 'Convert videos, audio files, and archives between formats with batch processing, quality presets, and advanced settings. Support for MP4, MP3, GIF, ZIP, and more.',
+      tags: ['video', 'audio', 'converter', 'gif', 'archive', 'batch', 'mp4', 'mp3', 'convertio']
+    }),
+    posterImage: '/images/tools/media-converter.webp'
+  },
+  {
+    id: 'ebook-converter',
+    name: 'E-book Converter',
+    slug: 'ebook-converter',
+    description: 'Convert e-books between EPUB, MOBI, PDF, DOCX formats with professional metadata editing and cover image support',
+    category: 'conversion-tools',
+    icon: '📚',
+    featured: true,
+    tags: ['ebook', 'epub', 'mobi', 'pdf', 'kindle', 'converter', 'metadata', 'publisher'],
+    path: '/ebook-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'E-book Converter',
+      title: 'Free E-book Converter – EPUB, MOBI, PDF, DOCX Converter Online | Toolspy',
+      slug: '/ebook-converter',
+      description: 'Convert e-books between EPUB, MOBI, PDF, DOCX formats with professional metadata editing, cover image support, and batch processing. Perfect for authors and publishers.',
+      tags: ['ebook', 'epub', 'mobi', 'pdf', 'kindle', 'converter', 'metadata', 'publisher', 'calibre']
+    }),
+    posterImage: '/images/tools/ebook-converter.webp'
+  },
+  {
+    id: 'font-converter',
+    name: 'Font Converter',
+    slug: 'font-converter',
+    description: 'Convert fonts between TTF, OTF, WOFF, WOFF2 formats with live preview, AI font pairings, and web optimization features',
+    category: 'conversion-tools',
+    icon: '🔤',
+    featured: true,
+    tags: ['font', 'ttf', 'otf', 'woff', 'converter', 'typography', 'web fonts', 'css'],
+    path: '/font-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Font Converter',
+      title: 'Free Font Converter – TTF, OTF, WOFF, WOFF2 Converter Online | Toolspy',
+      slug: '/font-converter',
+      description: 'Convert fonts between TTF, OTF, WOFF, WOFF2 formats with live preview, AI font pairings, web optimization, and automatic CSS generation.',
+      tags: ['font', 'ttf', 'otf', 'woff', 'converter', 'typography', 'web fonts', 'css', 'fontforge']
+    }),
+    posterImage: '/images/tools/font-converter.webp'
   }
 ];
 
@@ -864,7 +1174,11 @@ export function getToolsByCategory(): Record<ToolCategory, Tool[]> {
     'pdf-tools': [],
     'base64-tools': [],
     'calculators': [],
-    'misc-tools': []
+    'misc-tools': [],
+    'json-tools': [],
+    'ai-tools': [],
+    'code-tools': [],
+    'conversion-tools': []
   };
 
   tools.forEach(tool => {
