@@ -196,7 +196,7 @@ export function Header({ onSearch }: HeaderProps) {
                 <div className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
                   isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}>
-                  <div className="p-4">
+                  <div className="p-4 !pb-28 overflow-y-auto h-screen">
                     <div className="grid grid-cols-5 gap-6">
                       {(
                         Object.entries(toolCategories) as [
