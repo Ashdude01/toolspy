@@ -4,7 +4,7 @@
   "description": "Professional online tools hub for image compression, base64 conversion, and more. Free, fast, and secure.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#030712",
+  "background_color": "#ffffff",
   "theme_color": "#030712",
   "orientation": "any",
   "scope": "/",
