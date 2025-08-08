@@ -60,7 +60,7 @@ export function ToolCard({ tool, className }: ToolCardProps) {
         isClickable 
           ? 'hover:shadow-lg hover:bg-gray-200 dark:hover:bg-gray-900 cursor-pointer' 
           : 'opacity-75 cursor-not-allowed'
-      } ring-1 ring-primary/10`}>
+      } ring-1 ring-white/5`}>
         <CardHeader className="pb-3">
           <div className="flex items-start justify-between">
             <div className="flex items-center space-x-3">
