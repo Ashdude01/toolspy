@@ -7,6 +7,9 @@ import { HomepageSchemas } from '@/components/seo/schema-manager'
 export const metadata: Metadata = {
   title: `${siteConfig.name} | ${siteConfig.description}`,
   description: `${siteConfig.description}. Professional online tools for image compression, base64 conversion, and more. Free, fast, and secure.`,
+  alternates: {
+    canonical: siteConfig.url,
+  },
 }
 
 export default function HomePage() {
