@@ -2,21 +2,22 @@ import { Metadata } from 'next';
 import { ToolsSection } from '@/components/tools/tools-section';
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from '@/components/ui/breadcrumb';
 import { Suspense } from 'react';
+import { limitTitle, limitDescription } from '@/lib/utils/seo';
 
 export const metadata: Metadata = {
-  title: 'All Tools - Professional Online Utilities | Toolspy',
-  description: 'Browse all free online tools available on Toolspy. Find image compression, PDF conversion, calculators, Base64 encoding, and more professional utilities.',
+  title: limitTitle('All Tools - Professional Online Utilities | Toolspy'),
+  description: limitDescription('Browse all free online tools available on Toolspy. Find image compression, PDF conversion, calculators, Base64 encoding, and more professional utilities.'),
   keywords: ['online tools', 'free utilities', 'web tools', 'image tools', 'pdf tools', 'calculators', 'converters'],
   openGraph: {
-    title: 'All Tools - Professional Online Utilities | Toolspy',
-    description: 'Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.',
+    title: limitTitle('All Tools - Professional Online Utilities | Toolspy'),
+    description: limitDescription('Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.'),
     type: 'website',
     url: 'https://toolspy.com/tools',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'All Tools - Professional Online Utilities | Toolspy',
-    description: 'Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.',
+    title: limitTitle('All Tools - Professional Online Utilities | Toolspy'),
+    description: limitDescription('Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.'),
   }
 };
 
@@ -32,7 +33,11 @@ function ToolsPageSkeleton() {
   );
 }
 
+export const dynamic = 'force-static';
+
 export default function ToolsPage() {
+  // Page is static; ToolsSection reads client-side ?search param and also accepts prop from other pages
+  const initialSearch = '';
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
@@ -54,7 +59,7 @@ export default function ToolsPage() {
 
       {/* Tools Section */}
       <Suspense fallback={<ToolsPageSkeleton />}>
-        <ToolsSection />
+        <ToolsSection searchQuery={initialSearch} />
       </Suspense>
     </div>
   );

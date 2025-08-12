@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getToolBySlug } from '@/lib/tools-data'
 import { ToolSchemas } from '@/components/seo/schema-manager'
+import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
@@ -8,14 +9,14 @@ export function generateToolMetadata(toolSlug: string): Metadata {
   
   if (!tool) {
     return {
-      title: 'Tool Not Found | Toolspy',
-      description: 'The requested tool could not be found.'
+      title: limitTitle('Tool Not Found | Toolspy'),
+      description: limitDescription('The requested tool could not be found.')
     }
   }
 
   return {
-    title: tool.seo.metaTitle,
-    description: tool.seo.metaDescription,
+    title: limitTitle(tool.seo.metaTitle),
+    description: limitDescription(tool.seo.metaDescription),
     keywords: tool.seo.keywords.join(', '),
     authors: [{ name: 'Toolspy Team' }],
     creator: 'Toolspy',
@@ -26,8 +27,8 @@ export function generateToolMetadata(toolSlug: string): Metadata {
       telephone: false,
     },
     openGraph: {
-      title: tool.seo.ogTitle,
-      description: tool.seo.ogDescription,
+      title: limitTitle(tool.seo.ogTitle),
+      description: limitDescription(tool.seo.ogDescription),
       url: tool.seo.canonicalUrl,
       siteName: 'Toolspy',
       images: [
@@ -43,8 +44,8 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: tool.seo.twitterTitle,
-      description: tool.seo.twitterDescription,
+      title: limitTitle(tool.seo.twitterTitle),
+      description: limitDescription(tool.seo.twitterDescription),
       images: [tool.seo.twitterImage],
     },
     robots: {

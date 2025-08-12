@@ -1,5 +1,6 @@
 import { Metadata } from 'next';
 import { Tool } from '@/lib/tools-data';
+import { limitTitle, limitDescription } from '@/lib/utils/seo';
 
 interface ToolSEOProps {
   tool: Tool;
@@ -7,8 +8,8 @@ interface ToolSEOProps {
 
 export function generateToolMetadata(tool: Tool): Metadata {
   return {
-    title: tool.seo.metaTitle,
-    description: tool.seo.metaDescription,
+    title: limitTitle(tool.seo.metaTitle),
+    description: limitDescription(tool.seo.metaDescription),
     keywords: tool.seo.keywords,
     authors: [{ name: 'Toolspy' }],
     creator: 'Toolspy',
@@ -17,8 +18,8 @@ export function generateToolMetadata(tool: Tool): Metadata {
       canonical: tool.seo.canonicalUrl,
     },
     openGraph: {
-      title: tool.seo.ogTitle,
-      description: tool.seo.ogDescription,
+      title: limitTitle(tool.seo.ogTitle),
+      description: limitDescription(tool.seo.ogDescription),
       url: tool.seo.canonicalUrl,
       siteName: 'Toolspy',
       images: [
@@ -34,8 +35,8 @@ export function generateToolMetadata(tool: Tool): Metadata {
     },
     twitter: {
       card: 'summary_large_image',
-      title: tool.seo.twitterTitle,
-      description: tool.seo.twitterDescription,
+      title: limitTitle(tool.seo.twitterTitle),
+      description: limitDescription(tool.seo.twitterDescription),
       images: [tool.seo.twitterImage],
       creator: '@toolspy',
       site: '@toolspy',

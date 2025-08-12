@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
   Card,
   CardContent,
@@ -89,10 +90,58 @@ function ImageCompressorContent() {
   });
   const afterUploadRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
     scrollToElement(afterUploadRef, 50);
   };
+
+  // Auto-import images from search params (?images=url or ?images=[url1,url2])
+  useEffect(() => {
+    const imagesParam = searchParams?.get("images");
+    if (!imagesParam) return;
+
+    const parseUrls = (): string[] => {
+      try {
+        // Try JSON array
+        const parsed = JSON.parse(imagesParam);
+        if (Array.isArray(parsed)) return parsed.filter((u) => typeof u === 'string');
+      } catch {}
+      // Fallback: comma-separated
+      if (imagesParam.includes(",")) return imagesParam.split(",").map((s) => s.trim());
+      return [imagesParam.trim()];
+    };
+
+    const urls = parseUrls().filter(Boolean);
+    if (urls.length === 0) return;
+
+    let canceled = false;
+    const fetchAsFile = async (url: string, index: number): Promise<File | null> => {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) return null;
+        const blob = await res.blob();
+        const ext = blob.type.split('/')[1] || 'jpg';
+        const name = `imported-${index}.${ext}`;
+        return new File([blob], name, { type: blob.type });
+      } catch {
+        return null;
+      }
+    };
+
+    (async () => {
+      const files = (await Promise.all(urls.map((u, i) => fetchAsFile(u, i)))).filter(
+        (f): f is File => !!f
+      );
+      if (canceled || files.length === 0) return;
+      setSelectedFiles((prev) => [...prev, ...files]);
+      scrollToElement(afterUploadRef, 50);
+    })();
+
+    return () => {
+      canceled = true;
+    };
+  }, [searchParams]);
 
   const handleError = (error: string) => {
     showToast(error, "error");

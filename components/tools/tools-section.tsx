@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { ToolCard } from "./tool-card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,6 +35,7 @@ export function ToolsSection({
     ToolCategory | "all"
   >("all");
   const [loading, setLoading] = useState(false);
+  const params = useSearchParams();
 
   // Dynamic words for typewriter effect based on tool categories
   const typewriterWords = [
@@ -55,6 +57,14 @@ export function ToolsSection({
       setSearchQuery(initialSearchQuery);
     }
   }, [initialSearchQuery]);
+
+  // If no prop provided, hydrate search from URL (?search=)
+  useEffect(() => {
+    if (initialSearchQuery === undefined && params) {
+      const urlQuery = params.get("search") || "";
+      setSearchQuery(urlQuery);
+    }
+  }, [params, initialSearchQuery]);
 
   const filterTools = () => {
     let filtered = toolsData;

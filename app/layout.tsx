@@ -7,12 +7,13 @@ import { Footer } from '@/components/layout/footer'
 import { PWAWrapper } from '@/components/pwa-wrapper'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
 import { siteConfig } from '@/lib/config'
+import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: siteConfig.title,
-  description: siteConfig.description,
+  title: limitTitle(siteConfig.title),
+  description: limitDescription(siteConfig.description),
   keywords: siteConfig.keywords,
   authors: [{ name: `${siteConfig.name} Team` }],
   creator: siteConfig.name,
@@ -37,8 +38,8 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: limitTitle(siteConfig.title),
+    description: limitDescription(siteConfig.description),
     url: siteConfig.url,
     siteName: siteConfig.name,
     locale: 'en_US',
@@ -54,8 +55,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
+    title: limitTitle(siteConfig.title),
+    description: limitDescription(siteConfig.description),
     creator: siteConfig.social.twitter,
     images: ['/main.webp'],
   },

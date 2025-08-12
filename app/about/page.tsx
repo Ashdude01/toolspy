@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { AboutSchemas } from '@/components/seo/schema-manager';
 
 export const metadata: Metadata = {
-  title: 'About Toolspy - Professional Online Tools Platform | Free Digital Utilities',
+  title: 'About Toolspy - Professional Online Tools Platform',
   description: 'Learn about Toolspy, your trusted destination for professional online tools. Discover our mission to provide free, secure, and reliable digital utilities for image compression, PDF conversion, calculators, and more.',
   keywords: [
     'about toolspy', 

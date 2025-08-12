@@ -49,28 +49,25 @@ export function Header({ onSearch }: HeaderProps) {
     }
   }, [theme, resolvedTheme, mounted]);
 
-  // Theme cycling function
+  // Theme toggle between dark and light only (dark default)
   const cycleTheme = () => {
-    if (theme === "light") {
-      setTheme("dark");
-    } else if (theme === "dark") {
-      setTheme("system");
-    } else {
-      setTheme("light");
-    }
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   // Get the current theme icon based on resolved theme (actual appearance)
   const getThemeIcon = () => {
-    if (!mounted) return <Sun className="h-4 w-4" />; // Default during hydration
-    return resolvedTheme === "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />;
+    if (!mounted) return <Sun className="h-4 w-4" />;
+    // Ensure icon is visible in both themes by adjusting color
+    return resolvedTheme === "dark" ? (
+      <Moon className="h-4 w-4 text-yellow-300" />
+    ) : (
+      <Sun className="h-4 w-4 text-amber-600" />
+    );
   };
 
   const getThemeLabel = () => {
-    if (!mounted) return "Toggle theme"; // Default during hydration
-    if (theme === "light") return "Switch to Dark Mode";
-    if (theme === "dark") return "Switch to System Theme";
-    return "Switch to Light Mode";
+    if (!mounted) return "Toggle theme";
+    return resolvedTheme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode";
   };
 
   // Get tools by category
@@ -196,7 +193,7 @@ export function Header({ onSearch }: HeaderProps) {
                 <div className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
                   isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                 }`}>
-                  <div className="p-4 !pb-28 overflow-y-auto h-screen">
+                  <div className="p-4 !pb-28 overflow-y-auto">
                     <div className="grid grid-cols-5 gap-6">
                       {(
                         Object.entries(toolCategories) as [
@@ -216,7 +213,7 @@ export function Header({ onSearch }: HeaderProps) {
                             {toolsByCategory[categoryKey]?.map((tool) => (
                               <Link
                                 key={tool.id}
-                                href={tool.path}
+                                href={tool.status === "active" ? tool.path : "#"}
                                 className={`block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors ${
                                   tool.status === "coming-soon"
                                     ? "text-muted-foreground/60 cursor-not-allowed"

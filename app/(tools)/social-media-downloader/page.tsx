@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Card,
   CardContent,
@@ -28,6 +28,7 @@ import {
   Headphones,
 } from "lucide-react";
 import { SocialMediaDownloaderSEOContent } from "./seo-content";
+import { useSearchParams } from "next/navigation";
 
 interface MediaInfo {
   title: string;
@@ -50,6 +51,7 @@ const SocialMediaDownloaderContent = () => {
   const [mediaInfo, setMediaInfo] = useState<MediaInfo | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
+  const searchParams = useSearchParams();
   
   const { showToast } = useToast();
 
@@ -61,25 +63,25 @@ const SocialMediaDownloaderContent = () => {
 
     setIsAnalyzing(true);
     
-    // Simulate analysis
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    // Generate mock media info
+    // For demo: if it's a direct media link (jpg/png/mp4/webm/mp3), prepare a single format
+    const directMedia = /(\.jpg|\.jpeg|\.png|\.webp|\.gif|\.mp4|\.webm|\.mp3|\.wav)(\?.*)?$/i.test(inputUrl);
     const mockInfo: MediaInfo = {
       title: "Sample Video Title - How to Use This Tool",
       creator: "Content Creator",
       duration: "5:23",
       views: Math.floor(Math.random() * 1000000),
       uploadDate: "2024-01-15",
-      thumbnail: "https://via.placeholder.com/320x180?text=Video+Thumbnail",
-      platform: "YouTube",
+      thumbnail: "https://via.placeholder.com/640x360?text=Preview",
+      platform: directMedia ? "Direct Media" : "YouTube",
       description: "This is a sample video description...",
-      formats: [
-        { quality: "1080p", format: "MP4", size: "45.2 MB" },
-        { quality: "720p", format: "MP4", size: "28.1 MB" },
-        { quality: "480p", format: "MP4", size: "18.5 MB" },
-        { quality: "Audio", format: "MP3", size: "5.2 MB" }
-      ]
+      formats: directMedia
+        ? [{ quality: "Original", format: inputUrl.match(/\.(mp3|wav)$/i) ? "MP3" : "MP4", size: "—" }]
+        : [
+            { quality: "1080p", format: "MP4", size: "45.2 MB" },
+            { quality: "720p", format: "MP4", size: "28.1 MB" },
+            { quality: "480p", format: "MP4", size: "18.5 MB" },
+            { quality: "Audio", format: "MP3", size: "5.2 MB" },
+          ],
     };
 
     setMediaInfo(mockInfo);
@@ -89,20 +91,31 @@ const SocialMediaDownloaderContent = () => {
 
   const downloadMedia = async (quality: string, format: string) => {
     setIsDownloading(true);
-    
-    // Simulate download
-    await new Promise(resolve => setTimeout(resolve, 3000));
-    
-    // Create mock download
-    const link = document.createElement('a');
-    link.href = '#';
-    link.download = `${mediaInfo?.title}.${format.toLowerCase()}`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    setIsDownloading(false);
-    showToast("Download completed successfully!", "success");
+    try {
+      // If input is direct media, try to fetch and save it
+      const directMedia = /(\.jpg|\.jpeg|\.png|\.webp|\.gif|\.mp4|\.webm|\.mp3|\.wav)(\?.*)?$/i.test(inputUrl);
+      if (directMedia) {
+        const res = await fetch(inputUrl, { mode: 'cors' });
+        if (!res.ok) throw new Error('Download failed');
+        const blob = await res.blob();
+        const extGuess = blob.type.split('/')[1] || format.toLowerCase();
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `${(mediaInfo?.title || 'download').replace(/[^a-z0-9\-_ ]/gi,'_')}.${extGuess}`;
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+      } else {
+        // Otherwise, show guidance (server-side fetch would be needed for actual platforms)
+        showToast('For platform downloads, server-side processing is required. This demo supports direct media URLs.', 'info');
+      }
+      showToast("Download completed successfully!", "success");
+    } catch (e) {
+      showToast('Unable to download this media directly due to CORS or platform restrictions.', 'error');
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const clearAll = () => {
@@ -110,6 +123,12 @@ const SocialMediaDownloaderContent = () => {
     setMediaInfo(null);
     showToast("All data cleared", "info");
   };
+
+  // Prefill from search params (?url=...)
+  useEffect(() => {
+    const url = searchParams?.get('url');
+    if (url) setInputUrl(url);
+  }, [searchParams]);
 
   const formatNumber = (num: number): string => {
     if (num >= 1000000) return `${(num / 1000000).toFixed(1)}M`;
@@ -122,16 +141,15 @@ const SocialMediaDownloaderContent = () => {
       {/* Header */}
       <div className="text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-pink-500 to-red-600 rounded-xl text-white">
+          <div className="p-3 bg-gradient-to-br from-pink-500 to-red-600 rounded-xl text-white shadow-lg">
             <Download size={24} />
           </div>
           <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-red-600 bg-clip-text text-transparent">
             Social Media Downloader
           </h1>
         </div>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          Download videos, images, and audio from YouTube, Instagram, TikTok, Twitter, and Facebook. 
-          High quality downloads with no registration required.
+        <p className="text-muted-foreground max-w-2xl mx-auto">
+          Download videos, images, and audio from major platforms. For best results, paste direct media URLs.
         </p>
       </div>
 
@@ -168,6 +186,9 @@ const SocialMediaDownloaderContent = () => {
                 )}
               </Button>
             </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Tip: Direct file URLs (jpg, png, webp, mp4, webm, mp3) can be downloaded in-browser.
+            </p>
           </div>
           
           <div className="flex gap-2">
@@ -192,7 +213,7 @@ const SocialMediaDownloaderContent = () => {
                 <img 
                   src={mediaInfo.thumbnail} 
                   alt="Video thumbnail"
-                  className="w-full rounded-lg"
+                  className="w-full rounded-lg shadow-md"
                 />
               </div>
               
@@ -219,11 +240,11 @@ const SocialMediaDownloaderContent = () => {
                   </div>
                 </div>
                 
-                <Badge variant="secondary">{mediaInfo.platform}</Badge>
+                 <Badge variant="secondary">{mediaInfo.platform}</Badge>
               </div>
             </div>
             
-            <p className="text-sm text-gray-600">{mediaInfo.description}</p>
+            <p className="text-sm text-muted-foreground">{mediaInfo.description}</p>
           </CardContent>
         </Card>
       )}
