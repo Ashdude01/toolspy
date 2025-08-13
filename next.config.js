@@ -17,6 +17,10 @@ const nextConfig = {
     // Image optimization services (optional) - using fallback values
     NEXT_PUBLIC_CLOUDINARY_URL: process.env.NEXT_PUBLIC_CLOUDINARY_URL || '',
     NEXT_PUBLIC_IMAGEKIT_URL: process.env.NEXT_PUBLIC_IMAGEKIT_URL || '',
+    // Third-party downloader API (RapidAPI or similar)
+    NEXT_PUBLIC_DOWNLOADER_API_URL: process.env.NEXT_PUBLIC_DOWNLOADER_API_URL || '',
+    NEXT_PUBLIC_DOWNLOADER_API_KEY: process.env.NEXT_PUBLIC_DOWNLOADER_API_KEY || '',
+    NEXT_PUBLIC_DOWNLOADER_API_HOST: process.env.NEXT_PUBLIC_DOWNLOADER_API_HOST || '',
   },
   output: 'export',
   trailingSlash: true,

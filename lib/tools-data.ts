@@ -1066,25 +1066,102 @@ export const tools: Tool[] = [
     }),
     posterImage: '/images/tools/ai-resume-builder.webp'
   },
+  // Social tools (specialized)
   {
-    id: 'social-media-downloader',
-    name: 'Social Media Downloader',
-    slug: 'social-media-downloader',
-    description: 'Download videos, images, and audio from YouTube, Instagram, TikTok, Twitter, and Facebook with high quality',
+    id: 'facebook-image-downloader',
+    name: 'Facebook Image Downloader',
+    slug: 'facebook-image-downloader',
+    description: 'Download public Facebook post images in full quality. Paste a post URL and save photos instantly.',
     category: 'conversion-tools',
-    icon: '📱',
+    icon: '📘',
     featured: true,
-    tags: ['social media', 'downloader', 'youtube', 'instagram', 'tiktok', 'twitter', 'facebook', 'video'],
-    path: '/social-media-downloader',
+    tags: ['facebook', 'image', 'photo', 'download', 'social'],
+    path: '/facebook-image-downloader',
     status: 'active',
     seo: generateSEO({
-      name: 'Social Media Downloader',
-      title: 'Free Social Media Downloader – YouTube, Instagram, TikTok Videos | Toolspy',
-      slug: '/social-media-downloader',
-      description: 'Download videos, images, and audio from YouTube, Instagram, TikTok, Twitter, and Facebook. High quality downloads with batch processing and no registration required.',
-      tags: ['social media', 'downloader', 'youtube', 'instagram', 'tiktok', 'twitter', 'facebook', 'video', 'savefrom']
+      name: 'Facebook Image Downloader',
+      title: 'Facebook Image Downloader – Save Photos in Full Quality | Toolspy',
+      slug: '/facebook-image-downloader',
+      description: 'Download Facebook post images in full quality. Paste a public post URL and save photos instantly—free, fast, and secure.',
+      tags: ['facebook', 'image', 'photo', 'download', 'social']
     }),
-    posterImage: '/images/tools/social-media-downloader.webp'
+    posterImage: '/images/tools/facebook-image-downloader.webp'
+  },
+  {
+    id: 'youtube-thumbnail-downloader',
+    name: 'YouTube Thumbnail Downloader',
+    slug: 'youtube-thumbnail-downloader',
+    description: 'Get YouTube video thumbnails in max resolution (4K/HD). Enter a video link or ID and download instantly.',
+    category: 'conversion-tools',
+    icon: '▶️',
+    tags: ['youtube', 'thumbnail', 'image', 'download', 'video id'],
+    path: '/youtube-thumbnail-downloader',
+    status: 'active',
+    seo: generateSEO({
+      name: 'YouTube Thumbnail Downloader',
+      title: 'YouTube Thumbnail Downloader – MaxRes, HD, SD | Toolspy',
+      slug: '/youtube-thumbnail-downloader',
+      description: 'Download YouTube thumbnails in max resolution (MaxRes, HD, SD). Paste a video URL or ID and save images instantly.',
+      tags: ['youtube', 'thumbnail', 'image', 'download', 'maxresdefault']
+    }),
+    posterImage: '/images/tools/youtube-thumbnail-downloader.webp'
+  },
+  {
+    id: 'instagram-reels-downloader',
+    name: 'Instagram Reels Downloader',
+    slug: 'instagram-reels-downloader',
+    description: 'Save Instagram Reels and short videos in high quality. Paste a reel URL and download fast.',
+    category: 'conversion-tools',
+    icon: '📺',
+    tags: ['instagram', 'reels', 'shorts', 'video', 'download'],
+    path: '/instagram-reels-downloader',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Instagram Reels Downloader',
+      title: 'Instagram Reels Downloader – Save Reels & Short Videos | Toolspy',
+      slug: '/instagram-reels-downloader',
+      description: 'Download Instagram Reels and short videos in high quality. Paste a reel URL and save instantly—free and secure.',
+      tags: ['instagram', 'reels', 'video', 'download']
+    }),
+    posterImage: '/images/tools/instagram-reels-downloader.webp'
+  },
+  {
+    id: 'instagram-private-viewer',
+    name: 'Instagram Private Viewer (DP Only)',
+    slug: 'instagram-private-viewer',
+    description: 'View and download public profile pictures. For private accounts, only profile DP is supported (when accessible).',
+    category: 'conversion-tools',
+    icon: '🔒',
+    tags: ['instagram', 'profile', 'dp', 'avatar', 'download'],
+    path: '/instagram-private-viewer',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Instagram Private Viewer (DP Only)',
+      title: 'Instagram Profile Picture Downloader – View & Save DP | Toolspy',
+      slug: '/instagram-private-viewer',
+      description: 'View and download Instagram profile pictures in full size. For private accounts, only DP is supported when accessible.',
+      tags: ['instagram', 'profile', 'dp', 'avatar', 'download']
+    }),
+    posterImage: '/images/tools/instagram-private-viewer.webp'
+  },
+  {
+    id: 'youtube-embed-code-generator',
+    name: 'YouTube Embed Code Generator',
+    slug: 'youtube-embed-code-generator',
+    description: 'Create responsive YouTube embed codes. Customize aspect ratio, autoplay, controls, and copy clean HTML.',
+    category: 'conversion-tools',
+    icon: '🧩',
+    tags: ['youtube', 'embed', 'iframe', 'responsive', 'generator'],
+    path: '/youtube-embed-code-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'YouTube Embed Code Generator',
+      title: 'YouTube Embed Code Generator – Responsive Iframe | Toolspy',
+      slug: '/youtube-embed-code-generator',
+      description: 'Generate responsive YouTube embed code. Choose aspect ratio, autoplay, controls, and copy clean HTML in one click.',
+      tags: ['youtube', 'embed', 'iframe', 'responsive', 'generator']
+    }),
+    posterImage: '/images/tools/youtube-embed-code-generator.webp'
   },
   {
     id: 'ocr-text-extractor',
