@@ -167,11 +167,12 @@ function ImageConverterContent() {
             outputQuality = qualityValue / 100;
           }
 
-          canvas.toBlob((blob) => {
-            if (blob) {
-              const originalFormat = file.type.split('/')[1] || 'unknown';
-              const fileName = file.name.replace(/\.[^/.]+$/, "") + `.${format}`;
-              const convertedFile = new File([blob], fileName, { type: mimeType });
+                     canvas.toBlob((blob) => {
+             if (blob) {
+               const originalFormat = file.type.split('/')[1] || 'unknown';
+               // Create filename with toolspy-converted prefix and new format extension
+               const fileName = `toolspy-converted.${format}`;
+               const convertedFile = new File([blob], fileName, { type: mimeType });
 
               resolve({
                 file: convertedFile,
@@ -280,8 +281,29 @@ function ImageConverterContent() {
         className="mb-6 sm:mb-8"
       />
 
-      {/* Settings */}
+
+      {/* Selected Files */}
       {selectedFiles.length > 0 && (
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader>
+            <CardTitle>Selected Images ({selectedFiles.length})</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {selectedFiles.map((file, index) => (
+                <CompactImagePreview
+                  key={index}
+                  file={file}
+                  onRemove={() => removeFile(index)}
+                  showMetadata={true}
+                />
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+       {/* Settings */}
+       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -348,27 +370,6 @@ function ImageConverterContent() {
         </Card>
       )}
 
-      {/* Selected Files */}
-      {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <CardTitle>Selected Images ({selectedFiles.length})</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {selectedFiles.map((file, index) => (
-                <CompactImagePreview
-                  key={index}
-                  file={file}
-                  onRemove={() => removeFile(index)}
-                  showMetadata={true}
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
       {/* Conversion Results */}
       {convertedResults.length > 0 && (
         <Card>
@@ -395,23 +396,29 @@ function ImageConverterContent() {
             <div className="space-y-4">
               {convertedResults.map((result, index) => (
                 <div key={index} className="flex items-center justify-between p-4 border rounded-lg">
-                  <div className="flex-1 min-w-0">
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="font-medium truncate">{result.originalName}</span>
-                      <Badge variant={result.success ? "default" : "destructive"}>
-                        {result.success ? "Converted" : "Failed"}
-                      </Badge>
-                    </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">
-                      {result.success ? (
-                        <>
-                          {result.originalFormat.toUpperCase()} → {result.newFormat.toUpperCase()} • 
-                          {formatFileSize(result.originalSize)} → {formatFileSize(result.convertedSize)}
-                        </>
-                      ) : (
-                        <span className="text-red-600 dark:text-red-400">{result.error}</span>
-                      )}
-                    </div>
+                                     <div className="flex-1 min-w-0">
+                     <div className="flex items-center gap-2 mb-1">
+                       <span className="font-medium truncate">
+                         {result.success ? result.file.name : result.originalName}
+                       </span>
+                       <Badge variant={result.success ? "default" : "destructive"}>
+                         {result.success ? "Converted" : "Failed"}
+                       </Badge>
+                     </div>
+                                         <div className="text-sm text-gray-600 dark:text-gray-400">
+                                               {result.success ? (
+                          <>
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-medium">{result.originalFormat.toUpperCase()} → {result.newFormat.toUpperCase()}</span>
+                            </div>
+                            <div className="text-xs">
+                              {formatFileSize(result.originalSize)} → {formatFileSize(result.convertedSize)}
+                            </div>
+                          </>
+                        ) : (
+                         <span className="text-red-600 dark:text-red-400">{result.error}</span>
+                       )}
+                     </div>
                   </div>
                   
                   {result.success && (

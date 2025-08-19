@@ -140,15 +140,16 @@ export const tools: Tool[] = [
     description: 'Convert images between different formats (PNG, JPG, WebP, etc.)',
     category: 'image-tools',
     icon: '🔄',
-    tags: ['convert', 'format', 'png', 'jpg', 'webp'],
+    featured: true,
+    tags: ['convert', 'format', 'png', 'jpg', 'webp', 'avif', 'heic', 'batch', 'privacy', 'free', 'online', 'image converter', 'convert images', 'image format converter'],
     path: '/image-converter',
     status: 'active',
     seo: generateSEO({
       name: 'Image Converter',
-      title: "Free Online Image Converter – Convert Images | Toolspy",
+      title: "Free Online Image Converter – Convert Images to Any Format | Toolspy",
       slug: '/image-converter',
-      description: "Instantly convert images to JPG, PNG, GIF, and more with Toolspy's fast, secure, and free online image converter. No software needed—convert in your browser",
-      tags: ['convert', 'format', 'png', 'jpg', 'webp', 'avif']
+      description: "Convert images between 15+ formats including JPEG, PNG, WebP, AVIF, HEIC with professional quality. Free, private, batch processing. No uploads, no registration required.",
+      tags: ['convert', 'format', 'png', 'jpg', 'webp', 'avif', 'heic', 'batch', 'privacy', 'free', 'online', 'image converter', 'convert images', 'image format converter', 'convert jpg to png', 'convert png to jpg', 'convert heic to jpg', 'convert webp to png']
     }),
     posterImage: '/images/tools/image-converter.webp'
   },
