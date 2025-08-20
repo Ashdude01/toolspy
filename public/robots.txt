@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemaps
-Sitemap: https://toolshub.app/sitemap.xml
+Sitemap: https://toolspy.net/sitemap.xml
 
 # Disallow crawling of API routes
 Disallow: /api/
