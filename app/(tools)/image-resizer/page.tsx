@@ -150,11 +150,11 @@ function ImageResizerContent() {
           };
           newFiles.push(processedFile);
 
-                      if (newFiles.length === selectedFiles.length) {
-              setFiles((prev) => [...prev, ...newFiles]);
+          if (newFiles.length === selectedFiles.length) {
+            setFiles((prev) => [...prev, ...newFiles]);
               showToast(`${selectedFiles.length} image(s) added successfully! ✨`, "success");
               scrollToElement(settingsRef, 50)
-            }
+          }
         };
         img.src = e.target?.result as string;
       };
@@ -421,13 +421,13 @@ function ImageResizerContent() {
       {/* Enhanced Header */}
       <div className="text-center mb-8 sm:mb-12">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Badge
-            variant="outline"
+        <Badge
+          variant="outline"
             className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900/20 border-green-200 dark:border-green-800"
-          >
-            <Shield className="w-4 h-4 mr-2" />
-            Privacy-First • No Data Collection
-          </Badge>
+        >
+          <Shield className="w-4 h-4 mr-2" />
+          Privacy-First • No Data Collection
+        </Badge>
           <Badge
             variant="outline"
             className="font-bold hidden md:flex text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
@@ -438,7 +438,7 @@ function ImageResizerContent() {
         </div>
 
         <h1 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text pb-2 text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-        Image Resizer
+          Image Resizer
         </h1>
         <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Resize images to any dimension with professional quality. Perfect for social media, websites, and print. 
@@ -446,14 +446,13 @@ function ImageResizerContent() {
       </div>
 
       {/* Enhanced File Upload */}
-      <Card className={`mb-8 transition-all duration-300 ${dragOver ? 'ring-2 ring-blue-500 bg-blue-50 dark:bg-blue-950/20' : ''}`}>
-        <CardContent className="pt-6">
-          <FileUpload
-            onFileSelect={handleFileSelect}
-            onError={handleFileUploadError}
-            accept="image/*"
-            multiple
-            maxFiles={maxFiles}
+      
+      <FileUpload
+        onFileSelect={handleFileSelect}
+        onError={handleFileUploadError}
+        accept="image/*"
+        multiple
+        maxFiles={maxFiles}
             className="mb-4"
           />
           
@@ -488,8 +487,6 @@ function ImageResizerContent() {
               </div>
             </div>
           )}
-        </CardContent>
-      </Card>
 
       {/* Enhanced Resize Settings */}
       <Card className="mb-8" ref={settingsRef}>
@@ -554,24 +551,24 @@ function ImageResizerContent() {
               </div>
               <p className="text-sm text-muted-foreground">Use common dimensions</p>
             </div>
-          </div>
+              </div>
 
           {/* Mode-specific controls */}
-          {resizeMode === "percentage" && (
+              {resizeMode === "percentage" && (
             <div className="space-y-4">
-              <div className="space-y-2">
+                <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <Label>Scale: {percentage[0]}%</Label>
                   <Badge variant="secondary">{percentage[0]}%</Badge>
                 </div>
-                <Slider
-                  value={percentage}
-                  onValueChange={setPercentage}
-                  max={300}
-                  min={10}
-                  step={5}
-                  className="w-full"
-                />
+                  <Slider
+                    value={percentage}
+                    onValueChange={setPercentage}
+                    max={300}
+                    min={10}
+                    step={5}
+                    className="w-full"
+                  />
                 <div className="flex gap-2">
                   <Button
                     variant="outline"
@@ -611,12 +608,12 @@ function ImageResizerContent() {
                 </div>
                 <Button
                   variant="outline"
-                  onClick={applyPercentageToAll}
-                  className="w-full"
-                >
+                    onClick={applyPercentageToAll}
+                    className="w-full"
+                  >
                   <ArrowRight className="h-4 w-4 mr-2" />
-                  Apply to All Images
-                </Button>
+                    Apply to All Images
+                  </Button>
               </div>
             </div>
           )}
@@ -668,41 +665,41 @@ function ImageResizerContent() {
                   </div>
                 ))}
               </div>
-            </div>
-          )}
+                </div>
+              )}
 
           {/* Advanced Settings */}
           {showAdvanced && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t">
               <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label>Output Format</Label>
-                  <Select value={format} onValueChange={setFormat}>
-                    <SelectTrigger>
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="original">Original Format</SelectItem>
+              <div className="space-y-2">
+                <Label>Output Format</Label>
+                <Select value={format} onValueChange={setFormat}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="original">Original Format</SelectItem>
                       <SelectItem value="jpeg">JPEG (Best for photos)</SelectItem>
                       <SelectItem value="png">PNG (Best for graphics)</SelectItem>
                       <SelectItem value="webp">WebP (Best for web)</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+                  </SelectContent>
+                </Select>
+            </div>
 
-                <div className="space-y-2">
+              <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <Label>Quality: {quality}%</Label>
+                <Label>Quality: {quality}%</Label>
                     <Badge variant="secondary">{quality}%</Badge>
                   </div>
-                  <Slider
-                    value={[quality]}
-                    onValueChange={(value) => setQuality(value[0])}
-                    max={100}
-                    min={10}
-                    step={5}
-                    className="w-full"
-                  />
+                <Slider
+                  value={[quality]}
+                  onValueChange={(value) => setQuality(value[0])}
+                  max={100}
+                  min={10}
+                  step={5}
+                  className="w-full"
+                />
                   <div className="flex gap-2">
                     <Button
                       variant="outline"
@@ -730,10 +727,10 @@ function ImageResizerContent() {
               </div>
 
               <div className="space-y-4">
-                <div className="flex items-center space-x-2">
+              <div className="flex items-center space-x-2">
                   <Switch
-                    id="aspectRatio"
-                    checked={maintainAspectRatio}
+                  id="aspectRatio"
+                  checked={maintainAspectRatio}
                     onCheckedChange={setMaintainAspectRatio}
                   />
                   <Label htmlFor="aspectRatio" className="text-sm">
@@ -752,9 +749,9 @@ function ImageResizerContent() {
                     <li>• WebP: Best for web (smaller, modern format)</li>
                     <li>• Higher quality = larger file size</li>
                   </ul>
-                </div>
               </div>
             </div>
+          </div>
           )}
         </CardContent>
       </Card>

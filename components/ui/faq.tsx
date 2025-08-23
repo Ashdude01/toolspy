@@ -1,0 +1,134 @@
+"use client";
+
+import { useState } from "react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp, Info, HelpCircle } from "lucide-react";
+
+export interface FAQItem {
+  question: string;
+  answer: string;
+}
+
+interface FAQProps {
+  title?: string;
+  description?: string;
+  faqs: FAQItem[];
+  className?: string;
+  variant?: "default" | "modern";
+}
+
+export function FAQ({ 
+  title = "Frequently Asked Questions", 
+  description,
+  faqs, 
+  className = "",
+  variant = "default"
+}: FAQProps) {
+  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+
+
+
+  if (variant === "modern") {
+    return (
+      <Card className={`border-0 shadow-2xl bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 dark:from-indigo-950/10 dark:via-purple-950/10 dark:to-pink-950/10 ${className}`}>
+        <CardHeader className="text-center">
+          <CardTitle className="flex items-center justify-center gap-3 text-3xl">
+            <HelpCircle className="h-8 w-8 text-indigo-600" />
+            {title}
+          </CardTitle>
+          {description && (
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+              {description}
+            </p>
+          )}
+        </CardHeader>
+        <CardContent className="px-8 pb-8">
+          <div className="space-y-4 max-w-4xl mx-auto">
+            {faqs.map((faq, index) => (
+              <div
+                key={index}
+                className="bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-800/50 hover:shadow-lg transition-all duration-300 overflow-hidden group"
+              >
+                <Button
+                  variant="ghost"
+                  className="w-full justify-between p-5 h-auto font-medium text-left text-base hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-950/20 dark:hover:to-purple-950/20 transition-all duration-300"
+                  onClick={() =>
+                    setSelectedFaq(selectedFaq === index ? null : index)
+                  }
+                >
+                  <span className="text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                    {faq.question}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    {selectedFaq === index ? (
+                      <ChevronUp className="h-4 w-4 text-indigo-600" />
+                    ) : (
+                      <ChevronDown className="h-4 w-4 text-gray-400 group-hover:text-indigo-600 transition-colors" />
+                    )}
+                  </div>
+                </Button>
+                {selectedFaq === index && (
+                  <div className="px-5 pb-5 border-t border-indigo-100 dark:border-indigo-800">
+                    <div className="pt-4">
+                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                        {faq.answer}
+                      </p>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  // Default variant (simpler design)
+  return (
+    <Card className={className}>
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2">
+          <Info className="h-5 w-5" />
+          {title}
+        </CardTitle>
+        {description && (
+          <p className="text-muted-foreground">{description}</p>
+        )}
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-4">
+          {faqs.map((faq, index) => (
+            <Card key={index} className="hover:shadow-md transition-shadow">
+              <CardHeader
+                className="cursor-pointer hover:bg-muted/50 transition-colors"
+                onClick={() =>
+                  setSelectedFaq(selectedFaq === index ? null : index)
+                }
+              >
+                <div className="flex items-center justify-between">
+                  <CardTitle className="text-base">
+                    <h4>{faq.question}</h4>
+                  </CardTitle>
+                  {selectedFaq === index ? (
+                    <ChevronUp className="h-5 w-5" />
+                  ) : (
+                    <ChevronDown className="h-5 w-5" />
+                  )}
+                </div>
+              </CardHeader>
+              {selectedFaq === index && (
+                <CardContent>
+                  <p className="text-muted-foreground leading-relaxed">
+                    {faq.answer}
+                  </p>
+                </CardContent>
+              )}
+            </Card>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+}

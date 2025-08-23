@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+
 import { Button } from "@/components/ui/button";
 import {
   Maximize2,
@@ -40,8 +41,10 @@ import {
 import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import NextImage from "next/image";
+import { FAQ } from "@/components/ui/faq";
 
 export function ImageResizerSEOContent() {
+
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
   const tool = getToolBySlug("image-resizer");
 
@@ -357,38 +360,75 @@ export function ImageResizerSEOContent() {
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-4xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Resize Images Online for FREE
-          </h2>
-          <div className="max-w-4xl mx-auto space-y-6">
-            <p className="text-xl text-muted-foreground leading-relaxed">
-              Transform your images with our{" "}
-              <strong className="text-blue-600 dark:text-blue-400">free online image resizer</strong> - the ultimate tool for
-              <strong className="text-purple-600 dark:text-purple-400"> resizing images online</strong> with professional quality.
-              Whether you need to
-              <strong className="text-pink-600 dark:text-pink-400"> resize photos for social media</strong>, optimize images for
-              your website, or prepare images for print, our{" "}
-              <strong className="text-green-600 dark:text-green-400">image resize tool</strong> provides everything you need.
-            </p>
-            <p className="text-lg text-muted-foreground leading-relaxed">
-              Our <strong className="text-blue-600 dark:text-blue-400">online image resizer</strong> is designed for both
-              beginners and professionals. With{" "}
-              <strong className="text-purple-600 dark:text-purple-400">drag and drop functionality</strong>,{" "}
-              <strong className="text-pink-600 dark:text-pink-400">batch processing</strong>, and
-              <strong className="text-green-600 dark:text-green-400"> multiple format support</strong>, you can{" "}
-              <strong className="text-blue-600 dark:text-blue-400">resize images free</strong> without any software
-              installation or registration required.
-            </p>
+          <div className="max-w-6xl mx-auto">
+            <div className="mb-8">
+              <h2 className="text-5xl font-bold mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+                Resize Images Online for FREE
+              </h2>
+              <p className="text-xl text-muted-foreground mb-4">
+                The #1 <strong className="text-blue-600 dark:text-blue-400">free image resizer</strong> trusted by millions
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center mb-8">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Transform your images with our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">free online image resizer</strong> - the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">image resize tool</strong> for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">resizing photos for social media</strong>,{" "}
+                    <strong className="text-green-600 dark:text-green-400">resize image for instagram</strong>, and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">resize image for facebook</strong> with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Our <strong className="text-blue-600 dark:text-blue-400">online image resizer</strong> is designed for both
+                    beginners and professionals. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">drag and drop functionality</strong>,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">batch processing</strong>, and{" "}
+                    <strong className="text-green-600 dark:text-green-400">multiple format support</strong>, you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">resize images free</strong> without any software
+                    installation or registration required.
+              </p>
+            </div>
+                
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">10+</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">Formats</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">10MB</div>
+                    <div className="text-sm text-green-700 dark:text-green-300">Max Size</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">100%</div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">Free</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">∞</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">Privacy</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <NextImage
+                  width={600}
+                  height={400}
+                  src={tool?.posterImage || ""}
+                  alt="Free Online Image Resizer - Resize Images Online"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ Most Popular
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <NextImage
-              width={1200}
-              height={680}
-              src={tool?.posterImage || ""}
-              alt="Image Resizer Online"
-              className="w-full rounded-xl shadow-lg border mx-auto"
-              loading="lazy"
-            />
       </section>
 
       <Card>
@@ -414,8 +454,9 @@ export function ImageResizerSEOContent() {
                 </div>
                 <p className="text-sm text-blue-700 dark:text-blue-300 leading-relaxed">
                   {feature.description}
-                </p>
-              </div>
+              </p>
+            </div>
+
             ))}
           </div>
 
@@ -437,7 +478,7 @@ export function ImageResizerSEOContent() {
                   <h4 className="font-bold text-lg text-green-900 dark:text-green-100">
                     {useCase.title}
                   </h4>
-                </div>
+            </div>
                 <p className="text-sm text-green-700 dark:text-green-300 mb-4 leading-relaxed">
                   {useCase.description}
                 </p>
@@ -451,7 +492,8 @@ export function ImageResizerSEOContent() {
                       {preset}
                     </Badge>
                   ))}
-                </div>
+            </div>
+
               </div>
             ))}
           </div>
@@ -495,18 +537,22 @@ export function ImageResizerSEOContent() {
       {/* How It Works */}
       <Card>
         <CardHeader>
+
           <CardTitle className="flex items-center gap-2">
             <Settings className="h-5 w-5" />
             How to Use Our Free Image Resizer
           </CardTitle>
         </CardHeader>
         <CardContent>
+
           <div className="space-y-6">
             <div className="flex items-start gap-3">
+
               <Badge variant="secondary" className="mt-1">
                 1
               </Badge>
               <div>
+
                 <h4 className="font-semibold text-lg">Upload Your Images</h4>
                 <p className="text-sm text-muted-foreground mb-2">
                   Select up to 10 images in JPEG, PNG, WebP, or GIF format. Each
@@ -522,12 +568,14 @@ export function ImageResizerSEOContent() {
                 </div>
               </div>
             </div>
-
+            
             <div className="flex items-start gap-3">
+
               <Badge variant="secondary" className="mt-1">
                 2
               </Badge>
               <div>
+
                 <h4 className="font-semibold text-lg">
                   Choose Your Resize Method
                 </h4>
@@ -549,12 +597,14 @@ export function ImageResizerSEOContent() {
                 </div>
               </div>
             </div>
-
+            
             <div className="flex items-start gap-3">
+
               <Badge variant="secondary" className="mt-1">
                 3
               </Badge>
               <div>
+
                 <h4 className="font-semibold text-lg">
                   Fine-tune Your Settings
                 </h4>
@@ -571,12 +621,14 @@ export function ImageResizerSEOContent() {
                 </div>
               </div>
             </div>
-
+            
             <div className="flex items-start gap-3">
+
               <Badge variant="secondary" className="mt-1">
                 4
               </Badge>
               <div>
+
                 <h4 className="font-semibold text-lg">
                   Download Your Resized Images
                 </h4>
@@ -590,9 +642,10 @@ export function ImageResizerSEOContent() {
                   <p className="text-xs text-green-700 dark:text-green-300">
                     <strong>Batch Download:</strong> Download all processed
                     images at once for convenience
-                  </p>
-                </div>
+                </p>
               </div>
+            </div>
+
             </div>
           </div>
         </CardContent>
@@ -689,10 +742,12 @@ export function ImageResizerSEOContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5" />
+
             Technical Specifications & Supported Formats
           </CardTitle>
         </CardHeader>
         <CardContent>
+
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
             <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
               <div className="font-medium text-blue-900 dark:text-blue-100 mb-3">
@@ -741,6 +796,7 @@ export function ImageResizerSEOContent() {
                 </li>
               </ul>
             </div>
+            
 
             <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
               <div className="font-medium text-purple-900 dark:text-purple-100 mb-3">
@@ -765,6 +821,7 @@ export function ImageResizerSEOContent() {
                 </li>
               </ul>
             </div>
+            
 
             <div className="p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-lg border border-pink-200 dark:border-pink-800">
               <div className="font-medium text-pink-900 dark:text-pink-100 mb-3">
@@ -792,6 +849,7 @@ export function ImageResizerSEOContent() {
           </div>
         </CardContent>
       </Card>
+
 
       {/* Why Choose Our Image Resizer */}
       <Card>
@@ -879,46 +937,7 @@ export function ImageResizerSEOContent() {
       </Card>
 
       {/* Enhanced FAQ */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Info className="h-5 w-5" />
-            Frequently Asked Questions
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
-          </div>
-        </CardContent>
-      </Card>
+      <FAQ faqs={faqs} variant="default"/>
 
       {/* Common Use Cases & Examples */}
       <Card>
@@ -957,7 +976,8 @@ export function ImageResizerSEOContent() {
                     </div>
                   </div>
                 </div>
-              </div>
+            </div>
+            
 
               <div className="space-y-4">
                 <h4 className="font-semibold text-lg">
@@ -988,7 +1008,8 @@ export function ImageResizerSEOContent() {
                 </div>
               </div>
             </div>
-          </div>
+            </div>
+
         </CardContent>
       </Card>
 
@@ -1031,7 +1052,8 @@ export function ImageResizerSEOContent() {
                     </span>
                   </li>
                 </ul>
-              </div>
+            </div>
+            
 
               <div className="space-y-4">
                 <h4 className="font-semibold text-lg">
@@ -1063,6 +1085,7 @@ export function ImageResizerSEOContent() {
         </CardContent>
       </Card>
 
+
       {/* Related Tools */}
       <RelatedTools
         currentToolSlug="image-resizer"
@@ -1071,4 +1094,5 @@ export function ImageResizerSEOContent() {
       />
     </div>
   );
-}
+
+} 

@@ -29,6 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { ImageOptimizerSEOContent } from "./seo-content";
+import { scrollToElement } from "@/lib/utils";
 
 interface ProcessedFile {
   id: string;
@@ -57,7 +58,7 @@ function ImageOptimizerContent() {
   const [progressive, setProgressive] = useState(true);
   const [removeMetadata, setRemoveMetadata] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
-
+  const settingsRef = useRef<HTMLDivElement>(null);
   const maxFiles = 20;
 
   const handleFileSelect = (selectedFiles: File[]) => {
@@ -79,6 +80,7 @@ function ImageOptimizerContent() {
         if (newFiles.length === selectedFiles.length) {
           setFiles(prev => [...prev, ...newFiles]);
           showToast(`${selectedFiles.length} image(s) added`, "success");
+          scrollToElement(settingsRef, 50);
         }
       };
       reader.readAsDataURL(file);
@@ -296,7 +298,7 @@ function ImageOptimizerContent() {
   }, 0);
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
       {/* Header */}
       <div className="text-center mb-6 sm:mb-8">
         <Badge
@@ -317,29 +319,17 @@ function ImageOptimizerContent() {
       </div>
 
       {/* File Upload */}
-      <Card className="mb-6 sm:mb-8">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileImage className="h-5 w-5" />
-            Upload Images
-          </CardTitle>
-          <CardDescription>
-            Select images to optimize (max {maxFiles} files)
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FileUpload
+      <FileUpload
             onFileSelect={handleFileSelect}
             onError={handleFileUploadError}
             accept="image/*"
             multiple
             maxFiles={maxFiles}
+            className="mb-6 sm:mb-8"
           />
-        </CardContent>
-      </Card>
 
       {/* Optimization Settings */}
-      <Card className="mb-6 sm:mb-8">
+      <Card className="mb-6 sm:mb-8" ref={settingsRef}>
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Zap className="h-5 w-5" />
