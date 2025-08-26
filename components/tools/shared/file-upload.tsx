@@ -219,7 +219,7 @@ export function FileUpload({
 
           {/* Supported Formats */}
           <p className="text-sm text-muted-foreground">
-            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • Max 10MB{multiple ? ` • Up to ${maxFiles} files` : ''}
+            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • JFIF{multiple ? ` • Up to ${maxFiles} files` : ''}
           </p>
 
           {/* Keyboard Shortcut Hint */}

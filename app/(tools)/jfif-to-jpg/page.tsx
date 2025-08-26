@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import {
   Card,
   CardContent,
@@ -25,9 +25,15 @@ import {
   RefreshCw,
   Settings,
 } from "lucide-react";
-import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
+import {
+  formatFileSize,
+  downloadFile,
+  createZipFromFiles,
+  downloadZip,
+} from "@/lib/utils/file-utils";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 import { JfifToJpgSEOContent } from "./seo-content";
+import { scrollToElement } from "@/lib/utils";
 
 interface ConversionResult {
   file: File;
@@ -41,7 +47,9 @@ interface ConversionResult {
 function JfifToJpgContent() {
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
-  const [convertedResults, setConvertedResults] = useState<ConversionResult[]>([]);
+  const [convertedResults, setConvertedResults] = useState<ConversionResult[]>(
+    []
+  );
   const [isConverting, setIsConverting] = useState(false);
   const [conversionProgress, setConversionProgress] = useState({
     current: 0,
@@ -49,25 +57,31 @@ function JfifToJpgContent() {
     file: "",
   });
   const [quality, setQuality] = useState([90]);
-
+  const afterUploadRef = useRef<HTMLDivElement>(null);
   const handleFileSelect = (files: File[]) => {
     // Filter only JFIF files
-    const jfifFiles = files.filter(file => 
-      file.type === 'image/jpeg' || 
-      file.name.toLowerCase().endsWith('.jfif') ||
-      file.name.toLowerCase().endsWith('.jif')
+    console.log(files);
+    const jfifFiles = files.filter(
+      (file) =>
+        file.type === "image/jpeg" ||
+        file.name.toLowerCase().endsWith(".jfif") ||
+        file.name.toLowerCase().endsWith(".jif")
     );
-    
+
     if (jfifFiles.length === 0) {
       showToast("Please select JFIF files only", "error");
       return;
     }
-    
+
     if (jfifFiles.length !== files.length) {
-      showToast(`${files.length - jfifFiles.length} non-JFIF files were filtered out`, "warning");
+      showToast(
+        `${files.length - jfifFiles.length} non-JFIF files were filtered out`,
+        "warning"
+      );
     }
-    
+
     setSelectedFiles((prev) => [...prev, ...jfifFiles]);
+    scrollToElement(afterUploadRef, 50);
   };
 
   const handleError = (error: string) => {
@@ -110,18 +124,18 @@ function JfifToJpgContent() {
 
         try {
           // Create canvas for conversion
-          const canvas = document.createElement('canvas');
-          const ctx = canvas.getContext('2d');
-          
+          const canvas = document.createElement("canvas");
+          const ctx = canvas.getContext("2d");
+
           if (!ctx) {
-            throw new Error('Could not get canvas context');
+            throw new Error("Could not get canvas context");
           }
 
           // Load image
-          const img = document.createElement('img');
+          const img = document.createElement("img");
           await new Promise<void>((resolve, reject) => {
             img.onload = () => resolve();
-            img.onerror = () => reject(new Error('Failed to load image'));
+            img.onerror = () => reject(new Error("Failed to load image"));
             img.src = URL.createObjectURL(file);
           });
 
@@ -139,18 +153,18 @@ function JfifToJpgContent() {
                 if (blob) {
                   resolve(blob);
                 } else {
-                  reject(new Error('Failed to convert to JPG'));
+                  reject(new Error("Failed to convert to JPG"));
                 }
               },
-              'image/jpeg',
+              "image/jpeg",
               quality[0] / 100
             );
           });
 
           // Create new file
-          const jpgFileName = file.name.replace(/\.(jfif|jif)$/i, '.jpg');
+          const jpgFileName = file.name.replace(/\.(jfif|jif)$/i, ".jpg");
           const jpgFile = new File([jpgBlob], jpgFileName, {
-            type: 'image/jpeg'
+            type: "image/jpeg",
           });
 
           // Clean up
@@ -163,7 +177,6 @@ function JfifToJpgContent() {
             convertedSize: jpgFile.size,
             success: true,
           });
-
         } catch (error) {
           results.push({
             file: file,
@@ -177,19 +190,22 @@ function JfifToJpgContent() {
       }
 
       setConvertedResults(results);
-      const successCount = results.filter(r => r.success).length;
-      const errorCount = results.filter(r => !r.success).length;
-      
+      const successCount = results.filter((r) => r.success).length;
+      const errorCount = results.filter((r) => !r.success).length;
+
       if (successCount > 0) {
-        showToast(`Successfully converted ${successCount} JFIF file(s) to JPG`, "success");
+        showToast(
+          `Successfully converted ${successCount} JFIF file(s) to JPG`,
+          "success"
+        );
       }
       if (errorCount > 0) {
         showToast(`Failed to convert ${errorCount} file(s)`, "error");
       }
-
     } catch (error) {
       showToast(
-        "Conversion failed: " + (error instanceof Error ? error.message : "Unknown error"),
+        "Conversion failed: " +
+          (error instanceof Error ? error.message : "Unknown error"),
         "error"
       );
     } finally {
@@ -205,17 +221,20 @@ function JfifToJpgContent() {
   };
 
   const downloadAll = async () => {
-    const successResults = convertedResults.filter(r => r.success);
+    const successResults = convertedResults.filter((r) => r.success);
     if (successResults.length === 0) return;
 
     if (successResults.length === 1) {
       downloadSingle(successResults[0]);
     } else {
       try {
-        const files = successResults.map(r => r.file);
+        const files = successResults.map((r) => r.file);
         const zipBlob = await createZipFromFiles(files, "converted-images.zip");
-        downloadZip(zipBlob, "jfif-to-jpg-converted.zip");
-        showToast(`Downloaded ${successResults.length} JPG files as ZIP`, "success");
+        downloadZip(zipBlob, "jfif-to-jpg-toolspy.zip");
+        showToast(
+          `Downloaded ${successResults.length} JPG files as ZIP`,
+          "success"
+        );
       } catch (error) {
         showToast("Failed to create ZIP file", "error");
       }
@@ -238,7 +257,7 @@ function JfifToJpgContent() {
           JFIF to JPG Converter
         </h1>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Convert JFIF images to JPG format with customizable quality settings. 
+          Convert JFIF images to JPG format with customizable quality settings.
           Fast, reliable, and completely private conversion.
         </p>
       </div>
@@ -249,90 +268,95 @@ function JfifToJpgContent() {
         onError={handleError}
         multiple={true}
         maxFiles={50}
-        accept="image/jpeg,.jfif,.jif"
+        accept=".jfif,.jif"
         className="mb-6 sm:mb-8"
       />
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  <Image className="h-5 w-5" />
-                  Selected JFIF Files ({selectedFiles.length})
-                </CardTitle>
-                <CardDescription>Files ready for JPG conversion</CardDescription>
-              </div>
-              <Button variant="outline" onClick={clearAllFiles} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
-                Clear All
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="max-h-96 overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {selectedFiles.map((file, index) => (
-                <CompactImagePreview
-                  key={`${file.name}-${index}`}
-                  file={file}
-                  onRemove={() => removeFile(index)}
-                  className="bg-muted"
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Conversion Settings */}
-      {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Conversion Settings
-            </CardTitle>
-            <CardDescription>
-              Customize the quality of your JPG output
-            </CardDescription>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <label className="text-sm font-medium">JPG Quality</label>
-                  <span className="text-sm font-medium">{quality[0]}%</span>
+        <div ref={afterUploadRef}>
+          <div className="flex flex-col gap-6">
+            <Card className="mb-6 sm:mb-8 md:col-span-4">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <Image className="h-5 w-5" />
+                      Selected JFIF Files ({selectedFiles.length})
+                    </CardTitle>
+                    <CardDescription>
+                      Files ready for JPG conversion
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" onClick={clearAllFiles} size="sm">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
+                  </Button>
                 </div>
-                <Slider
-                  value={quality}
-                  onValueChange={setQuality}
-                  max={100}
-                  min={10}
-                  step={5}
-                  className="w-full"
-                />
-                <p className="text-xs text-muted-foreground">
-                  Higher quality = larger file size, Lower quality = smaller file size
-                </p>
-              </div>
-            </div>
+              </CardHeader>
+              <CardContent className="max-h-96 overflow-y-auto">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {selectedFiles.map((file, index) => (
+                    <CompactImagePreview
+                      key={`${file.name}-${index}`}
+                      file={file}
+                      onRemove={() => removeFile(index)}
+                      className="bg-muted"
+                    />
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
 
-            {/* Convert Button */}
-            <Button
-              onClick={convertToJpg}
-              disabled={selectedFiles.length === 0 || isConverting}
-              size="lg"
-              className="w-full"
-            >
-              <RefreshCw className="h-5 w-5 mr-2" />
-              {isConverting
-                ? "Converting..."
-                : `Convert ${selectedFiles.length} JFIF to JPG`}
-            </Button>
-          </CardContent>
-        </Card>
+            {/* Conversion Settings */}
+            <Card className="mb-6 sm:mb-8 md:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  Conversion Settings
+                </CardTitle>
+                <CardDescription>
+                  Customize the quality of your JPG output
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between">
+                      <label className="text-sm font-medium">JPG Quality</label>
+                      <span className="text-sm font-medium">{quality[0]}%</span>
+                    </div>
+                    <Slider
+                      value={quality}
+                      onValueChange={setQuality}
+                      max={100}
+                      min={10}
+                      step={5}
+                      className="w-full cursor-pointer"
+                    />
+                    <p className="text-xs text-muted-foreground">
+                      Higher quality = larger file size, Lower quality = smaller
+                      file size
+                    </p>
+                  </div>
+                </div>
+
+                {/* Convert Button */}
+                <Button
+                  onClick={convertToJpg}
+                  disabled={selectedFiles.length === 0 || isConverting}
+                  size="lg"
+                  className="w-full"
+                >
+                  <RefreshCw className="h-5 w-5 mr-2" />
+                  {isConverting
+                    ? "Converting..."
+                    : `Convert ${selectedFiles.length} JFIF to JPG`}
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       )}
 
       {/* Conversion Results */}
@@ -346,12 +370,13 @@ function JfifToJpgContent() {
                   Conversion Results
                 </CardTitle>
                 <CardDescription>
-                  {convertedResults.filter(r => r.success).length} file(s) converted successfully
+                  {convertedResults.filter((r) => r.success).length} file(s)
+                  converted successfully
                 </CardDescription>
               </div>
               <Button onClick={downloadAll} size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Download All JPG Files
+                <Download className="h-4 w-4" />
+                Download Zip
               </Button>
             </div>
           </CardHeader>
@@ -382,12 +407,16 @@ function JfifToJpgContent() {
                     {/* File Info */}
                     <div className="flex-1 min-w-0 text-center sm:text-left">
                       <h4 className="font-medium truncate text-sm sm:text-base">
-                        {result.originalName} → {result.file.name}
+                        {result.file.name}
                       </h4>
                       <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-xs sm:text-sm text-muted-foreground mt-1">
-                        <span>Original: {formatFileSize(result.originalSize)}</span>
+                        <span>
+                          Original: {formatFileSize(result.originalSize)}
+                        </span>
                         {result.success && (
-                          <span>JPG: {formatFileSize(result.convertedSize)}</span>
+                          <span>
+                            JPG: {formatFileSize(result.convertedSize)}
+                          </span>
                         )}
                         <Badge
                           variant={result.success ? "default" : "destructive"}
@@ -397,7 +426,9 @@ function JfifToJpgContent() {
                         </Badge>
                       </div>
                       {result.error && (
-                        <p className="text-xs text-red-500 mt-1">Error: {result.error}</p>
+                        <p className="text-xs text-red-500 mt-1">
+                          Error: {result.error}
+                        </p>
                       )}
                     </div>
 
@@ -443,4 +474,4 @@ export default function JfifToJpgPage() {
       <JfifToJpgContent />
     </ToastProvider>
   );
-} 
+}

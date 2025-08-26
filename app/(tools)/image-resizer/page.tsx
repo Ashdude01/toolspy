@@ -453,11 +453,11 @@ function ImageResizerContent() {
         accept="image/*"
         multiple
         maxFiles={maxFiles}
-            className="mb-4"
+            className="mb-6"
           />
           
           {files.length > 0 && (
-            <div className="mt-4 p-4 bg-muted/50 rounded-lg">
+            <div className="mt-4 p-4 bg-muted/50 rounded-lg mb-6">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-sm font-medium">Upload Summary</span>
                 <Button variant="ghost" size="sm" onClick={clearAllFiles}>

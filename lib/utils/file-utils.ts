@@ -17,6 +17,7 @@ export interface CompressionSettings {
   removeExifData?: boolean | 'selective';
   enableProgressive?: boolean;
   targetFileSize?: number; // in bytes
+  preserveOriginalNames?: boolean;
 }
 
 export const SUPPORTED_IMAGE_TYPES = [

@@ -60,7 +60,7 @@ export async function compressImage(
             settings.enableProgressive
           );
           if (result) {
-            const filename = generateCompressedFilename(file.name, outputFormat, index);
+            const filename = generateCompressedFilename(file.name, outputFormat, index, settings.preserveOriginalNames);
             const compressedFile = new File([result], filename, { 
               type: outputFormat 
             });
@@ -75,7 +75,7 @@ export async function compressImage(
         canvas.toBlob(
           (blob) => {
             if (blob) {
-              const filename = generateCompressedFilename(file.name, outputFormat, index);
+              const filename = generateCompressedFilename(file.name, outputFormat, index, settings.preserveOriginalNames);
               const compressedFile = new File([blob], filename, { 
                 type: outputFormat 
               });
@@ -148,8 +148,15 @@ function getOutputFormat(format: string, originalType: string): string {
   return formatMap[format] || 'image/jpeg';
 }
 
-function generateCompressedFilename(originalName: string, outputFormat: string, index?: number): string {
+function generateCompressedFilename(originalName: string, outputFormat: string, index?: number, preserveOriginalNames?: boolean): string {
   const extension = getExtensionFromMimeType(outputFormat);
+  
+  if (preserveOriginalNames) {
+    // Keep original filename, just change extension if needed
+    const nameWithoutExt = originalName.replace(/\.[^/.]+$/, '');
+    return `${nameWithoutExt}.${extension}`;
+  }
+  
   const watermark = siteConfig.fileWatermark;
   
   // Simple format: toolspy-compressed-1.jpg

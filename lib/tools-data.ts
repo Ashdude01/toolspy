@@ -205,7 +205,7 @@ export const tools: Tool[] = [
       description: 'Convert JFIF images to JPG/JPEG format with high quality preservation',
       tags: ['jfif', 'jpg', 'jpeg', 'convert', 'format']
     }),
-    posterImage: '/images/tools/jfif-to-jpg.webp'
+    posterImage: '/images/tools/jfif-jpg-convert.webp'
   },
 
   // Base64 Tools

@@ -80,6 +80,7 @@ function ImageCompressorContent() {
     "selective"
   );
   const [enableProgressive, setEnableProgressive] = useState(false);
+  const [preserveOriginalNames, setPreserveOriginalNames] = useState(false);
   const [targetFileSize, setTargetFileSize] = useState("");
   const [showAdvanced, setShowAdvanced] = useState(false);
   const [isCompressing, setIsCompressing] = useState(false);
@@ -189,6 +190,7 @@ function ImageCompressorContent() {
         : undefined,
       removeExifData,
       enableProgressive,
+      preserveOriginalNames,
       targetFileSize: targetFileSize
         ? parseInt(targetFileSize) * 1024
         : undefined, // Convert KB to bytes
@@ -304,7 +306,7 @@ function ImageCompressorContent() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
+    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
       {/* Header */}
       <div className="text-center mb-6 sm:mb-8">
         <Badge
@@ -614,6 +616,17 @@ function ImageCompressorContent() {
                         Progressive encoding
                       </Label>
                     </div>
+                  </div>
+
+                  {/* File Naming Options */}
+                  <div className="flex items-center space-x-2">
+                    <Switch
+                      checked={preserveOriginalNames}
+                      onCheckedChange={setPreserveOriginalNames}
+                    />
+                    <Label className="text-sm font-medium">
+                      Original Filename
+                    </Label>
                   </div>
                   <p className="text-xs sm:text-sm text-muted-foreground">
                     Advanced settings allow you to fine-tune compression

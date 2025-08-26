@@ -24,6 +24,8 @@ import { getToolBySlug, tools } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import Image from "next/image";
 import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function ImageCompressorSEOContent() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
@@ -264,7 +266,7 @@ export function ImageCompressorSEOContent() {
         "Better Quality Control: More granular compression settings",
         "Cost-Effective: Completely free vs. paid tiers for full features",
         "Privacy First: No server processing vs. cloud-based compression",
-        "Progressive Encoding: Advanced web optimization features",
+        "Progressive Encoding: Advanced web compression features",
       ],
     },
     {
@@ -282,46 +284,87 @@ export function ImageCompressorSEOContent() {
 
   return (
     <div className="space-y-12 mt-16">
-      {/* Tool Poster Image */}
-      <section className="space-y-6">
+            {/* Introduction Section */}
+      <section className="space-y-8">
         <div className="text-center">
-          <div className="relative mx-auto max-w-6xl">
-            <Image
-              width={1200}
-              height={680}
-              src={tool?.posterImage || ""}
-              alt="Toolspy Professional Image Compressor - Advanced compression technology with batch processing and quality control"
-              className="w-full rounded-xl shadow-lg border"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Introduction Section */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Compress Images Easily – Keep Quality, Lose the Bulk
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+          Compress Images Easily – Keep Quality
           </h2>
-          <p className="text-lg text-muted-foreground max-w-6xl mx-auto">
-            Tired of slow-loading websites or running out of storage because of
+          <p className="text-xl text-muted-foreground mb-8">
+          Tired of slow-loading websites or running out of storage because of
             large image files? Toolspy's Image Compressor is here to help. Our
             tool shrinks your images without sacrificing the crisp details you
             love. Whether you're a web designer, photographer, or just want to
             share photos faster, you'll get smaller files and the same great
-            look.
-          </p>
-          <p className="text-base text-muted-foreground max-w-6xl mx-auto mt-4">
-            With support for popular formats like JPEG, PNG, WebP, and AVIF, you
-            can optimize images for your website, social media, or email in just
-            a few clicks. No more complicated settings or hidden fees—just fast,
-            reliable compression that works for everyone.
-          </p>
+            look.          </p>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Transform your images with our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">free online image compressor</strong> - the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">image compression tool</strong> for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">compress images for web</strong>,{" "}
+                    <strong className="text-green-600 dark:text-green-400">compress images online</strong>, and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">reduce image file size</strong> with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    Our <strong className="text-blue-600 dark:text-blue-400">online image compressor</strong> is designed for both
+                    beginners and professionals. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">drag and drop functionality</strong>,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">batch processing</strong>, and{" "}
+                    <strong className="text-green-600 dark:text-green-400">multiple format support</strong>, you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">compress images free</strong> without any software
+                    installation or registration required.
+                  </p>
+                </div>
+                
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">15+</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">Formats</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">100MB</div>
+                    <div className="text-sm text-green-700 dark:text-green-300">Max Size</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">80%</div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">Compression</div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">∞</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">Privacy</div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional Image Compressor - Advanced compression technology with batch processing and quality control"
+                  
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ Most Popular
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        
       </section>
 
-      {/* Image Gallery - How to Use */}
+
+
+
+      {/* - How to Use */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
           How to Compress Your Images with Toolspy
@@ -359,7 +402,7 @@ export function ImageCompressorSEOContent() {
           <Card className="p-4 bg-muted">
             <h4 className="font-semibold mb-2">4. Download and Go</h4>
             <p className="text-sm text-muted-foreground">
-              See how much space you saved, then download your optimized
+              See how much space you saved, then download your compressed
               images—one by one or all together in a ZIP file.
             </p>
           </Card>
@@ -522,7 +565,7 @@ export function ImageCompressorSEOContent() {
               step: "2",
               title: "Choose Compression Settings",
               description:
-                "Select from our optimized presets (Balanced, High Quality, Max Compression, Web Optimized) or customize quality, format, and compression parameters.",
+                "Select from our compression presets (Balanced, High Quality, Max Compression, Web Optimized) or customize quality, format, and compression parameters.",
             },
             {
               step: "3",
@@ -532,7 +575,7 @@ export function ImageCompressorSEOContent() {
             },
             {
               step: "4",
-              title: "Download Optimized Results",
+              title: "Download Compressed Results",
               description:
                 "Get your compressed images with detailed compression statistics. Download individually, all at once, or as a convenient ZIP archive.",
             },
@@ -753,44 +796,7 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* FAQ Section */}
-      <section className="space-y-6" id="faq">
-        <h3 className="text-2xl font-bold text-center">
-          Your Questions Answered
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Everything you need to know about compressing images with Toolspy.
-        </p>
-        <div className="space-y-3">
-          {faqData.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
-        </div>
-      </section>
+      <FAQ faqs={faqData} />
 
       {/* SEO Keyword Cluster Section */}
       <section className="space-y-6">
