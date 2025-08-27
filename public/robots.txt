@@ -12,6 +12,3 @@ Disallow: /_next/
 Allow: /tools/
 Allow: /about
 Allow: /contact
-
-# Crawl delay for bots
-Crawl-delay: 1 

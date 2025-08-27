@@ -1243,6 +1243,86 @@ export const tools: Tool[] = [
       tags: ['font', 'ttf', 'otf', 'woff', 'converter', 'typography', 'web fonts', 'css', 'fontforge']
     }),
     posterImage: '/images/tools/font-converter.webp'
+  },
+  {
+    id: 'instagram-engagement-calculator',
+    name: 'Instagram Engagement Calculator',
+    slug: 'instagram-engagement-calculator',
+    description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
+    category: 'calculators',
+    icon: '📊',
+    featured: true,
+    tags: ['instagram', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments'],
+    path: '/instagram-engagement-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Instagram Engagement Calculator',
+      title: 'Free Instagram Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      slug: '/instagram-engagement-calculator',
+      description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
+      tags: ['instagram', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'engagement rate']
+    }),
+    posterImage: '/images/tools/instagram-engagement-calculator.webp'
+  },
+  {
+    id: 'facebook-engagement-calculator',
+    name: 'Facebook Engagement Calculator',
+    slug: 'facebook-engagement-calculator',
+    description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
+    category: 'calculators',
+    icon: '📊',
+    featured: true,
+    tags: ['facebook', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'reactions'],
+    path: '/facebook-engagement-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Facebook Engagement Calculator',
+      title: 'Free Facebook Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      slug: '/facebook-engagement-calculator',
+      description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
+      tags: ['facebook', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'reactions', 'engagement rate']
+    }),
+    posterImage: '/images/tools/facebook-engagement-calculator.webp'
+  },
+  {
+    id: 'twitter-engagement-calculator',
+    name: 'Twitter Engagement Calculator',
+    slug: 'twitter-engagement-calculator',
+    description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
+    category: 'calculators',
+    icon: '📊',
+    featured: true,
+    tags: ['twitter', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'retweets', 'replies'],
+    path: '/twitter-engagement-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Twitter Engagement Calculator',
+      title: 'Free Twitter Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      slug: '/twitter-engagement-calculator',
+      description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
+      tags: ['twitter', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'retweets', 'replies', 'engagement rate']
+    }),
+    posterImage: '/images/tools/twitter-engagement-calculator.webp'
+  },
+  {
+    id: 'youtube-engagement-calculator',
+    name: 'YouTube Engagement Calculator',
+    slug: 'youtube-engagement-calculator',
+    description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for video success',
+    category: 'calculators',
+    icon: '📊',
+    featured: true,
+    tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views'],
+    path: '/youtube-engagement-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'YouTube Engagement Calculator',
+      title: 'Free YouTube Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      slug: '/youtube-engagement-calculator',
+      description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for video analytics.',
+      tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views', 'engagement rate']
+    }),
+    posterImage: '/images/tools/youtube-engagement-calculator.webp'
   }
 ];
 
