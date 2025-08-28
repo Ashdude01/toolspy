@@ -1323,6 +1323,46 @@ export const tools: Tool[] = [
       tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views', 'engagement rate']
     }),
     posterImage: '/images/tools/youtube-engagement-calculator.webp'
+  },
+  {
+    id: 'domain-whois-lookup',
+    name: 'Domain WHOIS Lookup',
+    slug: 'domain-whois-lookup',
+    description: 'Get comprehensive domain registration information with our free WHOIS lookup tool. Check domain ownership, registration dates, and contact details instantly.',
+    category: 'misc-tools',
+    icon: '🔍',
+    featured: true,
+    tags: ['whois', 'domain', 'lookup', 'registration', 'ownership', 'contact', 'dns', 'registrar', 'expiration', 'domain research', 'domain checker', 'whois lookup', 'domain information'],
+    path: '/domain-whois-lookup',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Domain WHOIS Lookup',
+      title: 'Free WHOIS Lookup – Get Domain Information Instantly | Toolspy',
+      slug: '/domain-whois-lookup',
+      description: 'Get comprehensive domain registration information with our free WHOIS lookup tool. Check domain ownership, registration dates, and contact details instantly.',
+      tags: ['whois', 'domain', 'lookup', 'registration', 'ownership', 'contact', 'dns', 'registrar', 'expiration', 'domain research', 'domain checker', 'whois lookup', 'domain information', 'free whois', 'domain lookup tool']
+    }),
+    posterImage: '/images/tools/domain-whois-lookup.webp'
+  },
+  {
+    id: 'expired-domain-finder',
+    name: 'Expired Domain Finder',
+    slug: 'expired-domain-finder',
+    description: 'Discover valuable expired domains with our comprehensive search tool. Get instant access to domain authority scores, backlink data, and estimated values.',
+    category: 'misc-tools',
+    icon: '💰',
+    featured: true,
+    tags: ['expired domains', 'domain finder', 'domain authority', 'backlinks', 'seo', 'domain research', 'domain investment', 'domain value', 'expired domain finder', 'domain search'],
+    path: '/expired-domain-finder',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Expired Domain Finder',
+      title: 'Find Valuable Expired Domains – Boost Your SEO | Toolspy',
+      slug: '/expired-domain-finder',
+      description: 'Discover valuable expired domains with our comprehensive search tool. Get instant access to domain authority scores, backlink data, and estimated values.',
+      tags: ['expired domains', 'domain finder', 'domain authority', 'backlinks', 'seo', 'domain research', 'domain investment', 'domain value', 'expired domain finder', 'domain search', 'free domain finder', 'domain metrics']
+    }),
+    posterImage: '/images/tools/expired-domain-finder.webp'
   }
 ];
 

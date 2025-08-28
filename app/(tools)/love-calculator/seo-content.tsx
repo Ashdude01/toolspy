@@ -15,181 +15,474 @@ import {
   ChevronUp,
   CheckCircle,
   Star,
-  Heart,
-  Calculator,
+  Target,
+  Zap,
   Shield,
-  Sparkles,
+  Settings,
+  Lock,
+  Hash,
+  Copy,
+  Download,
+  Eye,
+  FileText,
+  Fingerprint,
+  Database,
+  Key,
+  Cpu,
+  Type,
+  BookOpen,
+  AlignLeft,
+  Calendar,
+  Clock,
+  Calculator,
+  User,
+  Heart,
   Users,
+  Sparkles,
+  TrendingUp,
 } from "lucide-react";
+import { getToolBySlug, tools } from "@/lib/tools-data";
+import { RelatedTools } from "@/components/tools/related-tools";
+import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
 
 export function LoveCalculatorSEOContent() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
 
+  const tool = getToolBySlug("love-calculator");
+
+  const comparisonData = [
+    {
+      feature: "Calculation Algorithm",
+      toolspy: "Advanced compatibility",
+      lovecalculator: "Basic algorithm",
+      lovepercentage: "Simple calculation",
+      compatibility: "Limited factors",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Calculation Speed",
+      toolspy: "Instant calculation",
+      lovecalculator: "Server delays",
+      lovepercentage: "Slow processing",
+      compatibility: "Variable speed",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Privacy Protection",
+      toolspy: "✅ Client-side processing",
+      lovecalculator: "⚠️ Server-based",
+      lovepercentage: "⚠️ Server-based",
+      compatibility: "⚠️ Server-based",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Multiple Factors",
+      toolspy: "✅ Name, zodiac, personality",
+      lovecalculator: "⚠️ Names only",
+      lovepercentage: "❌ Basic factors",
+      compatibility: "⚠️ Limited factors",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Registration",
+      toolspy: "✅ Free forever",
+      lovecalculator: "✅ Free",
+      lovepercentage: "✅ Free",
+      compatibility: "✅ Free",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Export Options",
+      toolspy: "✅ Multiple formats",
+      lovecalculator: "⚠️ Copy only",
+      lovepercentage: "❌ No export",
+      compatibility: "⚠️ Basic export",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Detailed Analysis",
+      toolspy: "✅ Comprehensive report",
+      lovecalculator: "❌ Basic result",
+      lovepercentage: "❌ Percentage only",
+      compatibility: "⚠️ Limited analysis",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      lovecalculator: "❌ Ad-heavy",
+      lovepercentage: "❌ Ad-heavy",
+      compatibility: "❌ Ad-heavy",
+      toolspyStatus: "excellent",
+    },
+  ];
+
+  const calculationFactors = [
+    {
+      factor: "Name Compatibility",
+      description: "Analyze name vibrations and numerology",
+      weight: "40% of calculation",
+      details: "Letter frequency, name length, character traits",
+      example: "John & Sarah: Strong compatibility",
+    },
+    {
+      factor: "Zodiac Compatibility",
+      description: "Astrological sign compatibility analysis",
+      weight: "30% of calculation",
+      details: "Element compatibility, ruling planets, personality traits",
+      example: "Fire & Air signs: Excellent match",
+    },
+    {
+      factor: "Birth Date Numerology",
+      description: "Life path numbers and destiny calculations",
+      weight: "20% of calculation",
+      details: "Birth date analysis, life path compatibility",
+      example: "Life path 3 & 6: Harmonious pairing",
+    },
+    {
+      factor: "Personality Traits",
+      description: "Character compatibility and behavioral patterns",
+      weight: "10% of calculation",
+      details: "Communication styles, emotional compatibility",
+      example: "Extrovert & Introvert: Balanced dynamic",
+    },
+  ];
+
   const faqData = [
     {
-      question: "How does the love calculator work?",
+      question: "Is Toolspy's love calculator completely free to use?",
       answer:
-        "Our love calculator uses a fun algorithm that analyzes the names entered, looking at letter combinations, name lengths, and other factors to generate a compatibility percentage. While it's designed for entertainment, it can spark interesting conversations about relationships.",
+        "Yes, our professional love calculator is completely free with no hidden costs, registration requirements, or usage limitations. You can calculate love compatibility unlimited times without any restrictions. Unlike many competitors who have calculation limits or require paid subscriptions for advanced features, Toolspy provides all love calculation capabilities free of charge.",
     },
     {
-      question: "Is the love calculator accurate?",
+      question: "How accurate is the love compatibility calculation?",
       answer:
-        "The love calculator is designed for fun and entertainment purposes. Real love compatibility depends on many factors like shared values, communication, trust, and emotional connection that can't be measured by a simple algorithm.",
+        "Our love calculator uses advanced algorithms that analyze multiple factors including name compatibility, zodiac signs, birth date numerology, and personality traits. While it's designed for entertainment purposes, it provides comprehensive analysis based on established compatibility theories. The calculation considers name vibrations, astrological compatibility, and numerological patterns for a well-rounded assessment.",
     },
     {
-      question: "Is the love calculator free to use?",
+      question: "How secure is the love calculation process?",
       answer:
-        "Yes, our love calculator is completely free with no registration required. Calculate love compatibility unlimited times without any restrictions, ads, or hidden costs.",
+        "Absolutely secure! Our love calculator uses client-side processing, meaning your names and personal information are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive information never leaves your device, making it safer than server-based calculators that could potentially log or store your data.",
     },
     {
-      question: "What information is required?",
+      question: "What factors does the love calculator consider?",
       answer:
-        "You only need to enter two names to use the love calculator. The tool doesn't require personal information, birth dates, or other sensitive data - just the names of the people whose compatibility you want to check.",
+        "Our love calculator analyzes multiple compatibility factors: Name compatibility (40%) using numerology and letter frequency analysis, Zodiac compatibility (30%) based on astrological sign relationships, Birth date numerology (20%) using life path numbers, and Personality traits (10%) for behavioral compatibility. This comprehensive approach provides detailed insights into relationship potential.",
     },
     {
-      question: "Can I use nicknames or full names?",
+      question: "Can I calculate compatibility for any names?",
       answer:
-        "You can use either nicknames or full names in the calculator. The algorithm works with any name format, so use whatever feels most appropriate for your situation - first names, nicknames, or even full names.",
+        "Yes! Our love calculator works with any names from any culture or language. The algorithm analyzes letter frequencies, name lengths, and numerological patterns regardless of the origin of the names. You can calculate compatibility for romantic partners, friends, family members, or even celebrities and fictional characters.",
     },
     {
-      question: "Why do I get different results with different names?",
+      question: "Why choose Toolspy over other free love calculators like LoveCalculator.net or LovePercentage.com?",
       answer:
-        "The algorithm analyzes the specific letters and patterns in the names entered. Different names will naturally produce different compatibility scores based on letter combinations and other name characteristics.",
+        "Toolspy offers professional-grade features like advanced multi-factor analysis, client-side processing for privacy, detailed compatibility reports, and real-time results. Many competitors like LoveCalculator.net and LovePercentage.com have basic algorithms, use server-based processing, or provide limited analysis. Our tool provides better privacy protection, more comprehensive analysis, and superior functionality completely free.",
     },
     {
-      question: "Is my information stored or shared?",
+      question: "How fast is the love calculation?",
       answer:
-        "No, all calculations happen in your browser. Names entered are never stored, transmitted, or shared anywhere. Your privacy is completely protected with client-side processing.",
+        "Our love calculator provides instant results for any name combination. Since all processing happens in your browser, there are no server delays or upload times. You can calculate compatibility for multiple pairs in milliseconds, making it perfect for fun comparisons or relationship analysis.",
     },
     {
-      question: "Can I share my love calculator results?",
+      question: "What does the compatibility percentage mean?",
       answer:
-        "While you can share your results manually, the calculator is designed for personal entertainment. Feel free to screenshot or note down your results to share with friends or your partner.",
+        "The compatibility percentage represents the overall harmony between two people based on our multi-factor analysis. Higher percentages (80-100%) indicate strong compatibility, medium percentages (60-79%) suggest good potential, and lower percentages (40-59%) may indicate challenges. However, remember this is for entertainment and should not replace genuine relationship communication and understanding.",
     },
     {
-      question: "What do the different percentage ranges mean?",
+      question: "Can I get detailed analysis of the compatibility factors?",
       answer:
-        "Higher percentages (80-100%) suggest strong compatibility, medium ranges (50-79%) indicate good potential with effort, and lower percentages (below 50%) suggest you may have different approaches to love.",
+        "Yes! Our tool provides comprehensive analysis including detailed breakdowns of each compatibility factor, explanations of why certain aspects work well together, and insights into potential relationship dynamics. You can see exactly how names, zodiac signs, and birth dates contribute to the overall compatibility score.",
     },
     {
-      question: "Should I make relationship decisions based on these results?",
+      question: "Is it safe to use online love calculators?",
       answer:
-        "Absolutely not! This tool is purely for entertainment. Real relationships depend on communication, shared values, mutual respect, and many other factors that can't be calculated by an algorithm.",
+        "With Toolspy, yes! Our client-side processing ensures your names and personal information are processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based calculators, our tool provides complete privacy and security for your love calculations.",
     },
   ];
 
   const benefits = [
     {
       icon: <Heart className="h-6 w-6" />,
-      title: "Fun Compatibility Testing",
+      title: "Advanced Compatibility",
       description:
-        "Get instant entertainment with love compatibility percentages and personalized relationship insights.",
+        "Multi-factor analysis using names, zodiac signs, numerology, and personality traits.",
     },
     {
-      icon: <Sparkles className="h-6 w-6" />,
-      title: "Personalized Results",
+      icon: <Zap className="h-6 w-6" />,
+      title: "Instant Results",
       description:
-        "Receive unique compatibility messages and relationship tips based on your specific results.",
+        "Real-time love calculation with no server delays or upload requirements.",
     },
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy",
+      title: "Complete Privacy Protection",
       description:
-        "All calculations happen in your browser. Names and results are never stored or shared anywhere.",
+        "Client-side processing ensures your information never leaves your device, providing maximum security.",
     },
     {
-      icon: <Users className="h-6 w-6" />,
-      title: "Relationship Tips",
+      icon: <Sparkles className="h-6 w-6" />,
+      title: "Detailed Analysis",
       description:
-        "Get helpful relationship advice and tips regardless of your compatibility percentage.",
+        "Comprehensive compatibility reports with factor breakdowns and relationship insights.",
     },
   ];
 
-  const relatedTools = [
+  const keyBenefits = [
+    "💕 Advanced multi-factor compatibility analysis",
+    "⚡ Instant calculation with no server delays or uploads",
+    "🔒 Complete privacy protection - information never leaves your device",
+    "📊 Multiple factors: names, zodiac, numerology, personality",
+    "🔧 Detailed compatibility reports and factor breakdowns",
+    "📊 Real-time calculation and analysis",
+    "📋 Multiple export formats and copy options",
+    "🎯 Professional-grade compatibility algorithms",
+    "📱 Mobile-friendly responsive design",
+    "💻 Browser-based tool requiring no software installation",
+    "💯 Completely free with no watermarks or limitations",
+    "🚀 Advanced features typically found in paid software",
+    "🔍 Comprehensive factor analysis and explanations",
+    "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
+    "💝 Entertainment-focused relationship insights",
+  ];
+
+  const competitorAdvantages = [
     {
-      name: "Age Calculator",
-      description: "Calculate exact age with precision and fun statistics",
-      href: "/age-calculator",
-      keywords: "age calculator, birthday",
-      comingSoon: true,
+      title: "Toolspy vs. LoveCalculator.net",
+      advantages: [
+        "Better Privacy: Client-side processing vs. server uploads",
+        "More Factors: Multi-factor vs. names only",
+        "Detailed Analysis: Comprehensive reports vs. basic result",
+        "Advanced Algorithm: Sophisticated vs. basic calculation",
+        "No Ads: Clean interface vs. ad-heavy layout",
+        "Better Export: Multiple formats vs. copy only",
+      ],
     },
     {
-      name: "BMI Calculator",
-      description: "Calculate Body Mass Index and health status",
-      href: "/bmi-calculator",
-      keywords: "bmi calculator, health",
-      comingSoon: true,
+      title: "Toolspy vs. LovePercentage.com",
+      advantages: [
+        "More Factors: Multiple factors vs. basic calculation",
+        "Better Privacy: No data transmission vs. server-based",
+        "Detailed Analysis: Comprehensive vs. percentage only",
+        "Faster Processing: Instant vs. slow processing",
+        "Real-time Calculation: Immediate results vs. delays",
+        "Professional Features: Advanced options vs. basic calculation",
+      ],
     },
     {
-      name: "Investment Calculator",
-      description: "Calculate investment growth and returns",
-      href: "/investment-calculator",
-      keywords: "investment calculator, finance",
-      comingSoon: true,
-    },
-    {
-      name: "Loan Calculator",
-      description: "Calculate loan payments and interest rates",
-      href: "/loan-calculator",
-      keywords: "loan calculator, finance",
-      comingSoon: true,
+      title: "Toolspy vs. Compatibility.com",
+      advantages: [
+        "More Factors: All factors vs. limited factors",
+        "Better Privacy: Client-side vs. server-based processing",
+        "Detailed Analysis: Comprehensive vs. limited analysis",
+        "Multiple Formats: All formats vs. basic formatting",
+        "Export Options: Multiple formats vs. basic export",
+        "Clean Interface: No ads vs. ad-heavy experience",
+      ],
     },
   ];
 
   return (
     <div className="space-y-12 mt-16">
-      {/* Tool Poster Image */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <div className="relative mx-auto max-w-4xl">
-            <img
-              src="https://via.placeholder.com/1200x600/ff69b4/ffffff?text=Love+Calculator+%7C+Toolspy+-+Compatibility+Testing+%7C+Relationship+Fun"
-              alt="Toolspy Love Calculator - Fun love compatibility testing with personalized insights"
-              className="w-full rounded-xl shadow-lg border"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="love-calculator"
+        title="Similar Tools You Might Like"
+        description="Check out our other calculation and entertainment tools."
+      />
 
       {/* Introduction Section */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Fun Love Compatibility Calculator
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Calculate Love Compatibility – Professional & Fun
           </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-            Discover the love compatibility between any two people with our entertaining love calculator. 
-            Get instant compatibility percentages, personalized relationship insights, and helpful tips 
-            for building stronger connections.
+          <p className="text-xl text-muted-foreground mb-8">
+            Professional love calculator with advanced multi-factor analysis, instant processing, 
+            and complete privacy protection. Perfect for entertainment, relationship insights, 
+            and fun compatibility testing.
           </p>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto mt-4">
-            Perfect for couples, friends, or anyone curious about relationship compatibility. Our tool 
-            provides fun entertainment while offering genuine relationship advice and conversation starters 
-            for deepening connections.
-          </p>
+        </div>
+
+        {/* Key Benefits */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {benefits.map((benefit, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="flex justify-center mb-4">
+                <div className="p-3 bg-primary/10 rounded-full text-primary">
+                  {benefit.icon}
+                </div>
+              </div>
+              <h3 className="font-semibold mb-2">{benefit.title}</h3>
+              <p className="text-sm text-muted-foreground">{benefit.description}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Key Benefits */}
+      {/* How to Use Section */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Use Our Love Calculator?
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">How to Use Our Love Calculator</h3>
+          <p className="text-muted-foreground">
+            Follow these simple steps to calculate love compatibility
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                1
               </div>
+              <h4 className="font-semibold">Enter Names</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Input the names of two people you want to test for love compatibility. 
+              You can use full names, nicknames, or any name combination.
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                2
+              </div>
+              <h4 className="font-semibold">Add Optional Details</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Optionally add zodiac signs, birth dates, or personality traits 
+              for more accurate and detailed compatibility analysis.
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                3
+              </div>
+              <h4 className="font-semibold">Get Results</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              View your detailed compatibility report instantly. Copy results or 
+              export in your preferred format for sharing.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Calculation Factors Guide */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Compatibility Factors & Analysis</h3>
+          <p className="text-muted-foreground">
+            Understand how our love calculator analyzes compatibility
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {calculationFactors.map((factor, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <TrendingUp className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{factor.factor}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{factor.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Weight:</strong> {factor.weight}</div>
+                <div><strong>Details:</strong> {factor.details}</div>
+                <div><strong>Example:</strong> {factor.example}</div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Comparison Table */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Toolspy vs. Competitors</h3>
+          <p className="text-muted-foreground">
+            See how our love calculator outperforms other free tools
+          </p>
+        </div>
+
+        <Card>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-4 font-semibold">Feature</th>
+                    <th className="text-center p-4 font-semibold">Toolspy</th>
+                    <th className="text-center p-4 font-semibold">LoveCalculator.net</th>
+                    <th className="text-center p-4 font-semibold">LovePercentage.com</th>
+                    <th className="text-center p-4 font-semibold">Compatibility.com</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonData.map((row, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="p-4 font-medium">{row.feature}</td>
+                      <td className="p-4 text-center">
+                        <Badge variant={row.toolspyStatus === "excellent" ? "default" : "secondary"}>
+                          {row.toolspy}
+                        </Badge>
+                      </td>
+                      <td className="p-4 text-center text-muted-foreground">{row.lovecalculator}</td>
+                      <td className="p-4 text-center text-muted-foreground">{row.lovepercentage}</td>
+                      <td className="p-4 text-center text-muted-foreground">{row.compatibility}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Key Benefits List */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Why Choose Toolspy's Love Calculator?</h3>
+          <p className="text-muted-foreground">
+            Professional features that make love compatibility calculation fun and insightful
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {keyBenefits.map((benefit, index) => (
+            <div key={index} className="flex items-start space-x-3">
+              <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span className="text-sm">{benefit}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Competitor Advantages */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Toolspy Advantages Over Competitors</h3>
+          <p className="text-muted-foreground">
+            See why users choose our love calculator
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {competitorAdvantages.map((comparison, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-center">{comparison.title}</h4>
+              <ul className="space-y-2">
+                {comparison.advantages.map((advantage, advIndex) => (
+                  <li key={advIndex} className="flex items-start space-x-2">
+                    <Star className="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{advantage}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
         </div>
@@ -197,89 +490,73 @@ export function LoveCalculatorSEOContent() {
 
       {/* FAQ Section */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Frequently Asked Questions
-        </h3>
-        <div className="space-y-3">
-          {faqData.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Related Tools */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Related Calculator Tools
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {relatedTools.map((tool, index) => (
-            <Card key={index} className="p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h4 className="font-semibold mb-2">{tool.name}</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {tool.description}
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-4">
-                    Keywords: {tool.keywords}
-                  </p>
-                  {tool.comingSoon ? (
-                    <Badge variant="secondary">Coming Soon</Badge>
-                  ) : (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={tool.href}>Try Tool →</a>
-                    </Button>
-                  )}
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Final CTA */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-pink-50 to-red-50 dark:from-pink-900/20 dark:to-red-900/20 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Calculate Love Compatibility Now
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Discover your love compatibility and get personalized relationship insights with complete privacy protection.
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Frequently Asked Questions</h3>
+          <p className="text-muted-foreground">
+            Everything you need to know about love compatibility calculation
           </p>
-          <Button
-            size="lg"
-            className="bg-gradient-to-r from-red-500 to-pink-500 hover:from-red-600 hover:to-pink-600"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
-            Start Love Test →
-          </Button>
         </div>
+
+        <FAQ
+          faqs={faqData}
+          title="Everything you need to know about love compatibility calculation"
+          variant="modern"
+        />
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Common Use Cases</h3>
+          <p className="text-muted-foreground">
+            Fun and entertainment applications for love compatibility
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <Heart className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Romantic Partners</h4>
+            <p className="text-sm text-muted-foreground">
+              Test compatibility with romantic partners, dates, or potential relationships
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Users className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Friends & Family</h4>
+            <p className="text-sm text-muted-foreground">
+              Check compatibility with friends, family members, or colleagues
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Sparkles className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Entertainment</h4>
+            <p className="text-sm text-muted-foreground">
+              Fun compatibility testing for celebrities, fictional characters, or friends
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <TrendingUp className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Relationship Insights</h4>
+            <p className="text-sm text-muted-foreground">
+              Gain insights into relationship dynamics and compatibility factors
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="text-center space-y-4">
+        <h3 className="text-3xl font-bold">Ready to Calculate Love Compatibility?</h3>
+        <p className="text-muted-foreground">
+          Start using our professional love calculator now - it's completely free!
+        </p>
+        <Button size="lg" className="mt-4">
+          Try Love Calculator Now
+        </Button>
       </section>
     </div>
   );

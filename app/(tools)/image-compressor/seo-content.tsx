@@ -284,70 +284,118 @@ export function ImageCompressorSEOContent() {
 
   return (
     <div className="space-y-12 mt-16">
-            {/* Introduction Section */}
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="image-compressor"
+        title="Similar Tools You Might Like"
+        description="Check out our other image tools that work great with the compressor."
+      />
+
+      {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
           <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-          Compress Images Easily – Keep Quality
+            Compress Images Easily – Keep Quality
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-          Tired of slow-loading websites or running out of storage because of
+            Tired of slow-loading websites or running out of storage because of
             large image files? Toolspy's Image Compressor is here to help. Our
             tool shrinks your images without sacrificing the crisp details you
             love. Whether you're a web designer, photographer, or just want to
             share photos faster, you'll get smaller files and the same great
-            look.          </p>
+            look.{" "}
+          </p>
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="space-y-6 text-left">
                 <div className="space-y-4">
                   <p className="text-xl text-muted-foreground leading-relaxed">
                     Transform your images with our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">free online image compressor</strong> - the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">image compression tool</strong> for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">compress images for web</strong>,{" "}
-                    <strong className="text-green-600 dark:text-green-400">compress images online</strong>, and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">reduce image file size</strong> with professional quality.
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free online image compressor
+                    </strong>{" "}
+                    - the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      image compression tool
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      compress images for web
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      compress images online
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      reduce image file size
+                    </strong>{" "}
+                    with professional quality.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    Our <strong className="text-blue-600 dark:text-blue-400">online image compressor</strong> is designed for both
-                    beginners and professionals. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">drag and drop functionality</strong>,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">batch processing</strong>, and{" "}
-                    <strong className="text-green-600 dark:text-green-400">multiple format support</strong>, you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">compress images free</strong> without any software
-                    installation or registration required.
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      online image compressor
+                    </strong>{" "}
+                    is designed for both beginners and professionals. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      drag and drop functionality
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      batch processing
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      multiple format support
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      compress images free
+                    </strong>{" "}
+                    without any software installation or registration required.
                   </p>
                 </div>
-                
+
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
                   <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
                     <div className="text-2xl font-bold text-blue-600">15+</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">Formats</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Formats
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">100MB</div>
-                    <div className="text-sm text-green-700 dark:text-green-300">Max Size</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      100MB
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Max Size
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">80%</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">Compression</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      80%
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Compression
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
                     <div className="text-2xl font-bold text-pink-600">∞</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">Privacy</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Privacy
+                    </div>
                   </div>
                 </div>
               </div>
-              
+
               <div className="relative">
                 <NextImage
                   width={1200}
                   height={680}
                   src={tool?.posterImage || ""}
                   alt="Toolspy Professional Image Compressor - Advanced compression technology with batch processing and quality control"
-                  
                   className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
                   loading="lazy"
                 />
@@ -358,11 +406,7 @@ export function ImageCompressorSEOContent() {
             </div>
           </div>
         </div>
-        
       </section>
-
-
-
 
       {/* - How to Use */}
       <section className="space-y-6">
@@ -848,13 +892,6 @@ export function ImageCompressorSEOContent() {
         </div>
       </section>
 
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="image-compressor"
-        title="More Helpful Tools You Might Like"
-        description="Check out our other image tools that work great with the compressor."
-      />
-
       {/* Final CTA Section */}
       <section className="space-y-6">
         <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
@@ -882,43 +919,55 @@ export function ImageCompressorSEOContent() {
 export function getImageCompressorFAQs() {
   return [
     {
-      question: "How much can I reduce my image file size with this compressor?",
-      answer: "Typically, you can achieve 50-80% file size reduction while maintaining excellent visual quality. JPEG images can be compressed up to 95%, PNG images up to 70%, and WebP images up to 90%. The actual compression ratio depends on your image type, content complexity, and quality settings. Our advanced algorithms ensure optimal compression for each image format."
+      question:
+        "How much can I reduce my image file size with this compressor?",
+      answer:
+        "Typically, you can achieve 50-80% file size reduction while maintaining excellent visual quality. JPEG images can be compressed up to 95%, PNG images up to 70%, and WebP images up to 90%. The actual compression ratio depends on your image type, content complexity, and quality settings. Our advanced algorithms ensure optimal compression for each image format.",
     },
     {
       question: "Is it safe to upload my images to Toolspy's compressor?",
-      answer: "Absolutely! Our image compressor uses client-side processing, meaning your images are compressed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive images. Your data never leaves your device, making it safer than server-based compression tools."
+      answer:
+        "Absolutely! Our image compressor uses client-side processing, meaning your images are compressed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive images. Your data never leaves your device, making it safer than server-based compression tools.",
     },
     {
       question: "What image formats does the compressor support?",
-      answer: "We support all major image formats including JPEG, PNG, WebP, AVIF, BMP, and TIFF. You can also convert between formats during compression for maximum flexibility. Our tool handles both modern formats like AVIF and WebP, as well as traditional formats like JPEG and PNG with equal efficiency."
+      answer:
+        "We support all major image formats including JPEG, PNG, WebP, AVIF, BMP, and TIFF. You can also convert between formats during compression for maximum flexibility. Our tool handles both modern formats like AVIF and WebP, as well as traditional formats like JPEG and PNG with equal efficiency.",
     },
     {
       question: "How does batch compression work in Toolspy?",
-      answer: "You can select up to 100 images simultaneously for batch processing. Our tool processes each image individually using the same settings, providing consistent results across your entire batch. Progress is tracked in real-time with detailed status updates. You can download all compressed images individually or as a convenient ZIP file."
+      answer:
+        "You can select up to 100 images simultaneously for batch processing. Our tool processes each image individually using the same settings, providing consistent results across your entire batch. Progress is tracked in real-time with detailed status updates. You can download all compressed images individually or as a convenient ZIP file.",
     },
     {
-      question: "Why choose Toolspy over other free image compressors like ILoveImg or CloudConvert?",
-      answer: "Toolspy offers professional-grade features like target file size control, selective EXIF removal, progressive encoding, and client-side processing. Many competitors like ILoveImg and CloudConvert lack these advanced features or require paid upgrades. Our tool provides better privacy protection, more precise quality control, and superior compression algorithms completely free."
+      question:
+        "Why choose Toolspy over other free image compressors like ILoveImg or CloudConvert?",
+      answer:
+        "Toolspy offers professional-grade features like target file size control, selective EXIF removal, progressive encoding, and client-side processing. Many competitors like ILoveImg and CloudConvert lack these advanced features or require paid upgrades. Our tool provides better privacy protection, more precise quality control, and superior compression algorithms completely free.",
     },
     {
-      question: "Can I compress images for specific platforms like Instagram, Facebook, or websites?",
-      answer: "Yes! Use our 'Web Optimized' preset or customize settings for social media requirements. For Instagram posts, we recommend 1080x1080px and under 100KB. For Facebook, use 1200x630px for optimal display. For websites, aim for 75-85% quality for the best balance of file size and visual quality."
+      question:
+        "Can I compress images for specific platforms like Instagram, Facebook, or websites?",
+      answer:
+        "Yes! Use our 'Web Optimized' preset or customize settings for social media requirements. For Instagram posts, we recommend 1080x1080px and under 100KB. For Facebook, use 1200x630px for optimal display. For websites, aim for 75-85% quality for the best balance of file size and visual quality.",
     },
     {
       question: "What is the maximum file size I can compress?",
-      answer: "Our image compressor supports files up to 50MB per image, which is larger than many competitors. ILoveImg supports up to 25MB, while ImageResizer only handles 10MB files. This makes Toolspy ideal for high-resolution photography and professional image processing needs."
+      answer:
+        "Our image compressor supports files up to 50MB per image, which is larger than many competitors. ILoveImg supports up to 25MB, while ImageResizer only handles 10MB files. This makes Toolspy ideal for high-resolution photography and professional image processing needs.",
     },
     {
       question: "Does image compression affect image metadata and EXIF data?",
-      answer: "You have complete control over metadata handling with our advanced EXIF management system. Choose to remove all EXIF data for smaller files and privacy, preserve everything for professional workflows, or use selective removal to keep important data while removing sensitive location and camera information."
+      answer:
+        "You have complete control over metadata handling with our advanced EXIF management system. Choose to remove all EXIF data for smaller files and privacy, preserve everything for professional workflows, or use selective removal to keep important data while removing sensitive location and camera information.",
     },
     {
       question: "How does progressive JPEG encoding improve web performance?",
-      answer: "Progressive JPEG encoding allows images to load in multiple passes, showing a low-quality version first that gradually improves. This enhances user experience on websites by providing immediate visual feedback, making pages feel faster even with larger images. This feature is unique to Toolspy among free compressors."
-    }
+      answer:
+        "Progressive JPEG encoding allows images to load in multiple passes, showing a low-quality version first that gradually improves. This enhances user experience on websites by providing immediate visual feedback, making pages feel faster even with larger images. This feature is unique to Toolspy among free compressors.",
+    },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ('image-compressor', getImageCompressorFAQs);
+registerToolFAQ("image-compressor", getImageCompressorFAQs);

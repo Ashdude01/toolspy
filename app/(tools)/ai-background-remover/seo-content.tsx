@@ -234,6 +234,12 @@ export function AiBackgroundRemoverSEOContent() {
 
   return (
     <div className="space-y-12 mt-12">
+      {/* Related Tools */}
+      <RelatedTools 
+          currentToolSlug="ai-background-remover"
+          title="Similar Tools You May Like"
+        />
+
       {/* Features Section */}
       <section>
         <div className="text-center mb-8">
@@ -420,13 +426,6 @@ export function AiBackgroundRemoverSEOContent() {
             </Card>
           ))}
         </div>
-      </section>
-
-      {/* Related Tools */}
-      <section>
-        <RelatedTools 
-          currentToolSlug="ai-background-remover"
-        />
       </section>
     </div>
   );

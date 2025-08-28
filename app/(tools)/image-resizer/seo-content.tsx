@@ -327,6 +327,13 @@ export function ImageResizerSEOContent() {
 
   return (
     <div className="space-y-8">
+        {/* Related Tools */}
+        <RelatedTools
+        currentToolSlug="image-resizer"
+        title="Related Image Tools"
+        description="Explore our other professional image processing tools"
+      />
+      
       {/* Hero Section */}
       <section className="space-y-8">
         <div className="text-center">
@@ -1085,13 +1092,6 @@ export function ImageResizerSEOContent() {
         </CardContent>
       </Card>
 
-
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="image-resizer"
-        title="Related Image Tools"
-        description="Explore our other professional image processing tools"
-      />
     </div>
   );
 

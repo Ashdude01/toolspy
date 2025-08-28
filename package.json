@@ -26,11 +26,14 @@
     "@radix-ui/react-switch": "^1.2.5",
     "@types/jszip": "^3.4.0",
     "@types/qrcode": "^1.5.5",
+    "@types/whois-json": "^2.0.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
+    "extract-domain": "^5.0.2",
     "fast-xml-parser": "^5.2.5",
     "heic2any": "^0.0.4",
+    "is-valid-domain": "^0.1.6",
     "jose": "^6.0.12",
     "jspdf": "^3.0.1",
     "jszip": "^3.10.1",
@@ -43,7 +46,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "whois-json": "^2.0.4"
   },
   "devDependencies": {
     "@types/node": "20.10.5",

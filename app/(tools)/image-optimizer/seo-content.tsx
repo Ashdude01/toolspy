@@ -242,6 +242,14 @@ export function ImageOptimizerSEOContent() {
 
   return (
     <div className="space-y-8">
+
+       {/* Related Tools */}
+       <RelatedTools
+        currentToolSlug="image-optimizer"
+        title="Related Image Tools"
+        description="Explore our other professional image processing tools"
+      />
+      
       {/* Main Content */}
       <section className="space-y-8">
         <div className="text-center">
@@ -765,13 +773,6 @@ export function ImageOptimizerSEOContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="image-optimizer"
-        title="Related Image Tools"
-        description="Explore our other professional image processing tools"
-      />
     </div>
   );
 } 

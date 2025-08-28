@@ -20,12 +20,16 @@ import {
   Shield,
   Settings,
   Code,
-  Eye,
+  FileText,
+  Search,
   Download,
+  Eye,
+  AlertTriangle,
 } from "lucide-react";
 import { getToolBySlug, tools } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
 
 export function JsonFormatterSEOContent() {
   const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
@@ -34,207 +38,352 @@ export function JsonFormatterSEOContent() {
 
   const comparisonData = [
     {
-      feature: "File Size Limit",
-      toolspy: "50MB",
-      jsonlint: "1MB",
-      jsonviewer: "10MB",
-      codebeautify: "5MB",
+      feature: "Max File Size",
+      toolspy: "Unlimited",
+      jsonlint: "10MB limit",
+      jsonformatter: "5MB limit",
+      jsonbeautifier: "1MB limit",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Tree Visualization",
+      feature: "Tree View",
       toolspy: "✅ Interactive tree",
       jsonlint: "❌ Text only",
-      jsonviewer: "✅ Basic tree",
-      codebeautify: "✅ Basic tree",
+      jsonformatter: "⚠️ Basic tree",
+      jsonbeautifier: "❌ No tree view",
       toolspyStatus: "excellent",
     },
     {
       feature: "Error Detection",
-      toolspy: "✅ Line/column details",
+      toolspy: "✅ Real-time highlighting",
       jsonlint: "✅ Basic errors",
-      jsonviewer: "✅ Basic errors",
-      codebeautify: "✅ Basic errors",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple files",
-      jsonlint: "❌ Single file",
-      jsonviewer: "❌ Single file",
-      codebeautify: "❌ Single file",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Custom Formatting",
-      toolspy: "✅ Advanced options",
-      jsonlint: "✅ Basic options",
-      jsonviewer: "✅ Limited options",
-      codebeautify: "✅ Basic options",
+      jsonformatter: "⚠️ Limited errors",
+      jsonbeautifier: "❌ No validation",
       toolspyStatus: "excellent",
     },
     {
       feature: "Privacy Protection",
-      toolspy: "✅ Client-side only",
-      jsonlint: "⚠️ Server processing",
-      jsonviewer: "⚠️ Server processing",
-      codebeautify: "⚠️ Server processing",
+      toolspy: "✅ Client-side processing",
+      jsonlint: "⚠️ Server-based",
+      jsonformatter: "⚠️ Server-based",
+      jsonbeautifier: "⚠️ Server-based",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Download Options",
+      feature: "Export Options",
       toolspy: "✅ Multiple formats",
-      jsonlint: "✅ JSON only",
-      jsonviewer: "✅ JSON only",
-      codebeautify: "✅ JSON only",
+      jsonlint: "✅ Copy only",
+      jsonformatter: "✅ Basic export",
+      jsonbeautifier: "❌ No export",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Comments Support",
-      toolspy: "✅ Auto-remove option",
-      jsonlint: "❌ Not supported",
-      jsonviewer: "❌ Not supported",
-      codebeautify: "❌ Not supported",
+      feature: "Syntax Highlighting",
+      toolspy: "✅ Advanced highlighting",
+      jsonlint: "❌ No highlighting",
+      jsonformatter: "⚠️ Basic colors",
+      jsonbeautifier: "❌ No highlighting",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Minify/Beautify",
+      toolspy: "✅ Both options",
+      jsonlint: "❌ Format only",
+      jsonformatter: "✅ Both options",
+      jsonbeautifier: "⚠️ Beautify only",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Registration",
+      toolspy: "✅ Free forever",
+      jsonlint: "✅ Free",
+      jsonformatter: "✅ Free",
+      jsonbeautifier: "✅ Free",
       toolspyStatus: "excellent",
     },
   ];
 
-  const features = [
+  const formatData = [
+    {
+      format: "Pretty Print",
+      description: "Human-readable formatting",
+      useCase: "Development, debugging",
+      features: "Indentation, line breaks, color coding",
+      size: "Larger file size",
+    },
+    {
+      format: "Minified",
+      description: "Compact single-line format",
+      useCase: "Production, transmission",
+      features: "No whitespace, minimal size",
+      size: "Smallest file size",
+    },
+    {
+      format: "Compact",
+      description: "Balanced formatting",
+      useCase: "Storage, readability",
+      features: "Minimal whitespace, structured",
+      size: "Medium file size",
+    },
+  ];
+
+  const faqData = [
+    {
+      question: "Is Toolspy's JSON formatter completely free to use?",
+      answer:
+        "Yes, our professional JSON formatter and validator is completely free with no hidden costs, registration requirements, or usage limitations. You can format, validate, and process unlimited JSON data without any restrictions. Unlike many competitors who have file size limits or require paid subscriptions for advanced features, Toolspy provides all JSON processing capabilities free of charge.",
+    },
+    {
+      question: "What is JSON formatting and why is it important?",
+      answer:
+        "JSON formatting makes JSON data human-readable by adding proper indentation, line breaks, and spacing. This is crucial for developers debugging code, reviewing API responses, and understanding data structures. Properly formatted JSON is easier to read, debug, and maintain. Our tool also validates JSON syntax to ensure it's properly structured and error-free.",
+    },
+    {
+      question: "How secure is the JSON data I process with Toolspy?",
+      answer:
+        "Absolutely secure! Our JSON formatter uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive JSON data. Your data never leaves your device, making it safer than server-based formatting tools.",
+    },
+    {
+      question: "What features does the interactive tree view provide?",
+      answer:
+        "Our interactive tree view allows you to expand and collapse JSON objects and arrays, making it easy to navigate large JSON structures. You can click on any object or array to expand it, see the data types, and quickly locate specific values. This is especially useful for debugging API responses and understanding complex data structures.",
+    },
+    {
+      question: "Can I process large JSON files with this tool?",
+      answer:
+        "Yes! Unlike many competitors who limit files to 1-10MB, our tool supports unlimited JSON file size. You can format and validate large datasets, API responses, and complex JSON structures. The tool also provides real-time validation with detailed error messages, helping you identify and fix JSON syntax issues instantly.",
+    },
+    {
+      question: "Why choose Toolspy over other free JSON tools like JSONLint or JSONFormatter.org?",
+      answer:
+        "Toolspy offers professional-grade features like interactive tree view, unlimited file size, real-time error highlighting, multiple export formats, and client-side processing. Many competitors like JSONLint and JSONFormatter.org lack these advanced features or have strict file size limits. Our tool provides better privacy protection, more visualization options, and superior error detection completely free.",
+    },
+    {
+      question: "How does the error detection and highlighting work?",
+      answer:
+        "Our tool provides real-time JSON validation with detailed error messages and visual highlighting. Invalid syntax is highlighted in red, and specific error messages explain what's wrong and how to fix it. The tool checks for missing commas, brackets, quotes, and other common JSON syntax errors, making it easy to debug malformed JSON data.",
+    },
+    {
+      question: "What's the difference between minify and beautify?",
+      answer:
+        "Beautify (pretty print) adds indentation, line breaks, and spacing to make JSON human-readable. Minify removes all unnecessary whitespace to create the smallest possible file size for production use. Our tool supports both options, allowing you to switch between formats based on your needs. Compact format provides a middle ground with minimal but readable formatting.",
+    },
+    {
+      question: "Can I export formatted JSON in different formats?",
+      answer:
+        "Yes! Our tool supports multiple export options including copy to clipboard, download as file, and direct sharing. You can export in pretty-printed, minified, or compact formats. The tool also provides syntax highlighting in the exported format, making it easy to use the formatted JSON in your development environment.",
+    },
+    {
+      question: "How does the tree view help with JSON debugging?",
+      answer:
+        "The interactive tree view makes it easy to navigate complex JSON structures by allowing you to expand and collapse objects and arrays. You can quickly locate specific values, understand the data hierarchy, and identify issues in nested structures. This is especially valuable when working with large API responses or complex configuration files.",
+    },
+  ];
+
+  const benefits = [
     {
       icon: <Code className="h-6 w-6" />,
-      title: "Smart JSON Validation",
-      description: "Advanced error detection with precise line and column information for quick debugging."
-    },
-    {
-      icon: <Eye className="h-6 w-6" />,
       title: "Interactive Tree View",
-      description: "Visualize JSON structure with expandable/collapsible tree navigation."
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Custom Formatting",
-      description: "Control indentation, key sorting, comment removal, and output format."
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Privacy First",
-      description: "All processing happens in your browser - your data never leaves your device."
+      description:
+        "Navigate complex JSON structures with expandable/collapsible tree view for easy debugging and data exploration.",
     },
     {
       icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast",
-      description: "Instant formatting and validation with real-time feedback as you type."
+      title: "Real-time Validation",
+      description:
+        "Instant JSON validation with detailed error messages and syntax highlighting for quick debugging.",
     },
     {
-      icon: <Download className="h-6 w-6" />,
-      title: "Export Options",
-      description: "Download formatted JSON or copy to clipboard with one click."
-    }
+      icon: <Shield className="h-6 w-6" />,
+      title: "Complete Privacy Protection",
+      description:
+        "Client-side processing ensures your JSON data never leaves your device, providing maximum security.",
+    },
+    {
+      icon: <Settings className="h-6 w-6" />,
+      title: "Multiple Format Options",
+      description:
+        "Format JSON as pretty-printed, minified, or compact with syntax highlighting and export options.",
+    },
   ];
 
-  const useCases = [
-    {
-      title: "API Development",
-      description: "Validate and format JSON responses during API development and testing.",
-      examples: ["REST API responses", "GraphQL queries", "Configuration files"]
-    },
-    {
-      title: "Data Analysis",
-      description: "Clean and structure JSON data for analysis and visualization.",
-      examples: ["Log files", "Export data", "Survey responses"]
-    },
-    {
-      title: "Code Review",
-      description: "Format JSON for better readability during code reviews and documentation.",
-      examples: ["Configuration files", "Test data", "Mock responses"]
-    },
-    {
-      title: "Learning & Education",
-      description: "Understand JSON structure and syntax with visual tree representation.",
-      examples: ["Tutorial examples", "Student assignments", "Code samples"]
-    }
+  const keyBenefits = [
+    "🌳 Interactive tree view for easy JSON navigation",
+    "⚡ Real-time validation with detailed error messages",
+    "🔒 Complete privacy protection - data never leaves your device",
+    "🎨 Advanced syntax highlighting for better readability",
+    "📝 Unlimited file size with no restrictions",
+    "🔄 Minify and beautify options for all use cases",
+    "📋 Multiple export formats: copy, download, share",
+    "🔍 Search and filter capabilities within JSON data",
+    "🎯 Professional-grade formatting algorithms",
+    "🛡️ Comprehensive error detection and correction",
+    "💻 Browser-based tool requiring no software installation",
+    "💯 Completely free with no watermarks or limitations",
+    "🚀 Advanced features typically found in paid software",
+    "📊 Detailed JSON statistics and structure analysis",
+    "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
   ];
 
-  const faqs = [
+  const competitorAdvantages = [
     {
-      question: "What is JSON and why do I need to format it?",
-      answer: "JSON (JavaScript Object Notation) is a lightweight data format used for storing and exchanging data. Formatting JSON makes it human-readable by adding proper indentation and line breaks, making it easier to understand, debug, and maintain."
+      title: "Toolspy vs. JSONLint",
+      advantages: [
+        "Better Visualization: Interactive tree view vs. text only",
+        "Unlimited Size: No restrictions vs. 10MB limit",
+        "Advanced Features: Minify, export vs. format only",
+        "Better Privacy: Client-side vs. server-based processing",
+        "Syntax Highlighting: Advanced colors vs. no highlighting",
+        "Export Options: Multiple formats vs. copy only",
+      ],
     },
     {
-      question: "Is my JSON data secure when using this tool?",
-      answer: "Yes, absolutely! Our JSON formatter processes everything locally in your browser. Your JSON data never leaves your device or gets sent to any server, ensuring complete privacy and security."
+      title: "Toolspy vs. JSONFormatter.org",
+      advantages: [
+        "No Registration: Instant access vs. account requirements",
+        "Faster Processing: No upload time vs. server processing",
+        "Better Privacy: No data transmission vs. server-based",
+        "Interactive Tree: Advanced navigation vs. basic tree",
+        "Unlimited Size: No restrictions vs. 5MB limit",
+        "Real-time Validation: Instant feedback vs. basic errors",
+      ],
     },
     {
-      question: "What's the maximum file size I can format?",
-      answer: "You can format JSON files up to 50MB in size. This is much larger than most other online JSON formatters, making it suitable for large configuration files, API responses, and data exports."
+      title: "Toolspy vs. JSONBeautifier",
+      advantages: [
+        "Unlimited Processing: No size limits vs. 1MB restriction",
+        "Tree View: Interactive navigation vs. no tree view",
+        "Error Detection: Real-time validation vs. no validation",
+        "Advanced Features: Professional tools vs. basic formatter",
+        "Better Privacy: Client-side vs. server-based processing",
+        "Export Options: Multiple formats vs. no export",
+      ],
     },
-    {
-      question: "Can I format JSON with comments?",
-      answer: "Yes! Our tool can handle JSON with comments (JSONC format). You can choose to automatically remove comments during formatting or keep them in the output."
-    },
-    {
-      question: "What's the difference between formatted and minified JSON?",
-      answer: "Formatted JSON includes indentation and line breaks for readability, while minified JSON removes all unnecessary whitespace to reduce file size. Use formatted for development and minified for production."
-    },
-    {
-      question: "How accurate is the error detection?",
-      answer: "Our validator provides precise error locations with line and column numbers, making it easy to identify and fix JSON syntax errors quickly."
-    },
-    {
-      question: "Can I use this tool for large datasets?",
-      answer: "Yes, our tool is optimized for large JSON files and includes features like tree view for navigating complex nested structures efficiently."
-    },
-    {
-      question: "Does the tool work offline?",
-      answer: "Yes! Since all processing happens in your browser, the tool works offline once the page is loaded. No internet connection is required for formatting JSON."
-    }
   ];
-
-  // Register FAQ data for schema generation
-  if (typeof window !== 'undefined') {
-    registerToolFAQ('json-formatter', () => faqs);
-  }
 
   return (
-    <div className="space-y-12 mt-12">
-      {/* Features Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Why Choose Our JSON Formatter?
+    <div className="space-y-12 mt-16">
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="json-formatter"
+        title="Similar Tools You Might Like"
+        description="Check out our other data processing and formatting tools."
+      />
+
+      {/* Introduction Section */}
+      <section className="space-y-8">
+        <div className="text-center">
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Format & Validate JSON – Professional Tools
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Advanced features and privacy-first approach make our JSON formatter the best choice for developers and data professionals.
+          <p className="text-xl text-muted-foreground mb-8">
+            Professional JSON formatter and validator with interactive tree view, 
+            real-time error detection, and complete privacy protection. Perfect for 
+            developers, API testing, and data analysis.
           </p>
         </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <Card key={index} className="border-2 hover:border-blue-200 transition-colors">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg text-blue-600">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg">{feature.title}</CardTitle>
+
+        {/* Key Benefits */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {benefits.map((benefit, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="flex justify-center mb-4">
+                <div className="p-3 bg-primary/10 rounded-full text-primary">
+                  {benefit.icon}
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{feature.description}</p>
-              </CardContent>
+              </div>
+              <h3 className="font-semibold mb-2">{benefit.title}</h3>
+              <p className="text-sm text-muted-foreground">{benefit.description}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* How to Use Section */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">How to Use Our JSON Formatter</h3>
+          <p className="text-muted-foreground">
+            Follow these simple steps to format and validate your JSON data
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                1
+              </div>
+              <h4 className="font-semibold">Paste Your JSON</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Paste your JSON data into the input field. The tool supports unlimited 
+              file size and will automatically detect and highlight any syntax errors.
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                2
+              </div>
+              <h4 className="font-semibold">Choose Format</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Select your preferred format: pretty-printed for readability, 
+              minified for production, or compact for a balance of both.
+            </p>
+          </Card>
+
+          <Card className="p-6">
+            <div className="flex items-center mb-4">
+              <div className="w-8 h-8 bg-primary text-primary-foreground rounded-full flex items-center justify-center font-bold mr-3">
+                3
+              </div>
+              <h4 className="font-semibold">Explore & Export</h4>
+            </div>
+            <p className="text-sm text-muted-foreground">
+              Use the interactive tree view to explore your data structure, 
+              then copy, download, or share your formatted JSON.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Format Options Guide */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">JSON Format Options</h3>
+          <p className="text-muted-foreground">
+            Choose the right format for your specific use case
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {formatData.map((format, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <FileText className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{format.format}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{format.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Use Case:</strong> {format.useCase}</div>
+                <div><strong>Features:</strong> {format.features}</div>
+                <div><strong>Size:</strong> {format.size}</div>
+              </div>
             </Card>
           ))}
         </div>
       </section>
 
       {/* Comparison Table */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            How We Compare
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            See how our JSON formatter stacks up against popular alternatives.
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Toolspy vs. Competitors</h3>
+          <p className="text-muted-foreground">
+            See how our JSON formatter outperforms other free tools
           </p>
         </div>
 
@@ -245,32 +394,24 @@ export function JsonFormatterSEOContent() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-4 font-semibold">Feature</th>
-                    <th className="text-center p-4 font-semibold bg-blue-50">
-                      <div className="flex items-center justify-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        Toolspy
-                      </div>
-                    </th>
+                    <th className="text-center p-4 font-semibold">Toolspy</th>
                     <th className="text-center p-4 font-semibold">JSONLint</th>
-                    <th className="text-center p-4 font-semibold">JSON Viewer</th>
-                    <th className="text-center p-4 font-semibold">Code Beautify</th>
+                    <th className="text-center p-4 font-semibold">JSONFormatter.org</th>
+                    <th className="text-center p-4 font-semibold">JSONBeautifier</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-50">
+                    <tr key={index} className="border-b">
                       <td className="p-4 font-medium">{row.feature}</td>
-                      <td className="p-4 text-center bg-blue-50">
-                        <div className="flex items-center justify-center gap-2">
-                          {row.toolspyStatus === "excellent" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                          <span className="font-medium">{row.toolspy}</span>
-                        </div>
+                      <td className="p-4 text-center">
+                        <Badge variant={row.toolspyStatus === "excellent" ? "default" : "secondary"}>
+                          {row.toolspy}
+                        </Badge>
                       </td>
-                      <td className="p-4 text-center">{row.jsonlint}</td>
-                      <td className="p-4 text-center">{row.jsonviewer}</td>
-                      <td className="p-4 text-center">{row.codebeautify}</td>
+                      <td className="p-4 text-center text-muted-foreground">{row.jsonlint}</td>
+                      <td className="p-4 text-center text-muted-foreground">{row.jsonformatter}</td>
+                      <td className="p-4 text-center text-muted-foreground">{row.jsonbeautifier}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -280,86 +421,120 @@ export function JsonFormatterSEOContent() {
         </Card>
       </section>
 
-      {/* Use Cases */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Perfect For Every Use Case
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            From API development to data analysis, our JSON formatter handles all your needs.
+      {/* Key Benefits List */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Why Choose Toolspy's JSON Formatter?</h3>
+          <p className="text-muted-foreground">
+            Professional features that make JSON formatting and validation effortless
           </p>
         </div>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {useCases.map((useCase, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-blue-600" />
-                  {useCase.title}
-                </CardTitle>
-                <CardDescription>{useCase.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {useCase.examples.map((example, idx) => (
-                    <Badge key={idx} variant="secondary">
-                      {example}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {keyBenefits.map((benefit, index) => (
+            <div key={index} className="flex items-start space-x-3">
+              <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+              <span className="text-sm">{benefit}</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Competitor Advantages */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Toolspy Advantages Over Competitors</h3>
+          <p className="text-muted-foreground">
+            See why developers choose our JSON formatter
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {competitorAdvantages.map((comparison, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-center">{comparison.title}</h4>
+              <ul className="space-y-2">
+                {comparison.advantages.map((advantage, advIndex) => (
+                  <li key={advIndex} className="flex items-start space-x-2">
+                    <Star className="h-4 w-4 text-yellow-500 mt-0.5 flex-shrink-0" />
+                    <span className="text-sm">{advantage}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about our JSON formatter and validator.
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Frequently Asked Questions</h3>
+          <p className="text-muted-foreground">
+            Everything you need to know about JSON formatting and validation
           </p>
         </div>
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between p-0 h-auto"
-                  onClick={() => setSelectedFaq(selectedFaq === index ? null : index)}
-                >
-                  <CardTitle className="text-left text-lg font-semibold">
-                    {faq.question}
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </Button>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
+        <FAQ
+          faqs={faqData}
+          title="Everything you need to know about JSON formatting and validation"
+          variant="modern"
+        />
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <div className="text-center">
+          <h3 className="text-3xl font-bold mb-4">Common Use Cases</h3>
+          <p className="text-muted-foreground">
+            Professional applications for JSON formatting and validation
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <Code className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">API Development</h4>
+            <p className="text-sm text-muted-foreground">
+              Format and validate API responses, debug JSON payloads, and test data structures
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Search className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Data Analysis</h4>
+            <p className="text-sm text-muted-foreground">
+              Explore complex JSON datasets, navigate nested structures, and analyze data hierarchies
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Eye className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Configuration Files</h4>
+            <p className="text-sm text-muted-foreground">
+              Format and validate JSON configuration files, settings, and metadata
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Download className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Data Export</h4>
+            <p className="text-sm text-muted-foreground">
+              Prepare JSON data for export, optimize file sizes, and ensure proper formatting
+            </p>
+          </Card>
         </div>
       </section>
 
-      {/* Related Tools */}
-      <section>
-                <RelatedTools
-          currentToolSlug="json-formatter"
-        />
+      {/* Call to Action */}
+      <section className="text-center space-y-4">
+        <h3 className="text-3xl font-bold">Ready to Format Your JSON?</h3>
+        <p className="text-muted-foreground">
+          Start using our professional JSON formatter and validator now - it's completely free!
+        </p>
+        <Button size="lg" className="mt-4">
+          Try JSON Formatter Now
+        </Button>
       </section>
     </div>
   );
