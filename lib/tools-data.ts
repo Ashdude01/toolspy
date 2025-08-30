@@ -283,7 +283,7 @@ export const tools: Tool[] = [
       description: 'Convert PDFs to various formats and vice versa',
       tags: ['pdf', 'convert', 'document']
     }),
-    posterImage: '/images/tools/pdf-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf_converter_iewyap.webp'
   },
   {
     id: 'pdf-to-word',
@@ -301,7 +301,7 @@ export const tools: Tool[] = [
       description: 'Convert PDF documents to editable Word files',
       tags: ['pdf', 'word', 'convert', 'document']
     }),
-    posterImage: '/images/tools/pdf-to-word.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf-word_bsyilq.webp'
   },
   {
     id: 'pdf-to-jpg',
@@ -337,7 +337,7 @@ export const tools: Tool[] = [
       description: 'Convert JFIF images to PDF documents with professional quality',
       tags: ['jfif', 'pdf', 'convert', 'document']
     }),
-    posterImage: '/images/tools/jfif-to-pdf.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/jfif-pdf_i1ulbf.webp'
   },
   {
     id: 'merge-pdf',
@@ -355,7 +355,7 @@ export const tools: Tool[] = [
       description: 'Combine multiple PDF files into a single document',
       tags: ['pdf', 'merge', 'combine', 'document']
     }),
-    posterImage: '/images/tools/merge-pdf.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/merge-pdf_y7rcdf.webp'
   },
   {
     id: 'pdf-to-image',
@@ -373,7 +373,7 @@ export const tools: Tool[] = [
       description: 'Convert PDF pages to various image formats (PNG, JPG, WebP)',
       tags: ['pdf', 'image', 'convert', 'png', 'jpg']
     }),
-    posterImage: '/images/tools/pdf-to-image.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf-image_wqc4kl.webp'
   },
   {
     id: 'compress-pdf',
@@ -391,7 +391,7 @@ export const tools: Tool[] = [
       description: 'Compress PDF files to reduce file size while maintaining quality',
       tags: ['pdf', 'compress', 'reduce', 'size']
     }),
-    posterImage: '/images/tools/compress-pdf.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/v1756527237/compress-pdf_cjhuif.webp'
   },
   {
     id: 'heic-to-pdf',
@@ -409,24 +409,7 @@ export const tools: Tool[] = [
       description: 'Convert HEIC images to PDF documents with high quality',
       tags: ['heic', 'pdf', 'convert', 'apple', 'iphone']
     }),
-    posterImage: '/images/tools/heic-to-pdf.webp'
-  },
-  {
-    id: 'pdf-to-word',
-    name: 'PDF to Word Converter',
-    slug: 'pdf-to-word',
-    description: 'Convert PDF documents to editable Word files instantly',
-    category: 'pdf-tools',
-    icon: '📝',
-    tags: ['pdf', 'word', 'convert', 'docx', 'editable'],
-    path: '/pdf-to-word',
-    status: 'active',
-    seo: generateSEO({
-      name: 'PDF to Word Converter',
-      slug: '/pdf-to-word',
-      description: 'Convert PDF documents to editable Word files instantly',
-      tags: ['pdf', 'word', 'convert', 'docx', 'editable']
-    })
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/heic-pdf_mq0spy.webp'
   },
   {
     id: 'split-pdf',
@@ -443,7 +426,8 @@ export const tools: Tool[] = [
       slug: '/split-pdf',
       description: 'Split large PDF documents into smaller files by page ranges',
       tags: ['pdf', 'split', 'divide', 'pages', 'separate']
-    })
+    }),
+    posterImage: "https://res.cloudinary.com/drby9raee/image/upload/split-pdf_bnuavw.webp"
   },
   {
     id: 'pdf-password-remover',
@@ -460,7 +444,8 @@ export const tools: Tool[] = [
       slug: '/pdf-password-remover',
       description: 'Remove password protection from PDF files instantly',
       tags: ['pdf', 'password', 'unlock', 'remove', 'decrypt']
-    })
+    }),
+    posterImage: "https://res.cloudinary.com/drby9raee/image/upload/remove-pdf-password_pmlhby.webp"
   },
   {
     id: 'pdf-to-excel',
@@ -477,7 +462,8 @@ export const tools: Tool[] = [
       slug: '/pdf-to-excel',
       description: 'Convert PDF documents to Excel spreadsheets for data analysis',
       tags: ['pdf', 'excel', 'convert', 'xlsx', 'spreadsheet']
-    })
+    }),
+    posterImage: "https://res.cloudinary.com/drby9raee/image/upload/pdf-excel_ox2ejz.webp"
   },
   {
     id: 'pdf-to-csv',
@@ -494,7 +480,8 @@ export const tools: Tool[] = [
       slug: '/pdf-to-csv',
       description: 'Extract tabular data from PDF documents to CSV format',
       tags: ['pdf', 'csv', 'convert', 'data', 'extract']
-    })
+    }),
+    posterImage: "https://res.cloudinary.com/drby9raee/image/upload/pdf-csv_yl8ljg.webp"
   },
   {
     id: 'file-protector',
@@ -511,7 +498,8 @@ export const tools: Tool[] = [
       slug: '/file-protector',
       description: 'Add password protection to your files for enhanced security',
       tags: ['file', 'protect', 'password', 'security', 'encrypt']
-    })
+    }),
+    posterImage: ""
   },
 
   // Calculators

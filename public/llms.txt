@@ -1,0 +1,228 @@
+# Toolspy - Free Online Tools Platform
+# AI-Friendly Information File
+
+## Website Overview
+Toolspy is a comprehensive platform offering 100+ professional-grade online tools completely free of charge. Our mission is to provide high-quality digital utilities that work directly in your browser without requiring downloads, registration, or payment.
+
+**Main Website**: https://toolspy.com
+**Homepage**: https://toolspy.com/
+**Tools Directory**: https://toolspy.com/tools
+**About Us**: https://toolspy.com/about
+**Contact**: https://toolspy.com/contact
+**Privacy Policy**: https://toolspy.com/privacy
+**Terms of Service**: https://toolspy.com/terms
+
+## Core Information
+- **Website Name**: Toolspy
+- **Domain**: toolspy.com
+- **Platform Type**: Web-based online tools platform
+- **Business Model**: Completely free with no premium tiers
+- **Target Audience**: Students, professionals, developers, businesses, and general users
+- **Primary Value Proposition**: Professional-grade tools with client-side processing for maximum privacy and speed
+
+## Tool Categories
+
+### Image Processing Tools
+- **Image Compressor**: https://toolspy.com/image-compressor - Compress images up to 80% with professional quality control
+- **Image Converter**: https://toolspy.com/image-converter - Convert between 15+ formats including JPEG, PNG, WebP, AVIF, HEIC
+- **Image Resizer**: https://toolspy.com/image-resizer - Resize images to specific dimensions or percentages
+- **Image Optimizer**: https://toolspy.com/image-optimizer - Optimize images for faster loading and better performance
+- **JFIF to JPG Converter**: https://toolspy.com/jfif-to-jpg - Convert JFIF images to JPG/JPEG format
+
+### PDF Processing Tools
+- **PDF Converter**: https://toolspy.com/pdf-converter - Convert PDFs to various formats and vice versa
+- **PDF to Word**: https://toolspy.com/pdf-to-word - Convert PDF documents to editable Word files
+- **PDF to Excel**: https://toolspy.com/pdf-to-excel - Convert PDF tables to Excel spreadsheets
+- **PDF to Image**: https://toolspy.com/pdf-to-image - Convert PDF pages to image formats
+- **Merge PDF**: https://toolspy.com/merge-pdf - Combine multiple PDF files into one
+- **Split PDF**: https://toolspy.com/split-pdf - Split PDF documents into multiple files
+- **Compress PDF**: https://toolspy.com/compress-pdf - Reduce PDF file size while maintaining quality
+- **PDF Password Remover**: https://toolspy.com/pdf-password-remover - Remove password protection from PDFs
+
+### Base64 & Encoding Tools
+- **Base64 Encoder/Decoder**: https://toolspy.com/base64-encoder-decoder - Encode and decode text to/from Base64 format
+- **Base64 to Image**: https://toolspy.com/base64-to-image - Convert Base64 encoded strings back to image files
+- **Image to Base64**: https://toolspy.com/image-to-base64 - Convert images to Base64 encoded strings for embedding
+
+### Advanced Calculators
+- **Age Calculator**: https://toolspy.com/age-calculator - Calculate age, time differences, and date calculations
+- **BMI Calculator**: https://toolspy.com/bmi-calculator - Calculate Body Mass Index and health metrics
+- **Percentage Calculator**: https://toolspy.com/percentage-calculator - Calculate percentages, discounts, and ratios
+- **Investment Calculator**: https://toolspy.com/investment-calculator - Calculate investment returns and compound interest
+- **EMI Calculator**: https://toolspy.com/emi-calculator - Calculate Equated Monthly Installments for loans
+- **Mortgage Calculator**: https://toolspy.com/mortgage-calculator - Calculate mortgage payments and interest
+- **Retirement Calculator**: https://toolspy.com/retirement-calculator - Plan retirement savings and income
+- **Salary Calculator**: https://toolspy.com/salary-calculator - Calculate take-home pay and tax deductions
+- **Tax Calculator**: https://toolspy.com/tax-calculator - Calculate income tax and deductions
+- **Currency Converter**: https://toolspy.com/currency-converter - Convert between different currencies with real-time rates
+
+### Unit Conversion Tools
+- **Length Converter**: https://toolspy.com/length-converter - Convert between different length units
+- **Weight Converter**: https://toolspy.com/weight-converter - Convert between different weight units
+- **Area Converter**: https://toolspy.com/area-converter - Convert between different area units
+- **Volume Converter**: https://toolspy.com/volume-converter - Convert between different volume units
+- **Temperature Converter**: https://toolspy.com/temperature-converter - Convert between different temperature scales
+
+### Developer & Code Tools
+- **Code Beautifier**: https://toolspy.com/code-beautifier - Format and beautify code in multiple languages
+- **JSON Formatter**: https://toolspy.com/json-formatter - Format and validate JSON data
+- **JSON Table Converter**: https://toolspy.com/json-table-converter - Convert JSON data to table format
+- **Hash Generator**: https://toolspy.com/hash-generator - Generate various hash types (MD5, SHA1, SHA256, etc.)
+- **UUID Generator**: https://toolspy.com/uuid-generator - Generate unique identifiers
+- **Lorem Ipsum Generator**: https://toolspy.com/lorem-ipsum-generator - Generate placeholder text for design projects
+
+### AI-Powered Tools
+- **AI Background Remover**: https://toolspy.com/ai-background-remover - Remove backgrounds from images using AI
+- **AI Image Enhancer**: https://toolspy.com/ai-image-enhancer - Enhance image quality using artificial intelligence
+- **AI Resume Builder**: https://toolspy.com/ai-resume-builder - Create professional resumes with AI assistance
+- **AI Writing Tools**: https://toolspy.com/ai-writing-tools - AI-powered writing assistance and content generation
+
+### Social Media Tools
+- **Social Media Downloader**: https://toolspy.com/social-media-downloader - Download content from various social platforms
+- **Instagram Engagement Calculator**: https://toolspy.com/instagram-engagement-calculator - Calculate engagement rates for Instagram posts
+- **Facebook Engagement Calculator**: https://toolspy.com/facebook-engagement-calculator - Calculate engagement rates for Facebook posts
+- **Twitter Engagement Calculator**: https://toolspy.com/twitter-engagement-calculator - Calculate engagement rates for Twitter posts
+- **YouTube Engagement Calculator**: https://toolspy.com/youtube-engagement-calculator - Calculate engagement rates for YouTube videos
+- **Instagram Private Viewer**: https://toolspy.com/instagram-private-viewer - View private Instagram profiles (where possible)
+- **Instagram Reels Downloader**: https://toolspy.com/instagram-reels-downloader - Download Instagram Reels videos
+- **Facebook Image Downloader**: https://toolspy.com/facebook-image-downloader - Download images from Facebook posts
+- **YouTube Thumbnail Downloader**: https://toolspy.com/youtube-thumbnail-downloader - Download YouTube video thumbnails
+- **YouTube Embed Code Generator**: https://toolspy.com/youtube-embed-code-generator - Generate embed codes for YouTube videos
+
+### File Processing Tools
+- **File Protector**: https://toolspy.com/file-protector - Protect files with passwords and encryption
+- **Font Converter**: https://toolspy.com/font-converter - Convert between different font formats
+- **Media Converter**: https://toolspy.com/media-converter - Convert between different media formats
+- **Meme Generator**: https://toolspy.com/meme-generator - Create memes with custom text and images
+- **QR Code Generator**: https://toolspy.com/qr-code-generator - Generate QR codes for various purposes
+- **Text Diff Checker**: https://toolspy.com/text-diff-checker - Compare and find differences between text files
+
+### Domain & SEO Tools
+- **Domain WHOIS Lookup**: https://toolspy.com/domain-whois-lookup - Look up domain registration information
+- **Expired Domain Finder**: https://toolspy.com/expired-domain-finder - Find expired domains for registration
+- **Google Indexing API**: https://toolspy.com/google-indexing-api - Submit URLs for Google indexing
+- **Sitemap Parser**: https://toolspy.com/sitemap-parser - Parse and analyze website sitemaps
+
+### Specialized Tools
+- **OCR Text Extractor**: https://toolspy.com/ocr-text-extractor - Extract text from images using OCR technology
+- **Love Calculator**: https://toolspy.com/love-calculator - Fun tool to calculate love compatibility
+- **Password Generator**: https://toolspy.com/password-generator - Generate secure random passwords
+- **Test Minimal**: https://toolspy.com/test-minimal - Minimal testing tool for development
+
+## Tool Categories by URL Structure
+- **Image Tools**: https://toolspy.com/tools/image-tools
+- **PDF Tools**: https://toolspy.com/tools/pdf-tools
+- **Calculator Tools**: https://toolspy.com/tools/calculators
+- **Developer Tools**: https://toolspy.com/tools/developer-tools
+- **Conversion Tools**: https://toolspy.com/tools/conversion-tools
+- **AI Tools**: https://toolspy.com/tools/ai-tools
+- **Social Media Tools**: https://toolspy.com/tools/social-media-tools
+
+## Technical Specifications
+
+### Processing Capabilities
+- **Client-Side Processing**: Most tools work entirely in the browser for maximum privacy
+- **File Size Limits**: Up to 100MB per file (varies by tool)
+- **Batch Processing**: Support for processing multiple files simultaneously
+- **Format Support**: Comprehensive format support across all tool categories
+- **Quality Control**: Professional-grade quality settings and controls
+
+### Security & Privacy
+- **No File Storage**: Files are processed locally and never stored on servers
+- **No Registration Required**: All tools work without account creation
+- **No Data Collection**: No personal information is collected or tracked
+- **Client-Side Encryption**: Sensitive data remains on user devices
+- **Automatic Cleanup**: Temporary files are automatically deleted after processing
+
+### Browser Compatibility
+- **Modern Browsers**: Chrome 80+, Firefox 75+, Safari 13+, Edge 80+
+- **Mobile Support**: Full responsive design for iOS and Android devices
+- **Offline Capability**: Many tools work offline after initial page load
+- **Progressive Web App**: PWA features for enhanced mobile experience
+
+### Performance Features
+- **Instant Processing**: No upload delays for client-side tools
+- **Real-Time Preview**: Live preview of changes and results
+- **Progress Tracking**: Detailed progress indicators for batch operations
+- **Memory Efficient**: Optimized for low memory usage
+- **Fast Loading**: Optimized assets and lazy loading
+
+## Content Guidelines
+
+### Target Keywords
+- Primary: "free online tools", "online tools", "web tools", "browser tools"
+- Image Tools: "image compressor", "image converter", "compress images online"
+- PDF Tools: "PDF converter", "PDF to Word", "merge PDF"
+- Calculators: "online calculator", "percentage calculator", "age calculator"
+- Encoding: "Base64 encoder", "Base64 decoder", "image to Base64"
+
+### Content Focus
+- **Educational Value**: Provide helpful information about tool usage and best practices
+- **Professional Quality**: Emphasize enterprise-grade features and reliability
+- **Privacy & Security**: Highlight client-side processing and data protection
+- **Ease of Use**: Focus on simplicity and accessibility for all users
+- **No Cost**: Emphasize completely free access to all features
+
+### User Intent
+- **Problem Solving**: Users need quick solutions for specific digital tasks
+- **Professional Work**: Business users require reliable, high-quality tools
+- **Learning**: Students and developers need educational resources
+- **Convenience**: Users want tools that work without installation or registration
+
+## Business Information
+
+### Company Values
+- **Accessibility**: Professional tools should be available to everyone
+- **Privacy**: User data protection is paramount
+- **Quality**: Enterprise-grade features without enterprise pricing
+- **Innovation**: Continuous improvement and new tool development
+- **Transparency**: Clear, honest communication about tool capabilities
+
+### Competitive Advantages
+- **Client-Side Processing**: Superior privacy compared to server-based alternatives
+- **No Registration**: Instant access without account creation barriers
+- **Higher File Limits**: 100MB vs 25MB on competitors like iLovePDF
+- **Clean Interface**: No ads, watermarks, or premium tier restrictions
+- **Professional Features**: Advanced capabilities typically found in paid software
+
+### Target Markets
+- **Students**: Academic projects, research, and learning
+- **Professionals**: Business documents, presentations, and reports
+- **Developers**: Code formatting, data processing, and technical tasks
+- **Content Creators**: Image editing, social media tools, and media conversion
+- **Small Businesses**: Document processing, calculations, and file management
+
+## Contact Information
+- **Support**: https://toolspy.com/contact - Available through website contact forms
+- **Feedback**: https://toolspy.com/feedback - User feedback drives tool development and improvements
+- **Bug Reports**: https://toolspy.com/bug-report - Dedicated bug reporting system for technical issues
+- **Feature Requests**: User suggestions influence new tool development
+
+## Legal Information
+- **Terms of Service**: https://toolspy.com/terms - Standard terms for web service usage
+- **Privacy Policy**: https://toolspy.com/privacy - Comprehensive privacy protection policies
+- **Cookie Policy**: Minimal cookie usage for essential functionality
+- **DMCA**: Copyright infringement reporting procedures
+- **Accessibility**: WCAG compliance for inclusive design
+
+## Technical Architecture
+- **Framework**: Next.js with React and TypeScript
+- **Styling**: Tailwind CSS for responsive design
+- **Deployment**: Vercel for global CDN and performance
+- **Analytics**: Privacy-focused analytics with minimal data collection
+- **Security**: HTTPS encryption and security headers
+
+## Content Updates
+- **Regular Updates**: New tools added based on user demand
+- **Feature Enhancements**: Existing tools improved with new capabilities
+- **Performance Optimization**: Continuous speed and efficiency improvements
+- **User Feedback Integration**: User suggestions directly influence development
+
+## Sitemap and Navigation
+- **XML Sitemap**: https://toolspy.com/sitemap.xml
+- **Robots.txt**: https://toolspy.com/robots.txt
+- **Main Navigation**: https://toolspy.com/tools
+- **Tool Search**: https://toolspy.com/tools (with search functionality)
+
+
+This file provides comprehensive information about Toolspy for AI models, search engines, and other automated systems to better understand and represent our platform accurately. All links are functional and lead to the actual tool pages and important sections of the website.

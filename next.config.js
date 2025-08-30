@@ -29,6 +29,7 @@ const nextConfig = {
     unoptimized: false,
     loader: 'custom',
     loaderFile: './lib/image-loader.js',
+    domains: ['res.cloudinary.com', 'ik.imagekit.io'],
   },
   // PWA optimizations (headers not supported with export mode)
   // Headers would be configured at the server/CDN level for static export
