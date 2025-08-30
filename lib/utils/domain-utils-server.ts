@@ -48,10 +48,20 @@ export const validateDomain = (domain: string): boolean => {
   return isValidDomain(domainOnly);
 };
 
-export const extractDomainFromUrl = (url: string): string | null => {
+export const extractDomainFromUrl = async (url: string): Promise<string | null> => {
   try {
-    const domain = extractDomain(url);
-    return domain || null;
+    const domain = await extractDomain(url);
+    
+    // Handle different return types from extractDomain
+    if (typeof domain === 'string') {
+      return domain || null;
+    } else if (Array.isArray(domain)) {
+      return domain[0] || null;
+    } else if (domain && typeof domain === 'object' && 'url' in domain) {
+      return (domain as any).url || null;
+    }
+    
+    return null;
   } catch {
     return null;
   }
@@ -75,75 +85,77 @@ export const performWhoisLookup = async (domain: string): Promise<WhoisData> => 
     };
 
     // Extract common fields from the raw WHOIS data
-    if (whoisData) {
+    if (whoisData && Array.isArray(whoisData) && whoisData.length > 0) {
+      const firstResult = whoisData[0] as any;
+      
       // Registrar information
-      if (whoisData.registrar) {
-        structuredData.registrar = Array.isArray(whoisData.registrar) 
-          ? whoisData.registrar[0] 
-          : whoisData.registrar;
+      if (firstResult?.registrar) {
+        structuredData.registrar = Array.isArray(firstResult.registrar) 
+          ? firstResult.registrar[0] 
+          : firstResult.registrar;
       }
 
       // Dates
-      if (whoisData.creationDate) {
-        structuredData.creationDate = Array.isArray(whoisData.creationDate)
-          ? whoisData.creationDate[0]
-          : whoisData.creationDate;
+      if (firstResult?.creationDate) {
+        structuredData.creationDate = Array.isArray(firstResult.creationDate)
+          ? firstResult.creationDate[0]
+          : firstResult.creationDate;
       }
 
-      if (whoisData.expirationDate) {
-        structuredData.expirationDate = Array.isArray(whoisData.expirationDate)
-          ? whoisData.expirationDate[0]
-          : whoisData.expirationDate;
+      if (firstResult?.expirationDate) {
+        structuredData.expirationDate = Array.isArray(firstResult.expirationDate)
+          ? firstResult.expirationDate[0]
+          : firstResult.expirationDate;
       }
 
-      if (whoisData.updatedDate) {
-        structuredData.updatedDate = Array.isArray(whoisData.updatedDate)
-          ? whoisData.updatedDate[0]
-          : whoisData.updatedDate;
+      if (firstResult?.updatedDate) {
+        structuredData.updatedDate = Array.isArray(firstResult.updatedDate)
+          ? firstResult.updatedDate[0]
+          : firstResult.updatedDate;
       }
 
       // Status
-      if (whoisData.status) {
-        structuredData.status = Array.isArray(whoisData.status)
-          ? whoisData.status
-          : [whoisData.status];
+      if (firstResult?.status) {
+        structuredData.status = Array.isArray(firstResult.status)
+          ? firstResult.status
+          : [firstResult.status];
       }
 
       // Name servers
-      if (whoisData.nameServer) {
-        structuredData.nameServers = Array.isArray(whoisData.nameServer)
-          ? whoisData.nameServer
-          : [whoisData.nameServer];
+      if (firstResult?.nameServer) {
+        structuredData.nameServers = Array.isArray(firstResult.nameServer)
+          ? firstResult.nameServer
+          : [firstResult.nameServer];
       }
 
       // Registrant information
-      if (whoisData.registrant) {
+      if (firstResult?.registrant) {
         structuredData.registrant = {
-          name: whoisData.registrant.name,
-          organization: whoisData.registrant.organization,
-          email: whoisData.registrant.email,
-          phone: whoisData.registrant.phone,
-          address: whoisData.registrant.address
+          name: firstResult.registrant.name,
+          organization: firstResult.registrant.organization,
+          email: firstResult.registrant.email,
+          phone: firstResult.registrant.phone,
+          address: firstResult.registrant.address
         };
       }
 
       // Admin information
-      if (whoisData.admin) {
+      if (firstResult?.admin) {
         structuredData.admin = {
-          name: whoisData.admin.name,
-          organization: whoisData.admin.organization,
-          email: whoisData.admin.email,
-          phone: whoisData.admin.phone
+          name: firstResult.admin.name,
+          organization: firstResult.admin.organization,
+          email: firstResult.admin.email,
+          phone: firstResult.admin.phone
         };
       }
 
       // Tech information
-      if (whoisData.tech) {
+      if (firstResult?.tech) {
         structuredData.tech = {
-          name: whoisData.tech.name,
-          organization: whoisData.tech.organization,
-          email: whoisData.tech.email,
-          phone: whoisData.tech.phone
+          name: firstResult.tech.name,
+          organization: firstResult.tech.organization,
+          email: firstResult.tech.email,
+          phone: firstResult.tech.phone
         };
       }
     }
