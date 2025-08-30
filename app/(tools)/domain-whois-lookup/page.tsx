@@ -39,7 +39,6 @@ import {
 } from "lucide-react";
 import { DomainWhoisLookupSEOContent } from "./seo-content";
 import { 
-  performWhoisLookup as lookupWhois, 
   validateDomain, 
   formatWhoisDate, 
   getDomainStatusColor,
@@ -78,11 +77,6 @@ function DomainWhoisLookupContent() {
     });
   };
 
-  const validateDomain = (domain: string): boolean => {
-    const domainRegex = /^[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(\.[a-zA-Z0-9]([a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-    return domainRegex.test(domain) && domain.length > 0;
-  };
-
   const handleWhoisLookup = async () => {
     const cleanDomain = domain.trim().toLowerCase();
     
@@ -114,25 +108,10 @@ function DomainWhoisLookupContent() {
         throw new Error(errorData.error || 'Failed to perform WHOIS lookup');
       }
 
-      const result = await response.json();
-      const whoisResult = result.data;
+      const whoisResult = await response.json();
       
-      // Convert to the expected format
-      const formattedData: WhoisData = {
-        domainName: whoisResult.domainName || cleanDomain,
-        registrar: whoisResult.registrar || "Unknown",
-        creationDate: whoisResult.creationDate || "",
-        expirationDate: whoisResult.expirationDate || "",
-        updatedDate: whoisResult.updatedDate || "",
-        status: whoisResult.status || [],
-        nameServers: whoisResult.nameServers || [],
-        registrant: whoisResult.registrant || {},
-        admin: whoisResult.admin || {},
-        tech: whoisResult.tech || {},
-        raw: whoisResult.raw || ""
-      };
-
-      setWhoisData(formattedData);
+      // The API returns the data directly, not wrapped in a data property
+      setWhoisData(whoisResult);
       saveToHistory(cleanDomain);
       showToast("WHOIS lookup completed successfully", "success");
     } catch (error) {
@@ -177,11 +156,18 @@ ${whoisData.raw}`;
   };
 
   const getDomainStatus = (status: string[]): { label: string; variant: "default" | "secondary" | "destructive" } => {
-    if (status.includes("clientTransferProhibited")) {
+    if (!status || status.length === 0) {
+      return { label: "Unknown", variant: "secondary" as const };
+    }
+    
+    if (status.some(s => s.includes("clientTransferProhibited"))) {
       return { label: "Transfer Protected", variant: "default" as const };
     }
-    if (status.includes("pendingDelete")) {
+    if (status.some(s => s.includes("pendingDelete"))) {
       return { label: "Pending Delete", variant: "destructive" as const };
+    }
+    if (status.some(s => s.includes("ok") || s.includes("active"))) {
+      return { label: "Active", variant: "secondary" as const };
     }
     return { label: "Active", variant: "secondary" as const };
   };
@@ -235,7 +221,7 @@ ${whoisData.raw}`;
               </div>
             </div>
             <Button
-                              onClick={handleWhoisLookup}
+              onClick={handleWhoisLookup}
               disabled={isLoading || !domain.trim()}
               size="lg"
               className="sm:self-end"
@@ -295,7 +281,7 @@ ${whoisData.raw}`;
                   <Button
                     variant="outline"
                     size="sm"
-                    onClick={() => copyToClipboard(whoisData.raw)}
+                    onClick={() => copyToClipboard(whoisData.raw || "")}
                   >
                     <Copy className="h-4 w-4 mr-2" />
                     Copy
@@ -318,29 +304,29 @@ ${whoisData.raw}`;
                     <Building className="h-4 w-4" />
                     Registrar
                   </div>
-                  <p className="font-medium">{whoisData.registrar}</p>
+                  <p className="font-medium">{whoisData.registrar || "Unknown"}</p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Calendar className="h-4 w-4" />
                     Created
                   </div>
-                  <p className="font-medium">{formatDate(whoisData.creationDate)}</p>
+                  <p className="font-medium">{formatDate(whoisData.creationDate || "")}</p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Clock className="h-4 w-4" />
                     Expires
                   </div>
-                  <p className="font-medium">{formatDate(whoisData.expirationDate)}</p>
+                  <p className="font-medium">{formatDate(whoisData.expirationDate || "")}</p>
                 </div>
                 <div className="space-y-2">
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <CheckCircle className="h-4 w-4" />
                     Status
                   </div>
-                  <Badge variant={getDomainStatus(whoisData.status).variant}>
-                    {getDomainStatus(whoisData.status).label}
+                  <Badge variant={getDomainStatus(whoisData.status || []).variant}>
+                    {getDomainStatus(whoisData.status || []).label}
                   </Badge>
                 </div>
               </div>
@@ -358,31 +344,31 @@ ${whoisData.raw}`;
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {whoisData.registrant.name && (
+                {whoisData.registrant?.name && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Name</Label>
                     <p className="font-medium">{whoisData.registrant.name}</p>
                   </div>
                 )}
-                {whoisData.registrant.organization && (
+                {whoisData.registrant?.organization && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Organization</Label>
                     <p className="font-medium">{whoisData.registrant.organization}</p>
                   </div>
                 )}
-                {whoisData.registrant.email && (
+                {whoisData.registrant?.email && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Email</Label>
                     <p className="font-medium">{whoisData.registrant.email}</p>
                   </div>
                 )}
-                {whoisData.registrant.phone && (
+                {whoisData.registrant?.phone && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Phone</Label>
                     <p className="font-medium">{whoisData.registrant.phone}</p>
                   </div>
                 )}
-                {whoisData.registrant.address && (
+                {whoisData.registrant?.address && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Address</Label>
                     <p className="font-medium">{whoisData.registrant.address}</p>
@@ -400,25 +386,25 @@ ${whoisData.raw}`;
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                {whoisData.admin.name && (
+                {whoisData.admin?.name && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Name</Label>
                     <p className="font-medium">{whoisData.admin.name}</p>
                   </div>
                 )}
-                {whoisData.admin.organization && (
+                {whoisData.admin?.organization && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Organization</Label>
                     <p className="font-medium">{whoisData.admin.organization}</p>
                   </div>
                 )}
-                {whoisData.admin.email && (
+                {whoisData.admin?.email && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Email</Label>
                     <p className="font-medium">{whoisData.admin.email}</p>
                   </div>
                 )}
-                {whoisData.admin.phone && (
+                {whoisData.admin?.phone && (
                   <div>
                     <Label className="text-sm text-muted-foreground">Phone</Label>
                     <p className="font-medium">{whoisData.admin.phone}</p>
@@ -429,43 +415,47 @@ ${whoisData.raw}`;
           </div>
 
           {/* Name Servers */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Globe className="h-5 w-5" />
-                Name Servers
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                {whoisData.nameServers.map((ns, index) => (
-                  <Badge key={index} variant="outline" className="justify-start">
-                    {ns}
-                  </Badge>
-                ))}
-              </div>
-            </CardContent>
-          </Card>
+          {whoisData.nameServers && whoisData.nameServers.length > 0 && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Globe className="h-5 w-5" />
+                  Name Servers
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {whoisData.nameServers.map((ns, index) => (
+                    <Badge key={index} variant="outline" className="justify-start">
+                      {ns}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )}
 
           {/* Raw WHOIS Data */}
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Info className="h-5 w-5" />
-                Raw WHOIS Data
-              </CardTitle>
-              <CardDescription>
-                Complete WHOIS response from the registry
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Textarea
-                value={whoisData.rawData}
-                readOnly
-                className="font-mono text-sm h-64"
-              />
-            </CardContent>
-          </Card>
+          {whoisData.raw && (
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Info className="h-5 w-5" />
+                  Raw WHOIS Data
+                </CardTitle>
+                <CardDescription>
+                  Complete WHOIS response from the registry
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <Textarea
+                  value={whoisData.raw}
+                  readOnly
+                  className="font-mono text-sm h-64"
+                />
+              </CardContent>
+            </Card>
+          )}
         </div>
       )}
 
