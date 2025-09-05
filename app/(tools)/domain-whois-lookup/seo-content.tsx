@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,10 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
@@ -34,17 +30,18 @@ import {
   Eye,
   Download,
   Copy,
+  File,
+  ArrowRight,
+  FileDown,
+  BarChart3,
 } from "lucide-react";
-import { getToolBySlug, tools } from "@/lib/tools-data";
+import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
-import Image from "next/image";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
 
 export function DomainWhoisLookupSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
-
   const tool = getToolBySlug("domain-whois-lookup");
 
   const comparisonData = [
@@ -98,249 +95,251 @@ export function DomainWhoisLookupSEOContent() {
     },
     {
       feature: "Advanced Features",
-      toolspy: "✅ Bulk lookup, history",
-      whois: "❌ Basic only",
-      domain: "❌ Basic only",
-      icann: "❌ Basic only",
+      toolspy: "✅ Multiple formats",
+      whois: "⚠️ Basic lookup",
+      domain: "⚠️ Basic lookup",
+      icann: "⚠️ Basic lookup",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Data Accuracy",
-      toolspy: "✅ 99.9% accurate",
-      whois: "✅ 99.9% accurate",
-      domain: "✅ 99.9% accurate",
-      icann: "✅ 99.9% accurate",
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      whois: "❌ Ad-heavy",
+      domain: "❌ Ad-heavy",
+      icann: "✅ Clean interface",
       toolspyStatus: "excellent",
     },
   ];
 
-  const whoisFields = [
+  const whoisTypes = [
     {
-      field: "Domain Name",
-      description: "The exact domain being queried",
-      example: "example.com",
-      importance: "High",
+      type: "Domain Registration",
+      description: "Check domain registration status and availability",
+      useCase: "Domain research, availability checking, registration planning",
+      precision: "Real-time registration data",
+      example: "example.com - Available/Registered",
     },
     {
-      field: "Registrar",
-      description: "The company that registered the domain",
-      example: "GoDaddy.com, LLC",
-      importance: "High",
+      type: "Owner Information",
+      description: "View domain owner details and contact information",
+      useCase: "Legal research, business intelligence, contact lookup",
+      precision: "Complete owner details",
+      example: "Registrant: John Doe, john@example.com",
     },
     {
-      field: "Creation Date",
-      description: "When the domain was first registered",
-      example: "2020-01-15T00:00:00Z",
-      importance: "High",
+      type: "Technical Details",
+      description: "Access DNS settings, nameservers, and technical configuration",
+      useCase: "Technical administration, DNS management, troubleshooting",
+      precision: "Full technical specifications",
+      example: "Nameservers: ns1.example.com, ns2.example.com",
     },
     {
-      field: "Expiration Date",
-      description: "When the domain registration expires",
-      example: "2025-01-15T00:00:00Z",
-      importance: "High",
-    },
-    {
-      field: "Updated Date",
-      description: "Last time the domain record was modified",
-      example: "2024-01-15T00:00:00Z",
-      importance: "Medium",
-    },
-    {
-      field: "Status",
-      description: "Current domain status codes",
-      example: "clientTransferProhibited",
-      importance: "High",
-    },
-    {
-      field: "Name Servers",
-      description: "DNS servers for the domain",
-      example: "ns1.example.com",
-      importance: "Medium",
-    },
-    {
-      field: "Registrant Info",
-      description: "Domain owner contact information",
-      example: "Name, email, phone, address",
-      importance: "High",
-    },
-  ];
-
-  const faqData = [
-    {
-      question: "What is a WHOIS lookup and why do I need it?",
-      answer: "A WHOIS lookup is a tool that provides detailed information about domain name registrations. It shows who owns a domain, when it was registered, when it expires, and contact information for the registrant. This information is essential for domain research, cybersecurity investigations, legal matters, and understanding domain ownership. Our free WHOIS lookup tool gives you instant access to this public domain registration data without any registration requirements.",
-    },
-    {
-      question: "Is Toolspy's WHOIS lookup tool completely free to use?",
-      answer: "Yes, our WHOIS lookup tool is completely free with no hidden costs, registration requirements, or usage limitations. You can perform unlimited WHOIS lookups without any restrictions. Unlike some competitors who require paid subscriptions for advanced features or have rate limits, Toolspy provides comprehensive WHOIS information completely free of charge.",
-    },
-    {
-      question: "How accurate is the WHOIS information provided by this tool?",
-      answer: "Our WHOIS lookup tool provides 99.9% accurate information by querying official WHOIS servers directly. The data comes from the same sources used by domain registrars and ICANN. However, some information may be protected by privacy services or GDPR regulations, in which case you'll see privacy-protected contact details. The core domain information (registration dates, registrar, status) is always accurate and up-to-date.",
-    },
-    {
-      question: "What information can I find with a WHOIS lookup?",
-      answer: "A WHOIS lookup provides comprehensive domain registration information including: domain name, registrar details, creation and expiration dates, domain status codes, name servers, and contact information for the registrant, administrative, and technical contacts. This includes names, organizations, email addresses, phone numbers, and physical addresses (unless protected by privacy services).",
-    },
-    {
-      question: "Why do some WHOIS lookups show privacy-protected information?",
-      answer: "Many domain owners use privacy protection services to hide their personal contact information from public WHOIS databases. This is a common practice to prevent spam, identity theft, and unwanted solicitations. When privacy protection is enabled, you'll see the privacy service's contact information instead of the actual domain owner's details. The domain registration and technical information remains visible.",
-    },
-    {
-      question: "How often is WHOIS data updated?",
-      answer: "WHOIS data is updated in real-time as changes are made to domain registrations. When a domain owner updates their contact information, changes their registrar, or renews their domain, these changes are immediately reflected in the WHOIS database. Our tool queries the official WHOIS servers directly, so you always get the most current information available.",
-    },
-    {
-      question: "Can I use this tool for bulk domain lookups?",
-      answer: "Currently, our tool is designed for individual domain lookups to ensure optimal performance and accuracy. However, we do provide search history functionality that saves your recent searches locally in your browser. For bulk WHOIS lookups, we recommend using our tool for individual domains or checking back for future updates that may include bulk lookup capabilities.",
-    },
-    {
-      question: "What are domain status codes and what do they mean?",
-      answer: "Domain status codes indicate the current state of a domain registration. Common status codes include: 'clientTransferProhibited' (domain cannot be transferred to another registrar), 'clientUpdateProhibited' (domain information cannot be updated), 'clientDeleteProhibited' (domain cannot be deleted), and 'pendingDelete' (domain is scheduled for deletion). These codes help you understand what actions are possible with the domain.",
-    },
-    {
-      question: "Is it legal to perform WHOIS lookups?",
-      answer: "Yes, WHOIS lookups are completely legal. WHOIS data is public information that anyone can access. Domain registrants agree to make their contact information publicly available when they register a domain. However, it's important to use this information responsibly and in accordance with applicable laws and regulations. Our tool is designed for legitimate purposes like domain research, cybersecurity, and legal compliance.",
-    },
-    {
-      question: "How does Toolspy's WHOIS tool compare to other free WHOIS lookup services?",
-      answer: "Toolspy's WHOIS lookup tool offers several advantages over other free services: no registration required, no rate limits, privacy-focused (no tracking), search history functionality, export options (copy and download), mobile-responsive design, and comprehensive data presentation. Many competitors either track your searches, have usage limits, or require account creation for full features.",
+      type: "Registration History",
+      description: "View domain creation, expiration, and update dates",
+      useCase: "Domain research, investment analysis, timeline tracking",
+      precision: "Complete registration timeline",
+      example: "Created: 2020-01-01, Expires: 2025-01-01",
     },
   ];
 
   const benefits = [
     {
-      icon: <Search className="h-6 w-6" />,
+      icon: <Globe className="h-6 w-6" />,
       title: "Real-time WHOIS Data",
-      description: "Get instant access to live WHOIS information from official domain registries with 99.9% accuracy.",
+      description:
+        "Access live WHOIS information from official domain registrars and servers.",
+    },
+    {
+      icon: <Zap className="h-6 w-6" />,
+      title: "Instant Lookup",
+      description:
+        "Get WHOIS results instantly with no server delays or manual refresh requirements.",
     },
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "Privacy-First Approach",
-      description: "Your searches are never tracked or stored on our servers. All processing happens locally in your browser.",
+      title: "Complete Privacy Protection",
+      description:
+        "Client-side processing ensures your search data never leaves your device.",
     },
     {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Search History",
-      description: "Automatically save your recent searches locally for quick access to previously looked-up domains.",
-    },
-    {
-      icon: <Download className="h-6 w-6" />,
-      title: "Export Options",
-      description: "Copy WHOIS data to clipboard or download as a text file for offline reference and documentation.",
+      icon: <Settings className="h-6 w-6" />,
+      title: "Multiple Export Formats",
+      description:
+        "Export results in various formats for easy sharing and documentation.",
     },
   ];
 
   const keyBenefits = [
-    "🔍 Real-time WHOIS data from official domain registries",
-    "🛡️ Privacy-first approach with no data collection or tracking",
-    "📱 Mobile-responsive design for use on any device",
-    "💾 Local search history for quick access to recent lookups",
-    "📋 Copy and download functionality for WHOIS data",
-    "🚀 Instant results with no registration or rate limits",
-    "🎯 Comprehensive domain information including contact details",
-    "🔒 Secure processing with no server-side data storage",
-    "📊 Detailed domain status and registration information",
-    "🌐 Support for all major TLDs and domain extensions",
-    "⚡ Fast and reliable WHOIS server queries",
-    "💯 Completely free with no premium features or restrictions",
-    "📈 Professional-grade accuracy and reliability",
-    "🔄 Regular updates to maintain data freshness",
-    "🎨 Clean, intuitive interface for easy navigation",
-    "📞 Complete contact information for domain owners",
+    "💰 Professional WHOIS lookup with real-time data",
+    "⚡ Instant results with no server delays or uploads",
+    "🔒 Complete privacy protection - data never leaves your device",
+    "📊 Multiple lookup types: registration, owner, technical, history",
+    "🔧 Real-time updates and instant results",
+    "📊 Complete lookup history and tracking",
+    "📋 Multiple export formats and copy options",
+    "🎯 Professional-grade WHOIS data",
+    "📱 Mobile-friendly responsive design",
+    "💻 Browser-based tool requiring no software installation",
+    "💯 Completely free with no watermarks or limitations",
+    "🚀 Advanced features typically found in paid software",
+    "🔍 Precise lookup and comprehensive data",
+    "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
+    "📈 Comprehensive domain research and analysis tools",
   ];
 
   const competitorAdvantages = [
     {
-      title: "Toolspy vs. WHOIS.com",
+      title: "Toolspy vs. WHOIS",
       advantages: [
-        "Better Privacy: No tracking vs. search history tracking",
-        "No Registration: Instant access vs. account creation required",
-        "Search History: Local storage vs. no history feature",
-        "Export Options: Copy and download vs. copy only",
-        "Mobile Design: Responsive vs. basic mobile support",
-        "No Rate Limits: Unlimited lookups vs. usage restrictions",
+        "Better Privacy: No data collection vs. tracks searches",
+        "Better History: Local storage vs. no history",
+        "Export Options: Copy & download vs. copy only",
+        "Mobile Friendly: Responsive vs. basic mobile",
+        "Advanced Features: Multiple formats vs. basic lookup",
+        "No Ads: Clean interface vs. ad-heavy",
       ],
     },
     {
-      title: "Toolspy vs. Domain.com WHOIS",
+      title: "Toolspy vs. Domain",
       advantages: [
-        "Privacy Focus: No data collection vs. search tracking",
-        "Advanced Features: Search history vs. basic functionality",
-        "Export Capabilities: Multiple formats vs. limited options",
-        "User Experience: Clean interface vs. cluttered design",
-        "No Registration: Free access vs. account requirements",
-        "Mobile Optimization: Full responsive vs. basic mobile",
+        "Better Privacy: No data collection vs. tracks searches",
+        "Better History: Local storage vs. no history",
+        "Export Options: Copy & download vs. copy only",
+        "Mobile Friendly: Responsive vs. basic mobile",
+        "Advanced Features: Multiple formats vs. basic lookup",
+        "No Registration: Free forever vs. rate limited",
       ],
     },
     {
-      title: "Toolspy vs. ICANN WHOIS",
+      title: "Toolspy vs. ICANN",
       advantages: [
-        "User-Friendly: Modern interface vs. basic text output",
-        "Search History: Local storage vs. no history",
-        "Export Options: Copy and download vs. copy only",
-        "Mobile Support: Responsive design vs. desktop only",
-        "Data Presentation: Organized layout vs. raw text",
-        "Additional Features: Enhanced functionality vs. basic lookup",
+        "Better History: Local storage vs. no history",
+        "Export Options: Copy & download vs. copy only",
+        "Mobile Friendly: Responsive vs. desktop only",
+        "Advanced Features: Multiple formats vs. basic lookup",
+        "Better Privacy: Client-side vs. server-based",
+        "No Ads: Clean interface vs. clean interface",
       ],
     },
   ];
 
   return (
     <div className="space-y-12 mt-16">
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="domain-whois-lookup"
+        title="Similar Tools You Might Like"
+        description="Check out our other domain and research tools that work great with WHOIS lookup planning."
+      />
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Free WHOIS Lookup – Get Domain Information Instantly
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            WHOIS Lookup – Professional & Private
           </h2>
           <p className="text-xl text-muted-foreground mb-8">
-            Discover who owns any domain with our comprehensive WHOIS lookup tool. Get instant access to domain registration details, contact information, and ownership history. Whether you're researching domains, investigating cybersecurity threats, or conducting legal research, our free WHOIS lookup provides all the information you need.
+            Professional WHOIS lookup tool with real-time data, complete privacy protection, 
+            and instant results. Perfect for domain researchers, legal professionals, 
+            and anyone needing domain information and analysis.
           </p>
           <div className="max-w-6xl mx-auto space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="space-y-6 text-left">
                 <div className="space-y-4">
                   <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our <strong className="text-blue-600 dark:text-blue-400">free WHOIS lookup tool</strong> provides instant access to comprehensive <strong className="text-purple-600 dark:text-purple-400">domain registration information</strong>. Whether you need to <strong className="text-pink-600 dark:text-pink-400">check domain ownership</strong>, <strong className="text-green-600 dark:text-green-400">verify domain status</strong>, or <strong className="text-orange-600 dark:text-orange-400">research domain history</strong>, our tool delivers accurate results in seconds.
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free WHOIS lookup
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      WHOIS lookup online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      WHOIS lookup
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      WHOIS lookup free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      WHOIS lookup download
+                    </strong>{" "}
+                    with professional quality.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    The <strong className="text-blue-600 dark:text-blue-400">WHOIS lookup service</strong> queries official domain registries to provide real-time information including <strong className="text-purple-600 dark:text-purple-400">registrant details</strong>, <strong className="text-pink-600 dark:text-pink-400">registration dates</strong>, <strong className="text-green-600 dark:text-green-400">expiration information</strong>, and <strong className="text-blue-600 dark:text-blue-400">contact information</strong>. Perfect for <strong className="text-purple-600 dark:text-purple-400">domain research</strong>, <strong className="text-pink-600 dark:text-pink-400">cybersecurity investigations</strong>, and <strong className="text-green-600 dark:text-green-400">legal compliance</strong>.
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      WHOIS lookup app
+                    </strong>{" "}
+                    is designed for both professionals and everyday users. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      advanced lookup technology
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      real-time WHOIS data
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      complete privacy protection
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      WHOIS lookup free
+                    </strong>{" "}
+                    without any software installation or registration required.
                   </p>
                 </div>
-                
+
                 {/* Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
                   <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">99.9%</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">Accuracy</div>
+                    <div className="text-2xl font-bold text-blue-600">⚡</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Real-time
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">∞</div>
-                    <div className="text-sm text-green-700 dark:text-green-300">Free Lookups</div>
+                    <div className="text-2xl font-bold text-green-600">
+                      🔒
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Private
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">1000+</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">TLDs</div>
+                    <div className="text-2xl font-bold text-purple-600">
+                      📊
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Complete
+                    </div>
                   </div>
                   <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">0</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">Tracking</div>
+                    <div className="text-2xl font-bold text-pink-600">📱</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Mobile
+                    </div>
                   </div>
                 </div>
               </div>
-              
+
               <div className="relative">
                 <NextImage
                   width={1200}
                   height={680}
                   src={tool?.posterImage || ""}
-                  alt="Toolspy WHOIS Lookup Tool - Professional domain information lookup with real-time data and privacy protection"
+                  alt="Toolspy Professional WHOIS Lookup - High-quality lookup with real-time data and privacy protection"
                   className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
                   loading="lazy"
                 />
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  🔒 Privacy-First
+                  ✨ Real-time Data
                 </div>
               </div>
             </div>
@@ -351,53 +350,79 @@ export function DomainWhoisLookupSEOContent() {
       {/* How to Use */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          How to Perform a WHOIS Lookup
+          How to Use Our WHOIS Lookup Tool
         </h3>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Get domain information in just a few simple steps:
+          Follow these simple steps to perform WHOIS lookups securely with professional precision:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Enter Domain Name</h4>
+            <h4 className="font-semibold mb-2">1. Enter Domain</h4>
             <p className="text-sm text-muted-foreground">
-              Type the domain name you want to look up in the search field. 
-              You can enter any valid domain like "example.com" or "google.com".
+              Type the domain name you want to 
+              look up in the search field.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
             <h4 className="font-semibold mb-2">2. Click Lookup</h4>
             <p className="text-sm text-muted-foreground">
-              Click the "Lookup Domain" button to start the WHOIS query. 
-              Our tool will connect to official WHOIS servers to get real-time data.
+              Click the lookup button to query 
+              live WHOIS servers instantly.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Review Results</h4>
+            <h4 className="font-semibold mb-2">3. View Results</h4>
             <p className="text-sm text-muted-foreground">
-              View comprehensive domain information including registration dates, 
-              contact details, name servers, and domain status.
+              See comprehensive WHOIS data including 
+              registration, owner, and technical details.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
             <h4 className="font-semibold mb-2">4. Export Data</h4>
             <p className="text-sm text-muted-foreground">
-              Copy the WHOIS data to clipboard or download as a text file 
-              for your records and documentation needs.
+              Copy results or export in your preferred 
+              format for documentation.
             </p>
           </Card>
+        </div>
+      </section>
+
+      {/* WHOIS Types Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          WHOIS Types & Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Choose the right WHOIS lookup type for your specific needs with detailed information and examples.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {whoisTypes.map((type, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <Globe className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{type.type}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Use Case:</strong> {type.useCase}</div>
+                <div><strong>Precision:</strong> {type.precision}</div>
+                <div><strong>Example:</strong> {type.example}</div>
+              </div>
+            </Card>
+          ))}
         </div>
       </section>
 
       {/* Key Benefits Grid */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy's WHOIS Lookup Tool
+          Why Toolspy's WHOIS Lookup Rocks
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional-grade WHOIS lookup capabilities with privacy protection and user-friendly features.
+          Here's what makes our tool special and why professionals and users love using it.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => (
@@ -421,10 +446,10 @@ export function DomainWhoisLookupSEOContent() {
       {/* Point-wise Benefits */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Complete Feature Overview
+          Everything You Get with Our WHOIS Lookup Tool
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Everything you need for comprehensive domain research and WHOIS lookups.
+          All the features you need for professional WHOIS lookups, completely free.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {keyBenefits.map((benefit, index) => (
@@ -435,19 +460,16 @@ export function DomainWhoisLookupSEOContent() {
         </div>
       </section>
 
-      {/* WHOIS Fields Explanation */}
+      {/* Comparison Table */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Understanding WHOIS Data Fields
+          Detailed Feature Comparison
         </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Learn what each piece of WHOIS information means and how to interpret it.
-        </p>
         <Card>
           <CardHeader>
-            <CardTitle>WHOIS Data Fields Explained</CardTitle>
+            <CardTitle>Toolspy vs. Leading WHOIS Lookup Tools</CardTitle>
             <CardDescription>
-              Comprehensive guide to understanding WHOIS lookup results
+              Comprehensive comparison of features and capabilities across popular WHOIS lookup services.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -455,23 +477,31 @@ export function DomainWhoisLookupSEOContent() {
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Field</th>
-                    <th className="text-left p-3 font-medium">Description</th>
-                    <th className="text-left p-3 font-medium">Example</th>
-                    <th className="text-left p-3 font-medium">Importance</th>
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Toolspy</th>
+                    <th className="text-left p-3 font-medium">WHOIS</th>
+                    <th className="text-left p-3 font-medium">Domain</th>
+                    <th className="text-left p-3 font-medium">ICANN</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {whoisFields.map((field, index) => (
+                  {comparisonData.map((row, index) => (
                     <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{field.field}</td>
-                      <td className="p-3 text-muted-foreground">{field.description}</td>
-                      <td className="p-3 font-mono text-xs">{field.example}</td>
+                      <td className="p-3 font-medium">{row.feature}</td>
                       <td className="p-3">
-                        <Badge variant={field.importance === "High" ? "default" : "secondary"}>
-                          {field.importance}
-                        </Badge>
+                        <div className="flex items-center space-x-2">
+                          <span>{row.toolspy}</span>
+                          {row.toolspyStatus === "excellent" && (
+                            <Star className="h-4 w-4 text-yellow-500" />
+                          )}
+                          {row.toolspyStatus === "good" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
                       </td>
+                      <td className="p-3 text-muted-foreground">{row.whois}</td>
+                      <td className="p-3 text-muted-foreground">{row.domain}</td>
+                      <td className="p-3 text-muted-foreground">{row.icann}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -484,10 +514,10 @@ export function DomainWhoisLookupSEOContent() {
       {/* Competitor Advantages */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other WHOIS Tools
+          Why Choose Toolspy Over Other WHOIS Lookup Tools
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          See how our WHOIS lookup tool compares to other popular services.
+          Here's how we compare to other popular WHOIS lookup services.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {competitorAdvantages.map((competitor, index) => (
@@ -511,155 +541,138 @@ export function DomainWhoisLookupSEOContent() {
         </div>
       </section>
 
-      {/* Comparison Table */}
+      {/* Step-by-Step Guide */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
-        <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading WHOIS Services</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features, privacy, and capabilities across popular WHOIS lookup tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">WHOIS.com</th>
-                    <th className="text-left p-3 font-medium">Domain.com</th>
-                    <th className="text-left p-3 font-medium">ICANN</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.whois}
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.domain}
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.icann}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* Use Cases */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases for WHOIS Lookup
+          Complete Step-by-Step Guide
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Discover how WHOIS lookups can help in various scenarios and industries.
+          Detailed instructions for getting the best results from our
+          professional WHOIS lookup tool.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {[
             {
-              icon: <Search className="h-8 w-8" />,
-              title: "Domain Research",
-              description: "Research domain ownership and registration history for business intelligence and competitive analysis."
+              step: "1",
+              title: "Enter Domain",
+              description:
+                "Type the domain name you want to look up in the search field.",
             },
             {
-              icon: <Shield className="h-8 w-8" />,
-              title: "Cybersecurity",
-              description: "Investigate suspicious domains, identify threat actors, and verify domain legitimacy for security purposes."
+              step: "2",
+              title: "Click Lookup",
+              description:
+                "Click the lookup button to query live WHOIS servers instantly.",
             },
             {
-              icon: <Building className="h-8 w-8" />,
-              title: "Legal Compliance",
-              description: "Verify domain ownership for trademark disputes, legal proceedings, and regulatory compliance requirements."
+              step: "3",
+              title: "View Results",
+              description:
+                "See comprehensive WHOIS data including registration, owner, and technical details.",
             },
             {
-              icon: <User className="h-8 w-8" />,
-              title: "Contact Information",
-              description: "Find contact details for domain owners, administrators, and technical contacts for business outreach."
+              step: "4",
+              title: "Export Data",
+              description:
+                "Copy results or export in your preferred format for documentation.",
             },
-          ].map((useCase, index) => (
+          ].map((item, index) => (
             <Card key={index} className="text-center p-6">
-              <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center text-primary mx-auto mb-4">
-                {useCase.icon}
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
               </div>
-              <h4 className="font-semibold mb-2">{useCase.title}</h4>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
               <p className="text-sm text-muted-foreground">
-                {useCase.description}
+                {item.description}
               </p>
             </Card>
           ))}
         </div>
       </section>
 
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Common Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Professional applications for WHOIS lookups across various scenarios.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <Search className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Domain Research</h4>
+            <p className="text-sm text-muted-foreground">
+              Research domain availability and ownership
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Building className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Business Intelligence</h4>
+            <p className="text-sm text-muted-foreground">
+              Gather information about domain owners
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Shield className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Legal Research</h4>
+            <p className="text-sm text-muted-foreground">
+              Investigate domain ownership for legal cases
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Technical Administration</h4>
+            <p className="text-sm text-muted-foreground">
+              Manage DNS settings and technical configuration
+            </p>
+          </Card>
+        </div>
+      </section>
+
       {/* FAQ Section */}
-      <FAQ faqs={faqData} />
+      <FAQ faqs={getDomainWhoisLookupFAQs()} />
 
       {/* SEO Keyword Cluster Section */}
       <section className="space-y-6">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
           <h3 className="text-2xl font-bold text-center mb-6">
-            Professional WHOIS Lookup for All Your Domain Research Needs
+            Professional WHOIS Lookup for All Domain Research Needs
           </h3>
           <div className="max-w-4xl mx-auto">
             <p className="text-muted-foreground leading-relaxed">
-              Whether you need to <strong>check domain ownership</strong>, <strong>verify domain registration</strong>, or <strong>research domain history</strong>, our <strong>free WHOIS lookup tool</strong> provides comprehensive domain information instantly. Perfect for <strong>domain research</strong>, <strong>cybersecurity investigations</strong>, <strong>legal compliance</strong>, and <strong>business intelligence</strong>.
+              Need to <strong>WHOIS lookup</strong> for your domain research needs? Looking for a reliable way to <strong>WHOIS lookup</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>WHOIS lookup domain</strong>, <strong>WHOIS lookup free</strong>, or <strong>WHOIS lookup online</strong>, our tool handles all lookups with professional accuracy and complete privacy.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Our <strong>WHOIS lookup service</strong> queries official domain registries to provide real-time information including <strong>registrant details</strong>, <strong>registration dates</strong>, <strong>expiration information</strong>, <strong>contact information</strong>, and <strong>domain status codes</strong>. With support for all major TLDs and domain extensions, you can look up any domain worldwide.
+              Our advanced <strong>WHOIS lookup online</strong> provides support for all major domain types. Users love our tool for <strong>WHOIS lookup free</strong> functionality, while professionals appreciate the real-time data and comprehensive analysis. Unlike other tools, we provide instant results with no server delays.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              The tool is designed with privacy in mind - your searches are never tracked or stored on our servers. All processing happens locally in your browser, ensuring complete privacy and security. Plus, with features like <strong>search history</strong>, <strong>export options</strong>, and <strong>mobile responsiveness</strong>, our WHOIS lookup tool provides a professional experience for all your domain research needs.
+              Whether you're researching domains, investigating ownership, or managing technical settings, our <strong>WHOIS lookup app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>WHOIS lookup</strong> tasks to complex research requirements, we make it fast and secure.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Start your <strong>domain research</strong> today with our comprehensive <strong>WHOIS lookup tool</strong>. Get instant access to domain registration information, contact details, and ownership history for any domain worldwide. Toolspy is your trusted partner for professional domain research and WHOIS lookups.
+              Try our WHOIS lookup tool today and see why thousands of users choose Toolspy for their domain research needs. From <strong>WHOIS lookup free</strong> planning to professional analysis, we deliver reliable results every time.
             </p>
           </div>
         </div>
       </section>
 
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="domain-whois-lookup"
-        title="More Domain and Network Tools"
-        description="Explore our other tools for domain research and network analysis."
-      />
-
       {/* Final CTA Section */}
       <section className="space-y-6">
         <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
           <h3 className="text-2xl font-bold mb-4">
-            Ready to Look Up Domain Information?
+            Ready to Look Up Your Domains?
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of professionals who use Toolspy every day for domain research, 
-            cybersecurity investigations, and legal compliance. It's free, fast, and your searches stay private.
+            Join thousands of users who use Toolspy every day to perform WHOIS lookups. It's free, secure, and your data stays private on your device.
           </p>
           <Button
             size="lg"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            Start WHOIS Lookup Now →
+            Start Looking Up Now →
           </Button>
         </div>
       </section>
@@ -671,47 +684,57 @@ export function DomainWhoisLookupSEOContent() {
 export function getDomainWhoisLookupFAQs() {
   return [
     {
-      question: "What is a WHOIS lookup and why do I need it?",
-      answer: "A WHOIS lookup is a tool that provides detailed information about domain name registrations. It shows who owns a domain, when it was registered, when it expires, and contact information for the registrant. This information is essential for domain research, cybersecurity investigations, legal matters, and understanding domain ownership. Our free WHOIS lookup tool gives you instant access to this public domain registration data without any registration requirements."
+      question: "Is Toolspy's WHOIS lookup completely free to use?",
+      answer:
+        "Yes, our professional WHOIS lookup tool is completely free with no hidden costs, registration requirements, or usage limitations. You can perform unlimited WHOIS lookups without any restrictions. Unlike many competitors who have rate limits or require paid subscriptions, Toolspy provides all WHOIS lookup capabilities free of charge.",
     },
     {
-      question: "Is Toolspy's WHOIS lookup tool completely free to use?",
-      answer: "Yes, our WHOIS lookup tool is completely free with no hidden costs, registration requirements, or usage limitations. You can perform unlimited WHOIS lookups without any restrictions. Unlike some competitors who require paid subscriptions for advanced features or have rate limits, Toolspy provides comprehensive WHOIS information completely free of charge."
+      question: "How fast is the WHOIS lookup?",
+      answer:
+        "Our WHOIS lookup tool provides instant results for any domain lookup. Since all processing happens in your browser, there are no server delays or upload times. You can look up multiple domains quickly, making it perfect for batch research and real-time needs.",
     },
     {
-      question: "How accurate is the WHOIS information provided by this tool?",
-      answer: "Our WHOIS lookup tool provides 99.9% accurate information by querying official WHOIS servers directly. The data comes from the same sources used by domain registrars and ICANN. However, some information may be protected by privacy services or GDPR regulations, in which case you'll see privacy-protected contact details. The core domain information (registration dates, registrar, status) is always accurate and up-to-date."
+      question: "How secure is the WHOIS lookup process?",
+      answer:
+        "Absolutely secure! Our WHOIS lookup tool uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based lookup tools.",
     },
     {
-      question: "What information can I find with a WHOIS lookup?",
-      answer: "A WHOIS lookup provides comprehensive domain registration information including: domain name, registrar details, creation and expiration dates, domain status codes, name servers, and contact information for the registrant, administrative, and technical contacts. This includes names, organizations, email addresses, phone numbers, and physical addresses (unless protected by privacy services)."
+      question: "What domain information is provided?",
+      answer:
+        "Our tool provides comprehensive WHOIS data including domain registration status, owner information, technical details, nameservers, creation and expiration dates, and more. We also support multiple export formats and can handle various domain types with proper analysis.",
     },
     {
-      question: "Why do some WHOIS lookups show privacy-protected information?",
-      answer: "Many domain owners use privacy protection services to hide their personal contact information from public WHOIS databases. This is a common practice to prevent spam, identity theft, and unwanted solicitations. When privacy protection is enabled, you'll see the privacy service's contact information instead of the actual domain owner's details. The domain registration and technical information remains visible."
+      question: "Can I customize the lookup options?",
+      answer:
+        "Yes! Our WHOIS lookup tool excels at customization. You can choose different lookup types, set export preferences, configure display options, and adjust analysis parameters. This is perfect for meeting specific research requirements and documentation standards.",
     },
     {
-      question: "How often is WHOIS data updated?",
-      answer: "WHOIS data is updated in real-time as changes are made to domain registrations. When a domain owner updates their contact information, changes their registrar, or renews their domain, these changes are immediately reflected in the WHOIS database. Our tool queries the official WHOIS servers directly, so you always get the most current information available."
+      question: "Why choose Toolspy over other free WHOIS lookup tools like WHOIS or Domain?",
+      answer:
+        "Toolspy offers professional-grade features like client-side processing for privacy, local search history, multiple export formats, and mobile-friendly design. Many competitors like WHOIS and Domain track searches, have limited export options, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
     },
     {
-      question: "Can I use this tool for bulk domain lookups?",
-      answer: "Currently, our tool is designed for individual domain lookups to ensure optimal performance and accuracy. However, we do provide search history functionality that saves your recent searches locally in your browser. For bulk WHOIS lookups, we recommend using our tool for individual domains or checking back for future updates that may include bulk lookup capabilities."
+      question: "Can I perform WHOIS lookups for different research needs?",
+      answer:
+        "Absolutely! Our WHOIS lookup tool handles different research needs perfectly. You can look up domains for availability checking, ownership research, legal investigations, technical administration, and any other research requirement. The tool supports all standard lookup scenarios.",
     },
     {
-      question: "What are domain status codes and what do they mean?",
-      answer: "Domain status codes indicate the current state of a domain registration. Common status codes include: 'clientTransferProhibited' (domain cannot be transferred to another registrar), 'clientUpdateProhibited' (domain information cannot be updated), 'clientDeleteProhibited' (domain cannot be deleted), and 'pendingDelete' (domain is scheduled for deletion). These codes help you understand what actions are possible with the domain."
+      question: "What export options are available?",
+      answer:
+        "Our tool provides multiple export formats including copy to clipboard, downloadable files, and shareable links. All exports include detailed WHOIS information and professional formatting, making it easy to use the results in documentation and research.",
     },
     {
-      question: "Is it legal to perform WHOIS lookups?",
-      answer: "Yes, WHOIS lookups are completely legal. WHOIS data is public information that anyone can access. Domain registrants agree to make their contact information publicly available when they register a domain. However, it's important to use this information responsibly and in accordance with applicable laws and regulations. Our tool is designed for legitimate purposes like domain research, cybersecurity, and legal compliance."
+      question: "Is it safe to use online WHOIS lookup tools?",
+      answer:
+        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based lookup tools, our tool provides complete privacy and security for your WHOIS lookups.",
     },
     {
-      question: "How does Toolspy's WHOIS tool compare to other free WHOIS lookup services?",
-      answer: "Toolspy's WHOIS lookup tool offers several advantages over other free services: no registration required, no rate limits, privacy-focused (no tracking), search history functionality, export options (copy and download), mobile-responsive design, and comprehensive data presentation. Many competitors either track your searches, have usage limits, or require account creation for full features."
-    }
+      question: "Can I use the lookup results for professional work?",
+      answer:
+        "Yes! Our WHOIS lookup tool creates professional results that follow industry standards. These results are suitable for professional use in domain research, legal documentation, technical administration, and any other application requiring WHOIS data.",
+    },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ('domain-whois-lookup', getDomainWhoisLookupFAQs);
+registerToolFAQ("domain-whois-lookup", getDomainWhoisLookupFAQs);

@@ -43,7 +43,7 @@ import {
   Braces,
   AlertTriangle,
 } from "lucide-react";
-import { JsonFormatterSEOContent } from "./seo-content";
+import { JSONFormatterSEOContent } from "./seo-content";
 
 interface JsonNode {
   key?: string;
@@ -600,7 +600,7 @@ function JsonFormatterContent() {
       </div>
 
       {/* SEO Content */}
-      <JsonFormatterSEOContent />
+              <JSONFormatterSEOContent />
     </div>
   );
 }

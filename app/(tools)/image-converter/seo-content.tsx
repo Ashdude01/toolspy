@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,265 +8,210 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
   Zap,
   Shield,
   Settings,
-  RefreshCw,
   Image,
+  FileDown,
+  Copy,
+  Download,
+  FileText,
+  File,
+  ArrowRight,
+  BarChart3,
+  Sparkles,
+  Palette,
+  Smartphone,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
+import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function ImageConverterSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
-
   const tool = getToolBySlug("image-converter");
 
   const comparisonData = [
     {
-      feature: "Format Support",
-      toolspy: "15+ formats",
-      convertio: "12 formats",
-      cloudconvert: "20+ formats",
-      zamzar: "10 formats",
+      feature: "Conversion Quality",
+      toolspy: "✅ High quality",
+      convertio: "⚠️ Limited quality",
+      onlineconverter: "❌ Low quality",
+      zamzar: "⚠️ Variable quality",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Max File Size",
-      toolspy: "100MB per file",
-      convertio: "100MB (free)",
-      cloudconvert: "1GB (paid)",
-      zamzar: "50MB (free)",
+      feature: "Processing Speed",
+      toolspy: "✅ Fast processing",
+      convertio: "⚠️ Slow processing",
+      onlineconverter: "❌ Very slow",
+      zamzar: "⚠️ Variable speed",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Batch Processing",
-      toolspy: "✅ Up to 100 files",
-      convertio: "✅ Up to 10 files",
-      cloudconvert: "✅ Up to 25 files",
-      zamzar: "❌ 2 files max",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Quality Control",
-      toolspy: "✅ Advanced settings",
-      convertio: "✅ Basic options",
-      cloudconvert: "✅ Professional",
-      zamzar: "❌ Auto quality",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy",
+      feature: "Privacy Protection",
       toolspy: "✅ Client-side processing",
-      convertio: "⚠️ Server uploads",
-      cloudconvert: "⚠️ Cloud processing",
-      zamzar: "⚠️ Email delivery",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Speed",
-      toolspy: "✅ Instant conversion",
-      convertio: "⚠️ Upload + process time",
-      cloudconvert: "⚠️ Queue delays",
-      zamzar: "⚠️ Very slow",
+      convertio: "⚠️ Server-based",
+      onlineconverter: "⚠️ Server-based",
+      zamzar: "⚠️ Server-based",
       toolspyStatus: "excellent",
     },
     {
       feature: "No Registration",
       toolspy: "✅ Free forever",
-      convertio: "✅ Limited free use",
-      cloudconvert: "❌ Account required",
-      zamzar: "❌ Email required",
+      convertio: "⚠️ Limited free",
+      onlineconverter: "✅ Free",
+      zamzar: "⚠️ Limited free",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Modern Formats",
-      toolspy: "✅ WebP, AVIF, HEIC",
-      convertio: "✅ WebP only",
-      cloudconvert: "✅ All modern",
-      zamzar: "❌ Basic formats",
+      feature: "Mobile Friendly",
+      toolspy: "✅ Responsive design",
+      convertio: "⚠️ Basic mobile",
+      onlineconverter: "❌ Poor mobile",
+      zamzar: "⚠️ Limited mobile",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Export Options",
+      toolspy: "✅ Multiple formats",
+      convertio: "⚠️ Limited formats",
+      onlineconverter: "❌ No export",
+      zamzar: "⚠️ Basic export",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Batch Processing",
+      toolspy: "✅ Multiple images",
+      convertio: "⚠️ Limited batch",
+      onlineconverter: "❌ No batch",
+      zamzar: "⚠️ Basic batch",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      convertio: "❌ Ad-heavy",
+      onlineconverter: "❌ Ad-heavy",
+      zamzar: "❌ Ad-heavy",
       toolspyStatus: "excellent",
     },
   ];
 
-  const supportedFormats = [
+  const converterTypes = [
     {
-      input: "JPEG/JPG",
-      output: "PNG, WebP, AVIF, GIF, BMP, TIFF",
-      useCase: "Photo optimization, web publishing",
-      quality: "Lossless conversion available",
+      type: "Image Converter",
+      description: "Convert images between different formats",
+      useCase: "Format conversion, compatibility needs, specific requirements",
+      precision: "High-quality conversion",
+      example: "Convert images to different formats",
     },
     {
-      input: "PNG",
-      output: "JPEG, WebP, AVIF, GIF, BMP, TIFF",
-      useCase: "Logo conversion, transparency removal",
-      quality: "Maintains transparency when supported",
+      type: "Format Support",
+      description: "Support for all major image formats",
+      useCase: "Multi-format projects, cross-platform compatibility",
+      precision: "Multiple format support",
+      example: "Convert between JPG, PNG, WebP, etc.",
     },
     {
-      input: "WebP",
-      output: "JPEG, PNG, AVIF, GIF, BMP, TIFF",
-      useCase: "Legacy browser compatibility",
-      quality: "High compression efficiency",
+      type: "Quality Control",
+      description: "Control conversion quality and settings",
+      useCase: "Quality optimization, specific requirements, professional use",
+      precision: "Quality control options",
+      example: "Adjust quality settings during conversion",
     },
     {
-      input: "AVIF",
-      output: "JPEG, PNG, WebP, GIF, BMP, TIFF",
-      useCase: "Next-gen format conversion",
-      quality: "Superior compression ratios",
-    },
-    {
-      input: "GIF",
-      output: "JPEG, PNG, WebP, AVIF, BMP, TIFF",
-      useCase: "Animation to static conversion",
-      quality: "First frame extraction",
-    },
-    {
-      input: "HEIC/HEIF",
-      output: "JPEG, PNG, WebP, AVIF, GIF, BMP",
-      useCase: "iPhone photo conversion",
-      quality: "Apple format compatibility",
-    },
-  ];
-
-  const faqData = [
-    {
-      question: "What image formats can I convert with Toolspy?",
-      answer:
-        "Our image converter supports 15+ formats including JPEG, PNG, WebP, AVIF, GIF, BMP, TIFF, HEIC, HEIF, SVG, and more. You can convert between any supported formats with high quality preservation. We also support modern formats like AVIF and WebP for next-generation web optimization.",
-    },
-    {
-      question: "Is the image conversion completely free?",
-      answer:
-        "Yes! Our professional image converter is completely free with no hidden costs, registration requirements, or usage limitations. You can convert unlimited images without any restrictions. Unlike many competitors who require paid subscriptions for batch processing or large files, Toolspy provides all features free of charge.",
-    },
-    {
-      question: "How does client-side conversion work and why is it better?",
-      answer:
-        "Client-side conversion means your images are processed directly in your browser using advanced JavaScript algorithms. This ensures complete privacy (your images never leave your device), faster processing (no upload time), and no file size limits imposed by servers. It's more secure and efficient than traditional server-based conversion.",
-    },
-    {
-      question: "Can I convert multiple images at once?",
-      answer:
-        "Absolutely! Our batch conversion feature allows you to convert up to 100 images simultaneously. Simply select multiple files, choose your output format, and our tool will process each image individually with the same settings. You can download all converted images individually or as a convenient ZIP file.",
-    },
-    {
-      question: "Will converting images reduce their quality?",
-      answer:
-        "Quality depends on the conversion type. Converting to lossless formats (PNG, TIFF) maintains original quality. Converting to lossy formats (JPEG, WebP) allows quality control from 1-100%. Our advanced algorithms minimize quality loss while maximizing compression. You can preview results before downloading to ensure satisfaction.",
-    },
-    {
-      question: "How large can my image files be?",
-      answer:
-        "Our converter supports files up to 100MB per image, which is larger than most competitors. Convertio supports 100MB but with account limits, while Zamzar only handles 50MB files. This makes Toolspy ideal for high-resolution photography, professional graphics, and large image processing needs.",
-    },
-    {
-      question: "Can I convert iPhone HEIC photos to JPEG?",
-      answer:
-        "Yes! Our converter fully supports HEIC and HEIF formats from Apple devices. Simply upload your iPhone photos and convert them to JPEG, PNG, or any other format for universal compatibility. The conversion preserves image quality and metadata while ensuring compatibility across all devices and platforms.",
-    },
-    {
-      question: "What happens to image metadata during conversion?",
-      answer:
-        "You have full control over metadata handling. Choose to preserve EXIF data (camera settings, location, timestamps) for professional workflows, or remove it for privacy and smaller file sizes. Our converter can selectively preserve important metadata while removing sensitive information like GPS coordinates.",
-    },
-    {
-      question: "Can I resize images during conversion?",
-      answer:
-        "Yes! Our converter includes built-in resizing options. You can specify exact dimensions, scale by percentage, or choose from preset sizes for common use cases like social media, web publishing, or print. Resizing and format conversion happen simultaneously for efficient workflow.",
-    },
-    {
-      question:
-        "Why choose Toolspy over online converters like Convertio or CloudConvert?",
-      answer:
-        "Toolspy offers superior privacy with client-side processing, faster conversion with no upload delays, larger batch processing (100 vs 10 files), and no registration requirements. While CloudConvert offers more formats, it requires paid accounts for full features. Toolspy provides professional capabilities completely free with better privacy protection.",
+      type: "Batch Processing",
+      description: "Process multiple images simultaneously",
+      useCase: "Bulk conversion, image libraries, project requirements",
+      precision: "Multiple image processing",
+      example: "Convert entire image collections",
     },
   ];
 
   const benefits = [
     {
-      icon: <Target className="h-6 w-6" />,
-      title: "Universal Format Support",
-      description:
-        "Convert between 15+ image formats including modern WebP, AVIF, and HEIC with professional quality preservation.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning-Fast Conversion",
-      description:
-        "Client-side processing for instant results with no upload delays or server processing time.",
-    },
-    {
       icon: <Shield className="h-6 w-6" />,
       title: "Complete Privacy Protection",
       description:
-        "Your images never leave your device, ensuring complete privacy and security for sensitive photos and graphics.",
+        "Client-side processing ensures your data never leaves your device.",
+    },
+    {
+      icon: <Zap className="h-6 w-6" />,
+      title: "Fast Processing",
+      description:
+        "Convert images quickly with no server delays or uploads.",
+    },
+    {
+      icon: <Image className="h-6 w-6" />,
+      title: "High-Quality Conversion",
+      description:
+        "Convert images with professional quality and format support.",
     },
     {
       icon: <Settings className="h-6 w-6" />,
-      title: "Professional Quality Control",
+      title: "Advanced Features",
       description:
-        "Advanced settings for quality, compression, resizing, and metadata handling with real-time preview.",
+        "Advanced conversion with customization options and professional tools.",
     },
   ];
 
   const keyBenefits = [
-    "🎯 Convert between 15+ image formats with professional quality",
-    "⚡ Lightning-fast client-side processing for maximum privacy",
-    "🔒 Complete privacy protection - images never leave your device",
-    "🎛️ Advanced quality control with 1-100% precision settings",
-    "📦 Batch processing support for up to 100 images simultaneously",
-    "🎨 Support for modern formats: WebP, AVIF, HEIC, HEIF",
-    "⚙️ Built-in image resizing and dimension control",
-    "📱 Handle large files up to 100MB per image",
-    "🎯 Metadata control: preserve, remove, or selective handling",
-    "🔄 Real-time preview before downloading converted images",
-    "🖥️ Browser-based tool requiring no software installation",
+    "💰 Professional image conversion with complete privacy protection",
+    "⚡ Fast processing with no server delays or uploads",
+    "🔒 Complete privacy protection - data never leaves your device",
+    "📊 Multiple converter types: image converter, format support, quality control, batch processing",
+    "🔧 Real-time processing and instant results",
+    "📊 Complete conversion history and image tracking",
+    "📋 Multiple export formats and copy options",
+    "🎯 Professional-grade conversion capabilities",
+    "📱 Mobile-friendly responsive design",
+    "💻 Browser-based tool requiring no software installation",
     "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced conversion algorithms optimized for each format",
-    "📊 Detailed conversion statistics and quality comparisons",
-    "💼 Professional features for photographers and designers",
+    "🚀 Advanced features typically found in paid software",
+    "🔍 Precise conversion and quality control",
     "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
+    "📈 Comprehensive image conversion and analysis tools",
   ];
 
   const competitorAdvantages = [
     {
       title: "Toolspy vs. Convertio",
       advantages: [
-        "Better Privacy: Client-side processing vs. server uploads",
-        "Faster Processing: No upload time vs. server processing delays",
-        "More Batch Files: 100 images vs. 10 file limit",
-        "No Account Limits: Unlimited use vs. daily conversion limits",
-        "Advanced Quality: Professional settings vs. basic options",
-        "Modern Formats: Full AVIF/HEIC support vs. limited format support",
+        "Better Quality: High quality vs. limited quality",
+        "Better Speed: Fast processing vs. slow processing",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. limited formats",
+        "Mobile Experience: Responsive design vs. basic mobile",
+        "Batch Processing: Multiple images vs. limited batch",
       ],
     },
     {
-      title: "Toolspy vs. CloudConvert",
+      title: "Toolspy vs. OnlineConverter",
       advantages: [
-        "No Registration: Instant access vs. mandatory account creation",
-        "Better Privacy: Local processing vs. cloud-based conversion",
-        "Free Professional Features: All capabilities vs. paid tiers",
-        "Faster Results: Immediate conversion vs. queue processing",
-        "Larger Batches: 100 files vs. 25 file limit",
-        "Quality Control: Advanced settings vs. basic conversion options",
+        "Better Quality: High quality vs. low quality",
+        "Better Speed: Fast processing vs. very slow",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. no export",
+        "Mobile Experience: Responsive design vs. poor mobile",
+        "Batch Processing: Multiple images vs. no batch",
       ],
     },
     {
       title: "Toolspy vs. Zamzar",
       advantages: [
-        "Much Larger Files: 100MB vs. 50MB maximum file size",
-        "Instant Results: Immediate download vs. email delivery delays",
-        "Massive Batches: 100 files vs. 2 file maximum",
-        "Better Privacy: No email required vs. mandatory email signup",
-        "Modern Interface: Contemporary design vs. outdated website",
-        "Advanced Formats: WebP/AVIF support vs. basic format selection",
+        "Better Quality: High quality vs. variable quality",
+        "Better Speed: Fast processing vs. variable speed",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. basic export",
+        "Mobile Experience: Responsive design vs. limited mobile",
+        "Batch Processing: Multiple images vs. basic batch",
       ],
     },
   ];
@@ -277,135 +221,191 @@ export function ImageConverterSEOContent() {
       {/* Related Tools */}
       <RelatedTools
         currentToolSlug="image-converter"
-        title="Similar Image Processing Tools"
-        description="Complete your image workflow with these complementary tools."
+        title="Similar Tools You Might Like"
+        description="Check out our other image and conversion tools that work great with image conversion and format projects."
       />
 
-      {/* Tool Poster Image */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <div className="relative mx-auto max-w-6xl">
-            <img
-              src={tool?.posterImage || ""}
-              alt="Toolspy Professional Image Converter - Advanced format conversion with batch processing and quality control"
-              className="w-full rounded-xl shadow-lg border"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
-
       {/* Introduction Section */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Convert Images to Any Format – Fast, Private, Professional
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Convert Images – Fast & Private
           </h2>
-          <p className="text-lg text-muted-foreground max-w-6xl mx-auto">
-            Need to convert images between different formats? Toolspy's Image
-            Converter makes it simple. Whether you're converting iPhone HEIC
-            photos to JPEG, optimizing PNG images to WebP for your website, or
-            preparing graphics for different platforms, our tool handles all
-            major image formats with professional quality and complete privacy.
+          <p className="text-xl text-muted-foreground mb-8">
+            Professional image converter with complete privacy protection, 
+            high-quality conversion, and fast processing. Perfect for designers, 
+            developers, and anyone needing professional image format conversion.
           </p>
-          <p className="text-base text-muted-foreground max-w-6xl mx-auto mt-4">
-            With support for 15+ formats including modern WebP, AVIF, and HEIC,
-            you can convert any image to any format while maintaining quality.
-            No uploads, no registration, no limits – just fast, reliable image
-            conversion that works entirely in your browser.
-          </p>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free image converter
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      image converter online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      convert images
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      image converter free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      image converter download
+                    </strong>{" "}
+                    with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      image converter app
+                    </strong>{" "}
+                    is designed for both professionals and everyday users. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      advanced conversion technology
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      complete privacy protection
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      fast processing
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      convert images free
+                    </strong>{" "}
+                    without any software installation or registration required.
+                  </p>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">4</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Types
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">
+                      ⚡
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Fast
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">
+                      🔒
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Private
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">🖼️</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Images
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional Image Converter - High-quality conversion with complete privacy protection and fast processing"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ High Quality
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* How to Use */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          How to Convert Images with Toolspy
+          How to Use Our Image Converter
         </h3>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Converting your images is simple and takes just a few clicks:
+          Follow these simple steps to convert images securely with professional precision:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Upload Your Images</h4>
+            <h4 className="font-semibold mb-2">1. Upload Image</h4>
             <p className="text-sm text-muted-foreground">
-              Drag and drop your images or click to select them. You can add up
-              to 100 images at once for batch conversion.
+              Upload the image you want 
+              to convert to a different format.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Output Format</h4>
+            <h4 className="font-semibold mb-2">2. Choose Format</h4>
             <p className="text-sm text-muted-foreground">
-              Select from JPEG, PNG, WebP, AVIF, GIF, BMP, TIFF, and more. Each
-              format is optimized for specific use cases.
+              Select your target image 
+              format and quality options.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Adjust Quality Settings</h4>
+            <h4 className="font-semibold mb-2">3. Convert Image</h4>
             <p className="text-sm text-muted-foreground">
-              Fine-tune quality, compression, dimensions, and metadata handling
-              for perfect results every time.
+              Click convert and get your 
+              image in the new format instantly.
             </p>
           </Card>
 
           <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Download Results</h4>
+            <h4 className="font-semibold mb-2">4. Download & Use</h4>
             <p className="text-sm text-muted-foreground">
-              Preview your converted images and download them individually or
-              all together in a ZIP file.
+              Download the converted image 
+              and use it in your projects.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Supported Formats */}
+      {/* Converter Types Guide */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Supported Format Conversions
+          Converter Types & Use Cases
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Convert between any of these popular image formats with professional
-          quality preservation.
+          Choose the right converter type for your specific needs with detailed information and examples.
         </p>
-        <Card>
-          <CardHeader>
-            <CardTitle>Format Conversion Matrix</CardTitle>
-            <CardDescription>
-              Complete overview of supported input formats and their conversion
-              capabilities.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Input Format</th>
-                    <th className="text-left p-3 font-medium">Convert To</th>
-                    <th className="text-left p-3 font-medium">Best Use Case</th>
-                    <th className="text-left p-3 font-medium">Quality Notes</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {supportedFormats.map((format, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{format.input}</td>
-                      <td className="p-3 text-muted-foreground">
-                        {format.output}
-                      </td>
-                      <td className="p-3">{format.useCase}</td>
-                      <td className="p-3 text-green-600 text-xs">
-                        {format.quality}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {converterTypes.map((type, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <Image className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{type.type}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Use Case:</strong> {type.useCase}</div>
+                <div><strong>Precision:</strong> {type.precision}</div>
+                <div><strong>Example:</strong> {type.example}</div>
+              </div>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* Key Benefits Grid */}
@@ -414,8 +414,7 @@ export function ImageConverterSEOContent() {
           Why Toolspy's Image Converter Rocks
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why people love using it for
-          their image conversion needs.
+          Here's what makes our tool special and why professionals and users love using it.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => (
@@ -442,8 +441,7 @@ export function ImageConverterSEOContent() {
           Everything You Get with Our Image Converter
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional image conversion,
-          completely free and private.
+          All the features you need for professional image conversion, completely free.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {keyBenefits.map((benefit, index) => (
@@ -454,14 +452,64 @@ export function ImageConverterSEOContent() {
         </div>
       </section>
 
+      {/* Comparison Table */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Detailed Feature Comparison
+        </h3>
+        <Card>
+          <CardHeader>
+            <CardTitle>Toolspy vs. Leading Image Converters</CardTitle>
+            <CardDescription>
+              Comprehensive comparison of features and capabilities across popular image conversion tools.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Toolspy</th>
+                    <th className="text-left p-3 font-medium">Convertio</th>
+                    <th className="text-left p-3 font-medium">OnlineConverter</th>
+                    <th className="text-left p-3 font-medium">Zamzar</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {comparisonData.map((row, index) => (
+                    <tr key={index} className="border-b hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="flex items-center space-x-2">
+                          <span>{row.toolspy}</span>
+                          {row.toolspyStatus === "excellent" && (
+                            <Star className="h-4 w-4 text-yellow-500" />
+                          )}
+                          {row.toolspyStatus === "good" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.convertio}</td>
+                      <td className="p-3 text-muted-foreground">{row.onlineconverter}</td>
+                      <td className="p-3 text-muted-foreground">{row.zamzar}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
       {/* Competitor Advantages */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
           Why Choose Toolspy Over Other Image Converters
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular image conversion tools you
-          might have tried.
+          Here's how we compare to other popular image conversion tools.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {competitorAdvantages.map((competitor, index) => (
@@ -485,147 +533,121 @@ export function ImageConverterSEOContent() {
         </div>
       </section>
 
-      {/* Comparison Table */}
+      {/* Step-by-Step Guide */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
+          Complete Step-by-Step Guide
         </h3>
-        <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading Image Converters</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across
-              popular image conversion tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="overflow-x-auto">
-              <table className="w-full text-sm">
-                <thead>
-                  <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">Convertio</th>
-                    <th className="text-left p-3 font-medium">CloudConvert</th>
-                    <th className="text-left p-3 font-medium">Zamzar</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.convertio}
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.cloudconvert}
-                      </td>
-                      <td className="p-3 text-muted-foreground">
-                        {row.zamzar}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </CardContent>
-        </Card>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Detailed instructions for getting the best results from our
+          professional image conversion tool.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              step: "1",
+              title: "Upload Image",
+              description:
+                "Upload the image you want to convert to a different format.",
+            },
+            {
+              step: "2",
+              title: "Choose Format",
+              description:
+                "Select your target image format and quality options.",
+            },
+            {
+              step: "3",
+              title: "Convert Image",
+              description:
+                "Click convert and get your image in the new format instantly.",
+            },
+            {
+              step: "4",
+              title: "Download & Use",
+              description:
+                "Download the converted image and use it in your projects.",
+            },
+          ].map((item, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
+              </div>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
+            </Card>
+          ))}
+        </div>
       </section>
+
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Common Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Professional applications for image conversion across various scenarios.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Format Conversion</h4>
+            <p className="text-sm text-muted-foreground">
+              Convert images between different formats
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Compatibility</h4>
+            <p className="text-sm text-muted-foreground">
+              Ensure image compatibility across platforms
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Image className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Quality Control</h4>
+            <p className="text-sm text-muted-foreground">
+              Control image quality during conversion
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Mobile Conversion</h4>
+            <p className="text-sm text-muted-foreground">
+              Convert images on mobile devices
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQ faqs={getImageConverterFAQs()} />
 
       {/* SEO Keyword Cluster Section */}
       <section className="space-y-6">
         <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
           <h3 className="text-2xl font-bold text-center mb-6">
-            Convert Images to Any Format You Need
+            Professional Image Conversion for All Project Needs
           </h3>
           <div className="max-w-4xl mx-auto">
             <p className="text-muted-foreground leading-relaxed">
-              Looking to <strong>convert images</strong> between different
-              formats? Need to <strong>convert JPEG to PNG</strong>,{" "}
-              <strong>convert PNG to JPEG</strong>, or{" "}
-              <strong>convert HEIC to JPEG</strong>? Toolspy's image converter
-              handles all format conversions with professional quality. Whether
-              you want to <strong>convert WebP to PNG</strong> for compatibility
-              or <strong>convert images to WebP</strong> for web optimization,
-              our tool delivers perfect results every time.
+              Need to <strong>convert images</strong> for your project needs? Looking for a reliable way to <strong>image converter</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>convert images</strong>, <strong>convert images free</strong>, or <strong>convert images online</strong>, our tool handles all conversion with professional accuracy and complete privacy.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced converter supports modern formats like AVIF and HEIC,
-              making it easy to <strong>convert iPhone photos</strong> to
-              universal formats. Photographers love our tool for{" "}
-              <strong>image format conversion</strong> while maintaining
-              quality, and web developers appreciate the ability to{" "}
-              <strong>convert images online</strong> without compromising
-              privacy or speed.
+              Our advanced <strong>image converter online</strong> provides support for all major image formats. Users love our tool for <strong>image converter free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality conversion. Unlike other tools, we provide instant results with no server delays.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Unlike other converters that require uploads and registration, our{" "}
-              <strong>image converter online</strong> processes everything
-              locally in your browser. From simple{" "}
-              <strong>photo format conversion</strong> to professional{" "}
-              <strong>batch image conversion</strong>, we handle up to 100 files
-              simultaneously with complete privacy protection.
+              Whether you're converting formats, ensuring compatibility, or controlling quality, our <strong>image converter app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>convert images</strong> tasks to complex conversion requirements, we make it fast and secure.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our image converter today and see why thousands of users
-              choose Toolspy for their conversion needs. From{" "}
-              <strong>convert photo format</strong> tasks to professional image
-              optimization, we make format conversion fast, private, and
-              completely free.
+              Try our image converter today and see why thousands of users choose Toolspy for their image conversion needs. From <strong>image converter free</strong> planning to professional conversion, we deliver reliable results every time.
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="space-y-6" id="faq">
-        <h3 className="text-2xl font-bold text-center">
-          Your Questions Answered
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Everything you need to know about image format conversion with
-          Toolspy.
-        </p>
-        <div className="space-y-3">
-          {faqData.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
         </div>
       </section>
 
@@ -636,9 +658,7 @@ export function ImageConverterSEOContent() {
             Ready to Convert Your Images?
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of people who use Toolspy every day to convert images
-            between formats. It's free, fast, and your images stay private on
-            your device.
+            Join thousands of users who use Toolspy every day to convert images. It's free, secure, and your data stays private on your device.
           </p>
           <Button
             size="lg"
@@ -651,3 +671,62 @@ export function ImageConverterSEOContent() {
     </div>
   );
 }
+
+// Export FAQ data for schema generation
+export function getImageConverterFAQs() {
+  return [
+    {
+      question: "Is Toolspy's image converter completely free to use?",
+      answer:
+        "Yes, our professional image converter is completely free with no hidden costs, registration requirements, or usage limitations. You can convert unlimited images without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all image conversion capabilities free of charge.",
+    },
+    {
+      question: "How fast is the image conversion?",
+      answer:
+        "Our image converter provides fast processing for any image type. Since all processing happens in your browser, there are no server delays or upload times. You can convert multiple images quickly, making it perfect for batch processing and real-time needs.",
+    },
+    {
+      question: "How secure is the image conversion process?",
+      answer:
+        "Absolutely secure! Our image converter uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based converters.",
+    },
+    {
+      question: "What image formats are supported?",
+      answer:
+        "Our converter supports all major image formats including JPG, PNG, GIF, WebP, BMP, and other formats. We also support high-quality conversion and can handle various image requirements with proper analysis.",
+    },
+    {
+      question: "Can I customize the conversion options?",
+      answer:
+        "Yes! Our image converter excels at customization. You can choose formats, set quality preferences, configure conversion options, and adjust conversion parameters. This is perfect for meeting specific conversion requirements and quality standards.",
+    },
+    {
+      question: "Why choose Toolspy over other free image converters like Convertio or OnlineConverter?",
+      answer:
+        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality conversion, and multiple format options. Many competitors like Convertio and OnlineConverter use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
+    },
+    {
+      question: "Can I convert images for different project needs?",
+      answer:
+        "Absolutely! Our image converter handles different project needs perfectly. You can convert images for format conversion, compatibility needs, quality control, and any other conversion requirement. The tool supports all standard conversion scenarios.",
+    },
+    {
+      question: "What conversion options are available?",
+      answer:
+        "Our tool provides multiple conversion formats including high-quality images, multiple file types, and various quality options. All conversions include professional formatting, making it easy to use the results in your projects.",
+    },
+    {
+      question: "Is it safe to use online image converters?",
+      answer:
+        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based converters, our tool provides complete privacy and security for your image conversion.",
+    },
+    {
+      question: "Can I use the converted images for professional purposes?",
+      answer:
+        "Yes! Our image converter creates professional conversion results that follow ethical guidelines. These results are suitable for professional use in design, development, and any other application requiring image conversion.",
+    },
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ("image-converter", getImageConverterFAQs);

@@ -197,7 +197,7 @@ export function logSchemaValidation(tool?: Tool) {
 }
 
 // Rich Results testing URLs for Google validation
-export function generateRichResultsTestUrls(baseUrl: string = 'https://toolspy.com') {
+export function generateRichResultsTestUrls(baseUrl: string = 'https://toolspy.net') {
   return {
     homepage: `https://search.google.com/test/rich-results?url=${encodeURIComponent(baseUrl)}`,
     imageCompressor: `https://search.google.com/test/rich-results?url=${encodeURIComponent(baseUrl + '/image-compressor')}`,

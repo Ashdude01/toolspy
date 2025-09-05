@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,336 +8,493 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
   Zap,
   Shield,
   Settings,
-  Laugh,
-  Sparkles,
-  TrendingUp,
+  Image,
+  Type,
+  Copy,
   Download,
+  FileText,
+  File,
+  ArrowRight,
+  FileDown,
+  BarChart3,
+  Smile,
+  Palette,
+  Smartphone,
 } from "lucide-react";
-import { getToolBySlug, tools } from "@/lib/tools-data";
+import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function MemeGeneratorSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
-
   const tool = getToolBySlug("meme-generator");
 
   const comparisonData = [
     {
-      feature: "AI Caption Suggestions",
-      toolspy: "✅ Smart AI recommendations",
-      imgflip: "❌ Not available",
-      canva: "❌ Not available",
-      kapwing: "❌ Not available",
+      feature: "Meme Quality",
+      toolspy: "✅ High quality",
+      imgflip: "⚠️ Limited quality",
+      memegenerator: "❌ Low quality",
+      canva: "⚠️ Complex interface",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Template Library",
-      toolspy: "✅ Trending templates",
-      imgflip: "✅ Large collection",
-      canva: "✅ Professional templates",
-      kapwing: "✅ Good selection",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Custom Image Upload",
-      toolspy: "✅ Unlimited uploads",
-      imgflip: "✅ Limited free",
-      canva: "✅ With account",
-      kapwing: "✅ Limited free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Text Formatting",
-      toolspy: "✅ Advanced typography",
-      imgflip: "✅ Basic options",
-      canva: "✅ Extensive options",
-      kapwing: "✅ Good options",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Download Quality",
-      toolspy: "✅ High-res PNG",
-      imgflip: "✅ Standard quality",
-      canva: "✅ Various formats",
-      kapwing: "✅ HD quality",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Watermark Free",
-      toolspy: "✅ Always free",
-      imgflip: "✅ Free tier",
-      canva: "⚠️ Pro required",
-      kapwing: "⚠️ Pro required",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Social Sharing",
-      toolspy: "✅ Direct sharing",
-      imgflip: "✅ Share buttons",
-      canva: "✅ Social integration",
-      kapwing: "✅ Platform optimized",
+      feature: "Generation Speed",
+      toolspy: "✅ Fast generation",
+      imgflip: "⚠️ Slow processing",
+      memegenerator: "❌ Very slow",
+      canva: "⚠️ Variable speed",
       toolspyStatus: "excellent",
     },
     {
       feature: "Privacy Protection",
-      toolspy: "✅ No registration required",
-      imgflip: "✅ Anonymous use",
-      canva: "⚠️ Account required",
-      kapwing: "⚠️ Account required",
+      toolspy: "✅ Client-side processing",
+      imgflip: "⚠️ Server-based",
+      memegenerator: "⚠️ Server-based",
+      canva: "⚠️ Server-based",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Registration",
+      toolspy: "✅ Free forever",
+      imgflip: "⚠️ Limited free",
+      memegenerator: "✅ Free",
+      canva: "⚠️ Limited free",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Mobile Friendly",
+      toolspy: "✅ Responsive design",
+      imgflip: "⚠️ Basic mobile",
+      memegenerator: "❌ Poor mobile",
+      canva: "⚠️ Limited mobile",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Export Options",
+      toolspy: "✅ Multiple formats",
+      imgflip: "⚠️ Limited formats",
+      memegenerator: "❌ No export",
+      canva: "⚠️ Basic export",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Template Variety",
+      toolspy: "✅ Professional templates",
+      imgflip: "⚠️ Basic templates",
+      memegenerator: "❌ Limited templates",
+      canva: "⚠️ Limited templates",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      imgflip: "❌ Ad-heavy",
+      memegenerator: "❌ Ad-heavy",
+      canva: "❌ Ad-heavy",
       toolspyStatus: "excellent",
     },
   ];
 
-  const features = [
+  const generatorTypes = [
     {
-      icon: <Sparkles className="h-6 w-6" />,
-      title: "AI-Powered Captions",
-      description: "Get intelligent meme caption suggestions based on trending formats and viral content patterns."
+      type: "Meme Generator",
+      description: "Create memes with text and image overlays",
+      useCase: "Social media content, humor creation, viral content",
+      precision: "High-quality generation",
+      example: "Create viral memes for social media",
     },
     {
-      icon: <TrendingUp className="h-6 w-6" />,
-      title: "Trending Templates",
-      description: "Access the hottest meme templates updated daily with popularity rankings and usage stats."
+      type: "Text Overlay Tool",
+      description: "Add custom text to images and memes",
+      useCase: "Text customization, meme personalization, content creation",
+      precision: "Multiple text options",
+      example: "Add custom text to popular meme templates",
     },
     {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Professional Editing",
-      description: "Advanced text formatting with fonts, colors, strokes, shadows, and positioning controls."
+      type: "Template Library",
+      description: "Access to popular meme templates and formats",
+      useCase: "Template selection, format variety, professional appearance",
+      precision: "Multiple template options",
+      example: "Choose from popular meme templates",
     },
+    {
+      type: "Export & Sharing",
+      description: "Multiple export formats and sharing options",
+      useCase: "Format compatibility, social sharing, content distribution",
+      precision: "Multiple format support",
+      example: "Export memes in various formats for sharing",
+    },
+  ];
+
+  const benefits = [
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "No Watermarks",
-      description: "Download high-quality memes without watermarks or restrictions, completely free forever."
+      title: "Complete Privacy Protection",
+      description:
+        "Client-side processing ensures your data never leaves your device.",
     },
     {
       icon: <Zap className="h-6 w-6" />,
-      title: "Instant Sharing",
-      description: "Share directly to social media platforms or copy to clipboard for immediate posting."
+      title: "Fast Generation",
+      description:
+        "Create memes quickly with no server delays or uploads.",
     },
     {
-      icon: <Download className="h-6 w-6" />,
-      title: "Multiple Formats",
-      description: "Export in various sizes and formats optimized for different social media platforms."
-    }
+      icon: <Image className="h-6 w-6" />,
+      title: "High-Quality Output",
+      description:
+        "Generate high-quality memes with professional templates and options.",
+    },
+    {
+      icon: <Settings className="h-6 w-6" />,
+      title: "Advanced Customization",
+      description:
+        "Customize memes with text, templates, and professional features.",
+    },
   ];
 
-  const useCases = [
-    {
-      title: "Social Media Marketing",
-      description: "Create engaging content for brand social media accounts and viral marketing campaigns.",
-      examples: ["Brand humor", "Product announcements", "Trending topics", "Audience engagement"]
-    },
-    {
-      title: "Personal Social Content",
-      description: "Make shareable memes for personal accounts and connect with friends through humor.",
-      examples: ["Instagram stories", "Facebook posts", "Twitter memes", "Discord shares"]
-    },
-    {
-      title: "Educational Content",
-      description: "Create memorable educational memes that make learning fun and shareable.",
-      examples: ["Study humor", "Subject explanations", "Teacher content", "Course materials"]
-    },
-    {
-      title: "Community Building",
-      description: "Foster community engagement with relatable memes that resonate with your audience.",
-      examples: ["Group chats", "Forums", "Gaming communities", "Professional networks"]
-    }
+  const keyBenefits = [
+    "💰 Professional meme generation with complete privacy protection",
+    "⚡ Fast generation with no server delays or uploads",
+    "🔒 Complete privacy protection - data never leaves your device",
+    "📊 Multiple generator types: meme generator, text overlay, templates, export",
+    "🔧 Real-time processing and instant results",
+    "📊 Complete generation history and meme tracking",
+    "📋 Multiple export formats and copy options",
+    "🎯 Professional-grade generation capabilities",
+    "📱 Mobile-friendly responsive design",
+    "💻 Browser-based tool requiring no software installation",
+    "💯 Completely free with no watermarks or limitations",
+    "🚀 Advanced features typically found in paid software",
+    "🔍 Precise generation and customization",
+    "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
+    "📈 Comprehensive meme generation and analysis tools",
   ];
 
-  const memeCategories = [
+  const competitorAdvantages = [
     {
-      category: "Reaction Memes",
-      description: "Express emotions and reactions",
-      examples: ["Drake pointing", "Woman yelling at cat", "Surprised Pikachu"]
+      title: "Toolspy vs. Imgflip",
+      advantages: [
+        "Better Quality: High quality vs. limited quality",
+        "Better Speed: Fast generation vs. slow processing",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. limited formats",
+        "Mobile Experience: Responsive design vs. basic mobile",
+        "Template Variety: Professional templates vs. basic templates",
+      ],
     },
     {
-      category: "Relatable Memes",
-      description: "Everyday situations everyone understands",
-      examples: ["This is fine", "Monday blues", "Procrastination"]
+      title: "Toolspy vs. MemeGenerator",
+      advantages: [
+        "Better Quality: High quality vs. low quality",
+        "Better Speed: Fast generation vs. very slow",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. no export",
+        "Mobile Experience: Responsive design vs. poor mobile",
+        "Template Variety: Professional templates vs. limited templates",
+      ],
     },
     {
-      category: "Opinion Memes",
-      description: "Share thoughts and controversial takes",
-      examples: ["Change my mind", "Unpopular opinion", "Hot takes"]
+      title: "Toolspy vs. Canva",
+      advantages: [
+        "Better Quality: High quality vs. complex interface",
+        "Better Speed: Fast generation vs. variable speed",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. basic export",
+        "Mobile Experience: Responsive design vs. limited mobile",
+        "Template Variety: Professional templates vs. limited templates",
+      ],
     },
-    {
-      category: "Trending Formats",
-      description: "Latest viral meme templates",
-      examples: ["Current events", "Pop culture", "Internet trends"]
-    }
   ];
-
-  const faqs = [
-    {
-      question: "How do I create a meme with this generator?",
-      answer: "Simply choose a trending template or upload your own image, add text using our editor, customize the formatting, and download your meme. You can also use our AI caption suggestions for instant viral-worthy text ideas."
-    },
-    {
-      question: "Are the meme templates free to use?",
-      answer: "Yes! All our meme templates are completely free to use with no restrictions. You can create unlimited memes, download them in high quality, and share them anywhere without watermarks."
-    },
-    {
-      question: "How does the AI caption suggestion feature work?",
-      answer: "Our AI analyzes popular meme formats, trending topics, and viral content patterns to suggest captions that are likely to resonate with audiences. It considers the template type, current trends, and successful meme formulas."
-    },
-    {
-      question: "Can I upload my own images to create custom memes?",
-      answer: "Absolutely! Upload any image (JPG, PNG, GIF) and add text to create custom memes. This is perfect for personal photos, screenshots, or original content that you want to turn into shareable memes."
-    },
-    {
-      question: "What text formatting options are available?",
-      answer: "You can customize fonts, sizes, colors, text stroke, alignment, and positioning. Popular meme fonts like Impact are included, plus options for shadows, outlines, and background colors to ensure text visibility."
-    },
-    {
-      question: "How do I share my memes on social media?",
-      answer: "After creating your meme, use our one-click sharing buttons for major platforms, or copy the image to your clipboard for instant pasting. We optimize dimensions for each platform automatically."
-    },
-    {
-      question: "Are there any size or usage limits?",
-      answer: "No limits! Create as many memes as you want, upload images up to 50MB, and download everything in high quality. Our tool is designed for unlimited creative expression."
-    },
-    {
-      question: "Can I edit text after adding it to the meme?",
-      answer: "Yes, you can edit, move, resize, and restyle text boxes anytime. Add multiple text areas, change formatting, or completely rewrite captions until your meme is perfect."
-    },
-    {
-      question: "What makes a meme go viral?",
-      answer: "Viral memes typically combine relatable content, perfect timing, recognizable formats, and clever captions. Our AI suggestions help identify these elements, but authenticity and understanding your audience are key."
-    },
-    {
-      question: "Do you track trending meme templates?",
-      answer: "Yes! We monitor social media trends and meme popularity to keep our template library current. Popular templates are highlighted with trending indicators and usage statistics."
-    }
-  ];
-
-  // Register FAQ data for schema generation
-  if (typeof window !== 'undefined') {
-    registerToolFAQ('meme-generator', () => faqs);
-  }
 
   return (
-    <div className="space-y-12 mt-12">
-      {/* Features Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Why Choose Our AI Meme Generator?
+    <div className="space-y-12 mt-16">
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="meme-generator"
+        title="Similar Tools You Might Like"
+        description="Check out our other image and content creation tools that work great with meme creation and social media content."
+      />
+
+      {/* Introduction Section */}
+      <section className="space-y-8">
+        <div className="text-center">
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Create Memes – Fast & Private
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Create viral-worthy memes with AI-powered suggestions, trending templates, and professional editing tools.
+          <p className="text-xl text-muted-foreground mb-8">
+            Professional meme generator with complete privacy protection, 
+            high-quality templates, and fast generation. Perfect for content creators, 
+            social media users, and anyone needing viral meme creation.
           </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <Card key={index} className="border-2 hover:border-yellow-200 transition-colors">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-yellow-100 rounded-lg text-yellow-600">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg">{feature.title}</CardTitle>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free meme generator
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      meme generator online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      create memes
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      meme generator free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      meme generator download
+                    </strong>{" "}
+                    with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      meme generator app
+                    </strong>{" "}
+                    is designed for both professionals and everyday users. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      advanced generation technology
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      complete privacy protection
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      fast processing
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      create memes free
+                    </strong>{" "}
+                    without any software installation or registration required.
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{feature.description}</p>
-              </CardContent>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">4</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Types
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">
+                      ⚡
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Fast
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">
+                      🔒
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Private
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">😄</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Memes
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional Meme Generator - High-quality generation with complete privacy protection and fast processing"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ High Quality
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to Use */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          How to Use Our Meme Generator
+        </h3>
+        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+          Follow these simple steps to create memes securely with professional precision:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">1. Choose Template</h4>
+            <p className="text-sm text-muted-foreground">
+              Select a meme template or 
+              upload your own image.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">2. Add Text</h4>
+            <p className="text-sm text-muted-foreground">
+              Add custom text overlays 
+              to your meme template.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">3. Customize</h4>
+            <p className="text-sm text-muted-foreground">
+              Customize fonts, colors, 
+              and positioning as needed.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">4. Generate & Share</h4>
+            <p className="text-sm text-muted-foreground">
+              Generate your meme and 
+              share it on social media.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Generator Types Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Generator Types & Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Choose the right generator type for your specific needs with detailed information and examples.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {generatorTypes.map((type, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <Image className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{type.type}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Use Case:</strong> {type.useCase}</div>
+                <div><strong>Precision:</strong> {type.precision}</div>
+                <div><strong>Example:</strong> {type.example}</div>
+              </div>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Meme Categories */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Popular Meme Categories
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Explore different types of memes and find the perfect format for your content.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {memeCategories.map((category, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Laugh className="h-5 w-5 text-yellow-600" />
-                  {category.category}
-                </CardTitle>
-                <CardDescription>{category.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-1">
-                  {category.examples.map((example, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-sm">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      {example}
-                    </div>
-                  ))}
+      {/* Key Benefits Grid */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Why Toolspy's Meme Generator Rocks
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's what makes our tool special and why professionals and users love using it.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {benefits.map((benefit, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
+                  {benefit.icon}
                 </div>
-              </CardContent>
+                <div>
+                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Point-wise Benefits */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Everything You Get with Our Meme Generator
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          All the features you need for professional meme generation, completely free.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {keyBenefits.map((benefit, index) => (
+            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
+              <p className="text-sm">{benefit}</p>
             </Card>
           ))}
         </div>
       </section>
 
       {/* Comparison Table */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            How We Compare
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            See how our AI-powered meme generator outperforms popular alternatives.
-          </p>
-        </div>
-
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Detailed Feature Comparison
+        </h3>
         <Card>
-          <CardContent className="p-0">
+          <CardHeader>
+            <CardTitle>Toolspy vs. Leading Meme Generators</CardTitle>
+            <CardDescription>
+              Comprehensive comparison of features and capabilities across popular meme generation tools.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-4 font-semibold">Feature</th>
-                    <th className="text-center p-4 font-semibold bg-yellow-50">
-                      <div className="flex items-center justify-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        Toolspy
-                      </div>
-                    </th>
-                    <th className="text-center p-4 font-semibold">Imgflip</th>
-                    <th className="text-center p-4 font-semibold">Canva</th>
-                    <th className="text-center p-4 font-semibold">Kapwing</th>
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Toolspy</th>
+                    <th className="text-left p-3 font-medium">Imgflip</th>
+                    <th className="text-left p-3 font-medium">MemeGenerator</th>
+                    <th className="text-left p-3 font-medium">Canva</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-50">
-                      <td className="p-4 font-medium">{row.feature}</td>
-                      <td className="p-4 text-center bg-yellow-50">
-                        <div className="flex items-center justify-center gap-2">
+                    <tr key={index} className="border-b hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="flex items-center space-x-2">
+                          <span>{row.toolspy}</span>
                           {row.toolspyStatus === "excellent" && (
+                            <Star className="h-4 w-4 text-yellow-500" />
+                          )}
+                          {row.toolspyStatus === "good" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
-                          <span className="font-medium">{row.toolspy}</span>
                         </div>
                       </td>
-                      <td className="p-4 text-center">{row.imgflip}</td>
-                      <td className="p-4 text-center">{row.canva}</td>
-                      <td className="p-4 text-center">{row.kapwing}</td>
+                      <td className="p-3 text-muted-foreground">{row.imgflip}</td>
+                      <td className="p-3 text-muted-foreground">{row.memegenerator}</td>
+                      <td className="p-3 text-muted-foreground">{row.canva}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -348,87 +504,230 @@ export function MemeGeneratorSEOContent() {
         </Card>
       </section>
 
-      {/* Use Cases */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Perfect For Every Creator
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Whether you're a marketer, educator, or content creator, our meme generator has you covered.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {useCases.map((useCase, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-yellow-600" />
-                  {useCase.title}
-                </CardTitle>
-                <CardDescription>{useCase.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {useCase.examples.map((example, idx) => (
-                    <Badge key={idx} variant="secondary">
-                      {example}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
+      {/* Competitor Advantages */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Why Choose Toolspy Over Other Meme Generators
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's how we compare to other popular meme generation tools.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {competitorAdvantages.map((competitor, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-primary">
+                {competitor.title}
+              </h4>
+              <ul className="space-y-2">
+                {competitor.advantages.map((advantage, advIndex) => (
+                  <li
+                    key={advIndex}
+                    className="text-sm flex items-start space-x-2"
+                  >
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>{advantage}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
+        </div>
+      </section>
+
+      {/* Step-by-Step Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Complete Step-by-Step Guide
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Detailed instructions for getting the best results from our
+          professional meme generation tool.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              step: "1",
+              title: "Choose Template",
+              description:
+                "Select a meme template or upload your own image.",
+            },
+            {
+              step: "2",
+              title: "Add Text",
+              description:
+                "Add custom text overlays to your meme template.",
+            },
+            {
+              step: "3",
+              title: "Customize",
+              description:
+                "Customize fonts, colors, and positioning as needed.",
+            },
+            {
+              step: "4",
+              title: "Generate & Share",
+              description:
+                "Generate your meme and share it on social media.",
+            },
+          ].map((item, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
+              </div>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Common Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Professional applications for meme generation across various scenarios.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Social Media</h4>
+            <p className="text-sm text-muted-foreground">
+              Create viral memes for social media platforms
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Content Creation</h4>
+            <p className="text-sm text-muted-foreground">
+              Generate memes for content creation projects
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Image className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Humor Creation</h4>
+            <p className="text-sm text-muted-foreground">
+              Create humorous content for entertainment
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Mobile Creation</h4>
+            <p className="text-sm text-muted-foreground">
+              Generate memes on mobile devices
+            </p>
+          </Card>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about creating viral memes and using our AI-powered generator.
-          </p>
-        </div>
+      <FAQ faqs={getMemeGeneratorFAQs()} />
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between p-0 h-auto"
-                  onClick={() => setSelectedFaq(selectedFaq === index ? null : index)}
-                >
-                  <CardTitle className="text-left text-lg font-semibold">
-                    {faq.question}
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </Button>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
+      {/* SEO Keyword Cluster Section */}
+      <section className="space-y-6">
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
+          <h3 className="text-2xl font-bold text-center mb-6">
+            Professional Meme Generation for All Content Needs
+          </h3>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-muted-foreground leading-relaxed">
+              Need to <strong>create memes</strong> for your content needs? Looking for a reliable way to <strong>meme generator</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>create memes</strong>, <strong>create memes free</strong>, or <strong>create memes online</strong>, our tool handles all generation with professional accuracy and complete privacy.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Our advanced <strong>meme generator online</strong> provides support for all major meme types. Users love our tool for <strong>meme generator free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality generation. Unlike other tools, we provide instant results with no server delays.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Whether you're creating social media content, generating humor, or working on content creation, our <strong>meme generator app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>create memes</strong> tasks to complex generation requirements, we make it fast and secure.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Try our meme generator today and see why thousands of users choose Toolspy for their meme generation needs. From <strong>meme generator free</strong> planning to professional generation, we deliver reliable results every time.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Related Tools */}
-      <section>
-                <RelatedTools
-          currentToolSlug="meme-generator"
-        />
+      {/* Final CTA Section */}
+      <section className="space-y-6">
+        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
+          <h3 className="text-2xl font-bold mb-4">
+            Ready to Create Your Viral Memes?
+          </h3>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+            Join thousands of users who use Toolspy every day to create memes. It's free, secure, and your data stays private on your device.
+          </p>
+          <Button
+            size="lg"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Start Creating Now →
+          </Button>
+        </div>
       </section>
     </div>
   );
 }
+
+// Export FAQ data for schema generation
+export function getMemeGeneratorFAQs() {
+  return [
+    {
+      question: "Is Toolspy's meme generator completely free to use?",
+      answer:
+        "Yes, our professional meme generator is completely free with no hidden costs, registration requirements, or usage limitations. You can create unlimited memes without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all meme generation capabilities free of charge.",
+    },
+    {
+      question: "How fast is the meme generation?",
+      answer:
+        "Our meme generator provides fast generation for any meme type. Since all processing happens in your browser, there are no server delays or upload times. You can create multiple memes quickly, making it perfect for real-time generation and content creation.",
+    },
+    {
+      question: "How secure is the meme generation process?",
+      answer:
+        "Absolutely secure! Our meme generator uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based generators.",
+    },
+    {
+      question: "What meme templates are available?",
+      answer:
+        "Our generator offers professional meme templates for all popular formats including classic memes, trending templates, and custom options. We also support high-quality customization and can handle various meme requirements with proper analysis.",
+    },
+    {
+      question: "Can I customize the meme generation options?",
+      answer:
+        "Yes! Our meme generator excels at customization. You can choose templates, set text options, configure generation preferences, and adjust customization parameters. This is perfect for meeting specific generation requirements and creative standards.",
+    },
+    {
+      question: "Why choose Toolspy over other free meme generators like Imgflip or MemeGenerator?",
+      answer:
+        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality generation, and multiple format options. Many competitors like Imgflip and MemeGenerator use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
+    },
+    {
+      question: "Can I create memes for different content needs?",
+      answer:
+        "Absolutely! Our meme generator handles different content needs perfectly. You can create memes for social media, content creation, humor creation, and any other generation requirement. The tool supports all standard generation scenarios.",
+    },
+    {
+      question: "What generation options are available?",
+      answer:
+        "Our tool provides multiple generation formats including high-quality memes, multiple template options, and various customization features. All generations include professional formatting, making it easy to use the results in your content.",
+    },
+    {
+      question: "Is it safe to use online meme generators?",
+      answer:
+        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based generators, our tool provides complete privacy and security for your meme generation.",
+    },
+    {
+      question: "Can I use the generated memes for professional purposes?",
+      answer:
+        "Yes! Our meme generator creates professional generation results that follow ethical guidelines. These results are suitable for professional use in content creation, social media, and any other application requiring meme generation.",
+    },
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ("meme-generator", getMemeGeneratorFAQs);

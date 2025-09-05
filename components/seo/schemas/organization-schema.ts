@@ -7,7 +7,7 @@ export function generateOrganizationSchema(): OrganizationSchema {
       '@type': 'ContactPoint',
       contactType: 'customer service',
       availableLanguage: ['English'],
-      email: 'support@toolspy.com'
+      email: 'support@toolspy.net'
     }
   ]
 
