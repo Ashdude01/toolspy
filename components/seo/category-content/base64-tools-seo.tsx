@@ -28,7 +28,6 @@ import {
   Code,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -208,7 +207,7 @@ export function Base64ToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("base64-tools", [
+  registerToolFAQ("base64-tools", () => [
     {
       question: "What are the best free Base64 tools available online?",
       answer: "Toolspy offers the best free Base64 tools including Base64 encoder, Base64 decoder, image to Base64, and Base64 to image converter. All tools provide perfect accuracy with complete privacy protection and no registration required."
@@ -354,7 +353,7 @@ export function Base64ToolsSEOContent() {
                     {base64Tools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-green-300 dark:hover:border-green-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -701,13 +700,13 @@ export function Base64ToolsSEOContent() {
             completely free, and your data never leaves your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/base64-encoder-decoder">
+            <Link href="/base64-encoder-decoder">
               <Button size="lg" className="bg-gradient-to-r from-green-600 to-teal-600 hover:from-green-700 hover:to-teal-700 text-white px-8 py-3">
                 <Code className="mr-2 h-5 w-5" />
                 Start Encoding Base64
               </Button>
             </Link>
-            <Link href="/tools/image-to-base64">
+            <Link href="/image-to-base64">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <Settings className="mr-2 h-5 w-5" />
                 Convert Images

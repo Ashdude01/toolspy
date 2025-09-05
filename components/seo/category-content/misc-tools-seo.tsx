@@ -26,10 +26,8 @@ import {
   Sparkles,
   Palette,
   Smartphone,
-  Tool,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -211,7 +209,7 @@ export function MiscToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("misc-tools", [
+  registerToolFAQ("misc-tools", () => [
     {
       question: "What are the best free utility tools available online?",
       answer: "Toolspy offers the best free utility tools including text formatters, data validators, password generators, and specialized helpers. All tools provide professional quality with complete privacy protection and no registration required."
@@ -357,7 +355,7 @@ export function MiscToolsSEOContent() {
                     {miscTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -710,7 +708,7 @@ export function MiscToolsSEOContent() {
                 Browse All Tools
               </Button>
             </Link>
-            <Link href="/tools/password-generator">
+            <Link href="/password-generator">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <Lock className="mr-2 h-5 w-5" />
                 Generate Passwords

@@ -29,7 +29,6 @@ import {
   Terminal,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -211,7 +210,7 @@ export function CodeToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("code-tools", [
+  registerToolFAQ("code-tools", () => [
     {
       question: "What are the best free code tools available online?",
       answer: "Toolspy offers the best free code tools including code formatter, code minifier, code validator, and code converter. All tools provide professional quality with complete privacy protection and no registration required."
@@ -357,7 +356,7 @@ export function CodeToolsSEOContent() {
                     {codeTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-cyan-300 dark:hover:border-cyan-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -704,15 +703,15 @@ export function CodeToolsSEOContent() {
             completely free, and your code never leaves your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/code-formatter">
+            <Link href="/code-formatter">
               <Button size="lg" className="bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-700 hover:to-blue-700 text-white px-8 py-3">
                 <Code className="mr-2 h-5 w-5" />
                 Start Formatting Code
               </Button>
             </Link>
-            <Link href="/tools/code-minifier">
+            <Link href="/code-minifier">
               <Button size="lg" variant="outline" className="px-8 py-3">
-                <Compress className="mr-2 h-5 w-5" />
+                <Maximize className="mr-2 h-5 w-5" />
                 Minify Code
               </Button>
             </Link>

@@ -27,9 +27,9 @@ import {
   Palette,
   Smartphone,
   Bot,
+  Code,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -211,7 +211,7 @@ export function AIToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("ai-tools", [
+  registerToolFAQ("ai-tools", () => [
     {
       question: "What are the best free AI tools available online?",
       answer: "Toolspy offers the best free AI tools including AI text generation, code assistance, image processing, and data analysis. All tools provide advanced AI capabilities with complete privacy protection and no registration required."
@@ -357,7 +357,7 @@ export function AIToolsSEOContent() {
                     {aiTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -704,13 +704,13 @@ export function AIToolsSEOContent() {
             completely free, and your data never leaves your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/ai-text-generator">
+            <Link href="/ai-text-generator">
               <Button size="lg" className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white px-8 py-3">
                 <Brain className="mr-2 h-5 w-5" />
                 Start with AI
               </Button>
             </Link>
-            <Link href="/tools/ai-code-assistant">
+            <Link href="/ai-code-assistant">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <Code className="mr-2 h-5 w-5" />
                 AI Code Assistant

@@ -29,7 +29,6 @@ import {
   Percent,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -211,7 +210,7 @@ export function CalculatorsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("calculators", [
+  registerToolFAQ("calculators", () => [
     {
       question: "What are the best free calculator tools available online?",
       answer: "Toolspy offers the best free calculator tools including percentage calculator, tip calculator, loan calculator, and investment calculator. All tools provide perfect accuracy with complete privacy protection and no registration required."
@@ -357,7 +356,7 @@ export function CalculatorsSEOContent() {
                     {calculators.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-purple-300 dark:hover:border-purple-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -704,13 +703,13 @@ export function CalculatorsSEOContent() {
             completely free, and your data never leaves your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/percentage-calculator">
+            <Link href="/percentage-calculator">
               <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3">
                 <Calculator className="mr-2 h-5 w-5" />
                 Start Calculating
               </Button>
             </Link>
-            <Link href="/tools/tip-calculator">
+            <Link href="/tip-calculator">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <DollarSign className="mr-2 h-5 w-5" />
                 Calculate Tips

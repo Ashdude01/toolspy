@@ -67,6 +67,18 @@
     @apply bg-background text-foreground;
   }
 } 
-.container{
-  @apply !max-w-full
+main .container{
+  @apply !max-w-7xl
+}
+h2.text-5xl{
+  @apply text-3xl md:text-4xl;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 1024px) {
+  h2.text-5xl {
+    font-size: 3rem;
+    line-height: 1.5;
+  }
 }

@@ -28,7 +28,6 @@ import {
   BookOpen,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -208,7 +207,7 @@ export function PDFToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("pdf-tools", [
+  registerToolFAQ("pdf-tools", () => [
     {
       question: "What are the best free PDF tools available online?",
       answer: "Toolspy offers the best free PDF tools including PDF compressor, PDF converter, PDF merger, and PDF splitter. All tools provide professional quality with complete privacy protection and no registration required."
@@ -354,7 +353,7 @@ export function PDFToolsSEOContent() {
                     {pdfTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-red-300 dark:hover:border-red-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -701,13 +700,13 @@ export function PDFToolsSEOContent() {
             completely free, and your documents never leave your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/pdf-compressor">
+            <Link href="/pdf-compressor">
               <Button size="lg" className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-3">
                 <FileText className="mr-2 h-5 w-5" />
                 Start Compressing PDFs
               </Button>
             </Link>
-            <Link href="/tools/pdf-converter">
+            <Link href="/pdf-converter">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <Settings className="mr-2 h-5 w-5" />
                 Convert PDFs

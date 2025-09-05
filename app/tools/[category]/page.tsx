@@ -14,19 +14,9 @@ interface CategoryPageProps {
 }
 
 // Generate static paths for all categories
-export async function generateStaticParams(): Promise<{ category: string }[]> {
-  // Explicitly define all valid categories
-  const categories: ToolCategory[] = [
-    'image-tools',
-    'pdf-tools', 
-    'base64-tools',
-    'calculators',
-    'misc-tools',
-    'json-tools',
-    'ai-tools',
-    'code-tools',
-    'conversion-tools'
-  ];
+export async function generateStaticParams() {
+  // Get categories directly from toolCategories to ensure consistency
+  const categories = Object.keys(toolCategories) as ToolCategory[];
   
   // Generate params for each category
   const params = categories.map((category) => ({
@@ -75,7 +65,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
       title: limitTitle(`${categoryInfo.name} - Professional Tools | Toolspy`),
       description: limitDescription(`${categoryInfo.description}. Browse ${tools.length} free tools.`),
         type: 'website',
-        url: `https://toolspy.com/tools/${category}`,
+        url: `https://toolspy.net/tools/${category}`,
       },
     twitter: {
         card: 'summary_large_image',
@@ -116,7 +106,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
       <>
         <CategorySchemas category={category as ToolCategory} />
        
-            <div className="container mx-auto px-4 py-4">
+            <div className="container max-w-7xl mx-auto px-4 py-4">
               <nav aria-label="breadcrumb">
                 <ol className="flex flex-wrap items-center justify-center gap-1.5 break-words text-sm text-muted-foreground sm:gap-2.5">
                   <li className="inline-flex items-center gap-1.5">

@@ -298,7 +298,7 @@ export function AgeCalculatorSEOContent() {
             and complete privacy protection. Perfect for personal records, legal documents, 
             and anyone needing accurate age calculations.
           </p>
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="max-w-7xl mx-auto space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="space-y-6 text-left">
                 <div className="space-y-4">

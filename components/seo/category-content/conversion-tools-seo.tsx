@@ -29,7 +29,6 @@ import {
   RotateCcw,
   Edit3,
   Maximize,
-  Compress,
   Filter,
   Upload,
   Lock,
@@ -210,7 +209,7 @@ export function ConversionToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("conversion-tools", [
+  registerToolFAQ("conversion-tools", () => [
     {
       question: "What are the best free conversion tools available online?",
       answer: "Toolspy offers the best free conversion tools including file converter, image converter, document converter, and media converter. All tools provide perfect accuracy with complete privacy protection and no registration required."
@@ -356,7 +355,7 @@ export function ConversionToolsSEOContent() {
                     {conversionTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-emerald-300 dark:hover:border-emerald-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -703,13 +702,13 @@ export function ConversionToolsSEOContent() {
             completely free, and your files never leave your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/file-converter">
+            <Link href="/file-converter">
               <Button size="lg" className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white px-8 py-3">
                 <RefreshCw className="mr-2 h-5 w-5" />
                 Start Converting Files
               </Button>
             </Link>
-            <Link href="/tools/image-converter">
+            <Link href="/image-converter">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <Settings className="mr-2 h-5 w-5" />
                 Convert Images

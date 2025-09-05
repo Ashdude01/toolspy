@@ -28,7 +28,6 @@ import {
   Code,
   Edit3,
   Maximize,
-  Compress,
   RotateCcw,
   Filter,
   Upload,
@@ -210,7 +209,7 @@ export function JSONToolsSEOContent() {
   ];
 
   // Register FAQs for SEO
-  registerToolFAQ("json-tools", [
+  registerToolFAQ("json-tools", () => [
     {
       question: "What are the best free JSON tools available online?",
       answer: "Toolspy offers the best free JSON tools including JSON formatter, JSON validator, JSON minifier, and JSON converter. All tools provide perfect accuracy with complete privacy protection and no registration required."
@@ -356,7 +355,7 @@ export function JSONToolsSEOContent() {
                     {jsonTools.slice(0, 4).map((tool, index) => (
                       <Link
                         key={tool.id}
-                        href={`/tools/${tool.slug}`}
+                        href={`/${tool.slug}`}
                         className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-yellow-300 dark:hover:border-yellow-600 transition-all duration-300 hover:shadow-lg"
                       >
                         <div className="flex items-center space-x-3">
@@ -703,13 +702,13 @@ export function JSONToolsSEOContent() {
             completely free, and your data never leaves your device.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/tools/json-formatter">
+            <Link href="/json-formatter">
               <Button size="lg" className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white px-8 py-3">
                 <Code className="mr-2 h-5 w-5" />
                 Start Formatting JSON
               </Button>
             </Link>
-            <Link href="/tools/json-validator">
+            <Link href="/json-validator">
               <Button size="lg" variant="outline" className="px-8 py-3">
                 <CheckCircle className="mr-2 h-5 w-5" />
                 Validate JSON
