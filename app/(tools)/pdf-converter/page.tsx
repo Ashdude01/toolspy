@@ -28,7 +28,7 @@ import {
   FileImage,
   FileSpreadsheet,
 } from "lucide-react";
-import { PDFConverterSEOContent } from "./seo-content";
+import { PdfConverterSEOContent } from "./seo-content";
 
 interface ProcessedFile {
   id: string;
@@ -525,7 +525,7 @@ function PdfConverterContent() {
       </Card>
 
       {/* SEO Content Section */}
-              <PDFConverterSEOContent />
+      <PdfConverterSEOContent />
     </div>
   );
 }

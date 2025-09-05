@@ -47,7 +47,7 @@ import {
   Layers,
   Contrast,
 } from "lucide-react";
-import { AiImageEnhancerSEOContent } from "./seo-content";
+import { AIImageEnhancerSEOContent } from "./seo-content";
 
 interface EnhancementResult {
   original: string;
@@ -880,7 +880,7 @@ function AiImageEnhancerContent() {
       )}
 
       {/* SEO Content */}
-      <AiImageEnhancerSEOContent />
+      <AIImageEnhancerSEOContent />
     </div>
   );
 }

@@ -32,7 +32,7 @@ import {
   downloadZip,
 } from "@/lib/utils/file-utils";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
-import { JfifToJpgSEOContent } from "./seo-content";
+import { JFIFToJPGSEOContent } from "./seo-content";
 import { scrollToElement } from "@/lib/utils";
 
 interface ConversionResult {
@@ -463,7 +463,7 @@ function JfifToJpgContent() {
       />
 
       {/* SEO Content Section */}
-      <JfifToJpgSEOContent />
+              <JFIFToJPGSEOContent />
     </div>
   );
 }

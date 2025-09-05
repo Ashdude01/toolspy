@@ -49,7 +49,7 @@ import {
   Sparkles,
   Brain,
 } from "lucide-react";
-import { AiResumeBuilderSEOContent } from "./seo-content";
+import { AIResumeBuilderSEOContent } from "./seo-content";
 
 interface PersonalInfo {
   firstName: string;
@@ -1048,7 +1048,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
       </div>
 
       {/* SEO Content */}
-      <AiResumeBuilderSEOContent />
+      <AIResumeBuilderSEOContent />
     </div>
   );
 }

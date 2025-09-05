@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,10 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
@@ -21,37 +17,42 @@ import {
   Settings,
   Code,
   Image,
+  File,
+  ArrowRight,
+  FileDown,
+  Database,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
+import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function Base64ToImageSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
-
-  const tool = getToolBySlug('base64-to-image');
+  const tool = getToolBySlug("base64-to-image");
 
   const comparisonData = [
     {
       feature: "Max Data Size",
-      toolspy: "50MB encoded data",
-      base64guru: "10MB limit",
-      onlineconvert: "100MB (paid)",
-      codebeautify: "5MB limit",
+      toolspy: "✅ 50MB encoded data",
+      base64guru: "⚠️ 10MB limit",
+      onlineconvert: "⚠️ 100MB (paid)",
+      codebeautify: "❌ 5MB limit",
       toolspyStatus: "excellent",
     },
     {
       feature: "Format Support",
       toolspy: "✅ All image formats",
-      base64guru: "✅ Basic formats",
+      base64guru: "⚠️ Basic formats",
       onlineconvert: "✅ Multiple formats",
-      codebeautify: "✅ Limited formats",
+      codebeautify: "⚠️ Limited formats",
       toolspyStatus: "excellent",
     },
     {
       feature: "Batch Processing",
       toolspy: "✅ Multiple strings",
       base64guru: "❌ Single only",
-      onlineconvert: "✅ Limited batch",
+      onlineconvert: "⚠️ Limited batch",
       codebeautify: "❌ Single only",
       toolspyStatus: "excellent",
     },
@@ -273,32 +274,125 @@ export function Base64ToImageSEOContent() {
 
   return (
     <div className="space-y-12 mt-16">
-      {/* Tool Poster Image */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <div className="relative mx-auto max-w-6xl">
-            <img
-              src={tool?.posterImage || ''}
-              alt="Toolspy Base64 to Image Converter - Professional decoding tool with batch processing and format detection"
-              className="w-full rounded-xl shadow-lg border"
-              loading="lazy"
-            />
-          </div>
-        </div>
-      </section>
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="base64-to-image"
+        title="Similar Tools You Might Like"
+        description="Check out our other encoding and decoding tools that work great with Base64 conversion."
+      />
 
       {/* Introduction Section */}
-      <section className="space-y-6">
+      <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Decode Base64 to Images – Fast, Private, Professional
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Convert Base64 to Images – Fast, Private, Professional
           </h2>
-          <p className="text-lg text-muted-foreground max-w-6xl mx-auto">
-            Got Base64 encoded image data that you need to convert back to actual image files? Toolspy's Base64 to Image Converter makes it simple. Whether you're a developer working with APIs, handling data from databases, or just need to view encoded images, our tool decodes any Base64 string into high-quality image files instantly.
+          <p className="text-xl text-muted-foreground mb-8">
+            Got Base64 encoded image data that you need to convert back to actual image files? 
+            Toolspy's Base64 to Image Converter makes it simple. Whether you're a developer working with APIs, 
+            handling data from databases, or just need to view encoded images, our tool decodes any Base64 string 
+            into high-quality image files instantly.
           </p>
-          <p className="text-base text-muted-foreground max-w-6xl mx-auto mt-4">
-            Our converter supports all image formats, handles both pure Base64 strings and complete data URLs, and processes everything locally in your browser for maximum privacy. No uploads, no registration, no limits – just fast, reliable Base64 to image conversion.
-          </p>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free Base64 to image converter
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      Base64 decoder online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      convert Base64 to image
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      Base64 to image free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      Base64 to image download
+                    </strong>{" "}
+                    with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      Base64 to image app
+                    </strong>{" "}
+                    is designed for both beginners and professionals. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      advanced decoding technology
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      multiple format support
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      quality preservation
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      convert Base64 to image free
+                    </strong>{" "}
+                    without any software installation or registration required.
+                  </p>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">50MB</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Max Size
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">
+                      ∞
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Privacy
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">
+                      All
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Formats
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">⚡</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Fast
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional Base64 to Image Converter - High-quality decoding with batch processing and format detection"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ 50MB Support
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -355,9 +449,9 @@ export function Base64ToImageSEOContent() {
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
                   <h4 className="font-semibold">{format.format}</h4>
-                  <Badge variant="outline" className="text-xs">
+                  <div className="text-xs px-2 py-1 bg-muted rounded border">
                     {format.mimeType}
-                  </Badge>
+                  </div>
                 </div>
                 <p className="text-sm text-muted-foreground">
                   {format.description}
@@ -410,36 +504,6 @@ export function Base64ToImageSEOContent() {
           {keyBenefits.map((benefit, index) => (
             <Card key={index} className="p-4 hover:shadow-md transition-shadow">
               <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Base64 Decoders
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular Base64 to image conversion tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
             </Card>
           ))}
         </div>
@@ -502,9 +566,91 @@ export function Base64ToImageSEOContent() {
         </Card>
       </section>
 
+      {/* Competitor Advantages */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Why Choose Toolspy Over Other Base64 Decoders
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's how we compare to other popular Base64 to image conversion tools.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {competitorAdvantages.map((competitor, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-primary">
+                {competitor.title}
+              </h4>
+              <ul className="space-y-2">
+                {competitor.advantages.map((advantage, advIndex) => (
+                  <li
+                    key={advIndex}
+                    className="text-sm flex items-start space-x-2"
+                  >
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>{advantage}</span>
+                  </li>
+                ))}
+              </ul>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Step-by-Step Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Complete Step-by-Step Guide
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Detailed instructions for getting the best results from our
+          professional Base64 to image conversion tool.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              step: "1",
+              title: "Prepare Your Base64 Data",
+              description:
+                "Copy your Base64 string or data URL. Ensure it's complete and properly formatted. You can paste multiple strings for batch processing.",
+            },
+            {
+              step: "2",
+              title: "Paste and Auto-Detect",
+              description:
+                "Paste your Base64 data into the converter. Our tool automatically detects the image format and prepares the conversion process.",
+            },
+            {
+              step: "3",
+              title: "Review and Preview",
+              description:
+                "Check the detected format and see a high-quality preview of your decoded image. Verify the conversion quality before proceeding.",
+            },
+            {
+              step: "4",
+              title: "Download Your Images",
+              description:
+                "Download individual images or get all converted files in a ZIP archive. All images maintain their original quality and format.",
+            },
+          ].map((item, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
+              </div>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <FAQ faqs={getBase64ToImageFAQs()} />
+
       {/* SEO Keyword Cluster Section */}
       <section className="space-y-6">
-        <div className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20 p-8 rounded-xl">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
           <h3 className="text-2xl font-bold text-center mb-6">
             Convert Base64 to Image Files Instantly
           </h3>
@@ -525,51 +671,6 @@ export function Base64ToImageSEOContent() {
         </div>
       </section>
 
-      {/* FAQ Section */}
-      <section className="space-y-6" id="faq">
-        <h3 className="text-2xl font-bold text-center">
-          Your Questions Answered
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Everything you need to know about Base64 to image conversion with Toolspy.
-        </p>
-        <div className="space-y-3">
-          {faqData.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base"><h4>{faq.question}</h4></CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Related Tools */}
-      <RelatedTools 
-        currentToolSlug="base64-to-image"
-        title="More Encoding & Decoding Tools"
-        description="Complete your data conversion workflow with these complementary tools."
-      />
-
       {/* Final CTA Section */}
       <section className="space-y-6">
         <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
@@ -589,4 +690,63 @@ export function Base64ToImageSEOContent() {
       </section>
     </div>
   );
-} 
+}
+
+// Export FAQ data for schema generation
+export function getBase64ToImageFAQs() {
+  return [
+    {
+      question: "What is Base64 encoding and why convert it to images?",
+      answer:
+        "Base64 is a method of encoding binary data (like images) into text format using 64 ASCII characters. This is commonly used in web development, APIs, and data storage. Converting Base64 back to images allows you to view, save, and use the original image files that were encoded as text strings.",
+    },
+    {
+      question: "Is it safe to decode Base64 data with Toolspy?",
+      answer:
+        "Absolutely! Our Base64 to Image converter processes all data locally in your browser. Your encoded strings are never uploaded to our servers or stored anywhere. The conversion happens entirely on your device, ensuring complete privacy and security for your data.",
+    },
+    {
+      question: "What image formats can I decode from Base64?",
+      answer:
+        "Our converter supports all major image formats including JPEG, PNG, WebP, GIF, SVG, BMP, TIFF, and more. The tool automatically detects the image format from the Base64 data header and converts it to the appropriate image file with the correct extension.",
+    },
+    {
+      question: "Can I decode multiple Base64 strings at once?",
+      answer:
+        "Yes! Our tool supports batch processing. You can paste multiple Base64 strings (separated by new lines) and convert them all simultaneously. Each string will be processed individually and you can download all the resulting images at once or individually.",
+    },
+    {
+      question: "What if my Base64 string includes the data URL prefix?",
+      answer:
+        "No problem! Our converter automatically handles both pure Base64 strings and complete data URLs (like 'data:image/png;base64,iVBORw0KGgo...'). The tool intelligently parses the format information and extracts the Base64 data for conversion.",
+    },
+    {
+      question: "Why is my Base64 string not converting to an image?",
+      answer:
+        "Common issues include: incomplete Base64 strings, corrupted data, non-image data encoded as Base64, or invalid characters. Our tool provides detailed error messages to help identify the problem. Ensure your Base64 string is complete and represents valid image data.",
+    },
+    {
+      question: "What's the maximum size of Base64 data I can convert?",
+      answer:
+        "Our converter supports Base64 strings up to 50MB of encoded data, which is significantly larger than most competitors. This allows you to decode high-resolution images and large graphics files without size restrictions that limit other tools.",
+    },
+    {
+      question: "Can I preview the image before downloading?",
+      answer:
+        "Yes! Once decoded, you'll see a high-quality preview of the image directly in your browser. You can verify the image looks correct before downloading. The preview maintains the original resolution and quality of the decoded image.",
+    },
+    {
+      question: "How do I use Base64 images in web development?",
+      answer:
+        "Base64 images are commonly used in CSS (background-image), HTML (img src), and JavaScript. They're useful for small images, icons, or when you want to embed images directly in code without separate file requests. However, they increase file size by about 33%.",
+    },
+    {
+      question: "What's the difference between Base64 and regular image files?",
+      answer:
+        "Base64 is a text representation of binary image data. It's about 33% larger than the original image but can be embedded directly in text files, databases, or code. Regular image files are binary and more efficient for storage and loading, but require separate file handling.",
+    },
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ("base64-to-image", getBase64ToImageFAQs); 

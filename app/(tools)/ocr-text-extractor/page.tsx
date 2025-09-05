@@ -51,7 +51,7 @@ import {
   Brain,
   Globe,
 } from "lucide-react";
-import { OcrTextExtractorSEOContent } from "./seo-content";
+import { OCRTextExtractorSEOContent } from "./seo-content";
 
 interface OcrResult {
   id: string;
@@ -850,7 +850,7 @@ The integration of AI technologies in OCR systems represents a major advancement
       )}
 
       {/* SEO Content */}
-      <OcrTextExtractorSEOContent />
+              <OCRTextExtractorSEOContent />
     </div>
   );
 }
