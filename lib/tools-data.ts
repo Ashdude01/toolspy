@@ -226,7 +226,7 @@ export const tools: Tool[] = [
       description: 'Convert Base64 encoded strings back to image files with Toolspy\'s secure converter',
       tags: ['base64', 'decode', 'image', 'convert', 'toolspy']
     }),
-    posterImage: '/images/tools/base64-to-image.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/base64_to_image_jl5bex.webp'
   },
   {
     id: 'image-to-base64',
@@ -245,7 +245,7 @@ export const tools: Tool[] = [
       description: 'Convert images to Base64 encoded strings for embedding with Toolspy\'s professional encoder',
       tags: ['base64', 'encode', 'image', 'convert', 'embed', 'toolspy']
     }),
-    posterImage: '/images/tools/image-to-base64.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/image_to_base64_g9bxxs.webp'
   },
   {
     id: 'base64-encoder-decoder',
@@ -263,7 +263,7 @@ export const tools: Tool[] = [
       description: 'Encode and decode text to/from Base64 format',
       tags: ['base64', 'encode', 'decode', 'text']
     }),
-    posterImage: '/images/tools/base64-encoder-decoder.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/base64_encode_decode_fipglx.webp'
   },
 
   // PDF Tools
@@ -519,7 +519,7 @@ export const tools: Tool[] = [
       description: 'Calculate percentages, percentage increases, and decreases',
       tags: ['percentage', 'calculator', 'math']
     }),
-    posterImage: '/images/tools/percentage-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/percentage_calculator_le7eov.webp'
   },
   {
     id: 'age-calculator',
@@ -537,7 +537,7 @@ export const tools: Tool[] = [
       description: 'Calculate your exact age in years, months, days, hours, and minutes',
       tags: ['age', 'calculator', 'birthday', 'years']
     }),
-    posterImage: '/images/tools/age-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/age-calculator_l8kwxt.webp'
   },
   {
     id: 'love-calculator',
@@ -555,7 +555,7 @@ export const tools: Tool[] = [
       description: 'Calculate love compatibility percentage between two people',
       tags: ['love', 'calculator', 'compatibility', 'relationship']
     }),
-    posterImage: '/images/tools/love-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/love-calculator_kzzs73.webp'
   },
   {
     id: 'bmi-calculator',
@@ -573,7 +573,7 @@ export const tools: Tool[] = [
       description: 'Calculate Body Mass Index (BMI) and health status',
       tags: ['bmi', 'calculator', 'health', 'weight', 'fitness']
     }),
-    posterImage: '/images/tools/bmi-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/bmi-calculator_w5fztx.webp'
   },
   {
     id: 'loan-calculator',
@@ -591,7 +591,7 @@ export const tools: Tool[] = [
       description: 'Calculate monthly loan payments, interest, and total cost',
       tags: ['loan', 'calculator', 'finance', 'payment', 'interest']
     }),
-    posterImage: '/images/tools/loan-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/loan-calculator_y1tqqv.webp'
   },
   {
     id: 'mortgage-calculator',
@@ -609,7 +609,7 @@ export const tools: Tool[] = [
       description: 'Calculate mortgage payments, interest rates, and amortization',
       tags: ['mortgage', 'calculator', 'home', 'loan', 'finance']
     }),
-    posterImage: '/images/tools/mortgage-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/mortgage-calculator_v7lw9c.webp'
   },
   {
     id: 'retirement-calculator',
@@ -627,7 +627,7 @@ export const tools: Tool[] = [
       description: 'Calculate retirement savings needed and investment projections',
       tags: ['retirement', 'calculator', 'savings', 'investment', 'finance']
     }),
-    posterImage: '/images/tools/retirement-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/retirement-calculator_ny8f3s.webp'
   },
   {
     id: 'investment-calculator',
@@ -645,7 +645,7 @@ export const tools: Tool[] = [
       description: 'Calculate compound interest and investment growth over time',
       tags: ['investment', 'calculator', 'compound', 'interest', 'finance']
     }),
-    posterImage: '/images/tools/investment-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Investment-calculator_dsq6hr.webp'
   },
   {
     id: 'tax-calculator',
@@ -663,7 +663,7 @@ export const tools: Tool[] = [
       description: 'Calculate income tax, tax brackets, and take-home pay',
       tags: ['tax', 'calculator', 'income', 'finance', 'salary']
     }),
-    posterImage: '/images/tools/tax-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/tax-calculator_hsxfl3.webp'
   },
   {
     id: 'salary-calculator',
@@ -681,7 +681,7 @@ export const tools: Tool[] = [
       description: 'Convert between hourly, monthly, and yearly salary rates',
       tags: ['salary', 'calculator', 'wage', 'income', 'hourly']
     }),
-    posterImage: '/images/tools/salary-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/salary-calculator_abj5hv.webp'
   },
 
   // Misc Tools (Converters)
@@ -1234,7 +1234,7 @@ export const tools: Tool[] = [
   },
   {
     id: 'instagram-engagement-calculator',
-    name: 'Instagram Engagement Calculator',
+    name: 'Instagram Engagement',
     slug: 'instagram-engagement-calculator',
     description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
     category: 'calculators',
@@ -1250,11 +1250,11 @@ export const tools: Tool[] = [
       description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['instagram', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'engagement rate']
     }),
-    posterImage: '/images/tools/instagram-engagement-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/instagram-engagement-calculator_ga5e9n.webp'
   },
   {
     id: 'facebook-engagement-calculator',
-    name: 'Facebook Engagement Calculator',
+    name: 'Facebook Engagement',
     slug: 'facebook-engagement-calculator',
     description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
     category: 'calculators',
@@ -1270,11 +1270,11 @@ export const tools: Tool[] = [
       description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['facebook', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'reactions', 'engagement rate']
     }),
-    posterImage: '/images/tools/facebook-engagement-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/facebook-engagement-calculator_wvjpe6.webp'
   },
   {
     id: 'twitter-engagement-calculator',
-    name: 'Twitter Engagement Calculator',
+    name: 'Twitter Engagement',
     slug: 'twitter-engagement-calculator',
     description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for social media success',
     category: 'calculators',
@@ -1290,11 +1290,11 @@ export const tools: Tool[] = [
       description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['twitter', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'retweets', 'replies', 'engagement rate']
     }),
-    posterImage: '/images/tools/twitter-engagement-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/twitter-x-engagement-calculator_pctqvi.webp'
   },
   {
     id: 'youtube-engagement-calculator',
-    name: 'YouTube Engagement Calculator',
+    name: 'YouTube Engagement',
     slug: 'youtube-engagement-calculator',
     description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations for video success',
     category: 'calculators',
@@ -1310,7 +1310,7 @@ export const tools: Tool[] = [
       description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for video analytics.',
       tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views', 'engagement rate']
     }),
-    posterImage: '/images/tools/youtube-engagement-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/youtube-engagement-calculator_pui9ad.webp'
   },
   {
     id: 'domain-whois-lookup',

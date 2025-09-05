@@ -40,6 +40,7 @@ import {
   pasteFromClipboard,
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
+import { Base64ToImageSEOContent } from "./seo-content";
 
 function Base64ToImageContent() {
   const { showToast } = useToast();
@@ -448,6 +449,9 @@ function Base64ToImageContent() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Seo Content */}
+      <Base64ToImageSEOContent />
     </div>
   );
 }

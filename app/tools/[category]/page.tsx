@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CategoryToolsClient } from '@/components/tools/category-tools-client';
 import { CategorySchemas } from '@/components/seo/schema-manager';
+import { CategorySEOContent } from '@/components/seo/category-seo-content';
 
 interface CategoryPageProps {
   params: {
@@ -150,7 +151,12 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {/* Category Tools Section */}
           <CategoryToolsClient 
             category={category as ToolCategory}
-          />  
+          />
+
+          {/* Category SEO Content */}
+          <CategorySEOContent 
+            category={category as ToolCategory}
+          />
       </>
     );
   } catch (error) {

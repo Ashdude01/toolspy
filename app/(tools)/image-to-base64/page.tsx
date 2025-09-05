@@ -33,6 +33,7 @@ import {
   generateTimestamp,
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
+import { ImageToBase64SEOContent } from "./seo-content";
 
 function ImageToBase64Content() {
   const { showToast } = useToast();
@@ -391,6 +392,9 @@ function ImageToBase64Content() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Seo Content */}
+      <ImageToBase64SEOContent />
     </div>
   );
 }
