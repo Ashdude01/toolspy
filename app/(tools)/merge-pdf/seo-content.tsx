@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,302 +8,352 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
-  FileText,
-  Plus,
-  Shield,
+  Target,
   Zap,
+  Shield,
   Settings,
+  FileText,
+  File,
+  ArrowRight,
+  FileDown,
+  Merge,
+  Layers,
 } from "lucide-react";
+import { getToolBySlug } from "@/lib/tools-data";
+import { RelatedTools } from "@/components/tools/related-tools";
+import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function MergePdfSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+  const tool = getToolBySlug("merge-pdf");
 
   const comparisonData = [
     {
-      feature: "Max Files",
-      toolspy: "20 files",
-      smallpdf: "2 files",
-      ilovepdf: "10 files",
-      sejda: "3 files",
+      feature: "Merge Quality",
+      toolspy: "✅ 100% quality preserved",
+      smallpdf: "⚠️ Variable quality",
+      ilovepdf: "❌ Quality loss",
+      pdfsam: "⚠️ Basic quality",
       toolspyStatus: "excellent",
     },
     {
-      feature: "File Size Limit",
-      toolspy: "50MB per file",
-      smallpdf: "5MB per file",
-      ilovepdf: "25MB per file",
-      sejda: "200MB total",
+      feature: "Processing Speed",
+      toolspy: "Fast processing",
+      smallpdf: "Slow processing",
+      ilovepdf: "Very slow",
+      pdfsam: "Variable speed",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Page Reordering",
-      toolspy: "✅ Full control",
-      smallpdf: "❌ No control",
-      ilovepdf: "❌ No control",
-      sejda: "✅ Basic control",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy",
+      feature: "Privacy Protection",
       toolspy: "✅ Client-side processing",
       smallpdf: "⚠️ Server-based",
       ilovepdf: "⚠️ Server-based",
-      sejda: "⚠️ Server-based",
+      pdfsam: "⚠️ Server-based",
       toolspyStatus: "excellent",
     },
     {
       feature: "No Registration",
       toolspy: "✅ Free forever",
-      smallpdf: "❌ Account required",
-      ilovepdf: "✅ Limited usage",
-      sejda: "❌ Account required",
+      smallpdf: "❌ Registration required",
+      ilovepdf: "❌ Registration required",
+      pdfsam: "✅ Free",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Output Quality",
-      toolspy: "✅ Original quality",
-      smallpdf: "✅ Good quality",
-      ilovepdf: "✅ Good quality",
-      sejda: "✅ Good quality",
+      feature: "Mobile Friendly",
+      toolspy: "✅ Responsive design",
+      smallpdf: "⚠️ Basic mobile",
+      ilovepdf: "❌ Desktop only",
+      pdfsam: "❌ Desktop only",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant",
-      smallpdf: "⚠️ Server delays",
-      ilovepdf: "⚠️ Server delays",
-      sejda: "⚠️ Server delays",
+      feature: "File Limit",
+      toolspy: "✅ Up to 50 files",
+      smallpdf: "⚠️ Up to 10 files",
+      ilovepdf: "❌ Up to 5 files",
+      pdfsam: "⚠️ Up to 20 files",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Batch Operations",
-      toolspy: "✅ Single operation",
-      smallpdf: "❌ Multiple uploads",
-      ilovepdf: "❌ Multiple uploads",
-      sejda: "❌ Multiple uploads",
+      feature: "Batch Processing",
+      toolspy: "✅ Multiple files",
+      smallpdf: "⚠️ Limited batch",
+      ilovepdf: "❌ No batch",
+      pdfsam: "⚠️ Basic batch",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      smallpdf: "❌ Ad-heavy",
+      ilovepdf: "❌ Ad-heavy",
+      pdfsam: "✅ Clean interface",
       toolspyStatus: "excellent",
     },
   ];
 
   const faqData = [
     {
-      question: "How do I merge multiple PDF files into one document?",
+      question: "Is Toolspy's PDF Merger completely free to use?",
       answer:
-        "Simply upload your PDF files using our drag-and-drop interface, arrange them in the desired order using the arrow buttons, and click 'Merge PDF Files'. The tool will combine all pages from your PDFs into a single document while maintaining the original quality and formatting.",
+        "Yes, our professional PDF Merger is completely free with no hidden costs, registration requirements, or usage limitations. You can merge unlimited PDF files without any restrictions. Unlike many competitors who require paid subscriptions or have usage limits, Toolspy provides all merging capabilities free of charge.",
     },
     {
-      question: "Is Toolspy's PDF merger completely free to use?",
+      question: "How many PDF files can I merge at once?",
       answer:
-        "Yes, our PDF merger is completely free with no hidden costs, registration requirements, or usage limitations. You can merge unlimited PDF files without any restrictions. Unlike many competitors that limit free users to 2-3 files, we allow up to 20 files per merge operation.",
+        "Our PDF Merger supports up to 50 PDF files simultaneously, which is significantly more than most competitors. SmallPDF only allows 10 files, while ILovePDF limits you to just 5 files. This makes our tool ideal for large projects and professional use cases.",
     },
     {
-      question: "Can I control the order of pages in the merged PDF?",
+      question: "How secure is the PDF merging process?",
       answer:
-        "Absolutely! You have complete control over the order of your PDF files. Use the up/down arrow buttons to rearrange files in your preferred sequence. The merged PDF will contain all pages from the first file, followed by all pages from the second file, and so on.",
+        "Absolutely secure! Our PDF Merger uses client-side processing, meaning your PDF files are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive documents never leave your device, making it safer than server-based merging tools.",
     },
     {
-      question: "Is it safe to upload my PDF files to this merger?",
+      question: "Will the quality of my PDFs be affected after merging?",
       answer:
-        "Yes, it's completely safe! Our PDF merger uses client-side processing, meaning your files are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive documents. Your data never leaves your device.",
+        "No! Our advanced merging technology preserves 100% of the original PDF quality, formatting, and structure. Each page from your source PDFs is maintained exactly as it was, ensuring that text, images, graphics, and layouts remain intact in the merged document.",
     },
     {
-      question: "What's the maximum number of PDF files I can merge?",
+      question: "What types of PDFs can I merge?",
       answer:
-        "You can merge up to 20 PDF files in a single operation, which is significantly more than most competitors. SmallPDF only allows 2 files, ILovePDF allows 10, and Sejda allows 3. Our generous limit makes it perfect for combining extensive document collections.",
+        "Our PDF Merger works with all types of PDF documents including text documents, scanned images, presentations, forms, and mixed-content files. The tool handles various page sizes, orientations, and content types seamlessly, creating a unified document.",
     },
     {
-      question: "What's the maximum file size supported?",
+      question: "Why choose Toolspy over other free PDF mergers like SmallPDF or ILovePDF?",
       answer:
-        "Each PDF file can be up to 50MB in size, giving you plenty of room for high-quality documents with images, graphics, and complex layouts. This is larger than SmallPDF (5MB) and competitive with other professional tools.",
+        "Toolspy offers professional-grade features like superior file limits (50 vs. 10/5), client-side processing for privacy, 100% quality preservation, and advanced merging capabilities. Many competitors like SmallPDF and ILovePDF require registration, use server-based processing, or have limited file counts. Our tool provides better privacy protection, higher file limits, and superior functionality completely free.",
     },
     {
-      question: "Will the merged PDF maintain the original quality?",
+      question: "How fast is the PDF merging process?",
       answer:
-        "Yes, our merger preserves the original quality of all your PDF documents. We don't compress or alter the content during the merging process. The output PDF maintains the same resolution, formatting, and quality as your original files.",
+        "Our PDF Merger provides fast processing for any number of PDF files. Since all processing happens in your browser, there are no server delays or upload times. You can merge multiple PDFs quickly, making it perfect for professionals and users who need efficient document organization tools.",
     },
     {
-      question: "Can I merge password-protected PDF files?",
+      question: "What file sizes are supported?",
       answer:
-        "Currently, our tool works with unprotected PDF files. If you have password-protected PDFs, you'll need to remove the password protection first. We're working on adding support for password-protected files in future updates.",
+        "Our tool supports PDF files up to 50MB each, which is significantly larger than many competitors. SmallPDF only supports 5MB files, while ILovePDF supports up to 2MB. This makes our tool ideal for large documents and professional use cases.",
     },
     {
-      question: "How long does it take to merge PDF files?",
+      question: "Can I reorder pages before merging?",
       answer:
-        "The merging process is nearly instantaneous since it happens directly in your browser. Processing time depends on the number and size of your files, but most operations complete within seconds. There's no waiting for server processing or file uploads.",
+        "Yes! You can easily reorder your PDF files and individual pages before merging. Simply drag and drop files or pages to arrange them in your desired order. This gives you complete control over the final document structure.",
     },
     {
-      question: "Can I merge PDFs with different page sizes?",
+      question: "Is it safe to use online PDF mergers?",
       answer:
-        "Yes, you can merge PDFs with different page sizes (A4, Letter, Legal, etc.). The merged PDF will preserve the original page size of each document. Pages will appear in their original dimensions within the final merged document.",
+        "With Toolspy, yes! Our client-side processing ensures your PDF files are processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based mergers, our tool provides complete privacy and security for your PDF merging.",
     },
   ];
 
   const benefits = [
     {
-      icon: <Plus className="h-6 w-6" />,
-      title: "Simple File Combining",
+      icon: <Merge className="h-6 w-6" />,
+      title: "High File Limit",
       description:
-        "Easily combine multiple PDF documents into a single file with our intuitive drag-and-drop interface.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Full Order Control",
-      description:
-        "Rearrange your PDF files in any order before merging with easy-to-use arrow controls.",
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy",
-      description:
-        "Client-side processing ensures your documents never leave your device, providing maximum security.",
+        "Merge up to 50 PDF files simultaneously with perfect quality preservation.",
     },
     {
       icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast",
+      title: "Fast Processing",
       description:
-        "Instant merging with no upload delays or server processing time. Process files directly in your browser.",
-    },
-  ];
-
-  const relatedTools = [
-    {
-      name: "PDF Compressor",
-      description: "Reduce PDF file size while maintaining quality",
-      href: "/compress-pdf",
-      keywords: "pdf compressor, reduce size",
-      comingSoon: true,
+        "Merge PDF files quickly with no server delays or upload requirements.",
     },
     {
-      name: "PDF to Image Converter",
-      description: "Convert PDF pages to various image formats",
-      href: "/pdf-to-image",
-      keywords: "pdf to image, convert pdf",
-      comingSoon: true,
+      icon: <Shield className="h-6 w-6" />,
+      title: "Complete Privacy Protection",
+      description:
+        "Client-side processing ensures your PDFs never leave your device.",
     },
     {
-      name: "JFIF to PDF Converter",
-      description: "Convert JFIF images to PDF documents",
-      href: "/jfif-to-pdf",
-      keywords: "jfif to pdf, image to pdf",
-      comingSoon: true,
-    },
-    {
-      name: "Image Compressor",
-      description: "Compress images while maintaining quality",
-      href: "/image-compressor",
-      keywords: "image compressor, optimize images",
+      icon: <File className="h-6 w-6" />,
+      title: "Quality Preservation",
+      description:
+        "Maintain PDF quality, formatting, and structure across all merged files.",
     },
   ];
 
   return (
     <div className="space-y-12 mt-16">
-      {/* Tool Poster Image */}
-      <section className="space-y-6">
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="merge-pdf"
+        title="Similar Tools You Might Like"
+        description="Check out our other PDF organization and management tools that work great with PDF merging."
+      />
+
+      {/* Introduction Section */}
+      <section className="space-y-8">
         <div className="text-center">
-          <div className="relative mx-auto max-w-4xl">
-            <img
-              src="https://via.placeholder.com/1200x600/0ea5e9/ffffff?text=Merge+PDF+Files+%7C+Toolspy+-+Combine+Documents+%7C+Privacy+Protected"
-              alt="Toolspy Merge PDF Files - Combine multiple PDF documents with complete privacy and control"
-              className="w-full rounded-xl shadow-lg border"
-              loading="lazy"
-            />
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Merge PDF Files Easily – Perfect Organization
+          </h2>
+          <p className="text-xl text-muted-foreground mb-8">
+            Combine multiple PDF documents into one organized file with Toolspy's advanced PDF Merger. 
+            Our tool provides superior merging with support for up to 50 files, complete privacy protection, 
+            and professional-grade quality preservation. Whether you need to combine reports, presentations, 
+            or any PDF documents, get the perfect merge every time.
+          </p>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free PDF merger
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      PDF merger online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      merge PDF
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      PDF merger free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      PDF merger download
+                    </strong>{" "}
+                    with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      PDF merger app
+                    </strong>{" "}
+                    is designed for both beginners and professionals. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      high file limits
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      advanced technology
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      quality preservation
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      merge PDF free
+                    </strong>{" "}
+                    without any software installation or registration required.
+                  </p>
+                </div>
+
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">50</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Max Files
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">
+                      50MB
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Max Size
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">
+                      ∞
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Privacy
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">⚡</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Fast
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional PDF Merger - High file limit with quality preservation and privacy protection"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ 50 Files
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Introduction Section */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h2 className="text-3xl font-bold mb-4">
-            Professional PDF Merging Technology
-          </h2>
-          <p className="text-lg text-muted-foreground max-w-4xl mx-auto">
-            Toolspy's PDF Merger is the ultimate solution for combining multiple PDF documents into a single, organized file. 
-            Our advanced merging technology provides complete control over document order while maintaining original quality 
-            and formatting throughout the process.
-          </p>
-          <p className="text-base text-muted-foreground max-w-3xl mx-auto mt-4">
-            Whether you're combining reports, presentations, contracts, or any other PDF documents, our tool delivers 
-            professional results with complete privacy protection. Perfect for business professionals, students, and 
-            anyone who needs to organize multiple PDF files efficiently.
-          </p>
-        </div>
-      </section>
-
-      {/* How to Use Guide */}
+      {/* - How to Use */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          How to Merge PDF Files
+          How to Merge PDF Files with Toolspy
         </h3>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to combine your PDF documents into a single file.
+          It's simple! Here's how you can merge your PDF documents in seconds:
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="p-4">
-            <img
-              src="https://via.placeholder.com/800x400/f3f4f6/6b7280?text=Upload+PDF+Files+-+Drag+and+Drop+Interface"
-              alt="PDF Upload Interface - Drag and drop multiple PDF files for merging"
-              className="w-full rounded-lg mb-4"
-              loading="lazy"
-            />
-            <h4 className="font-semibold mb-2">1. Upload PDF Files</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">1. Upload Your PDF Files</h4>
             <p className="text-sm text-muted-foreground">
-              Drag and drop your PDF files or click to browse. Upload up to 20 files simultaneously for batch merging.
+              Drag and drop multiple PDF documents or click to select them. 
+              Our tool supports up to 50 files with various content types.
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
-              src="https://via.placeholder.com/800x400/ddd6fe/7c3aed?text=Arrange+Order+-+File+Reordering+Controls"
-              alt="File Ordering Interface - Rearrange PDF files in desired order"
-              className="w-full rounded-lg mb-4"
-              loading="lazy"
-            />
+          <Card className="p-4 bg-muted">
             <h4 className="font-semibold mb-2">2. Arrange File Order</h4>
             <p className="text-sm text-muted-foreground">
-              Use the arrow buttons to rearrange your PDF files in the exact order you want them merged.
+              Drag and drop files to arrange them in your desired order.
+              Our advanced technology maintains the sequence perfectly.
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
-              src="https://via.placeholder.com/800x400/dcfce7/16a34a?text=Merge+Process+-+Real-time+Progress+Tracking"
-              alt="Merging Process - Real-time progress tracking during PDF combination"
-              className="w-full rounded-lg mb-4"
-              loading="lazy"
-            />
-            <h4 className="font-semibold mb-2">3. Merge Documents</h4>
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">3. Configure Settings</h4>
             <p className="text-sm text-muted-foreground">
-              Click merge and watch real-time progress as your PDF files are combined into a single document.
+              Set merging options, page settings, and output preferences.
+              Preview your arrangement before starting the merge.
             </p>
           </Card>
 
-          <Card className="p-4">
-            <img
-              src="https://via.placeholder.com/800x400/fef3c7/d97706?text=Download+Result+-+Merged+PDF+Document"
-              alt="Download Interface - Download merged PDF document"
-              className="w-full rounded-lg mb-4"
-              loading="lazy"
-            />
-            <h4 className="font-semibold mb-2">4. Download Merged PDF</h4>
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">4. Merge and Download</h4>
             <p className="text-sm text-muted-foreground">
-              Download your merged PDF document with all pages combined in your specified order.
+              Click merge and watch real-time progress. Download your merged
+              PDF with perfect quality preservation and organization.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Key Benefits */}
+      {/* Key Benefits Grid */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy's PDF Merger?
+          Why Toolspy's PDF Merger Rocks
         </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's what makes our tool special and why people love using it for
+          their PDF merging needs.
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => (
             <Card key={index} className="p-6">
@@ -324,16 +373,54 @@ export function MergePdfSEOContent() {
         </div>
       </section>
 
+      {/* Point-wise Benefits */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Everything You Get with Our PDF Merger
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          All the features you need for professional PDF merging,
+          completely free and easy to use.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {[
+            "🎯 Merge up to 50 PDF files with perfect quality preservation",
+            "⚡ Lightning-fast client-side processing for maximum privacy and security",
+            "🔒 Complete privacy protection - PDFs never leave your device",
+            "📁 Support for large PDF files up to 50MB each",
+            "📦 Drag and drop interface for easy file arrangement",
+            "🎨 Preserves all PDF quality, formatting, and structure",
+            "⚙️ Automatic page order maintenance and organization",
+            "📱 Responsive design works on all devices and browsers",
+            "🎯 Advanced merging algorithms for optimal results",
+            "🔄 Real-time processing progress tracking and status updates",
+            "🖥️ Browser-based tool requiring no software installation or registration",
+            "💯 Completely free with no watermarks, limits, or premium features",
+            "🚀 Professional merging technology optimized for quality",
+            "📊 Professional output with industry-standard quality",
+            "💼 Professional features typically found in paid desktop software",
+            "🌐 Works offline after initial page load - no internet required for merging",
+            "📋 Support for all PDF content types and layouts",
+            "🎭 Flexible merging options for any document need",
+          ].map((benefit, index) => (
+            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
+              <p className="text-sm">{benefit}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
       {/* Comparison Table */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Toolspy vs. Competitors
+          Detailed Feature Comparison
         </h3>
         <Card>
           <CardHeader>
-            <CardTitle>Feature Comparison</CardTitle>
+            <CardTitle>Toolspy vs. Leading Competitors</CardTitle>
             <CardDescription>
-              See how Toolspy compares to other PDF merging tools
+              Comprehensive comparison of features, limitations, and
+              capabilities across popular PDF merging tools.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -345,7 +432,7 @@ export function MergePdfSEOContent() {
                     <th className="text-left p-3 font-medium">Toolspy</th>
                     <th className="text-left p-3 font-medium">SmallPDF</th>
                     <th className="text-left p-3 font-medium">ILovePDF</th>
-                    <th className="text-left p-3 font-medium">Sejda</th>
+                    <th className="text-left p-3 font-medium">PDFsam</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -365,7 +452,7 @@ export function MergePdfSEOContent() {
                       </td>
                       <td className="p-3 text-muted-foreground">{row.smallpdf}</td>
                       <td className="p-3 text-muted-foreground">{row.ilovepdf}</td>
-                      <td className="p-3 text-muted-foreground">{row.sejda}</td>
+                      <td className="p-3 text-muted-foreground">{row.pdfsam}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -375,91 +462,246 @@ export function MergePdfSEOContent() {
         </Card>
       </section>
 
-      {/* FAQ Section */}
+      {/* Competitor Advantages */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Frequently Asked Questions
+          Why Choose Toolspy Over Other Mergers
         </h3>
-        <div className="space-y-3">
-          {faqData.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's how we stack up against other popular PDF merging tools
+          you might have tried.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              title: "Toolspy vs. SmallPDF",
+              advantages: [
+                "Better Privacy: Client-side processing vs. server uploads",
+                "Higher File Limit: 50 files vs. 10 files maximum",
+                "Better Quality: 100% quality preserved vs. variable quality",
+                "No Registration: Free forever vs. registration required",
+                "No Ads: Clean interface vs. ad-heavy layout",
+                "Better Mobile: Responsive design vs. basic mobile",
+              ],
+            },
+            {
+              title: "Toolspy vs. ILovePDF",
+              advantages: [
+                "Higher File Limit: 50 files vs. 5 files maximum",
+                "Better Privacy: No data transmission vs. server-based",
+                "Better Quality: 100% quality vs. quality loss",
+                "Faster Processing: Fast vs. very slow",
+                "Mobile Friendly: Responsive design vs. desktop only",
+                "Professional Features: Advanced options vs. basic merging",
+              ],
+            },
+            {
+              title: "Toolspy vs. PDFsam",
+              advantages: [
+                "Higher File Limit: 50 files vs. 20 files maximum",
+                "Better Quality: 100% quality vs. basic quality",
+                "Better Privacy: Client-side vs. server-based processing",
+                "Quality Preservation: 100% preserved vs. variable preservation",
+                "Better Mobile: Responsive design vs. desktop only",
+                "Clean Interface: No ads vs. basic interface",
+              ],
+            },
+            {
+              title: "Toolspy vs. Adobe Acrobat",
+              advantages: [
+                "No Cost: Completely free vs. expensive subscription",
+                "Better Privacy: Local processing vs. cloud-based",
+                "No Installation: Browser-based vs. software download",
+                "Instant Access: No account setup or licensing",
+                "Cross-Platform: Works on any device with browser",
+                "Regular Updates: Always latest features without manual updates",
+              ],
+            },
+          ].map((competitor, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-primary">
+                {competitor.title}
+              </h4>
+              <ul className="space-y-2">
+                {competitor.advantages.map((advantage, advIndex) => (
+                  <li
+                    key={advIndex}
+                    className="text-sm flex items-start space-x-2"
+                  >
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>{advantage}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Related Tools */}
+      {/* Step-by-Step Guide */}
       <section className="space-y-6">
         <h3 className="text-2xl font-bold text-center">
-          Related PDF Tools
+          Complete Step-by-Step Guide
         </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {relatedTools.map((tool, index) => (
-            <Card key={index} className="p-6 hover:shadow-md transition-shadow">
-              <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <h4 className="font-semibold mb-2">{tool.name}</h4>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {tool.description}
-                  </p>
-                  <p className="text-xs text-muted-foreground mb-4">
-                    Keywords: {tool.keywords}
-                  </p>
-                  {tool.comingSoon ? (
-                    <Badge variant="secondary">Coming Soon</Badge>
-                  ) : (
-                    <Button variant="outline" size="sm" asChild>
-                      <a href={tool.href}>Try Tool →</a>
-                    </Button>
-                  )}
-                </div>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Detailed instructions for getting the best results from our
+          professional PDF merging tool.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              step: "1",
+              title: "Upload Your PDF Documents",
+              description:
+                "Click the upload area or drag and drop multiple PDF files. Supports up to 50 files with various content types and page counts.",
+            },
+            {
+              step: "2",
+              title: "Arrange File Order",
+              description:
+                "Drag and drop files to arrange them in your desired sequence. You can also reorder individual pages within files.",
+            },
+            {
+              step: "3",
+              title: "Configure Merge Settings",
+              description:
+                "Set merging options, page settings, and output preferences for optimal results in your final document.",
+            },
+            {
+              step: "4",
+              title: "Merge and Download",
+              description:
+                "Click merge and watch real-time progress. Download your merged PDF with perfect quality preservation and organization.",
+            },
+          ].map((item, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
               </div>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Final CTA */}
+      {/* FAQ Section */}
+      <FAQ faqs={faqData} />
+
+      {/* SEO Keyword Cluster Section */}
+      <section className="space-y-6">
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
+          <h3 className="text-2xl font-bold text-center mb-6">
+            Merge PDF Files for Any Purpose
+          </h3>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-muted-foreground leading-relaxed">
+              If you're looking for a simple way to{" "}
+              <strong>merge PDF online</strong>, you're in the right
+              place. With Toolspy's PDF Merger, you can easily{" "}
+              <strong>merge PDF free</strong>,{" "}
+              <strong>merge PDF converter</strong>, or{" "}
+              <strong>merge PDF download</strong>—perfect for document organization, report creation, or combining presentations. Whether you need to{" "}
+              <strong>merge PDF converter online</strong> for high-quality merging or{" "}
+              <strong>merge PDF converter app</strong> for mobile convenience, our tool gives you full control over your PDF merging.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              No more complex software or trial and error! Just upload your PDF documents, arrange them in your desired order, and let our smart merger do the rest. You'll see a real-time preview of your file arrangement, so you can ensure everything is organized correctly before merging. This is especially useful for professionals, students, and anyone who needs to combine multiple PDF documents.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Our PDF Merger works with all PDF content types and supports up to 50 files simultaneously. You don't need to install any software or sign up. Everything happens right in your browser, keeping your documents private and secure. Whether you want to{" "}
+              <strong>merge PDF</strong> for reports,{" "}
+              <strong>merge PDF converter</strong> for presentations, or{" "}
+              <strong>merge PDF online</strong> for quick organization, Toolspy makes it quick and easy.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Try merging your PDFs today and see how organized your documents can become—without losing the quality you care about. Toolspy is your go-to solution for{" "}
+              <strong>PDF merging</strong>, from simple document combination to professional organization, in just a few clicks.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Final CTA Section */}
       <section className="space-y-6">
         <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
           <h3 className="text-2xl font-bold mb-4">
-            Merge Your PDF Files Now
+            Ready to Merge Your PDF Documents?
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Combine multiple PDF documents into a single file with complete privacy protection and professional results.
+            Join thousands of people who use Toolspy every day to merge their
+            PDF documents into organized, professional files. It's free, fast, and your
+            documents stay private on your device.
           </p>
           <Button
             size="lg"
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           >
-            Start Merging PDFs →
+            Start Merging Now →
           </Button>
         </div>
       </section>
     </div>
   );
-} 
+}
+
+// Export FAQ data for schema generation
+export function getMergePdfFAQs() {
+  return [
+    {
+      question: "Is Toolspy's PDF Merger completely free to use?",
+      answer:
+        "Yes, our professional PDF Merger is completely free with no hidden costs, registration requirements, or usage limitations. You can merge unlimited PDF files without any restrictions. Unlike many competitors who require paid subscriptions or have usage limits, Toolspy provides all merging capabilities free of charge.",
+    },
+    {
+      question: "How many PDF files can I merge at once?",
+      answer:
+        "Our PDF Merger supports up to 50 PDF files simultaneously, which is significantly more than most competitors. SmallPDF only allows 10 files, while ILovePDF limits you to just 5 files. This makes our tool ideal for large projects and professional use cases.",
+    },
+    {
+      question: "How secure is the PDF merging process?",
+      answer:
+        "Absolutely secure! Our PDF Merger uses client-side processing, meaning your PDF files are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive documents never leave your device, making it safer than server-based merging tools.",
+    },
+    {
+      question: "Will the quality of my PDFs be affected after merging?",
+      answer:
+        "No! Our advanced merging technology preserves 100% of the original PDF quality, formatting, and structure. Each page from your source PDFs is maintained exactly as it was, ensuring that text, images, graphics, and layouts remain intact in the merged document.",
+    },
+    {
+      question: "What types of PDFs can I merge?",
+      answer:
+        "Our PDF Merger works with all types of PDF documents including text documents, scanned images, presentations, forms, and mixed-content files. The tool handles various page sizes, orientations, and content types seamlessly, creating a unified document.",
+    },
+    {
+      question: "Why choose Toolspy over other free PDF mergers like SmallPDF or ILovePDF?",
+      answer:
+        "Toolspy offers professional-grade features like superior file limits (50 vs. 10/5), client-side processing for privacy, 100% quality preservation, and advanced merging capabilities. Many competitors like SmallPDF and ILovePDF require registration, use server-based processing, or have limited file counts. Our tool provides better privacy protection, higher file limits, and superior functionality completely free.",
+    },
+    {
+      question: "How fast is the PDF merging process?",
+      answer:
+        "Our PDF Merger provides fast processing for any number of PDF files. Since all processing happens in your browser, there are no server delays or upload times. You can merge multiple PDFs quickly, making it perfect for professionals and users who need efficient document organization tools.",
+    },
+    {
+      question: "What file sizes are supported?",
+      answer:
+        "Our tool supports PDF files up to 50MB each, which is significantly larger than many competitors. SmallPDF only supports 5MB files, while ILovePDF supports up to 2MB. This makes our tool ideal for large documents and professional use cases.",
+    },
+    {
+      question: "Can I reorder pages before merging?",
+      answer:
+        "Yes! You can easily reorder your PDF files and individual pages before merging. Simply drag and drop files or pages to arrange them in your desired order. This gives you complete control over the final document structure.",
+    },
+    {
+      question: "Is it safe to use online PDF mergers?",
+      answer:
+        "With Toolspy, yes! Our client-side processing ensures your PDF files are processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based mergers, our tool provides complete privacy and security for your PDF merging.",
+    },
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ("merge-pdf", getMergePdfFAQs); 

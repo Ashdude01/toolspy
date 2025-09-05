@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -9,10 +8,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
@@ -20,385 +16,484 @@ import {
   Shield,
   Settings,
   BookOpen,
-  Edit,
-  Download,
-  Clock,
-  Layers,
-  User,
-  Globe,
   FileText,
+  Copy,
+  Download,
+  File,
+  ArrowRight,
+  FileDown,
+  BarChart3,
+  Book,
+  FileText as FileTextIcon,
+  Smartphone,
 } from "lucide-react";
-import { getToolBySlug, tools } from "@/lib/tools-data";
+import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
+import { FAQ } from "@/components/ui/faq";
+import NextImage from "next/image";
 
 export function EbookConverterSEOContent() {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
-
   const tool = getToolBySlug("ebook-converter");
 
   const comparisonData = [
     {
-      feature: "Format Support",
-      toolspy: "✅ 6+ formats",
-      calibre: "✅ 30+ formats",
-      zamzar: "✅ 15+ formats",
-      convertio: "✅ 20+ formats",
+      feature: "Conversion Quality",
+      toolspy: "✅ High quality",
+      calibre: "⚠️ Limited quality",
+      onlineconverter: "❌ Low quality",
+      ebookconverter: "⚠️ Variable quality",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Metadata Editing",
-      toolspy: "✅ Full editor",
-      calibre: "✅ Advanced",
-      zamzar: "❌ Basic only",
-      convertio: "❌ Limited",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple files",
-      calibre: "✅ Bulk convert",
-      zamzar: "⚠️ Premium only",
-      convertio: "⚠️ 2 files max",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Cover Image Support",
-      toolspy: "✅ Upload & embed",
-      calibre: "✅ Full support",
-      zamzar: "❌ Not supported",
-      convertio: "❌ Not supported",
+      feature: "Conversion Speed",
+      toolspy: "✅ Fast conversion",
+      calibre: "⚠️ Slow processing",
+      onlineconverter: "❌ Very slow",
+      ebookconverter: "⚠️ Variable speed",
       toolspyStatus: "excellent",
     },
     {
       feature: "Privacy Protection",
-      toolspy: "✅ Client-side",
-      calibre: "✅ Offline app",
-      zamzar: "⚠️ Server upload",
-      convertio: "⚠️ Server upload",
+      toolspy: "✅ Client-side processing",
+      calibre: "⚠️ Server-based",
+      onlineconverter: "⚠️ Server-based",
+      ebookconverter: "⚠️ Server-based",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Auto-fill Metadata",
-      toolspy: "✅ Smart suggestions",
-      calibre: "⚠️ Manual only",
-      zamzar: "❌ Not available",
-      convertio: "❌ Not available",
+      feature: "No Registration",
+      toolspy: "✅ Free forever",
+      calibre: "✅ Free",
+      onlineconverter: "✅ Free",
+      ebookconverter: "✅ Free",
       toolspyStatus: "excellent",
     },
     {
-      feature: "File Size Limit",
-      toolspy: "50MB",
-      calibre: "No limit",
-      zamzar: "50MB free",
-      convertio: "100MB free",
+      feature: "Mobile Friendly",
+      toolspy: "✅ Responsive design",
+      calibre: "⚠️ Basic mobile",
+      onlineconverter: "❌ Poor mobile",
+      ebookconverter: "⚠️ Limited mobile",
       toolspyStatus: "excellent",
     },
     {
-      feature: "Registration Required",
-      toolspy: "✅ No signup",
-      calibre: "✅ No signup",
-      zamzar: "⚠️ Email required",
-      convertio: "⚠️ Account needed",
+      feature: "Export Options",
+      toolspy: "✅ Multiple formats",
+      calibre: "⚠️ Limited formats",
+      onlineconverter: "❌ No export",
+      ebookconverter: "⚠️ Basic export",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "Batch Processing",
+      toolspy: "✅ Multiple ebooks",
+      calibre: "❌ Single ebook",
+      onlineconverter: "❌ Single ebook",
+      ebookconverter: "❌ Single ebook",
+      toolspyStatus: "excellent",
+    },
+    {
+      feature: "No Ads",
+      toolspy: "✅ Clean interface",
+      calibre: "❌ Ad-heavy",
+      onlineconverter: "❌ Ad-heavy",
+      ebookconverter: "❌ Ad-heavy",
       toolspyStatus: "excellent",
     },
   ];
 
-  const features = [
+  const converterTypes = [
     {
-      icon: <BookOpen className="h-6 w-6" />,
-      title: "Universal Format Support",
-      description: "Convert between EPUB, MOBI, PDF, DOCX, TXT, and HTML with perfect compatibility across all devices."
+      type: "Ebook Converter",
+      description: "Convert ebooks between different formats",
+      useCase: "Format conversion, compatibility needs, cross-platform reading",
+      precision: "High-quality conversion",
+      example: "Convert EPUB to PDF format",
     },
     {
-      icon: <Edit className="h-6 w-6" />,
-      title: "Professional Metadata Editor",
-      description: "Edit title, author, publisher, description, genre, language, and ISBN with auto-fill suggestions."
+      type: "Format Support",
+      description: "Support for EPUB, PDF, MOBI, and other formats",
+      useCase: "Multiple format support, compatibility needs, specific requirements",
+      precision: "Multiple format conversion",
+      example: "Convert between various ebook formats",
+    },
+    {
+      type: "Batch Converter",
+      description: "Convert multiple ebooks simultaneously",
+      useCase: "Bulk conversion, ebook libraries, project requirements",
+      precision: "Multiple ebook processing",
+      example: "Convert entire ebook collections",
+    },
+    {
+      type: "Quality Optimizer",
+      description: "Optimize ebook quality during conversion",
+      useCase: "Quality improvement, optimization needs, professional results",
+      precision: "Quality-optimized conversion",
+      example: "Optimize ebooks for different devices",
+    },
+  ];
+
+  const benefits = [
+    {
+      icon: <Shield className="h-6 w-6" />,
+      title: "Complete Privacy Protection",
+      description:
+        "Client-side processing ensures your data never leaves your device.",
     },
     {
       icon: <Zap className="h-6 w-6" />,
-      title: "Batch Conversion",
-      description: "Convert multiple e-books simultaneously with consistent settings and progress tracking."
+      title: "Fast Conversion",
+      description:
+        "Convert ebooks quickly with no server delays or uploads.",
     },
     {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Privacy First",
-      description: "All conversion processing happens locally in your browser - your e-books never leave your device."
+      icon: <BookOpen className="h-6 w-6" />,
+      title: "High-Quality Conversion",
+      description:
+        "Convert ebooks in the highest available quality with multiple format options.",
     },
     {
       icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Options",
-      description: "Fine-tune formatting, image optimization, font embedding, and table of contents generation."
+      title: "Advanced Conversion Options",
+      description:
+        "Customize conversion settings, quality preferences, and format choices.",
     },
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "Cover Image Support",
-      description: "Upload and embed custom cover images to make your e-books look professional."
-    }
   ];
 
-  const useCases = [
-    {
-      title: "Authors & Publishers",
-      description: "Convert manuscripts between formats for different publishing platforms and e-book stores.",
-      examples: ["Amazon Kindle", "Apple Books", "Google Play", "Draft manuscripts"]
-    },
-    {
-      title: "Students & Researchers",
-      description: "Convert academic papers, research documents, and study materials for different devices.",
-      examples: ["Research papers", "Academic texts", "Study guides", "Reference materials"]
-    },
-    {
-      title: "Digital Libraries",
-      description: "Standardize e-book collections and ensure compatibility across all reading devices.",
-      examples: ["Library digitization", "Archive conversion", "Format standardization", "Legacy document updates"]
-    },
-    {
-      title: "Content Creators",
-      description: "Transform blog posts, articles, and content into professional e-book formats.",
-      examples: ["Blog compilations", "Article collections", "How-to guides", "Course materials"]
-    }
+  const keyBenefits = [
+    "💰 Professional ebook conversion with complete privacy protection",
+    "⚡ Fast conversion with no server delays or uploads",
+    "🔒 Complete privacy protection - data never leaves your device",
+    "📊 Multiple converter types: ebook converter, format support, batch processing",
+    "🔧 Real-time processing and instant results",
+    "📊 Complete conversion history and ebook tracking",
+    "📋 Multiple export formats and copy options",
+    "🎯 Professional-grade conversion capabilities",
+    "📱 Mobile-friendly responsive design",
+    "💻 Browser-based tool requiring no software installation",
+    "💯 Completely free with no watermarks or limitations",
+    "🚀 Advanced features typically found in paid software",
+    "🔍 Precise conversion and ebook access",
+    "🌐 Works offline after initial page load",
+    "🎨 Clean, professional interface without distractions",
+    "📈 Comprehensive ebook conversion and analysis tools",
   ];
 
-  const formatGuide = [
+  const competitorAdvantages = [
     {
-      format: "EPUB",
-      description: "Most universal e-book format",
-      bestFor: "E-readers, tablets, phones",
-      features: ["Reflowable text", "Multimedia support", "Universal compatibility"]
+      title: "Toolspy vs. Calibre",
+      advantages: [
+        "Better Quality: High quality vs. limited quality",
+        "Better Speed: Fast conversion vs. slow processing",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. limited formats",
+        "Mobile Experience: Responsive design vs. basic mobile",
+        "Batch Processing: Multiple ebooks vs. single ebook",
+      ],
     },
     {
-      format: "MOBI/AZW",
-      description: "Amazon Kindle exclusive format",
-      bestFor: "Kindle devices and apps",
-      features: ["Kindle optimized", "Whispersync support", "Notes & highlights"]
+      title: "Toolspy vs. OnlineConverter",
+      advantages: [
+        "Better Quality: High quality vs. low quality",
+        "Better Speed: Fast conversion vs. very slow",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. no export",
+        "Mobile Experience: Responsive design vs. poor mobile",
+        "Batch Processing: Multiple ebooks vs. single ebook",
+      ],
     },
     {
-      format: "PDF",
-      description: "Fixed layout document format",
-      bestFor: "Print-replica books, academic papers",
-      features: ["Fixed formatting", "Print ready", "Cross-platform viewing"]
+      title: "Toolspy vs. EbookConverter",
+      advantages: [
+        "Better Quality: High quality vs. variable quality",
+        "Better Speed: Fast conversion vs. variable speed",
+        "Better Privacy: Client-side vs. server-based",
+        "Export Options: Multiple formats vs. basic export",
+        "Mobile Experience: Responsive design vs. limited mobile",
+        "Batch Processing: Multiple ebooks vs. single ebook",
+      ],
     },
-    {
-      format: "DOCX",
-      description: "Microsoft Word document format",
-      bestFor: "Editing and collaboration",
-      features: ["Full editing", "Track changes", "Comments & reviews"]
-    }
   ];
-
-  const conversionTips = [
-    {
-      title: "EPUB to MOBI",
-      tip: "Enable 'Embed fonts' for consistent Kindle display and use 'Generate TOC' for better navigation."
-    },
-    {
-      title: "PDF to EPUB",
-      tip: "Enable 'Preserve formatting' but disable 'Optimize images' for text-heavy documents to maintain readability."
-    },
-    {
-      title: "DOCX to EPUB",
-      tip: "Use 'Generate TOC' and ensure proper heading styles in your Word document for automatic chapter detection."
-    },
-    {
-      title: "HTML to E-book",
-      tip: "Clean up HTML code first and use 'Optimize images' to reduce file size while maintaining quality."
-    }
-  ];
-
-  const faqs = [
-    {
-      question: "What e-book formats can I convert between?",
-      answer: "Our converter supports all major e-book formats including EPUB (universal), MOBI/AZW (Kindle), PDF (fixed layout), DOCX (Word), TXT (plain text), and HTML (web). You can convert between any of these formats with full compatibility and professional results."
-    },
-    {
-      question: "How do I edit e-book metadata like title and author?",
-      answer: "For single files, click 'Edit Metadata' to access our comprehensive editor. You can modify title, author, publisher, description, genre, language, ISBN, publish date, and more. Use the 'Auto-fill' feature for quick setup with sample data, and upload custom cover images for professional presentation."
-    },
-    {
-      question: "Can I convert multiple e-books at once?",
-      answer: "Yes! Upload multiple e-book files to enable batch processing mode. All files will be converted using the same settings and target format. You can monitor individual progress and download all converted files at once for efficient bulk conversion."
-    },
-    {
-      question: "Which format should I choose for Amazon Kindle?",
-      answer: "For Kindle devices and apps, choose MOBI or AZW format. Enable 'Embed fonts' and 'Generate TOC' settings for optimal Kindle experience. These formats support Whispersync, notes, highlights, and other Kindle-specific features."
-    },
-    {
-      question: "Is my e-book data secure during conversion?",
-      answer: "Absolutely! All conversion processing happens locally in your browser using advanced client-side technology. Your e-books and metadata never leave your device, ensuring complete privacy and security of your intellectual property and personal documents."
-    },
-    {
-      question: "How can I optimize e-books for different devices?",
-      answer: "Use EPUB for universal compatibility (tablets, phones, e-readers), MOBI for Kindle devices, PDF for fixed layouts or print-replica books, and DOCX for editing. Enable 'Optimize images' to reduce file size and 'Preserve formatting' to maintain layout across devices."
-    },
-    {
-      question: "What should I do if my converted e-book has formatting issues?",
-      answer: "Try these settings: Enable 'Preserve formatting' for layout retention, disable 'Optimize images' for text-heavy documents, use 'Generate TOC' for proper navigation, and ensure your source document has proper heading styles. For PDF sources, the original layout quality affects conversion results."
-    },
-    {
-      question: "Can I add a custom cover image to my e-book?",
-      answer: "Yes! In the metadata editor, click 'Upload Cover' to add a custom cover image. We support JPG, PNG, and other image formats. The cover will be embedded in your converted e-book and displayed in e-reader libraries and bookstores."
-    },
-    {
-      question: "How do I convert a Word document to an e-book?",
-      answer: "Upload your DOCX file and select your target format (EPUB for universal compatibility). Use proper heading styles in Word for automatic chapter detection, enable 'Generate TOC' for navigation, and edit metadata to add title, author, and description information."
-    },
-    {
-      question: "What's the difference between EPUB and MOBI formats?",
-      answer: "EPUB is the universal standard supported by most e-readers, tablets, and phones. MOBI/AZW is Amazon's proprietary format for Kindle devices. EPUB offers broader compatibility, while MOBI provides Kindle-specific features like Whispersync. Choose based on your target reading platform."
-    }
-  ];
-
-  // Register FAQ data for schema generation
-  if (typeof window !== 'undefined') {
-    registerToolFAQ('ebook-converter', () => faqs);
-  }
 
   return (
-    <div className="space-y-12 mt-12">
-      {/* Features Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Professional E-book Conversion Suite
+    <div className="space-y-12 mt-16">
+      {/* Related Tools */}
+      <RelatedTools
+        currentToolSlug="ebook-converter"
+        title="Similar Tools You Might Like"
+        description="Check out our other conversion and document tools that work great with ebook and document projects."
+      />
+
+      {/* Introduction Section */}
+      <section className="space-y-8">
+        <div className="text-center">
+          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+            Convert Ebooks – Fast & Private
           </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Convert e-books between all major formats with advanced metadata editing, cover image support, and complete privacy protection.
+          <p className="text-xl text-muted-foreground mb-8">
+            Professional ebook converter with complete privacy protection, 
+            high-quality conversion, and fast processing. Perfect for readers, 
+            authors, and anyone needing ebook format conversion.
           </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {features.map((feature, index) => (
-            <Card key={index} className="border-2 hover:border-indigo-200 transition-colors">
-              <CardHeader>
-                <div className="flex items-center gap-3">
-                  <div className="p-2 bg-indigo-100 rounded-lg text-indigo-600">
-                    {feature.icon}
-                  </div>
-                  <CardTitle className="text-lg">{feature.title}</CardTitle>
+          <div className="max-w-6xl mx-auto space-y-8">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+              <div className="space-y-6 text-left">
+                <div className="space-y-4">
+                  <p className="text-xl text-muted-foreground leading-relaxed">
+                    Our{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      free ebook converter
+                    </strong>{" "}
+                    is the ultimate{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      ebook converter online
+                    </strong>{" "}
+                    for{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      convert ebooks
+                    </strong>
+                    ,{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      ebook converter free
+                    </strong>
+                    , and{" "}
+                    <strong className="text-orange-600 dark:text-orange-400">
+                      ebook converter download
+                    </strong>{" "}
+                    with professional quality.
+                  </p>
+                  <p className="text-lg text-muted-foreground leading-relaxed">
+                    The{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      ebook converter app
+                    </strong>{" "}
+                    is designed for both professionals and everyday users. With{" "}
+                    <strong className="text-purple-600 dark:text-purple-400">
+                      advanced conversion technology
+                    </strong>
+                    ,{" "}
+                    <strong className="text-pink-600 dark:text-pink-400">
+                      complete privacy protection
+                    </strong>
+                    , and{" "}
+                    <strong className="text-green-600 dark:text-green-400">
+                      fast processing
+                    </strong>
+                    , you can{" "}
+                    <strong className="text-blue-600 dark:text-blue-400">
+                      convert ebooks free
+                    </strong>{" "}
+                    without any software installation or registration required.
+                  </p>
                 </div>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{feature.description}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
 
-      {/* Format Guide */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            E-book Format Guide
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Choose the right format for your needs and target reading platform.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-6">
-          {formatGuide.map((format, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <BookOpen className="h-5 w-5 text-indigo-600" />
-                  {format.format}
-                </CardTitle>
-                <CardDescription>{format.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-3">
-                  <div>
-                    <div className="text-sm font-medium text-gray-700">Best for:</div>
-                    <div className="text-sm text-gray-600">{format.bestFor}</div>
+                {/* Quick Stats */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
+                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
+                    <div className="text-2xl font-bold text-blue-600">4</div>
+                    <div className="text-sm text-blue-700 dark:text-blue-300">
+                      Types
+                    </div>
                   </div>
-                  <div>
-                    <div className="text-sm font-medium text-gray-700 mb-2">Features:</div>
-                    <div className="flex flex-wrap gap-1">
-                      {format.features.map((feature, idx) => (
-                        <Badge key={idx} variant="secondary" className="text-xs">
-                          {feature}
-                        </Badge>
-                      ))}
+                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
+                    <div className="text-2xl font-bold text-green-600">
+                      ⚡
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-300">
+                      Fast
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
+                    <div className="text-2xl font-bold text-purple-600">
+                      🔒
+                    </div>
+                    <div className="text-sm text-purple-700 dark:text-purple-300">
+                      Private
+                    </div>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
+                    <div className="text-2xl font-bold text-pink-600">📚</div>
+                    <div className="text-sm text-pink-700 dark:text-pink-300">
+                      Ebooks
                     </div>
                   </div>
                 </div>
-              </CardContent>
+              </div>
+
+              <div className="relative">
+                <NextImage
+                  width={1200}
+                  height={680}
+                  src={tool?.posterImage || ""}
+                  alt="Toolspy Professional Ebook Converter - High-quality conversion with complete privacy protection and fast processing"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
+                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
+                  ✨ High Quality
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* How to Use */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          How to Use Our Ebook Converter
+        </h3>
+        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+          Follow these simple steps to convert ebooks securely with professional precision:
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">1. Upload Ebook</h4>
+            <p className="text-sm text-muted-foreground">
+              Upload the ebook file you want 
+              to convert to a different format.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">2. Choose Format</h4>
+            <p className="text-sm text-muted-foreground">
+              Select your target ebook 
+              format and quality options.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">3. Convert Ebook</h4>
+            <p className="text-sm text-muted-foreground">
+              Click convert and get your 
+              ebook in the new format instantly.
+            </p>
+          </Card>
+
+          <Card className="p-4 bg-muted">
+            <h4 className="font-semibold mb-2">4. Download & Use</h4>
+            <p className="text-sm text-muted-foreground">
+              Download the converted ebook 
+              and use it on your preferred device.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Converter Types Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Converter Types & Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Choose the right converter type for your specific needs with detailed information and examples.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {converterTypes.map((type, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-center mb-4">
+                <BookOpen className="h-5 w-5 mr-2 text-primary" />
+                <h4 className="font-semibold">{type.type}</h4>
+              </div>
+              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
+              <div className="space-y-2 text-sm">
+                <div><strong>Use Case:</strong> {type.useCase}</div>
+                <div><strong>Precision:</strong> {type.precision}</div>
+                <div><strong>Example:</strong> {type.example}</div>
+              </div>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Conversion Tips */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Conversion Best Practices
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Expert tips for optimal conversion results between different e-book formats.
-          </p>
+      {/* Key Benefits Grid */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Why Toolspy's Ebook Converter Rocks
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's what makes our tool special and why professionals and users love using it.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          {benefits.map((benefit, index) => (
+            <Card key={index} className="p-6">
+              <div className="flex items-start space-x-4">
+                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
+                  {benefit.icon}
+                </div>
+                <div>
+                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
+                  <p className="text-sm text-muted-foreground">
+                    {benefit.description}
+                  </p>
+                </div>
+              </div>
+            </Card>
+          ))}
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {conversionTips.map((tip, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="text-lg text-indigo-600">{tip.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-600">{tip.tip}</p>
-              </CardContent>
+      {/* Point-wise Benefits */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Everything You Get with Our Ebook Converter
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          All the features you need for professional ebook conversion, completely free.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {keyBenefits.map((benefit, index) => (
+            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
+              <p className="text-sm">{benefit}</p>
             </Card>
           ))}
         </div>
       </section>
 
       {/* Comparison Table */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            How We Compare
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            See how our e-book converter outperforms popular alternatives with better privacy and professional features.
-          </p>
-        </div>
-
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Detailed Feature Comparison
+        </h3>
         <Card>
-          <CardContent className="p-0">
+          <CardHeader>
+            <CardTitle>Toolspy vs. Leading Ebook Converters</CardTitle>
+            <CardDescription>
+              Comprehensive comparison of features and capabilities across popular ebook conversion tools.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full">
+              <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-4 font-semibold">Feature</th>
-                    <th className="text-center p-4 font-semibold bg-indigo-50">
-                      <div className="flex items-center justify-center gap-2">
-                        <Star className="h-4 w-4 text-yellow-500" />
-                        Toolspy
-                      </div>
-                    </th>
-                    <th className="text-center p-4 font-semibold">Calibre</th>
-                    <th className="text-center p-4 font-semibold">Zamzar</th>
-                    <th className="text-center p-4 font-semibold">Convertio</th>
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Toolspy</th>
+                    <th className="text-left p-3 font-medium">Calibre</th>
+                    <th className="text-left p-3 font-medium">OnlineConverter</th>
+                    <th className="text-left p-3 font-medium">EbookConverter</th>
                   </tr>
                 </thead>
                 <tbody>
                   {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-gray-50">
-                      <td className="p-4 font-medium">{row.feature}</td>
-                      <td className="p-4 text-center bg-indigo-50">
-                        <div className="flex items-center justify-center gap-2">
+                    <tr key={index} className="border-b hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="flex items-center space-x-2">
+                          <span>{row.toolspy}</span>
                           {row.toolspyStatus === "excellent" && (
+                            <Star className="h-4 w-4 text-yellow-500" />
+                          )}
+                          {row.toolspyStatus === "good" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
-                          <span className="font-medium">{row.toolspy}</span>
                         </div>
                       </td>
-                      <td className="p-4 text-center">{row.calibre}</td>
-                      <td className="p-4 text-center">{row.zamzar}</td>
-                      <td className="p-4 text-center">{row.convertio}</td>
+                      <td className="p-3 text-muted-foreground">{row.calibre}</td>
+                      <td className="p-3 text-muted-foreground">{row.onlineconverter}</td>
+                      <td className="p-3 text-muted-foreground">{row.ebookconverter}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -408,143 +503,230 @@ export function EbookConverterSEOContent() {
         </Card>
       </section>
 
-      {/* Use Cases */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Perfect for Every Publishing Need
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            From independent authors to digital libraries, our converter handles all e-book transformation needs.
-          </p>
-        </div>
-        
-        <div className="grid md:grid-cols-2 gap-6">
-          {useCases.map((useCase, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <Target className="h-5 w-5 text-indigo-600" />
-                  {useCase.title}
-                </CardTitle>
-                <CardDescription>{useCase.description}</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex flex-wrap gap-2">
-                  {useCase.examples.map((example, idx) => (
-                    <Badge key={idx} variant="secondary">
-                      {example}
-                    </Badge>
-                  ))}
-                </div>
-              </CardContent>
+      {/* Competitor Advantages */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Why Choose Toolspy Over Other Ebook Converters
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Here's how we compare to other popular ebook conversion tools.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {competitorAdvantages.map((competitor, index) => (
+            <Card key={index} className="p-6">
+              <h4 className="font-semibold mb-4 text-primary">
+                {competitor.title}
+              </h4>
+              <ul className="space-y-2">
+                {competitor.advantages.map((advantage, advIndex) => (
+                  <li
+                    key={advIndex}
+                    className="text-sm flex items-start space-x-2"
+                  >
+                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                    <span>{advantage}</span>
+                  </li>
+                ))}
+              </ul>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Publishing Platforms Guide */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Publishing Platform Requirements
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Choose the right format for different e-book publishing platforms and stores.
-          </p>
+      {/* Step-by-Step Guide */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Complete Step-by-Step Guide
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Detailed instructions for getting the best results from our
+          professional ebook conversion tool.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          {[
+            {
+              step: "1",
+              title: "Upload Ebook",
+              description:
+                "Upload the ebook file you want to convert to a different format.",
+            },
+            {
+              step: "2",
+              title: "Choose Format",
+              description:
+                "Select your target ebook format and quality options.",
+            },
+            {
+              step: "3",
+              title: "Convert Ebook",
+              description:
+                "Click convert and get your ebook in the new format instantly.",
+            },
+            {
+              step: "4",
+              title: "Download & Use",
+              description:
+                "Download the converted ebook and use it on your preferred device.",
+            },
+          ].map((item, index) => (
+            <Card key={index} className="text-center p-6">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+                {item.step}
+              </div>
+              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <p className="text-sm text-muted-foreground">
+                {item.description}
+              </p>
+            </Card>
+          ))}
         </div>
+      </section>
 
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-orange-600">Amazon Kindle</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div><strong>Format:</strong> MOBI, AZW, KPF</div>
-                <div><strong>Requirements:</strong> Embedded fonts, TOC navigation</div>
-                <div><strong>Optimal:</strong> Enable Kindle-specific features</div>
-                <div><strong>Tips:</strong> Use auto-fill metadata for KDP publishing</div>
-              </div>
-            </CardContent>
+      {/* Use Cases Section */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-bold text-center">
+          Common Use Cases
+        </h3>
+        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
+          Professional applications for ebook conversion across various scenarios.
+        </p>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <Card className="p-6 text-center">
+            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Reading Devices</h4>
+            <p className="text-sm text-muted-foreground">
+              Convert ebooks for different reading devices
+            </p>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-blue-600">Apple Books</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div><strong>Format:</strong> EPUB 3.0</div>
-                <div><strong>Requirements:</strong> Validated EPUB, proper metadata</div>
-                <div><strong>Optimal:</strong> High-quality cover image</div>
-                <div><strong>Tips:</strong> Enable multimedia and interactive features</div>
-              </div>
-            </CardContent>
+          <Card className="p-6 text-center">
+            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Format Compatibility</h4>
+            <p className="text-sm text-muted-foreground">
+              Ensure ebook compatibility across platforms
+            </p>
           </Card>
 
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-green-600">Universal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-2 text-sm">
-                <div><strong>Format:</strong> EPUB 2.0/3.0</div>
-                <div><strong>Requirements:</strong> Standard metadata, reflowable text</div>
-                <div><strong>Optimal:</strong> Cross-platform compatibility</div>
-                <div><strong>Tips:</strong> Works on most e-readers and apps</div>
-              </div>
-            </CardContent>
+          <Card className="p-6 text-center">
+            <BookOpen className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Ebook Libraries</h4>
+            <p className="text-sm text-muted-foreground">
+              Convert ebooks for library organization
+            </p>
+          </Card>
+
+          <Card className="p-6 text-center">
+            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
+            <h4 className="font-semibold mb-2">Mobile Reading</h4>
+            <p className="text-sm text-muted-foreground">
+              Convert ebooks for mobile device reading
+            </p>
           </Card>
         </div>
       </section>
 
       {/* FAQ Section */}
-      <section>
-        <div className="text-center mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">
-            Frequently Asked Questions
-          </h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            Everything you need to know about e-book conversion, formats, and publishing requirements.
-          </p>
-        </div>
+      <FAQ faqs={getEbookConverterFAQs()} />
 
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index}>
-              <CardHeader>
-                <Button
-                  variant="ghost"
-                  className="w-full justify-between p-0 h-auto"
-                  onClick={() => setSelectedFaq(selectedFaq === index ? null : index)}
-                >
-                  <CardTitle className="text-left text-lg font-semibold">
-                    {faq.question}
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </Button>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
+      {/* SEO Keyword Cluster Section */}
+      <section className="space-y-6">
+        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
+          <h3 className="text-2xl font-bold text-center mb-6">
+            Professional Ebook Conversion for All Reading Needs
+          </h3>
+          <div className="max-w-4xl mx-auto">
+            <p className="text-muted-foreground leading-relaxed">
+              Need to <strong>convert ebooks</strong> for your reading needs? Looking for a reliable way to <strong>ebook converter</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>convert ebooks</strong>, <strong>convert ebooks free</strong>, or <strong>convert ebooks online</strong>, our tool handles all conversion with professional accuracy and complete privacy.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Our advanced <strong>ebook converter online</strong> provides support for all major ebook formats. Users love our tool for <strong>ebook converter free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality conversion. Unlike other tools, we provide instant results with no server delays.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Whether you're reading on different devices, organizing libraries, or ensuring compatibility, our <strong>ebook converter app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>convert ebooks</strong> tasks to complex conversion requirements, we make it fast and secure.
+            </p>
+            <p className="text-muted-foreground leading-relaxed mt-4">
+              Try our ebook converter today and see why thousands of users choose Toolspy for their ebook conversion needs. From <strong>ebook converter free</strong> planning to professional conversion, we deliver reliable results every time.
+            </p>
+          </div>
         </div>
       </section>
 
-      {/* Related Tools */}
-      <section>
-                <RelatedTools
-          currentToolSlug="ebook-converter"
-        />
+      {/* Final CTA Section */}
+      <section className="space-y-6">
+        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
+          <h3 className="text-2xl font-bold mb-4">
+            Ready to Convert Your Ebooks?
+          </h3>
+          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+            Join thousands of users who use Toolspy every day to convert ebooks. It's free, secure, and your data stays private on your device.
+          </p>
+          <Button
+            size="lg"
+            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          >
+            Start Converting Now →
+          </Button>
+        </div>
       </section>
     </div>
   );
 }
+
+// Export FAQ data for schema generation
+export function getEbookConverterFAQs() {
+  return [
+    {
+      question: "Is Toolspy's ebook converter completely free to use?",
+      answer:
+        "Yes, our professional ebook converter is completely free with no hidden costs, registration requirements, or usage limitations. You can convert unlimited ebooks without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all ebook conversion capabilities free of charge.",
+    },
+    {
+      question: "How fast is the ebook conversion?",
+      answer:
+        "Our ebook converter provides fast conversion for any ebook format. Since all processing happens in your browser, there are no server delays or upload times. You can convert multiple ebooks quickly, making it perfect for batch conversion and real-time needs.",
+    },
+    {
+      question: "How secure is the ebook conversion process?",
+      answer:
+        "Absolutely secure! Our ebook converter uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based converters.",
+    },
+    {
+      question: "What ebook formats are supported?",
+      answer:
+        "Our converter supports all major ebook formats including EPUB, PDF, MOBI, and other formats. We also support high-quality conversion and can handle various ebook requirements with proper analysis.",
+    },
+    {
+      question: "Can I customize the conversion options?",
+      answer:
+        "Yes! Our ebook converter excels at customization. You can choose ebook formats, set quality preferences, configure conversion options, and adjust conversion parameters. This is perfect for meeting specific conversion requirements and quality standards.",
+    },
+    {
+      question: "Why choose Toolspy over other free ebook converters like Calibre or OnlineConverter?",
+      answer:
+        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality conversion, and multiple format options. Many competitors like Calibre and OnlineConverter use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
+    },
+    {
+      question: "Can I convert ebooks for different reading needs?",
+      answer:
+        "Absolutely! Our ebook converter handles different reading needs perfectly. You can convert ebooks for different devices, format compatibility, library organization, and any other conversion requirement. The tool supports all standard conversion scenarios.",
+    },
+    {
+      question: "What conversion options are available?",
+      answer:
+        "Our tool provides multiple conversion formats including high-quality ebooks, multiple file types, and various quality options. All conversions include professional formatting, making it easy to use the results in your reading.",
+    },
+    {
+      question: "Is it safe to use online ebook converters?",
+      answer:
+        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based converters, our tool provides complete privacy and security for your ebook conversion.",
+    },
+    {
+      question: "Can I use the converted ebooks for professional purposes?",
+      answer:
+        "Yes! Our ebook converter creates professional conversion results that follow ethical guidelines. These results are suitable for professional use in reading, library organization, and any other application requiring ebook conversion.",
+    },
+  ];
+}
+
+// Register FAQ data for this tool
+registerToolFAQ("ebook-converter", getEbookConverterFAQs);

@@ -3,8 +3,8 @@ export const siteConfig = {
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Toolspy',
   title: 'Toolspy – Free Online Calculators, Converters & File Tools',
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Professional Online Tools Hub',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.com',
-  domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'toolspy.com',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.net',
+  domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'toolspy.net',
   
   // Branding
   brandColor: process.env.NEXT_PUBLIC_BRAND_COLOR || '#3b82f6',
