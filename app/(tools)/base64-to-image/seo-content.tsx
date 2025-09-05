@@ -137,59 +137,6 @@ export function Base64ToImageSEOContent() {
     },
   ];
 
-  const faqData = [
-    {
-      question: "What is Base64 encoding and why convert it to images?",
-      answer:
-        "Base64 is a method of encoding binary data (like images) into text format using 64 ASCII characters. This is commonly used in web development, APIs, and data storage. Converting Base64 back to images allows you to view, save, and use the original image files that were encoded as text strings.",
-    },
-    {
-      question: "Is it safe to decode Base64 data with Toolspy?",
-      answer:
-        "Absolutely! Our Base64 to Image converter processes all data locally in your browser. Your encoded strings are never uploaded to our servers or stored anywhere. The conversion happens entirely on your device, ensuring complete privacy and security for your data.",
-    },
-    {
-      question: "What image formats can I decode from Base64?",
-      answer:
-        "Our converter supports all major image formats including JPEG, PNG, WebP, GIF, SVG, BMP, TIFF, and more. The tool automatically detects the image format from the Base64 data header and converts it to the appropriate image file with the correct extension.",
-    },
-    {
-      question: "Can I decode multiple Base64 strings at once?",
-      answer:
-        "Yes! Our tool supports batch processing. You can paste multiple Base64 strings (separated by new lines) and convert them all simultaneously. Each string will be processed individually and you can download all the resulting images at once or individually.",
-    },
-    {
-      question: "What if my Base64 string includes the data URL prefix?",
-      answer:
-        "No problem! Our converter automatically handles both pure Base64 strings and complete data URLs (like 'data:image/png;base64,iVBORw0KGgo...'). The tool intelligently parses the format information and extracts the Base64 data for conversion.",
-    },
-    {
-      question: "Why is my Base64 string not converting to an image?",
-      answer:
-        "Common issues include: incomplete Base64 strings, corrupted data, non-image data encoded as Base64, or invalid characters. Our tool provides detailed error messages to help identify the problem. Ensure your Base64 string is complete and represents valid image data.",
-    },
-    {
-      question: "What's the maximum size of Base64 data I can convert?",
-      answer:
-        "Our converter supports Base64 strings up to 50MB of encoded data, which is significantly larger than most competitors. This allows you to decode high-resolution images and large graphics files without size restrictions that limit other tools.",
-    },
-    {
-      question: "Can I preview the image before downloading?",
-      answer:
-        "Yes! Once decoded, you'll see a high-quality preview of the image directly in your browser. You can verify the image looks correct before downloading. The preview maintains the original resolution and quality of the decoded image.",
-    },
-    {
-      question: "How do I use Base64 images in web development?",
-      answer:
-        "Base64 images are commonly used in CSS (background-image), HTML (img src), and JavaScript. They're useful for small images, icons, or when you want to embed images directly in code without separate file requests. However, they increase file size by about 33%.",
-    },
-    {
-      question: "What's the difference between Base64 and regular image files?",
-      answer:
-        "Base64 is a text representation of binary image data. It's about 33% larger than the original image but can be embedded directly in text files, databases, or code. Regular image files are binary and more efficient for storage and loading, but require separate file handling.",
-    },
-  ];
-
   const benefits = [
     {
       icon: <Target className="h-6 w-6" />,

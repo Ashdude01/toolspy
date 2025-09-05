@@ -124,59 +124,6 @@ export function Base64EncoderDecoderSEOContent() {
     },
   ];
 
-  const faqData = [
-    {
-      question: "Is Toolspy's Base64 encoder/decoder completely free to use?",
-      answer:
-        "Yes, our professional Base64 encoder/decoder is completely free with no hidden costs, registration requirements, or usage limitations. You can encode and decode unlimited text without any restrictions. Unlike many competitors who have file size limits or require paid subscriptions for advanced features, Toolspy provides all encoding capabilities free of charge.",
-    },
-    {
-      question: "What is Base64 encoding and when should I use it?",
-      answer:
-        "Base64 encoding converts binary data into ASCII text format, making it safe for transmission over text-based protocols like email, HTTP, and JSON. It's commonly used for embedding images in HTML/CSS, storing binary data in databases, and encoding file attachments. Our tool supports multiple character encodings (UTF-8, ASCII, Latin1) for maximum compatibility.",
-    },
-    {
-      question: "How secure is the data I encode/decode with Toolspy?",
-      answer:
-        "Absolutely secure! Our Base64 encoder/decoder uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive information. Your data never leaves your device, making it safer than server-based encoding tools.",
-    },
-    {
-      question: "What character encodings does the tool support?",
-      answer:
-        "We support three major character encodings: UTF-8 for international text and emojis, ASCII for basic English text, and Latin1 for Western European languages. UTF-8 is recommended for most modern applications as it supports all Unicode characters. ASCII is perfect for simple English text, while Latin1 is ideal for European languages.",
-    },
-    {
-      question: "Can I process large amounts of text with this tool?",
-      answer:
-        "Yes! Unlike many competitors who limit text to 1-10MB, our tool supports unlimited text length. You can encode or decode large documents, multiple lines of text, and complex data structures. The tool also supports batch processing, allowing you to handle multiple lines of text simultaneously with real-time validation.",
-    },
-    {
-      question: "Why choose Toolspy over other free Base64 tools like Base64Decode.org or RapidTables?",
-      answer:
-        "Toolspy offers professional-grade features like multiple character encodings, unlimited text length, batch processing, real-time validation, and client-side processing. Many competitors like Base64Decode.org and RapidTables lack these advanced features or have strict file size limits. Our tool provides better privacy protection, more encoding options, and superior error detection completely free.",
-    },
-    {
-      question: "How do I know if my Base64 string is valid?",
-      answer:
-        "Our tool provides real-time validation with detailed error messages. Valid Base64 strings contain only A-Z, a-z, 0-9, +, /, and = characters. The length should be a multiple of 4, with = padding at the end if necessary. Our advanced error detection highlights invalid characters and provides suggestions for correction.",
-    },
-    {
-      question: "Can I encode/decode binary files like images or documents?",
-      answer:
-        "For binary files, we recommend using our specialized Image to Base64 and Base64 to Image converters. However, our text encoder can handle small binary data when converted to text format. For large files, use our dedicated file conversion tools for better performance and specialized handling.",
-    },
-    {
-      question: "What's the difference between URL-safe and standard Base64?",
-      answer:
-        "Standard Base64 uses + and / characters, which can cause issues in URLs. URL-safe Base64 replaces + with - and / with _, making it safe for URL parameters and filenames. Our tool automatically detects the format and provides options for both encoding types. URL-safe encoding is recommended for web applications.",
-    },
-    {
-      question: "How does batch processing work in Toolspy's Base64 tool?",
-      answer:
-        "You can paste multiple lines of text, and our tool will process each line individually. Each line can be encoded or decoded separately, and you can copy all results at once. This is perfect for processing lists of strings, multiple data entries, or converting entire documents line by line.",
-    },
-  ];
-
   const benefits = [
     {
       icon: <Lock className="h-6 w-6" />,

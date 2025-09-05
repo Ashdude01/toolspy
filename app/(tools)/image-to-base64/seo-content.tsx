@@ -138,59 +138,6 @@ export function ImageToBase64SEOContent() {
     },
   ];
 
-  const faqData = [
-    {
-      question: "What is Base64 encoding and why convert images to it?",
-      answer:
-        "Base64 encoding converts binary image data into text format using 64 ASCII characters. This allows you to embed images directly in HTML, CSS, JSON, email templates, and databases without needing separate image files. It's perfect for small images, icons, and when you want to reduce HTTP requests.",
-    },
-    {
-      question: "Is it safe to encode images with Toolspy?",
-      answer:
-        "Absolutely! Our Image to Base64 converter processes all images locally in your browser. Your image files are never uploaded to our servers or stored anywhere. The encoding happens entirely on your device, ensuring complete privacy and security for your images.",
-    },
-    {
-      question: "What image formats can I convert to Base64?",
-      answer:
-        "Our converter supports all major image formats including JPEG, PNG, WebP, GIF, SVG, BMP, TIFF, and more. The tool automatically detects the image format and generates the appropriate Base64 string with the correct MIME type for web use.",
-    },
-    {
-      question: "Can I convert multiple images at once?",
-      answer:
-        "Yes! Our tool supports batch processing. You can upload multiple images simultaneously and convert them all to Base64 strings. Each image will be processed individually and you can copy or download all the encoded strings at once.",
-    },
-    {
-      question: "What's the maximum size of images I can convert?",
-      answer:
-        "Our converter supports images up to 50MB, which is significantly larger than most competitors. However, remember that Base64 encoding increases file size by about 33%, so it's best suited for smaller images under 10KB for optimal web performance.",
-    },
-    {
-      question: "How do I use the Base64 output in my code?",
-      answer:
-        "Use the output as a data URL in HTML: <img src='data:image/png;base64,iVBORw0KGgo...'> or in CSS: background-image: url('data:image/png;base64,iVBORw0KGgo...'); The tool automatically generates the complete data URL format for easy copy-paste usage.",
-    },
-    {
-      question: "What are the advantages of Base64 images?",
-      answer:
-        "Base64 images reduce HTTP requests, work offline, can't be blocked by ad blockers, and are perfect for small icons and graphics embedded in code. They're also great for email templates and when you need to ensure images are always available.",
-    },
-    {
-      question: "Are there any disadvantages to Base64 encoding?",
-      answer:
-        "Base64 images are about 33% larger than original files and aren't cached by browsers. They're best for small images under 10KB. For larger images, it's usually better to serve them as separate files for better performance and caching.",
-    },
-    {
-      question: "Can I copy the Base64 string to clipboard?",
-      answer:
-        "Yes! Our tool provides one-click copy functionality for both the raw Base64 string and the complete data URL. You can also download the encoded strings as text files for offline use or sharing with team members.",
-    },
-    {
-      question: "Why choose Toolspy over other Base64 encoders?",
-      answer:
-        "Toolspy offers professional-grade features like larger file support (50MB vs. 5-10MB), client-side processing for privacy, batch processing capabilities, and one-click copy functionality. Many competitors require registration, use server-based processing, or have limited features.",
-    },
-  ];
-
   const benefits = [
     {
       icon: <Target className="h-6 w-6" />,
