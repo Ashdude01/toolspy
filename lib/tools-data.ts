@@ -43,7 +43,7 @@ function generateSEO(tool: {
   description: string;
   tags: string[];
 }): Tool['seo'] {
-  const baseUrl = 'https://toolspy.com';
+  const baseUrl = 'https://toolspy.net';
   const metaTitle = tool.title || `${tool.name} - Free Online Tool | Toolspy`;
   const metaDescription = tool.description.length > 161 
     ? tool.description.substring(0, 157) + '...' 

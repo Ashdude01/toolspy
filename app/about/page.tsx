@@ -30,10 +30,10 @@ export const metadata: Metadata = {
     title: 'About Toolspy - Professional Online Tools Platform',
     description: 'Learn about Toolspy, your trusted destination for professional online tools. Discover our mission to provide free, secure, and reliable digital utilities.',
     type: 'website',
-    url: 'https://toolspy.com/about',
+    url: 'https://toolspy.net/about',
     images: [
       {
-        url: 'https://toolspy.com/og-about.jpg',
+        url: 'https://toolspy.net/og-about.jpg',
         width: 1200,
         height: 630,
         alt: 'About Toolspy - Professional Online Tools Platform'
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'About Toolspy - Professional Online Tools Platform',
     description: 'Learn about Toolspy, your trusted destination for professional online tools. Discover our mission to provide free, secure, and reliable digital utilities.',
-    images: ['https://toolspy.com/og-about.jpg']
+    images: ['https://toolspy.net/og-about.jpg']
   }
 };
 

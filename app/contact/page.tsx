@@ -20,7 +20,7 @@ export default function ContactPage() {
       description: 'Questions about Toolspy or general support',
       icon: <Mail className="h-6 w-6" />,
       action: 'Send Email',
-      href: 'mailto:support@toolspy.com',
+      href: 'mailto:support@toolspy.net',
       color: 'bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400'
     },
     {
@@ -101,7 +101,7 @@ export default function ContactPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6" action="mailto:support@toolspy.com" method="get">
+            <form className="space-y-6" action="mailto:support@toolspy.net" method="get">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Name</Label>

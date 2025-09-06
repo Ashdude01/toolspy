@@ -158,7 +158,7 @@ export default function BugReportPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="space-y-6" action="mailto:bugs@toolspy.com" method="get">
+            <form className="space-y-6" action="mailto:bugs@toolspy.net" method="get">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="name">Your Name (Optional)</Label>

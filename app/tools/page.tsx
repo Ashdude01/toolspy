@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     title: limitTitle('All Tools - Professional Online Utilities | Toolspy'),
     description: limitDescription('Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.'),
     type: 'website',
-    url: 'https://toolspy.com/tools',
+    url: 'https://toolspy.net/tools',
   },
   twitter: {
     card: 'summary_large_image',

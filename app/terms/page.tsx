@@ -284,7 +284,7 @@ export default function TermsPage() {
             </p>
             <div className="mt-4 space-y-2">
               <p className="text-sm">
-                <strong>Email:</strong> legal@toolspy.com
+                <strong>Email:</strong> legal@toolspy.net
               </p>
               <p className="text-sm">
                 <strong>Contact Page:</strong> <a href="/contact" className="text-primary hover:underline">/contact</a>

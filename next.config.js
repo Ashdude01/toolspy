@@ -4,7 +4,7 @@ const nextConfig = {
     NEXT_PUBLIC_SITE_NAME: 'Toolspy',
     NEXT_PUBLIC_SITE_TITLE: 'Toolspy – Free Online Calculators, Converters & File Tools',
     NEXT_PUBLIC_SITE_DESCRIPTION: 'Toolspy: Fast, free and secure web‑based tools including converters, calculators, image compression, QR code generator & more — zero install, local browser processing',
-    NEXT_PUBLIC_SITE_URL: 'https://toolspy.com',
+    NEXT_PUBLIC_SITE_URL: 'https://toolspy.net',
     NEXT_PUBLIC_SITE_DOMAIN: 'toolspy.net',
     NEXT_PUBLIC_BRAND_COLOR: '#3b82f6',
     NEXT_PUBLIC_BRAND_COLOR_SECONDARY: '#1e40af',

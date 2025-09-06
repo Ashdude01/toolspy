@@ -175,7 +175,7 @@ export const toolsContent = {
       "@type": "SoftwareApplication",
       "name": "Image Compressor",
       "description": "Professional online image compression tool",
-      "url": "https://toolspy.com/image-compressor",
+      "url": "https://toolspy.net/image-compressor",
       "applicationCategory": "UtilitiesApplication"
     }
   }

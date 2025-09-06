@@ -19,7 +19,7 @@ All tool metadata is stored in `lib/tools-data.ts` with comprehensive SEO inform
   seo: {
     metaTitle: 'Professional Image Compressor - Free Online Tool | Toolspy',
     metaDescription: 'Compress images with advanced algorithms...',
-    canonicalUrl: 'https://toolspy.com/image-compressor',
+    canonicalUrl: 'https://toolspy.net/image-compressor',
     keywords: ['compress', 'optimize', 'resize', 'jpeg', 'png'],
     // ... complete SEO metadata
   }
