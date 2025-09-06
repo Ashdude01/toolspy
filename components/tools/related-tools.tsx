@@ -4,6 +4,7 @@ import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { tools, getToolBySlug, type Tool } from "@/lib/tools-data";
+import Link from "next/link";
 
 interface RelatedToolsProps {
   currentToolSlug: string;
@@ -83,7 +84,7 @@ export function RelatedTools({
                   <Badge variant="secondary">Coming Soon</Badge>
                 ) : (
                   <Button variant="outline" size="sm" asChild>
-                    <a href={tool.href}>Try Tool →</a>
+                    <Link href={tool.href}>Try Tool →</Link>
                   </Button>
                 )}
               </div>

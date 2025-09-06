@@ -97,10 +97,10 @@ export function ToolCard({ tool, className }: ToolCardProps) {
 
           <div className="flex justify-between items-center">
             <Button 
-              variant={isClickable ? "default" : "secondary"} 
+              variant={isClickable ? "outline" : "link"} 
               size="sm" 
               disabled={!isClickable}
-              className="w-full"
+              className="w-full border-gray-300"
             >
               {isClickable ? (
                 <>

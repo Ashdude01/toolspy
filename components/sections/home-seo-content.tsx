@@ -283,19 +283,19 @@ export function HomeSeoContent() {
   ];
 
   return (
-    <div className="space-y-12 my-16">
+    <div className="space-y-12 my-16 max-w-7xl mx-auto container px-4">
       {/* Hero Section with Enhanced Visual Appeal */}      
 
       {/* Enhanced Introduction Section - Two Column Layout */}
       <section className="space-y-8">
-        <div className="text-center">
+        <div className="text-center space-y-6">
           <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             Free Online Tools - Professional Quality, Zero Cost
           </h2>
           <p className="text-xl text-muted-foreground leading-relaxed">
                     Welcome to Toolspy, your go-to destination for <strong className="text-blue-600 dark:text-blue-400">professional online tools</strong> that actually work! Whether you need to <strong className="text-purple-600 dark:text-purple-400">compress images online</strong>, <strong className="text-pink-600 dark:text-pink-400">convert PDF to Word</strong>, use an <strong className="text-green-600 dark:text-green-400">online calculator</strong>, or access <strong className="text-orange-600 dark:text-orange-400">Base64 encoding tools</strong>, we've got you covered with over 50 powerful tools that work instantly in your browser.
                   </p>
-          <div className="max-w-6xl mx-auto space-y-8">
+          <div className="mx-auto space-y-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
               <div className="space-y-6 text-left">
                 <div className="space-y-4">
@@ -416,7 +416,7 @@ export function HomeSeoContent() {
 
       {/* Popular Tools Section */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4">
+        <div className="">
           <h2 className="text-3xl font-bold text-center mb-6">
             Most Popular Free Online Tools
           </h2>
@@ -448,7 +448,7 @@ export function HomeSeoContent() {
 
       {/* Tool Categories Overview */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-center">
             Complete Tool Categories for Every Digital Need
           </h3>
@@ -484,7 +484,7 @@ export function HomeSeoContent() {
 
       {/* Key Benefits Grid */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-center">
             Why Professionals Choose Toolspy for Online Tools
           </h3>
@@ -513,7 +513,7 @@ export function HomeSeoContent() {
 
       {/* Point-wise Benefits */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-center">
             Everything You Get with Toolspy's Free Online Tools
           </h3>
@@ -532,7 +532,7 @@ export function HomeSeoContent() {
 
       {/* Comparison Table */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-center">
             How Toolspy Compares to Popular Online Tool Platforms
           </h3>
@@ -588,7 +588,7 @@ export function HomeSeoContent() {
 
       {/* FAQ Section */}
       <section className="space-y-6" id="faq">
-        <div className="container mx-auto px-4 flex flex-col gap-4">
+        <div className=" flex flex-col gap-4">
           <h3 className="text-2xl font-bold text-center">
             Frequently Asked Questions About Our Free Online Tools
           </h3>
@@ -628,7 +628,7 @@ export function HomeSeoContent() {
 
       {/* Enhanced SEO Keyword Cluster Section */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4">
+        <div className="">
           <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
             <h3 className="text-2xl font-bold text-center mb-6">
               Professional Online Tools for Every Digital Need
@@ -653,7 +653,7 @@ export function HomeSeoContent() {
 
       {/* Final CTA Section */}
       <section className="space-y-6">
-        <div className="container mx-auto px-4">
+        <div className="">
           <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
             <h3 className="text-2xl font-bold mb-4">
               Ready to Streamline Your Digital Workflow?

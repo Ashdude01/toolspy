@@ -67,7 +67,7 @@
     @apply bg-background text-foreground;
   }
 } 
-main .container{
+main .container, main .max-w-6xl{
   @apply !max-w-7xl
 }
 h2.text-5xl{
@@ -81,4 +81,11 @@ h2.text-5xl{
     font-size: 3rem;
     line-height: 1.5;
   }
+}
+
+main img {
+  @apply hover:!scale-100;
+}
+main .max-w-4xl{
+  @apply max-w-full;
 }

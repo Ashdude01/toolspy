@@ -19,7 +19,8 @@ function HomePageClient() {
     <>
       <HomepageSchemas />
       <ToolsSection searchQuery={search} />
-      <HomeSeoContent/>
+      
+      <HomeSeoContent />
     </>
   )
 }

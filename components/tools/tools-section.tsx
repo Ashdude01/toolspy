@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { TypewriterText } from "@/components/ui/typewriter-text";
-import { Search, Filter, Shield, } from "lucide-react";
+import { Search, Filter, Shield } from "lucide-react";
 import {
   Tool,
   ToolCategory,
@@ -39,11 +39,11 @@ export function ToolsSection({
 
   // Dynamic words for typewriter effect based on tool categories
   const typewriterWords = [
-    "Image Files",     // For image processing
-    "PDF Docs",       // For PDF tools  
-    "Files & Data",        // For encoding/base64 tools
-    "Calculations",        // For mathematical tools
-    "Conversions",         // For compression tools
+    "Image Files", // For image processing
+    "PDF Docs", // For PDF tools
+    "Files & Data", // For encoding/base64 tools
+    "Calculations", // For mathematical tools
+    "Conversions", // For compression tools
   ];
 
   // Filter tools when search query or category changes
@@ -109,19 +109,22 @@ export function ToolsSection({
   const hasFilters = searchQuery.trim() || selectedCategory !== "all";
 
   return (
-    <section className="relative overflow-hidden bg-gradient-to-b from-background via-background to-muted/20 py-10">
+    <section className="relative overflow-hidden py-10">
       <div className="container mx-auto px-4">
         {/* Section Header */}
         <div className="text-center mb-10 min:w-full animate-in fade-in duration-1000 ease-out">
-          <Badge variant="outline" className="mb-4 font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900 transition-all duration-300 hover:scale-105">
+          <Badge
+            variant="outline"
+            className="mb-4 font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900 transition-all duration-300 hover:scale-105"
+          >
             <Shield className="w-4 h-4 mr-2" />
-           Privacy-First • No Data Collection
+            Privacy-First • No Data Collection
           </Badge>
 
-                    {/* Main Heading */}
+          {/* Main Heading */}
           <h1 className="flex flex-col items-center lg:gap-4 justify-center lg:flex-row bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text text-transparent text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out">
-           <span className="text-center">Expert Tools for </span>
-           {/* <span className="text-3xl sm:text-4xl lg:t/ext-5xl">Your </span> */}
+            <span className="text-center">Expert Tools for </span>
+            {/* <span className="text-3xl sm:text-4xl lg:t/ext-5xl">Your </span> */}
             <TypewriterText
               staticText=""
               words={typewriterWords}
@@ -133,7 +136,9 @@ export function ToolsSection({
             {/* <span className="text-3xl sm:text-4xl lg:text-5xl"> Instantly</span> */}
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto animate-in fade-in duration-1000 ease-out delay-300 transition-all hover:text-foreground">
-            Convert, compress, calculate and process your files instantly. No registration required, completely free, and your privacy is protected.
+            Convert, compress, calculate and process your files instantly. No
+            registration required, completely free, and your privacy is
+            protected.
           </p>
         </div>
 
@@ -145,7 +150,7 @@ export function ToolsSection({
             <Input
               type="search"
               placeholder="Search tools..."
-              className="pl-10 transition-all duration-300 focus:scale-105"
+              className="pl-10 focus:pl-12 transition-all duration-300 md:focus:scale-105"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -205,7 +210,7 @@ export function ToolsSection({
                 <p className="text-muted-foreground">
                   No tools found matching your criteria.
                 </p>
-                <Link href="/contact" >
+                <Link href="/contact">
                   <Button variant="outline" className="mt-2" size="sm">
                     Request a Tool
                   </Button>
@@ -247,13 +252,14 @@ export function ToolsSection({
                       ))}
                     </div>
 
-                    <Separator className="mt-12" />
+                    {/* <Separator className="mt-12" /> */}
                   </div>
                 );
               }
             )}
           </div>
         )}
+
       </div>
     </section>
   );
