@@ -1351,6 +1351,106 @@ export const tools: Tool[] = [
       tags: ['expired domains', 'domain finder', 'domain authority', 'backlinks', 'seo', 'domain research', 'domain investment', 'domain value', 'expired domain finder', 'domain search', 'free domain finder', 'domain metrics']
     }),
     posterImage: '/images/tools/expired-domain-finder.webp'
+  },
+  {
+    id: 'app-icon-generator',
+    name: 'App Icon Generator',
+    slug: 'app-icon-generator',
+    description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web.',
+    category: 'image-tools',
+    icon: '📱',
+    featured: true,
+    tags: ['app icon', 'icon generator', 'android', 'ios', 'windows', 'macos', 'linux', 'web', 'mobile', 'desktop', 'pwa', 'app development'],
+    path: '/app-icon-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'App Icon Generator',
+      title: 'Free App Icon Generator – Generate Icons for All Platforms | Toolspy',
+      slug: '/app-icon-generator',
+      description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web with complete privacy protection.',
+      tags: ['app icon', 'icon generator', 'android', 'ios', 'windows', 'macos', 'linux', 'web', 'mobile', 'desktop', 'pwa', 'app development', 'free app icon generator', 'app icon generator online']
+    }),
+    posterImage: '/images/tools/app-icon-generator.webp'
+  },
+  {
+    id: 'pwa-icon-generator',
+    name: 'PWA Icon Generator',
+    slug: 'pwa-icon-generator',
+    description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps with complete privacy protection.',
+    category: 'image-tools',
+    icon: '🌐',
+    featured: true,
+    tags: ['pwa icon', 'icon generator', 'pwa', 'progressive web app', 'manifest', 'web app', 'mobile web', 'desktop web', 'cross-platform', 'app development'],
+    path: '/pwa-icon-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'PWA Icon Generator',
+      title: 'Free PWA Icon Generator – Generate Icons for Progressive Web Apps | Toolspy',
+      slug: '/pwa-icon-generator',
+      description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps with complete privacy protection.',
+      tags: ['pwa icon', 'icon generator', 'pwa', 'progressive web app', 'manifest', 'web app', 'mobile web', 'desktop web', 'cross-platform', 'app development', 'free pwa icon generator', 'pwa icon generator online']
+    }),
+    posterImage: '/images/tools/pwa-icon-generator.webp'
+  },
+  {
+    id: 'favicon-generator',
+    name: 'Favicon Generator',
+    slug: 'favicon-generator',
+    description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers with complete privacy protection.',
+    category: 'image-tools',
+    icon: '🌐',
+    featured: true,
+    tags: ['favicon', 'icon generator', 'website', 'web app', 'browser', 'bookmark', 'html', 'seo', 'web development', 'cross-platform'],
+    path: '/favicon-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Favicon Generator',
+      title: 'Free Favicon Generator – Generate Favicons for Websites | Toolspy',
+      slug: '/favicon-generator',
+      description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers with complete privacy protection.',
+      tags: ['favicon', 'icon generator', 'website', 'web app', 'browser', 'bookmark', 'html', 'seo', 'web development', 'cross-platform', 'free favicon generator', 'favicon generator online']
+    }),
+    posterImage: '/images/tools/favicon-generator.webp'
+  },
+  {
+    id: 'image-to-ico-converter',
+    name: 'Image to ICO Converter',
+    slug: 'image-to-ico-converter',
+    description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use with complete privacy protection.',
+    category: 'image-tools',
+    icon: '📁',
+    featured: true,
+    tags: ['image to ico', 'ico converter', 'windows', 'desktop', 'icon', 'converter', 'format', 'web app', 'cross-platform', 'app development'],
+    path: '/image-to-ico-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Image to ICO Converter',
+      title: 'Free Image to ICO Converter – Convert Images to ICO Format | Toolspy',
+      slug: '/image-to-ico-converter',
+      description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use with complete privacy protection.',
+      tags: ['image to ico', 'ico converter', 'windows', 'desktop', 'icon', 'converter', 'format', 'web app', 'cross-platform', 'app development', 'free image to ico converter', 'image to ico converter online']
+    }),
+    posterImage: '/images/tools/image-to-ico-converter.webp'
+  },
+  {
+    id: 'markdown-to-docs-converter',
+    name: 'Markdown to Docs Converter',
+    slug: 'markdown-to-docs-converter',
+    description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents with complete privacy protection.',
+    category: 'conversion-tools',
+    icon: '📄',
+    featured: true,
+    tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development'],
+    path: '/markdown-to-docs-converter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Markdown to Docs Converter',
+      title: 'Free Markdown to Docs Converter – Convert Markdown to Documents | Toolspy',
+      slug: '/markdown-to-docs-converter',
+      description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents with complete privacy protection.',
+      tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development', 'free markdown to docs converter', 'markdown to docs converter online']
+    }),
+    posterImage: '/images/tools/markdown-to-docs-converter.webp'
   }
 ];
 

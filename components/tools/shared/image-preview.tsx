@@ -41,92 +41,83 @@ export function ImagePreview({
   const format = getImageFormat(file);
 
   return (
-    <Card className={`relative ${className}`}>
-      {onRemove && (
-        <Button
-          variant="destructive"
-          size="icon"
-          className="absolute top-0 right-0 z-10 h-6 w-6 rounded-full bg-red-500"
-          onClick={onRemove}
-        >
-          <X className="h-4 w-4" />
-        </Button>
-      )}
-
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-base truncate mr-2">
-            {file.name}
-          </CardTitle>
-          <div className="flex items-center space-x-2">
-            <Badge variant="secondary">
-              {format}
-            </Badge>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-6 w-6"
-              onClick={() => setShowFullSize(!showFullSize)}
-            >
-              {showFullSize ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
-            </Button>
-          </div>
-        </div>
-      </CardHeader>
-
-      <CardContent className="pt-0">
-        {imageUrl && (
-          <div className="mb-4">
-            <img
-              src={imageUrl}
-              alt={file.name}
-              className={`w-full rounded-lg object-contain bg-muted ${
-                showFullSize ? 'max-h-none' : 'max-h-48'
-              }`}
-              style={{
-                backgroundImage: `
-                  linear-gradient(45deg, #f1f5f9 25%, transparent 25%), 
-                  linear-gradient(-45deg, #f1f5f9 25%, transparent 25%), 
-                  linear-gradient(45deg, transparent 75%, #f1f5f9 75%), 
-                  linear-gradient(-45deg, transparent 75%, #f1f5f9 75%)
-                `,
-                backgroundSize: '20px 20px',
-                backgroundPosition: '0 0, 0 10px, 10px -10px, -10px 0px'
-              }}
-            />
-          </div>
-        )}
-
-        {showMetadata && (
-          <div className="space-y-2 text-sm">
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Size:</span>
-              <span className="font-medium">{formatFileSize(file.size)}</span>
+    <div className={`relative ${className}`}>
+      <Card className="h-full border-2 border-dashed border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 transition-colors">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <div className="flex-1 min-w-0">
+              <CardTitle className="text-sm font-medium truncate text-slate-700 dark:text-slate-300">
+                Selected Image
+              </CardTitle>
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Source image for icon generation
+              </p>
             </div>
-            
-            {dimensions && (
-              <div className="flex justify-between">
-                <span className="text-muted-foreground">Dimensions:</span>
-                <span className="font-medium">
-                  {dimensions.width} × {dimensions.height}
-                </span>
+            <div className="flex items-center space-x-2 flex-shrink-0">
+              <Badge variant="outline" className="text-xs">
+                {format}
+              </Badge>
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-6 w-6"
+                onClick={() => setShowFullSize(!showFullSize)}
+              >
+                {showFullSize ? <EyeOff className="h-3 w-3" /> : <Eye className="h-3 w-3" />}
+              </Button>
+              {onRemove && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className="h-6 w-6 text-red-500 hover:text-red-700 hover:bg-red-50 dark:hover:bg-red-950"
+                  onClick={onRemove}
+                >
+                  <X className="h-3 w-3" />
+                </Button>
+              )}
+            </div>
+          </div>
+        </CardHeader>
+
+        <CardContent className="pt-0">
+          {imageUrl && (
+            <div className="mb-4">
+              <div className="relative w-full h-32 bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-800 dark:to-slate-900 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm">
+                <img
+                  src={imageUrl}
+                  alt={file.name}
+                  className={`w-full h-full object-contain ${
+                    showFullSize ? 'max-h-none' : 'max-h-32'
+                  }`}
+                />
               </div>
-            )}
-            
-            {/* <div className="flex justify-between">
-              <span className="text-muted-foreground">Type:</span>
-              <span className="font-medium">{file.type || 'Unknown'}</span>
             </div>
-            
-            <div className="flex justify-between">
-              <span className="text-muted-foreground">Modified:</span>
-              <span className="font-medium">
-                {new Date(file.lastModified).toLocaleDateString()}
-              </span>
-            </div> */}
-          </div>
-        )}
-      </CardContent>
-    </Card>
+          )}
+
+          {showMetadata && (
+            <div className="space-y-1.5 text-xs">
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400">Size:</span>
+                <span className="font-medium text-slate-700 dark:text-slate-300">{formatFileSize(file.size)}</span>
+              </div>
+              
+              {dimensions && (
+                <div className="flex justify-between items-center">
+                  <span className="text-slate-500 dark:text-slate-400">Dimensions:</span>
+                  <span className="font-medium text-slate-700 dark:text-slate-300">
+                    {dimensions.width} × {dimensions.height}
+                  </span>
+                </div>
+              )}
+              
+              <div className="flex justify-between items-center">
+                <span className="text-slate-500 dark:text-slate-400">Type:</span>
+                <span className="font-medium text-slate-700 dark:text-slate-300">{file.type || 'Unknown'}</span>
+              </div>
+            </div>
+          )}
+        </CardContent>
+      </Card>
+    </div>
   );
 } 
