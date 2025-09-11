@@ -264,7 +264,7 @@ export function UniversalFileUpload({
         if (response.ok) {
           const blob = await response.blob();
           const filename = urlInput.split('/').pop()?.split('?')[0] || 'file-from-url';
-          const file = new File([blob], filename, { type: blob.type });
+          const file = new (File as any)([blob], filename, { type: blob.type });
           
           // Validate the file
           const fileArray = [file];
