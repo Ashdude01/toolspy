@@ -18,9 +18,9 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     title: limitTitle(tool.seo.metaTitle),
     description: limitDescription(tool.seo.metaDescription),
     keywords: tool.seo.keywords.join(', '),
-    authors: [{ name: 'Toolspy Team' }],
+    authors: [{ name: 'Tool Spy' }],
     creator: 'Toolspy',
-    publisher: 'Toolspy',
+    publisher: 'Tool Spy',
     formatDetection: {
       email: false,
       address: false,
@@ -33,10 +33,10 @@ export function generateToolMetadata(toolSlug: string): Metadata {
       siteName: 'Toolspy',
       images: [
         {
-          url: tool.seo.ogImage,
+          url: tool.posterImage || tool.seo.ogImage,
           width: 1200,
           height: 630,
-          alt: `${tool.name} - Toolspy Tool`,
+          alt: `${tool.seo.ogDescription}`,
         },
       ],
       locale: 'en_US',
@@ -46,7 +46,7 @@ export function generateToolMetadata(toolSlug: string): Metadata {
       card: 'summary_large_image',
       title: limitTitle(tool.seo.twitterTitle),
       description: limitDescription(tool.seo.twitterDescription),
-      images: [tool.seo.twitterImage],
+      images: [tool.posterImage || tool.seo.ogImage],
     },
     robots: {
       index: true,

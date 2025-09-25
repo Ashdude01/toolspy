@@ -56,10 +56,10 @@ function generateSEO(tool: {
     keywords: tool.tags,
     ogTitle: metaTitle,
     ogDescription: metaDescription,
-    ogImage: `/images/tools/${tool.slug.replace('/', '')}.jpg`,
+    ogImage: `/images/tools/${tool.slug.replace('/', '')}.webp`,
     twitterTitle: metaTitle,
     twitterDescription: metaDescription,
-    twitterImage: `/images/tools/${tool.slug.replace('/', '')}.jpg`
+    twitterImage: `/images/tools/${tool.slug.replace('/', '')}.webp`
   };
 }
 
