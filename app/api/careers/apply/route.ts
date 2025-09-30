@@ -4,7 +4,7 @@ import { join } from 'path'
 import { existsSync } from 'fs'
 
 // Force dynamic rendering
-export const dynamic = 'force-dynamic'
+// export const dynamic = 'force-dynamic'
 
 export async function POST(request: NextRequest) {
   try {
