@@ -237,6 +237,13 @@ export function Header({ onSearch }: HeaderProps) {
               </div>
 
               <Link
+                href="/careers"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Careers
+              </Link>
+
+              <Link
                 href="/contact"
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
@@ -410,6 +417,15 @@ export function Header({ onSearch }: HeaderProps) {
                   </div>
                 )}
               </div>
+
+              {/* Careers Link */}
+              <Link
+                href="/careers"
+                className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
+                onClick={closeMenu}
+              >
+                Careers
+              </Link>
 
               {/* Contact Link */}
               <Link
