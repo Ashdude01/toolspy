@@ -88,7 +88,7 @@ export default function CareersPage() {
         formDataToSend.append('resume', formData.resume)
       }
 
-      const response = await fetch('/api/careers/apply', {
+      const response = await fetch('https://aliceblue-lemur-660661.hostingersite.com/api/careers/apply.php', {
         method: 'POST',
         body: formDataToSend
       })
@@ -305,19 +305,18 @@ export default function CareersPage() {
               <div className="space-y-2">
                 <Label htmlFor="coverLetter" className="flex items-center gap-2">
                   <FileText className="w-4 h-4" />
-                  Cover Letter *
+                  Cover Letter
                 </Label>
                 <Textarea
                   id="coverLetter"
                   value={formData.coverLetter}
                   onChange={(e) => handleInputChange('coverLetter', e.target.value)}
-                  required
                   placeholder="Tell us why you want to join our team and what makes you a great fit..."
                   rows={6}
                 />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 h-fit p-4">
                 <Label htmlFor="resume" className="flex items-center gap-2">
                   <Upload className="w-4 h-4" />
                   Resume/CV *
