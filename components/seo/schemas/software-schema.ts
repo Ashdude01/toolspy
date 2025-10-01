@@ -59,7 +59,9 @@ function getApplicationCategory(category: ToolCategory): string {
     'json-tools': 'DeveloperApplication',
     'ai-tools': 'MultimediaApplication',
     'code-tools': 'DeveloperApplication',
-    'conversion-tools': 'WebApplication'
+    'conversion-tools': 'WebApplication',
+    'gst-tools': 'BusinessApplication',
+    'exam-tools': 'EducationalApplication'
   };
   
   return categoryMap[category] || 'UtilitiesApplication'
@@ -75,7 +77,9 @@ function getApplicationSubCategory(category: ToolCategory): string {
     'json-tools': 'Data Processing',
     'ai-tools': 'AI Tools',
     'code-tools': 'Code Processing',
-    'conversion-tools': 'File Conversion'
+    'conversion-tools': 'File Conversion',
+    'gst-tools': 'Tax Calculation',
+    'exam-tools': 'Educational Assessment'
   };
   
   return subCategoryMap[category] || 'Web Utilities'

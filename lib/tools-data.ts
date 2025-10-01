@@ -33,7 +33,9 @@ export type ToolCategory =
   | 'json-tools'
   | 'ai-tools'
   | 'code-tools'
-  | 'conversion-tools';
+  | 'conversion-tools'
+  | 'gst-tools'
+  | 'exam-tools';
 
 // Helper function to generate SEO data for tools
 function generateSEO(tool: {
@@ -108,6 +110,16 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
     name: 'File Conversion Tools',
     description: 'Convert between various file formats and media types',
     icon: '🔄'
+  },
+  'gst-tools': {
+    name: 'GST/MSME Toolkit',
+    description: 'Professional GST calculators and MSME business tools',
+    icon: '💰'
+  },
+  'exam-tools': {
+    name: 'Exam Rank/Cutoff Predictors',
+    description: 'JEE, NEET, and other exam rank prediction tools',
+    icon: '🎓'
   }
 };
 
@@ -1451,6 +1463,328 @@ export const tools: Tool[] = [
       tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development', 'free markdown to docs converter', 'markdown to docs converter online']
     }),
     posterImage: '/images/tools/markdown-to-docs-converter.webp'
+  },
+
+  // GST Tools
+  {
+    id: 'gst-calculator',
+    name: 'GST Calculator',
+    slug: 'gst-calculator',
+    description: 'Calculate GST (Goods and Services Tax) with inclusive and exclusive modes. Support for all GST rates (0%, 5%, 12%, 18%, 28%)',
+    category: 'gst-tools',
+    icon: '🧮',
+    featured: true,
+    tags: ['gst', 'calculator', 'tax', 'india', 'business', 'invoice', 'gst calculator', 'gst calculator online', 'gst calculator free', 'calculate gst'],
+    path: '/gst-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'GST Calculator',
+      title: 'Free Online GST Calculator – Calculate GST Instantly | Toolspy',
+      slug: '/gst-calculator',
+      description: 'Calculate GST with Toolspy\'s professional calculator. Support for inclusive/exclusive modes and all GST rates (0%, 5%, 12%, 18%, 28%). Free, private, and accurate.',
+      tags: ['gst', 'calculator', 'tax', 'india', 'business', 'invoice', 'gst calculator', 'gst calculator online', 'gst calculator free', 'calculate gst', 'gst calculator india']
+    }),
+    posterImage: '/images/tools/gst-calculator.webp'
+  },
+  {
+    id: 'reverse-gst-calculator',
+    name: 'Reverse GST Calculator',
+    slug: 'reverse-gst-calculator',
+    description: 'Calculate base amount and GST component from total amount. Perfect for invoice analysis and tax breakdown with all GST rates',
+    category: 'gst-tools',
+    icon: '🔄',
+    featured: true,
+    tags: ['reverse gst', 'calculator', 'tax', 'india', 'business', 'invoice analysis', 'reverse gst calculator', 'gst breakdown', 'tax breakdown'],
+    path: '/reverse-gst-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Reverse GST Calculator',
+      title: 'Free Reverse GST Calculator – Calculate Base Amount & GST Component | Toolspy',
+      slug: '/reverse-gst-calculator',
+      description: 'Calculate base amount and GST component from total amount with Toolspy\'s reverse GST calculator. Perfect for invoice analysis and tax breakdown.',
+      tags: ['reverse gst', 'calculator', 'tax', 'india', 'business', 'invoice analysis', 'reverse gst calculator', 'gst breakdown', 'tax breakdown', 'reverse gst calculator online']
+    }),
+    posterImage: '/images/tools/reverse-gst-calculator.webp'
+  },
+  {
+    id: 'hsn-sac-finder',
+    name: 'HSN/SAC Code Finder',
+    slug: 'hsn-sac-finder',
+    description: 'Find HSN (Harmonized System of Nomenclature) and SAC (Services Accounting Code) codes with GST rates. Quick search with auto-suggest and reference links',
+    category: 'gst-tools',
+    icon: '🔍',
+    featured: true,
+    tags: ['hsn', 'sac', 'code', 'finder', 'gst', 'india', 'business', 'hsn code finder', 'sac code finder', 'find hsn code'],
+    path: '/hsn-sac-finder',
+    status: 'active',
+    seo: generateSEO({
+      name: 'HSN/SAC Code Finder',
+      title: 'Free HSN/SAC Code Finder – Find Codes with GST Rates | Toolspy',
+      slug: '/hsn-sac-finder',
+      description: 'Find HSN and SAC codes with GST rates and descriptions. Quick search with auto-suggest, complete privacy protection, and instant results.',
+      tags: ['hsn', 'sac', 'code', 'finder', 'gst', 'india', 'business', 'hsn code finder', 'sac code finder', 'find hsn code', 'find sac code']
+    }),
+    posterImage: '/images/tools/hsn-sac-finder.webp'
+  },
+  {
+    id: 'cgst-sgst-igst-splitter',
+    name: 'CGST/SGST/IGST Splitter',
+    slug: 'cgst-sgst-igst-splitter',
+    description: 'Auto-split GST into CGST, SGST, and IGST based on intra-state vs inter-state transactions. Perfect for understanding GST distribution across states',
+    category: 'gst-tools',
+    icon: '✂️',
+    featured: true,
+    tags: ['cgst', 'sgst', 'igst', 'splitter', 'gst', 'india', 'business', 'cgst sgst calculator', 'igst calculator', 'gst splitter'],
+    path: '/cgst-sgst-igst-splitter',
+    status: 'active',
+    seo: generateSEO({
+      name: 'CGST/SGST/IGST Splitter',
+      title: 'Free CGST/SGST/IGST Splitter – Split GST by Transaction Type | Toolspy',
+      slug: '/cgst-sgst-igst-splitter',
+      description: 'Auto-split GST into CGST, SGST, and IGST based on intra-state vs inter-state transactions. Complete privacy protection and instant results.',
+      tags: ['cgst', 'sgst', 'igst', 'splitter', 'gst', 'india', 'business', 'cgst sgst calculator', 'igst calculator', 'gst splitter', 'split gst']
+    }),
+    posterImage: '/images/tools/cgst-sgst-igst-splitter.webp'
+  },
+  {
+    id: 'itc-calculator',
+    name: 'Input Tax Credit (ITC) Calculator',
+    slug: 'itc-calculator',
+    description: 'Track claimable credits vs blocked credits with professional ITC calculator. Perfect for understanding ITC eligibility and compliance',
+    category: 'gst-tools',
+    icon: '💳',
+    featured: true,
+    tags: ['itc', 'calculator', 'input tax credit', 'gst', 'india', 'business', 'itc calculator', 'blocked itc', 'claimable itc'],
+    path: '/itc-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Input Tax Credit (ITC) Calculator',
+      title: 'Free ITC Calculator – Calculate Input Tax Credit | Toolspy',
+      slug: '/itc-calculator',
+      description: 'Track claimable credits vs blocked credits with professional ITC calculator. Complete privacy protection and instant results.',
+      tags: ['itc', 'calculator', 'input tax credit', 'gst', 'india', 'business', 'itc calculator', 'blocked itc', 'claimable itc', 'calculate itc']
+    }),
+    posterImage: '/images/tools/itc-calculator.webp'
+  },
+  {
+    id: 'e-invoice-qr-validator',
+    name: 'E-Invoice/QR Code Validator',
+    slug: 'e-invoice-qr-validator',
+    description: 'Upload/scan E-Invoice QR codes to validate invoice status and extract information. Perfect for invoice verification and compliance checking',
+    category: 'gst-tools',
+    icon: '📱',
+    featured: true,
+    tags: ['e-invoice', 'qr code', 'validator', 'gst', 'india', 'business', 'qr validator', 'invoice validator', 'qr scanner'],
+    path: '/e-invoice-qr-validator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'E-Invoice/QR Code Validator',
+      title: 'Free E-Invoice QR Code Validator – Validate & Extract Data | Toolspy',
+      slug: '/e-invoice-qr-validator',
+      description: 'Upload/scan E-Invoice QR codes to validate invoice status and extract information. Complete privacy protection and instant results.',
+      tags: ['e-invoice', 'qr code', 'validator', 'gst', 'india', 'business', 'qr validator', 'invoice validator', 'qr scanner', 'validate qr code']
+    }),
+    posterImage: '/images/tools/e-invoice-qr-validator.webp'
+  },
+  {
+    id: 'composition-regular-scheme-estimator',
+    name: 'Composition vs Regular Scheme Estimator',
+    slug: 'composition-regular-scheme-estimator',
+    description: 'Compare tax liability under Composition and Regular GST schemes. Perfect for choosing the optimal scheme for your business',
+    category: 'gst-tools',
+    icon: '⚖️',
+    featured: true,
+    tags: ['composition', 'regular', 'scheme', 'gst', 'india', 'business', 'scheme comparison', 'composition vs regular', 'gst scheme calculator'],
+    path: '/composition-regular-scheme-estimator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Composition vs Regular Scheme Estimator',
+      title: 'Free GST Scheme Comparison – Composition vs Regular | Toolspy',
+      slug: '/composition-regular-scheme-estimator',
+      description: 'Compare tax liability under Composition and Regular GST schemes. Complete privacy protection and instant results.',
+      tags: ['composition', 'regular', 'scheme', 'gst', 'india', 'business', 'scheme comparison', 'composition vs regular', 'gst scheme calculator', 'compare gst schemes']
+    }),
+    posterImage: '/images/tools/composition-regular-scheme-estimator.webp'
+  },
+  {
+    id: 'penalty-late-fee-calculator',
+    name: 'Penalty/Late Fee Calculator',
+    slug: 'penalty-late-fee-calculator',
+    description: 'Auto-calculate GSTR filing late fees and interest with professional calculator. Perfect for understanding penalty implications and compliance planning',
+    category: 'gst-tools',
+    icon: '⚠️',
+    featured: true,
+    tags: ['penalty', 'late fee', 'calculator', 'gst', 'india', 'business', 'penalty calculator', 'late fee calculator', 'gstr penalty'],
+    path: '/penalty-late-fee-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Penalty/Late Fee Calculator',
+      title: 'Free Penalty/Late Fee Calculator – Calculate GSTR Penalties | Toolspy',
+      slug: '/penalty-late-fee-calculator',
+      description: 'Auto-calculate GSTR filing late fees and interest with professional calculator. Complete privacy protection and instant results.',
+      tags: ['penalty', 'late fee', 'calculator', 'gst', 'india', 'business', 'penalty calculator', 'late fee calculator', 'gstr penalty', 'calculate penalty']
+    }),
+    posterImage: '/images/tools/penalty-late-fee-calculator.webp'
+  },
+  {
+    id: 'jee-main-rank-predictor',
+    name: 'JEE Main Rank Predictor',
+    slug: 'jee-main-rank-predictor',
+    description: 'Predict your JEE Main rank and college options based on percentile. Perfect for understanding admission chances and planning your engineering journey',
+    category: 'exam-tools',
+    icon: '🎓',
+    featured: true,
+    tags: ['jee main', 'rank predictor', 'college predictor', 'engineering', 'admission', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor'],
+    path: '/jee-main-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'JEE Main Rank Predictor',
+      title: 'Free JEE Main Rank Predictor – Predict Rank & College Options | Toolspy',
+      slug: '/jee-main-rank-predictor',
+      description: 'Predict your JEE Main rank and college options based on percentile. Complete privacy protection and instant results.',
+      tags: ['jee main', 'rank predictor', 'college predictor', 'engineering', 'admission', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee rank']
+    }),
+    posterImage: '/images/tools/jee-main-rank-predictor.webp'
+  },
+  {
+    id: 'neet-rank-predictor',
+    name: 'NEET Rank Predictor',
+    slug: 'neet-rank-predictor',
+    description: 'Predict your NEET rank and medical college options based on score. Perfect for understanding admission chances and planning your medical journey',
+    category: 'exam-tools',
+    icon: '🏥',
+    featured: true,
+    tags: ['neet', 'rank predictor', 'medical college', 'admission', 'medical', 'neet rank predictor', 'neet rank calculator', 'neet college predictor'],
+    path: '/neet-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'NEET Rank Predictor',
+      title: 'Free NEET Rank Predictor – Predict Rank & Medical College Options | Toolspy',
+      slug: '/neet-rank-predictor',
+      description: 'Predict your NEET rank and medical college options based on score. Complete privacy protection and instant results.',
+      tags: ['neet', 'rank predictor', 'medical college', 'admission', 'medical', 'neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank']
+    }),
+    posterImage: '/images/tools/neet-rank-predictor.webp'
+  },
+  {
+    id: 'jee-advanced-rank-predictor',
+    name: 'JEE Advanced Rank Predictor',
+    slug: 'jee-advanced-rank-predictor',
+    description: 'Predict your JEE Advanced rank and IIT options based on score. Perfect for understanding admission chances and planning your IIT journey',
+    category: 'exam-tools',
+    icon: '⭐',
+    featured: true,
+    tags: ['jee advanced', 'rank predictor', 'iit predictor', 'engineering', 'admission', 'jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor'],
+    path: '/jee-advanced-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'JEE Advanced Rank Predictor',
+      title: 'Free JEE Advanced Rank Predictor – Predict Rank & IIT Options | Toolspy',
+      slug: '/jee-advanced-rank-predictor',
+      description: 'Predict your JEE Advanced rank and IIT options based on score. Complete privacy protection and instant results.',
+      tags: ['jee advanced', 'rank predictor', 'iit predictor', 'engineering', 'admission', 'jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor', 'predict jee advanced rank']
+    }),
+    posterImage: '/images/tools/jee-advanced-rank-predictor.webp'
+  },
+  {
+    id: 'gate-rank-predictor',
+    name: 'GATE Rank Predictor',
+    slug: 'gate-rank-predictor',
+    description: 'Predict your GATE rank and college options based on score and subject. Perfect for understanding admission chances and planning your postgraduate journey',
+    category: 'exam-tools',
+    icon: '📚',
+    featured: true,
+    tags: ['gate', 'rank predictor', 'college predictor', 'postgraduate', 'admission', 'gate rank predictor', 'gate rank calculator', 'gate college predictor'],
+    path: '/gate-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'GATE Rank Predictor',
+      title: 'Free GATE Rank Predictor – Predict Rank & College Options | Toolspy',
+      slug: '/gate-rank-predictor',
+      description: 'Predict your GATE rank and college options based on score and subject. Complete privacy protection and instant results.',
+      tags: ['gate', 'rank predictor', 'college predictor', 'postgraduate', 'admission', 'gate rank predictor', 'gate rank calculator', 'gate college predictor', 'predict gate rank']
+    }),
+    posterImage: '/images/tools/gate-rank-predictor.webp'
+  },
+  {
+    id: 'cat-percentile-predictor',
+    name: 'CAT Percentile Predictor',
+    slug: 'cat-percentile-predictor',
+    description: 'Predict your CAT percentile and MBA college options based on sectional scores. Perfect for understanding admission chances and planning your MBA journey',
+    category: 'exam-tools',
+    icon: '📊',
+    featured: true,
+    tags: ['cat', 'percentile predictor', 'mba predictor', 'college predictor', 'admission', 'cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile'],
+    path: '/cat-percentile-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'CAT Percentile Predictor',
+      title: 'Free CAT Percentile Predictor – Predict Percentile & MBA College Options | Toolspy',
+      slug: '/cat-percentile-predictor',
+      description: 'Predict your CAT percentile and MBA college options based on sectional scores. Complete privacy protection and instant results.',
+      tags: ['cat', 'percentile predictor', 'mba predictor', 'college predictor', 'admission', 'cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile']
+    }),
+    posterImage: '/images/tools/cat-percentile-predictor.webp'
+  },
+  {
+    id: 'upsc-rank-predictor',
+    name: 'UPSC Rank Predictor',
+    slug: 'upsc-rank-predictor',
+    description: 'Predict your UPSC rank and civil service options based on exam scores. Perfect for understanding service allocation and planning your civil service career',
+    category: 'exam-tools',
+    icon: '🏛️',
+    featured: true,
+    tags: ['upsc', 'rank predictor', 'civil service predictor', 'service predictor', 'admission', 'upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank'],
+    path: '/upsc-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'UPSC Rank Predictor',
+      title: 'Free UPSC Rank Predictor – Predict Rank & Civil Service Options | Toolspy',
+      slug: '/upsc-rank-predictor',
+      description: 'Predict your UPSC rank and civil service options based on exam scores. Complete privacy protection and instant results.',
+      tags: ['upsc', 'rank predictor', 'civil service predictor', 'service predictor', 'admission', 'upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank']
+    }),
+    posterImage: '/images/tools/upsc-rank-predictor.webp'
+  },
+  {
+    id: 'ssc-cgl-rank-predictor',
+    name: 'SSC CGL Rank Predictor',
+    slug: 'ssc-cgl-rank-predictor',
+    description: 'Predict your SSC CGL rank and government job options based on exam scores. Perfect for understanding post allocation and planning your government career',
+    category: 'exam-tools',
+    icon: '🏢',
+    featured: true,
+    tags: ['ssc cgl', 'rank predictor', 'government job predictor', 'post predictor', 'admission', 'ssc cgl rank predictor', 'ssc cgl rank calculator', 'government job predictor', 'predict ssc cgl rank'],
+    path: '/ssc-cgl-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'SSC CGL Rank Predictor',
+      title: 'Free SSC CGL Rank Predictor – Predict Rank & Government Job Options | Toolspy',
+      slug: '/ssc-cgl-rank-predictor',
+      description: 'Predict your SSC CGL rank and government job options based on exam scores. Complete privacy protection and instant results.',
+      tags: ['ssc cgl', 'rank predictor', 'government job predictor', 'post predictor', 'admission', 'ssc cgl rank predictor', 'ssc cgl rank calculator', 'government job predictor', 'predict ssc cgl rank']
+    }),
+    posterImage: '/images/tools/ssc-cgl-rank-predictor.webp'
+  },
+  {
+    id: 'bank-po-rank-predictor',
+    name: 'Bank PO Rank Predictor',
+    slug: 'bank-po-rank-predictor',
+    description: 'Predict your Bank PO rank and banking job options based on exam scores. Perfect for understanding bank allocation and planning your banking career',
+    category: 'exam-tools',
+    icon: '🏦',
+    featured: true,
+    tags: ['bank po', 'rank predictor', 'banking job predictor', 'bank predictor', 'admission', 'bank po rank predictor', 'bank po rank calculator', 'banking job predictor', 'predict bank po rank'],
+    path: '/bank-po-rank-predictor',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Bank PO Rank Predictor',
+      title: 'Free Bank PO Rank Predictor – Predict Rank & Banking Job Options | Toolspy',
+      slug: '/bank-po-rank-predictor',
+      description: 'Predict your Bank PO rank and banking job options based on exam scores. Complete privacy protection and instant results.',
+      tags: ['bank po', 'rank predictor', 'banking job predictor', 'bank predictor', 'admission', 'bank po rank predictor', 'bank po rank calculator', 'banking job predictor', 'predict bank po rank']
+    }),
+    posterImage: '/images/tools/bank-po-rank-predictor.webp'
   }
 ];
 
@@ -1464,7 +1798,9 @@ export function getToolsByCategory(): Record<ToolCategory, Tool[]> {
     'json-tools': [],
     'ai-tools': [],
     'code-tools': [],
-    'conversion-tools': []
+    'conversion-tools': [],
+    'gst-tools': [],
+    'exam-tools': []
   };
 
   tools.forEach(tool => {

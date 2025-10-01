@@ -13,7 +13,9 @@ function getApplicationCategory(category: ToolCategory): string {
     'json-tools': 'DeveloperApplication',
     'ai-tools': 'MultimediaApplication',
     'code-tools': 'DeveloperApplication',
-    'conversion-tools': 'WebApplication'
+    'conversion-tools': 'WebApplication',
+    'gst-tools': 'BusinessApplication',
+    'exam-tools': 'EducationalApplication'
   };
   
   return categoryMap[category] || 'UtilitiesApplication'
@@ -224,7 +226,9 @@ function getCategoryDisplayName(category: ToolCategory): string {
     'json-tools': 'JSON Tools',
     'ai-tools': 'AI Tools',
     'code-tools': 'Code Tools',
-    'conversion-tools': 'Conversion Tools'
+    'conversion-tools': 'Conversion Tools',
+    'gst-tools': 'GST/MSME Toolkit',
+    'exam-tools': 'Exam Rank/Cutoff Predictors'
   };
   
   return displayNames[category] || category

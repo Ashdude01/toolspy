@@ -13,7 +13,9 @@ function getApplicationCategory(category: ToolCategory): string {
     'json-tools': 'DeveloperApplication',
     'ai-tools': 'MultimediaApplication',
     'code-tools': 'DeveloperApplication',
-    'conversion-tools': 'WebApplication'
+    'conversion-tools': 'WebApplication',
+    'gst-tools': 'BusinessApplication',
+    'exam-tools': 'EducationalApplication'
   };
   
   return categoryMap[category] || 'UtilitiesApplication'
