@@ -1,27 +1,26 @@
-"use client";
+"use client"
+import { Metadata } from 'next'
+import { useSearchParams } from 'next/navigation'
+import { ToolsSection } from '@/components/tools/tools-section'
+import { siteConfig } from '@/lib/config'
+import { HomeSeoContent } from '@/components/sections/home-seo-content'
+import StaticPageSchema from '@/components/seo/StaticPageSchema'
+import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
-import { useState } from "react";
-import { ToolsGrid } from "@/components/home2/tools-grid";
-import { FeaturesSection } from "@/components/home2/features-section";
-import { TestimonialsSection } from "@/components/home2/testimonials-section";
-import { BrowseCategoriesSection } from "@/components/home2/BrowseCategoriesSection";
-import StaticPageSchema from "@/components/seo/StaticPageSchema";
-import { useSearchParams } from "next/navigation";
+export default function HomePage() {
+  // client component wrapper to capture search params
+  return <HomePageClient />
+}
 
-export default function HomePageV2() {
+function HomePageClient() {
   const params = useSearchParams();
-  const search = params?.get("search") || "";
-  const [searchQuery, setSearchQuery] = useState(search);
-
+  const search = params?.get('search') || '';
   return (
     <>
       <StaticPageSchema pageType="homepage" />
-      <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-blue-950 dark:to-indigo-950">
-        <ToolsGrid searchQuery={searchQuery} onSearchChange={setSearchQuery} />
-        <BrowseCategoriesSection />
-        <FeaturesSection />
-        <TestimonialsSection />
-      </div>
+      <ToolsSection searchQuery={search} />
+      
+      <HomeSeoContent />
     </>
-  );
+  )
 }
