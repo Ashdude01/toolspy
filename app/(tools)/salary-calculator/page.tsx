@@ -28,6 +28,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { SalaryCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SalaryResult {
   hourlyRate: number;
@@ -559,8 +560,12 @@ function SalaryCalculatorContent() {
 
 export default function SalaryCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="salary-calculator">
+      (
     <ToastProvider>
       <SalaryCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

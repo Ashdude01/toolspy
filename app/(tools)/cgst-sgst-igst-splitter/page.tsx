@@ -33,6 +33,7 @@ import {
   MapPin,
 } from "lucide-react";
 import { CGSTSGSTIGSTSplitterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface GSTSplitCalculation {
   totalAmount: number;
@@ -503,5 +504,9 @@ Please consult with a tax professional for official GST calculations.`;
 }
 
 export default function CGSTSGSTIGSTSplitterPage() {
-  return <CGSTSGSTIGSTSplitterContent />;
+  return (
+    <ToolPageWrapper toolSlug="cgst-sgst-igst-splitter">
+      <CGSTSGSTIGSTSplitterContent />
+    </ToolPageWrapper>
+  );
 }

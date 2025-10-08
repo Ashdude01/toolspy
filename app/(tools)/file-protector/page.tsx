@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { FileProtectorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProtectionResult {
   file: File;
@@ -398,8 +399,12 @@ function FileProtectorContent() {
 
 export default function FileProtectorPage() {
   return (
+    <ToolPageWrapper toolSlug="file-protector">
+      (
     <ToastProvider>
       <FileProtectorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

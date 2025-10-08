@@ -27,6 +27,7 @@ import {
   PieChart,
 } from "lucide-react";
 import { LoanCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LoanResult {
   monthlyPayment: number;
@@ -480,8 +481,12 @@ function LoanCalculatorContent() {
 
 export default function LoanCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="loan-calculator">
+      (
     <ToastProvider>
       <LoanCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

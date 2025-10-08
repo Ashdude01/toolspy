@@ -36,6 +36,7 @@ import {
   BookOpen,
 } from "lucide-react";
 import { GoogleIndexingApiSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ServiceAccount {
   project_id: string;
@@ -1031,8 +1032,12 @@ function GoogleIndexingApiContent() {
 
 export default function GoogleIndexingApiPage() {
   return (
+    <ToolPageWrapper toolSlug="google-indexing-api">
+      (
     <ToastProvider>
       <GoogleIndexingApiContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

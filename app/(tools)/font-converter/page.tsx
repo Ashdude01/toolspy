@@ -52,6 +52,7 @@ import {
   Star,
 } from "lucide-react";
 import { FontConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface FontInfo {
   family: string;
@@ -972,8 +973,12 @@ function FontConverterContent() {
 
 export default function FontConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="font-converter">
+      (
     <ToastProvider>
       <FontConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

@@ -28,6 +28,7 @@ import {
   Globe,
 } from "lucide-react";
 import { AreaConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface AreaResult {
   inputValue: number;
@@ -557,8 +558,12 @@ function AreaConverterContent() {
 
 export default function AreaConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="area-converter">
+      (
     <ToastProvider>
       <AreaConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

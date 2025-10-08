@@ -47,6 +47,7 @@ import {
   ChevronUp,
 } from "lucide-react";
 import { ExpiredDomainFinderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { 
   searchExpiredDomains, 
   estimateDomainValue,
@@ -610,8 +611,12 @@ ${searchResults.map(domain =>
 
 export default function ExpiredDomainFinderPage() {
   return (
+    <ToolPageWrapper toolSlug="expired-domain-finder">
+      (
     <ToastProvider>
       <ExpiredDomainFinderContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

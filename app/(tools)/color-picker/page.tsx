@@ -29,6 +29,7 @@ import {
   History,
 } from "lucide-react";
 import { ColorPickerSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ColorHistory {
   id: string;
@@ -674,8 +675,12 @@ function ColorPickerContent() {
 
 export default function ColorPickerPage() {
   return (
+    <ToolPageWrapper toolSlug="color-picker">
+      (
     <ToastProvider>
       <ColorPickerContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

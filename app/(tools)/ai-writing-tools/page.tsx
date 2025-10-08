@@ -26,6 +26,7 @@ import {
   RotateCcw,
 } from "lucide-react";
 import { AIWritingToolsSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface WritingResult {
   original: string;
@@ -264,8 +265,12 @@ const AiWritingToolsContent = () => {
 
 export default function AiWritingToolsPage() {
   return (
+    <ToolPageWrapper toolSlug="ai-writing-tools">
+      (
     <ToastProvider>
       <AiWritingToolsContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

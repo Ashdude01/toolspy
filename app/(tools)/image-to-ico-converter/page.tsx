@@ -55,6 +55,7 @@ import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@
 
 // Import SEO Content Component
 import { ImageToICOConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // ICO size configurations
 const ICO_SIZES = [
@@ -509,8 +510,12 @@ Generated on: ${new Date().toLocaleString()}
 
 export default function ImageToICOConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="image-to-ico-converter">
+      (
     <ToastProvider>
       <ImageToICOConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

@@ -34,6 +34,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { EInvoiceQRValidatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ValidationResult {
   isValid: boolean;
@@ -376,5 +377,9 @@ Please verify with official GST portal for official validation.`;
 }
 
 export default function EInvoiceQRValidatorPage() {
-  return <EInvoiceQRValidatorContent />;
+  return (
+    <ToolPageWrapper toolSlug="e-invoice-qr-validator">
+      <EInvoiceQRValidatorContent />
+    </ToolPageWrapper>
+  );
 }

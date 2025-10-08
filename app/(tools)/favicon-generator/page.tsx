@@ -55,6 +55,7 @@ import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@
 
 // Import SEO Content Component
 import { FaviconGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Favicon configurations
 const FAVICON_SIZES = [
@@ -534,8 +535,12 @@ function FaviconGeneratorContent() {
 
 export default function FaviconGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="favicon-generator">
+      (
     <ToastProvider>
       <FaviconGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

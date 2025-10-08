@@ -32,6 +32,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { ReverseGSTCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ReverseGSTCalculation {
   totalAmount: number;
@@ -370,5 +371,9 @@ Please consult with a tax professional for official GST calculations.`;
 }
 
 export default function ReverseGSTCalculatorPage() {
-  return <ReverseGSTCalculatorContent />;
+  return (
+    <ToolPageWrapper toolSlug="reverse-gst-calculator">
+      <ReverseGSTCalculatorContent />
+    </ToolPageWrapper>
+  );
 }

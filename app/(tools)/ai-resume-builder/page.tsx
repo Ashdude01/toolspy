@@ -50,6 +50,7 @@ import {
   Brain,
 } from "lucide-react";
 import { AIResumeBuilderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PersonalInfo {
   firstName: string;
@@ -1055,8 +1056,12 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
 
 export default function AiResumeBuilderPage() {
   return (
+    <ToolPageWrapper toolSlug="ai-resume-builder">
+      (
     <ToastProvider>
       <AiResumeBuilderContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

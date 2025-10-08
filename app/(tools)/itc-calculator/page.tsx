@@ -35,6 +35,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { ITCCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ITCCalculation {
   totalInputGST: number;
@@ -440,5 +441,9 @@ Please consult with a tax professional for official ITC calculations.`;
 }
 
 export default function ITCCalculatorPage() {
-  return <ITCCalculatorContent />;
+  return (
+    <ToolPageWrapper toolSlug="itc-calculator">
+      <ITCCalculatorContent />
+    </ToolPageWrapper>
+  );
 }

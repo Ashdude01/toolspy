@@ -41,6 +41,7 @@ import {
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
 import { Base64ToImageSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function Base64ToImageContent() {
   const { showToast } = useToast();
@@ -458,8 +459,12 @@ function Base64ToImageContent() {
 
 export default function Base64ToImagePage() {
   return (
+    <ToolPageWrapper toolSlug="base64-to-image">
+      (
     <ToastProvider>
       <Base64ToImageContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

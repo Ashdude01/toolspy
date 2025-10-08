@@ -43,6 +43,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { JSONTableConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TableData {
   headers: string[];
@@ -715,8 +716,12 @@ function JsonTableConverterContent() {
 
 export default function JsonTableConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="json-table-converter">
+      (
     <ToastProvider>
       <JsonTableConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

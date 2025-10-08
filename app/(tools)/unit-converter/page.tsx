@@ -30,6 +30,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { UnitConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   inputValue: number;
@@ -594,8 +595,12 @@ function UnitConverterContent() {
 
 export default function UnitConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="unit-converter">
+      (
     <ToastProvider>
       <UnitConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

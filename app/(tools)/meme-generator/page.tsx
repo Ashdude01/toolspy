@@ -48,6 +48,7 @@ import {
   Image as ImageIcon,
 } from "lucide-react";
 import { MemeGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface MemeTemplate {
   id: string;
@@ -845,8 +846,12 @@ function MemeGeneratorContent() {
 
 export default function MemeGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="meme-generator">
+      (
     <ToastProvider>
       <MemeGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

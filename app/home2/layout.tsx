@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import "./styles.css"
+// import "./styles.css"
 
 export const metadata: Metadata = {
   title: 'Toolspy V2 - Professional Online Tools Hub',

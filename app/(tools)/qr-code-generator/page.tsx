@@ -32,6 +32,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { QrCodeGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface QRCodeData {
   id: string;
@@ -490,8 +491,12 @@ function QrCodeGeneratorContent() {
 
 export default function QrCodeGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="qr-code-generator">
+      (
     <ToastProvider>
       <QrCodeGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

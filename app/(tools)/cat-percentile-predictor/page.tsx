@@ -13,6 +13,7 @@ import { ToastProvider, useToast } from "@/components/tools/shared/toast-provide
 import { Download, Copy, Calculator, Target, TrendingUp, Award, BookOpen, Building, Users, Star, Shield, Clock, BarChart3 } from "lucide-react";
 import { scrollToElement } from "@/lib/utils";
 import { CATPercentilePredictorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CATScore {
   id: string;

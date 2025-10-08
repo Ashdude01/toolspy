@@ -42,6 +42,7 @@ import {
   useToast,
 } from "@/components/tools/shared/toast-provider";
 import { YouTubeEngagementCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
   likes: number;
@@ -519,8 +520,12 @@ function YouTubeEngagementCalculatorContent() {
 
 export default function YouTubeEngagementCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="youtube-engagement-calculator">
+      (
     <ToastProvider>
       <YouTubeEngagementCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

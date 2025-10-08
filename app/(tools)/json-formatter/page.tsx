@@ -44,6 +44,7 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import { JSONFormatterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface JsonNode {
   key?: string;
@@ -607,8 +608,12 @@ function JsonFormatterContent() {
 
 export default function JsonFormatterPage() {
   return (
+    <ToolPageWrapper toolSlug="json-formatter">
+      (
     <ToastProvider>
       <JsonFormatterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

@@ -11,12 +11,17 @@ import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
 import { fetchThirdPartyMedia } from "@/lib/third-party/media-downloader";
 import { InstagramReelsDownloaderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function InstagramReelsDownloaderPage() {
   return (
+    <ToolPageWrapper toolSlug="instagram-reels-downloader">
+      (
     <ToastProvider>
       <Content />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }
 

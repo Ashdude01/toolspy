@@ -4,7 +4,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Target, Users, Shield, Zap, Heart, Globe, Award, TrendingUp, Clock, CheckCircle, Star, ArrowRight, Download, Lock, Smartphone, Code, Calculator, FileText, Image, Palette } from 'lucide-react';
 import Link from 'next/link';
-import { AboutSchemas } from '@/components/seo/schema-manager';
+import StaticPageSchema from '@/components/seo/StaticPageSchema';
 
 export const metadata: Metadata = {
   title: 'About Toolspy - Professional Online Tools Platform',
@@ -139,7 +139,7 @@ export default function AboutPage() {
 
   return (
     <>
-      <AboutSchemas />
+      <StaticPageSchema pageType="about" />
       <div className="container mx-auto px-4 py-12 space-y-16">
         {/* Hero Section */}
         <section className="text-center space-y-8">

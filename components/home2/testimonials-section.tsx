@@ -56,7 +56,7 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white/50 dark:bg-slate-800/50 relative overflow-hidden">
+    <section className="py-16 px-4 bg-white/50 dark:bg-black relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl"></div>
@@ -64,7 +64,7 @@ export function TestimonialsSection() {
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Trusted by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Professionals</span>
@@ -125,24 +125,24 @@ export function TestimonialsSection() {
 
         {/* Trust Indicators */}
         <div className="mt-16 text-center">
-          <div className="inline-flex items-center space-x-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-8 py-4 border border-slate-200 dark:border-slate-700">
+          <div className="flex flex-row md:flex-row items-center justify-around md:justify-center w-full md:w-fit mx-auto md:gap-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl md:px-8 py-4 border border-slate-200 dark:border-slate-700">
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">1M+</div>
+              <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">1M+</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Happy Users</div>
             </div>
-            <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">50M+</div>
+              <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">50M+</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Files Processed</div>
             </div>
-            <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">99.9%</div>
+              <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">99.9%</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">Uptime</div>
             </div>
-            <div className="w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
-              <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">4.9★</div>
+              <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">4.9★</div>
               <div className="text-sm text-slate-600 dark:text-slate-400">User Rating</div>
             </div>
           </div>

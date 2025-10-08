@@ -28,6 +28,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { PercentageCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PercentageResult {
   calculation: string;
@@ -352,8 +353,12 @@ function PercentageCalculatorContent() {
 
 export default function PercentageCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="percentage-calculator">
+      (
     <ToastProvider>
       <PercentageCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

@@ -28,6 +28,7 @@ import {
   Globe,
 } from "lucide-react";
 import { WeightConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface WeightResult {
   inputValue: number;
@@ -562,8 +563,12 @@ function WeightConverterContent() {
 
 export default function WeightConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="weight-converter">
+      (
     <ToastProvider>
       <WeightConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

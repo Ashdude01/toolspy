@@ -10,12 +10,17 @@ import { Download, Link2, Search } from "lucide-react";
 import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
 import { useSearchParams } from "next/navigation";
 import { FacebookImageDownloaderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function FacebookImageDownloaderPage() {
   return (
+    <ToolPageWrapper toolSlug="facebook-image-downloader">
+      (
     <ToastProvider>
       <Content />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }
 

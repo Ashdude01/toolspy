@@ -17,6 +17,7 @@ import {
   AlertCircle
 } from 'lucide-react';
 import Link from 'next/link';
+import StaticPageSchema from '@/components/seo/StaticPageSchema';
 
 export const metadata: Metadata = {
   title: 'Help Center - Toolspy Support and Documentation',
@@ -129,7 +130,9 @@ export default function HelpPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 space-y-12">
+    <>
+      <StaticPageSchema pageType="help" />
+      <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div className="space-y-4">
@@ -334,6 +337,7 @@ export default function HelpPage() {
           </div>
         </Card>
       </section>
-    </div>
+      </div>
+    </>
   );
 } 

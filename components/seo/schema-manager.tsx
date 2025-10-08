@@ -1,5 +1,3 @@
-'use client'
-
 import { Tool, ToolCategory } from '@/lib/tools-data'
 import { PageType } from './schema-types'
 import { generateOrganizationSchema } from './schemas/organization-schema'
@@ -37,7 +35,7 @@ export function SchemaManager({
   
   // Add webpage schema
   const webpageSchema = generateWebPageSchema(
-    pageType as 'homepage' | 'tool' | 'category' | 'about',
+    pageType as 'homepage' | 'tool' | 'category' | 'about' | 'contact' | 'help',
     { tool, category, customTitle, customDescription }
   )
   schemas.push(webpageSchema)
@@ -100,10 +98,6 @@ export function ToolSchemas({
   )
 }
 
-export function CategorySchemas({ category }: { category: ToolCategory }) {
-  return <SchemaManager pageType="category" category={category} />
-}
-
 export function AboutSchemas() {
   return <SchemaManager pageType="about" />
 }
@@ -114,4 +108,23 @@ export function ContactSchemas() {
 
 export function HelpSchemas() {
   return <SchemaManager pageType="help" />
+}
+
+export function CategorySchemas({ 
+  category, 
+  customTitle, 
+  customDescription 
+}: { 
+  category: ToolCategory
+  customTitle?: string
+  customDescription?: string
+}) {
+  return (
+    <SchemaManager 
+      pageType="category" 
+      category={category}
+      customTitle={customTitle}
+      customDescription={customDescription}
+    />
+  )
 }

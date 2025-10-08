@@ -53,6 +53,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { EbookConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EbookMetadata {
   title: string;
@@ -877,8 +878,12 @@ function EbookConverterContent() {
 
 export default function EbookConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="ebook-converter">
+      (
     <ToastProvider>
       <EbookConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

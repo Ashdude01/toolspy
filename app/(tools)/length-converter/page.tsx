@@ -28,6 +28,7 @@ import {
   Globe,
 } from "lucide-react";
 import { LengthConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LengthResult {
   inputValue: number;
@@ -567,8 +568,12 @@ function LengthConverterContent() {
 
 export default function LengthConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="length-converter">
+      (
     <ToastProvider>
       <LengthConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

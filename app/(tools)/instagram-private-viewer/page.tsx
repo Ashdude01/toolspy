@@ -10,12 +10,17 @@ import { Download, Search, UserCircle2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
 import { InstagramPrivateViewerSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function InstagramPrivateViewerPage() {
   return (
+    <ToolPageWrapper toolSlug="instagram-private-viewer">
+      (
     <ToastProvider>
       <Content />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }
 

@@ -35,6 +35,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { GATERankPredictorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RankPrediction {
   score: number;
@@ -518,5 +519,9 @@ Actual ranks may vary based on various factors.`;
 }
 
 export default function GATERankPredictorPage() {
-  return <GATERankPredictorContent />;
+  return (
+    <ToolPageWrapper toolSlug="gate-rank-predictor">
+      <GATERankPredictorContent />
+    </ToolPageWrapper>
+  );
 }

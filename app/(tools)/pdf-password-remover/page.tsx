@@ -28,6 +28,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { PdfPasswordRemoverSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RemovalResult {
   file: File;
@@ -379,8 +380,12 @@ function PdfPasswordRemoverContent() {
 
 export default function PdfPasswordRemoverPage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-password-remover">
+      (
     <ToastProvider>
       <PdfPasswordRemoverContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

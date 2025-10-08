@@ -34,6 +34,7 @@ import {
   CheckCircle,
 } from "lucide-react";
 import { CompositionRegularSchemeEstimatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SchemeComparison {
   totalTurnover: number;
@@ -456,5 +457,9 @@ Please consult with a tax professional for official scheme selection.`;
 }
 
 export default function CompositionRegularSchemeEstimatorPage() {
-  return <CompositionRegularSchemeEstimatorContent />;
+  return (
+    <ToolPageWrapper toolSlug="composition-regular-scheme-estimator">
+      <CompositionRegularSchemeEstimatorContent />
+    </ToolPageWrapper>
+  );
 }

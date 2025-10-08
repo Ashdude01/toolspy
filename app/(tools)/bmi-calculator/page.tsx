@@ -27,6 +27,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { BMICalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface BMIResult {
   bmi: number;
@@ -540,8 +541,12 @@ function BmiCalculatorContent() {
 
 export default function BmiCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="bmi-calculator">
+      (
     <ToastProvider>
       <BmiCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

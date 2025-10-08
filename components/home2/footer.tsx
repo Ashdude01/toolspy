@@ -15,7 +15,11 @@ import {
   Github,
   Linkedin,
   Mail,
-  ArrowUp
+  ArrowUp,
+  X,
+  Facebook,
+  RedoDotIcon,
+  Instagram
 } from "lucide-react"
 import Link from "next/link"
 
@@ -26,7 +30,7 @@ export function Footer() {
 
   const footerSections = [
     {
-      title: "Tools",
+      title: "Popular Tools",
       links: [
         { href: "/image-compressor", label: "Image Compressor" },
         { href: "/pdf-converter", label: "PDF Converter" },
@@ -47,35 +51,34 @@ export function Footer() {
         { href: "/feedback", label: "Feedback" }
       ]
     },
-    {
-      title: "Resources",
-      links: [
-        { href: "/blog", label: "Blog" },
-        { href: "/tutorials", label: "Tutorials" },
-        { href: "/api", label: "API Documentation" },
-        { href: "/integrations", label: "Integrations" },
-        { href: "/changelog", label: "Changelog" },
-        { href: "/status", label: "Status" }
-      ]
-    },
-    {
-      title: "Community",
-      links: [
-        { href: "/discord", label: "Discord" },
-        { href: "/twitter", label: "Twitter" },
-        { href: "/github", label: "GitHub" },
-        { href: "/reddit", label: "Reddit" },
-        { href: "/youtube", label: "YouTube" },
-        { href: "/newsletter", label: "Newsletter" }
-      ]
-    }
+{
+  title: "Tool Categories",
+  links: [
+    { href: "/image-tools", label: "Image Tools" },
+    { href: "/pdf-tools", label: "PDF Tools" },
+    { href: "/calculators", label: "Calculators" },
+    { href: "/base64-tools", label: "Base64 Tools" },
+    { href: "/json-tools", label: "JSON Tools" },
+    { href: "/ai-tools", label: "AI Tools" }
+  ]
+},
+{
+  title: "More Categories",
+  links: [
+    { href: "/code-tools", label: "Code Tools" },
+    { href: "/conversion-tools", label: "Conversion Tools" },
+    { href: "/gst-tools", label: "GST Tools" },
+    { href: "/exam-tools", label: "Exam Tools" },
+    { href: "/misc-tools", label: "Miscellaneous Tools" }
+  ]
+}
   ]
 
   const socialLinks = [
-    { href: "https://twitter.com/toolspy", icon: <Twitter className="h-5 w-5" />, label: "Twitter" },
-    { href: "https://github.com/toolspy", icon: <Github className="h-5 w-5" />, label: "GitHub" },
-    { href: "https://linkedin.com/company/toolspy", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
-    { href: "mailto:hello@toolspy.net", icon: <Mail className="h-5 w-5" />, label: "Email" }
+    { href: "https://x.com/toolspy_official", icon: <X className="h-5 w-5" />, label: "X" },
+    { href: "https://www.facebook.com/profile.php?id=61581409970991", icon: <Facebook className="h-5 w-5" />, label: "Facebook" },
+    { href: "https://www.linkedin.com/company/109004927", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
+    { href: "#", icon: <Instagram className="h-5 w-5" />, label: "Instagram" }
   ]
 
   return (
@@ -86,7 +89,7 @@ export function Footer() {
         <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto px-0">
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Section */}
@@ -153,39 +156,14 @@ export function Footer() {
           ))}
         </div>
 
-        {/* Newsletter Signup */}
-        <div className="bg-slate-800/50 rounded-2xl p-8 mb-12 border border-slate-700">
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-2xl font-bold mb-2">Stay Updated</h3>
-            <p className="text-slate-400 mb-6">
-              Get the latest updates on new tools, features, and improvements delivered to your inbox.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-              <input
-                type="email"
-                placeholder="Enter your email"
-                className="flex-1 px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500 transition-colors"
-              />
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-6">
-                Subscribe
-              </Button>
-            </div>
-          </div>
-        </div>
-
         <Separator className="my-8 bg-slate-700" />
 
         {/* Bottom Footer */}
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
             <p className="text-slate-400 text-sm">
-              © 2024 Toolspy. All rights reserved. Made with ❤️ for the community.
+              © 2024 Toolspy. All rights reserved.
             </p>
-            <div className="flex items-center space-x-4 text-sm text-slate-400">
-              <span>🇺🇸 English</span>
-              <span>•</span>
-              <span>🌍 Global</span>
-            </div>
           </div>
           
           <div className="flex items-center space-x-4 mt-4 md:mt-0">

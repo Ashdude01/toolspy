@@ -29,6 +29,7 @@ import {
   X,
 } from "lucide-react";
 import { ImageOptimizerSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
 interface ProcessedFile {
@@ -626,8 +627,12 @@ function ImageOptimizerContent() {
 
 export default function ImageOptimizerPage() {
   return (
+    <ToolPageWrapper toolSlug="image-optimizer">
+      (
     <ToastProvider>
       <ImageOptimizerContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

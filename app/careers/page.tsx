@@ -11,6 +11,7 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { CheckCircle, Upload, FileText, User, Mail, Phone, MapPin, Briefcase } from 'lucide-react'
 import { getFeaturedTools } from '@/lib/tools-data'
 import Link from 'next/link'
+import StaticPageSchema from '@/components/seo/StaticPageSchema'
 
 interface JobApplicationForm {
   firstName: string
@@ -109,7 +110,9 @@ export default function CareersPage() {
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+      <>
+        <StaticPageSchema pageType="careers" />
+        <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
         <div className="container mx-auto px-4 max-w-4xl">
           <div className="text-center mb-12">
             <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
@@ -152,12 +155,15 @@ export default function CareersPage() {
             </Link>
           </div>
         </div>
-      </div>
+        </div>
+      </>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
+    <>
+      <StaticPageSchema pageType="careers" />
+      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 py-12">
       <div className="container mx-auto px-4 max-w-4xl">
         <div className="text-center mb-12">
           <h1 className="text-4xl font-bold text-gray-900 mb-4">
@@ -346,6 +352,7 @@ export default function CareersPage() {
           </CardContent>
         </Card>
       </div>
-    </div>
+      </div>
+    </>
   )
 }

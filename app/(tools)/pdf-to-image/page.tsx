@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { PdfToImageSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   files: File[];
@@ -498,8 +499,12 @@ function PdfToImageContent() {
 
 export default function PdfToImagePage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-to-image">
+      (
     <ToastProvider>
       <PdfToImageContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

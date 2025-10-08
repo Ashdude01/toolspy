@@ -78,14 +78,14 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section id="features" className="py-16 px-4 bg-white/50 dark:bg-slate-800/50 relative overflow-hidden">
+    <section id="features" className="py-16 px-4 bg-white/50 dark:bg-gray-900 relative overflow-hidden">
       {/* Background Elements */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
         <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Toolspy</span>?

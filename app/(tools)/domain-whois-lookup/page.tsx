@@ -38,6 +38,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { DomainWhoisLookupSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { 
   validateDomain, 
   formatWhoisDate, 
@@ -467,8 +468,12 @@ ${whoisData.raw}`;
 
 export default function DomainWhoisLookupPage() {
   return (
+    <ToolPageWrapper toolSlug="domain-whois-lookup">
+      (
     <ToastProvider>
       <DomainWhoisLookupContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

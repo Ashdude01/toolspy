@@ -40,6 +40,7 @@ import {
   useToast,
 } from "@/components/tools/shared/toast-provider";
 import { FacebookEngagementCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
   likes: number;
@@ -507,8 +508,12 @@ function FacebookEngagementCalculatorContent() {
 
 export default function FacebookEngagementCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="facebook-engagement-calculator">
+      (
     <ToastProvider>
       <FacebookEngagementCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

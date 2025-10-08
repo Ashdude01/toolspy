@@ -53,6 +53,7 @@ import {
   Layers,
 } from "lucide-react";
 import { MediaConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionJob {
   id: string;
@@ -799,8 +800,12 @@ function MediaConverterContent() {
 
 export default function MediaConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="media-converter">
+      (
     <ToastProvider>
       <MediaConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

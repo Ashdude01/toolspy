@@ -4,7 +4,7 @@ import { limitTitle, limitDescription } from '@/lib/utils/seo';
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { CategoryToolsClient } from '@/components/tools/category-tools-client';
-import { CategorySchemas } from '@/components/seo/schema-manager';
+import StaticPageSchema from '@/components/seo/StaticPageSchema';
 import { CategorySEOContent } from '@/components/seo/category-seo-content';
 
 interface CategoryPageProps {
@@ -104,7 +104,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   
       return (
       <>
-        <CategorySchemas category={category as ToolCategory} />
+        <StaticPageSchema 
+          pageType="category" 
+          pageData={{ category: category as ToolCategory }}
+        />
        
             <div className="container max-w-7xl mx-auto px-4 py-4">
               <nav aria-label="breadcrumb">

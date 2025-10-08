@@ -33,6 +33,7 @@ import {
 } from "@/lib/utils/file-utils";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 import { JFIFToJPGSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
 interface ConversionResult {
@@ -470,8 +471,12 @@ function JfifToJpgContent() {
 
 export default function JfifToJpgPage() {
   return (
+    <ToolPageWrapper toolSlug="jfif-to-jpg">
+      (
     <ToastProvider>
       <JfifToJpgContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

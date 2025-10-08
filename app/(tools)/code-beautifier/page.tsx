@@ -45,6 +45,7 @@ import {
   Palette,
 } from "lucide-react";
 import { CodeBeautifierSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CodeStats {
   inputSize: number;
@@ -814,8 +815,12 @@ throw new Error('Invalid parameters');
 
 export default function CodeBeautifierPage() {
   return (
+    <ToolPageWrapper toolSlug="code-beautifier">
+      (
     <ToastProvider>
       <CodeBeautifierContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

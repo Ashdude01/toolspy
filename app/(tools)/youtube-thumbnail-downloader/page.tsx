@@ -10,6 +10,7 @@ import { Download, Image as ImageIcon, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
 import { YouTubeThumbnailDownloaderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function extractYouTubeId(input: string): string | null {
   // Supports full URL, youtu.be, or raw ID
@@ -28,9 +29,13 @@ const THUMB_VARIANTS = [
 
 export default function YouTubeThumbnailDownloaderPage() {
   return (
+    <ToolPageWrapper toolSlug="youtube-thumbnail-downloader">
+      (
     <ToastProvider>
       <Content />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }
 

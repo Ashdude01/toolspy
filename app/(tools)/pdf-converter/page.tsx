@@ -29,6 +29,7 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 import { PdfConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProcessedFile {
   id: string;
@@ -532,8 +533,12 @@ function PdfConverterContent() {
 
 export default function PdfConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-converter">
+      (
     <ToastProvider>
       <PdfConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

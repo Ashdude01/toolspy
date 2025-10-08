@@ -6,6 +6,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Mail, MessageSquare, Bug, Lightbulb, HelpCircle, Github } from 'lucide-react';
 import Link from 'next/link';
+import StaticPageSchema from '@/components/seo/StaticPageSchema';
 
 export const metadata: Metadata = {
   title: 'Contact Toolspy - Get Support and Share Feedback',
@@ -50,7 +51,9 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 space-y-12">
+    <>
+      <StaticPageSchema pageType="contact" />
+      <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div className="space-y-4">
@@ -219,6 +222,7 @@ export default function ContactPage() {
           </div>
         </Card>
       </section>
-    </div>
+      </div>
+    </>
   );
 } 

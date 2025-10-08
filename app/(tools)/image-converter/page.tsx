@@ -32,6 +32,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { ImageConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   file: File;
@@ -456,8 +457,12 @@ function ImageConverterContent() {
 
 export default function ImageConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="image-converter">
+      (
     <ToastProvider>
       <ImageConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

@@ -22,7 +22,7 @@ function getApplicationCategory(category: ToolCategory): string {
 }
 
 export function generateWebPageSchema(
-  pageType: 'homepage' | 'tool' | 'category' | 'about',
+  pageType: 'homepage' | 'tool' | 'category' | 'about' | 'contact' | 'help',
   data?: { tool?: Tool; category?: ToolCategory; customTitle?: string; customDescription?: string }
 ): WebPageSchema {
   const baseUrl = siteConfig.url
@@ -129,6 +129,26 @@ export function generateWebPageSchema(
         breadcrumb: generateBreadcrumbs('about')
       }
     
+    case 'contact':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: `Contact ${siteConfig.name}`,
+        description: `Get in touch with ${siteConfig.name} team. Report bugs, request features, or get help with our online tools`,
+        url: `${baseUrl}/contact`,
+        breadcrumb: generateBreadcrumbs('contact')
+      }
+    
+    case 'help':
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'WebPage',
+        name: `Help Center - ${siteConfig.name}`,
+        description: `Get help with ${siteConfig.name} online tools. Find answers to common questions, troubleshooting guides, and learn how to use our free utilities effectively`,
+        url: `${baseUrl}/help`,
+        breadcrumb: generateBreadcrumbs('help')
+      }
+    
     default:
       return {
         '@context': 'https://schema.org',
@@ -141,7 +161,7 @@ export function generateWebPageSchema(
 }
 
 function generateBreadcrumbs(
-  pageType: 'tool' | 'category' | 'about',
+  pageType: 'tool' | 'category' | 'about' | 'contact' | 'help',
   tool?: Tool,
   category?: ToolCategory
 ): BreadcrumbList {
@@ -206,6 +226,24 @@ function generateBreadcrumbs(
         position: 2,
         name: 'About',
         item: `${baseUrl}/about`
+      })
+      break
+    
+    case 'contact':
+      breadcrumbs.push({
+        '@type': 'ListItem' as const,
+        position: 2,
+        name: 'Contact',
+        item: `${baseUrl}/contact`
+      })
+      break
+    
+    case 'help':
+      breadcrumbs.push({
+        '@type': 'ListItem' as const,
+        position: 2,
+        name: 'Help',
+        item: `${baseUrl}/help`
       })
       break
   }

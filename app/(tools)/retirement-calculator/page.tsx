@@ -28,6 +28,7 @@ import {
   DollarSign,
 } from "lucide-react";
 import { RetirementCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RetirementResult {
   totalNeeded: number;
@@ -556,8 +557,12 @@ function RetirementCalculatorContent() {
 
 export default function RetirementCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="retirement-calculator">
+      (
     <ToastProvider>
       <RetirementCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

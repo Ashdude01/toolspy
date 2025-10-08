@@ -45,6 +45,7 @@ import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@
 
 // Import SEO Content Component
 import { MarkdownToDocsConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Document format configurations
 const DOC_FORMATS = {
@@ -1001,8 +1002,12 @@ Generated on: ${new Date().toLocaleString()}
 
 export default function MarkdownToDocsConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="markdown-to-docs-converter">
+      (
     <ToastProvider>
       <MarkdownToDocsConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

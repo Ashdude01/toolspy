@@ -56,6 +56,7 @@ import { createIconZip, downloadIconZip, IconFile } from "@/lib/utils/icon-zip-u
 
 // Import SEO Content Component
 import { PWAIconGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // PWA icon configurations
 const PWA_ICON_SIZES = [
@@ -606,8 +607,12 @@ function PWAIconGeneratorContent() {
 
 export default function PWAIconGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="pwa-icon-generator">
+      (
     <ToastProvider>
       <PWAIconGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

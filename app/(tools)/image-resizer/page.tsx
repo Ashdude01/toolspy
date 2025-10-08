@@ -56,6 +56,7 @@ import {
   Share2,
 } from "lucide-react";
 import { ImageResizerSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
 interface ProcessedFile {
@@ -1018,8 +1019,12 @@ function ImageResizerContent() {
 
 export default function ImageResizerPage() {
   return (
+    <ToolPageWrapper toolSlug="image-resizer">
+      (
     <ToastProvider>
       <ImageResizerContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

@@ -40,6 +40,7 @@ import {
   useToast,
 } from "@/components/tools/shared/toast-provider";
 import { TwitterEngagementCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
   likes: number;
@@ -506,8 +507,12 @@ function TwitterEngagementCalculatorContent() {
 
 export default function TwitterEngagementCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="twitter-engagement-calculator">
+      (
     <ToastProvider>
       <TwitterEngagementCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

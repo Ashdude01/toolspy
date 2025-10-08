@@ -28,6 +28,7 @@ import {
   FileText,
 } from "lucide-react";
 import { TaxCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TaxResult {
   grossIncome: number;
@@ -544,8 +545,12 @@ function TaxCalculatorContent() {
 
 export default function TaxCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="tax-calculator">
+      (
     <ToastProvider>
       <TaxCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

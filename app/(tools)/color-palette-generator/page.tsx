@@ -45,6 +45,7 @@ import {
   Shuffle,
 } from "lucide-react";
 import { ColorPaletteGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface Color {
   hex: string;
@@ -792,8 +793,12 @@ function ColorPaletteGeneratorContent() {
 
 export default function ColorPaletteGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="color-palette-generator">
+      (
     <ToastProvider>
       <ColorPaletteGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

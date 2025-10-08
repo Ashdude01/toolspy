@@ -39,6 +39,7 @@ import {
   useToast,
 } from "@/components/tools/shared/toast-provider";
 import { InstagramEngagementCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
   likes: number;
@@ -481,8 +482,12 @@ function InstagramEngagementCalculatorContent() {
 
 export default function InstagramEngagementCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="instagram-engagement-calculator">
+      (
     <ToastProvider>
       <InstagramEngagementCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

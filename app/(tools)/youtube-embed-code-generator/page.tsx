@@ -10,6 +10,7 @@ import { Copy, Code2 } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
 import { YouTubeEmbedCodeGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function extractYouTubeId(input: string): string | null {
   const urlMatch = input.match(/(?:v=|youtu\.be\/|embed\/|shorts\/)([\w-]{11})/);
@@ -19,9 +20,13 @@ function extractYouTubeId(input: string): string | null {
 
 export default function YouTubeEmbedCodeGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="youtube-embed-code-generator">
+      (
     <ToastProvider>
       <Content />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }
 

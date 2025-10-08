@@ -35,6 +35,7 @@ import {
   Heart,
 } from "lucide-react";
 import { NEETRankPredictorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RankPrediction {
   score: number;
@@ -484,5 +485,9 @@ Actual ranks may vary based on various factors.`;
 }
 
 export default function NEETRankPredictorPage() {
-  return <NEETRankPredictorContent />;
+  return (
+    <ToolPageWrapper toolSlug="neet-rank-predictor">
+      <NEETRankPredictorContent />
+    </ToolPageWrapper>
+  );
 }

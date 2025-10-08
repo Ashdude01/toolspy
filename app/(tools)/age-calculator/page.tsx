@@ -25,6 +25,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { AgeCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface AgeResult {
   years: number;
@@ -364,8 +365,12 @@ function AgeCalculatorContent() {
 
 export default function AgeCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="age-calculator">
+      (
     <ToastProvider>
       <AgeCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

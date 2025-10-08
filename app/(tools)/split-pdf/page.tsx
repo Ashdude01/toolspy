@@ -29,6 +29,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { SplitPdfSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SplitResult {
   files: File[];
@@ -443,8 +444,12 @@ function SplitPdfContent() {
 
 export default function SplitPdfPage() {
   return (
+    <ToolPageWrapper toolSlug="split-pdf">
+      (
     <ToastProvider>
       <SplitPdfContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

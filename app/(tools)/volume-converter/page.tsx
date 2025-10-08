@@ -28,6 +28,7 @@ import {
   Globe,
 } from "lucide-react";
 import { VolumeConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface VolumeResult {
   inputValue: number;
@@ -608,8 +609,12 @@ function VolumeConverterContent() {
 
 export default function VolumeConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="volume-converter">
+      (
     <ToastProvider>
       <VolumeConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

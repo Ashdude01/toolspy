@@ -28,6 +28,7 @@ import {
   Upload,
 } from "lucide-react";
 import { Base64EncoderDecoderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function Base64EncoderDecoderContent() {
   const { showToast } = useToast();
@@ -485,8 +486,12 @@ function Base64EncoderDecoderContent() {
 
 export default function Base64EncoderDecoderPage() {
   return (
+    <ToolPageWrapper toolSlug="base64-encoder-decoder">
+      (
     <ToastProvider>
       <Base64EncoderDecoderContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

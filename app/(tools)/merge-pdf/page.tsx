@@ -26,6 +26,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { MergePdfSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PdfFile {
   file: File;
@@ -391,8 +392,12 @@ function MergePdfContent() {
 
 export default function MergePdfPage() {
   return (
+    <ToolPageWrapper toolSlug="merge-pdf">
+      (
     <ToastProvider>
       <MergePdfContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

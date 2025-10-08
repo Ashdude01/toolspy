@@ -25,6 +25,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { LoveCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LoveResult {
   percentage: number;
@@ -373,8 +374,12 @@ function LoveCalculatorContent() {
 
 export default function LoveCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="love-calculator">
+      (
     <ToastProvider>
       <LoveCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

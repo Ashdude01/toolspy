@@ -60,6 +60,7 @@ import {
 
 // Import SEO Content Component
 import { AppIconGeneratorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Platform configurations
 const PLATFORMS = {
@@ -832,8 +833,12 @@ function AppIconGeneratorContent() {
 
 export default function AppIconGeneratorPage() {
   return (
+    <ToolPageWrapper toolSlug="app-icon-generator">
+      (
     <ToastProvider>
       <AppIconGeneratorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

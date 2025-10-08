@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { PdfToCsvSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   file: File;
@@ -328,8 +329,12 @@ function PdfToCsvContent() {
 
 export default function PdfToCsvPage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-to-csv">
+      (
     <ToastProvider>
       <PdfToCsvContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

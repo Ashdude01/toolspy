@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { PdfToExcelSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   file: File;
@@ -328,8 +329,12 @@ function PdfToExcelContent() {
 
 export default function PdfToExcelPage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-to-excel">
+      (
     <ToastProvider>
       <PdfToExcelContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

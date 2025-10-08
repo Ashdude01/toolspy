@@ -1,106 +1,153 @@
-import Link from 'next/link';
-import { Separator } from '@/components/ui/separator';
-import { siteConfig } from '@/lib/config';
-import { Facebook, Instagram, Twitter, Youtube } from 'lucide-react';
+"use client"
+
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { Separator } from "@/components/ui/separator"
+import { 
+  Sparkles, 
+  Users, 
+  Heart, 
+  Award,
+  Shield,
+  Zap,
+  Globe,
+  Twitter,
+  Github,
+  Linkedin,
+  Mail,
+  ArrowUp,
+  X,
+  Facebook,
+  RedoDotIcon,
+  Instagram
+} from "lucide-react"
+import Link from "next/link"
 
 export function Footer() {
-  const currentYear = new Date().getFullYear();
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
 
-  const footerSections = {
-    Company: [
-      { name: 'About', href: '/about' },
-      { name: 'Contact', href: '/contact' },
-      { name: 'Privacy Policy', href: '/privacy' },
-      { name: 'Terms of Service', href: '/terms' },
-    ],
-    Tools: [
-      { name: 'All Tools', href: '/tools' },
-      { name: 'Image Tools', href: '/tools/image-tools' },
-      { name: 'PDF Tools', href: '/tools/pdf-tools' },
-      { name: 'Calculators', href: '/tools/calculators' },
-      { name: 'Base64 Tools', href: '/tools/base64-tools' },
-      { name: 'Utility Tools', href: '/tools/misc-tools' },
-    ],
-    Support: [
-      { name: 'Help Center', href: '/help' },
-      { name: 'Feature Requests', href: '/feedback' },
-      { name: 'Bug Reports', href: '/bug-report' },
-      { name: 'Contact Support', href: '/contact' },
-    ],
-  };
+  const footerSections = [
+    {
+      title: "Popular Tools",
+      links: [
+        { href: "/image-compressor", label: "Image Compressor" },
+        { href: "/pdf-converter", label: "PDF Converter" },
+        { href: "/base64-encoder-decoder", label: "Base64 Tools" },
+        { href: "/age-calculator", label: "Calculators" },
+        { href: "/image-converter", label: "Image Converter" },
+        { href: "/merge-pdf", label: "PDF Merger" }
+      ]
+    },
+    {
+      title: "Company",
+      links: [
+        { href: "/about", label: "About Us" },
+        { href: "/contact", label: "Contact" },
+        { href: "/privacy", label: "Privacy Policy" },
+        { href: "/terms", label: "Terms of Service" },
+        { href: "/help", label: "Help Center" },
+        { href: "/feedback", label: "Feedback" }
+      ]
+    },
+{
+  title: "Tool Categories",
+  links: [
+    { href: "/image-tools", label: "Image Tools" },
+    { href: "/pdf-tools", label: "PDF Tools" },
+    { href: "/calculators", label: "Calculators" },
+    { href: "/base64-tools", label: "Base64 Tools" },
+    { href: "/json-tools", label: "JSON Tools" },
+    { href: "/ai-tools", label: "AI Tools" }
+  ]
+},
+{
+  title: "More Categories",
+  links: [
+    { href: "/code-tools", label: "Code Tools" },
+    { href: "/conversion-tools", label: "Conversion Tools" },
+    { href: "/gst-tools", label: "GST Tools" },
+    { href: "/exam-tools", label: "Exam Tools" },
+    { href: "/misc-tools", label: "Miscellaneous Tools" }
+  ]
+}
+  ]
 
   const socialLinks = [
-    {
-      name: 'Facebook',
-      href: 'https://facebook.com/toolspy',
-      icon: Facebook,
-      color: 'hover:text-blue-600'
-    },
-    {
-      name: 'Instagram', 
-      href: 'https://instagram.com/toolspy',
-      icon: Instagram,
-      color: 'hover:text-pink-600'
-    },
-    {
-      name: 'Twitter',
-      href: 'https://twitter.com/toolspy',
-      icon: Twitter,
-      color: 'hover:text-blue-400'
-    },
-    {
-      name: 'YouTube',
-      href: 'https://youtube.com/@toolspy',
-      icon: Youtube,
-      color: 'hover:text-red-600'
-    }
-  ];
+    { href: "https://x.com/toolspy_official", icon: <X className="h-5 w-5" />, label: "X" },
+    { href: "https://www.facebook.com/profile.php?id=61581409970991", icon: <Facebook className="h-5 w-5" />, label: "Facebook" },
+    { href: "https://www.linkedin.com/company/109004927", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
+    { href: "#", icon: <Instagram className="h-5 w-5" />, label: "Instagram" }
+  ]
 
   return (
-    <footer className="border-t bg-background">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+    <footer className="py-12 px-4 bg-slate-900 dark:bg-slate-950 text-white relative overflow-hidden">
+      {/* Background Elements */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 left-0 w-64 h-64 bg-blue-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-0 right-0 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
+      </div>
+
+      <div className="container mx-auto px-0">
+        {/* Main Footer Content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Section */}
-          <div className="space-y-4">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="font-bold text-xl">{siteConfig.name}.net</span>
-            </Link>
-            <p className="text-sm text-muted-foreground">
-              {siteConfig.description}. Free, fast, and secure online tools for professionals.
-            </p>
-            <p className="text-xs text-muted-foreground">
-              All processing happens locally in your browser for maximum privacy and security.
+          <div className="lg:col-span-2">
+            <div className="flex items-center space-x-2 mb-4">
+              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                <Sparkles className="h-5 w-5 text-white" />
+              </div>
+              <span className="text-xl font-bold">Toolspy</span>
+            </div>
+            <p className="text-slate-400 mb-6 leading-relaxed">
+              Professional online tools for all your digital needs. Free, secure, and privacy-focused. 
+              Trusted by millions of users worldwide.
             </p>
             
-            {/* Social Media Links */}
-            <div className="flex space-x-4 pt-2">
-              {socialLinks.map((social) => (
+            {/* Social Links */}
+            <div className="flex space-x-4 mb-6">
+              {socialLinks.map((social, index) => (
                 <Link
-                  key={social.name}
+                  key={index}
                   href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-muted-foreground transition-colors ${social.color}`}
-                  aria-label={`Follow us on ${social.name}`}
+                  className="w-10 h-10 bg-slate-800 hover:bg-slate-700 rounded-lg flex items-center justify-center text-slate-400 hover:text-white transition-all duration-300 hover:scale-110"
+                  aria-label={social.label}
                 >
-                  <social.icon className="h-5 w-5" />
+                  {social.icon}
                 </Link>
               ))}
+            </div>
+
+            {/* Trust Badges */}
+            <div className="flex flex-wrap gap-2">
+              <Badge variant="outline" className="border-slate-600 text-slate-300">
+                <Shield className="w-3 h-3 mr-1" />
+                Privacy First
+              </Badge>
+              <Badge variant="outline" className="border-slate-600 text-slate-300">
+                <Zap className="w-3 h-3 mr-1" />
+                Lightning Fast
+              </Badge>
+              <Badge variant="outline" className="border-slate-600 text-slate-300">
+                <Globe className="w-3 h-3 mr-1" />
+                Universal Access
+              </Badge>
             </div>
           </div>
 
           {/* Footer Links */}
-          {Object.entries(footerSections).map(([title, links]) => (
-            <div key={title} className="space-y-4">
-              <h3 className="font-semibold">{title}</h3>
-              <ul className="space-y-2">
-                {links.map((link) => (
-                  <li key={link.name}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-muted-foreground hover:text-foreground transition-colors"
+          {footerSections.map((section, index) => (
+            <div key={index}>
+              <h3 className="font-semibold mb-4 text-white">{section.title}</h3>
+              <ul className="space-y-3">
+                {section.links.map((link, linkIndex) => (
+                  <li key={linkIndex}>
+                    <Link 
+                      href={link.href} 
+                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                     >
-                      {link.name}
+                      {link.label}
                     </Link>
                   </li>
                 ))}
@@ -109,34 +156,33 @@ export function Footer() {
           ))}
         </div>
 
-        <Separator className="my-8" />
+        <Separator className="my-8 bg-slate-700" />
 
-        {/* Bottom Section */}
-        <div className="flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
-          <p className="text-sm text-muted-foreground">
-            © {currentYear} {siteConfig.name}. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-4">
-            <p className="text-sm text-muted-foreground">
-              Follow us on social media
+        {/* Bottom Footer */}
+        <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
+            <p className="text-slate-400 text-sm">
+              © 2024 Toolspy. All rights reserved.
             </p>
-            <div className="flex space-x-3">
-              {socialLinks.map((social) => (
-                <Link
-                  key={social.name}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`text-muted-foreground transition-colors ${social.color}`}
-                  aria-label={`Follow us on ${social.name}`}
-                >
-                  <social.icon className="h-4 w-4" />
-                </Link>
-              ))}
+          </div>
+          
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <div className="flex items-center space-x-2 text-sm text-slate-400">
+              <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+              <span>All systems operational</span>
             </div>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={scrollToTop}
+              className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+            >
+              <ArrowUp className="h-4 w-4" />
+            </Button>
           </div>
         </div>
       </div>
     </footer>
-  );
-} 
+  )
+}
+

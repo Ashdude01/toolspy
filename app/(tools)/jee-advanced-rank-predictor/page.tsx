@@ -35,6 +35,7 @@ import {
   Star,
 } from "lucide-react";
 import { JEEAdvancedRankPredictorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RankPrediction {
   score: number;
@@ -484,5 +485,9 @@ Actual ranks may vary based on various factors.`;
 }
 
 export default function JEEAdvancedRankPredictorPage() {
-  return <JEEAdvancedRankPredictorContent />;
+  return (
+    <ToolPageWrapper toolSlug="jee-advanced-rank-predictor">
+      <JEEAdvancedRankPredictorContent />
+    </ToolPageWrapper>
+  );
 }

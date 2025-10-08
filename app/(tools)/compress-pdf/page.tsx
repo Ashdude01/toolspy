@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { CompressPdfSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CompressionResult {
   file: File;
@@ -484,8 +485,12 @@ function CompressPdfContent() {
 
 export default function CompressPdfPage() {
   return (
+    <ToolPageWrapper toolSlug="compress-pdf">
+      (
     <ToastProvider>
       <CompressPdfContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

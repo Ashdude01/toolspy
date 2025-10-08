@@ -47,6 +47,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { AIBackgroundRemoverSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProcessingResult {
   original: string;
@@ -685,8 +686,12 @@ function AiBackgroundRemoverContent() {
 
 export default function AiBackgroundRemoverPage() {
   return (
+    <ToolPageWrapper toolSlug="ai-background-remover">
+      (
     <ToastProvider>
       <AiBackgroundRemoverContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

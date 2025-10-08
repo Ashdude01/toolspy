@@ -31,6 +31,7 @@ import {
   Eye,
 } from "lucide-react";
 import { HeicToPdfSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProcessedFile {
   id: string;
@@ -583,8 +584,12 @@ function HeicToPdfContent() {
 
 export default function HeicToPdfPage() {
   return (
+    <ToolPageWrapper toolSlug="heic-to-pdf">
+      (
     <ToastProvider>
       <HeicToPdfContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

@@ -25,6 +25,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { PdfToWordSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
   file: File;
@@ -328,8 +329,12 @@ function PdfToWordContent() {
 
 export default function PdfToWordPage() {
   return (
+    <ToolPageWrapper toolSlug="pdf-to-word">
+      (
     <ToastProvider>
       <PdfToWordContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

@@ -28,6 +28,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { InvestmentCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface InvestmentResult {
   finalValue: number;
@@ -571,8 +572,12 @@ function InvestmentCalculatorContent() {
 
 export default function InvestmentCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="investment-calculator">
+      (
     <ToastProvider>
       <InvestmentCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

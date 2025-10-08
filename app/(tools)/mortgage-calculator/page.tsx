@@ -28,6 +28,7 @@ import {
   Building,
 } from "lucide-react";
 import { MortgageCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface MortgageResult {
   monthlyPayment: number;
@@ -556,8 +557,12 @@ function MortgageCalculatorContent() {
 
 export default function MortgageCalculatorPage() {
   return (
+    <ToolPageWrapper toolSlug="mortgage-calculator">
+      (
     <ToastProvider>
       <MortgageCalculatorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

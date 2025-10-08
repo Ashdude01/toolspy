@@ -28,6 +28,7 @@ import {
   TrendingUp,
 } from "lucide-react";
 import { TemperatureConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TemperatureResult {
   inputValue: number;
@@ -525,8 +526,12 @@ function TemperatureConverterContent() {
 
 export default function TemperatureConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="temperature-converter">
+      (
     <ToastProvider>
       <TemperatureConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

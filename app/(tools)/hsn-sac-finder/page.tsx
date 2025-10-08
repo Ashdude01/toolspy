@@ -32,6 +32,7 @@ import {
   ExternalLink,
 } from "lucide-react";
 import { HSNSACFinderSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface HSNSACCode {
   code: string;
@@ -395,5 +396,9 @@ Please verify with official GST portal for latest updates.`;
 }
 
 export default function HSNSACFinderPage() {
-  return <HSNSACFinderContent />;
+  return (
+    <ToolPageWrapper toolSlug="hsn-sac-finder">
+      <HSNSACFinderContent />
+    </ToolPageWrapper>
+  );
 }

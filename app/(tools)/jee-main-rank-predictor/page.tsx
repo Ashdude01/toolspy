@@ -34,6 +34,7 @@ import {
   GraduationCap,
 } from "lucide-react";
 import { JEEMainRankPredictorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RankPrediction {
   percentile: number;
@@ -482,5 +483,9 @@ Actual ranks may vary based on various factors.`;
 }
 
 export default function JEEMainRankPredictorPage() {
-  return <JEEMainRankPredictorContent />;
+  return (
+    <ToolPageWrapper toolSlug="jee-main-rank-predictor">
+      <JEEMainRankPredictorContent />
+    </ToolPageWrapper>
+  );
 }

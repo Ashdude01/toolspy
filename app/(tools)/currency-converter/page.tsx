@@ -28,6 +28,7 @@ import {
   Clock,
 } from "lucide-react";
 import { CurrencyConverterSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CurrencyRate {
   code: string;
@@ -456,8 +457,12 @@ function CurrencyConverterContent() {
 
 export default function CurrencyConverterPage() {
   return (
+    <ToolPageWrapper toolSlug="currency-converter">
+      (
     <ToastProvider>
       <CurrencyConverterContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 } 

@@ -52,6 +52,7 @@ import {
   Globe,
 } from "lucide-react";
 import { OCRTextExtractorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface OcrResult {
   id: string;
@@ -857,8 +858,12 @@ The integration of AI technologies in OCR systems represents a major advancement
 
 export default function OcrTextExtractorPage() {
   return (
+    <ToolPageWrapper toolSlug="ocr-text-extractor">
+      (
     <ToastProvider>
       <OcrTextExtractorContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

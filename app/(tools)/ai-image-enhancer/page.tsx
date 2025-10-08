@@ -48,6 +48,7 @@ import {
   Contrast,
 } from "lucide-react";
 import { AIImageEnhancerSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EnhancementResult {
   original: string;
@@ -887,8 +888,12 @@ function AiImageEnhancerContent() {
 
 export default function AiImageEnhancerPage() {
   return (
+    <ToolPageWrapper toolSlug="ai-image-enhancer">
+      (
     <ToastProvider>
       <AiImageEnhancerContent />
     </ToastProvider>
+  )
+    </ToolPageWrapper>
   );
 }

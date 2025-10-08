@@ -34,6 +34,7 @@ import {
   Calendar,
 } from "lucide-react";
 import { PenaltyLateFeeCalculatorSEOContent } from "./seo-content";
+import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PenaltyCalculation {
   returnType: string;
@@ -473,5 +474,9 @@ Please verify with official GST portal for official penalty calculations.`;
 }
 
 export default function PenaltyLateFeeCalculatorPage() {
-  return <PenaltyLateFeeCalculatorContent />;
+  return (
+    <ToolPageWrapper toolSlug="penalty-late-fee-calculator">
+      <PenaltyLateFeeCalculatorContent />
+    </ToolPageWrapper>
+  );
 }
