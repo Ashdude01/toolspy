@@ -265,12 +265,7 @@ const AiWritingToolsContent = () => {
 
 export default function AiWritingToolsPage() {
   return (
-    <ToolPageWrapper toolSlug="ai-writing-tools">
-      (
-    <ToastProvider>
-      <AiWritingToolsContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ai-writing-tools"><ToastProvider>
+      <AiWritingToolsContent /></ToastProvider></ToolPageWrapper>
   );
 }

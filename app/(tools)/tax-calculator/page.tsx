@@ -545,12 +545,7 @@ function TaxCalculatorContent() {
 
 export default function TaxCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="tax-calculator">
-      (
-    <ToastProvider>
-      <TaxCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="tax-calculator"><ToastProvider>
+      <TaxCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

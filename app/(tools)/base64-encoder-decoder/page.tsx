@@ -486,12 +486,7 @@ function Base64EncoderDecoderContent() {
 
 export default function Base64EncoderDecoderPage() {
   return (
-    <ToolPageWrapper toolSlug="base64-encoder-decoder">
-      (
-    <ToastProvider>
-      <Base64EncoderDecoderContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="base64-encoder-decoder"><ToastProvider>
+      <Base64EncoderDecoderContent /></ToastProvider></ToolPageWrapper>
   );
 } 

@@ -365,12 +365,7 @@ function AgeCalculatorContent() {
 
 export default function AgeCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="age-calculator">
-      (
-    <ToastProvider>
-      <AgeCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="age-calculator"><ToastProvider>
+      <AgeCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

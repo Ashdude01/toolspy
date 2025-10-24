@@ -1002,12 +1002,7 @@ Generated on: ${new Date().toLocaleString()}
 
 export default function MarkdownToDocsConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="markdown-to-docs-converter">
-      (
-    <ToastProvider>
-      <MarkdownToDocsConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="markdown-to-docs-converter"><ToastProvider>
+      <MarkdownToDocsConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

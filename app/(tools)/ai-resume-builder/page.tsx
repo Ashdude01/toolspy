@@ -1056,12 +1056,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
 
 export default function AiResumeBuilderPage() {
   return (
-    <ToolPageWrapper toolSlug="ai-resume-builder">
-      (
-    <ToastProvider>
-      <AiResumeBuilderContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ai-resume-builder"><ToastProvider>
+      <AiResumeBuilderContent /></ToastProvider></ToolPageWrapper>
   );
 }

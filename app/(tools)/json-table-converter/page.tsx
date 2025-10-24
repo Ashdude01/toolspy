@@ -716,12 +716,7 @@ function JsonTableConverterContent() {
 
 export default function JsonTableConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="json-table-converter">
-      (
-    <ToastProvider>
-      <JsonTableConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="json-table-converter"><ToastProvider>
+      <JsonTableConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

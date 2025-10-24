@@ -510,12 +510,7 @@ Generated on: ${new Date().toLocaleString()}
 
 export default function ImageToICOConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="image-to-ico-converter">
-      (
-    <ToastProvider>
-      <ImageToICOConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="image-to-ico-converter"><ToastProvider>
+      <ImageToICOConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

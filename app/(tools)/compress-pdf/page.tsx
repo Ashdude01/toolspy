@@ -485,12 +485,7 @@ function CompressPdfContent() {
 
 export default function CompressPdfPage() {
   return (
-    <ToolPageWrapper toolSlug="compress-pdf">
-      (
-    <ToastProvider>
-      <CompressPdfContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="compress-pdf"><ToastProvider>
+      <CompressPdfContent /></ToastProvider></ToolPageWrapper>
   );
 } 

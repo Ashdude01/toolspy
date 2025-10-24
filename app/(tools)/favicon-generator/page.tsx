@@ -535,12 +535,7 @@ function FaviconGeneratorContent() {
 
 export default function FaviconGeneratorPage() {
   return (
-    <ToolPageWrapper toolSlug="favicon-generator">
-      (
-    <ToastProvider>
-      <FaviconGeneratorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="favicon-generator"><ToastProvider>
+      <FaviconGeneratorContent /></ToastProvider></ToolPageWrapper>
   );
 }

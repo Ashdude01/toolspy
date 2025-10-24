@@ -560,12 +560,7 @@ function SalaryCalculatorContent() {
 
 export default function SalaryCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="salary-calculator">
-      (
-    <ToastProvider>
-      <SalaryCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="salary-calculator"><ToastProvider>
+      <SalaryCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

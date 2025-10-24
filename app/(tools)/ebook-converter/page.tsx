@@ -878,12 +878,7 @@ function EbookConverterContent() {
 
 export default function EbookConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="ebook-converter">
-      (
-    <ToastProvider>
-      <EbookConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ebook-converter"><ToastProvider>
+      <EbookConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

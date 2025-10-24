@@ -973,12 +973,7 @@ function FontConverterContent() {
 
 export default function FontConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="font-converter">
-      (
-    <ToastProvider>
-      <FontConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="font-converter"><ToastProvider>
+      <FontConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

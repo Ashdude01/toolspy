@@ -557,12 +557,7 @@ function MortgageCalculatorContent() {
 
 export default function MortgageCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="mortgage-calculator">
-      (
-    <ToastProvider>
-      <MortgageCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="mortgage-calculator"><ToastProvider>
+      <MortgageCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

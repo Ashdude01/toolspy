@@ -392,12 +392,7 @@ function MergePdfContent() {
 
 export default function MergePdfPage() {
   return (
-    <ToolPageWrapper toolSlug="merge-pdf">
-      (
-    <ToastProvider>
-      <MergePdfContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="merge-pdf"><ToastProvider>
+      <MergePdfContent /></ToastProvider></ToolPageWrapper>
   );
 } 

@@ -834,11 +834,9 @@ function AppIconGeneratorContent() {
 export default function AppIconGeneratorPage() {
   return (
     <ToolPageWrapper toolSlug="app-icon-generator">
-      (
-    <ToastProvider>
-      <AppIconGeneratorContent />
-    </ToastProvider>
-  )
+      <ToastProvider>
+        <AppIconGeneratorContent />
+      </ToastProvider>
     </ToolPageWrapper>
   );
 }

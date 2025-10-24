@@ -563,12 +563,7 @@ function WeightConverterContent() {
 
 export default function WeightConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="weight-converter">
-      (
-    <ToastProvider>
-      <WeightConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="weight-converter"><ToastProvider>
+      <WeightConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

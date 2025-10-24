@@ -374,12 +374,7 @@ function LoveCalculatorContent() {
 
 export default function LoveCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="love-calculator">
-      (
-    <ToastProvider>
-      <LoveCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="love-calculator"><ToastProvider>
+      <LoveCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

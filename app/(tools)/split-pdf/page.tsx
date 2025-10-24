@@ -444,12 +444,7 @@ function SplitPdfContent() {
 
 export default function SplitPdfPage() {
   return (
-    <ToolPageWrapper toolSlug="split-pdf">
-      (
-    <ToastProvider>
-      <SplitPdfContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="split-pdf"><ToastProvider>
+      <SplitPdfContent /></ToastProvider></ToolPageWrapper>
   );
 } 

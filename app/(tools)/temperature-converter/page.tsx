@@ -526,12 +526,7 @@ function TemperatureConverterContent() {
 
 export default function TemperatureConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="temperature-converter">
-      (
-    <ToastProvider>
-      <TemperatureConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="temperature-converter"><ToastProvider>
+      <TemperatureConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

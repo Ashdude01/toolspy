@@ -353,12 +353,7 @@ function PercentageCalculatorContent() {
 
 export default function PercentageCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="percentage-calculator">
-      (
-    <ToastProvider>
-      <PercentageCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="percentage-calculator"><ToastProvider>
+      <PercentageCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

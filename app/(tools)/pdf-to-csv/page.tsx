@@ -329,12 +329,7 @@ function PdfToCsvContent() {
 
 export default function PdfToCsvPage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-to-csv">
-      (
-    <ToastProvider>
-      <PdfToCsvContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-to-csv"><ToastProvider>
+      <PdfToCsvContent /></ToastProvider></ToolPageWrapper>
   );
 } 

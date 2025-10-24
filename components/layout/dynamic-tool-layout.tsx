@@ -83,7 +83,7 @@ export function DynamicToolLayout({
   const tool = getToolBySlug(toolSlug)
 
   if (!tool) {
-    return <>{children}</>
+    return children
   }
 
   const defaultReviews = [

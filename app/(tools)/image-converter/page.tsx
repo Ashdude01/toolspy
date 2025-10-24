@@ -458,11 +458,9 @@ function ImageConverterContent() {
 export default function ImageConverterPage() {
   return (
     <ToolPageWrapper toolSlug="image-converter">
-      (
-    <ToastProvider>
-      <ImageConverterContent />
-    </ToastProvider>
-  )
+      <ToastProvider>
+        <ImageConverterContent />
+      </ToastProvider>
     </ToolPageWrapper>
   );
 } 

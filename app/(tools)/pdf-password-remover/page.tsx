@@ -380,12 +380,7 @@ function PdfPasswordRemoverContent() {
 
 export default function PdfPasswordRemoverPage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-password-remover">
-      (
-    <ToastProvider>
-      <PdfPasswordRemoverContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-password-remover"><ToastProvider>
+      <PdfPasswordRemoverContent /></ToastProvider></ToolPageWrapper>
   );
 } 

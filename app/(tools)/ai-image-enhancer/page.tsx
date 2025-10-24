@@ -888,12 +888,7 @@ function AiImageEnhancerContent() {
 
 export default function AiImageEnhancerPage() {
   return (
-    <ToolPageWrapper toolSlug="ai-image-enhancer">
-      (
-    <ToastProvider>
-      <AiImageEnhancerContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ai-image-enhancer"><ToastProvider>
+      <AiImageEnhancerContent /></ToastProvider></ToolPageWrapper>
   );
 }

@@ -541,12 +541,7 @@ function BmiCalculatorContent() {
 
 export default function BmiCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="bmi-calculator">
-      (
-    <ToastProvider>
-      <BmiCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="bmi-calculator"><ToastProvider>
+      <BmiCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

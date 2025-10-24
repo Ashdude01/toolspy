@@ -459,12 +459,7 @@ function Base64ToImageContent() {
 
 export default function Base64ToImagePage() {
   return (
-    <ToolPageWrapper toolSlug="base64-to-image">
-      (
-    <ToastProvider>
-      <Base64ToImageContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="base64-to-image"><ToastProvider>
+      <Base64ToImageContent /></ToastProvider></ToolPageWrapper>
   );
 }

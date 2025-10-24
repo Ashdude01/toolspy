@@ -608,11 +608,9 @@ function PWAIconGeneratorContent() {
 export default function PWAIconGeneratorPage() {
   return (
     <ToolPageWrapper toolSlug="pwa-icon-generator">
-      (
-    <ToastProvider>
-      <PWAIconGeneratorContent />
-    </ToastProvider>
-  )
+      <ToastProvider>
+        <PWAIconGeneratorContent />
+      </ToastProvider>
     </ToolPageWrapper>
   );
 }

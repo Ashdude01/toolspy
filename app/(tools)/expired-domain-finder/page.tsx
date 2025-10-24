@@ -611,12 +611,7 @@ ${searchResults.map(domain =>
 
 export default function ExpiredDomainFinderPage() {
   return (
-    <ToolPageWrapper toolSlug="expired-domain-finder">
-      (
-    <ToastProvider>
-      <ExpiredDomainFinderContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="expired-domain-finder"><ToastProvider>
+      <ExpiredDomainFinderContent /></ToastProvider></ToolPageWrapper>
   );
 }

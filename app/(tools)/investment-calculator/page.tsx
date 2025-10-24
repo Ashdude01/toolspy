@@ -572,12 +572,7 @@ function InvestmentCalculatorContent() {
 
 export default function InvestmentCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="investment-calculator">
-      (
-    <ToastProvider>
-      <InvestmentCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="investment-calculator"><ToastProvider>
+      <InvestmentCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

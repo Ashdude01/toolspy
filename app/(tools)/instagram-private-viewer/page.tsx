@@ -14,13 +14,8 @@ import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function InstagramPrivateViewerPage() {
   return (
-    <ToolPageWrapper toolSlug="instagram-private-viewer">
-      (
-    <ToastProvider>
-      <Content />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="instagram-private-viewer"><ToastProvider>
+      <Content /></ToastProvider></ToolPageWrapper>
   );
 }
 

@@ -468,12 +468,7 @@ ${whoisData.raw}`;
 
 export default function DomainWhoisLookupPage() {
   return (
-    <ToolPageWrapper toolSlug="domain-whois-lookup">
-      (
-    <ToastProvider>
-      <DomainWhoisLookupContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="domain-whois-lookup"><ToastProvider>
+      <DomainWhoisLookupContent /></ToastProvider></ToolPageWrapper>
   );
 }

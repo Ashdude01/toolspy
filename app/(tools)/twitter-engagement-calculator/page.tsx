@@ -507,12 +507,7 @@ function TwitterEngagementCalculatorContent() {
 
 export default function TwitterEngagementCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="twitter-engagement-calculator">
-      (
-    <ToastProvider>
-      <TwitterEngagementCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="twitter-engagement-calculator"><ToastProvider>
+      <TwitterEngagementCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 }

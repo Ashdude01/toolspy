@@ -627,12 +627,7 @@ function ImageOptimizerContent() {
 
 export default function ImageOptimizerPage() {
   return (
-    <ToolPageWrapper toolSlug="image-optimizer">
-      (
-    <ToastProvider>
-      <ImageOptimizerContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="image-optimizer"><ToastProvider>
+      <ImageOptimizerContent /></ToastProvider></ToolPageWrapper>
   );
 } 

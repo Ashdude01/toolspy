@@ -471,12 +471,7 @@ function JfifToJpgContent() {
 
 export default function JfifToJpgPage() {
   return (
-    <ToolPageWrapper toolSlug="jfif-to-jpg">
-      (
-    <ToastProvider>
-      <JfifToJpgContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="jfif-to-jpg"><ToastProvider>
+      <JfifToJpgContent /></ToastProvider></ToolPageWrapper>
   );
 }

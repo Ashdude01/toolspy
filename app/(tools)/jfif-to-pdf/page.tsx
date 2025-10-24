@@ -485,12 +485,7 @@ function JfifToPdfContent() {
 
 export default function JfifToPdfPage() {
   return (
-    <ToolPageWrapper toolSlug="jfif-to-pdf">
-      (
-    <ToastProvider>
-      <JfifToPdfContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="jfif-to-pdf"><ToastProvider>
+      <JfifToPdfContent /></ToastProvider></ToolPageWrapper>
   );
 } 

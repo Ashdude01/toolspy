@@ -675,12 +675,7 @@ function ColorPickerContent() {
 
 export default function ColorPickerPage() {
   return (
-    <ToolPageWrapper toolSlug="color-picker">
-      (
-    <ToastProvider>
-      <ColorPickerContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="color-picker"><ToastProvider>
+      <ColorPickerContent /></ToastProvider></ToolPageWrapper>
   );
 } 

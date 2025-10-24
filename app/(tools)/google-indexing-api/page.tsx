@@ -1032,12 +1032,7 @@ function GoogleIndexingApiContent() {
 
 export default function GoogleIndexingApiPage() {
   return (
-    <ToolPageWrapper toolSlug="google-indexing-api">
-      (
-    <ToastProvider>
-      <GoogleIndexingApiContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="google-indexing-api"><ToastProvider>
+      <GoogleIndexingApiContent /></ToastProvider></ToolPageWrapper>
   );
 }

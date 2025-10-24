@@ -609,12 +609,7 @@ function VolumeConverterContent() {
 
 export default function VolumeConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="volume-converter">
-      (
-    <ToastProvider>
-      <VolumeConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="volume-converter"><ToastProvider>
+      <VolumeConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

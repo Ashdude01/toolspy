@@ -491,12 +491,7 @@ function QrCodeGeneratorContent() {
 
 export default function QrCodeGeneratorPage() {
   return (
-    <ToolPageWrapper toolSlug="qr-code-generator">
-      (
-    <ToastProvider>
-      <QrCodeGeneratorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="qr-code-generator"><ToastProvider>
+      <QrCodeGeneratorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

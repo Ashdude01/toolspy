@@ -858,12 +858,7 @@ The integration of AI technologies in OCR systems represents a major advancement
 
 export default function OcrTextExtractorPage() {
   return (
-    <ToolPageWrapper toolSlug="ocr-text-extractor">
-      (
-    <ToastProvider>
-      <OcrTextExtractorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ocr-text-extractor"><ToastProvider>
+      <OcrTextExtractorContent /></ToastProvider></ToolPageWrapper>
   );
 }

@@ -241,8 +241,7 @@ export function ToolsSection({
                         </p>
                       </div>
                       {/* <Badge variant="secondary" className="ml-auto">
-                        {categoryTools.length}{" "}
-                        {categoryTools.length === 1 ? "tool" : "tools"}
+                        {categoryTools.length} tools
                       </Badge> */}
                     </div>
 

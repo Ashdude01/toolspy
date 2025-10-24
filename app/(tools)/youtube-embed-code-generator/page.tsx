@@ -20,13 +20,8 @@ function extractYouTubeId(input: string): string | null {
 
 export default function YouTubeEmbedCodeGeneratorPage() {
   return (
-    <ToolPageWrapper toolSlug="youtube-embed-code-generator">
-      (
-    <ToastProvider>
-      <Content />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="youtube-embed-code-generator"><ToastProvider>
+      <Content /></ToastProvider></ToolPageWrapper>
   );
 }
 

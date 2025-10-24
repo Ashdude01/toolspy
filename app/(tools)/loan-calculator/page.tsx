@@ -481,12 +481,7 @@ function LoanCalculatorContent() {
 
 export default function LoanCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="loan-calculator">
-      (
-    <ToastProvider>
-      <LoanCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="loan-calculator"><ToastProvider>
+      <LoanCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

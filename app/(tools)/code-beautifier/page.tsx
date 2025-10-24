@@ -815,12 +815,7 @@ throw new Error('Invalid parameters');
 
 export default function CodeBeautifierPage() {
   return (
-    <ToolPageWrapper toolSlug="code-beautifier">
-      (
-    <ToastProvider>
-      <CodeBeautifierContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="code-beautifier"><ToastProvider>
+      <CodeBeautifierContent /></ToastProvider></ToolPageWrapper>
   );
 }

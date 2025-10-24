@@ -1019,12 +1019,7 @@ function ImageResizerContent() {
 
 export default function ImageResizerPage() {
   return (
-    <ToolPageWrapper toolSlug="image-resizer">
-      (
-    <ToastProvider>
-      <ImageResizerContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="image-resizer"><ToastProvider>
+      <ImageResizerContent /></ToastProvider></ToolPageWrapper>
   );
 }

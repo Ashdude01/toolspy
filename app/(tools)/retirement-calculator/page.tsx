@@ -557,12 +557,7 @@ function RetirementCalculatorContent() {
 
 export default function RetirementCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="retirement-calculator">
-      (
-    <ToastProvider>
-      <RetirementCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="retirement-calculator"><ToastProvider>
+      <RetirementCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

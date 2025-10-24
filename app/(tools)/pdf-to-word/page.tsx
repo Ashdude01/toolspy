@@ -329,12 +329,7 @@ function PdfToWordContent() {
 
 export default function PdfToWordPage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-to-word">
-      (
-    <ToastProvider>
-      <PdfToWordContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-to-word"><ToastProvider>
+      <PdfToWordContent /></ToastProvider></ToolPageWrapper>
   );
 } 

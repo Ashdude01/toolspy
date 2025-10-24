@@ -558,12 +558,7 @@ function AreaConverterContent() {
 
 export default function AreaConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="area-converter">
-      (
-    <ToastProvider>
-      <AreaConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="area-converter"><ToastProvider>
+      <AreaConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

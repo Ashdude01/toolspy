@@ -399,12 +399,7 @@ function FileProtectorContent() {
 
 export default function FileProtectorPage() {
   return (
-    <ToolPageWrapper toolSlug="file-protector">
-      (
-    <ToastProvider>
-      <FileProtectorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="file-protector"><ToastProvider>
+      <FileProtectorContent /></ToastProvider></ToolPageWrapper>
   );
 } 

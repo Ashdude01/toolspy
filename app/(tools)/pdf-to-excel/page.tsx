@@ -329,12 +329,7 @@ function PdfToExcelContent() {
 
 export default function PdfToExcelPage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-to-excel">
-      (
-    <ToastProvider>
-      <PdfToExcelContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-to-excel"><ToastProvider>
+      <PdfToExcelContent /></ToastProvider></ToolPageWrapper>
   );
 } 

@@ -846,12 +846,7 @@ function MemeGeneratorContent() {
 
 export default function MemeGeneratorPage() {
   return (
-    <ToolPageWrapper toolSlug="meme-generator">
-      (
-    <ToastProvider>
-      <MemeGeneratorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="meme-generator"><ToastProvider>
+      <MemeGeneratorContent /></ToastProvider></ToolPageWrapper>
   );
 }

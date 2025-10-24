@@ -533,12 +533,7 @@ function PdfConverterContent() {
 
 export default function PdfConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-converter">
-      (
-    <ToastProvider>
-      <PdfConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-converter"><ToastProvider>
+      <PdfConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

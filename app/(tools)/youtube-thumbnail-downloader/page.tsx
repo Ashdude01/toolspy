@@ -30,11 +30,9 @@ const THUMB_VARIANTS = [
 export default function YouTubeThumbnailDownloaderPage() {
   return (
     <ToolPageWrapper toolSlug="youtube-thumbnail-downloader">
-      (
-    <ToastProvider>
-      <Content />
-    </ToastProvider>
-  )
+      <ToastProvider>
+        <Content />
+      </ToastProvider>
     </ToolPageWrapper>
   );
 }

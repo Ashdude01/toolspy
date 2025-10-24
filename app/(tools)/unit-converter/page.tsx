@@ -595,12 +595,7 @@ function UnitConverterContent() {
 
 export default function UnitConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="unit-converter">
-      (
-    <ToastProvider>
-      <UnitConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="unit-converter"><ToastProvider>
+      <UnitConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

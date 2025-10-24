@@ -793,12 +793,7 @@ function ColorPaletteGeneratorContent() {
 
 export default function ColorPaletteGeneratorPage() {
   return (
-    <ToolPageWrapper toolSlug="color-palette-generator">
-      (
-    <ToastProvider>
-      <ColorPaletteGeneratorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="color-palette-generator"><ToastProvider>
+      <ColorPaletteGeneratorContent /></ToastProvider></ToolPageWrapper>
   );
 }

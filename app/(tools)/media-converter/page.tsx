@@ -800,12 +800,7 @@ function MediaConverterContent() {
 
 export default function MediaConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="media-converter">
-      (
-    <ToastProvider>
-      <MediaConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="media-converter"><ToastProvider>
+      <MediaConverterContent /></ToastProvider></ToolPageWrapper>
   );
 }

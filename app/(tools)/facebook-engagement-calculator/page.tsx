@@ -508,12 +508,7 @@ function FacebookEngagementCalculatorContent() {
 
 export default function FacebookEngagementCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="facebook-engagement-calculator">
-      (
-    <ToastProvider>
-      <FacebookEngagementCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="facebook-engagement-calculator"><ToastProvider>
+      <FacebookEngagementCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 }

@@ -568,12 +568,7 @@ function LengthConverterContent() {
 
 export default function LengthConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="length-converter">
-      (
-    <ToastProvider>
-      <LengthConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="length-converter"><ToastProvider>
+      <LengthConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

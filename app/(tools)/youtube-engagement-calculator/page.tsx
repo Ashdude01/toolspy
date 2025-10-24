@@ -520,12 +520,7 @@ function YouTubeEngagementCalculatorContent() {
 
 export default function YouTubeEngagementCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="youtube-engagement-calculator">
-      (
-    <ToastProvider>
-      <YouTubeEngagementCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="youtube-engagement-calculator"><ToastProvider>
+      <YouTubeEngagementCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 }

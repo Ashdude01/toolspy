@@ -403,11 +403,9 @@ function ImageToBase64Content() {
 export default function ImageToBase64Page() {
   return (
     <ToolPageWrapper toolSlug="image-to-base64">
-      (
-    <ToastProvider>
-      <ImageToBase64Content />
-    </ToastProvider>
-  )
+      <ToastProvider>
+        <ImageToBase64Content />
+      </ToastProvider>
     </ToolPageWrapper>
   );
 }

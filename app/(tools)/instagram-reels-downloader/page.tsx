@@ -15,13 +15,8 @@ import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function InstagramReelsDownloaderPage() {
   return (
-    <ToolPageWrapper toolSlug="instagram-reels-downloader">
-      (
-    <ToastProvider>
-      <Content />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="instagram-reels-downloader"><ToastProvider>
+      <Content /></ToastProvider></ToolPageWrapper>
   );
 }
 

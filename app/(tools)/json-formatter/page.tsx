@@ -608,12 +608,7 @@ function JsonFormatterContent() {
 
 export default function JsonFormatterPage() {
   return (
-    <ToolPageWrapper toolSlug="json-formatter">
-      (
-    <ToastProvider>
-      <JsonFormatterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="json-formatter"><ToastProvider>
+      <JsonFormatterContent /></ToastProvider></ToolPageWrapper>
   );
 }

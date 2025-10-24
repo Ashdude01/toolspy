@@ -499,12 +499,7 @@ function PdfToImageContent() {
 
 export default function PdfToImagePage() {
   return (
-    <ToolPageWrapper toolSlug="pdf-to-image">
-      (
-    <ToastProvider>
-      <PdfToImageContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="pdf-to-image"><ToastProvider>
+      <PdfToImageContent /></ToastProvider></ToolPageWrapper>
   );
 } 

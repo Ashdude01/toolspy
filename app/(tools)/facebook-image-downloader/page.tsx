@@ -14,13 +14,8 @@ import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 export default function FacebookImageDownloaderPage() {
   return (
-    <ToolPageWrapper toolSlug="facebook-image-downloader">
-      (
-    <ToastProvider>
-      <Content />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="facebook-image-downloader"><ToastProvider>
+      <Content /></ToastProvider></ToolPageWrapper>
   );
 }
 

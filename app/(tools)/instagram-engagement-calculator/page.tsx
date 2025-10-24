@@ -482,12 +482,7 @@ function InstagramEngagementCalculatorContent() {
 
 export default function InstagramEngagementCalculatorPage() {
   return (
-    <ToolPageWrapper toolSlug="instagram-engagement-calculator">
-      (
-    <ToastProvider>
-      <InstagramEngagementCalculatorContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="instagram-engagement-calculator"><ToastProvider>
+      <InstagramEngagementCalculatorContent /></ToastProvider></ToolPageWrapper>
   );
 }

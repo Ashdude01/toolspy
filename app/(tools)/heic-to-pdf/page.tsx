@@ -584,12 +584,7 @@ function HeicToPdfContent() {
 
 export default function HeicToPdfPage() {
   return (
-    <ToolPageWrapper toolSlug="heic-to-pdf">
-      (
-    <ToastProvider>
-      <HeicToPdfContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="heic-to-pdf"><ToastProvider>
+      <HeicToPdfContent /></ToastProvider></ToolPageWrapper>
   );
 } 

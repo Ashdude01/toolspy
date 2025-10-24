@@ -457,12 +457,7 @@ function CurrencyConverterContent() {
 
 export default function CurrencyConverterPage() {
   return (
-    <ToolPageWrapper toolSlug="currency-converter">
-      (
-    <ToastProvider>
-      <CurrencyConverterContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="currency-converter"><ToastProvider>
+      <CurrencyConverterContent /></ToastProvider></ToolPageWrapper>
   );
 } 

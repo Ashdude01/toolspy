@@ -686,12 +686,7 @@ function AiBackgroundRemoverContent() {
 
 export default function AiBackgroundRemoverPage() {
   return (
-    <ToolPageWrapper toolSlug="ai-background-remover">
-      (
-    <ToastProvider>
-      <AiBackgroundRemoverContent />
-    </ToastProvider>
-  )
-    </ToolPageWrapper>
+    <ToolPageWrapper toolSlug="ai-background-remover"><ToastProvider>
+      <AiBackgroundRemoverContent /></ToastProvider></ToolPageWrapper>
   );
 }
