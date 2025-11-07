@@ -47,7 +47,8 @@
     "react-dom": "18.2.0",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "whois-json": "^2.0.4"
+    "whois-json": "^2.0.4",
+    "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "@types/node": "20.10.5",
