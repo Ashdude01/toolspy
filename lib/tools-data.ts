@@ -1045,7 +1045,7 @@ export const tools: Tool[] = [
       description: 'Enhance photos with AI: upscale resolution up to 4x, remove blur, restore old photos, and colorize black & white images. Professional quality with complete privacy.',
       tags: ['ai', 'image', 'enhancer', 'upscale', 'unblur', 'restore', 'colorize', 'photos', 'topaz', 'waifu2x']
     }),
-    posterImage: '/images/tools/ai-image-enhancer.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/ai-image-enhancer_yv5fc9.png'
   },
   {
     id: 'ai-resume-builder',

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useCallback } from "react";
+import Link from "next/link";
 import {
   Card,
   CardContent,
@@ -46,6 +47,8 @@ import {
   TrendingUp,
   Layers,
   Contrast,
+  Gauge,
+  ArrowRight,
 } from "lucide-react";
 import { AIImageEnhancerSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
@@ -81,6 +84,7 @@ function AiImageEnhancerContent() {
   const [isProcessing, setIsProcessing] = useState(false);
   const [processingProgress, setProcessingProgress] = useState(0);
   const [showComparison, setShowComparison] = useState(true);
+  const [imageLoading, setImageLoading] = useState(false);
   const [settings, setSettings] = useState<EnhancementSettings>({
     enhancement: 'auto',
     upscaleFactor: 2,
@@ -209,23 +213,35 @@ function AiImageEnhancerContent() {
       return;
     }
 
+    setImageLoading(true);
     const reader = new FileReader();
+    reader.onerror = () => {
+      setImageLoading(false);
+      showToast("Failed to read image file", "error");
+    };
     reader.onload = async (e) => {
-      const imageData = e.target?.result as string;
-      setUploadedImage(imageData);
-      setResult(null);
-      
-      // Auto-enhance if enabled
-      if (settings.enhancement === 'auto') {
-        try {
-          const enhanced = await processImage(imageData);
-          setResult(enhanced);
-          showToast("Image enhanced automatically!", "success");
-        } catch (error) {
-          // Error already handled in processImage
+      try {
+        const imageData = e.target?.result as string;
+        setUploadedImage(imageData);
+        setResult(null);
+        setShowComparison(true); // Reset comparison view when new image is uploaded
+        setImageLoading(false);
+        
+        // Auto-enhance if enabled
+        if (settings.enhancement === 'auto') {
+          try {
+            const enhanced = await processImage(imageData);
+            setResult(enhanced);
+            showToast("Image enhanced automatically!", "success");
+          } catch (error) {
+            // Error already handled in processImage
+          }
+        } else {
+          showToast("Image uploaded successfully! Click 'Enhance Image' to process.", "success");
         }
-      } else {
-        showToast("Image uploaded successfully! Click 'Enhance Image' to process.", "success");
+      } catch (error) {
+        setImageLoading(false);
+        showToast("Failed to process image", "error");
       }
     };
     reader.readAsDataURL(file);
@@ -289,70 +305,107 @@ function AiImageEnhancerContent() {
     }
   };
 
-  const downloadResult = (format: 'original' | 'enhanced' | 'comparison') => {
+  const downloadResult = async (format: 'original' | 'enhanced' | 'comparison') => {
     if (!result) {
       showToast("No enhanced image to download", "error");
       return;
     }
 
-    let imageData = result.enhanced;
-    let filename = `enhanced-${Date.now()}`;
+    try {
+      let imageData = result.enhanced;
+      let filename = `enhanced-${Date.now()}`;
 
-    if (format === 'original') {
-      imageData = result.original;
-      filename = `original-${Date.now()}`;
-    } else if (format === 'comparison') {
-      // Create side-by-side comparison
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      
-      const originalImg = new Image();
-      const enhancedImg = new Image();
-      
-      Promise.all([
-        new Promise(resolve => {
-          originalImg.onload = resolve;
-          originalImg.src = result.original;
-        }),
-        new Promise(resolve => {
-          enhancedImg.onload = resolve;
-          enhancedImg.src = result.enhanced;
-        })
-      ]).then(() => {
-        canvas.width = originalImg.width + enhancedImg.width + 20;
-        canvas.height = Math.max(originalImg.height, enhancedImg.height);
+      if (format === 'original') {
+        imageData = result.original;
+        filename = `original-${Date.now()}`;
         
-        if (ctx) {
-          // White background
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, canvas.width, canvas.height);
-          
-          // Draw original
-          ctx.drawImage(originalImg, 0, 0);
-          
-          // Draw enhanced
-          ctx.drawImage(enhancedImg, originalImg.width + 20, 0);
-          
-          // Add labels
-          ctx.font = '20px Arial';
-          ctx.fillStyle = '#000000';
-          ctx.fillText('Original', 10, originalImg.height + 30);
-          ctx.fillText('Enhanced', originalImg.width + 30, enhancedImg.height + 30);
-          
-          imageData = canvas.toDataURL('image/png');
-          filename = `comparison-${Date.now()}`;
+        // Download immediately for original
+        const link = document.createElement('a');
+        link.download = `${filename}.png`;
+        link.href = imageData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("Image downloaded successfully!", "success");
+      } else if (format === 'comparison') {
+        // Create side-by-side comparison
+        showToast("Creating comparison image...", "info");
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+          showToast("Failed to create comparison image", "error");
+          return;
         }
-      });
+        
+        const originalImg = new Image();
+        const enhancedImg = new Image();
+        
+        await Promise.all([
+          new Promise<void>((resolve, reject) => {
+            originalImg.onload = () => resolve();
+            originalImg.onerror = () => reject(new Error('Failed to load original image'));
+            originalImg.src = result.original;
+          }),
+          new Promise<void>((resolve, reject) => {
+            enhancedImg.onload = () => resolve();
+            enhancedImg.onerror = () => reject(new Error('Failed to load enhanced image'));
+            enhancedImg.src = result.enhanced;
+          })
+        ]);
+        
+        // Calculate dimensions with padding
+        const padding = 20;
+        const labelHeight = 40;
+        const maxHeight = Math.max(originalImg.height, enhancedImg.height);
+        const totalWidth = originalImg.width + enhancedImg.width + padding * 3;
+        const totalHeight = maxHeight + labelHeight + padding * 2;
+        
+        canvas.width = totalWidth;
+        canvas.height = totalHeight;
+        
+        // White background
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Draw original
+        ctx.drawImage(originalImg, padding, padding);
+        
+        // Draw enhanced
+        ctx.drawImage(enhancedImg, originalImg.width + padding * 2, padding);
+        
+        // Add labels with better styling
+        ctx.font = 'bold 18px Arial';
+        ctx.fillStyle = '#333333';
+        ctx.textAlign = 'left';
+        ctx.fillText('Original', padding, maxHeight + padding + 25);
+        ctx.fillText('Enhanced', originalImg.width + padding * 2, maxHeight + padding + 25);
+        
+        imageData = canvas.toDataURL('image/png', 0.95);
+        filename = `comparison-${Date.now()}`;
+        
+        // Download comparison
+        const link = document.createElement('a');
+        link.download = `${filename}.png`;
+        link.href = imageData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("Comparison image downloaded successfully!", "success");
+      } else {
+        // Download enhanced image
+        const link = document.createElement('a');
+        link.download = `${filename}.png`;
+        link.href = imageData;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        showToast("Image downloaded successfully!", "success");
+      }
+    } catch (error) {
+      console.error('Download error:', error);
+      showToast("Failed to download image. Please try again.", "error");
     }
-
-    const link = document.createElement('a');
-    link.download = `${filename}.png`;
-    link.href = imageData;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showToast("Image downloaded successfully!", "success");
   };
 
   const clearAll = () => {
@@ -360,6 +413,8 @@ function AiImageEnhancerContent() {
     setResult(null);
     setBatchFiles([]);
     setBatchMode(false);
+    setShowComparison(true);
+    setImageLoading(false);
     showToast("All data cleared", "info");
   };
 
@@ -615,6 +670,33 @@ function AiImageEnhancerContent() {
         </Card>
       )}
 
+      {/* Uploaded Image Preview */}
+      {uploadedImage && !result && !batchMode && (
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <ImageIcon size={20} />
+              Uploaded Image Preview
+            </CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="relative border rounded-lg overflow-hidden bg-gray-100">
+              {imageLoading ? (
+                <div className="flex items-center justify-center h-64">
+                  <RefreshCw size={24} className="animate-spin text-emerald-600" />
+                </div>
+              ) : (
+                <img 
+                  src={uploadedImage} 
+                  alt="Uploaded" 
+                  className="w-full h-auto max-h-96 object-contain mx-auto"
+                />
+              )}
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Settings & Controls */}
       {uploadedImage && !batchMode && (
         <Card>
@@ -764,11 +846,6 @@ function AiImageEnhancerContent() {
                 Enhance Image
               </Button>
               
-              <Button onClick={() => setShowComparison(!showComparison)} variant="outline">
-                {showComparison ? <EyeOff size={16} /> : <Eye size={16} />}
-                <span className="ml-2">{showComparison ? "Hide" : "Show"} Comparison</span>
-              </Button>
-              
               <Button onClick={clearAll} variant="outline">
                 <Trash2 size={16} className="mr-2" />
                 Clear All
@@ -788,6 +865,10 @@ function AiImageEnhancerContent() {
                 Enhancement Results
               </span>
               <div className="flex gap-2">
+                <Button onClick={() => setShowComparison(!showComparison)} variant="outline">
+                  {showComparison ? <EyeOff size={16} /> : <Eye size={16} />}
+                  <span className="ml-2">{showComparison ? "Hide" : "Show"} Original</span>
+                </Button>
                 <Button onClick={() => downloadResult('enhanced')} variant="outline">
                   <Download size={16} className="mr-2" />
                   Enhanced
@@ -824,31 +905,43 @@ function AiImageEnhancerContent() {
 
             {/* Image Comparison */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {showComparison && (
-                <div>
-                  <Label className="text-sm font-medium mb-2 block">Original Image</Label>
-                  <div className="relative border rounded-lg overflow-hidden bg-gray-100">
+              {showComparison && result.original && (
+                <div className="space-y-2">
+                  <Label className="text-sm font-medium mb-2 flex items-center gap-2">
+                    <ImageIcon size={16} />
+                    Original Image
+                  </Label>
+                  <div className="relative border rounded-lg overflow-hidden bg-gray-100 min-h-[200px] flex items-center justify-center">
                     <img 
                       src={result.original} 
                       alt="Original" 
                       className="w-full h-auto max-h-96 object-contain"
+                      onError={(e) => {
+                        console.error('Failed to load original image');
+                        showToast("Failed to load original image", "error");
+                      }}
                     />
                   </div>
                 </div>
               )}
               
               <div className={showComparison ? '' : 'lg:col-span-2'}>
-                <Label className="text-sm font-medium mb-2 block">
+                <Label className="text-sm font-medium mb-2 flex items-center gap-2">
+                  <Sparkles size={16} />
                   Enhanced Image
                   <Badge variant="secondary" className="ml-2">
                     {result.enhancement} enhancement
                   </Badge>
                 </Label>
-                <div className="relative border rounded-lg overflow-hidden bg-gray-100">
+                <div className="relative border rounded-lg overflow-hidden bg-gray-100 min-h-[200px] flex items-center justify-center">
                   <img 
                     src={result.enhanced} 
                     alt="Enhanced" 
                     className="w-full h-auto max-h-96 object-contain"
+                    onError={(e) => {
+                      console.error('Failed to load enhanced image');
+                      showToast("Failed to load enhanced image", "error");
+                    }}
                   />
                 </div>
               </div>
@@ -874,6 +967,32 @@ function AiImageEnhancerContent() {
                   <TrendingUp size={16} className="mr-2" />
                   4K Version (Pro)
                 </Button>
+              </div>
+            </div>
+
+            {/* Compress Image CTA */}
+            <div className="mt-6 pt-6 border-t">
+              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 rounded-lg p-6 border border-emerald-200 dark:border-emerald-800">
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+                  <div className="flex items-center gap-4">
+                    <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
+                      <Gauge size={24} className="text-emerald-600 dark:text-emerald-400" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-lg mb-1">Want to compress your enhanced image?</h4>
+                      <p className="text-sm text-muted-foreground">
+                        Reduce file size while maintaining quality for faster loading and sharing
+                      </p>
+                    </div>
+                  </div>
+                  <Link href="/image-compressor">
+                    <Button size="lg" className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white">
+                      <Gauge size={18} className="mr-2" />
+                      Compress Image
+                      <ArrowRight size={18} className="ml-2" />
+                    </Button>
+                  </Link>
+                </div>
               </div>
             </div>
           </CardContent>
