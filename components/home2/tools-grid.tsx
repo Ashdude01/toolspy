@@ -169,13 +169,13 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   ];
 
   return (
-    <section id="tools" className="pt-8 pb-12 px-4 dark:bg-slate-950">
-      <div className="container mx-auto px-0">
+    <section id="tools" className="pt-8 pb-12 px-4 dark:bg-slate-950 w-full max-w-full overflow-x-hidden">
+      <div className="container mx-auto px-0 max-w-full">
         {/* Background Elements */}
-        <div className="absolute inset-0 -z-10">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-500"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-full blur-3xl"></div>
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse max-w-[90vw]"></div>
+          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-500 max-w-[90vw]"></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-full blur-3xl"></div>
         </div>
 
         <div className="text-center max-w-7xl mx-auto">
@@ -194,7 +194,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               Privacy-First • No Data Collection • Free Forever
             </Badge>
 
-            <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-6 lg:flex-row  text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out">
+            <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-10 lg:flex-row text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out px-2">
               <span className="text-center">Expert Tools for </span>
               {/* <span className="text-3xl sm:text-4xl lg:t/ext-5xl">Your </span> */}
               <TypewriterText
@@ -204,7 +204,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 deletingSpeed={20}
                 pauseTime={2500}
                 // className="inline-block !text-inherit !leading-snug lg:min-w-96 text-start"
-                className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text leading-normal text-transparent animate-gradient lg:min-w-96 text-center lg:text-left"
+                className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text leading-normal text-transparent animate-gradient lg:min-w-96 text-center lg:text-left max-w-full"
               />
               {/* <span className="text-3xl sm:text-4xl lg:text-5xl"> Instantly</span> */}
             </h1>
@@ -248,24 +248,24 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
 
         {/* Search and Filter Section */}
-        <div className="max-w-7xl mx-auto mb-8">
+        <div className="max-w-7xl mx-auto mb-8 w-full px-2">
          
 
           {/* Enhanced Search Bar */}
-          <div className="mx-auto mb-8 transition-all duration-1000 delay-300 opacity-100 translate-y-0">
-            <div className="relative group">
+          <div className="mx-auto mb-8 transition-all duration-1000 delay-300 opacity-100 translate-y-0 w-full">
+            <div className="relative group w-full">
               {/* Background glow effect */}
               {/* <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div> */}
 
               {/* Main search container */}
-              <div className="relative px-2 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl group-hover:shadow-2xl transition-all duration-300 overflow-hidden">
+              <div className="relative px-2 sm:px-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl group-hover:shadow-2xl transition-all duration-300 overflow-hidden w-full">
                 <div
                   // onSubmit={handleSubmit}
-                  className="flex items-center py-2 flex-row gap-4"
+                  className="flex items-center py-2 flex-row gap-2 sm:gap-4 w-full"
                 >
                   {/* Search icon with animation */}
-                  <div className="flex items-center justify-center">
-                    <Search className="h-6 w-6 text-slate-400 group-focus-within:text-blue-500 transition-all duration-300 group-hover:scale-110" />
+                  <div className="flex items-center justify-center flex-shrink-0">
+                    <Search className="h-5 w-5 sm:h-6 sm:w-6 text-slate-400 group-focus-within:text-blue-500 transition-all duration-300 group-hover:scale-110" />
                   </div>
 
                   {/* Input field */}
@@ -273,7 +273,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                     type="search"
                     name="keyword"
                     placeholder="Search 100+ professional tools..."
-                    className="flex-1 !active:outline-none !outline-none !active:border-none shadow-none !focus:border-none bg-transparent text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 !focus:ring-0 !focus:outline-none text-slate-800 dark:text-slate-200"
+                    className="flex-1 min-w-0 !active:outline-none !outline-none !active:border-none shadow-none !focus:border-none bg-transparent text-base sm:text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 !focus:ring-0 !focus:outline-none text-slate-800 dark:text-slate-200"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                   />
@@ -281,10 +281,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   <Button
                     type="submit"
                     size="sm"
-                    className="mr-2 h-10 px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105"
+                    className="mr-2 h-10 px-2 sm:px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                   >
-                    <Sparkle className="h-4 w-4 mr-2" />
-                    Search
+                    <Sparkle className="h-4 w-4 mr-1 sm:mr-2" />
+                    <span className="hidden sm:inline">Search</span>
                   </Button>
                 </div>
                 {/* Suggesstion */}
@@ -318,12 +318,12 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-3">
+          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
             <Button
               variant={selectedCategory === "all" ? "default" : "outline"}
               size="sm"
               onClick={() => setSelectedCategory("all")}
-              className="hover:border-slate-400 shadow-none"
+              className="hover:border-slate-400 shadow-none text-xs sm:text-sm"
             >
               Popular
             </Button>
@@ -333,7 +333,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 variant={selectedCategory === key ? "default" : "outline"}
                 size="sm"
                 onClick={() => setSelectedCategory(key as ToolCategory)}
-                className="hover:border-slate-400 shadow-none"
+                className="hover:border-slate-400 shadow-none text-xs sm:text-sm"
               >
                 {category.name}
               </Button>
@@ -343,7 +343,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         {/* Popular Tools Grid */}
         {!hasFilters && (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-12">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 mb-12 px-2">
             {popularTools.map((tool, index) => (
               <Link
                 key={tool.id}
@@ -404,8 +404,8 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         {/* Search Results */}
         {hasFilters && (
-          <div className="max-w-6xl mx-auto">
-            <div className="flex items-center justify-between mb-6">
+          <div className="max-w-6xl mx-auto w-full px-2">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
               <div>
                 <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-200">
                   {searchQuery.trim()
@@ -450,7 +450,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 ))}
               </div>
             ) : filteredTools.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
                 {filteredTools.map((tool, index) => (
                   <Link
                     key={tool.id}

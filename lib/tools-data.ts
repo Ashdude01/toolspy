@@ -713,7 +713,7 @@ export const tools: Tool[] = [
       description: 'Convert between different units of measurement',
       tags: ['units', 'convert', 'measurement']
     }),
-    posterImage: '/images/tools/unit-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/unit_converter_ghqrmg.webp'
   },
   {
     id: 'currency-converter',
@@ -731,7 +731,7 @@ export const tools: Tool[] = [
       description: 'Convert between different currencies with live exchange rates',
       tags: ['currency', 'converter', 'exchange', 'rate', 'money']
     }),
-    posterImage: '/images/tools/currency-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/currency_converter_xreikv.webp'
   },
   {
     id: 'temperature-converter',
@@ -749,7 +749,7 @@ export const tools: Tool[] = [
       description: 'Convert between Celsius, Fahrenheit, and Kelvin temperatures',
       tags: ['temperature', 'converter', 'celsius', 'fahrenheit', 'kelvin']
     }),
-    posterImage: '/images/tools/temperature-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/temperature_converter_iesjzn.webp'
   },
   {
     id: 'length-converter',
@@ -767,7 +767,7 @@ export const tools: Tool[] = [
       description: 'Convert between different units of length and distance',
       tags: ['length', 'converter', 'distance', 'measurement', 'units']
     }),
-    posterImage: '/images/tools/length-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
   {
     id: 'weight-converter',
@@ -785,7 +785,7 @@ export const tools: Tool[] = [
       description: 'Convert between different units of weight and mass',
       tags: ['weight', 'converter', 'mass', 'measurement', 'units']
     }),
-    posterImage: '/images/tools/weight-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/weight_converter_k8ebov.webp'
   },
   {
     id: 'volume-converter',
@@ -803,7 +803,7 @@ export const tools: Tool[] = [
       description: 'Convert between different units of volume and capacity',
       tags: ['volume', 'converter', 'capacity', 'measurement', 'units']
     }),
-    posterImage: '/images/tools/volume-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/volume_converter_owmjt1.webp'
   },
   {
     id: 'area-converter',
@@ -821,7 +821,7 @@ export const tools: Tool[] = [
       description: 'Convert between different units of area and surface measurement',
       tags: ['area', 'converter', 'surface', 'measurement', 'units']
     }),
-    posterImage: '/images/tools/area-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/area_converter_wbzrw9.webp'
   },
 
   // Additional misc tools
@@ -841,7 +841,7 @@ export const tools: Tool[] = [
       description: 'Generate QR codes for text, URLs, and more',
       tags: ['qr', 'code', 'generator']
     }),
-    posterImage: '/images/tools/qr-code-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/QR_Code_Generator_rvcqcm.webp'
   },
   {
     id: 'color-picker',
@@ -859,7 +859,7 @@ export const tools: Tool[] = [
       description: 'Pick colors and get hex, RGB, HSL values',
       tags: ['color', 'picker', 'hex', 'rgb']
     }),
-    posterImage: '/images/tools/color-picker.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Color_Picker_qnftn6.webp'
   },
   {
     id: 'google-indexing-api',
@@ -879,7 +879,7 @@ export const tools: Tool[] = [
       description: 'Submit website URLs to Google Indexing API for faster indexing and improved search visibility. Bulk URL submission with service account authentication.',
       tags: ['google', 'indexing', 'seo', 'search', 'api', 'submit', 'urls', 'batch']
     }),
-    posterImage: '/images/tools/google-indexing-api.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Google_Indexing_API_Tool_pyjog3.webp'
   },
 
   // JSON Tools
@@ -901,7 +901,7 @@ export const tools: Tool[] = [
       description: 'Format, validate, and visualize JSON data with our advanced online tool. Features tree view, error highlighting, minify/beautify, and secure client-side processing.',
       tags: ['json', 'formatter', 'validator', 'tree', 'beautify', 'minify', 'validate', 'jsonlint']
     }),
-    posterImage: '/images/tools/json-formatter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JSON_Formatter_Validator_tk2ubr.webp'
   },
   {
     id: 'json-table-converter',
@@ -921,7 +921,7 @@ export const tools: Tool[] = [
       description: 'Convert JSON to CSV/Excel and table data to JSON with advanced preview, batch processing, and intelligent data mapping. Supports nested objects and custom delimiters.',
       tags: ['json', 'csv', 'excel', 'table', 'converter', 'xlsx', 'data', 'transform', 'tableconvert']
     }),
-    posterImage: '/images/tools/json-table-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JSON_Table_Converter_ydiyox.webp'
   },
 
   // Code Tools
@@ -943,7 +943,7 @@ export const tools: Tool[] = [
       description: 'Format and minify JavaScript, CSS, HTML code with advanced syntax highlighting, error detection, and AI-powered code explanations. Secure client-side processing.',
       tags: ['code', 'beautifier', 'minifier', 'javascript', 'css', 'html', 'formatter', 'prettier', 'syntax']
     }),
-    posterImage: '/images/tools/code-beautifier.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Code_Beautifier_Minifier_ncesjz.webp'
   },
 
   // AI Tools  
@@ -965,7 +965,7 @@ export const tools: Tool[] = [
       description: 'Generate stunning color palettes with AI insights, accessibility checking, and professional export options. Create harmonious colors for design, branding, and web development.',
       tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker', 'coolors']
     }),
-    posterImage: '/images/tools/color-palette-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Color_Palette_Generator_e7xt2b.webp'
   },
   {
     id: 'ai-background-remover',
@@ -985,7 +985,7 @@ export const tools: Tool[] = [
       description: 'Remove backgrounds from images instantly with AI. Features magic brush for touch-ups, batch processing, and professional export options. Completely private and secure.',
       tags: ['ai', 'background', 'remover', 'image', 'magic brush', 'transparent', 'png', 'photo', 'removebg']
     }),
-    posterImage: '/images/tools/ai-background-remover.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Background_Remover_w3pdpf.webp'
   },
   {
     id: 'meme-generator',
@@ -1005,7 +1005,7 @@ export const tools: Tool[] = [
       description: 'Create viral memes with trending templates, AI caption suggestions, and professional editing tools. Share to social media instantly with no watermarks.',
       tags: ['meme', 'generator', 'ai', 'captions', 'templates', 'viral', 'social media', 'humor', 'imgflip']
     }),
-    posterImage: '/images/tools/meme-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Meme_Generator_xrlee8.webp'
   },
   {
     id: 'ai-writing-tools',
@@ -1025,7 +1025,7 @@ export const tools: Tool[] = [
       description: 'Complete AI writing toolkit with paraphraser, summarizer, humanizer, and AI detector. Advanced customization options for professional, academic, and creative writing.',
       tags: ['ai', 'writing', 'paraphraser', 'summarizer', 'humanizer', 'detector', 'rewriter', 'tools', 'quillbot']
     }),
-    posterImage: '/images/tools/ai-writing-tools.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Writing_Tools_Suite_etyynu.webp'
   },
   {
     id: 'ai-image-enhancer',
@@ -1065,7 +1065,7 @@ export const tools: Tool[] = [
       description: 'Build professional resumes with AI-powered content suggestions, ATS optimization, job matching, and expert templates. Get hired faster with intelligent resume building.',
       tags: ['ai', 'resume', 'builder', 'ats', 'job', 'templates', 'career', 'cv', 'resumegenius']
     }),
-    posterImage: '/images/tools/ai-resume-builder.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Resume_Builder_yy02c6.webp'
   },
   // Social tools (specialized)
   {
@@ -1086,7 +1086,7 @@ export const tools: Tool[] = [
       description: 'Download Facebook post images in full quality. Paste a public post URL and save photos instantly—free, fast, and secure.',
       tags: ['facebook', 'image', 'photo', 'download', 'social']
     }),
-    posterImage: '/images/tools/facebook-image-downloader.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Facebook_Image_Downloader_qgkbdy.webp'
   },
   {
     id: 'youtube-thumbnail-downloader',
@@ -1105,7 +1105,7 @@ export const tools: Tool[] = [
       description: 'Download YouTube thumbnails in max resolution (MaxRes, HD, SD). Paste a video URL or ID and save images instantly.',
       tags: ['youtube', 'thumbnail', 'image', 'download', 'maxresdefault']
     }),
-    posterImage: '/images/tools/youtube-thumbnail-downloader.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Thumbnail_Downloader_awcnhy.webp'
   },
   {
     id: 'instagram-reels-downloader',
@@ -1124,7 +1124,7 @@ export const tools: Tool[] = [
       description: 'Download Instagram Reels and short videos in high quality. Paste a reel URL and save instantly—free and secure.',
       tags: ['instagram', 'reels', 'video', 'download']
     }),
-    posterImage: '/images/tools/instagram-reels-downloader.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Reels_Downloader_twbraa.webp'
   },
   {
     id: 'instagram-private-viewer',
@@ -1143,7 +1143,7 @@ export const tools: Tool[] = [
       description: 'View and download Instagram profile pictures in full size. For private accounts, only DP is supported when accessible.',
       tags: ['instagram', 'profile', 'dp', 'avatar', 'download']
     }),
-    posterImage: '/images/tools/instagram-private-viewer.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Private_Viewer_DP_Only_usclpt.webp'
   },
   {
     id: 'youtube-embed-code-generator',
@@ -1162,7 +1162,7 @@ export const tools: Tool[] = [
       description: 'Generate responsive YouTube embed code. Choose aspect ratio, autoplay, controls, and copy clean HTML in one click.',
       tags: ['youtube', 'embed', 'iframe', 'responsive', 'generator']
     }),
-    posterImage: '/images/tools/youtube-embed-code-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Embed_Code_Generator_ngrdql.webp'
   },
   {
     id: 'ocr-text-extractor',
@@ -1182,7 +1182,7 @@ export const tools: Tool[] = [
       description: 'Extract text from images and PDFs with advanced OCR technology. Support for 12+ languages, batch processing, editable results, and complete privacy protection.',
       tags: ['ocr', 'text', 'extraction', 'pdf', 'image', 'scanner', 'digitize', 'multilingual', 'onlineocr']
     }),
-    posterImage: '/images/tools/ocr-text-extractor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/OCR_Text_Extractor_njpp5q.webp'
   },
   {
     id: 'media-converter',
@@ -1202,7 +1202,7 @@ export const tools: Tool[] = [
       description: 'Convert videos, audio files, and archives between formats with batch processing, quality presets, and advanced settings. Support for MP4, MP3, GIF, ZIP, and more.',
       tags: ['video', 'audio', 'converter', 'gif', 'archive', 'batch', 'mp4', 'mp3', 'convertio']
     }),
-    posterImage: '/images/tools/media-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Media_Converter_wgmsmn.webp'
   },
   {
     id: 'ebook-converter',
@@ -1222,7 +1222,7 @@ export const tools: Tool[] = [
       description: 'Convert e-books between EPUB, MOBI, PDF, DOCX formats with professional metadata editing, cover image support, and batch processing. Perfect for authors and publishers.',
       tags: ['ebook', 'epub', 'mobi', 'pdf', 'kindle', 'converter', 'metadata', 'publisher', 'calibre']
     }),
-    posterImage: '/images/tools/ebook-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/E-book_Converter_tuf5di.webp'
   },
   {
     id: 'font-converter',
@@ -1242,7 +1242,7 @@ export const tools: Tool[] = [
       description: 'Convert fonts between TTF, OTF, WOFF, WOFF2 formats with live preview, AI font pairings, web optimization, and automatic CSS generation.',
       tags: ['font', 'ttf', 'otf', 'woff', 'converter', 'typography', 'web fonts', 'css', 'fontforge']
     }),
-    posterImage: '/images/tools/font-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Font_Converter_cf4unb.webp'
   },
   {
     id: 'instagram-engagement-calculator',
@@ -1262,7 +1262,7 @@ export const tools: Tool[] = [
       description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['instagram', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'engagement rate']
     }),
-    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/instagram-engagement-calculator_ga5e9n.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
   {
     id: 'facebook-engagement-calculator',
@@ -1282,7 +1282,7 @@ export const tools: Tool[] = [
       description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['facebook', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'reactions', 'engagement rate']
     }),
-    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/facebook-engagement-calculator_wvjpe6.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Facebook_Engagement_jqkmay.webp'
   },
   {
     id: 'twitter-engagement-calculator',
@@ -1302,7 +1302,7 @@ export const tools: Tool[] = [
       description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
       tags: ['twitter', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'retweets', 'replies', 'engagement rate']
     }),
-    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/twitter-x-engagement-calculator_pctqvi.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Twitter_Engagement_ozfnc2.webp'
   },
   {
     id: 'youtube-engagement-calculator',
@@ -1322,7 +1322,7 @@ export const tools: Tool[] = [
       description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for video analytics.',
       tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views', 'engagement rate']
     }),
-    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/youtube-engagement-calculator_pui9ad.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Engagement_jv8cyi.webp'
   },
   {
     id: 'domain-whois-lookup',
@@ -1342,7 +1342,7 @@ export const tools: Tool[] = [
       description: 'Get comprehensive domain registration information with our free WHOIS lookup tool. Check domain ownership, registration dates, and contact details instantly.',
       tags: ['whois', 'domain', 'lookup', 'registration', 'ownership', 'contact', 'dns', 'registrar', 'expiration', 'domain research', 'domain checker', 'whois lookup', 'domain information', 'free whois', 'domain lookup tool']
     }),
-    posterImage: '/images/tools/domain-whois-lookup.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Domain_WHOIS_Lookup_hrvg4w.webp'
   },
   {
     id: 'expired-domain-finder',
@@ -1362,7 +1362,7 @@ export const tools: Tool[] = [
       description: 'Discover valuable expired domains with our comprehensive search tool. Get instant access to domain authority scores, backlink data, and estimated values.',
       tags: ['expired domains', 'domain finder', 'domain authority', 'backlinks', 'seo', 'domain research', 'domain investment', 'domain value', 'expired domain finder', 'domain search', 'free domain finder', 'domain metrics']
     }),
-    posterImage: '/images/tools/expired-domain-finder.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Expired_Domain_Finder_zp4g7n.webp'
   },
   {
     id: 'app-icon-generator',
@@ -1382,7 +1382,7 @@ export const tools: Tool[] = [
       description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web with complete privacy protection.',
       tags: ['app icon', 'icon generator', 'android', 'ios', 'windows', 'macos', 'linux', 'web', 'mobile', 'desktop', 'pwa', 'app development', 'free app icon generator', 'app icon generator online']
     }),
-    posterImage: '/images/tools/app-icon-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/App_Icon_Generator_n9bapl.webp'
   },
   {
     id: 'pwa-icon-generator',
@@ -1402,7 +1402,7 @@ export const tools: Tool[] = [
       description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps with complete privacy protection.',
       tags: ['pwa icon', 'icon generator', 'pwa', 'progressive web app', 'manifest', 'web app', 'mobile web', 'desktop web', 'cross-platform', 'app development', 'free pwa icon generator', 'pwa icon generator online']
     }),
-    posterImage: '/images/tools/pwa-icon-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/PWA_Icon_Generator_wwsixv.webp'
   },
   {
     id: 'favicon-generator',
@@ -1422,7 +1422,7 @@ export const tools: Tool[] = [
       description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers with complete privacy protection.',
       tags: ['favicon', 'icon generator', 'website', 'web app', 'browser', 'bookmark', 'html', 'seo', 'web development', 'cross-platform', 'free favicon generator', 'favicon generator online']
     }),
-    posterImage: '/images/tools/favicon-generator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Favicon_Generator_gykh4v.webp'
   },
   {
     id: 'image-to-ico-converter',
@@ -1442,7 +1442,7 @@ export const tools: Tool[] = [
       description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use with complete privacy protection.',
       tags: ['image to ico', 'ico converter', 'windows', 'desktop', 'icon', 'converter', 'format', 'web app', 'cross-platform', 'app development', 'free image to ico converter', 'image to ico converter online']
     }),
-    posterImage: '/images/tools/image-to-ico-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Image_to_ICO_Converter_kisnbo.webp'
   },
   {
     id: 'markdown-to-docs-converter',
@@ -1462,7 +1462,7 @@ export const tools: Tool[] = [
       description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents with complete privacy protection.',
       tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development', 'free markdown to docs converter', 'markdown to docs converter online']
     }),
-    posterImage: '/images/tools/markdown-to-docs-converter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Markdown_to_Docs_Converter_zcirrd.webp'
   },
 
   // GST Tools
@@ -1504,7 +1504,7 @@ export const tools: Tool[] = [
       description: 'Calculate base amount and GST component from total amount with Toolspy\'s reverse GST calculator. Perfect for invoice analysis and tax breakdown.',
       tags: ['reverse gst', 'calculator', 'tax', 'india', 'business', 'invoice analysis', 'reverse gst calculator', 'gst breakdown', 'tax breakdown', 'reverse gst calculator online']
     }),
-    posterImage: '/images/tools/reverse-gst-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Reverse_GST_Calculator_k4b3fw.webp'
   },
   {
     id: 'hsn-sac-finder',
@@ -1524,7 +1524,7 @@ export const tools: Tool[] = [
       description: 'Find HSN and SAC codes with GST rates and descriptions. Quick search with auto-suggest, complete privacy protection, and instant results.',
       tags: ['hsn', 'sac', 'code', 'finder', 'gst', 'india', 'business', 'hsn code finder', 'sac code finder', 'find hsn code', 'find sac code']
     }),
-    posterImage: '/images/tools/hsn-sac-finder.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/HSNSAC_Code_Finder_jtxd92.webp'
   },
   {
     id: 'cgst-sgst-igst-splitter',
@@ -1544,7 +1544,7 @@ export const tools: Tool[] = [
       description: 'Auto-split GST into CGST, SGST, and IGST based on intra-state vs inter-state transactions. Complete privacy protection and instant results.',
       tags: ['cgst', 'sgst', 'igst', 'splitter', 'gst', 'india', 'business', 'cgst sgst calculator', 'igst calculator', 'gst splitter', 'split gst']
     }),
-    posterImage: '/images/tools/cgst-sgst-igst-splitter.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CGSTSGSTIGST_Splitter_asvwyh.webp'
   },
   {
     id: 'itc-calculator',
@@ -1564,7 +1564,7 @@ export const tools: Tool[] = [
       description: 'Track claimable credits vs blocked credits with professional ITC calculator. Complete privacy protection and instant results.',
       tags: ['itc', 'calculator', 'input tax credit', 'gst', 'india', 'business', 'itc calculator', 'blocked itc', 'claimable itc', 'calculate itc']
     }),
-    posterImage: '/images/tools/itc-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Input_Tax_Credit_ITC_Calculator_nyikwu.webp'
   },
   {
     id: 'e-invoice-qr-validator',
@@ -1584,7 +1584,7 @@ export const tools: Tool[] = [
       description: 'Upload/scan E-Invoice QR codes to validate invoice status and extract information. Complete privacy protection and instant results.',
       tags: ['e-invoice', 'qr code', 'validator', 'gst', 'india', 'business', 'qr validator', 'invoice validator', 'qr scanner', 'validate qr code']
     }),
-    posterImage: '/images/tools/e-invoice-qr-validator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/E-InvoiceQR_Code_Validator_ftaihz.webp'
   },
   {
     id: 'composition-regular-scheme-estimator',
@@ -1604,7 +1604,7 @@ export const tools: Tool[] = [
       description: 'Compare tax liability under Composition and Regular GST schemes. Complete privacy protection and instant results.',
       tags: ['composition', 'regular', 'scheme', 'gst', 'india', 'business', 'scheme comparison', 'composition vs regular', 'gst scheme calculator', 'compare gst schemes']
     }),
-    posterImage: '/images/tools/composition-regular-scheme-estimator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Composition_vs_Regular_Scheme_Estimator_zbdo04.webp'
   },
   {
     id: 'penalty-late-fee-calculator',
@@ -1624,7 +1624,7 @@ export const tools: Tool[] = [
       description: 'Auto-calculate GSTR filing late fees and interest with professional calculator. Complete privacy protection and instant results.',
       tags: ['penalty', 'late fee', 'calculator', 'gst', 'india', 'business', 'penalty calculator', 'late fee calculator', 'gstr penalty', 'calculate penalty']
     }),
-    posterImage: '/images/tools/penalty-late-fee-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/PenaltyLate_Fee_Calculator_ximfqw.webp'
   },
   {
     id: 'jee-main-rank-predictor',
@@ -1644,7 +1644,7 @@ export const tools: Tool[] = [
       description: 'Predict your JEE Main rank and college options based on percentile. Complete privacy protection and instant results.',
       tags: ['jee main', 'rank predictor', 'college predictor', 'engineering', 'admission', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee rank']
     }),
-    posterImage: '/images/tools/jee-main-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
   {
     id: 'neet-rank-predictor',
@@ -1664,7 +1664,7 @@ export const tools: Tool[] = [
       description: 'Predict your NEET rank and medical college options based on score. Complete privacy protection and instant results.',
       tags: ['neet', 'rank predictor', 'medical college', 'admission', 'medical', 'neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank']
     }),
-    posterImage: '/images/tools/neet-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/NEET_Rank_Predictor_tffgq8.webp'
   },
   {
     id: 'jee-advanced-rank-predictor',
@@ -1684,7 +1684,7 @@ export const tools: Tool[] = [
       description: 'Predict your JEE Advanced rank and IIT options based on score. Complete privacy protection and instant results.',
       tags: ['jee advanced', 'rank predictor', 'iit predictor', 'engineering', 'admission', 'jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor', 'predict jee advanced rank']
     }),
-    posterImage: '/images/tools/jee-advanced-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Advanced_Rank_Predictor_mkthwo.webp'
   },
   {
     id: 'gate-rank-predictor',
@@ -1704,7 +1704,7 @@ export const tools: Tool[] = [
       description: 'Predict your GATE rank and college options based on score and subject. Complete privacy protection and instant results.',
       tags: ['gate', 'rank predictor', 'college predictor', 'postgraduate', 'admission', 'gate rank predictor', 'gate rank calculator', 'gate college predictor', 'predict gate rank']
     }),
-    posterImage: '/images/tools/gate-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/GATE_Rank_Predictor_wh8ssa.webp'
   },
   {
     id: 'cat-percentile-predictor',
@@ -1724,7 +1724,7 @@ export const tools: Tool[] = [
       description: 'Predict your CAT percentile and MBA college options based on sectional scores. Complete privacy protection and instant results.',
       tags: ['cat', 'percentile predictor', 'mba predictor', 'college predictor', 'admission', 'cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile']
     }),
-    posterImage: '/images/tools/cat-percentile-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CAT_Percentile_Predictor_rf9oba.webp'
   },
   {
     id: 'upsc-rank-predictor',
@@ -1744,7 +1744,7 @@ export const tools: Tool[] = [
       description: 'Predict your UPSC rank and civil service options based on exam scores. Complete privacy protection and instant results.',
       tags: ['upsc', 'rank predictor', 'civil service predictor', 'service predictor', 'admission', 'upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank']
     }),
-    posterImage: '/images/tools/upsc-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/UPSC_Rank_Predictor_u1gsli.webp'
   },
   {
     id: 'ssc-cgl-rank-predictor',
@@ -1764,7 +1764,7 @@ export const tools: Tool[] = [
       description: 'Predict your SSC CGL rank and government job options based on exam scores. Complete privacy protection and instant results.',
       tags: ['ssc cgl', 'rank predictor', 'government job predictor', 'post predictor', 'admission', 'ssc cgl rank predictor', 'ssc cgl rank calculator', 'government job predictor', 'predict ssc cgl rank']
     }),
-    posterImage: '/images/tools/ssc-cgl-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/SSC_CGL_Rank_Predictor_pk42ur.webp'
   },
   {
     id: 'bank-po-rank-predictor',
@@ -1784,7 +1784,7 @@ export const tools: Tool[] = [
       description: 'Predict your Bank PO rank and banking job options based on exam scores. Complete privacy protection and instant results.',
       tags: ['bank po', 'rank predictor', 'banking job predictor', 'bank predictor', 'admission', 'bank po rank predictor', 'bank po rank calculator', 'banking job predictor', 'predict bank po rank']
     }),
-    posterImage: '/images/tools/bank-po-rank-predictor.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Bank_PO_Rank_Predictor_hhbtek.webp'
   }
 ];
 

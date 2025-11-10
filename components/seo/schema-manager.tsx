@@ -4,8 +4,9 @@ import { generateOrganizationSchema } from './schemas/organization-schema'
 import { generateWebsiteSchema } from './schemas/website-schema'
 import { generateWebPageSchema } from './schemas/webpage-schema'
 import { generateSoftwareSchema } from './schemas/software-schema'
-import { generateReviewsSchema, generateAggregateRating } from './schemas/review-schema'
+import { generateReviewsSchema } from './schemas/review-schema'
 import { generateFAQSchema } from './schemas/faq-schema'
+import { siteConfig } from '@/lib/config'
 
 interface SchemaManagerProps {
   pageType: PageType
@@ -15,6 +16,46 @@ interface SchemaManagerProps {
   customDescription?: string
   includeReviews?: boolean
   includeFAQ?: boolean
+}
+
+// Validate schema structure before rendering
+function validateSchema(schema: any): boolean {
+  if (!schema || typeof schema !== 'object') return false
+  if (!schema['@context'] || schema['@context'] !== 'https://schema.org') return false
+  if (!schema['@type']) return false
+  return true
+}
+
+// Clean and validate FAQ schema
+function validateFAQSchema(faqSchema: any): any | null {
+  if (!faqSchema || !validateSchema(faqSchema)) return null
+  
+  // Ensure mainEntity exists and is an array with at least one question
+  if (!faqSchema.mainEntity || !Array.isArray(faqSchema.mainEntity)) return null
+  if (faqSchema.mainEntity.length === 0) return null
+  
+  // Validate each question
+  const validQuestions = faqSchema.mainEntity.filter((q: any) => {
+    return (
+      q &&
+      q['@type'] === 'Question' &&
+      q.name &&
+      typeof q.name === 'string' &&
+      q.name.trim().length > 0 &&
+      q.acceptedAnswer &&
+      q.acceptedAnswer['@type'] === 'Answer' &&
+      q.acceptedAnswer.text &&
+      typeof q.acceptedAnswer.text === 'string' &&
+      q.acceptedAnswer.text.trim().length > 0
+    )
+  })
+  
+  if (validQuestions.length === 0) return null
+  
+  return {
+    ...faqSchema,
+    mainEntity: validQuestions
+  }
 }
 
 export function SchemaManager({
@@ -31,42 +72,90 @@ export function SchemaManager({
   const websiteSchema = generateWebsiteSchema()
   
   // Generate page-specific schemas
-  const schemas: any[] = [organizationSchema, websiteSchema]
+  const schemas: any[] = []
+  
+  // Add organization schema (always first)
+  if (validateSchema(organizationSchema)) {
+    schemas.push(organizationSchema)
+  }
+  
+  // Add website schema
+  if (validateSchema(websiteSchema)) {
+    schemas.push(websiteSchema)
+  }
   
   // Add webpage schema
   const webpageSchema = generateWebPageSchema(
     pageType as 'homepage' | 'tool' | 'category' | 'about' | 'contact' | 'help',
     { tool, category, customTitle, customDescription }
   )
-  schemas.push(webpageSchema)
+  if (validateSchema(webpageSchema)) {
+    schemas.push(webpageSchema)
+  }
   
   // Add tool-specific schemas
   if (pageType === 'tool' && tool) {
+    // Generate software schema with embedded aggregate rating
     const softwareSchema = generateSoftwareSchema(tool)
-    schemas.push(softwareSchema)
     
-    // Add reviews and ratings if requested
+    // Add reviews if requested
     if (includeReviews) {
       const reviewsSchema = generateReviewsSchema(tool)
-      const aggregateRatingSchema = generateAggregateRating(reviewsSchema, tool)
-      schemas.push(...reviewsSchema, aggregateRatingSchema)
+      
+      // Calculate aggregate rating from reviews
+      if (reviewsSchema.length > 0) {
+        const totalRating = reviewsSchema.reduce((sum, review) => {
+          return sum + (review.reviewRating?.ratingValue || 0)
+        }, 0)
+        const averageRating = totalRating / reviewsSchema.length
+        const ratingCount = reviewsSchema.length
+        
+        // Embed aggregate rating in software schema
+        softwareSchema.aggregateRating = {
+          '@type': 'AggregateRating',
+          ratingValue: Math.round(averageRating * 10) / 10,
+          ratingCount: ratingCount.toString(),
+          bestRating: '5',
+          worstRating: '1'
+        }
+        
+        // Add individual review schemas
+        reviewsSchema.forEach(review => {
+          if (validateSchema(review)) {
+            schemas.push(review)
+          }
+        })
+      }
     }
     
-    // Add FAQ if requested
+    // Validate and add software schema
+    if (validateSchema(softwareSchema)) {
+      schemas.push(softwareSchema)
+    }
+    
+    // Add FAQ if requested - with validation
     if (includeFAQ) {
       const faqSchema = generateFAQSchema(tool)
-      schemas.push(faqSchema)
+      if (faqSchema) {
+        const validatedFAQ = validateFAQSchema(faqSchema)
+        if (validatedFAQ) {
+          schemas.push(validatedFAQ)
+        }
+      }
     }
   }
   
+  // Filter out any invalid schemas and render
+  const validSchemas = schemas.filter(validateSchema)
+  
   return (
     <>
-      {schemas.map((schema, index) => (
+      {validSchemas.map((schema, index) => (
         <script
-          key={`schema-${index}`}
+          key={`schema-${index}-${schema['@type']}`}
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(schema, null, 0)
+            __html: JSON.stringify(schema, null, 2)
           }}
         />
       ))}

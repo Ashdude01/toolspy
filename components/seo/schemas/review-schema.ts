@@ -77,7 +77,8 @@ export function generateReviewsSchema(tool: Tool): ReviewSchema[] {
   }))
 }
 
-// Generate aggregate rating from reviews
+// Note: Aggregate rating is now embedded directly in SoftwareApplication schema
+// This function is kept for backward compatibility but is no longer used
 export function generateAggregateRating(reviews: ReviewSchema[], tool: Tool) {
   const totalRating = reviews.reduce((sum, review) => {
     return sum + (review.reviewRating.ratingValue || 0)
@@ -88,26 +89,6 @@ export function generateAggregateRating(reviews: ReviewSchema[], tool: Tool) {
   return {
     '@context': 'https://schema.org' as const,
     '@type': 'AggregateRating' as const,
-    itemReviewed: {
-      '@type': 'SoftwareApplication',
-      name: tool.name,
-      url: tool.seo.canonicalUrl,
-      applicationCategory: getApplicationCategory(tool.category),
-      operatingSystem: 'Web Browser',
-      offers: {
-        '@type': 'Offer',
-        price: '0',
-        priceCurrency: 'USD',
-        availability: 'https://schema.org/InStock'
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.8',
-        ratingCount: '2547',
-        bestRating: '5',
-        worstRating: '1'
-      }
-    },
     ratingValue: Math.round(averageRating * 10) / 10, // Round to 1 decimal
     ratingCount: reviews.length,
     bestRating: 5,

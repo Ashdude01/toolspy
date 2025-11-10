@@ -96,15 +96,15 @@ export function BrowseCategoriesSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-100 dark:bg-black relative overflow-hidden">
+    <section className="py-16 px-4 bg-gray-100 dark:bg-black relative overflow-x-hidden w-full max-w-full">
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-gradient-to-r from-blue-400/3 to-purple-400/3 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[96rem] h-96 bg-gradient-to-r from-blue-400/3 to-purple-400/3 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-0">
+      <div className="container mx-auto px-0 max-w-full">
         <div className="text-center mb-12">
           <Badge
             variant="outline"
@@ -125,7 +125,7 @@ export function BrowseCategoriesSection() {
         </div>
 
         {/* Categories Grid */}
-        <div className="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+        <div className="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-2">
           {Object.entries(toolCategories).map(
             ([categoryKey, category], index) => {
               const categoryType = categoryKey as ToolCategory;
@@ -216,19 +216,19 @@ export function BrowseCategoriesSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-8 py-4 border border-slate-200 dark:border-slate-700">
-            <div className="text-left">
-              <div className="font-semibold text-slate-800 dark:text-slate-200">
+        <div className="text-center mt-12 px-2">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-4 sm:px-8 py-4 border border-slate-200 dark:border-slate-700 w-full sm:w-auto max-w-full">
+            <div className="text-center sm:text-left">
+              <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">
                 Can't find what you're looking for?
               </div>
-              <div className="text-sm text-slate-600 dark:text-slate-300">
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-300">
                 Request a new tool or category
               </div>
             </div>
 
-            <Link href="/contact">
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300">
+            <Link href="/contact" className="w-full sm:w-auto">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
                 <Sparkles className="h-4 w-4 mr-2" />
                 Request Tool
               </Button>

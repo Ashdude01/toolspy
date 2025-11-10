@@ -56,15 +56,15 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white/50 dark:bg-black relative overflow-hidden">
+    <section className="py-16 px-4 bg-white/50 dark:bg-black relative overflow-x-hidden w-full max-w-full">
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl max-w-[90vw]"></div>
+        <div className="absolute bottom-10 right-10 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl max-w-[90vw]"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[64rem] h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto px-0">
+      <div className="container mx-auto px-0 max-w-full">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Trusted by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Professionals</span>
@@ -74,7 +74,7 @@ export function TestimonialsSection() {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 px-2">
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
@@ -124,26 +124,26 @@ export function TestimonialsSection() {
         </div>
 
         {/* Trust Indicators */}
-        <div className="mt-16 text-center">
-          <div className="flex flex-row md:flex-row items-center justify-around md:justify-center w-full md:w-fit mx-auto md:gap-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl md:px-8 py-4 border border-slate-200 dark:border-slate-700">
+        <div className="mt-16 text-center px-2">
+          <div className="flex flex-col sm:flex-row items-center justify-around sm:justify-center w-full sm:w-fit mx-auto sm:gap-4 md:gap-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-4 sm:px-6 md:px-8 py-4 border border-slate-200 dark:border-slate-700 max-w-full">
             <div className="text-center">
               <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">1M+</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Happy Users</div>
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Happy Users</div>
             </div>
-            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
               <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">50M+</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Files Processed</div>
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Files Processed</div>
             </div>
-            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
               <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">99.9%</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">Uptime</div>
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Uptime</div>
             </div>
-            <div className="hidden md:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
+            <div className="hidden sm:block w-px h-8 bg-slate-200 dark:bg-slate-700"></div>
             <div className="text-center">
               <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">4.9★</div>
-              <div className="text-sm text-slate-600 dark:text-slate-400">User Rating</div>
+              <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">User Rating</div>
             </div>
           </div>
         </div>

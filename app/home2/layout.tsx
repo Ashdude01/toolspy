@@ -39,7 +39,7 @@ export default function Home2Layout({
   children: React.ReactNode
 }) {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen overflow-x-hidden w-full max-w-full">
       {children}
     </div>
   )

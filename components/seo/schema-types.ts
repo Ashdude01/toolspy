@@ -58,6 +58,8 @@ export interface AggregateRatingSchema extends BaseSchema {
 export interface FAQPageSchema extends BaseSchema {
   '@type': 'FAQPage'
   mainEntity: Question[]
+  url?: string
+  about?: Thing
 }
 
 export interface WebPageSchema extends BaseSchema {

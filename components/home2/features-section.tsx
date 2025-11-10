@@ -78,14 +78,14 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section id="features" className="py-16 px-4 bg-white/50 dark:bg-gray-900 relative overflow-hidden">
+    <section id="features" className="py-16 px-4 bg-white/50 dark:bg-gray-900 relative overflow-x-hidden w-full max-w-full">
       {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl"></div>
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
+        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
       </div>
 
-      <div className="container mx-auto px-0">
+      <div className="container mx-auto px-0 max-w-full">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Toolspy</span>?
@@ -96,7 +96,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Main Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16 px-2">
           {features.map((feature, index) => (
             <div key={index} className="text-center group">
               <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
@@ -113,7 +113,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Additional Features */}
-        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-8 border border-slate-200 dark:border-slate-700">
+        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-4 sm:p-8 border border-slate-200 dark:border-slate-700 mx-2">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-2">
               Everything You Need for Professional Results
@@ -143,7 +143,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 px-2">
           <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-2xl border border-blue-200 dark:border-blue-800">
             <div className="text-4xl font-bold text-blue-600 mb-2">70+</div>
             <div className="text-slate-600 dark:text-slate-300">Professional Tools</div>

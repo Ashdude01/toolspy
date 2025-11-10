@@ -54,12 +54,12 @@ export function Footer() {
 {
   title: "Tool Categories",
   links: [
-    { href: "/image-tools", label: "Image Tools" },
-    { href: "/pdf-tools", label: "PDF Tools" },
-    { href: "/calculators", label: "Calculators" },
-    { href: "/base64-tools", label: "Base64 Tools" },
-    { href: "/json-tools", label: "JSON Tools" },
-    { href: "/ai-tools", label: "AI Tools" }
+    { href: "/tools/image-tools", label: "Image Tools" },
+    { href: "/tools/pdf-tools", label: "PDF Tools" },
+    { href: "/tools/calculators", label: "Calculators" },
+    { href: "/tools/base64-tools", label: "Base64 Tools" },
+    { href: "/tools/json-tools", label: "JSON Tools" },
+    { href: "/tools/ai-tools", label: "AI Tools" }
   ]
 },
 {
