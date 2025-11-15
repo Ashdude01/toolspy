@@ -82,7 +82,7 @@ export const extractDomainFromUrl = (url: string): string | null => {
   }
 };
 
-// Client-safe WHOIS lookup (will be handled by API route)
+// Client-safe WHOIS lookup using apilayer.com API
 export const performWhoisLookup = async (domain: string): Promise<WhoisData> => {
   try {
     if (!validateDomain(domain)) {
@@ -92,25 +92,286 @@ export const performWhoisLookup = async (domain: string): Promise<WhoisData> => 
     // Clean the domain
     const cleanDomain = domain.toLowerCase().trim().replace(/^https?:\/\//, '').split('/')[0];
     
-    // Call the API route instead of using server-side packages
-    const response = await fetch('/api/whois', {
-      method: 'POST',
+    // Get API key from environment variable
+    const apiKey = process.env.NEXT_PUBLIC_WHOIS_API_KEY;
+    
+    if (!apiKey) {
+      throw new Error('WHOIS API key not configured. Please set NEXT_PUBLIC_WHOIS_API_KEY environment variable.');
+    }
+
+    // Use apilayer.com WHOIS API
+    const apiUrl = `https://api.apilayer.com/whois/query?domain=${encodeURIComponent(cleanDomain)}`;
+    
+    const response = await fetch(apiUrl, {
+      method: 'GET',
       headers: {
-        'Content-Type': 'application/json',
+        'apikey': apiKey,
+        'Accept': 'application/json',
       },
-      body: JSON.stringify({ domain: cleanDomain }),
+      redirect: 'follow' as RequestRedirect,
     });
 
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const errorText = await response.text();
+      throw new Error(`WHOIS API error: ${response.status} - ${errorText}`);
     }
 
     const data = await response.json();
-    return data;
+    
+    // Parse the apilayer.com response format
+    if (data.result) {
+      return parseApilayerWhoisData(data.result, cleanDomain);
+    }
+    
+    // If no result, try to parse as direct data
+    return parseApilayerWhoisData(data, cleanDomain);
   } catch (error) {
     console.error('WHOIS lookup error:', error);
     throw new Error(`Failed to perform WHOIS lookup: ${error instanceof Error ? error.message : 'Unknown error'}`);
   }
+};
+
+// Helper function to parse apilayer.com WHOIS response
+const parseApilayerWhoisData = (result: any, domain: string): WhoisData => {
+  const structuredData: WhoisData = {
+    domainName: result.domain_name || domain,
+    registrar: result.registrar || 'Unknown',
+    creationDate: result.creation_date || undefined,
+    expirationDate: result.expiration_date || undefined,
+    updatedDate: result.updated_date || undefined,
+    status: Array.isArray(result.status) ? result.status : result.status ? [result.status] : [],
+    nameServers: Array.isArray(result.name_servers) ? result.name_servers : result.name_servers ? [result.name_servers] : [],
+    raw: JSON.stringify(result, null, 2),
+  };
+
+  // Parse registrant information
+  if (result.name || result.org || result.emails || result.address || result.city || result.country) {
+    // Combine address fields if available
+    const addressParts = [
+      result.address,
+      result.city,
+      result.state,
+      result.zipcode,
+      result.country,
+    ].filter(Boolean);
+    
+    structuredData.registrant = {
+      name: result.name || undefined,
+      organization: result.org || undefined,
+      email: result.emails ? (Array.isArray(result.emails) ? result.emails[0] : result.emails) : undefined,
+      address: addressParts.length > 0 ? addressParts.join(', ') : result.address || undefined,
+    };
+  }
+
+  return structuredData;
+};
+
+// Helper function to parse WHOIS data from JSON response (legacy support)
+const parseWhoisData = (whoisData: any, domain: string): WhoisData => {
+  const structuredData: WhoisData = {
+    domainName: domain,
+    raw: JSON.stringify(whoisData, null, 2),
+  };
+
+  // Handle whoisxmlapi.com format
+  if (whoisData?.WhoisRecord) {
+    const record = whoisData.WhoisRecord;
+    
+    structuredData.registrar = record?.registrarName || 'Unknown';
+    structuredData.creationDate = record?.createdDate;
+    structuredData.expirationDate = record?.expiresDate;
+    structuredData.updatedDate = record?.updatedDate;
+    structuredData.status = record?.status ? [record.status] : [];
+    structuredData.nameServers = record?.nameServers?.hostNames || [];
+    
+    if (record?.registrant) {
+      structuredData.registrant = {
+        name: record.registrant.name,
+        organization: record.registrant.organization,
+        email: record.registrant.email,
+        phone: record.registrant.telephone,
+        address: record.registrant.street1,
+      };
+    }
+    
+    if (record?.administrativeContact) {
+      structuredData.admin = {
+        name: record.administrativeContact.name,
+        organization: record.administrativeContact.organization,
+        email: record.administrativeContact.email,
+        phone: record.administrativeContact.telephone,
+      };
+    }
+    
+    if (record?.technicalContact) {
+      structuredData.tech = {
+        name: record.technicalContact.name,
+        organization: record.technicalContact.organization,
+        email: record.technicalContact.email,
+        phone: record.technicalContact.telephone,
+      };
+    }
+    
+    return structuredData;
+  }
+
+  // Handle ipwhois.app format
+  if (whoisData?.domain) {
+    structuredData.domainName = whoisData.domain;
+    structuredData.registrar = whoisData.registrar || 'Unknown';
+    structuredData.creationDate = whoisData.created;
+    structuredData.expirationDate = whoisData.expires;
+    structuredData.updatedDate = whoisData.updated;
+    structuredData.nameServers = whoisData.nameservers || [];
+    
+    if (whoisData.registrant) {
+      structuredData.registrant = {
+        name: whoisData.registrant.name,
+        organization: whoisData.registrant.organization,
+        email: whoisData.registrant.email,
+        phone: whoisData.registrant.phone,
+        address: whoisData.registrant.address,
+      };
+    }
+    
+    return structuredData;
+  }
+
+  // Handle generic format - try to extract common fields
+  structuredData.registrar = whoisData?.registrar || whoisData?.registrarName || 'Unknown';
+  structuredData.creationDate = whoisData?.creationDate || whoisData?.created || whoisData?.createdDate;
+  structuredData.expirationDate = whoisData?.expirationDate || whoisData?.expires || whoisData?.expiryDate;
+  structuredData.updatedDate = whoisData?.updatedDate || whoisData?.updated;
+  structuredData.status = whoisData?.status ? (Array.isArray(whoisData.status) ? whoisData.status : [whoisData.status]) : [];
+  structuredData.nameServers = whoisData?.nameServers || whoisData?.nameservers || whoisData?.nameServer || [];
+
+  if (whoisData?.registrant) {
+    structuredData.registrant = {
+      name: whoisData.registrant.name,
+      organization: whoisData.registrant.organization,
+      email: whoisData.registrant.email,
+      phone: whoisData.registrant.phone || whoisData.registrant.telephone,
+      address: whoisData.registrant.address || whoisData.registrant.street1,
+    };
+  }
+
+  if (whoisData?.admin || whoisData?.administrativeContact) {
+    const admin = whoisData.admin || whoisData.administrativeContact;
+    structuredData.admin = {
+      name: admin.name,
+      organization: admin.organization,
+      email: admin.email,
+      phone: admin.phone || admin.telephone,
+    };
+  }
+
+  if (whoisData?.tech || whoisData?.technicalContact) {
+    const tech = whoisData.tech || whoisData.technicalContact;
+    structuredData.tech = {
+      name: tech.name,
+      organization: tech.organization,
+      email: tech.email,
+      phone: tech.phone || tech.telephone,
+    };
+  }
+
+  return structuredData;
+};
+
+// Helper function to parse WHOIS data from HTML (fallback)
+const parseWhoisFromHtml = (html: string, domain: string): WhoisData => {
+  // Basic parsing from HTML - this is a fallback
+  const structuredData: WhoisData = {
+    domainName: domain,
+    raw: html,
+  };
+
+  // Create a temporary DOM element to parse HTML
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, 'text/html');
+  const textContent = doc.body.textContent || html;
+
+  // Try to extract basic information from HTML/text
+  const patterns = {
+    registrar: [
+      /Registrar[:\s]+([^\n<]+)/i,
+      /Registrar Name[:\s]+([^\n<]+)/i,
+      /Registrar:\s*([^\n<]+)/i,
+    ],
+    creationDate: [
+      /Creation Date[:\s]+([^\n<]+)/i,
+      /Created[:\s]+([^\n<]+)/i,
+      /Registered[:\s]+([^\n<]+)/i,
+      /Registration Date[:\s]+([^\n<]+)/i,
+    ],
+    expirationDate: [
+      /Expiry Date[:\s]+([^\n<]+)/i,
+      /Expiration Date[:\s]+([^\n<]+)/i,
+      /Expires[:\s]+([^\n<]+)/i,
+      /Registry Expiry Date[:\s]+([^\n<]+)/i,
+    ],
+    updatedDate: [
+      /Updated Date[:\s]+([^\n<]+)/i,
+      /Last Updated[:\s]+([^\n<]+)/i,
+      /Modified[:\s]+([^\n<]+)/i,
+    ],
+    nameServers: [
+      /Name Server[:\s]+([^\n<]+)/gi,
+      /Nameserver[:\s]+([^\n<]+)/gi,
+    ],
+  };
+
+  // Extract registrar
+  for (const pattern of patterns.registrar) {
+    const match = textContent.match(pattern);
+    if (match) {
+      structuredData.registrar = match[1].trim();
+      break;
+    }
+  }
+
+  // Extract creation date
+  for (const pattern of patterns.creationDate) {
+    const match = textContent.match(pattern);
+    if (match) {
+      structuredData.creationDate = match[1].trim();
+      break;
+    }
+  }
+
+  // Extract expiration date
+  for (const pattern of patterns.expirationDate) {
+    const match = textContent.match(pattern);
+    if (match) {
+      structuredData.expirationDate = match[1].trim();
+      break;
+    }
+  }
+
+  // Extract updated date
+  for (const pattern of patterns.updatedDate) {
+    const match = textContent.match(pattern);
+    if (match) {
+      structuredData.updatedDate = match[1].trim();
+      break;
+    }
+  }
+
+  // Extract name servers
+  const nameServerMatches: string[] = [];
+  for (const pattern of patterns.nameServers) {
+    const matches = Array.from(textContent.matchAll(pattern));
+    for (const match of matches) {
+      if (match[1]) {
+        nameServerMatches.push(match[1].trim());
+      }
+    }
+  }
+  if (nameServerMatches.length > 0) {
+    structuredData.nameServers = Array.from(new Set(nameServerMatches)); // Remove duplicates
+  }
+
+  return structuredData;
 };
 
 export const searchExpiredDomains = async (

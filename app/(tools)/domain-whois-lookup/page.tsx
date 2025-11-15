@@ -43,6 +43,7 @@ import {
   validateDomain, 
   formatWhoisDate, 
   getDomainStatusColor,
+  performWhoisLookup,
   type WhoisData 
 } from "@/lib/utils/domain-utils";
 
@@ -95,28 +96,15 @@ function DomainWhoisLookupContent() {
     setWhoisData(null);
 
     try {
-      // Use API endpoint to avoid CORS issues
-      const response = await fetch('/api/whois', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ domain: cleanDomain }),
-      });
-
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to perform WHOIS lookup');
-      }
-
-      const whoisResult = await response.json();
+      // Use client-side WHOIS lookup function (works with static export)
+      const whoisResult = await performWhoisLookup(cleanDomain);
       
-      // The API returns the data directly, not wrapped in a data property
       setWhoisData(whoisResult);
       saveToHistory(cleanDomain);
       showToast("WHOIS lookup completed successfully", "success");
     } catch (error) {
-      showToast("Failed to perform WHOIS lookup. Please try again.", "error");
+      const errorMessage = error instanceof Error ? error.message : 'Failed to perform WHOIS lookup. Please try again.';
+      showToast(errorMessage, "error");
       console.error("WHOIS lookup error:", error);
     } finally {
       setIsLoading(false);

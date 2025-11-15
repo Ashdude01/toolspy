@@ -21,6 +21,8 @@ const nextConfig = {
     NEXT_PUBLIC_DOWNLOADER_API_URL: process.env.NEXT_PUBLIC_DOWNLOADER_API_URL || '',
     NEXT_PUBLIC_DOWNLOADER_API_KEY: process.env.NEXT_PUBLIC_DOWNLOADER_API_KEY || '',
     NEXT_PUBLIC_DOWNLOADER_API_HOST: process.env.NEXT_PUBLIC_DOWNLOADER_API_HOST || '',
+    // WHOIS API (apilayer.com)
+    NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
   output: 'export',
   trailingSlash: true,
