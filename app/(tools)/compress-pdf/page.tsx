@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
 import { PDFFileUpload } from "@/components/tools/shared/pdf-file-upload";
 import { ProgressModal } from "@/components/tools/shared/progress-modal";
 import {
@@ -55,6 +56,9 @@ function CompressPdfContent() {
   });
   const [compressionLevel, setCompressionLevel] = useState("balanced");
   const [imageQuality, setImageQuality] = useState([70]);
+  const [targetSizeEnabled, setTargetSizeEnabled] = useState(false);
+  const [targetSizeValue, setTargetSizeValue] = useState<string>("");
+  const [targetSizeUnit, setTargetSizeUnit] = useState<"KB" | "MB">("MB");
 
   const handleFileSelect = (files: File[]) => {
     // Filter only PDF files
@@ -86,10 +90,217 @@ function CompressPdfContent() {
     showToast("All files cleared", "info");
   };
 
+  // Helper function to compress image using canvas
+  const compressImage = async (
+    imageBytes: Uint8Array,
+    mimeType: string,
+    quality: number,
+    maxDimension?: number
+  ): Promise<Uint8Array> => {
+    return new Promise((resolve, reject) => {
+      const blob = new Blob([imageBytes.buffer as ArrayBuffer], { type: mimeType });
+      const img = new Image();
+      const url = URL.createObjectURL(blob);
+
+      img.onload = () => {
+        URL.revokeObjectURL(url);
+        const canvas = document.createElement('canvas');
+        let width = img.width;
+        let height = img.height;
+
+        // Resize if needed for maximum compression
+        if (maxDimension && (width > maxDimension || height > maxDimension)) {
+          const ratio = Math.min(maxDimension / width, maxDimension / height);
+          width = width * ratio;
+          height = height * ratio;
+        }
+
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        
+        if (!ctx) {
+          reject(new Error('Could not get canvas context'));
+          return;
+        }
+
+        ctx.drawImage(img, 0, 0, width, height);
+        
+        // Convert to JPEG for compression (works for all image types)
+        canvas.toBlob(
+          (blob) => {
+            if (!blob) {
+              reject(new Error('Could not compress image'));
+              return;
+            }
+            blob.arrayBuffer().then(buffer => {
+              resolve(new Uint8Array(buffer));
+            });
+          },
+          'image/jpeg',
+          quality
+        );
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Failed to load image'));
+      };
+
+      img.src = url;
+    });
+  };
+
+  // Helper function to compress a single PDF with specific quality and scale
+  const compressPdfWithSettings = async (
+    pdfBytes: ArrayBuffer,
+    originalPdfDoc: any,
+    pdf: any,
+    numPages: number,
+    imageQualityValue: number,
+    renderScale: number,
+    shouldRasterize: boolean,
+    PDFDocument: any,
+    pdfjsLib: any
+  ): Promise<Uint8Array> => {
+    const compressedPdfDoc = await PDFDocument.create();
+
+    // Process pages based on compression level
+    if (!shouldRasterize) {
+      // Light compression: Just copy pages and optimize structure
+      for (let pageNum = 0; pageNum < numPages; pageNum++) {
+        try {
+          const [copiedPage] = await compressedPdfDoc.copyPages(originalPdfDoc, [pageNum]);
+          compressedPdfDoc.addPage(copiedPage);
+        } catch (copyError) {
+          // If copy fails, fallback to rendering at high quality
+          try {
+            const page = await pdf.getPage(pageNum + 1);
+            const viewport = page.getViewport({ scale: 2.0 });
+            const originalPage = originalPdfDoc.getPage(pageNum);
+            const { width, height } = originalPage.getSize();
+            
+            const canvas = document.createElement('canvas');
+            canvas.width = viewport.width;
+            canvas.height = viewport.height;
+            const context = canvas.getContext('2d');
+
+            if (context) {
+              await page.render({
+                canvasContext: context,
+                viewport: viewport,
+              }).promise;
+
+              const imageData = canvas.toDataURL('image/jpeg', 0.95);
+              const base64Data = imageData.split(',')[1];
+              const binaryString = atob(base64Data);
+              const bytes = new Uint8Array(binaryString.length);
+              for (let j = 0; j < binaryString.length; j++) {
+                bytes[j] = binaryString.charCodeAt(j);
+              }
+
+              const image = await compressedPdfDoc.embedJpg(bytes);
+              const newPage = compressedPdfDoc.addPage([width, height]);
+              newPage.drawImage(image, {
+                x: 0,
+                y: 0,
+                width: width,
+                height: height,
+              });
+            }
+          } catch (renderError) {
+            // Skip page if all methods fail
+          }
+        }
+      }
+    } else {
+      // Balanced and Maximum: Rasterize pages with appropriate quality and scale
+      for (let pageNum = 1; pageNum <= numPages; pageNum++) {
+        try {
+          const page = await pdf.getPage(pageNum);
+          const viewport = page.getViewport({ scale: renderScale });
+          const originalPage = originalPdfDoc.getPage(pageNum - 1);
+          const { width, height } = originalPage.getSize();
+
+          const canvas = document.createElement('canvas');
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          const context = canvas.getContext('2d');
+
+          if (context) {
+            await page.render({
+              canvasContext: context,
+              viewport: viewport,
+            }).promise;
+
+            const imageData = canvas.toDataURL('image/jpeg', imageQualityValue);
+            const base64Data = imageData.split(',')[1];
+            const binaryString = atob(base64Data);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let j = 0; j < binaryString.length; j++) {
+              bytes[j] = binaryString.charCodeAt(j);
+            }
+
+            const image = await compressedPdfDoc.embedJpg(bytes);
+            const newPage = compressedPdfDoc.addPage([width, height]);
+            newPage.drawImage(image, {
+              x: 0,
+              y: 0,
+              width: width,
+              height: height,
+            });
+          }
+        } catch (pageError) {
+          // Fallback: try to copy original page
+          try {
+            const [copiedPage] = await compressedPdfDoc.copyPages(originalPdfDoc, [pageNum - 1]);
+            compressedPdfDoc.addPage(copiedPage);
+          } catch (copyError) {
+            // Skip page if all methods fail
+          }
+        }
+      }
+    }
+
+    // Copy metadata
+    try {
+      const title = originalPdfDoc.getTitle();
+      const author = originalPdfDoc.getAuthor();
+      const subject = originalPdfDoc.getSubject();
+      const creator = originalPdfDoc.getCreator();
+      const producer = originalPdfDoc.getProducer();
+      const creationDate = originalPdfDoc.getCreationDate();
+      const modificationDate = originalPdfDoc.getModificationDate();
+      
+      if (title) compressedPdfDoc.setTitle(title);
+      if (author) compressedPdfDoc.setAuthor(author);
+      if (subject) compressedPdfDoc.setSubject(subject);
+      if (creator) compressedPdfDoc.setCreator(creator);
+      if (producer) compressedPdfDoc.setProducer(producer);
+      if (creationDate) compressedPdfDoc.setCreationDate(creationDate);
+      if (modificationDate) compressedPdfDoc.setModificationDate(modificationDate);
+    } catch (metaError) {
+      // Metadata copy is optional
+    }
+
+    // Save compressed PDF
+    return await compressedPdfDoc.save({
+      useObjectStreams: true,
+    });
+  };
+
   const compressPdfs = async () => {
     if (selectedFiles.length === 0) {
       showToast("Please select PDF files to compress", "error");
       return;
+    }
+
+    // Validate target size if enabled
+    if (targetSizeEnabled) {
+      if (!targetSizeValue || Number(targetSizeValue) <= 0) {
+        showToast("Please enter a valid target size", "error");
+        return;
+      }
     }
 
     setIsCompressing(true);
@@ -102,8 +313,53 @@ function CompressPdfContent() {
     const results: CompressionResult[] = [];
 
     try {
-      // Import PDF library dynamically
+      // Import PDF libraries dynamically
       const { PDFDocument } = await import('pdf-lib');
+      const pdfjsLib = await import('pdfjs-dist');
+
+      // Configure pdfjs worker
+      if (typeof window !== 'undefined' && !pdfjsLib.GlobalWorkerOptions.workerSrc) {
+        pdfjsLib.GlobalWorkerOptions.workerSrc = '/pdf.worker.min.js';
+      }
+
+      // Calculate target size in bytes if enabled
+      let targetSizeBytes: number | null = null;
+      if (targetSizeEnabled && targetSizeValue) {
+        const targetValue = Number(targetSizeValue);
+        targetSizeBytes = targetSizeUnit === "MB" 
+          ? targetValue * 1024 * 1024 
+          : targetValue * 1024;
+      }
+
+      // Determine compression settings based on level
+      let imageQualityValue: number;
+      let renderScale: number;
+      let shouldRasterize: boolean;
+      
+      switch (compressionLevel) {
+        case "light":
+          // Light: High quality (0.92-0.95), high scale (2.0x), structural optimization only
+          imageQualityValue = Math.max(0.92, Math.min(0.95, imageQuality[0] / 100));
+          renderScale = 2.0;
+          shouldRasterize = false; // Just optimize structure
+          break;
+        case "balanced":
+          // Balanced: Medium quality (0.75-0.85), medium scale (1.5x), compress images
+          imageQualityValue = Math.max(0.75, Math.min(0.85, (imageQuality[0] / 100) * 0.9));
+          renderScale = 1.5;
+          shouldRasterize = true; // Rasterize to compress
+          break;
+        case "maximum":
+          // Maximum: Lower quality (0.50-0.70), lower scale (1.2x), aggressive compression
+          imageQualityValue = Math.max(0.50, Math.min(0.70, (imageQuality[0] / 100) * 0.8));
+          renderScale = 1.2;
+          shouldRasterize = true; // Rasterize for maximum compression
+          break;
+        default:
+          imageQualityValue = 0.85;
+          renderScale = 1.5;
+          shouldRasterize = true;
+      }
 
       for (let i = 0; i < selectedFiles.length; i++) {
         const file = selectedFiles[i];
@@ -114,80 +370,265 @@ function CompressPdfContent() {
         });
 
         try {
-          // Load PDF document
           const pdfBytes = await file.arrayBuffer();
-          const pdfDoc = await PDFDocument.load(pdfBytes);
+          const originalPdfDoc = await PDFDocument.load(pdfBytes);
+          const originalSize = file.size;
 
-          // Apply compression settings based on level
-          let compressionOptions = {};
+          // Load with pdfjs to extract images
+          const loadingTask = pdfjsLib.getDocument({ data: pdfBytes });
+          const pdf = await loadingTask.promise;
+          const numPages = pdf.numPages;
+
+          let compressedPdfBytes: Uint8Array;
+          let finalQuality = imageQualityValue;
+          let finalScale = renderScale;
+          let finalShouldRasterize = shouldRasterize;
+
+          // If target size is enabled, use binary search to find optimal quality
+          if (targetSizeEnabled && targetSizeBytes !== null) {
+            if (targetSizeBytes >= originalSize) {
+              // Target size is larger than or equal to original, just optimize structure
+              compressedPdfBytes = await compressPdfWithSettings(
+                pdfBytes,
+                originalPdfDoc,
+                pdf,
+                numPages,
+                0.95,
+                2.0,
+                false,
+                PDFDocument,
+                pdfjsLib
+              );
+            } else {
+              // Force rasterization for target size mode
+              finalShouldRasterize = true;
+              
+              // Start with initial quality based on compression level
+              let minQuality = 0.1;
+              let maxQuality = 0.95;
+              let bestQuality = imageQualityValue;
+              let bestResult: Uint8Array | null = null;
+              let bestDiff = Infinity;
+              const tolerance = 0.05; // 5% tolerance
+
+              // Binary search for optimal quality (max 8 iterations to avoid too long processing)
+              for (let iteration = 0; iteration < 8; iteration++) {
+                finalQuality = (minQuality + maxQuality) / 2;
+                
+                // Adjust scale based on quality for better compression
+                if (finalQuality < 0.4) {
+                  finalScale = 1.0; // Very low quality, use lower scale
+                } else if (finalQuality < 0.6) {
+                  finalScale = 1.2;
+                } else if (finalQuality < 0.8) {
+                  finalScale = 1.5;
+                } else {
+                  finalScale = 2.0;
+                }
+
+                const testResult = await compressPdfWithSettings(
+                  pdfBytes,
+                  originalPdfDoc,
+                  pdf,
+                  numPages,
+                  finalQuality,
+                  finalScale,
+                  finalShouldRasterize,
+                  PDFDocument,
+                  pdfjsLib
+                );
+
+                const currentSize = testResult.length;
+                const diff = Math.abs(currentSize - targetSizeBytes);
+                const ratio = currentSize / targetSizeBytes;
+
+                // If we're within tolerance, use this result
+                if (ratio >= 0.95 && ratio <= 1.05) {
+                  bestResult = testResult;
+                  bestQuality = finalQuality;
+                  break;
+                }
+
+                // Track the best result so far
+                if (diff < bestDiff) {
+                  bestDiff = diff;
+                  bestResult = testResult;
+                  bestQuality = finalQuality;
+                }
+
+                // Adjust search range
+                if (currentSize > targetSizeBytes) {
+                  // Too large, reduce quality
+                  maxQuality = finalQuality;
+                } else {
+                  // Too small, increase quality
+                  minQuality = finalQuality;
+                }
+
+                // If range is very small, stop
+                if (maxQuality - minQuality < 0.05) {
+                  break;
+                }
+              }
+
+              compressedPdfBytes = bestResult || await compressPdfWithSettings(
+                pdfBytes,
+                originalPdfDoc,
+                pdf,
+                numPages,
+                bestQuality,
+                finalScale,
+                finalShouldRasterize,
+                PDFDocument,
+                pdfjsLib
+              );
+              finalQuality = bestQuality;
+            }
+          } else {
+            // Normal compression without target size
+            compressedPdfBytes = await compressPdfWithSettings(
+              pdfBytes,
+              originalPdfDoc,
+              pdf,
+              numPages,
+              imageQualityValue,
+              renderScale,
+              shouldRasterize,
+              PDFDocument,
+              pdfjsLib
+            );
+          }
           
-          switch (compressionLevel) {
-            case "light":
-              compressionOptions = {
+          const compressedSize = compressedPdfBytes.length;
+          let compressionRatio = Math.round(((originalSize - compressedSize) / originalSize) * 100);
+
+          // If compression increased size, try basic optimization instead
+          if (compressionRatio < 0 && compressionLevel !== "maximum") {
+            try {
+              const optimizedPdfDoc = await PDFDocument.load(pdfBytes);
+              const optimizedBytes = await optimizedPdfDoc.save({
                 useObjectStreams: true,
-                addDefaultPage: false,
-                subset: false,
-              };
-              break;
-            case "balanced":
-              compressionOptions = {
-                useObjectStreams: true,
-                addDefaultPage: false,
-                subset: true,
-              };
-              break;
-            case "maximum":
-              compressionOptions = {
-                useObjectStreams: true,
-                addDefaultPage: false,
-                subset: true,
-                compress: true,
-              };
-              break;
+              });
+              
+              const optimizedSize = optimizedBytes.length;
+              const optimizedRatio = Math.round(((originalSize - optimizedSize) / originalSize) * 100);
+              
+              // Use the better result
+              if (optimizedRatio > compressionRatio) {
+                const optimizedFile = new File([optimizedBytes.buffer as ArrayBuffer], file.name, {
+                  type: 'application/pdf'
+                });
+
+                results.push({
+                  file: optimizedFile,
+                  originalName: file.name,
+                  originalSize,
+                  compressedSize: optimizedSize,
+                  compressionRatio: Math.max(0, optimizedRatio),
+                  success: true,
+                });
+                continue;
+              }
+            } catch (optError) {
+              // Continue with original compression result
+            }
           }
 
-          // Note: pdf-lib has limited compression capabilities
-          // For a production app, you'd want to use more advanced compression
-          const compressedPdfBytes = await pdfDoc.save(compressionOptions);
-          
-          // Calculate compression ratio
-          const originalSize = file.size;
-          const compressedSize = compressedPdfBytes.length;
-          const compressionRatio = Math.round(((originalSize - compressedSize) / originalSize) * 100);
+          // Ensure we don't return a file larger than original (unless it's maximum mode)
+          if (compressionRatio < 0 && compressionLevel !== "maximum") {
+            // Return original file if compression made it worse
+            results.push({
+              file: file,
+              originalName: file.name,
+              originalSize,
+              compressedSize: originalSize,
+              compressionRatio: 0,
+              success: true,
+            });
+          } else {
+            const compressedFile = new File([compressedPdfBytes.buffer as ArrayBuffer], file.name, {
+              type: 'application/pdf'
+            });
 
-          // Create compressed file
-          const compressedFile = new File([compressedPdfBytes], file.name, {
-            type: 'application/pdf'
-          });
-
-          results.push({
-            file: compressedFile,
-            originalName: file.name,
-            originalSize,
-            compressedSize,
-            compressionRatio: Math.max(0, compressionRatio),
-            success: true,
-          });
+            results.push({
+              file: compressedFile,
+              originalName: file.name,
+              originalSize,
+              compressedSize,
+              compressionRatio: Math.max(0, compressionRatio),
+              success: true,
+            });
+          }
 
         } catch (error) {
-          results.push({
-            file: file,
-            originalName: file.name,
-            originalSize: file.size,
-            compressedSize: file.size,
-            compressionRatio: 0,
-            success: false,
-            error: error instanceof Error ? error.message : "Unknown error",
-          });
+          // Fallback: Try basic optimization
+          try {
+            const { PDFDocument } = await import('pdf-lib');
+            const pdfBytes = await file.arrayBuffer();
+            const pdfDoc = await PDFDocument.load(pdfBytes);
+            
+            const optimizedBytes = await pdfDoc.save({
+              useObjectStreams: true,
+            });
+            
+            const originalSize = file.size;
+            const compressedSize = optimizedBytes.length;
+            const compressionRatio = Math.round(((originalSize - compressedSize) / originalSize) * 100);
+
+            // Only use if it actually compresses
+            if (compressionRatio > 0) {
+              const compressedFile = new File([optimizedBytes.buffer as ArrayBuffer], file.name, {
+                type: 'application/pdf'
+              });
+
+              results.push({
+                file: compressedFile,
+                originalName: file.name,
+                originalSize,
+                compressedSize,
+                compressionRatio: compressionRatio,
+                success: true,
+              });
+            } else {
+              // Return original if optimization doesn't help
+              results.push({
+                file: file,
+                originalName: file.name,
+                originalSize,
+                compressedSize: originalSize,
+                compressionRatio: 0,
+                success: true,
+              });
+            }
+          } catch (fallbackError) {
+            results.push({
+              file: file,
+              originalName: file.name,
+              originalSize: file.size,
+              compressedSize: file.size,
+              compressionRatio: 0,
+              success: false,
+              error: error instanceof Error ? error.message : "Unknown error",
+            });
+          }
         }
       }
 
       setCompressedResults(results);
       const successCount = results.filter(r => r.success).length;
-      const totalSaved = results.reduce((sum, r) => sum + (r.originalSize - r.compressedSize), 0);
+      const totalSaved = results.reduce((sum, r) => sum + Math.max(0, r.originalSize - r.compressedSize), 0);
       
       if (successCount > 0) {
-        showToast(`Compressed ${successCount} PDF(s), saved ${formatFileSize(totalSaved)}`, "success");
+        const avgCompression = results
+          .filter(r => r.success && r.compressionRatio > 0)
+          .reduce((sum, r) => sum + r.compressionRatio, 0) / 
+          Math.max(1, results.filter(r => r.success && r.compressionRatio > 0).length);
+        
+        if (totalSaved > 0) {
+          showToast(`Compressed ${successCount} PDF(s), saved ${formatFileSize(totalSaved)} (avg ${Math.round(avgCompression)}% reduction)`, "success");
+        } else {
+          showToast(`Processed ${successCount} PDF(s) - files are already optimized`, "info");
+        }
       }
       const errorCount = results.filter(r => !r.success).length;
       if (errorCount > 0) {
@@ -369,9 +810,11 @@ function CompressPdfContent() {
               Fine-tune compression parameters
             </CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="space-y-4">
-              <div className="space-y-2">
+          <CardContent className="space-y-4">
+            {/* Image Quality and Target Size Side by Side */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Image Quality */}
+              <div className="space-y-2 p-4 rounded-xl border bg-gray-100">
                 <Label className="text-sm font-medium">
                   Image Quality: {imageQuality[0]}%
                 </Label>
@@ -382,10 +825,72 @@ function CompressPdfContent() {
                   min={10}
                   step={5}
                   className="w-full"
+                  disabled={targetSizeEnabled}
                 />
                 <p className="text-xs text-muted-foreground">
-                  Lower values = smaller files, higher values = better quality
+                  {targetSizeEnabled ? "Disabled when target size is set" : "Lower = smaller files, Higher = better quality"}
                 </p>
+              </div>
+
+              {/* Target Size Option */}
+              <div className="space-y-2 p-4 rounded-xl border bg-gray-100">
+                <div className="flex items-center justify-between">
+                  <Label className="text-sm font-medium">Target File Size</Label>
+                  <div className="flex items-center space-x-2">
+                    <input
+                      type="checkbox"
+                      id="target-size-enabled"
+                      checked={targetSizeEnabled}
+                      onChange={(e) => {
+                        setTargetSizeEnabled(e.target.checked);
+                        if (!e.target.checked) {
+                          setTargetSizeValue("");
+                        }
+                      }}
+                      className="h-4 w-4 rounded border-gray-300 text-primary focus:ring-primary cursor-pointer"
+                    />
+                    <Label htmlFor="target-size-enabled" className="text-xs text-muted-foreground cursor-pointer">
+                      Enable
+                    </Label>
+                  </div>
+                </div>
+                
+                {targetSizeEnabled ? (
+                  <div className="flex gap-2 items-center">
+                    <Input
+                      type="number"
+                      placeholder="Enter size"
+                      value={targetSizeValue}
+                      onChange={(e) => {
+                        const value = e.target.value;
+                        if (value === "" || (!isNaN(Number(value)) && Number(value) > 0)) {
+                          setTargetSizeValue(value);
+                        }
+                      }}
+                      min="0.1"
+                      step="0.1"
+                      className="flex-1 ring-1 ring-gray-400"
+                    />
+                    <Select value={targetSizeUnit} onValueChange={(value: "KB" | "MB") => setTargetSizeUnit(value)}>
+                      <SelectTrigger className="w-20 ring-1 ring-gray-400">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="KB">KB</SelectItem>
+                        <SelectItem value="MB">MB</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                ) : (
+                  <div className="flex items-center">
+                    <p className="text-xs text-muted-foreground">Optional: Set a specific file size target</p>
+                  </div>
+                )}
+                {targetSizeEnabled && (
+                  <p className="text-xs text-muted-foreground">
+                    Quality will auto-adjust to reach target size
+                  </p>
+                )}
               </div>
             </div>
 
