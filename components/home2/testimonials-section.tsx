@@ -56,15 +56,8 @@ export function TestimonialsSection() {
   ]
 
   return (
-    <section className="py-16 px-4 bg-white/50 dark:bg-black relative overflow-x-hidden w-full max-w-full">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-10 left-10 w-32 h-32 bg-yellow-400/10 rounded-full blur-2xl max-w-[90vw]"></div>
-        <div className="absolute bottom-10 right-10 w-40 h-40 bg-pink-400/10 rounded-full blur-2xl max-w-[90vw]"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[64rem] h-64 bg-blue-400/5 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-0 max-w-full">
+    <section className="py-16 px-4 bg-white dark:bg-black overflow-x-hidden w-full">
+      <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Trusted by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Professionals</span>
@@ -78,13 +71,12 @@ export function TestimonialsSection() {
           {testimonials.map((testimonial, index) => (
             <Card 
               key={index} 
-              className="border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-2 group"
-              style={{ animationDelay: `${index * 100}ms` }}
+              className="border-0 bg-white dark:bg-slate-800 hover:shadow-lg transition-shadow duration-200 transform-gpu"
             >
               <CardContent className="p-6">
                 {/* Quote Icon */}
                 <div className="flex justify-center mb-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white opacity-20 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full flex items-center justify-center text-white opacity-20 group-hover:opacity-100 transition-opacity duration-200">
                     <Quote className="h-6 w-6" />
                   </div>
                 </div>
@@ -125,7 +117,7 @@ export function TestimonialsSection() {
 
         {/* Trust Indicators */}
         <div className="mt-16 text-center px-2">
-          <div className="flex flex-col sm:flex-row items-center justify-around sm:justify-center w-full sm:w-fit mx-auto sm:gap-4 md:gap-8 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-4 sm:px-6 md:px-8 py-4 border border-slate-200 dark:border-slate-700 max-w-full">
+          <div className="flex flex-col sm:flex-row items-center justify-around sm:justify-center w-full sm:w-fit mx-auto sm:gap-4 md:gap-8 bg-white dark:bg-slate-800 rounded-2xl px-4 sm:px-6 md:px-8 py-4 border border-slate-200 dark:border-slate-700">
             <div className="text-center">
               <div className="text-lg md:text-2xl font-bold text-slate-800 dark:text-slate-200">1M+</div>
               <div className="text-xs sm:text-sm text-slate-600 dark:text-slate-400">Happy Users</div>

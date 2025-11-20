@@ -4,8 +4,10 @@ import { useCallback, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { UploadCloud, Link } from 'lucide-react';
+import { UploadCloud, Link, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
 import { validateImageFile, loadImageFromUrl, pasteImageFromClipboard, isValidUrl } from '@/lib/utils/file-utils';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
 
 interface FileUploadProps {
   onFileSelect: (files: File[]) => void;
@@ -14,6 +16,18 @@ interface FileUploadProps {
   accept?: string;
   maxFiles: number;
   className?: string;
+  collapsed?: boolean; // Manual control for collapsed state (optional)
+  onToggleCollapse?: () => void; // Callback to toggle collapse
+  autoCollapse?: boolean; // Automatically collapse when files are uploaded (default: true)
+  // Branded modal props
+  showBrandedModal?: boolean; // Enable/disable branded modal (default: true)
+  modalDuration?: number; // Duration in milliseconds (default: 2000)
+  onModalClose?: () => void; // Callback when modal closes
+  // Ad placement zones (for future use)
+  adSlotTop?: React.ReactNode; // Ad component to show above modal
+  adSlotBottom?: React.ReactNode; // Ad component to show below modal
+  adSlotLeft?: React.ReactNode; // Ad component to show left of modal
+  adSlotRight?: React.ReactNode; // Ad component to show right of modal
 }
 
 export function FileUpload({ 
@@ -22,11 +36,49 @@ export function FileUpload({
   multiple = false, 
   accept = 'image/*',
   maxFiles,
-  className = '' 
+  className = '',
+  collapsed: externalCollapsed,
+  onToggleCollapse,
+  autoCollapse = true,
+  showBrandedModal = true,
+  modalDuration = 2000,
+  onModalClose,
+  adSlotTop,
+  adSlotBottom,
+  adSlotLeft,
+  adSlotRight
 }: FileUploadProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+  const { resolvedTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Use external collapsed state if provided, otherwise use internal state
+  const collapsed = externalCollapsed !== undefined ? externalCollapsed : internalCollapsed;
+
+  // Wrapper for file selection that shows modal - defined first to avoid hoisting issues
+  const handleFileSelectWithModal = useCallback((files: File[]) => {
+    if (showBrandedModal && files.length > 0) {
+      setIsUploadModalOpen(true);
+      // Delay file selection slightly to show modal first
+      setTimeout(() => {
+        onFileSelect(files);
+        // Auto-collapse if enabled and not externally controlled
+        if (autoCollapse && externalCollapsed === undefined) {
+          setInternalCollapsed(true);
+        }
+      }, 100);
+    } else {
+      onFileSelect(files);
+      // Auto-collapse if enabled and not externally controlled
+      if (autoCollapse && externalCollapsed === undefined) {
+        setInternalCollapsed(true);
+      }
+    }
+  }, [onFileSelect, showBrandedModal, autoCollapse, externalCollapsed]);
 
   const handleFileValidation = useCallback((files: FileList | File[]) => {
     const fileArray = Array.from(files);
@@ -47,9 +99,9 @@ export function FileUpload({
     }
     
     if (validFiles.length > 0) {
-      onFileSelect(validFiles);
+      handleFileSelectWithModal(validFiles);
     }
-  }, [onFileSelect, onError, maxFiles]);
+  }, [handleFileSelectWithModal, onError, maxFiles]);
 
   const handleDragOver = useCallback((e: React.DragEvent) => {
     e.preventDefault();
@@ -106,7 +158,7 @@ export function FileUpload({
       const validation = validateImageFile(file);
       
       if (validation.valid) {
-        onFileSelect([file]);
+        handleFileSelectWithModal([file]);
         setUrlInput('');
       } else {
         onError(validation.error || 'Invalid image file');
@@ -125,7 +177,7 @@ export function FileUpload({
       if (file) {
         const validation = validateImageFile(file);
         if (validation.valid) {
-          onFileSelect([file]);
+          handleFileSelectWithModal([file]);
         } else {
           onError(validation.error || 'Invalid image file');
         }
@@ -138,6 +190,23 @@ export function FileUpload({
       setIsLoading(false);
     }
   }, [onFileSelect, onError]);
+
+  // Theme mounting
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  // Handle branded modal display
+  useEffect(() => {
+    if (isUploadModalOpen && showBrandedModal) {
+      const timer = setTimeout(() => {
+        setIsUploadModalOpen(false);
+        onModalClose?.();
+      }, modalDuration);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isUploadModalOpen, showBrandedModal, modalDuration, onModalClose]);
 
   // Add keyboard shortcut for Ctrl+V
   useEffect(() => {
@@ -163,11 +232,15 @@ export function FileUpload({
   }, [handlePaste, isLoading]);
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-4 transition-all duration-300 ${className}`}>
       {/* Main Upload Area */}
       <Card
         className={`
-          relative border-2 border-dashed transition-colors duration-200 cursor-pointer min-h-[280px]
+          relative border-2 border-dashed transition-all duration-300 overflow-hidden
+          ${collapsed 
+            ? 'min-h-[80px] cursor-pointer' 
+            : 'min-h-[280px] cursor-pointer'
+          }
           ${isDragOver 
             ? 'border-primary bg-primary/5' 
             : 'border-muted-foreground/25 hover:border-primary/50'
@@ -176,9 +249,53 @@ export function FileUpload({
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        onClick={() => document.getElementById('file-input')?.click()}
+        onClick={collapsed ? () => document.getElementById('file-input')?.click() : () => document.getElementById('file-input')?.click()}
       >
-        <div className="p-5 md:p-12 text-center">
+        {collapsed ? (
+          // Collapsed View
+          <div className="p-4 flex items-center justify-between">
+            <div 
+              className="flex items-center space-x-3 flex-1 cursor-pointer"
+              onClick={() => document.getElementById('file-input')?.click()}
+            >
+              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <UploadCloud className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold">Add More Images</h3>
+                <p className="text-xs text-muted-foreground">Click to upload or drag and drop</p>
+              </div>
+            </div>
+            {(onToggleCollapse || (autoCollapse && externalCollapsed === undefined)) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onToggleCollapse) {
+                    onToggleCollapse();
+                  } else if (autoCollapse && externalCollapsed === undefined) {
+                    setInternalCollapsed(!internalCollapsed);
+                  }
+                }}
+                className="flex-shrink-0"
+              >
+                <ChevronUp className="h-4 w-4" />
+              </Button>
+            )}
+            <input
+              id="file-input"
+              type="file"
+              accept={accept}
+              multiple={multiple}
+              onChange={handleFileInput}
+              className="hidden"
+            />
+          </div>
+        ) : (
+          // Expanded View
+          <>
+            <div className="p-5 md:p-12 text-center">
           {/* Cloud Upload Icon */}
           <div className="relative mb-6">
             <div className="mx-auto h-16 w-16 rounded-full bg-blue-100 flex items-center justify-center">
@@ -275,17 +392,18 @@ export function FileUpload({
               {isLoading ? 'Loading...' : 'Import'}
             </Button>
           </div> */}
-        </div>
-        
-        <input
-          id="file-input"
-          type="file"
-          accept={accept}
-          multiple={multiple}
-          onChange={handleFileInput}
-          className="hidden"
-        />
-        
+            </div>
+            
+            <input
+              id="file-input"
+              type="file"
+              accept={accept}
+              multiple={multiple}
+              onChange={handleFileInput}
+              className="hidden"
+            />
+          </>
+        )}
       </Card>
 
       {/* URL Import */}
@@ -335,6 +453,127 @@ export function FileUpload({
           </Button>
         </div>
       </Card> */}
+
+      {/* Branded Upload Modal with Ad Placement Zones */}
+      {isUploadModalOpen && showBrandedModal && (
+        <BrandedUploadModalContent
+          onClose={() => {
+            setIsUploadModalOpen(false);
+            onModalClose?.();
+          }}
+          duration={modalDuration}
+          mounted={mounted}
+          resolvedTheme={resolvedTheme}
+          adSlotTop={adSlotTop}
+          adSlotBottom={adSlotBottom}
+          adSlotLeft={adSlotLeft}
+          adSlotRight={adSlotRight}
+        />
+      )}
+    </div>
+  );
+}
+
+// Internal Branded Modal Component
+interface BrandedUploadModalContentProps {
+  onClose: () => void;
+  duration: number;
+  mounted: boolean;
+  resolvedTheme: string | undefined;
+  adSlotTop?: React.ReactNode;
+  adSlotBottom?: React.ReactNode;
+  adSlotLeft?: React.ReactNode;
+  adSlotRight?: React.ReactNode;
+}
+
+function BrandedUploadModalContent({
+  onClose,
+  duration,
+  mounted,
+  resolvedTheme,
+  adSlotTop,
+  adSlotBottom,
+  adSlotLeft,
+  adSlotRight
+}: BrandedUploadModalContentProps) {
+  const logoSrc = !mounted 
+    ? '/logo/black.webp'
+    : resolvedTheme === 'dark' 
+    ? '/logo/white.webp' 
+    : '/logo/black.webp';
+
+  return (
+    <div 
+      className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-md animate-in fade-in duration-300"
+      onClick={onClose}
+    >
+      {/* Ad Slot - Top */}
+      {adSlotTop && (
+        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
+          {adSlotTop}
+        </div>
+      )}
+
+      {/* Ad Slot - Left */}
+      {adSlotLeft && (
+        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
+          {adSlotLeft}
+        </div>
+      )}
+
+      {/* Ad Slot - Right */}
+      {adSlotRight && (
+        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
+          {adSlotRight}
+        </div>
+      )}
+
+      {/* Main Modal Content */}
+      <div 
+        className="bg-card border-2 border-primary/30 rounded-2xl shadow-2xl p-8 md:p-12 max-w-md w-full mx-4 transform animate-in zoom-in-95 duration-300 ring-2 ring-primary/10 relative"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex flex-col items-center space-y-6">
+          {/* Logo */}
+          <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
+            <Image
+              src={logoSrc}
+              alt="Toolspy"
+              width={128}
+              height={128}
+              className="w-full h-full object-contain"
+              priority
+            />
+          </div>
+
+          {/* Loading Spinner */}
+          <div className="flex flex-col items-center space-y-4">
+            <Loader2 className="h-8 w-8 text-primary animate-spin" />
+            <div className="text-center space-y-2">
+              <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
+                Uploading on Toolspy
+              </h3>
+              <p className="text-sm text-muted-foreground">
+                Processing your images...
+              </p>
+            </div>
+          </div>
+
+          {/* Branding Text */}
+          <div className="pt-4 border-t border-border w-full text-center">
+            <p className="text-xs text-muted-foreground">
+              Powered by <span className="font-semibold text-primary">Toolspy</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      {/* Ad Slot - Bottom */}
+      {adSlotBottom && (
+        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
+          {adSlotBottom}
+        </div>
+      )}
     </div>
   );
 } 

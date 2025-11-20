@@ -303,15 +303,10 @@ function FaviconGeneratorContent() {
                 </div>
               </CardHeader>
               <CardContent>
-                <ImagePreview
+              <ImagePreview
                   file={selectedFile}
-                  className="w-full h-48 object-cover rounded-lg"
+                  className="w-full object-cover rounded-lg"
                 />
-                <div className="mt-4 text-sm text-muted-foreground">
-                  <p><strong>Name:</strong> {selectedFile.name}</p>
-                  <p><strong>Size:</strong> {formatFileSize(selectedFile.size)}</p>
-                  <p><strong>Type:</strong> {selectedFile.type}</p>
-                </div>
               </CardContent>
             </Card>
 

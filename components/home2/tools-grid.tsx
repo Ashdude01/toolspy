@@ -169,14 +169,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   ];
 
   return (
-    <section id="tools" className="pt-8 pb-12 px-4 dark:bg-slate-950 w-full max-w-full overflow-x-hidden">
-      <div className="container mx-auto px-0 max-w-full">
+    <section id="tools" className="pt-8 pb-12 px-4 dark:bg-slate-950 w-full">
+      <div className="container mx-auto px-0">
         {/* Background Elements */}
-        <div className="absolute inset-0 -z-10 overflow-hidden">
-          <div className="absolute top-20 left-10 w-72 h-72 bg-blue-400/10 rounded-full blur-3xl animate-pulse max-w-[90vw]"></div>
-          <div className="absolute bottom-20 right-10 w-96 h-96 bg-purple-400/10 rounded-full blur-3xl animate-pulse delay-500 max-w-[90vw]"></div>
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[800px] h-[800px] bg-gradient-to-r from-blue-400/5 to-purple-400/5 rounded-full blur-3xl"></div>
-        </div>
 
         <div className="text-center max-w-7xl mx-auto">
           <div
@@ -230,7 +225,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="text-center p-4 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm rounded-xl border border-slate-200 dark:border-slate-700 hover:scale-105 transition-transform duration-300 group"
+                className="text-center p-4 bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow duration-200 transform-gpu"
               >
                 <div className="flex justify-center mb-2 text-blue-600 dark:text-blue-400 group-hover:scale-110 transition-transform duration-300">
                   {stat.icon}
@@ -258,7 +253,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               {/* <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div> */}
 
               {/* Main search container */}
-              <div className="relative px-2 sm:px-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-slate-200/50 dark:border-slate-700/50 shadow-xl group-hover:shadow-2xl transition-all duration-300 overflow-hidden w-full">
+              <div className="relative px-2 sm:px-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg group-hover:shadow-xl transition-shadow duration-200 w-full transform-gpu">
                 <div
                   // onSubmit={handleSubmit}
                   className="flex items-center py-2 flex-row gap-2 sm:gap-4 w-full"
@@ -343,24 +338,16 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         {/* Popular Tools Grid */}
         {!hasFilters && (
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 mb-12 px-2">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 mb-12 px-2">
             {popularTools.map((tool, index) => (
               <Link
                 key={tool.id}
                 href={`/${tool.slug}`}
                 className="group block"
-                style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="relative">
-                  {/* Background glow effect */}
-                  <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
-
+                <div className="relative transform-gpu">
                   {/* Main card */}
-                  <div className="relative min-h-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl border border-slate-300 dark:border-slate-700/50 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-500 p-6 overflow-hidden">
-                    {/* Animated border gradient */}
-                    <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[1px]">
-                      <div className="w-full h-full bg-white/90 dark:bg-slate-800/90 rounded-xl"></div>
-                    </div>
+                  <div className="relative min-h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
 
                     <div className="relative">
                       {/* Header with icon and badge */}
@@ -369,12 +356,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                           <div
                             className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(
                               tool.category
-                            )} rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                            )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                           >
                             {getCategoryIcon(tool.category)}
                           </div>
-                          {/* Floating particles effect */}
-                          <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-500"></div>
                         </div>
                         <Badge variant="outline" className="text-xs">
                           {toolCategories[tool.category]?.name}
@@ -383,7 +368,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
                       {/* Content */}
                       <div>
-                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                           {tool.name}
                         </h3>
                         <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
@@ -392,9 +377,6 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                       </div>
                     </div>
 
-                    {/* Decorative elements */}
-                    <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                    <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br from-pink-500/5 to-yellow-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
                   </div>
                 </div>
               </Link>
@@ -432,11 +414,11 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
             </div>
 
             {isLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {[...Array(6)].map((_, i) => (
                   <Card
                     key={i}
-                    className="border-0 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm"
+                    className="border-0 bg-white dark:bg-slate-800"
                   >
                     <CardHeader>
                       <div className="h-12 w-12 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
@@ -450,20 +432,15 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 ))}
               </div>
             ) : filteredTools.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
                 {filteredTools.map((tool, index) => (
                   <Link
                     key={tool.id}
                     href={`/${tool.slug}`}
-                    className="group block"
-                    style={{ animationDelay: `${index * 50}ms` }}
+                    className="group block transform-gpu"
                   >
                       {/* Main card */}
-                      <div className="relative h-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl border border-slate-300 dark:border-slate-700/50 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-xl transition-all duration-500 p-6 overflow-hidden">
-                        {/* Animated border gradient */}
-                        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[1px]">
-                          <div className="w-full h-full bg-white/90 dark:bg-slate-800/90 rounded-xl"></div>
-                        </div>
+                      <div className="relative h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
 
                         <div className="relative">
                           {/* Header with icon and badge */}
@@ -472,12 +449,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                               <div
                                 className={`w-12 h-10 bg-gradient-to-br ${getCategoryColor(
                                   tool.category
-                                )} rounded-lg flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                                )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                               >
                                 {getCategoryIcon(tool.category)}
                               </div>
-                              {/* Floating particles effect */}
-                              <div className="absolute -top-1 -right-1 w-3 h-3 bg-yellow-400 rounded-full opacity-0 group-hover:opacity-100 animate-ping transition-opacity duration-500"></div>
                             </div>
                             <Badge variant="outline" className="text-xs hidden md:block">
                               {toolCategories[tool.category]?.name}
@@ -486,7 +461,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
                           {/* Content */}
                           <div>
-                            <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                            <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                               {tool.name}
                             </h3>
                             <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">

@@ -96,15 +96,8 @@ export function BrowseCategoriesSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-100 dark:bg-black relative overflow-x-hidden w-full max-w-full">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full max-w-[96rem] h-96 bg-gradient-to-r from-blue-400/3 to-purple-400/3 rounded-full blur-3xl"></div>
-      </div>
-
-      <div className="container mx-auto px-0 max-w-full">
+    <section className="py-16 px-4 bg-gray-100 dark:bg-black overflow-x-hidden w-full">
+      <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <Badge
             variant="outline"
@@ -133,19 +126,9 @@ export function BrowseCategoriesSection() {
 
               return (
                 <Link key={categoryKey} href={`/tools?category=${categoryKey}`}>
-                  <div
-                    className="group relative cursor-pointer"
-                    style={{ animationDelay: `${index * 100}ms` }}
-                  >
-                    {/* Background glow effect */}
-                    <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div>
-
+                  <div className="group relative cursor-pointer transform-gpu">
                     {/* Main card */}
-                    <div className="relative bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-3xl border border-slate-200/50 dark:border-slate-700/50 shadow-lg group-hover:shadow-2xl transition-all duration-500 overflow-hidden h-full">
-                      {/* Animated border gradient */}
-                      <div className="absolute inset-0 rounded-3xl bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 opacity-0 group-hover:opacity-100 transition-opacity duration-500 p-[1px]">
-                        <div className="w-full h-full bg-white/90 dark:bg-slate-800/90 rounded-3xl"></div>
-                      </div>
+                    <div className="relative bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md group-hover:shadow-lg transition-shadow duration-200 overflow-hidden h-full">
 
                       <div className="relative p-6 h-full flex flex-col">
                         {/* Header with icon */}
@@ -153,7 +136,7 @@ export function BrowseCategoriesSection() {
                           <div
                             className={`w-16 h-16 bg-gradient-to-br ${getCategoryColor(
                               categoryType
-                            )} rounded-2xl flex items-center justify-center text-white shadow-lg group-hover:scale-110 group-hover:rotate-3 transition-all duration-500`}
+                            )} rounded-2xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                           >
                             {getCategoryIcon(categoryType)}
                           </div>
@@ -169,7 +152,7 @@ export function BrowseCategoriesSection() {
 
                         {/* Content */}
                         <div className="flex-1">
-                          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-300">
+                          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
                             {category.name}
                           </h3>
                           <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
@@ -195,18 +178,15 @@ export function BrowseCategoriesSection() {
 
                         {/* Action button */}
                         <div className="mt-auto">
-                          <Button className="w-full h-10 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 hover:from-blue-600 hover:to-purple-600 text-slate-700 dark:text-slate-200 hover:text-white border-0 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105">
+                          <Button className="w-full h-10 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 hover:from-blue-600 hover:to-purple-600 text-slate-700 dark:text-slate-200 hover:text-white border-0 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform-gpu">
                             <span className="font-semibold text-sm">
                               Explore Category
                             </span>
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-300" />
+                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
                           </Button>
                         </div>
                       </div>
 
-                      {/* Decorative elements */}
-                      <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                      <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br from-pink-500/5 to-yellow-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
                     </div>
                   </div>
                 </Link>
@@ -217,7 +197,7 @@ export function BrowseCategoriesSection() {
 
         {/* Bottom CTA */}
         <div className="text-center mt-12 px-2">
-          <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-2xl px-4 sm:px-8 py-4 border border-slate-200 dark:border-slate-700 w-full sm:w-auto max-w-full">
+          <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 rounded-2xl px-4 sm:px-8 py-4 border border-slate-200 dark:border-slate-700 w-full sm:w-auto">
             <div className="text-center sm:text-left">
               <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">
                 Can't find what you're looking for?
@@ -228,7 +208,7 @@ export function BrowseCategoriesSection() {
             </div>
 
             <Link href="/contact" className="w-full sm:w-auto">
-              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300 w-full sm:w-auto">
+              <Button className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-md hover:shadow-lg transition-shadow duration-200 w-full sm:w-auto transform-gpu">
                 <Sparkles className="h-4 w-4 mr-2" />
                 Request Tool
               </Button>

@@ -78,14 +78,8 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section id="features" className="py-16 px-4 bg-white/50 dark:bg-gray-900 relative overflow-x-hidden w-full max-w-full">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10 overflow-hidden">
-        <div className="absolute top-20 right-20 w-64 h-64 bg-blue-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
-        <div className="absolute bottom-20 left-20 w-80 h-80 bg-purple-400/5 rounded-full blur-3xl max-w-[90vw]"></div>
-      </div>
-
-      <div className="container mx-auto px-0 max-w-full">
+    <section id="features" className="py-16 px-4 bg-white dark:bg-gray-900 overflow-x-hidden w-full">
+      <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
             Why Choose <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Toolspy</span>?
@@ -99,7 +93,7 @@ export function FeaturesSection() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16 px-2">
           {features.map((feature, index) => (
             <div key={index} className="text-center group">
-              <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+              <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-105 transition-transform duration-200 shadow-md transform-gpu`}>
                 {feature.icon}
               </div>
               <h3 className="text-xl font-semibold mb-3 text-slate-800 dark:text-slate-200">
@@ -113,7 +107,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Additional Features */}
-        <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-3xl p-4 sm:p-8 border border-slate-200 dark:border-slate-700 mx-2">
+        <div className="bg-white dark:bg-slate-800 rounded-3xl p-4 sm:p-8 border border-slate-200 dark:border-slate-700 mx-2">
           <div className="text-center mb-8">
             <h3 className="text-2xl font-bold mb-2">
               Everything You Need for Professional Results
@@ -125,7 +119,7 @@ export function FeaturesSection() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {additionalFeatures.map((feature, index) => (
-              <div key={index} className="flex items-start space-x-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-300">
+              <div key={index} className="flex items-start space-x-4 p-4 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-700/50 transition-colors duration-200">
                 <div className="flex-shrink-0 w-10 h-10 bg-blue-100 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-blue-600 dark:text-blue-400">
                   {feature.icon}
                 </div>

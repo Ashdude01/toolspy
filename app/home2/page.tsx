@@ -10,7 +10,7 @@ export default function HomePageV2() {
   const [searchQuery, setSearchQuery] = useState("")
 
   return (
-    <div className="min-h-screen bg-gradient-to-br overflow-x-hidden w-full max-w-full from-slate-50 via-blue-50 to-indigo-50 dark:from-slate-900 dark:via-blue-950 dark:to-indigo-950">
+    <div className="min-h-screen bg-slate-50 dark:bg-slate-900 overflow-x-hidden w-full">
       <ToolsGrid searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       <BrowseCategoriesSection/>
       <FeaturesSection />

@@ -92,6 +92,7 @@ function ImageCompressorContent() {
   const afterUploadRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
     scrollToElement(afterUploadRef, 50);
@@ -334,11 +335,17 @@ function ImageCompressorContent() {
         multiple={true}
         maxFiles={100}
         className="mb-6 sm:mb-8"
+        autoCollapse={true}
+        showBrandedModal={true}
+        modalDuration={2000}
+        onModalClose={() => {
+          // Optional: Add any logic when modal closes
+        }}
       />
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <div ref={afterUploadRef}>
+        <div ref={afterUploadRef} className="animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
             {/* Selected Files Preview */}
             <Card className="mb-6 sm:mb-8 md:col-span-4 ">
@@ -473,6 +480,7 @@ function ImageCompressorContent() {
                     placeholder="Auto"
                     value={targetFileSize}
                     onChange={(e) => setTargetFileSize(e.target.value)}
+                    className="ring-1 ring-gray-400"
                   />
                 </div>
 
@@ -653,13 +661,13 @@ function ImageCompressorContent() {
 
       {/* Compression Results */}
       {compressedResults.length > 0 && (
-        <Card ref={resultsRef}>
+        <Card ref={resultsRef} className="animate-in fade-in slide-in-from-bottom-4 duration-500">
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Compression Results</CardTitle>
+                <CardTitle className="text-lg">Compression Results</CardTitle>
                 <CardDescription>
-                  {compressedResults.length} image(s) compressed successfully
+                  {compressedResults.length} image(s) compressed successfully on <span className="font-semibold text-primary">Toolspy</span>
                 </CardDescription>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
