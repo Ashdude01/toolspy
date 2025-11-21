@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import Link from 'next/link';
 import StaticPageSchema from '@/components/seo/StaticPageSchema';
+import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'Help Center - Toolspy Support and Documentation',
@@ -132,6 +133,15 @@ export default function HelpPage() {
   return (
     <>
       <StaticPageSchema pageType="help" />
+      <WebPageSchema
+        title="Help Center - Toolspy Support and Documentation"
+        description="Get help with Toolspy online tools. Find answers to common questions, troubleshooting guides, and learn how to use our free utilities effectively."
+        url="https://toolspy.net/help"
+        breadcrumbs={[
+          { name: "Home", url: "https://toolspy.net" },
+          { name: "Help Center", url: "https://toolspy.net/help" }
+        ]}
+      />
       <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">

@@ -8,6 +8,7 @@ import { PWAWrapper } from '@/components/pwa-wrapper'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
 import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
+import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -97,6 +98,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
         <GoogleTagManager />
+        {/* Comprehensive Structured Data Schemas */}
+        <ComprehensiveSchemas />
       </head>
       <body className={inter.className}>
         <GoogleTagManagerNoScript />

@@ -7,6 +7,7 @@ import { Label } from '@/components/ui/label';
 import { Mail, MessageSquare, Bug, Lightbulb, HelpCircle, Github } from 'lucide-react';
 import Link from 'next/link';
 import StaticPageSchema from '@/components/seo/StaticPageSchema';
+import { WebPageSchema, FAQSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'Contact Toolspy - Get Support and Share Feedback',
@@ -50,9 +51,38 @@ export default function ContactPage() {
     }
   ];
 
+  const faqs = [
+    {
+      question: "How quickly do you respond?",
+      answer: "We typically respond to all inquiries within 24 hours during business days. For urgent technical issues, we aim to respond even faster."
+    },
+    {
+      question: "Can you add a specific tool?",
+      answer: "Absolutely! We love hearing suggestions for new tools. Visit our feature request page to submit ideas and vote on existing requests."
+    },
+    {
+      question: "Is Toolspy really free?",
+      answer: "Yes! All our tools are completely free with no hidden costs, premium tiers, or usage limits. We believe professional tools should be accessible to everyone."
+    },
+    {
+      question: "How do you ensure privacy?",
+      answer: "Most of our tools process files entirely in your browser, meaning your data never leaves your device. We don't collect personal information or track usage."
+    }
+  ];
+
   return (
     <>
       <StaticPageSchema pageType="contact" />
+      <WebPageSchema
+        title="Contact Toolspy - Get Support and Share Feedback"
+        description="Get in touch with the Toolspy team. Report bugs, request features, or get help with our online tools. We're here to help!"
+        url="https://toolspy.net/contact"
+        breadcrumbs={[
+          { name: "Home", url: "https://toolspy.net" },
+          { name: "Contact", url: "https://toolspy.net/contact" }
+        ]}
+      />
+      <FAQSchema faqs={faqs} />
       <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">

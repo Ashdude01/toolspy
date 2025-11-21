@@ -5,6 +5,7 @@ import { ToolsGrid } from "@/components/home2/tools-grid"
 import { FeaturesSection } from "@/components/home2/features-section"
 import { TestimonialsSection } from "@/components/home2/testimonials-section"
 import { BrowseCategoriesSection } from "@/components/home2/BrowseCategoriesSection"
+import { HomeSeoContent } from "@/components/sections/home-seo-content"
 
 export default function HomePageV2() {
   const [searchQuery, setSearchQuery] = useState("")
@@ -14,6 +15,7 @@ export default function HomePageV2() {
       <ToolsGrid searchQuery={searchQuery} onSearchChange={setSearchQuery} />
       <BrowseCategoriesSection/>
       <FeaturesSection />
+      <HomeSeoContent />
       <TestimonialsSection />
     </div>
   )

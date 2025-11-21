@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Scale, Shield, Users, AlertTriangle } from 'lucide-react';
+import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'Terms and Conditions - Toolspy Online Tools',
@@ -35,7 +36,17 @@ export default function TermsPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 space-y-12">
+    <>
+      <WebPageSchema
+        title="Terms and Conditions - Toolspy Online Tools"
+        description="Read Toolspy's terms and conditions. Understand your rights and responsibilities when using our free online tools platform."
+        url="https://toolspy.net/terms"
+        breadcrumbs={[
+          { name: "Home", url: "https://toolspy.net" },
+          { name: "Terms and Conditions", url: "https://toolspy.net/terms" }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div className="space-y-4">
@@ -294,5 +305,6 @@ export default function TermsPage() {
         </Card>
       </section>
     </div>
+    </>
   );
 } 

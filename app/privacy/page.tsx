@@ -1,6 +1,7 @@
 import { Metadata } from 'next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Shield, Eye, Lock, Server, Database, Users } from 'lucide-react';
+import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Toolspy Online Tools',
@@ -35,7 +36,17 @@ export default function PrivacyPage() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-12 space-y-12">
+    <>
+      <WebPageSchema
+        title="Privacy Policy - Toolspy Online Tools"
+        description="Read Toolspy's privacy policy. Learn how we protect your data with client-side processing and our commitment to zero data collection."
+        url="https://toolspy.net/privacy"
+        breadcrumbs={[
+          { name: "Home", url: "https://toolspy.net" },
+          { name: "Privacy Policy", url: "https://toolspy.net/privacy" }
+        ]}
+      />
+      <div className="container mx-auto px-4 py-12 space-y-12">
       {/* Hero Section */}
       <section className="text-center space-y-6">
         <div className="space-y-4">
@@ -251,5 +262,6 @@ export default function PrivacyPage() {
         </Card>
       </section>
     </div>
+    </>
   );
 } 

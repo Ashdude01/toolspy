@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Target, Users, Shield, Zap, Heart, Globe, Award, TrendingUp, Clock, CheckCircle, Star, ArrowRight, Download, Lock, Smartphone, Code, Calculator, FileText, Image, Palette } from 'lucide-react';
 import Link from 'next/link';
 import StaticPageSchema from '@/components/seo/StaticPageSchema';
+import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'About Toolspy - Professional Online Tools Platform',
@@ -140,6 +141,15 @@ export default function AboutPage() {
   return (
     <>
       <StaticPageSchema pageType="about" />
+      <WebPageSchema
+        title="About Toolspy - Professional Online Tools Platform"
+        description="Learn about Toolspy, your trusted destination for professional online tools. Discover our mission to provide free, secure, and reliable digital utilities for image compression, PDF conversion, calculators, and more."
+        url="https://toolspy.net/about"
+        breadcrumbs={[
+          { name: "Home", url: "https://toolspy.net" },
+          { name: "About", url: "https://toolspy.net/about" }
+        ]}
+      />
       <div className="container mx-auto px-4 py-12 space-y-16">
         {/* Hero Section */}
         <section className="text-center space-y-8">
