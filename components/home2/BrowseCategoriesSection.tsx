@@ -125,7 +125,7 @@ export function BrowseCategoriesSection() {
               const stats = getCategoryStats(categoryType);
 
               return (
-                <Link key={categoryKey} href={`/tools?category=${categoryKey}`}>
+                <Link key={categoryKey} href={`/tools/${categoryKey}`}>
                   <div className="group relative cursor-pointer transform-gpu">
                     {/* Main card */}
                     <div className="relative bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md group-hover:shadow-lg transition-shadow duration-200 overflow-hidden h-full">

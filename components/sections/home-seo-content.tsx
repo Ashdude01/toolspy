@@ -629,6 +629,7 @@ export function HomeSeoContent({faqData}: any) {
           </div>
         </div>
       </section>
+      
     </div>
   );
 } 

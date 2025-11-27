@@ -97,6 +97,7 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
+        <meta name="google-adsense-account" content="ca-pub-8490028444671399" />
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />

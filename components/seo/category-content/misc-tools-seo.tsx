@@ -245,7 +245,7 @@ export function MiscToolsSEOContent() {
   ]);
 
   return (
-    <div className="space-y-12 mt-16">
+        <div className="space-y-12 mt-16 container max-w-7xl mx-auto px-4 py-4">
       {/* Related Tools */}
       <RelatedTools
         currentToolSlug="misc-tools"
@@ -350,31 +350,14 @@ export function MiscToolsSEOContent() {
               </div>
 
               <div className="relative">
-                <div className="bg-gradient-to-br from-orange-50 to-red-50 dark:from-orange-950/20 dark:to-red-950/20 rounded-2xl p-8 border border-orange-200 dark:border-orange-800">
-                  <div className="grid grid-cols-2 gap-4">
-                    {miscTools.slice(0, 4).map((tool, index) => (
-                      <Link
-                        key={tool.id}
-                        href={`/${tool.slug}`}
-                        className="group p-4 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-600 transition-all duration-300 hover:shadow-lg"
-                      >
-                        <div className="flex items-center space-x-3">
-                          <div className="p-2 bg-orange-100 dark:bg-orange-900/30 rounded-lg">
-                            <Wrench className="h-5 w-5 text-orange-600 dark:text-orange-400" />
-                          </div>
-                          <div>
-                            <h3 className="font-semibold text-sm text-gray-900 dark:text-gray-100 group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
-                              {tool.name}
-                            </h3>
-                            <p className="text-xs text-gray-500 dark:text-gray-400">
-                              {tool.description.split(' ').slice(0, 4).join(' ')}...
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </div>
+              <NextImage
+                  width={1200}
+                  height={680}
+                  src="https://res.cloudinary.com/drby9raee/image/upload/Utility_Tools_onghse.png"
+                  alt="Misc Utility Tools"
+                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
+                  loading="lazy"
+                />
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-orange-500 to-red-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                   ✨ Professional
                 </div>
