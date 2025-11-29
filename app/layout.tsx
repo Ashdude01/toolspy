@@ -98,6 +98,13 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
         <meta name="google-adsense-account" content="ca-pub-8490028444671399" />
+        <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
+<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
+<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
+<script>
+    window.ezstandalone = window.ezstandalone || {};
+    ezstandalone.cmd = ezstandalone.cmd || [];
+</script>
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />

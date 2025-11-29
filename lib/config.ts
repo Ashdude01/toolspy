@@ -26,6 +26,13 @@ export const siteConfig = {
     enableAnalytics: !!process.env.NEXT_PUBLIC_GTM_ID,
   },
   
+  // Ezoic Ads Configuration
+  ezoic: {
+    enabled: process.env.NEXT_PUBLIC_EZOIC_ENABLED === 'true',
+    publisherId: process.env.NEXT_PUBLIC_EZOIC_PUBLISHER_ID || '19390',
+    adsTxtManagerUrl: `https://srv.adstxtmanager.com/${process.env.NEXT_PUBLIC_EZOIC_PUBLISHER_ID || '19390'}/${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'toolspy.net'}`,
+  },
+  
   // SEO
   keywords: [
     'online tools',
