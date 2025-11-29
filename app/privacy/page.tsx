@@ -105,8 +105,16 @@ export default function PrivacyPage() {
             <div>
               <h4 className="font-semibold mb-2">Usage Analytics</h4>
               <p className="text-sm text-muted-foreground">
-                We do not use analytics services, tracking pixels, or any other monitoring tools. 
-                We have no visibility into how you use our tools or what files you process.
+                We use Google Analytics and other analytics services to understand how visitors interact with our website. 
+                This helps us improve our services and user experience. Analytics data is collected anonymously and aggregated.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Advertising Data</h4>
+              <p className="text-sm text-muted-foreground">
+                We use advertising services (Google AdSense, Ezoic) that may collect information about your browsing behavior 
+                to serve relevant advertisements. This information is collected through cookies and similar technologies as 
+                described in the Advertising Services section below.
               </p>
             </div>
           </CardContent>
@@ -181,6 +189,135 @@ export default function PrivacyPage() {
               <p className="text-sm text-muted-foreground">
                 Our website is hosted on secure cloud infrastructure. Standard server logs may be 
                 generated for security and operational purposes.
+              </p>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardHeader>
+            <CardTitle>Google AdSense and Third-Party Advertising</CardTitle>
+            <CardDescription>Advertising services and personalized ads</CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              This website uses Google AdSense, a service for including advertisements from Google Inc. ("Google"). 
+              Google AdSense uses cookies and similar technologies to analyze your use of this website and to serve 
+              advertisements based on your interests and browsing behavior.
+            </p>
+            
+            <div>
+              <h4 className="font-semibold mb-2">Google AdSense Cookies</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Google, as a third-party vendor, uses cookies to serve ads on this site. Google's use of the DART cookie 
+                enables it to serve ads to users based on their visit to this site and other sites on the Internet. 
+                DART uses "non-personally identifiable information" and does NOT track personal information about you, 
+                such as your name, email address, physical address, etc.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                You may opt out of the use of the DART cookie by visiting the{' '}
+                <a 
+                  href="https://www.google.com/privacy_ads.html" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Google ad and content network privacy policy
+                </a>.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Third-Party Vendors and Ad Networks</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                Third-party vendors, including Google, use cookies to serve ads based on a user's prior visits to this 
+                website or other websites. Google's use of advertising cookies enables it and its partners to serve ads 
+                to users based on their visit to this site and/or other sites on the Internet.
+              </p>
+              <p className="text-sm text-muted-foreground">
+                You may opt out of personalized advertising by visiting{' '}
+                <a 
+                  href="https://www.google.com/settings/ads" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Google's Ads Settings
+                </a>
+                {' '}or{' '}
+                <a 
+                  href="https://www.aboutads.info/choices/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  www.aboutads.info
+                </a>.
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Information Collected by AdSense</h4>
+              <p className="text-sm text-muted-foreground mb-2">
+                When you visit this website, Google AdSense and its advertising partners may collect the following types 
+                of information:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground ml-4">
+                <li>Your IP address</li>
+                <li>Browser type and version</li>
+                <li>Operating system</li>
+                <li>Pages you visit on this site and other sites</li>
+                <li>Time and date of your visit</li>
+                <li>Referring website addresses</li>
+                <li>Device identifiers</li>
+                <li>Geographic location (general)</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">How AdSense Uses Information</h4>
+              <p className="text-sm text-muted-foreground">
+                Google uses the information collected through AdSense to:
+              </p>
+              <ul className="list-disc list-inside space-y-1 text-sm text-muted-foreground ml-4 mt-2">
+                <li>Serve relevant advertisements to you</li>
+                <li>Measure the effectiveness of advertisements</li>
+                <li>Prevent fraud and abuse</li>
+                <li>Improve advertising services</li>
+                <li>Comply with legal obligations</li>
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold mb-2">Google's Privacy Policies</h4>
+              <p className="text-sm text-muted-foreground">
+                For more information about how Google uses data when you use our site, please visit{' '}
+                <a 
+                  href="https://policies.google.com/technologies/partner-sites" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  How Google uses data when you use our partners' sites or apps
+                </a>
+                . You can also review{' '}
+                <a 
+                  href="https://policies.google.com/privacy" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Google's Privacy Policy
+                </a>
+                {' '}and{' '}
+                <a 
+                  href="https://policies.google.com/technologies/ads" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Google's Advertising Privacy Policy
+                </a>.
               </p>
             </div>
           </CardContent>
@@ -301,10 +438,28 @@ export default function PrivacyPage() {
               </p>
             </div>
             <div>
+              <h4 className="font-semibold mb-2">Advertising Cookies</h4>
+              <p className="text-sm text-muted-foreground">
+                We use advertising cookies from Google AdSense, Ezoic, and their partners to serve personalized 
+                advertisements. These cookies help advertisers show you relevant ads based on your browsing 
+                history and interests. You can opt out of personalized advertising through your browser settings 
+                or by visiting the opt-out pages provided in the Advertising Services section above.
+              </p>
+            </div>
+            <div>
               <h4 className="font-semibold mb-2">Local Storage</h4>
               <p className="text-sm text-muted-foreground">
                 Some tools may temporarily store processing results in your browser's local storage 
                 for your convenience. This data never leaves your device and can be cleared at any time.
+              </p>
+            </div>
+            <div>
+              <h4 className="font-semibold mb-2">Managing Cookies</h4>
+              <p className="text-sm text-muted-foreground">
+                You can control and manage cookies through your browser settings. Most browsers allow you to 
+                refuse or accept cookies, delete existing cookies, or receive a notification before a cookie 
+                is stored. Please note that disabling cookies may affect the functionality of this website 
+                and may result in non-personalized advertisements.
               </p>
             </div>
           </CardContent>
@@ -317,13 +472,34 @@ export default function PrivacyPage() {
           </CardHeader>
           <CardContent className="space-y-4">
             <p className="text-sm text-muted-foreground">
-              Since we don't collect personal data, most traditional data protection rights don't apply. However:
+              You have the following rights regarding your data and privacy:
             </p>
             <ul className="list-disc list-inside space-y-2 text-sm text-muted-foreground">
               <li>You can use our tools completely anonymously</li>
+              <li>You can opt out of personalized advertising through{' '}
+                <a 
+                  href="https://www.google.com/settings/ads" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  Google's Ads Settings
+                </a>
+                {' '}or{' '}
+                <a 
+                  href="https://www.aboutads.info/choices/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  www.aboutads.info
+                </a>
+              </li>
+              <li>You can control cookies through your browser settings</li>
               <li>You can clear any local storage data through your browser settings</li>
               <li>You can contact us with any privacy-related questions or concerns</li>
               <li>You can request information about our data practices at any time</li>
+              <li>You have the right to know what data is collected and how it's used</li>
             </ul>
           </CardContent>
         </Card>
