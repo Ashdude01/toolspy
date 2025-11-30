@@ -274,7 +274,6 @@ Generated on: ${new Date().toLocaleString()}
         onError={handleError}
         multiple={false}
         maxFiles={1}
-        className="mb-6 sm:mb-8"
       />
 
       {/* Selected File and Settings */}

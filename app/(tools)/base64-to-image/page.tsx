@@ -240,13 +240,13 @@ function Base64ToImageContent() {
   const isValidInput = base64Input.trim() && isValidBase64(base64Input);
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-6xl">
+    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h1 className="text-4xl font-bold mb-4">
+      <div className="text-center mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
           Base64 to Image Converter
         </h1>
-        <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+        <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           Convert Base64 encoded strings back to image files with Toolspy's
           secure converter. Supports all major image formats with instant
           processing.
@@ -254,28 +254,29 @@ function Base64ToImageContent() {
       </div>
 
       {/* Input Section */}
-      <Card className="mb-8">
+      <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <div className="flex items-center justify-between">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <CardTitle className="flex items-center space-x-2">
-                <FileText className="h-5 w-5" />
+              <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+                <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
                 <span>Base64 Input</span>
               </CardTitle>
-              <CardDescription>
+              <CardDescription className="text-xs sm:text-sm">
                 Paste your Base64 string (with or without data URL prefix)
               </CardDescription>
             </div>
-            <div className="flex items-center space-x-2">
+            <div className="flex items-center space-x-2 flex-wrap gap-2">
               <Button
                 variant="outline"
                 size="sm"
                 onClick={handlePasteFromClipboard}
+                className="flex-1 sm:flex-initial"
               >
                 <Clipboard className="h-4 w-4 mr-2" />
                 Paste
               </Button>
-              <Button variant="outline" size="sm" onClick={handleClearInput}>
+              <Button variant="outline" size="sm" onClick={handleClearInput} className="flex-1 sm:flex-initial">
                 <RotateCcw className="h-4 w-4 mr-2" />
                 Clear
               </Button>
@@ -287,18 +288,18 @@ function Base64ToImageContent() {
             placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA... or just the Base64 string"
             value={base64Input}
             onChange={(e) => handleInputChange(e.target.value)}
-            className="min-h-32 font-mono text-sm"
+            className="min-h-32 font-mono text-xs sm:text-sm"
             rows={6}
           />
 
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 text-xs sm:text-sm text-muted-foreground">
+            <div className="flex items-center flex-wrap gap-2 sm:gap-4">
               <span>{inputLength.toLocaleString()} characters</span>
               {inputLength > 0 && (
                 <span>~{formatFileSize(getBase64Size(base64Input))}</span>
               )}
               {isValidInput && (
-                <Badge variant="secondary">
+                <Badge variant="secondary" className="text-xs">
                   {getBase64ImageFormat(base64Input)} format detected
                 </Badge>
               )}
@@ -306,7 +307,8 @@ function Base64ToImageContent() {
             <Button
               onClick={handleDecode}
               disabled={!isValidInput || isDecoding}
-              className="px-6"
+              className="px-4 sm:px-6 text-sm sm:text-base w-full sm:w-auto"
+              size="sm"
             >
               {isDecoding ? "Decoding..." : "Decode to Image"}
             </Button>
@@ -318,26 +320,26 @@ function Base64ToImageContent() {
       {decodedImage && (
         <Card>
           <CardHeader>
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle className="flex items-center space-x-2">
-                  <ImageIcon className="h-5 w-5" />
+                <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
+                  <ImageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
                   <span>Decoded Image</span>
                 </CardTitle>
-                <CardDescription>
+                <CardDescription className="text-xs sm:text-sm">
                   Successfully decoded {decodedImage.format} image
                 </CardDescription>
               </div>
-              <div className="flex items-center space-x-2">
-                <Button variant="outline" size="sm" onClick={handleShare}>
+              <div className="flex items-center space-x-2 flex-wrap gap-2">
+                <Button variant="outline" size="sm" onClick={handleShare} className="flex-1 sm:flex-initial">
                   <Share2 className="h-4 w-4 mr-2" />
                   Share
                 </Button>
-                <Button variant="outline" size="sm" onClick={handleCopyImage}>
+                <Button variant="outline" size="sm" onClick={handleCopyImage} className="flex-1 sm:flex-initial">
                   <Copy className="h-4 w-4 mr-2" />
                   Copy
                 </Button>
-                <Button size="sm" onClick={handleDownload}>
+                <Button size="sm" onClick={handleDownload} className="flex-1 sm:flex-initial">
                   <Download className="h-4 w-4 mr-2" />
                   Download
                 </Button>
@@ -365,27 +367,27 @@ function Base64ToImageContent() {
             </div>
 
             {/* Image Information */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
               <div>
-                <span className="text-muted-foreground">Format:</span>
-                <div className="font-medium">{decodedImage.format}</div>
+                <span className="text-muted-foreground block mb-1">Format:</span>
+                <div className="font-medium text-sm sm:text-base">{decodedImage.format}</div>
               </div>
               <div>
-                <span className="text-muted-foreground">Dimensions:</span>
-                <div className="font-medium">
+                <span className="text-muted-foreground block mb-1">Dimensions:</span>
+                <div className="font-medium text-sm sm:text-base">
                   {decodedImage.dimensions.width} ×{" "}
                   {decodedImage.dimensions.height}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground">File Size:</span>
-                <div className="font-medium">
+                <span className="text-muted-foreground block mb-1">File Size:</span>
+                <div className="font-medium text-sm sm:text-base">
                   {formatFileSize(decodedImage.size)}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground">Input Length:</span>
-                <div className="font-medium">
+                <span className="text-muted-foreground block mb-1">Input Length:</span>
+                <div className="font-medium text-sm sm:text-base">
                   {inputLength.toLocaleString()} chars
                 </div>
               </div>
@@ -415,11 +417,11 @@ function Base64ToImageContent() {
       )}
 
       {/* Help Section */}
-      <Card className="mt-8">
+      <Card className="mt-6 sm:mt-8">
         <CardHeader>
-          <CardTitle>How to Use</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">How to Use</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3 text-sm">
+        <CardContent className="space-y-3 text-xs sm:text-sm">
           <div className="flex items-start space-x-3">
             <div className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-medium">
               1

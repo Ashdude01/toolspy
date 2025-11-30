@@ -326,7 +326,6 @@ function ImageOptimizerContent() {
             accept="image/*"
             multiple
             maxFiles={maxFiles}
-            className="mb-6 sm:mb-8"
           />
 
       {/* Optimization Settings */}

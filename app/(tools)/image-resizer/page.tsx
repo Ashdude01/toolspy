@@ -454,7 +454,6 @@ function ImageResizerContent() {
         accept="image/*"
         multiple
         maxFiles={maxFiles}
-            className="mb-6"
           />
           
           {files.length > 0 && (

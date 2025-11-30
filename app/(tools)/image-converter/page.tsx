@@ -279,7 +279,6 @@ function ImageConverterContent() {
         onError={handleError}
         multiple={true}
         maxFiles={50}
-        className="mb-6 sm:mb-8"
       />
 
 

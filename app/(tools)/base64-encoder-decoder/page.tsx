@@ -217,29 +217,34 @@ function Base64EncoderDecoderContent() {
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="flex items-center gap-4 mb-4">
+          <div className="flex items-center gap-2 sm:gap-4 mb-4">
             <Button
               variant={mode === 'encode' ? 'default' : 'outline'}
               onClick={() => setMode('encode')}
-              className="flex-1"
+              className="flex-1 text-xs sm:text-sm"
+              size="sm"
             >
-              <Code className="h-4 w-4 mr-2" />
-              Encode Text
+              <Code className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Encode Text</span>
+              <span className="sm:hidden">Encode</span>
             </Button>
             <Button
               variant="outline"
               onClick={handleSwapMode}
-              className="px-3"
+              className="px-2 sm:px-3"
+              size="sm"
             >
-              <ArrowUpDown className="h-4 w-4" />
+              <ArrowUpDown className="h-3 w-3 sm:h-4 sm:w-4" />
             </Button>
             <Button
               variant={mode === 'decode' ? 'default' : 'outline'}
               onClick={() => setMode('decode')}
-              className="flex-1"
+              className="flex-1 text-xs sm:text-sm"
+              size="sm"
             >
-              <FileText className="h-4 w-4 mr-2" />
-              Decode Base64
+              <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
+              <span className="hidden sm:inline">Decode Base64</span>
+              <span className="sm:hidden">Decode</span>
             </Button>
           </div>
           
@@ -336,11 +341,11 @@ function Base64EncoderDecoderContent() {
               className="min-h-32 font-mono text-sm"
             />
             
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
               <span>Characters: {getCharacterCount(inputText)}</span>
               <span>Bytes: {getByteSize(inputText)}</span>
               {mode === 'decode' && inputText && (
-                <span className={isValidBase64(inputText) ? 'text-green-600' : 'text-red-600'}>
+                <span className={`text-xs sm:text-sm ${isValidBase64(inputText) ? 'text-green-600' : 'text-red-600'}`}>
                   {isValidBase64(inputText) ? '✓ Valid Base64' : '✗ Invalid Base64'}
                 </span>
               )}
@@ -430,11 +435,11 @@ function Base64EncoderDecoderContent() {
               className="min-h-32 font-mono text-sm bg-muted"
             />
             
-            <div className="flex items-center gap-4 text-sm text-muted-foreground">
+            <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
               <span>Characters: {getCharacterCount(outputText)}</span>
               <span>Bytes: {getByteSize(outputText)}</span>
               {mode === 'encode' && outputText && (
-                <span className="text-green-600">
+                <span className="text-green-600 text-xs sm:text-sm">
                   Size change: {((getByteSize(outputText) - getByteSize(inputText)) / getByteSize(inputText) * 100).toFixed(1)}%
                 </span>
               )}

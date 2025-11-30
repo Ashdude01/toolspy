@@ -334,7 +334,6 @@ function ImageCompressorContent() {
         onError={handleError}
         multiple={true}
         maxFiles={100}
-        className="mb-6 sm:mb-8"
         autoCollapse={true}
         showBrandedModal={true}
         modalDuration={2000}

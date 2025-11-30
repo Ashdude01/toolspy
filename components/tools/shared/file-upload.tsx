@@ -232,7 +232,7 @@ export function FileUpload({
   }, [handlePaste, isLoading]);
 
   return (
-    <div className={`space-y-4 transition-all duration-300 ${className}`}>
+    <div className={`space-y-4 transition-all duration-300 mb-6 sm:mb-8 ${className}`}>
       {/* Main Upload Area */}
       <Card
         className={`
