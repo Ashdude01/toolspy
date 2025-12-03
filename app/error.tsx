@@ -115,7 +115,7 @@ export default function Error({ error, reset }: ErrorProps) {
                           {action.priority === 'high' && <AlertTriangle className="h-4 w-4 text-red-500" />}
                           {action.priority === 'medium' && <Clock className="h-4 w-4 text-yellow-500" />}
                           {action.priority === 'low' && <Shield className="h-4 w-4 text-blue-500" />}
-                          <span className="text-sm font-medium">{action.label}</span>
+                          <span className="text-sm font-medium text-black">{action.label}</span>
                         </div>
                       </div>
                     ))}

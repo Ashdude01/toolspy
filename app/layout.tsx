@@ -98,13 +98,6 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
         <meta name="google-adsense-account" content="ca-pub-8490028444671399" />
-        <script src="https://cmp.gatekeeperconsent.com/min.js" data-cfasync="false"></script>
-<script src="https://the.gatekeeperconsent.com/cmp.min.js" data-cfasync="false"></script>
-<script async src="//www.ezojs.com/ezoic/sa.min.js"></script>
-<script>
-    window.ezstandalone = window.ezstandalone || {};
-    ezstandalone.cmd = ezstandalone.cmd || [];
-</script>
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />
@@ -123,6 +116,31 @@ export default function RootLayout({
               <main>
                 {children}
               </main>
+              <div className="a_ads_container container max-w-7xl mx-auto py-10 bg-transparent">
+                <div
+                  id="frame"
+                  style={{
+                    width: "100%",
+                    margin: "auto",
+                    position: "relative",
+                    zIndex: 10,
+                  }}
+                >
+                  <iframe
+                    data-aa="2419400"
+                    src="//acceptable.a-ads.com/2419400/?size=Adaptive"
+                    style={{
+                      border: 0,
+                      padding: 0,
+                      width: "70%",
+                      height: "auto",
+                      overflow: "hidden",
+                      display: "block",
+                      margin: "auto",
+                    }}
+                  ></iframe>
+                </div>
+              </div>
               <Footer />
             </div>
           </PWAWrapper>

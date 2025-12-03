@@ -65,11 +65,11 @@ export function Footer() {
 {
   title: "More Categories",
   links: [
-    { href: "/code-tools", label: "Code Tools" },
-    { href: "/conversion-tools", label: "Conversion Tools" },
-    { href: "/gst-tools", label: "GST Tools" },
-    { href: "/exam-tools", label: "Exam Tools" },
-    { href: "/misc-tools", label: "Miscellaneous Tools" }
+    { href: "/tools/code-tools", label: "Code Tools" },
+    { href: "/tools/conversion-tools", label: "Conversion Tools" },
+    { href: "/tools/gst-tools", label: "GST Tools" },
+    { href: "/tools/exam-tools", label: "Exam Tools" },
+    { href: "/tools/misc-tools", label: "Miscellaneous Tools" }
   ]
 }
   ]
