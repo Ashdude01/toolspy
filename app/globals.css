@@ -89,3 +89,7 @@ main img {
 main .max-w-4xl{
   @apply max-w-full;
 }
+
+.a_ads_container{
+  @apply container max-w-7xl mx-auto bg-transparent px-0;
+}

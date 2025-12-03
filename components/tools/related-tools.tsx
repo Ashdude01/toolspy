@@ -62,7 +62,7 @@ export function RelatedTools({
 
   return (
     <section className="space-y-6">
-      <div className="a_ads_container container max-w-7xl mx-auto bg-transparent mb-10">
+      <div className="a_ads_container mb-10">
                 <div
                   id="frame"
                   style={{

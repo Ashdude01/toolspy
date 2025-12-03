@@ -116,7 +116,7 @@ export default function RootLayout({
               <main>
                 {children}
               </main>
-              <div className="a_ads_container container max-w-7xl mx-auto py-10 bg-transparent">
+              <div className="a_ads_container py-10">
                 <div
                   id="frame"
                   style={{
