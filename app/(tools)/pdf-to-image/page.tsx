@@ -290,123 +290,154 @@ function PdfToImageContent() {
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <CardTitle className="flex items-center gap-2">
-                  <FileText className="h-5 w-5" />
-                  Selected PDF Files ({selectedFiles.length})
-                </CardTitle>
-                <CardDescription>Files ready for image conversion</CardDescription>
-              </div>
-              <Button variant="outline" onClick={clearAllFiles} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
-                Clear All
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-3">
-              {selectedFiles.map((file, index) => (
-                <div key={index} className="flex items-center justify-between p-3 border rounded-lg bg-muted/50">
-                  <div className="flex items-center gap-3">
-                    <FileText className="h-5 w-5 text-primary" />
-                    <div>
-                      <h4 className="font-medium text-sm sm:text-base">{file.name}</h4>
-                      <p className="text-xs sm:text-sm text-muted-foreground">
-                        {formatFileSize(file.size)}
-                      </p>
-                    </div>
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+            {/* Selected Files */}
+            <Card className="mb-6 sm:mb-8 md:col-span-4">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileText className="h-5 w-5" />
+                      Selected PDF Files ({selectedFiles.length})
+                    </CardTitle>
+                    <CardDescription>
+                      Files ready for image conversion
+                    </CardDescription>
                   </div>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => removeFile(index)}
-                    title="Remove file"
-                  >
-                    <Trash2 className="h-3 w-3" />
+                  <Button variant="outline" onClick={clearAllFiles} size="sm">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
                   </Button>
                 </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 overflow-y-auto">
+                  {selectedFiles.map((file, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between p-3 border rounded-lg bg-muted/50"
+                    >
+                      <div className="flex items-center gap-3">
+                        <FileText className="h-5 w-5 text-primary" />
+                        <div>
+                          <h4 className="font-medium text-sm sm:text-base">
+                            {file.name}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            {formatFileSize(file.size)}
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => removeFile(index)}
+                        title="Remove file"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Conversion Settings */}
+            <Card className="mb-6 sm:mb-8 md:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  Output Format
+                </CardTitle>
+                <CardDescription>
+                  Choose conversion format
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Format</Label>
+                    <Select value={outputFormat} onValueChange={setOutputFormat}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="png">
+                          <div className="flex items-center gap-2">
+                            <Image className="h-4 w-4" />
+                            PNG Images
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="jpg">
+                          <div className="flex items-center gap-2">
+                            <Image className="h-4 w-4" />
+                            JPG Images
+                          </div>
+                        </SelectItem>
+                        <SelectItem value="webp">
+                          <div className="flex items-center gap-2">
+                            <Image className="h-4 w-4" />
+                            WebP Images
+                          </div>
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Image Quality (DPI)</Label>
+                    <Select value={imageQuality} onValueChange={setImageQuality}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="150">150 DPI (Small)</SelectItem>
+                        <SelectItem value="300">300 DPI (Standard)</SelectItem>
+                        <SelectItem value="600">600 DPI (High)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Pages to Convert</Label>
+                    <Select value={pageRange} onValueChange={setPageRange}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="all">All Pages</SelectItem>
+                        <SelectItem value="first">First Page Only</SelectItem>
+                        <SelectItem value="custom">Custom Range</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {pageRange === "custom" && (
+                    <div className="space-y-2">
+                      <Label>Custom Pages</Label>
+                      <Input
+                        placeholder="e.g., 1,3,5-7"
+                        value={customPages}
+                        onChange={(e) => setCustomPages(e.target.value)}
+                      />
+                    </div>
+                  )}
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       )}
 
-      {/* Conversion Settings */}
+      {/* Conversion Button */}
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              Conversion Settings
-            </CardTitle>
-            <CardDescription>
-              Customize your image output settings
-            </CardDescription>
+            <CardTitle>Conversion Settings</CardTitle>
+            <CardDescription>Fine-tune conversion parameters</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Output Format */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Output Format</Label>
-                <Select value={outputFormat} onValueChange={setOutputFormat}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="png">PNG (Lossless)</SelectItem>
-                    <SelectItem value="jpg">JPG (Smaller size)</SelectItem>
-                    <SelectItem value="webp">WebP (Modern)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Image Quality (DPI) */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Image Quality (DPI)</Label>
-                <Select value={imageQuality} onValueChange={setImageQuality}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="150">150 DPI (Small)</SelectItem>
-                    <SelectItem value="300">300 DPI (Standard)</SelectItem>
-                    <SelectItem value="600">600 DPI (High)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Page Range */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Pages to Convert</Label>
-                <Select value={pageRange} onValueChange={setPageRange}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Pages</SelectItem>
-                    <SelectItem value="first">First Page Only</SelectItem>
-                    <SelectItem value="custom">Custom Range</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Custom Pages */}
-              {pageRange === "custom" && (
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium">Custom Pages</Label>
-                  <Input
-                    placeholder="e.g., 1,3,5-7"
-                    value={customPages}
-                    onChange={(e) => setCustomPages(e.target.value)}
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Convert Button */}
+          <CardContent>
             <Button
               onClick={convertToImages}
               disabled={selectedFiles.length === 0 || isConverting}
@@ -416,14 +447,14 @@ function PdfToImageContent() {
               <Image className="h-5 w-5 mr-2" />
               {isConverting
                 ? "Converting..."
-                : `Convert ${selectedFiles.length} PDF to Images`}
+                : `Convert ${selectedFiles.length} PDF File(s) to ${outputFormat.toUpperCase()}`}
             </Button>
           </CardContent>
         </Card>
       )}
 
       {/* Conversion Results */}
-      {convertedResults.length > 0 && (
+      {convertedResults.filter(r => r.success || r.error).length > 0 && (
         <Card>
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -436,46 +467,57 @@ function PdfToImageContent() {
                   {convertedResults.filter(r => r.success).length} PDF(s) converted to {convertedResults.reduce((sum, r) => sum + r.files.length, 0)} image(s)
                 </CardDescription>
               </div>
-              <Button onClick={downloadAll} size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Download All Images
-              </Button>
+              {convertedResults.filter(r => r.success).length > 0 && (
+                <Button onClick={downloadAll} size="sm" variant="outline">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download All Images
+                </Button>
+              )}
             </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {convertedResults.map((result, index) => (
-                <div key={index} className="border rounded-lg p-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-                    <div className="flex-1">
-                      <h4 className="font-medium text-sm sm:text-base mb-2">
-                        {result.originalName}
-                      </h4>
-                      {result.success ? (
-                        <div className="flex flex-wrap gap-2 text-xs sm:text-sm text-muted-foreground">
-                          <span>{result.pageCount} pages converted</span>
-                          <span>•</span>
-                          <span>{result.files.length} images created</span>
-                          <span>•</span>
-                          <span>{formatFileSize(result.files.reduce((sum, f) => sum + f.size, 0))}</span>
-                        </div>
-                      ) : (
-                        <p className="text-xs text-red-500">Error: {result.error}</p>
+              {convertedResults.map((result, index) => {
+                if (!result.success && !result.error) return null;
+                
+                return (
+                  <div key={index} className="border rounded-lg p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm sm:text-base mb-2">
+                          {result.originalName}
+                        </h4>
+                        {result.success ? (
+                          <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span>{result.pageCount} pages converted</span>
+                            <span>•</span>
+                            <span>{result.files.length} images created</span>
+                            <span>•</span>
+                            <span>{formatFileSize(result.files.reduce((sum, f) => sum + f.size, 0))}</span>
+                            <Badge variant="default" className="text-xs">
+                              {outputFormat.toUpperCase()}
+                            </Badge>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-red-500">
+                            Error: {result.error || 'Unknown error'}
+                          </p>
+                        )}
+                      </div>
+                      {result.success && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => downloadSingle(result.files)}
+                        >
+                          <Download className="h-3 w-3 mr-1" />
+                          Download
+                        </Button>
                       )}
                     </div>
-                    {result.success && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => downloadSingle(result.files)}
-                      >
-                        <Download className="h-3 w-3 mr-1" />
-                        Download
-                      </Button>
-                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>

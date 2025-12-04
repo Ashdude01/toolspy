@@ -29,7 +29,9 @@ import {
   RefreshCw,
   Archive,
   Eye,
+  Trash2,
 } from "lucide-react";
+import { formatFileSize, downloadFile as downloadFileUtil } from "@/lib/utils/file-utils";
 import { HeicToPdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
@@ -244,16 +246,11 @@ function HeicToPdfContent() {
   };
 
   const downloadFile = (file: ProcessedFile) => {
-    if (!file.pdfUrl) return;
+    if (!file.pdfUrl || !file.pdfBlob) return;
     
-    const link = document.createElement('a');
-    link.href = file.pdfUrl;
-    link.download = file.name.replace(/\.(heic|heif)$/i, '.pdf');
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    showToast(`${file.name} downloaded`, "success");
+    const fileName = file.name.replace(/\.(heic|heif)$/i, '.pdf');
+    downloadFileUtil(file.pdfBlob, fileName);
+    showToast(`${fileName} downloaded`, "success");
   };
 
   const downloadAllFiles = () => {
@@ -296,14 +293,6 @@ function HeicToPdfContent() {
     });
   };
 
-  const resetAll = () => {
-    clearAllFiles();
-    setPageSize("a4");
-    setOrientation("auto");
-    setQuality("high");
-    setMargin("medium");
-    setProgress(0);
-  };
 
   const getStatusIcon = (status: string) => {
     switch (status) {
@@ -342,239 +331,285 @@ function HeicToPdfContent() {
       </div>
 
       {/* File Upload */}
-      <Card className="mb-6 sm:mb-8">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <FileImage className="h-5 w-5" />
-            Upload HEIC Files
-          </CardTitle>
-          <CardDescription>
-            Select HEIC/HEIF images to convert to PDF format (max {maxFiles} files, 10MB each)
-          </CardDescription>
-        </CardHeader>
-        <CardContent>
-          <FileUpload
-            onFileSelect={handleFileSelect}
-            onError={handleFileUploadError}
-            accept=".heic,.heif,image/heic,image/heif"
-            multiple
-            maxFiles={maxFiles}
-          />
-          
-          {files.length > 0 && (
-            <div className="mt-4">
-              <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-medium">
-                  Files: {files.length} selected, {completedCount} converted
-                </span>
+      <FileUpload
+        onFileSelect={handleFileSelect}
+        onError={handleFileUploadError}
+        accept=".heic,.heif,image/heic,image/heif"
+        multiple
+        maxFiles={maxFiles}
+        className="mb-6 sm:mb-8"
+      />
+
+      {files.length > 0 && (
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+            {/* Selected Files */}
+            <Card className="mb-6 sm:mb-8 md:col-span-4">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <FileImage className="h-5 w-5" />
+                      Selected HEIC Files ({files.length})
+                    </CardTitle>
+                    <CardDescription>
+                      Files ready for PDF conversion
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" onClick={clearAllFiles} size="sm" disabled={isProcessing}>
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 overflow-y-auto">
+                  {files.map((file) => (
+                    <div
+                      key={file.id}
+                      className="flex items-center justify-between p-3 border rounded-lg bg-muted/50"
+                    >
+                      <div className="flex items-center gap-3">
+                        {getStatusIcon(file.status)}
+                        <div>
+                          <h4 className="font-medium text-sm sm:text-base">
+                            {file.name}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            {formatFileSize(file.originalFile.size)}
+                            {file.status === 'error' && file.error && (
+                              <span className="text-red-500 ml-2">• {file.error}</span>
+                            )}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        {file.status === 'completed' && file.pdfUrl && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => downloadFile(file)}
+                            title="Download PDF"
+                          >
+                            <Download className="h-3 w-3" />
+                          </Button>
+                        )}
+                        {!isProcessing && (
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => removeFile(file.id)}
+                            title="Remove file"
+                          >
+                            <X className="h-3 w-3" />
+                          </Button>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Conversion Settings */}
+            <Card className="mb-6 sm:mb-8 md:col-span-2">
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Settings className="h-5 w-5" />
+                  PDF Settings
+                </CardTitle>
+                <CardDescription>
+                  Customize PDF output
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Page Size</Label>
+                    <Select value={pageSize} onValueChange={setPageSize} disabled={isProcessing}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="a4">A4 (210 × 297 mm)</SelectItem>
+                        <SelectItem value="letter">Letter (8.5 × 11 in)</SelectItem>
+                        <SelectItem value="legal">Legal (8.5 × 14 in)</SelectItem>
+                        <SelectItem value="a3">A3 (297 × 420 mm)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Orientation</Label>
+                    <Select value={orientation} onValueChange={setOrientation} disabled={isProcessing}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="auto">Auto (based on image)</SelectItem>
+                        <SelectItem value="portrait">Portrait</SelectItem>
+                        <SelectItem value="landscape">Landscape</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Image Quality</Label>
+                    <Select value={quality} onValueChange={setQuality} disabled={isProcessing}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="high">High (90%)</SelectItem>
+                        <SelectItem value="medium">Medium (70%)</SelectItem>
+                        <SelectItem value="low">Low (50%)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Page Margins</Label>
+                    <Select value={margin} onValueChange={setMargin} disabled={isProcessing}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="small">Small (10mm)</SelectItem>
+                        <SelectItem value="medium">Medium (20mm)</SelectItem>
+                        <SelectItem value="large">Large (30mm)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      )}
+
+      {/* Conversion Button */}
+      {files.length > 0 && (
+        <Card className="mb-6 sm:mb-8">
+          <CardHeader>
+            <CardTitle>Conversion Settings</CardTitle>
+            <CardDescription>Fine-tune conversion parameters</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col sm:flex-row gap-3">
+              <Button
+                onClick={convertToPdf}
+                disabled={files.length === 0 || isProcessing}
+                size="lg"
+                className="flex-1"
+              >
+                <FileText className="h-5 w-5 mr-2" />
+                {isProcessing
+                  ? "Converting..."
+                  : `Convert ${files.length} HEIC File(s) to PDF`}
+              </Button>
+              
+              {completedCount > 0 && (
                 <Button
                   variant="outline"
-                  size="sm"
-                  onClick={clearAllFiles}
+                  onClick={downloadAllFiles}
                   disabled={isProcessing}
+                  size="lg"
                 >
-                  Clear All
+                  {completedCount === 1 ? (
+                    <>
+                      <Download className="h-5 w-5 mr-2" />
+                      Download PDF
+                    </>
+                  ) : (
+                    <>
+                      <Archive className="h-5 w-5 mr-2" />
+                      Download All ({completedCount})
+                    </>
+                  )}
                 </Button>
-              </div>
-              
-              <div className="space-y-2 max-h-48 overflow-y-auto">
-                {files.map((file) => (
-                  <div key={file.id} className="flex items-center justify-between p-2 bg-muted rounded">
-                    <div className="flex items-center gap-2 flex-1 min-w-0">
-                      {getStatusIcon(file.status)}
-                      <span className="text-sm truncate">{file.name}</span>
-                      {file.status === 'error' && (
-                        <span className="text-xs text-red-500">({file.error})</span>
-                      )}
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {file.status === 'completed' && file.pdfUrl && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => downloadFile(file)}
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      )}
-                      {!isProcessing && (
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          onClick={() => removeFile(file.id)}
-                        >
-                          <X className="h-4 w-4" />
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                ))}
-              </div>
+              )}
             </div>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Conversion Settings */}
-      <Card className="mb-6 sm:mb-8">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            PDF Settings
-          </CardTitle>
-          <CardDescription>
-            Customize the PDF output format and quality
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Page Size</Label>
-              <Select value={pageSize} onValueChange={setPageSize} disabled={isProcessing}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="a4">A4 (210 × 297 mm)</SelectItem>
-                  <SelectItem value="letter">Letter (8.5 × 11 in)</SelectItem>
-                  <SelectItem value="legal">Legal (8.5 × 14 in)</SelectItem>
-                  <SelectItem value="a3">A3 (297 × 420 mm)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Orientation</Label>
-              <Select value={orientation} onValueChange={setOrientation} disabled={isProcessing}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="auto">Auto (based on image)</SelectItem>
-                  <SelectItem value="portrait">Portrait</SelectItem>
-                  <SelectItem value="landscape">Landscape</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label>Image Quality</Label>
-              <Select value={quality} onValueChange={setQuality} disabled={isProcessing}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="high">High (90%)</SelectItem>
-                  <SelectItem value="medium">Medium (70%)</SelectItem>
-                  <SelectItem value="low">Low (50%)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label>Page Margins</Label>
-              <Select value={margin} onValueChange={setMargin} disabled={isProcessing}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="small">Small (10mm)</SelectItem>
-                  <SelectItem value="medium">Medium (20mm)</SelectItem>
-                  <SelectItem value="large">Large (30mm)</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Action Buttons */}
-      <Card className="mb-6 sm:mb-8">
-        <CardContent className="pt-6">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button
-              onClick={convertToPdf}
-              disabled={files.length === 0 || isProcessing}
-              className="flex-1"
-            >
-              <FileText className="h-4 w-4 mr-2" />
-              {isProcessing ? 'Converting...' : `Convert to PDF${files.length > 1 ? `s (${files.length})` : ''}`}
-            </Button>
-            
-            {completedCount > 0 && (
-              <Button
-                variant="outline"
-                onClick={downloadAllFiles}
-                disabled={isProcessing}
-                className="flex-1 sm:flex-initial"
-              >
-                {completedCount === 1 ? (
-                  <Download className="h-4 w-4 mr-2" />
-                ) : (
-                  <Archive className="h-4 w-4 mr-2" />
-                )}
-                {completedCount === 1 ? 'Download PDF' : `Download All (${completedCount})`}
-              </Button>
-            )}
-            
-            <Button
-              variant="outline"
-              onClick={resetAll}
-              disabled={isProcessing}
-              className="flex-1 sm:flex-initial"
-            >
-              <RefreshCw className="h-4 w-4 mr-2" />
-              Reset
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isProcessing}
+        title="Converting HEIC to PDF"
         current={Math.round(progress)}
         total={100}
-        title="Converting HEIC to PDF"
+        currentFile=""
         description="Processing your images, please wait..."
       />
 
-      {/* Info Section */}
-      <Card className="mb-6 sm:mb-8">
-        <CardHeader>
-          <CardTitle>About HEIC to PDF Conversion</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">HEIC Format</div>
-              <div className="text-muted-foreground">
-                High Efficiency Image Container used by Apple devices for photos
+      {/* Conversion Results */}
+      {files.filter(f => f.status === 'completed' || f.status === 'error').length > 0 && (
+        <Card>
+          <CardHeader>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="h-5 w-5" />
+                  Conversion Results
+                </CardTitle>
+                <CardDescription>
+                  {completedCount} HEIC file(s) converted successfully
+                </CardDescription>
               </div>
+              {completedCount > 0 && (
+                <Button onClick={downloadAllFiles} size="sm" variant="outline" disabled={isProcessing}>
+                  <Download className="h-4 w-4 mr-2" />
+                  Download All
+                </Button>
+              )}
             </div>
-            <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">PDF Benefits</div>
-              <div className="text-muted-foreground">
-                Universal format viewable on any device with consistent layout
-              </div>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {files.map((file) => {
+                if (file.status === 'pending' || file.status === 'processing') return null;
+                
+                return (
+                  <div key={file.id} className="border rounded-lg p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm sm:text-base mb-2">
+                          {file.name}
+                        </h4>
+                        {file.status === 'completed' ? (
+                          <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span>
+                              Original: {formatFileSize(file.originalFile.size)}
+                            </span>
+                            <Badge variant="default" className="text-xs">
+                              PDF
+                            </Badge>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-red-500">
+                            Error: {file.error || 'Unknown error'}
+                          </p>
+                        )}
+                      </div>
+                      {file.status === 'completed' && file.pdfUrl && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => downloadFile(file)}
+                        >
+                          <Download className="h-3 w-3 mr-1" />
+                          Download
+                        </Button>
+                      )}
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Quality Control</div>
-              <div className="text-muted-foreground">
-                Adjust compression and page settings for optimal file size
-              </div>
-            </div>
-            <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Privacy Protected</div>
-              <div className="text-muted-foreground">
-                All processing happens locally in your browser
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
+      )}
 
       {/* SEO Content Section */}
       <HeicToPdfSEOContent />

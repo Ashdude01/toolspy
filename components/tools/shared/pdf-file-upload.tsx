@@ -4,8 +4,9 @@ import { useCallback, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { UploadCloud, Link, FileText, X, AlertCircle } from 'lucide-react';
+import { UploadCloud, Link, FileText, AlertCircle, ChevronDown, ChevronUp } from 'lucide-react';
 import { isValidUrl } from '@/lib/utils/file-utils';
+import { BrandedUploadModal } from './branded-upload-modal';
 
 interface PDFFileUploadProps {
   onFileSelect: (files: File[]) => void;
@@ -15,6 +16,21 @@ interface PDFFileUploadProps {
   maxFileSize?: number; // in bytes
   className?: string;
   disabled?: boolean;
+  // Collapse functionality
+  collapsed?: boolean; // Manual control for collapsed state (optional)
+  onToggleCollapse?: () => void; // Callback to toggle collapse
+  autoCollapse?: boolean; // Automatically collapse when files are uploaded (default: true)
+  // Branded modal props
+  showBrandedModal?: boolean; // Enable/disable branded modal (default: true)
+  modalDuration?: number; // Duration in milliseconds (default: 2000)
+  onModalClose?: () => void; // Callback when modal closes
+  modalMessage?: string; // Custom modal message
+  modalSubMessage?: string; // Custom modal sub-message
+  // Ad placement zones (for future use)
+  adSlotTop?: React.ReactNode;
+  adSlotBottom?: React.ReactNode;
+  adSlotLeft?: React.ReactNode;
+  adSlotRight?: React.ReactNode;
 }
 
 export function PDFFileUpload({ 
@@ -24,11 +40,49 @@ export function PDFFileUpload({
   maxFiles,
   maxFileSize = 50 * 1024 * 1024, // 50MB default
   className = '',
-  disabled = false
+  disabled = false,
+  collapsed: externalCollapsed,
+  onToggleCollapse,
+  autoCollapse = true,
+  showBrandedModal = true,
+  modalDuration = 2000,
+  onModalClose,
+  modalMessage = 'Uploading on Toolspy',
+  modalSubMessage = 'Processing your PDF files...',
+  adSlotTop,
+  adSlotBottom,
+  adSlotLeft,
+  adSlotRight
 }: PDFFileUploadProps) {
   const [isDragOver, setIsDragOver] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
+  const [internalCollapsed, setInternalCollapsed] = useState(false);
+
+  // Use external collapsed state if provided, otherwise use internal state
+  const collapsed = externalCollapsed !== undefined ? externalCollapsed : internalCollapsed;
+
+  // Wrapper for file selection that shows modal - defined first to avoid hoisting issues
+  const handleFileSelectWithModal = useCallback((files: File[]) => {
+    if (showBrandedModal && files.length > 0) {
+      setIsUploadModalOpen(true);
+      // Delay file selection slightly to show modal first
+      setTimeout(() => {
+        onFileSelect(files);
+        // Auto-collapse if enabled and not externally controlled
+        if (autoCollapse && externalCollapsed === undefined) {
+          setInternalCollapsed(true);
+        }
+      }, 100);
+    } else {
+      onFileSelect(files);
+      // Auto-collapse if enabled and not externally controlled
+      if (autoCollapse && externalCollapsed === undefined) {
+        setInternalCollapsed(true);
+      }
+    }
+  }, [onFileSelect, showBrandedModal, autoCollapse, externalCollapsed]);
 
   const validatePDFFile = useCallback((file: File) => {
     // Check file type
@@ -106,9 +160,9 @@ export function PDFFileUpload({
     }
     
     if (validFiles.length > 0) {
-      onFileSelect(validFiles);
+      handleFileSelectWithModal(validFiles);
     }
-  }, [maxFiles, onError, onFileSelect, validatePDFFile]);
+  }, [maxFiles, onError, handleFileSelectWithModal, validatePDFFile]);
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();
@@ -189,6 +243,16 @@ export function PDFFileUpload({
       if (disabled) return;
       
       if ((e.ctrlKey || e.metaKey) && e.key === 'v') {
+        // Check if we're not in an input field
+        const activeElement = document.activeElement;
+        if (activeElement && (
+          activeElement.tagName === 'INPUT' || 
+          activeElement.tagName === 'TEXTAREA' ||
+          activeElement.getAttribute('contenteditable') === 'true'
+        )) {
+          return; // Don't handle if user is typing in an input
+        }
+        
         // Handle paste
         navigator.clipboard.read().then(async (clipboardItems) => {
           for (const clipboardItem of clipboardItems) {
@@ -214,110 +278,207 @@ export function PDFFileUpload({
   const maxSizeMB = Math.round(maxFileSize / (1024 * 1024));
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={`space-y-4 transition-all duration-300 ${className}`}>
       {/* Main Upload Area */}
       <Card
         className={`
-          border-2 border-dashed p-8 text-center transition-all duration-200 cursor-pointer
+          relative border-2 border-dashed transition-all duration-300 overflow-hidden
+          ${collapsed 
+            ? 'min-h-[80px] cursor-pointer' 
+            : 'min-h-[280px] cursor-pointer'
+          }
           ${isDragOver 
-            ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' 
-            : 'border-gray-300 dark:border-gray-600 hover:border-gray-400 dark:hover:border-gray-500'
+            ? 'border-primary bg-primary/5' 
+            : 'border-muted-foreground/25 hover:border-primary/50'
           }
           ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
         `}
-        onDrop={handleDrop}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
-        onClick={() => !disabled && document.getElementById('pdf-file-input')?.click()}
+        onDrop={handleDrop}
+        onClick={collapsed ? () => document.getElementById('pdf-file-input')?.click() : () => document.getElementById('pdf-file-input')?.click()}
       >
-        <input
-          id="pdf-file-input"
-          type="file"
-          accept="application/pdf,.pdf"
-          multiple={multiple}
-          onChange={handleFileInput}
-          className="hidden"
-          disabled={disabled}
-        />
-        
-        <div className="flex flex-col items-center space-y-4">
-          <div className={`p-3 rounded-full ${isDragOver ? 'bg-blue-100 dark:bg-blue-900' : 'bg-gray-100 dark:bg-gray-800'}`}>
-            <FileText className={`h-8 w-8 ${isDragOver ? 'text-blue-600' : 'text-gray-600 dark:text-gray-400'}`} />
-          </div>
-          
-          <div>
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100">
-              Upload PDF Files
-            </h3>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-              Drag and drop PDF files here, or click to browse
-            </p>
-          </div>
-          
-          <div className="flex flex-wrap justify-center gap-2 text-xs text-gray-500 dark:text-gray-400">
-            <span className="flex items-center gap-1">
-              <FileText className="h-3 w-3" />
-              PDF files only
-            </span>
-            <span>•</span>
-            <span>Max {maxSizeMB}MB per file</span>
-            <span>•</span>
-            <span>Up to {maxFiles} files</span>
-          </div>
-          
-          <Button 
-            variant="outline" 
-            size="sm" 
-            disabled={disabled}
-            onClick={(e) => {
-              e.stopPropagation();
-              document.getElementById('pdf-file-input')?.click();
-            }}
-          >
-            <UploadCloud className="h-4 w-4 mr-2" />
-            Choose Files
-          </Button>
-        </div>
-      </Card>
-
-      {/* URL Upload */}
-      <Card className="p-4">
-        <form onSubmit={handleUrlSubmit} className="space-y-3">
-          <div className="flex items-center gap-2">
-            <Link className="h-4 w-4 text-gray-600 dark:text-gray-400" />
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-              Or load from URL
-            </span>
-          </div>
-          
-          <div className="flex gap-2">
-            <Input
-              type="url"
-              placeholder="https://example.com/document.pdf"
-              value={urlInput}
-              onChange={(e) => setUrlInput(e.target.value)}
-              disabled={isLoading || disabled}
-              className="flex-1"
-            />
-            <Button 
-              type="submit" 
-              disabled={!urlInput.trim() || isLoading || disabled}
-              size="sm"
+        {collapsed ? (
+          // Collapsed View
+          <div className="p-4 flex items-center justify-between">
+            <div 
+              className="flex items-center space-x-3 flex-1 cursor-pointer"
+              onClick={() => document.getElementById('pdf-file-input')?.click()}
             >
-              {isLoading ? 'Loading...' : 'Load PDF'}
-            </Button>
+              <div className="h-10 w-10 rounded-lg bg-primary/10 flex items-center justify-center">
+                <FileText className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h3 className="text-sm font-semibold">Add More PDFs</h3>
+                <p className="text-xs text-muted-foreground">Click to upload or drag and drop</p>
+              </div>
+            </div>
+            {(onToggleCollapse || (autoCollapse && externalCollapsed === undefined)) && (
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  if (onToggleCollapse) {
+                    onToggleCollapse();
+                  } else if (autoCollapse && externalCollapsed === undefined) {
+                    setInternalCollapsed(!internalCollapsed);
+                  }
+                }}
+                className="flex-shrink-0"
+              >
+                <ChevronUp className="h-4 w-4" />
+              </Button>
+            )}
+            <input
+              id="pdf-file-input"
+              type="file"
+              accept="application/pdf,.pdf"
+              multiple={multiple}
+              onChange={handleFileInput}
+              className="hidden"
+              disabled={disabled}
+            />
           </div>
-        </form>
+        ) : (
+          // Expanded View
+          <>
+            <div className="p-5 md:p-12 text-center">
+              {/* File Icon */}
+              <div className="relative mb-6">
+                <div className={`mx-auto h-16 w-16 rounded-full flex items-center justify-center ${
+                  isDragOver 
+                    ? 'bg-blue-100 dark:bg-blue-900' 
+                    : 'bg-gray-100 dark:bg-gray-800'
+                }`}>
+                  <FileText className={`h-8 w-8 ${
+                    isDragOver 
+                      ? 'text-blue-600' 
+                      : 'text-gray-600 dark:text-gray-400'
+                  }`} />
+                </div>
+              </div>
+
+              {/* Main Text */}
+              <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
+                Drag and drop your PDF{multiple ? 's' : ''} here
+              </h3>
+
+              {/* Action Buttons */}
+              <div className="flex items-center justify-center gap-2 mb-6">
+                <Button 
+                  variant="secondary" 
+                  className="h-auto text-blue-600 hover:text-blue-700 text-xs sm:text-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    document.getElementById('pdf-file-input')?.click();
+                  }}
+                  disabled={disabled}
+                >
+                  Browse Files
+                </Button>
+                <span className="text-muted-foreground">•</span>
+                <Button 
+                  variant="secondary" 
+                  className="h-auto text-purple-600 hover:text-purple-700 text-xs sm:text-sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    // Handle paste for PDFs
+                    navigator.clipboard.read().then(async (clipboardItems) => {
+                      for (const clipboardItem of clipboardItems) {
+                        for (const type of clipboardItem.types) {
+                          if (type === 'application/pdf') {
+                            const blob = await clipboardItem.getType(type);
+                            const file = new File([blob], 'pasted.pdf', { type: 'application/pdf' });
+                            await handleFileValidation([file]);
+                            break;
+                          }
+                        }
+                      }
+                    }).catch(() => {
+                      onError('Failed to paste from clipboard. Please allow clipboard permissions.');
+                    });
+                  }}
+                  disabled={isLoading || disabled}
+                >
+                  {isLoading ? 'Pasting...' : 'Paste from Clipboard'}
+                </Button>
+              </div>
+
+              {/* Supported Formats */}
+              <p className="text-sm text-muted-foreground">
+                PDF files only{multiple ? ` • Up to ${maxFiles} files` : ''} • Max {maxSizeMB}MB per file
+              </p>
+
+              {/* Keyboard Shortcut Hint */}
+              <p className="text-xs text-muted-foreground mt-2">
+                Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Ctrl</kbd> + <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">V</kbd> to paste PDF
+              </p>
+              
+              {/* URL Import */}
+              <Card className="p-4 mt-6" onClick={(e) => e.stopPropagation()}>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-2">
+                    <Link className="h-5 w-5 text-muted-foreground" />
+                    <Input
+                      placeholder="Enter PDF URL..."
+                      value={urlInput}
+                      onChange={(e) => setUrlInput(e.target.value)}
+                      onKeyPress={(e) => e.key === 'Enter' && handleUrlSubmit(e as any)}
+                      disabled={isLoading || disabled}
+                      className="flex-1"
+                    />
+                    <Button 
+                      onClick={handleUrlSubmit}
+                      disabled={!urlInput.trim() || isLoading || disabled}
+                      size="sm"
+                    >
+                      {isLoading ? 'Loading...' : 'Import'}
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            </div>
+            
+            <input
+              id="pdf-file-input"
+              type="file"
+              accept="application/pdf,.pdf"
+              multiple={multiple}
+              onChange={handleFileInput}
+              className="hidden"
+              disabled={disabled}
+            />
+          </>
+        )}
       </Card>
 
       {/* Help Text */}
-      <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
-        <p className="flex items-center gap-1">
-          <AlertCircle className="h-3 w-3" />
-          All PDF processing happens locally in your browser for complete privacy
-        </p>
-        <p>💡 Tip: You can also paste PDFs with Ctrl+V (Cmd+V on Mac)</p>
-      </div>
+      {!collapsed && (
+        <div className="text-xs text-gray-500 dark:text-gray-400 space-y-1">
+          <p className="flex items-center gap-1">
+            <AlertCircle className="h-3 w-3" />
+            All PDF processing happens locally in your browser for complete privacy
+          </p>
+          <p>💡 Tip: You can also paste PDFs with Ctrl+V (Cmd+V on Mac)</p>
+        </div>
+      )}
+
+      {/* Branded Upload Modal */}
+      <BrandedUploadModal
+        isOpen={isUploadModalOpen}
+        onClose={() => {
+          setIsUploadModalOpen(false);
+          onModalClose?.();
+        }}
+        duration={modalDuration}
+        message={modalMessage}
+        subMessage={modalSubMessage}
+        adSlotTop={adSlotTop}
+        adSlotBottom={adSlotBottom}
+        adSlotLeft={adSlotLeft}
+        adSlotRight={adSlotRight}
+      />
     </div>
   );
-} 
+}

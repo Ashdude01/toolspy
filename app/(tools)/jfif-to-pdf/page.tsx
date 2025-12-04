@@ -277,114 +277,142 @@ function JfifToPdfContent() {
         className="mb-6 sm:mb-8"
       />
 
-      {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <Card className="mb-6 sm:mb-8">
-          <CardHeader>
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
+        <div className="animate-in fade-in slide-in-from-top-4 duration-500">
+          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+            {/* Selected Files */}
+            <Card className="mb-6 sm:mb-8 md:col-span-4">
+              <CardHeader>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <CardTitle className="flex items-center gap-2">
+                      <Image className="h-5 w-5" />
+                      Selected JFIF Files ({selectedFiles.length})
+                    </CardTitle>
+                    <CardDescription>
+                      Files ready for PDF conversion
+                    </CardDescription>
+                  </div>
+                  <Button variant="outline" onClick={clearAllFiles} size="sm">
+                    <Trash2 className="h-4 w-4 mr-2" />
+                    Clear All
+                  </Button>
+                </div>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-3 overflow-y-auto max-h-96">
+                  {selectedFiles.map((file, index) => (
+                    <div
+                      key={`${file.name}-${index}`}
+                      className="flex items-center justify-between p-3 border rounded-lg bg-muted/50"
+                    >
+                      <div className="flex items-center gap-3">
+                        <Image className="h-5 w-5 text-primary" />
+                        <div>
+                          <h4 className="font-medium text-sm sm:text-base">
+                            {file.name}
+                          </h4>
+                          <p className="text-xs sm:text-sm text-muted-foreground">
+                            {formatFileSize(file.size)}
+                          </p>
+                        </div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => removeFile(index)}
+                        title="Remove file"
+                      >
+                        <Trash2 className="h-3 w-3" />
+                      </Button>
+                    </div>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Conversion Settings */}
+            <Card className="mb-6 sm:mb-8 md:col-span-2">
+              <CardHeader>
                 <CardTitle className="flex items-center gap-2">
-                  <Image className="h-5 w-5" />
-                  Selected JFIF Files ({selectedFiles.length})
+                  <Settings className="h-5 w-5" />
+                  PDF Settings
                 </CardTitle>
-                <CardDescription>Files ready for PDF conversion</CardDescription>
-              </div>
-              <Button variant="outline" onClick={clearAllFiles} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
-                Clear All
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent className="max-h-96 overflow-y-auto">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {selectedFiles.map((file, index) => (
-                <CompactImagePreview
-                  key={`${file.name}-${index}`}
-                  file={file}
-                  onRemove={() => removeFile(index)}
-                  className="bg-muted"
-                />
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+                <CardDescription>
+                  Customize PDF output
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <Label>Page Size</Label>
+                    <Select value={pageSize} onValueChange={setPageSize}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="A4">A4 (210×297 mm)</SelectItem>
+                        <SelectItem value="Letter">Letter (8.5×11 in)</SelectItem>
+                        <SelectItem value="Legal">Legal (8.5×14 in)</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Orientation</Label>
+                    <Select value={pageOrientation} onValueChange={setPageOrientation}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="auto">Auto (Based on image)</SelectItem>
+                        <SelectItem value="portrait">Portrait</SelectItem>
+                        <SelectItem value="landscape">Landscape</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Image Position</Label>
+                    <Select value={imagePosition} onValueChange={setImagePosition}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="center">Center</SelectItem>
+                        <SelectItem value="top-left">Top Left</SelectItem>
+                        <SelectItem value="top-center">Top Center</SelectItem>
+                        <SelectItem value="top-right">Top Right</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label>Margin (mm)</Label>
+                    <Input
+                      type="number"
+                      value={margin}
+                      onChange={(e) => setMargin(e.target.value)}
+                      min="0"
+                      max="50"
+                      placeholder="20"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
       )}
 
-      {/* Conversion Settings */}
+      {/* Conversion Button */}
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings className="h-5 w-5" />
-              PDF Settings
-            </CardTitle>
-            <CardDescription>
-              Customize your PDF output settings
-            </CardDescription>
+            <CardTitle>Conversion Settings</CardTitle>
+            <CardDescription>Fine-tune conversion parameters</CardDescription>
           </CardHeader>
-          <CardContent className="space-y-6">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-              {/* Page Size */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Page Size</Label>
-                <Select value={pageSize} onValueChange={setPageSize}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="A4">A4 (210×297 mm)</SelectItem>
-                    <SelectItem value="Letter">Letter (8.5×11 in)</SelectItem>
-                    <SelectItem value="Legal">Legal (8.5×14 in)</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Orientation */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Orientation</Label>
-                <Select value={pageOrientation} onValueChange={setPageOrientation}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="auto">Auto (Based on image)</SelectItem>
-                    <SelectItem value="portrait">Portrait</SelectItem>
-                    <SelectItem value="landscape">Landscape</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Image Position */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Image Position</Label>
-                <Select value={imagePosition} onValueChange={setImagePosition}>
-                  <SelectTrigger>
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="center">Center</SelectItem>
-                    <SelectItem value="top-left">Top Left</SelectItem>
-                    <SelectItem value="top-center">Top Center</SelectItem>
-                    <SelectItem value="top-right">Top Right</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Margin */}
-              <div className="space-y-2">
-                <Label className="text-sm font-medium">Margin (mm)</Label>
-                <Input
-                  type="number"
-                  value={margin}
-                  onChange={(e) => setMargin(e.target.value)}
-                  min="0"
-                  max="50"
-                  placeholder="20"
-                />
-              </div>
-            </div>
-
-            {/* Convert Button */}
+          <CardContent>
             <Button
               onClick={convertToPdf}
               disabled={selectedFiles.length === 0 || isConverting}
@@ -394,14 +422,14 @@ function JfifToPdfContent() {
               <FileText className="h-5 w-5 mr-2" />
               {isConverting
                 ? "Converting..."
-                : `Convert ${selectedFiles.length} JFIF to PDF`}
+                : `Convert ${selectedFiles.length} JFIF File(s) to PDF`}
             </Button>
           </CardContent>
         </Card>
       )}
 
       {/* Conversion Results */}
-      {convertedResults.length > 0 && (
+      {convertedResults.filter(r => r.success || r.error).length > 0 && (
         <Card>
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
@@ -414,54 +442,58 @@ function JfifToPdfContent() {
                   {convertedResults.filter(r => r.success).length} PDF file(s) converted successfully
                 </CardDescription>
               </div>
-              <Button onClick={downloadAll} size="sm">
-                <Download className="h-4 w-4 mr-2" />
-                Download All PDF Files
-              </Button>
+              {convertedResults.filter(r => r.success).length > 0 && (
+                <Button onClick={downloadAll} size="sm" variant="outline">
+                  <Download className="h-4 w-4 mr-2" />
+                  Download All PDF Files
+                </Button>
+              )}
             </div>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              {convertedResults.map((result, index) => (
-                <div key={index} className="border rounded-lg p-3 sm:p-4">
-                  <div className="flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4">
-                    {/* File Info */}
-                    <div className="flex-1 min-w-0">
-                      <h4 className="font-medium truncate text-sm sm:text-base">
-                        {result.originalName} → {result.file.name}
-                      </h4>
-                      <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 text-xs sm:text-sm text-muted-foreground mt-1">
-                        <span>Original: {formatFileSize(result.originalSize)}</span>
-                        {result.success && (
-                          <span>PDF: {formatFileSize(result.file.size)}</span>
+              {convertedResults.map((result, index) => {
+                if (!result.success && !result.error) return null;
+                
+                return (
+                  <div key={index} className="border rounded-lg p-4">
+                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                      <div className="flex-1">
+                        <h4 className="font-medium text-sm sm:text-base mb-2">
+                          {result.originalName}
+                        </h4>
+                        {result.success ? (
+                          <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted-foreground">
+                            <span>
+                              Original: {formatFileSize(result.originalSize)}
+                            </span>
+                            <span>
+                              PDF: {formatFileSize(result.file.size)}
+                            </span>
+                            <Badge variant="default" className="text-xs">
+                              PDF
+                            </Badge>
+                          </div>
+                        ) : (
+                          <p className="text-xs text-red-500">
+                            Error: {result.error || 'Unknown error'}
+                          </p>
                         )}
-                        <Badge
-                          variant={result.success ? "default" : "destructive"}
-                          className="text-xs w-fit"
-                        >
-                          {result.success ? "Success" : "Failed"}
-                        </Badge>
                       </div>
-                      {result.error && (
-                        <p className="text-xs text-red-500 mt-1">Error: {result.error}</p>
+                      {result.success && (
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => downloadSingle(result)}
+                        >
+                          <Download className="h-3 w-3 mr-1" />
+                          Download
+                        </Button>
                       )}
                     </div>
-
-                    {/* Download Button */}
-                    {result.success && (
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => downloadSingle(result)}
-                        title="Download PDF"
-                      >
-                        <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-1" />
-                        Download
-                      </Button>
-                    )}
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </CardContent>
         </Card>

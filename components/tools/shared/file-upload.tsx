@@ -4,10 +4,9 @@ import { useCallback, useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
-import { UploadCloud, Link, ChevronDown, ChevronUp, Loader2 } from 'lucide-react';
+import { UploadCloud, Link, ChevronDown, ChevronUp } from 'lucide-react';
 import { validateImageFile, loadImageFromUrl, pasteImageFromClipboard, isValidUrl } from '@/lib/utils/file-utils';
-import Image from 'next/image';
-import { useTheme } from 'next-themes';
+import { BrandedUploadModal } from './branded-upload-modal';
 
 interface FileUploadProps {
   onFileSelect: (files: File[]) => void;
@@ -53,8 +52,6 @@ export function FileUpload({
   const [isLoading, setIsLoading] = useState(false);
   const [isUploadModalOpen, setIsUploadModalOpen] = useState(false);
   const [internalCollapsed, setInternalCollapsed] = useState(false);
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
 
   // Use external collapsed state if provided, otherwise use internal state
   const collapsed = externalCollapsed !== undefined ? externalCollapsed : internalCollapsed;
@@ -191,22 +188,6 @@ export function FileUpload({
     }
   }, [onFileSelect, onError]);
 
-  // Theme mounting
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Handle branded modal display
-  useEffect(() => {
-    if (isUploadModalOpen && showBrandedModal) {
-      const timer = setTimeout(() => {
-        setIsUploadModalOpen(false);
-        onModalClose?.();
-      }, modalDuration);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isUploadModalOpen, showBrandedModal, modalDuration, onModalClose]);
 
   // Add keyboard shortcut for Ctrl+V
   useEffect(() => {
@@ -455,125 +436,20 @@ export function FileUpload({
       </Card> */}
 
       {/* Branded Upload Modal with Ad Placement Zones */}
-      {isUploadModalOpen && showBrandedModal && (
-        <BrandedUploadModalContent
-          onClose={() => {
-            setIsUploadModalOpen(false);
-            onModalClose?.();
-          }}
-          duration={modalDuration}
-          mounted={mounted}
-          resolvedTheme={resolvedTheme}
-          adSlotTop={adSlotTop}
-          adSlotBottom={adSlotBottom}
-          adSlotLeft={adSlotLeft}
-          adSlotRight={adSlotRight}
-        />
-      )}
-    </div>
-  );
-}
-
-// Internal Branded Modal Component
-interface BrandedUploadModalContentProps {
-  onClose: () => void;
-  duration: number;
-  mounted: boolean;
-  resolvedTheme: string | undefined;
-  adSlotTop?: React.ReactNode;
-  adSlotBottom?: React.ReactNode;
-  adSlotLeft?: React.ReactNode;
-  adSlotRight?: React.ReactNode;
-}
-
-function BrandedUploadModalContent({
-  onClose,
-  duration,
-  mounted,
-  resolvedTheme,
-  adSlotTop,
-  adSlotBottom,
-  adSlotLeft,
-  adSlotRight
-}: BrandedUploadModalContentProps) {
-  const logoSrc = !mounted 
-    ? '/logo/black.webp'
-    : resolvedTheme === 'dark' 
-    ? '/logo/white.webp' 
-    : '/logo/black.webp';
-
-  return (
-    <div 
-      className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-md animate-in fade-in duration-300"
-      onClick={onClose}
-    >
-      {/* Ad Slot - Top */}
-      {adSlotTop && (
-        <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-          {adSlotTop}
-        </div>
-      )}
-
-      {/* Ad Slot - Left */}
-      {adSlotLeft && (
-        <div className="absolute left-4 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
-          {adSlotLeft}
-        </div>
-      )}
-
-      {/* Ad Slot - Right */}
-      {adSlotRight && (
-        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 z-10 hidden lg:block">
-          {adSlotRight}
-        </div>
-      )}
-
-      {/* Main Modal Content */}
-      <div 
-        className="bg-card border-2 border-primary/30 rounded-2xl shadow-2xl p-8 md:p-12 max-w-md w-full mx-4 transform animate-in zoom-in-95 duration-300 ring-2 ring-primary/10 relative"
-        onClick={(e) => e.stopPropagation()}
-      >
-        <div className="flex flex-col items-center space-y-6">
-          {/* Logo */}
-          <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
-            <Image
-              src={logoSrc}
-              alt="Toolspy"
-              width={128}
-              height={128}
-              className="w-full h-full object-contain"
-              priority
-            />
-          </div>
-
-          {/* Loading Spinner */}
-          <div className="flex flex-col items-center space-y-4">
-            <Loader2 className="h-8 w-8 text-primary animate-spin" />
-            <div className="text-center space-y-2">
-              <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent">
-                Uploading on Toolspy
-              </h3>
-              <p className="text-sm text-muted-foreground">
-                Processing your images...
-              </p>
-            </div>
-          </div>
-
-          {/* Branding Text */}
-          <div className="pt-4 border-t border-border w-full text-center">
-            <p className="text-xs text-muted-foreground">
-              Powered by <span className="font-semibold text-primary">Toolspy</span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Ad Slot - Bottom */}
-      {adSlotBottom && (
-        <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-          {adSlotBottom}
-        </div>
-      )}
+      <BrandedUploadModal
+        isOpen={isUploadModalOpen && showBrandedModal}
+        onClose={() => {
+          setIsUploadModalOpen(false);
+          onModalClose?.();
+        }}
+        duration={modalDuration}
+        message="Uploading on Toolspy"
+        subMessage="Processing your images..."
+        adSlotTop={adSlotTop}
+        adSlotBottom={adSlotBottom}
+        adSlotLeft={adSlotLeft}
+        adSlotRight={adSlotRight}
+      />
     </div>
   );
 } 
