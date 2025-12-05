@@ -149,7 +149,7 @@ export const tools: Tool[] = [
     id: 'image-converter',
     name: 'Image Converter',
     slug: 'image-converter',
-    description: 'Convert images between different formats (PNG, JPG, WebP, etc.)',
+    description: 'Convert images between different formats (PNG, JPG, WebP, SVG, etc.)',
     category: 'image-tools',
     icon: '🔄',
     featured: true,

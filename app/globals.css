@@ -93,3 +93,7 @@ main .max-w-4xl{
 .a_ads_container{
   @apply container max-w-7xl mx-auto bg-transparent px-0;
 }
+
+input{
+  @apply border border-gray-300;
+}

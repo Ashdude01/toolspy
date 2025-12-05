@@ -116,7 +116,7 @@ export function ImageConverterSEOContent() {
       description: "Support for all major image formats",
       useCase: "Multi-format projects, cross-platform compatibility",
       precision: "Multiple format support",
-      example: "Convert between JPG, PNG, WebP, etc.",
+      example: "Convert between JPG, PNG, WebP, SVG, GIF, BMP, AVIF, HEIC, ICO etc.",
     },
     {
       type: "Quality Control",

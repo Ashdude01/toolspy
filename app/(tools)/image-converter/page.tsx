@@ -268,7 +268,7 @@ function ImageConverterContent() {
           Professional Image Converter
         </h1>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Convert images between different formats (PNG, JPEG, WebP, GIF, BMP, TIFF). 
+          Convert images between different formats (PNG, JPEG, WebP, SVG, GIF, BMP, AVIF, HEIC, etc). 
           Batch processing with quality control and format optimization.
         </p>
       </div>
