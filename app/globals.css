@@ -97,3 +97,7 @@ main .max-w-4xl{
 input{
   @apply border border-gray-300;
 }
+
+Card{
+  @apply bg-slate-50 dark:bg-slate-900;
+}

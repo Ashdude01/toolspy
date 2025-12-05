@@ -268,7 +268,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                     type="search"
                     name="keyword"
                     placeholder="Search 100+ professional tools..."
-                    className="flex-1 min-w-0 !active:outline-none !outline-none !active:border-none shadow-none !focus:border-none bg-transparent text-base sm:text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 !focus:ring-0 !focus:outline-none text-slate-800 dark:text-slate-200"
+                    className="flex-1 min-w-0 border-none !active:outline-none !outline-none !active:border-none shadow-none !focus:border-none bg-transparent text-base sm:text-lg placeholder:text-slate-400 dark:placeholder:text-slate-500 !focus:ring-0 !focus:outline-none text-slate-800 dark:text-slate-200"
                     value={searchQuery}
                     onChange={(e) => onSearchChange(e.target.value)}
                   />

@@ -217,7 +217,7 @@ export function FileUpload({
       {/* Main Upload Area */}
       <Card
         className={`
-          relative border-2 border-dashed transition-all duration-300 overflow-hidden
+          relative border-2 border-dashed transition-all duration-300 overflow-hidden bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 hover:dark:bg-slate-800
           ${collapsed 
             ? 'min-h-[80px] cursor-pointer' 
             : 'min-h-[280px] cursor-pointer'

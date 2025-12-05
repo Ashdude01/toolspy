@@ -338,7 +338,7 @@ export function UniversalFileUpload({
       {/* Main Upload Area */}
       <Card
         className={`
-          relative border-2 border-dashed transition-colors duration-200 cursor-pointer min-h-[280px]
+          relative border-2 border-dashed transition-colors duration-200 cursor-pointer min-h-[280px] bg-slate-50 dark:bg-slate-900 hover:bg-slate-100 hover:dark:bg-slate-800
           ${isDragOver 
             ? 'border-primary bg-primary/5' 
             : 'border-muted-foreground/25 hover:border-primary/50'
