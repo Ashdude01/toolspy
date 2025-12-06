@@ -75,7 +75,7 @@ export function Footer() {
   ]
 
   const socialLinks = [
-    { href: "https://x.com/toolspy_official", icon: <X className="h-5 w-5" />, label: "X" },
+    { href: "https://x.com/ToolSpy170613", icon: <X className="h-5 w-5" />, label: "X" },
     { href: "https://www.facebook.com/profile.php?id=61581409970991", icon: <Facebook className="h-5 w-5" />, label: "Facebook" },
     { href: "https://www.linkedin.com/company/109004927", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
     { href: "#", icon: <Instagram className="h-5 w-5" />, label: "Instagram" }

@@ -262,14 +262,14 @@ export function HomeSeoContent({faqData}: any) {
                     Our <strong className="text-blue-600 dark:text-blue-400">free online converters</strong> support all major file formats and work entirely in your browser for maximum security. Need to <strong className="text-purple-600 dark:text-purple-400">resize images</strong>, <strong className="text-pink-600 dark:text-pink-400">merge PDF files</strong>, or use our <strong className="text-green-600 dark:text-green-400">percentage calculator</strong>? All tools feature <strong className="text-blue-600 dark:text-blue-400">batch processing</strong>, real-time previews, and professional-grade algorithms.
                   </p>
                   <p className="text-lg text-muted-foreground leading-relaxed">
-                    From <strong className="text-purple-600 dark:text-purple-400">image optimization</strong> and <strong className="text-pink-600 dark:text-pink-400">document conversion</strong> to <strong className="text-green-600 dark:text-green-400">advanced calculators</strong> and <strong className="text-orange-600 dark:text-orange-400">encoding tools</strong>, Toolspy offers the complete digital toolkit for students, professionals, developers, and businesses. Experience the convenience of having enterprise-grade tools at your fingertips—completely free, secure, and optimized for every device.
+                    From <strong className="text-purple-600 dark:text-purple-400">image optimization</strong> and <strong className="text-pink-600 dark:text-pink-400">document conversion</strong> to <strong className="text-green-600 dark:text-green-400">advanced calculators</strong> and <strong className="text-orange-600 dark:text-orange-400">encoding tools</strong>, Toolspy offers a complete digital toolkit for students, professionals, developers, and businesses. Experience the convenience of having enterprise-grade tools at your fingertips—completely free, secure, and optimized for every device.
                   </p>
                 </div>
 
                 {/* Enhanced Quick Stats */}
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
             <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-              <div className="text-2xl font-bold text-blue-600">70+</div>
+              <div className="text-2xl font-bold text-blue-600">80+</div>
               <div className="text-sm text-blue-700 dark:text-blue-300">Professional Tools</div>
             </div>
             <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">

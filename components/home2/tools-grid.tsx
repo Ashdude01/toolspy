@@ -94,48 +94,61 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case 'image-tools':
-        return <FileImage className="h-6 w-6" />
-      case 'pdf-tools':
-        return <FileText className="h-6 w-6" />
-      case 'calculators':
-        return <Calculator className="h-6 w-6" />
-      case 'base64-tools':
-        return <Code className="h-6 w-6" />
-      case 'misc-tools':
-        return <Wrench className="h-6 w-6" />
-      case 'json-tools':
-        return <FileJson className="h-6 w-6" />
-      case 'ai-tools':
-        return <Bot className="h-6 w-6" />
-      case 'code-tools':
-        return <Terminal className="h-6 w-6" />
-      case 'conversion-tools':
-        return <RefreshCw className="h-6 w-6" />
-      case 'gst-tools':
-        return <DollarSign className="h-6 w-6" />
-      case 'exam-tools':
-        return <GraduationCap className="h-6 w-6" />
+      case "image-tools":
+        return <FileImage className="h-6 w-6" />;
+      case "pdf-tools":
+        return <FileText className="h-6 w-6" />;
+      case "calculators":
+        return <Calculator className="h-6 w-6" />;
+      case "base64-tools":
+        return <Code className="h-6 w-6" />;
+      case "misc-tools":
+        return <Wrench className="h-6 w-6" />;
+      case "json-tools":
+        return <FileJson className="h-6 w-6" />;
+      case "ai-tools":
+        return <Bot className="h-6 w-6" />;
+      case "code-tools":
+        return <Terminal className="h-6 w-6" />;
+      case "conversion-tools":
+        return <RefreshCw className="h-6 w-6" />;
+      case "gst-tools":
+        return <DollarSign className="h-6 w-6" />;
+      case "exam-tools":
+        return <GraduationCap className="h-6 w-6" />;
       default:
-        return <Wrench className="h-6 w-6" />
+        return <Wrench className="h-6 w-6" />;
     }
   };
 
-  const getCategoryColor = (category: string) => {
+  const getCategoryColor = (category: ToolCategory) => {
     switch (category) {
-      case "image":
+      case "image-tools":
         return "from-green-500 to-emerald-500";
-      case "pdf":
+      case "pdf-tools":
         return "from-red-500 to-pink-500";
-      case "calculator":
+      case "calculators":
         return "from-blue-500 to-cyan-500";
-      case "encoding":
+      case "base64-tools":
         return "from-purple-500 to-violet-500";
+      case "misc-tools":
+        return "from-orange-500 to-amber-500";
+      case "json-tools":
+        return "from-indigo-500 to-blue-500";
+      case "ai-tools":
+        return "from-pink-500 to-rose-500";
+      case "code-tools":
+        return "from-slate-500 to-gray-500";
+      case "conversion-tools":
+        return "from-teal-500 to-cyan-500";
+      case "gst-tools":
+        return "from-yellow-500 to-orange-500";
+      case "exam-tools":
+        return "from-violet-500 to-purple-500";
       default:
         return "from-gray-500 to-slate-500";
     }
   };
-
 
   // Dynamic words for typewriter effect
   const typewriterWords = [
@@ -152,7 +165,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   const stats = [
     {
       label: "Professional Tools",
-      value: "70+",
+      value: "80+",
       icon: <Target className="h-5 w-5" />,
     },
     {
@@ -216,7 +229,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
           {/* Quick Stats */}
           <div
-            className={`grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12 transition-all duration-1000 delay-500 ${
+            className={`hidden md:grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12 transition-all duration-1000 delay-500 ${
               isVisible
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 translate-y-10"
@@ -241,11 +254,8 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
           </div>
         </div>
 
-
         {/* Search and Filter Section */}
         <div className="max-w-7xl mx-auto mb-8 w-full px-2">
-         
-
           {/* Enhanced Search Bar */}
           <div className="mx-auto mb-8 transition-all duration-1000 delay-300 opacity-100 translate-y-0 w-full">
             <div className="relative group w-full">
@@ -313,7 +323,14 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
           </div>
 
           {/* Category Filters */}
-          <div className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2">
+          <div
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2"
+            style={{
+              scrollbarWidth: "thin",
+              scrollBehavior: "smooth",
+              scrollMarginBlock: "10px",
+            }}
+          >
             <Button
               variant={selectedCategory === "all" ? "default" : "outline"}
               size="sm"
@@ -347,14 +364,13 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               >
                 <div className="relative transform-gpu">
                   {/* Main card */}
-                  <div className="relative min-h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
-
+                  <div className="relative min-h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
                     <div className="relative">
                       {/* Header with icon and badge */}
                       <div className="flex items-start justify-between mb-4">
                         <div className="relative">
                           <div
-                            className={`w-12 h-12 bg-gradient-to-br ${getCategoryColor(
+                            className={`p-2 bg-gradient-to-br ${getCategoryColor(
                               tool.category
                             )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                           >
@@ -376,7 +392,28 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                         </p>
                       </div>
                     </div>
-
+                    
+                    {/* Decorative elements - adaptive for light/dark mode */}
+                    <div
+                      className="absolute top-4 right-4 w-16 h-16 
+                        bg-gradient-to-br 
+                        from-red-600/10 to-yellow-400/10
+                        dark:from-yellow-400/10 dark:to-zinc-300/10
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-500
+                        pointer-events-none"
+                    ></div>
+                    <div
+                      className="absolute bottom-4 left-4 w-12 h-12 
+                        bg-gradient-to-br 
+                        from-purple-600/10 to-cyan-500/10
+                        dark:from-zinc-400/10 dark:to-red-300/10
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-500 delay-100
+                        pointer-events-none"
+                    ></div>
                   </div>
                 </div>
               </Link>
@@ -416,18 +453,16 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
             {isLoading ? (
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {[...Array(6)].map((_, i) => (
-                  <Card
-                    key={i}
-                    className="border-0 bg-white dark:bg-slate-800"
-                  >
+                  <Card key={i} className="border-0 bg-white dark:bg-slate-800">
                     <CardHeader>
-                      <div className="h-12 w-12 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
+                      <div className="flex justify-between">
+                        <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
+                        <div className="w-28 h-5 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
+                      </div>
                       <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
                       <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
+                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
                     </CardHeader>
-                    <CardContent>
-                      <div className="h-10 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
-                    </CardContent>
                   </Card>
                 ))}
               </div>
@@ -439,40 +474,60 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                     href={`/${tool.slug}`}
                     className="group block transform-gpu"
                   >
-                      {/* Main card */}
-                      <div className="relative h-full bg-white dark:bg-slate-800 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
-
-                        <div className="relative">
-                          {/* Header with icon and badge */}
-                          <div className="flex items-start justify-between mb-4">
-                            <div className="relative">
-                              <div
-                                className={`w-12 h-10 bg-gradient-to-br ${getCategoryColor(
-                                  tool.category
-                                )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
-                              >
-                                {getCategoryIcon(tool.category)}
-                              </div>
+                    {/* Main card */}
+                    <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
+                      <div className="relative">
+                        {/* Header with icon and badge */}
+                        <div className="flex items-start justify-between mb-4">
+                          <div className="relative">
+                            <div
+                              className={`p-2 bg-gradient-to-br ${getCategoryColor(
+                                tool.category
+                              )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
+                            >
+                              {getCategoryIcon(tool.category)}
                             </div>
-                            <Badge variant="outline" className="text-xs hidden md:block">
-                              {toolCategories[tool.category]?.name}
-                            </Badge>
                           </div>
-
-                          {/* Content */}
-                          <div>
-                            <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                              {tool.name}
-                            </h3>
-                            <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                              {tool.description.slice(0, 60)}...
-                            </p>
-                          </div>
+                          <Badge
+                            variant="outline"
+                            className="text-xs hidden md:block"
+                          >
+                            {toolCategories[tool.category]?.name}
+                          </Badge>
                         </div>
 
-                        {/* Decorative elements */}
-                        <div className="absolute top-4 right-4 w-16 h-16 bg-gradient-to-br from-blue-500/5 to-purple-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div className="absolute bottom-4 left-4 w-12 h-12 bg-gradient-to-br from-pink-500/5 to-yellow-500/5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100"></div>
+                        {/* Content */}
+                        <div>
+                          <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                            {tool.name}
+                          </h3>
+                          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+                            {tool.description.slice(0, 60)}...
+                          </p>
+                        </div>
+                      </div>
+
+                      {/* Decorative elements */}
+                      <div
+                      className="absolute top-4 right-4 w-16 h-16 
+                        bg-gradient-to-br 
+                        from-red-600/10 to-yellow-400/10
+                        dark:from-yellow-400/10 dark:to-zinc-300/10
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-500
+                        pointer-events-none"
+                    ></div>
+                    <div
+                      className="absolute bottom-4 left-4 w-12 h-12 
+                        bg-gradient-to-br 
+                        from-purple-600/10 to-cyan-500/10
+                        dark:from-zinc-400/10 dark:to-red-300/10
+                        rounded-full
+                        opacity-0 group-hover:opacity-100
+                        transition-opacity duration-500 delay-100
+                        pointer-events-none"
+                    ></div>
                       </div>
                   </Link>
                 ))}
@@ -500,7 +555,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   >
                     Clear Filters
                   </Button>
-                  <Link href="/contact"><Button variant="default">Request a Tool</Button></Link>
+                  <Link href="/contact">
+                    <Button variant="default">Request a Tool</Button>
+                  </Link>
                 </div>
               </div>
             )}
