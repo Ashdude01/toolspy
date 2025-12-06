@@ -91,6 +91,7 @@ function ImageCompressorContent() {
   });
   const afterUploadRef = useRef<HTMLDivElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
+  const compressionSettingsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   
   const handleFileSelect = (files: File[]) => {
@@ -99,7 +100,11 @@ function ImageCompressorContent() {
   };
 
   // Auto-import images from search params (?images=url or ?images=[url1,url2])
+  // Skip if extension_data is present to avoid conflicts
   useEffect(() => {
+    const extensionDataParam = searchParams?.get("extension_data");
+    if (extensionDataParam) return; // extension_data takes priority
+    
     const imagesParam = searchParams?.get("images");
     if (!imagesParam) return;
 
@@ -144,6 +149,197 @@ function ImageCompressorContent() {
       canceled = true;
     };
   }, [searchParams]);
+
+  // Handle extension_data search param with images and settings
+  useEffect(() => {
+    const extensionDataParam = searchParams?.get("extension_data");
+    if (!extensionDataParam) return;
+
+    let canceled = false;
+
+    // Parse and validate extension_data
+    const parseExtensionData = (): {
+      images: string[];
+      settings: {
+        preset: CompressionPreset;
+        quality: number;
+        format: string;
+        resize?: {
+          width?: number;
+          height?: number;
+          maintainAspectRatio: boolean;
+        };
+        removeExifData: boolean;
+        enableProgressive: boolean;
+        targetFileSize?: number;
+      };
+    } | null => {
+      try {
+        const parsed = JSON.parse(extensionDataParam);
+        
+        // Validate structure
+        if (!parsed || typeof parsed !== 'object') {
+          showToast("Invalid extension_data format", "error");
+          return null;
+        }
+
+        // Validate images array
+        if (!Array.isArray(parsed.images) || parsed.images.length === 0) {
+          showToast("No images provided in extension_data", "error");
+          return null;
+        }
+        const images = parsed.images.filter((url: any) => typeof url === 'string' && url.trim().length > 0);
+        if (images.length === 0) {
+          showToast("No valid image URLs found", "error");
+          return null;
+        }
+
+        // Validate settings
+        if (!parsed.settings || typeof parsed.settings !== 'object') {
+          showToast("Invalid settings in extension_data", "error");
+          return null;
+        }
+
+        const settings = parsed.settings;
+        const validPresets: CompressionPreset[] = ['balanced', 'high-quality', 'max-compression', 'web-optimized'];
+        const preset = validPresets.includes(settings.preset) ? settings.preset : 'balanced';
+
+        // Validate quality (1-100)
+        const quality = typeof settings.quality === 'number' 
+          ? Math.max(1, Math.min(100, settings.quality)) 
+          : 85;
+
+        // Validate format
+        const validFormats = ['original', 'jpeg', 'png', 'webp', 'avif'];
+        const format = typeof settings.format === 'string' && validFormats.includes(settings.format)
+          ? settings.format
+          : 'original';
+
+        // Validate resize settings if provided
+        let resize: { width?: number; height?: number; maintainAspectRatio: boolean } | undefined;
+        if (settings.resize && typeof settings.resize === 'object') {
+          const resizeSettings = settings.resize;
+          resize = {
+            maintainAspectRatio: typeof resizeSettings.maintainAspectRatio === 'boolean' 
+              ? resizeSettings.maintainAspectRatio 
+              : true,
+          };
+          
+          if (typeof resizeSettings.width === 'number' && resizeSettings.width > 0) {
+            resize.width = Math.round(resizeSettings.width);
+          }
+          if (typeof resizeSettings.height === 'number' && resizeSettings.height > 0) {
+            resize.height = Math.round(resizeSettings.height);
+          }
+          
+          // Only enable resize if at least one dimension is provided
+          if (!resize.width && !resize.height) {
+            resize = undefined;
+          }
+        }
+
+        // Validate removeExifData
+        const removeExifData = typeof settings.removeExifData === 'boolean' ? settings.removeExifData : true;
+
+        // Validate enableProgressive
+        const enableProgressive = typeof settings.enableProgressive === 'boolean' ? settings.enableProgressive : false;
+
+        // Validate targetFileSize (in KB)
+        let targetFileSize: number | undefined;
+        if (typeof settings.targetFileSize === 'number' && settings.targetFileSize > 0) {
+          targetFileSize = Math.round(settings.targetFileSize);
+        }
+
+        return {
+          images,
+          settings: {
+            preset,
+            quality,
+            format,
+            resize,
+            removeExifData,
+            enableProgressive,
+            targetFileSize,
+          },
+        };
+      } catch (error) {
+        showToast("Failed to parse extension_data: " + (error instanceof Error ? error.message : "Invalid JSON"), "error");
+        return null;
+      }
+    };
+
+    const data = parseExtensionData();
+    if (!data || canceled) return;
+
+    // Apply settings to state
+    setCurrentPreset(data.settings.preset);
+    setQuality([data.settings.quality]);
+    setOutputFormat(data.settings.format);
+    setEnableResize(!!data.settings.resize);
+    if (data.settings.resize) {
+      setResizeWidth(data.settings.resize.width?.toString() || "");
+      setResizeHeight(data.settings.resize.height?.toString() || "");
+      setMaintainAspectRatio(data.settings.resize.maintainAspectRatio);
+    }
+    setRemoveExifData(data.settings.removeExifData);
+    setEnableProgressive(data.settings.enableProgressive);
+    setTargetFileSize(data.settings.targetFileSize?.toString() || "");
+
+    // Fetch images
+    const fetchAsFile = async (url: string, index: number): Promise<File | null> => {
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) {
+          console.error(`Failed to fetch image ${index + 1}: ${res.statusText}`);
+          return null;
+        }
+        const blob = await res.blob();
+        if (!blob.type.startsWith('image/')) {
+          console.error(`Invalid image type for ${url}: ${blob.type}`);
+          return null;
+        }
+        const ext = blob.type.split('/')[1] || 'jpg';
+        const name = `imported-${index + 1}.${ext}`;
+        return new File([blob], name, { type: blob.type });
+      } catch (error) {
+        console.error(`Error fetching image ${index + 1}:`, error);
+        return null;
+      }
+    };
+
+    (async () => {
+      showToast(`Fetching ${data.images.length} image(s)...`, "info");
+      
+      const files = (await Promise.all(
+        data.images.map((url, i) => fetchAsFile(url, i))
+      )).filter((f): f is File => !!f);
+
+      if (canceled) return;
+
+      if (files.length === 0) {
+        showToast("Failed to fetch any images", "error");
+        return;
+      }
+
+      if (files.length < data.images.length) {
+        showToast(`Fetched ${files.length} of ${data.images.length} images`, "warning");
+      }
+
+      setSelectedFiles(files);
+      
+      // Scroll to compression settings area after a short delay to ensure state is updated
+      setTimeout(() => {
+        if (!canceled) {
+          // scrollToElement(compressionSettingsRef, 50);
+          scrollToElement(afterUploadRef, 50);
+        }
+      }, 300);
+    })();
+
+    return () => {
+      canceled = true;
+    };
+  }, [searchParams, showToast]);
 
   const handleError = (error: string) => {
     showToast(error, "error");
@@ -418,7 +614,7 @@ function ImageCompressorContent() {
           </div>
 
           {/* Compression Settings Card */}
-          <Card className="mb-6 sm:mb-8">
+          <Card ref={compressionSettingsRef} className="mb-6 sm:mb-8">
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>

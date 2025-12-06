@@ -95,8 +95,108 @@ export function RelatedTools({
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {relatedTools.map((tool, index) => (
-          <Card key={index} className="p-6 hover:shadow-md transition-shadow">
-            <div className="flex items-start justify-between">
+          <a
+            href={tool.href}
+            key={index}
+            className={`
+              p-6 group relative rounded-xl overflow-hidden
+              border border-gray-300 dark:border-transparent
+              bg-stone-100 dark:bg-zinc-900
+              hover:bg-stone-50 dark:hover:bg-zinc-950
+              shadow transition-all duration-300
+              hover:shadow-lg focus-visible:ring-2 focus-visible:ring-sky-400 hover:border hover:border-stone-500 hover:dark:border-neutral-400
+            `}
+            style={{ position: 'relative', zIndex: 1 }}
+            tabIndex={0}
+          >
+            <style>{`
+              .group::before, .group::after {
+                content: "";
+                position: absolute;
+                pointer-events: none;
+                border-radius: 0.85rem;
+                inset: 0;
+                z-index: 2;
+                transition:
+                  opacity 0.44s cubic-bezier(.5,0,.2,1),
+                  box-shadow 0.44s cubic-bezier(.4,0,.2,1),
+                  border-color 0.3s cubic-bezier(.6,0,.3,1),
+                  transform 0.44s cubic-bezier(.4,0,.2,1);
+              }
+              .group::before {
+                border: 2.8px solid transparent;
+                opacity: 0;
+                box-shadow: 0 0 0px 0 #c7d2fe44, 0 5px 22px -6px #a7f3d068;
+                transform: scale(1.01);
+              }
+              .group:hover::before,
+              .group:focus-visible::before {
+                opacity: 1;
+                box-shadow: 0 3px 40px -9px #a5b4fc44, 0 20px 52px -18px #bae6fd33;
+                border: 2.2px solid #a5b4fc;
+                transform: scale(1.033);
+              }
+              .group::after {
+                border-radius: 0.85rem;
+                opacity: 0;
+                mix-blend-mode: lighten;
+                
+                box-shadow: none;
+              }
+              .group:hover::after,
+              .group:focus-visible::after {
+                opacity: 1;
+                box-shadow: 0 0 30px 4px #bae6fd11;
+              }
+              /* Light mode: no background color change on hover */
+              .group:hover, .group:focus-visible {
+                /* transform still applies for float effect */
+                transform: translateY(-2px) scale(1.015);
+              }
+              @media (hover: none) {
+                .group:focus-visible {
+                  /* no light bg */
+                }
+              }
+              /* Subtle floating effect also on keyboard focus */
+              /* Animate in some sparkle for a subtle touch */
+              .group .tool-sparkles {
+                opacity: 0;
+                transition: opacity 0.7s cubic-bezier(.65,.01,.22,1);
+              }
+              .group:hover .tool-sparkles,
+              .group:focus-visible .tool-sparkles {
+                opacity: 0.33;
+              }
+              
+              /* Light mode: grayish particles only */
+              @media (prefers-color-scheme: light) {
+                .group .tool-sparkles circle {
+                  fill: #00000 !important;
+                  /* Slight coloring for uniqueness, but very subtle */
+                  opacity: 0.9 !important;
+                  filter: blur(0.5px);
+                }
+              }
+            `}</style>
+            {/* Subtle sparkles for elegance */}
+            <div className="tool-sparkles pointer-events-none absolute top-0 left-0 w-full h-full z-10">
+              <svg width="100%" height="100%">
+                <circle cx="88%" cy="18%" r="7" fill="#a5b4fc" opacity="0.10">
+                  <animate attributeName="opacity" values="0.10;0.21;0.10" dur="2.7s" repeatCount="indefinite" />
+                </circle>
+                <circle cx="14%" cy="85%" r="6" fill="#bae6fd" opacity="0.09">
+                  <animate attributeName="opacity" values="0.09;0.17;0.09" dur="2.0s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="37%" cy="23%" r="6" fill="#f0f9ff" opacity="0.12">
+                  <animate attributeName="opacity" values="0.12;0.20;0.12" dur="3.1s" repeatCount="indefinite"/>
+                </circle>
+                <circle cx="60%" cy="90%" r="3" fill="#7dd3fc" opacity="0.11">
+                  <animate attributeName="opacity" values="0.11;0.17;0.11" dur="2.3s" repeatCount="indefinite"/>
+                </circle>
+              </svg>
+            </div>
+            <div className="flex items-start justify-between relative z-20">
               <div className="flex-1">
                 <h4 className="font-semibold mb-2">{tool.name}</h4>
                 <p className="text-sm text-muted-foreground mb-4">
@@ -105,16 +205,28 @@ export function RelatedTools({
                 <p className="text-xs text-muted-foreground mb-4">
                   <b>Keywords</b>: {tool.keywords}
                 </p>
-                {tool.comingSoon ? (
+                {/* {tool.comingSoon ? (
                   <Badge variant="secondary">Coming Soon</Badge>
                 ) : (
-                  <Button variant="outline" size="sm" asChild>
-                    <Link href={tool.href}>Try Tool →</Link>
+                  <Button
+                    variant="default"
+                    size="sm"
+                    asChild
+                    className={`
+                      relative border-0 shadow-md transition-all 
+                      bg-gradient-to-r from-pink-600 via-fuchsia-600 to-blue-600
+                      text-white
+                      hover:from-blue-800 hover:via-fuchsia-700 hover:to-pink-700
+                    `}
+                  >
+                    <Link href={tool.href} className="!text-white">
+                      Try Tool&nbsp;→
+                    </Link>
                   </Button>
-                )}
+                )} */}
               </div>
             </div>
-          </Card>
+          </a>
         ))}
       </div>
 

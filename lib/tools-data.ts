@@ -1379,7 +1379,7 @@ export const tools: Tool[] = [
       name: 'App Icon Generator',
       title: 'Free App Icon Generator – Generate Icons for All Platforms | Toolspy',
       slug: '/app-icon-generator',
-      description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web with complete privacy protection.',
+      description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web.',
       tags: ['app icon', 'icon generator', 'android', 'ios', 'windows', 'macos', 'linux', 'web', 'mobile', 'desktop', 'pwa', 'app development', 'free app icon generator', 'app icon generator online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/App_Icon_Generator_n9bapl.webp'
@@ -1388,7 +1388,7 @@ export const tools: Tool[] = [
     id: 'pwa-icon-generator',
     name: 'PWA Icon Generator',
     slug: 'pwa-icon-generator',
-    description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps with complete privacy protection.',
+    description: 'Generate PWA icons and manifest file for Progressive Web Apps with complete privacy protection.',
     category: 'image-tools',
     icon: '🌐',
     featured: true,
@@ -1399,7 +1399,7 @@ export const tools: Tool[] = [
       name: 'PWA Icon Generator',
       title: 'Free PWA Icon Generator – Generate Icons for Progressive Web Apps | Toolspy',
       slug: '/pwa-icon-generator',
-      description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps with complete privacy protection.',
+      description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps.',
       tags: ['pwa icon', 'icon generator', 'pwa', 'progressive web app', 'manifest', 'web app', 'mobile web', 'desktop web', 'cross-platform', 'app development', 'free pwa icon generator', 'pwa icon generator online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/PWA_Icon_Generator_wwsixv.webp'
@@ -1408,7 +1408,7 @@ export const tools: Tool[] = [
     id: 'favicon-generator',
     name: 'Favicon Generator',
     slug: 'favicon-generator',
-    description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers with complete privacy protection.',
+    description: 'Generate favicons for your website with Toolspy. Create favicons for all devices and browsers.',
     category: 'image-tools',
     icon: '🌐',
     featured: true,
@@ -1419,7 +1419,7 @@ export const tools: Tool[] = [
       name: 'Favicon Generator',
       title: 'Free Favicon Generator – Generate Favicons for Websites | Toolspy',
       slug: '/favicon-generator',
-      description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers with complete privacy protection.',
+      description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers.',
       tags: ['favicon', 'icon generator', 'website', 'web app', 'browser', 'bookmark', 'html', 'seo', 'web development', 'cross-platform', 'free favicon generator', 'favicon generator online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Favicon_Generator_gykh4v.webp'
@@ -1428,7 +1428,7 @@ export const tools: Tool[] = [
     id: 'image-to-ico-converter',
     name: 'Image to ICO Converter',
     slug: 'image-to-ico-converter',
-    description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use with complete privacy protection.',
+    description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web.',
     category: 'image-tools',
     icon: '📁',
     featured: true,
@@ -1439,7 +1439,7 @@ export const tools: Tool[] = [
       name: 'Image to ICO Converter',
       title: 'Free Image to ICO Converter – Convert Images to ICO Format | Toolspy',
       slug: '/image-to-ico-converter',
-      description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use with complete privacy protection.',
+      description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use.',
       tags: ['image to ico', 'ico converter', 'windows', 'desktop', 'icon', 'converter', 'format', 'web app', 'cross-platform', 'app development', 'free image to ico converter', 'image to ico converter online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Image_to_ICO_Converter_kisnbo.webp'
@@ -1448,7 +1448,7 @@ export const tools: Tool[] = [
     id: 'markdown-to-docs-converter',
     name: 'Markdown to Docs Converter',
     slug: 'markdown-to-docs-converter',
-    description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents with complete privacy protection.',
+    description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents.',
     category: 'conversion-tools',
     icon: '📄',
     featured: true,
@@ -1459,7 +1459,7 @@ export const tools: Tool[] = [
       name: 'Markdown to Docs Converter',
       title: 'Free Markdown to Docs Converter – Convert Markdown to Documents | Toolspy',
       slug: '/markdown-to-docs-converter',
-      description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents with complete privacy protection.',
+      description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents.',
       tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development', 'free markdown to docs converter', 'markdown to docs converter online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Markdown_to_Docs_Converter_zcirrd.webp'
