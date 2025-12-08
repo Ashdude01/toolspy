@@ -1,7 +1,4 @@
-# ads.txt file for toolspy.net
-# This file is managed by Ezoic
-# If you see this message, the Ezoic ads.txt manager is not yet configured for this domain
-# Please ensure your domain is properly integrated with Ezoic
-# Reference: https://docs.ezoic.com/docs/ezoicads/adstxt/
+#Ads.txt toolspy.net
 
-# Once Ezoic integration is complete, this file will be automatically updated
+# 11201
+google.com, pub-8490028444671399, DIRECT, f08c47fec0942fa0

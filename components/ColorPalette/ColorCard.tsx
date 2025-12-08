@@ -280,7 +280,7 @@ export const ColorCard = ({
           </>
         )}
 
-        <div className="hidden absolute z-10 sm:top-64 md:top-[15rem] lg:top-[25rem] xl:top-10 2xl:top-1/3 left-1/2 -translate-x-1/2 invisible group-hover:visible transition-all duration-200 sm:flex flex-col gap-3 items-center justify-center">
+        <div className="hidden absolute z-10 sm:top-64 md:top-[15rem] lg:top-[25rem] xl:top-10 2xl:top-[16%] left-1/2 -translate-x-1/2 invisible group-hover:visible transition-all duration-200 sm:flex flex-col gap-3 items-center justify-center">
           {canRemove && (
             <Tooltip>
               <TooltipTrigger asChild>
