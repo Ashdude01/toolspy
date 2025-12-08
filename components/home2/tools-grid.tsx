@@ -60,7 +60,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  const popularTools = tools.slice(0, 6);
+  const popularTools = tools.filter((tool) => tool.featured);
 
   // Filter tools based on search and category
   const filterTools = () => {

@@ -95,7 +95,7 @@ export function RelatedTools({
       </p>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {relatedTools.map((tool, index) => (
-          <a
+          <Link
             href={tool.href}
             key={index}
             className={`
@@ -226,7 +226,7 @@ export function RelatedTools({
                 )} */}
               </div>
             </div>
-          </a>
+          </Link>
         ))}
       </div>
 

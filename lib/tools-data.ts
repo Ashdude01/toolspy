@@ -862,6 +862,26 @@ export const tools: Tool[] = [
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Color_Picker_qnftn6.webp'
   },
   {
+    id: 'color-palette-generator',
+    name: 'Color Palette Generator',
+    slug: 'color-palette-generator',
+    description: 'Generate beautiful color palettes with drag-and-drop reordering, lock colors, and export in multiple formats',
+    category: 'misc-tools',
+    icon: '🎨',
+    featured: true,
+    tags: ['color', 'palette', 'generator', 'design', 'hex', 'rgb', 'hsl', 'export'],
+    path: '/color-palette-generator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Color Palette Generator',
+      title: 'Free Color Palette Generator – Create Beautiful Palettes Online | Toolspy',
+      slug: '/color-palette-generator',
+      description: 'Generate beautiful color palettes with drag-and-drop reordering, lock colors, and export in CSS, SCSS, Tailwind, JSON formats. Free, private, and professional.',
+      tags: ['color', 'palette', 'generator', 'design', 'hex', 'rgb', 'hsl', 'export', 'color scheme', 'palette generator']
+    }),
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Color_Palettes_Generator_livayv.webp'
+  },
+  {
     id: 'google-indexing-api',
     name: 'Google Indexing API Tool',
     slug: 'google-indexing-api',
@@ -948,20 +968,20 @@ export const tools: Tool[] = [
 
   // AI Tools  
   {
-    id: 'color-palette-generator',
+    id: 'ai-color-palette-generator',
     name: 'AI Color Palette Generator',
-    slug: 'color-palette-generator',
+    slug: 'ai-color-palette-generator',
     description: 'Generate beautiful color palettes with AI suggestions, accessibility checking, and professional export options',
     category: 'ai-tools',
     icon: '🎨',
     featured: true,
     tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker'],
-    path: '/color-palette-generator',
+    path: '/ai-color-palette-generator',
     status: 'active',
     seo: generateSEO({
       name: 'AI Color Palette Generator',
       title: 'Free Color Palette Generator & Picker – AI-Powered, Accessible, Export Ready | Toolspy',
-      slug: '/color-palette-generator',
+      slug: '/ai-color-palette-generator',
       description: 'Generate stunning color palettes with AI insights, accessibility checking, and professional export options. Create harmonious colors for design, branding, and web development.',
       tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker', 'coolors']
     }),
