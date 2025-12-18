@@ -199,7 +199,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               className="font-semibold mb-3 text-green-700 dark:text-green-300 bg-green-100 dark:bg-green-900/20 border-green-200 dark:border-green-800 animate-pulse"
             >
               <Shield className="w-4 h-4 mr-2" />
-              Privacy-First • No Data Collection • Free Forever
+              Privacy-First • No Data Collection • Free
             </Badge>
 
             <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-10 lg:flex-row text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out px-2">
@@ -228,7 +228,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
           </div>
 
           {/* Quick Stats */}
-          <div
+          {/* <div
             className={`hidden md:grid grid-cols-2 md:grid-cols-4 gap-4 max-w-2xl mx-auto mb-12 transition-all duration-1000 delay-500 ${
               isVisible
                 ? "opacity-100 translate-y-0"
@@ -251,7 +251,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 </div>
               </div>
             ))}
-          </div>
+          </div> */}
         </div>
 
         {/* Search and Filter Section */}

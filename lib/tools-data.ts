@@ -67,17 +67,17 @@ function generateSEO(tool: {
 
 export const toolCategories: Record<ToolCategory, { name: string; description: string; icon: string }> = {
   'image-tools': {
-    name: 'Professional Image Tools',
+    name: 'Image Tools',
     description: 'Convert, compress, and optimize images with advanced algorithms',
     icon: '🖼️'
   },
   'pdf-tools': {
-    name: 'PDF Processing Tools', 
+    name: 'PDF Tools', 
     description: 'Professional PDF manipulation and conversion tools',
     icon: '📄'
   },
   'base64-tools': {
-    name: 'Base64 Conversion Tools',
+    name: 'Base64 Tools',
     description: 'Secure encoding and decoding of Base64 data',
     icon: '🔤'
   },
@@ -92,7 +92,7 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
     icon: '🧰'
   },
   'json-tools': {
-    name: 'JSON Processing Tools',
+    name: 'JSON Tools',
     description: 'Format, validate, and convert JSON data with advanced features',
     icon: '📋'
   },
@@ -102,12 +102,12 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
     icon: '🤖'
   },
   'code-tools': {
-    name: 'Developer Tools',
+    name: 'Coding Tools',
     description: 'Code formatting, minification, and development utilities',
     icon: '💻'
   },
   'conversion-tools': {
-    name: 'File Conversion Tools',
+    name: 'File Conversion',
     description: 'Convert between various file formats and media types',
     icon: '🔄'
   },
@@ -1504,7 +1504,7 @@ export const tools: Tool[] = [
       description: 'Calculate GST with Toolspy\'s professional calculator. Support for inclusive/exclusive modes and all GST rates (0%, 5%, 12%, 18%, 28%). Free, private, and accurate.',
       tags: ['gst', 'calculator', 'tax', 'india', 'business', 'invoice', 'gst calculator', 'gst calculator online', 'gst calculator free', 'calculate gst', 'gst calculator india']
     }),
-    posterImage: '/images/tools/gst-calculator.webp'
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/GST_Calculator_w0upju.webp'
   },
   {
     id: 'reverse-gst-calculator',
