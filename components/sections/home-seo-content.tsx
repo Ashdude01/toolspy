@@ -220,10 +220,6 @@ export function HomeSeoContent({ faqData }: any) {
           name: "Investment Calculator",
           slug: "investment-calculator",
         },
-        {
-          name: "EMI Calculator",
-          slug: "emi-calculator",
-        },
       ],
     },
   ];
@@ -322,8 +318,8 @@ export function HomeSeoContent({ faqData }: any) {
       category: "For Students",
       tools: [
         {
-          name: "PDF to Word converter",
-          slug: "pdf-to-word-converter",
+          name: "PDF to Word",
+          slug: "pdf-to-word",
         },
         {
           name: "Image compressor",
@@ -376,10 +372,6 @@ export function HomeSeoContent({ faqData }: any) {
           slug: "json-formatter",
         },
         {
-          name: "Hash generator",
-          slug: "hash-generator",
-        },
-        {
           name: "Code beautifier",
           slug: "code-beautifier",
         },
@@ -401,10 +393,6 @@ export function HomeSeoContent({ faqData }: any) {
         {
           name: "Meme generator",
           slug: "meme-generator",
-        },
-        {
-          name: "Social media tools",
-          slug: "social-media-tools",
         },
       ],
       description:
