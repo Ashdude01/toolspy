@@ -362,9 +362,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 href={`/${tool.slug}`}
                 className="group block"
               >
-                <div className="relative transform-gpu">
+                <div className="relative transform-gpu h-full">
                   {/* Main card */}
-                  <div className="relative min-h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
+                  <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
                     <div className="relative">
                       {/* Header with icon and badge */}
                       <div className="flex items-start justify-between mb-4">
@@ -472,7 +472,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   <Link
                     key={tool.id}
                     href={`/${tool.slug}`}
-                    className="group block transform-gpu"
+                    className="group block transform-gpu h-full"
                   >
                     {/* Main card */}
                     <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
