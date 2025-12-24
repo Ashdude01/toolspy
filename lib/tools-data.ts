@@ -1805,6 +1805,26 @@ export const tools: Tool[] = [
       tags: ['bank po', 'rank predictor', 'banking job predictor', 'bank predictor', 'admission', 'bank po rank predictor', 'bank po rank calculator', 'banking job predictor', 'predict bank po rank']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Bank_PO_Rank_Predictor_hhbtek.webp'
+  },
+  {
+    id: 'website-screenshot',
+    name: 'Website Screenshot',
+    slug: 'website-screenshot',
+    description: 'Capture high-quality screenshots of any website in different formats and sizes. Full-page capture, multiple device presets, and instant downloads',
+    category: 'misc-tools',
+    icon: '📸',
+    featured: true,
+    tags: ['take screenshots of website', 'website screenshot', 'snapshot a webpage', 'full page screenshot url', 'website screen shot', 'snapshot site', 'web screenshot', 'screenshot website', 'website screenshot tool', 'free website screenshot', 'online screenshot', 'capture website', 'screenshot tool'],
+    path: '/website-screenshot',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Website Screenshot',
+      title: 'Free Website Screenshot Tool – Take Screenshots of Website | Toolspy',
+      slug: '/website-screenshot',
+      description: 'Capture high-quality screenshots of any website in different formats and sizes. Full-page capture, multiple device presets, PNG, JPEG, WebP support. Free, private, no registration required.',
+      tags: ['take screenshots of website', 'website screenshot', 'snapshot a webpage', 'full page screenshot url', 'website screen shot', 'snapshot site', 'web screenshot', 'screenshot website', 'website screenshot tool', 'free website screenshot', 'online screenshot', 'capture website', 'screenshot tool']
+    }),
+    posterImage: '/images/tools/website-screenshot.webp'
   }
 ];
 

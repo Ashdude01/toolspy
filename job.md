@@ -1,72 +1,40 @@
-## Below is the list of new category and tools
-
-## New category -  GST/MSME Toolkit
-
-Core Tools to Build : -
-
-GST Calculator (Inclusive/Exclusive) → Enter amount, choose rate (5/12/18/28%), get tax & total.
-
-Reverse GST Calculator → Input final amount, find base amount + GST component.
-
-CGST/SGST/IGST Splitter → Auto-split for intra- vs inter-state transactions.
-
-HSN/SAC Finder → Quick search with auto-suggest + reference links.
-
-E-Invoice/QR Code Validator → Upload/scan → output invoice status.
-
-Input Tax Credit (ITC) Calculator → Track claimable credits vs blocked credits.
-
-Composition vs Regular Scheme Estimator → Compare tax liability under both schemes.
-
-Penalty/Late Fee Calculator → Auto-calc GSTR filing late fees & interest.
-
-Import Duty + GST Estimator (bonus) → For small importers, combine customs + GST.
+new tool: development
 
 
+keywords of this new tools:
+take screenshots of website
+website screenshot
+snapshot a webpage
+full page screenshot url
+website screen shot
+snapshot site
+web screenshot
+screenshot website
 
-## New Category - Exam Rank/Cutoff Predictors
+use this keyword and create a new tool page
+which have the ultra features to capture a screenshot of the given website url in different image format and sizes
 
-Core Tools to Build: -
+give users a good and required configuration settings to take screenshot
 
-Percentile → Rank Converter (per exam) → Based on official formula + past data.
+after taken, users can download and copy the screenshot individually also download in a zip.
 
-Rank → College Predictor → Map predicted rank to available colleges & branches.
-
-Cutoff Explorer → Historical cutoffs by year, category, branch, state.
-
-Seat Matrix Browser → Filter colleges by quota, branch, location.
-
-Counseling Fee Estimator → Calculate fees & refunds across rounds.
-
-Admit Card & Document Checklist Generator → By exam type & category.
-
-Exam Calendar & Reminder Tool → Track key dates across exams.
-
-Mock Rank Simulator (bonus) → Enter mock test scores → predict percentile.
-
-
+take reference from website like - https://pikwy.com/
+and others similar.
 
 ## follow these steps to develop the tools
 
- SEO & Google Ranking Strategy
-Technical Measures
-
-Fast, lightweight pages: Build each tool as its own dedicated URL (example.com/gst-calculator, example.com/jee-rank-predictor).
+SEO & Google Ranking Strategy
 
 Schema markup: Use SoftwareApplication, HowTo, and FAQPage schema for each tool → Google rich snippets.
 
-Internal linking: Link all calculators/predictors together as a “suite.” Helps distribute authority.
+implement a good user and seo friendly Internal linking
 
 Mobile-first: 70%+ searches will come from phones → tools must load in <2 sec.
 
-## How to make this tools “Favorite” to users
-UX Features: -
+use the given keywords and write humanize seo frindly content in seo-content.tsx.
 
-Save results/profile: For GST—business profile with GSTIN; For Exams—student profile with exam scores.
+## work How to make this tools “Favorite” to users
 
-Export/Share: One-click PDF export, CSV download, or WhatsApp/Telegram share.
-
-Personalization: Remember last-used settings (e.g., GST rate or chosen exam).
 
 Dark/light mode: Small but sticky.
 
