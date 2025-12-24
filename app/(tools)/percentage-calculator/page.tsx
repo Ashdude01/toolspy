@@ -224,7 +224,7 @@ function PercentageCalculatorContent() {
             <div className="space-y-2">
               <Label htmlFor="calc-type">Calculation Type</Label>
               <Select value={calculationType} onValueChange={setCalculationType}>
-                <SelectTrigger>
+                <SelectTrigger id="calc-type" aria-label="Select calculation type">
                   <SelectValue placeholder="Select calculation type" />
                 </SelectTrigger>
                 <SelectContent>
@@ -242,36 +242,42 @@ function PercentageCalculatorContent() {
             {/* Input Fields */}
             <div className="grid gap-4">
               <div className="space-y-2">
-                <Label htmlFor="value1">{label1}</Label>
+                <Label htmlFor="value1">{label1} <span className="text-red-500" aria-label="required">*</span></Label>
                 <Input
                   id="value1"
                   type="number"
                   value={value1}
                   onChange={(e) => setValue1(e.target.value)}
                   placeholder={`Enter ${label1.toLowerCase()}`}
+                  required
+                  aria-required="true"
                 />
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="value2">{label2}</Label>
+                <Label htmlFor="value2">{label2} <span className="text-red-500" aria-label="required">*</span></Label>
                 <Input
                   id="value2"
                   type="number"
                   value={value2}
                   onChange={(e) => setValue2(e.target.value)}
                   placeholder={`Enter ${label2.toLowerCase()}`}
+                  required
+                  aria-required="true"
                 />
               </div>
 
               {label3 && (
                 <div className="space-y-2">
-                  <Label htmlFor="value3">{label3}</Label>
+                  <Label htmlFor="value3">{label3} <span className="text-red-500" aria-label="required">*</span></Label>
                   <Input
                     id="value3"
                     type="number"
                     value={value3}
                     onChange={(e) => setValue3(e.target.value)}
                     placeholder={`Enter ${label3.toLowerCase()}`}
+                    required
+                    aria-required="true"
                   />
                 </div>
               )}
@@ -283,15 +289,17 @@ function PercentageCalculatorContent() {
                 onClick={calculatePercentage} 
                 className="flex-1"
                 disabled={!value1 || !value2 || (!!label3 && !value3)}
+                aria-label="Calculate percentage based on entered values"
               >
-                <Calculator className="h-4 w-4 mr-2" />
+                <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
                 Calculate
               </Button>
               <Button 
                 variant="outline" 
                 onClick={clearAll}
+                aria-label="Clear all input values and results"
               >
-                <RefreshCw className="h-4 w-4 mr-2" />
+                <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
                 Clear
               </Button>
             </div>

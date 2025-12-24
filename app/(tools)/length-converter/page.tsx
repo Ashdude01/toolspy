@@ -213,7 +213,7 @@ function LengthConverterContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Length Value</Label>
+              <Label htmlFor="inputValue">Length Value <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -222,15 +222,18 @@ function LengthConverterContent() {
                 onChange={(e) => setInputValue(e.target.value)}
                 step="0.001"
                 className="text-lg"
+                required
+                aria-required="true"
+                aria-label="Enter length value to convert"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label>From Unit</Label>
+              <Label htmlFor="from-unit-select">From Unit</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger>
+                <SelectTrigger id="from-unit-select" aria-label="Select source length unit">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -254,15 +257,17 @@ function LengthConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
+                aria-label="Swap source and target length units"
               >
-                <ArrowUpDown className="h-4 w-4" />
+                <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only">Swap units</span>
               </Button>
             </div>
 
             <div className="space-y-2">
-              <Label>To Unit</Label>
+              <Label htmlFor="to-unit-select">To Unit</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger>
+                <SelectTrigger id="to-unit-select" aria-label="Select target length unit">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -286,16 +291,18 @@ function LengthConverterContent() {
               onClick={convertLength} 
               className="flex-1"
               disabled={!inputValue}
+              aria-label="Convert length based on entered value and selected units"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Length
             </Button>
             <Button 
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset converter and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

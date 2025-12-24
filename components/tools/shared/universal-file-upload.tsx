@@ -348,6 +348,15 @@ export function UniversalFileUpload({
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => document.getElementById('universal-file-input')?.click()}
+        role="button"
+        tabIndex={0}
+        aria-label={`Upload ${primaryConfig.name.toLowerCase()}${multiple ? 's' : ''}. ${displayDescription}`}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            document.getElementById('universal-file-input')?.click();
+          }
+        }}
       >
         <div className="p-5 md:p-12 text-center">
           {/* Upload Icon */}
@@ -371,12 +380,13 @@ export function UniversalFileUpload({
                 e.stopPropagation();
                 document.getElementById('universal-file-input')?.click();
               }}
+              aria-label="Browse and select files"
             >
               Browse Files
             </Button>
             {showPasteFromClipboard && pasteFromClipboardSupported && fileTypes.includes('image') && (
               <>
-                <span className="text-muted-foreground">•</span>
+                <span className="text-muted-foreground" aria-hidden="true">•</span>
                 <Button 
                   variant="secondary" 
                   className="h-auto text-purple-600 hover:text-purple-700 text-xs sm:text-sm"
@@ -385,6 +395,7 @@ export function UniversalFileUpload({
                     handlePaste();
                   }}
                   disabled={isLoading}
+                  aria-label="Paste image from clipboard"
                 >
                   {isLoading ? 'Pasting...' : 'Paste from Clipboard'}
                 </Button>
@@ -408,19 +419,26 @@ export function UniversalFileUpload({
           {showUrlImport && (
             <Card className="p-4 mt-6" onClick={(e) => e.stopPropagation()}>
               <div className="space-y-3">
+                <label htmlFor="url-import-input" className="sr-only">
+                  Import {primaryConfig.name.toLowerCase()} from URL
+                </label>
                 <div className="flex items-center space-x-2">
-                  <Link className="h-5 w-5 text-muted-foreground" />
+                  <Link className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
                   <Input
+                    id="url-import-input"
+                    type="url"
                     placeholder={`Enter ${primaryConfig.name.toLowerCase()} URL...`}
                     value={urlInput}
                     onChange={(e) => setUrlInput(e.target.value)}
                     onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
                     className="flex-1"
+                    aria-label={`Enter ${primaryConfig.name.toLowerCase()} URL to import`}
                   />
                   <Button 
                     onClick={handleUrlImport}
                     disabled={!urlInput.trim() || isLoading}
                     size="sm"
+                    aria-label="Import file from URL"
                   >
                     {isLoading ? 'Loading...' : 'Import'}
                   </Button>
@@ -437,6 +455,7 @@ export function UniversalFileUpload({
           multiple={multiple}
           onChange={handleFileInput}
           className="hidden"
+          aria-label={`Select ${primaryConfig.name.toLowerCase()}${multiple ? 's' : ''} to upload`}
         />
       </Card>
     </div>

@@ -184,7 +184,7 @@ function InvestmentCalculatorContent() {
         </CardHeader>
         <CardContent>
           <Select value={calculationType} onValueChange={setCalculationType}>
-            <SelectTrigger>
+            <SelectTrigger id="calculation-type-select" aria-label="Select calculation type">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -237,7 +237,7 @@ function InvestmentCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="annualReturn">Expected Annual Return (%)</Label>
+              <Label htmlFor="annualReturn">Expected Annual Return (%) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="annualReturn"
                 type="number"
@@ -247,10 +247,12 @@ function InvestmentCalculatorContent() {
                 step="0.1"
                 min="0"
                 max="50"
+                required
+                aria-required="true"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="timeHorizon">Time Horizon (years)</Label>
+              <Label htmlFor="timeHorizon">Time Horizon (years) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="timeHorizon"
                 type="number"
@@ -260,15 +262,17 @@ function InvestmentCalculatorContent() {
                 step="1"
                 min="1"
                 max="50"
+                required
+                aria-required="true"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Compounding Frequency</Label>
+              <Label htmlFor="compound-frequency-select">Compounding Frequency</Label>
               <Select value={compoundFrequency} onValueChange={setCompoundFrequency}>
-                <SelectTrigger>
+                <SelectTrigger id="compound-frequency-select" aria-label="Select compounding frequency">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -295,7 +299,7 @@ function InvestmentCalculatorContent() {
 
           {(calculationType === "goal" || calculationType === "time") && (
             <div className="space-y-2">
-              <Label htmlFor="investmentGoal">Investment Goal ($)</Label>
+              <Label htmlFor="investmentGoal">Investment Goal ($) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="investmentGoal"
                 type="number"
@@ -304,6 +308,8 @@ function InvestmentCalculatorContent() {
                 onChange={(e) => setInvestmentGoal(e.target.value)}
                 step="1000"
                 min="1000"
+                required
+                aria-required="true"
               />
             </div>
           )}
@@ -313,16 +319,18 @@ function InvestmentCalculatorContent() {
               onClick={calculateInvestment} 
               className="flex-1"
               disabled={!annualReturn || !timeHorizon}
+              aria-label="Calculate investment growth based on entered parameters"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Investment
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

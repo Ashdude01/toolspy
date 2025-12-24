@@ -177,7 +177,7 @@ Please consult with a tax professional for official GST calculations.`;
             <CardContent className="space-y-6">
               {/* Amount Input */}
               <div className="space-y-2">
-                <Label htmlFor="amount">Amount (₹)</Label>
+                <Label htmlFor="amount">Amount (₹) <span className="text-red-500" aria-label="required">*</span></Label>
                 <Input
                   id="amount"
                   type="number"
@@ -185,6 +185,9 @@ Please consult with a tax professional for official GST calculations.`;
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="text-lg"
+                  required
+                  aria-required="true"
+                  aria-label="Enter amount for GST calculation"
                 />
               </div>
 
@@ -192,7 +195,7 @@ Please consult with a tax professional for official GST calculations.`;
               <div className="space-y-2">
                 <Label htmlFor="gst-rate">GST Rate</Label>
                 <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
-                  <SelectTrigger>
+                  <SelectTrigger id="gst-rate" aria-label="Select GST rate percentage">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -211,6 +214,7 @@ Please consult with a tax professional for official GST calculations.`;
                   id="calculation-type"
                   checked={isInclusive}
                   onCheckedChange={setIsInclusive}
+                  aria-label="Toggle GST inclusive or exclusive calculation"
                 />
                 <Label htmlFor="calculation-type" className="text-sm">
                   GST Inclusive (GST included in amount)
@@ -219,12 +223,21 @@ Please consult with a tax professional for official GST calculations.`;
 
               {/* Action Buttons */}
               <div className="flex gap-2">
-                <Button onClick={calculateGST} className="flex-1">
-                  <Calculator className="h-4 w-4 mr-2" />
+                <Button 
+                  onClick={calculateGST} 
+                  className="flex-1"
+                  aria-label="Calculate GST based on entered amount and selected rate"
+                >
+                  <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
                   Calculate GST
                 </Button>
-                <Button variant="outline" onClick={clearAll}>
-                  <RefreshCw className="h-4 w-4" />
+                <Button 
+                  variant="outline" 
+                  onClick={clearAll}
+                  aria-label="Clear all inputs and results"
+                >
+                  <RefreshCw className="h-4 w-4" aria-hidden="true" />
+                  <span className="sr-only">Clear</span>
                 </Button>
               </div>
             </CardContent>
@@ -264,12 +277,22 @@ Please consult with a tax professional for official GST calculations.`;
                 </div>
 
                 <div className="flex gap-2 mt-4">
-                  <Button variant="outline" onClick={copyResult} className="flex-1">
-                    <Copy className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    onClick={copyResult} 
+                    className="flex-1"
+                    aria-label="Copy GST calculation result to clipboard"
+                  >
+                    <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                     Copy Result
                   </Button>
-                  <Button variant="outline" onClick={downloadResult} className="flex-1">
-                    <Download className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    onClick={downloadResult} 
+                    className="flex-1"
+                    aria-label="Download GST calculation result as text file"
+                  >
+                    <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                     Download
                   </Button>
                 </div>

@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Script from 'next/script'
 import { siteConfig } from '@/lib/config'
+import { loadConsent, getConsentState } from '@/lib/utils/consent'
 
 interface GTMProps {
   gtmId?: string
@@ -10,22 +11,36 @@ interface GTMProps {
 
 export function GoogleTagManager({ gtmId }: GTMProps) {
   const gtmIdToUse = gtmId || siteConfig.analytics.gtmId
+  const [shouldLoad, setShouldLoad] = useState(false)
 
   useEffect(() => {
-    // Initialize dataLayer if it doesn't exist
+    // Check consent before loading GTM
     if (typeof window !== 'undefined') {
       window.dataLayer = window.dataLayer || []
       
-      // Push initial GTM config
-      window.dataLayer.push({
-        'gtm.start': new Date().getTime(),
-        event: 'gtm.js'
-      })
+      // Check if analytics consent is granted
+      const stored = loadConsent()
+      const consent = stored?.consent || getConsentState()
+      
+      // Only load GTM if analytics or ads consent is granted
+      // (GTM may contain analytics/ads tags)
+      if (consent.analytics || consent.ads) {
+        setShouldLoad(true)
+        
+        // Push initial GTM config
+        window.dataLayer.push({
+          'gtm.start': new Date().getTime(),
+          event: 'gtm.js'
+        })
+      } else {
+        // Consent not granted - don't load GTM
+        console.log('GTM not loaded: Analytics/Ads consent not granted')
+      }
     }
   }, [])
 
-  // Don't render if no GTM ID is provided
-  if (!gtmIdToUse || !siteConfig.analytics.enableAnalytics) {
+  // Don't render if no GTM ID is provided or consent not granted
+  if (!gtmIdToUse || !siteConfig.analytics.enableAnalytics || !shouldLoad) {
     return null
   }
 

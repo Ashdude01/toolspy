@@ -846,19 +846,28 @@ export function HomeSeoContent({ faqData }: any) {
                     setSelectedFaq(selectedFaq === index ? null : index)
                   }
                 >
-                  <div className="flex items-center justify-between">
+                  <button
+                    className="flex items-center justify-between w-full text-left"
+                    aria-expanded={selectedFaq === index}
+                    aria-controls={`faq-answer-${index}`}
+                    id={`faq-question-${index}`}
+                  >
                     <CardTitle className="text-base">
                       <h4>{faq.question}</h4>
                     </CardTitle>
                     {selectedFaq === index ? (
-                      <ChevronUp className="h-5 w-5" />
+                      <ChevronUp className="h-5 w-5" aria-hidden="true" />
                     ) : (
-                      <ChevronDown className="h-5 w-5" />
+                      <ChevronDown className="h-5 w-5" aria-hidden="true" />
                     )}
-                  </div>
+                  </button>
                 </CardHeader>
                 {selectedFaq === index && (
-                  <CardContent>
+                  <CardContent
+                    id={`faq-answer-${index}`}
+                    role="region"
+                    aria-labelledby={`faq-question-${index}`}
+                  >
                     <p className="text-muted-foreground leading-relaxed">
                       {faq.answer}
                     </p>

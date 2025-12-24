@@ -316,9 +316,9 @@ function BmiCalculatorContent() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label>Unit System</Label>
+            <Label htmlFor="unit-select">Unit System</Label>
             <Select value={unit} onValueChange={setUnit}>
-              <SelectTrigger>
+              <SelectTrigger id="unit-select" aria-label="Select unit system">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -331,7 +331,7 @@ function BmiCalculatorContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="weight">
-                Weight {unit === "metric" ? "(kg)" : "(lbs)"}
+                Weight {unit === "metric" ? "(kg)" : "(lbs)"} <span className="text-red-500" aria-label="required">*</span>
               </Label>
               <Input
                 id="weight"
@@ -341,11 +341,13 @@ function BmiCalculatorContent() {
                 onChange={(e) => setWeight(e.target.value)}
                 step="0.1"
                 min="1"
+                required
+                aria-required="true"
               />
             </div>
             <div className="space-y-2">
               <Label htmlFor="height">
-                Height {unit === "metric" ? "(cm)" : "(inches)"}
+                Height {unit === "metric" ? "(cm)" : "(inches)"} <span className="text-red-500" aria-label="required">*</span>
               </Label>
               <Input
                 id="height"
@@ -355,6 +357,8 @@ function BmiCalculatorContent() {
                 onChange={(e) => setHeight(e.target.value)}
                 step="0.1"
                 min="1"
+                required
+                aria-required="true"
               />
             </div>
           </div>
@@ -364,16 +368,18 @@ function BmiCalculatorContent() {
               onClick={calculateBMI} 
               className="flex-1"
               disabled={!weight || !height}
+              aria-label="Calculate BMI based on weight and height"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate BMI
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

@@ -315,9 +315,9 @@ function ImageConverterContent() {
             <div className="grid md:grid-cols-2 gap-6">
               {/* Output Format */}
               <div className="space-y-3">
-                <Label>Output Format</Label>
+                <Label htmlFor="output-format-select">Output Format</Label>
                 <Select value={outputFormat} onValueChange={setOutputFormat}>
-                  <SelectTrigger>
+                  <SelectTrigger id="output-format-select" aria-label="Select output image format">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -336,14 +336,19 @@ function ImageConverterContent() {
               {/* Quality */}
               {(outputFormat === 'jpeg' || outputFormat === 'webp') && (
                 <div className="space-y-3">
-                  <Label>Quality: {quality[0]}%</Label>
+                  <Label htmlFor="quality-slider">Quality: {quality[0]}%</Label>
                   <Slider
+                    id="quality-slider"
                     value={quality}
                     onValueChange={setQuality}
                     max={100}
                     min={1}
                     step={1}
                     className="w-full"
+                    aria-label="Image quality slider"
+                    aria-valuemin={1}
+                    aria-valuemax={100}
+                    aria-valuenow={quality[0]}
                   />
                   <div className="text-xs text-gray-500">
                     Higher quality = larger file size
@@ -357,12 +362,17 @@ function ImageConverterContent() {
                 onClick={convertImages} 
                 disabled={selectedFiles.length === 0 || isConverting}
                 className="flex-1"
+                aria-label={`Convert ${selectedFiles.length} image${selectedFiles.length !== 1 ? 's' : ''} to ${outputFormat.toUpperCase()} format`}
               >
-                <Image className="h-4 w-4 mr-2" />
+                <Image className="h-4 w-4 mr-2" aria-hidden="true" />
                 Convert {selectedFiles.length} Image{selectedFiles.length !== 1 ? 's' : ''} to {outputFormat.toUpperCase()}
               </Button>
-              <Button variant="outline" onClick={clearAllFiles}>
-                <RefreshCw className="h-4 w-4 mr-2" />
+              <Button 
+                variant="outline" 
+                onClick={clearAllFiles}
+                aria-label="Clear all selected images"
+              >
+                <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
                 Clear All
               </Button>
             </div>
@@ -378,8 +388,12 @@ function ImageConverterContent() {
               <CardTitle>Conversion Results</CardTitle>
               <div className="flex gap-2">
                 {convertedResults.filter(r => r.success).length > 0 && (
-                  <Button onClick={downloadAll} size="sm">
-                    <Archive className="h-4 w-4 mr-2" />
+                  <Button 
+                    onClick={downloadAll} 
+                    size="sm"
+                    aria-label={`Download all ${convertedResults.filter(r => r.success).length} converted images`}
+                  >
+                    <Archive className="h-4 w-4 mr-2" aria-hidden="true" />
                     Download All ({convertedResults.filter(r => r.success).length})
                   </Button>
                 )}
@@ -423,8 +437,13 @@ function ImageConverterContent() {
                   
                   {result.success && (
                     <div className="flex gap-2">
-                      <Button size="sm" variant="outline" onClick={() => downloadSingle(result)}>
-                        <Download className="h-4 w-4 mr-1" />
+                      <Button 
+                        size="sm" 
+                        variant="outline" 
+                        onClick={() => downloadSingle(result)}
+                        aria-label={`Download ${result.file.name}`}
+                      >
+                        <Download className="h-4 w-4 mr-1" aria-hidden="true" />
                         Download
                       </Button>
                     </div>

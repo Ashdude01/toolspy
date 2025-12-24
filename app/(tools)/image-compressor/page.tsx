@@ -554,8 +554,13 @@ function ImageCompressorContent() {
                       Files ready for compression
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={clearAllFiles} size="sm">
-                    <Trash2 className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    onClick={clearAllFiles} 
+                    size="sm"
+                    aria-label="Clear all selected images"
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                     Clear All
                   </Button>
                 </div>
@@ -594,10 +599,20 @@ function ImageCompressorContent() {
                           : "hover:shadow-md hover:ring-1 hover:ring-primary"
                       }`}
                       onClick={() => applyPreset(key)}
+                      role="button"
+                      tabIndex={0}
+                      aria-label={`Select ${title} compression preset: ${description}`}
+                      aria-pressed={currentPreset === key}
+                      onKeyDown={(e) => {
+                        if (e.key === 'Enter' || e.key === ' ') {
+                          e.preventDefault();
+                          applyPreset(key);
+                        }
+                      }}
                     >
                       <CardContent className="p-3">
                         <div className="flex items-center space-x-2 mb-2">
-                          {icon}
+                          <span aria-hidden="true">{icon}</span>
                           <span className="font-semibold text-sm sm:text-base">
                             {title}
                           </span>
@@ -628,8 +643,10 @@ function ImageCompressorContent() {
                   onClick={() => setShowAdvanced(!showAdvanced)}
                   size="sm"
                   className="hidden md:flex gap-1"
+                  aria-label={showAdvanced ? "Hide advanced settings" : "Show advanced settings"}
+                  aria-expanded={showAdvanced}
                 >
-                  <Settings className="h-4 w-4 mr-2" />
+                  <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
                   <span className="hidden xl:inline">
                     {showAdvanced ? "Hide" : "Advanced"}
                   </span>
@@ -637,9 +654,9 @@ function ImageCompressorContent() {
                     {showAdvanced ? "Hide" : "More"}
                   </span>
                   {showAdvanced ? (
-                    <ChevronUp className="h-4 w-4 ml-2" />
+                    <ChevronUp className="h-4 w-4 ml-2" aria-hidden="true" />
                   ) : (
-                    <ChevronDown className="h-4 w-4 ml-2" />
+                    <ChevronDown className="h-4 w-4 ml-2" aria-hidden="true" />
                   )}
                 </Button>
               </div>
@@ -649,41 +666,48 @@ function ImageCompressorContent() {
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                 {/* Quality Slider */}
                 <div className="sm:col-span-2 lg:col-span-1">
-                  <Label className="text-sm font-medium">Quality</Label>
+                  <Label htmlFor="quality-slider" className="text-sm font-medium">Quality</Label>
                   <div className="space-y-2">
                     <div className="text-right text-sm font-medium">
                       {quality[0]}%
                     </div>
                     <Slider
+                      id="quality-slider"
                       value={quality}
                       onValueChange={setQuality}
                       max={100}
                       min={1}
                       step={1}
                       className="w-full"
+                      aria-label="Image quality slider"
+                      aria-valuemin={1}
+                      aria-valuemax={100}
+                      aria-valuenow={quality[0]}
                     />
                   </div>
                 </div>
 
                 {/* Target File Size */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">
+                  <Label htmlFor="target-size-input" className="text-sm font-medium">
                     Target Size (KB)
                   </Label>
                   <Input
+                    id="target-size-input"
                     type="number"
                     placeholder="Auto"
                     value={targetFileSize}
                     onChange={(e) => setTargetFileSize(e.target.value)}
                     className="ring-1 ring-gray-400"
+                    aria-label="Target file size in kilobytes"
                   />
                 </div>
 
                 {/* Output Format */}
                 <div className="space-y-2">
-                  <Label className="text-sm font-medium">Output Format</Label>
+                  <Label htmlFor="output-format-select" className="text-sm font-medium">Output Format</Label>
                   <Select value={outputFormat} onValueChange={setOutputFormat}>
-                    <SelectTrigger>
+                    <SelectTrigger id="output-format-select" aria-label="Select output image format">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
@@ -703,15 +727,17 @@ function ImageCompressorContent() {
                 onClick={() => setShowAdvanced(!showAdvanced)}
                 size="sm"
                 className="md:hidden w-full"
+                aria-label={showAdvanced ? "Hide advanced settings" : "Show advanced settings"}
+                aria-expanded={showAdvanced}
               >
-                <Settings className="h-4 w-4 mr-2" />
+                <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
                 <span className="inline">
                   {showAdvanced ? "Hide" : "Advanced"}
                 </span>
                 {showAdvanced ? (
-                  <ChevronUp className="h-4 w-4 ml-2" />
+                  <ChevronUp className="h-4 w-4 ml-2" aria-hidden="true" />
                 ) : (
-                  <ChevronDown className="h-4 w-4 ml-2" />
+                  <ChevronDown className="h-4 w-4 ml-2" aria-hidden="true" />
                 )}
               </Button>
 
@@ -739,35 +765,41 @@ function ImageCompressorContent() {
                     <div className="space-y-4 pl-3 sm:pl-6 border-l-2 border-muted">
                       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div className="space-y-2">
-                          <Label className="text-sm font-medium">
+                          <Label htmlFor="resize-width-input" className="text-sm font-medium">
                             Width (px)
                           </Label>
                           <Input
+                            id="resize-width-input"
                             type="number"
                             placeholder="Auto"
                             value={resizeWidth}
                             onChange={(e) => setResizeWidth(e.target.value)}
+                            aria-label="Image width in pixels"
                           />
                         </div>
                         <div className="space-y-2">
-                          <Label className="text-sm font-medium">
+                          <Label htmlFor="resize-height-input" className="text-sm font-medium">
                             Height (px)
                           </Label>
                           <Input
+                            id="resize-height-input"
                             type="number"
                             placeholder="Auto"
                             value={resizeHeight}
                             onChange={(e) => setResizeHeight(e.target.value)}
+                            aria-label="Image height in pixels"
                           />
                         </div>
                       </div>
 
                       <div className="flex items-center space-x-2">
                         <Switch
+                          id="aspect-ratio-switch"
                           checked={maintainAspectRatio}
                           onCheckedChange={setMaintainAspectRatio}
+                          aria-label="Maintain aspect ratio when resizing"
                         />
-                        <Label className="text-sm">Maintain Aspect Ratio</Label>
+                        <Label htmlFor="aspect-ratio-switch" className="text-sm">Maintain Aspect Ratio</Label>
                       </div>
                     </div>
                   )}
@@ -776,7 +808,7 @@ function ImageCompressorContent() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                     {/* EXIF Metadata */}
                     <div className="space-y-2">
-                      <Label className="text-sm font-medium">
+                      <Label htmlFor="exif-metadata-select" className="text-sm font-medium">
                         EXIF Metadata
                       </Label>
                       <Select
@@ -793,7 +825,7 @@ function ImageCompressorContent() {
                           else setRemoveExifData("selective"); // selective
                         }}
                       >
-                        <SelectTrigger>
+                        <SelectTrigger id="exif-metadata-select" aria-label="Select EXIF metadata handling">
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
@@ -811,6 +843,7 @@ function ImageCompressorContent() {
                       <input
                         type="checkbox"
                         id="progressive-checkbox"
+                        aria-label="Enable progressive encoding"
                         checked={enableProgressive}
                         onChange={(e) => setEnableProgressive(e.target.checked)}
                         className="rounded"
@@ -824,10 +857,12 @@ function ImageCompressorContent() {
                   {/* File Naming Options */}
                   <div className="flex items-center space-x-2">
                     <Switch
+                      id="preserve-names-switch"
                       checked={preserveOriginalNames}
                       onCheckedChange={setPreserveOriginalNames}
+                      aria-label="Preserve original filenames"
                     />
-                    <Label className="text-sm font-medium">
+                    <Label htmlFor="preserve-names-switch" className="text-sm font-medium">
                       Original Filename
                     </Label>
                   </div>
@@ -844,6 +879,9 @@ function ImageCompressorContent() {
                 disabled={selectedFiles.length === 0 || isCompressing}
                 size="lg"
                 className="w-full"
+                aria-label={isCompressing 
+                  ? "Compressing images, please wait" 
+                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? 's' : ''}`}
               >
                 {isCompressing
                   ? "Compressing..."
@@ -866,13 +904,22 @@ function ImageCompressorContent() {
                 </CardDescription>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
-                <Button onClick={downloadAll} variant="outline" size="sm">
-                  <Download className="h-4 w-4 mr-2" />
+                <Button 
+                  onClick={downloadAll} 
+                  variant="outline" 
+                  size="sm"
+                  aria-label={`Download all ${compressedResults.length} compressed images individually`}
+                >
+                  <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                   <span className="hidden sm:inline">Download All</span>
                   <span className="sm:hidden">All</span>
                 </Button>
-                <Button onClick={downloadAllAsZip} size="sm">
-                  <Download className="h-4 w-4 mr-2" />
+                <Button 
+                  onClick={downloadAllAsZip} 
+                  size="sm"
+                  aria-label={`Download all ${compressedResults.length} compressed images as ZIP file`}
+                >
+                  <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                   <span className="hidden sm:inline">
                     Download All ZIP ({compressedResults.length})
                   </span>
@@ -937,8 +984,9 @@ function ImageCompressorContent() {
                         size="sm"
                         onClick={() => copySingle(result)}
                         title="Copy to clipboard"
+                        aria-label={`Copy ${result.file.name} to clipboard`}
                       >
-                        <Copy className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <Copy className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
                         <span className="ml-1 sm:hidden text-xs">Copy</span>
                       </Button>
                       <Button
@@ -946,8 +994,9 @@ function ImageCompressorContent() {
                         size="sm"
                         onClick={() => downloadSingle(result)}
                         title="Download file"
+                        aria-label={`Download ${result.file.name}`}
                       >
-                        <Download className="h-3 w-3 sm:h-4 sm:w-4" />
+                        <Download className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
                         <span className="ml-1 sm:hidden text-xs">Download</span>
                       </Button>
                     </div>

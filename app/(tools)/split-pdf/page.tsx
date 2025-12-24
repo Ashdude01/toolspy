@@ -275,8 +275,13 @@ function SplitPdfContent() {
                   Configure how you want to split this PDF document
                 </CardDescription>
               </div>
-              <Button variant="outline" onClick={removeFile} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
+              <Button 
+                variant="outline" 
+                onClick={removeFile} 
+                size="sm"
+                aria-label="Remove selected PDF file"
+              >
+                <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                 Remove
               </Button>
             </div>
@@ -298,7 +303,7 @@ function SplitPdfContent() {
               <div>
                 <Label htmlFor="split-mode">Split Mode</Label>
                 <Select value={splitMode} onValueChange={setSplitMode}>
-                  <SelectTrigger>
+                  <SelectTrigger id="split-mode" aria-label="Select PDF split mode">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -311,13 +316,20 @@ function SplitPdfContent() {
 
               {splitMode === "page-range" && (
                 <div>
-                  <Label htmlFor="page-ranges">Page Ranges</Label>
+                  <Label htmlFor="page-ranges">Page Ranges <span className="text-red-500" aria-label="required">*</span></Label>
                   <Input
                     id="page-ranges"
+                    type="text"
                     placeholder="e.g., 1-3,5-7,9"
                     value={pageRanges}
                     onChange={(e) => setPageRanges(e.target.value)}
+                    required={splitMode === "page-range"}
+                    aria-required={splitMode === "page-range"}
+                    aria-describedby="page-ranges-description"
                   />
+                  <p id="page-ranges-description" className="sr-only">
+                    Specify page ranges separated by commas. Examples: "1-3,5-7,9" or "1,3,5-10"
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Specify page ranges separated by commas. Examples: "1-3,5-7,9" or "1,3,5-10"
                   </p>
@@ -326,7 +338,7 @@ function SplitPdfContent() {
 
               {splitMode === "pages-per-file" && (
                 <div>
-                  <Label htmlFor="pages-per-file">Pages per File</Label>
+                  <Label htmlFor="pages-per-file">Pages per File <span className="text-red-500" aria-label="required">*</span></Label>
                   <Input
                     id="pages-per-file"
                     type="number"
@@ -334,7 +346,13 @@ function SplitPdfContent() {
                     placeholder="1"
                     value={pagesPerFile}
                     onChange={(e) => setPagesPerFile(e.target.value)}
+                    required={splitMode === "pages-per-file"}
+                    aria-required={splitMode === "pages-per-file"}
+                    aria-describedby="pages-per-file-description"
                   />
+                  <p id="pages-per-file-description" className="sr-only">
+                    Number of pages to include in each split file
+                  </p>
                   <p className="text-xs text-muted-foreground mt-1">
                     Number of pages to include in each split file
                   </p>
@@ -359,8 +377,9 @@ function SplitPdfContent() {
               disabled={isSplitting}
               size="lg"
               className="w-full"
+              aria-label={isSplitting ? "Splitting PDF, please wait" : "Split PDF file"}
             >
-              <Scissors className="h-5 w-5 mr-2" />
+              <Scissors className="h-5 w-5 mr-2" aria-hidden="true" />
               {isSplitting ? "Splitting PDF..." : "Split PDF"}
             </Button>
           </CardContent>
@@ -383,8 +402,12 @@ function SplitPdfContent() {
                 </CardDescription>
               </div>
               {splitResults[0].success && (
-                <Button onClick={downloadAll} size="sm">
-                  <Download className="h-4 w-4 mr-2" />
+                <Button 
+                  onClick={downloadAll} 
+                  size="sm"
+                  aria-label={`Download all ${splitResults[0].files.length} split PDF files`}
+                >
+                  <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                   Download All
                 </Button>
               )}
@@ -407,8 +430,9 @@ function SplitPdfContent() {
                     <Button
                       onClick={() => downloadSingle(file)}
                       size="sm"
+                      aria-label={`Download ${file.name}`}
                     >
-                      <Download className="h-4 w-4 mr-2" />
+                      <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                       Download
                     </Button>
                   </div>
@@ -419,7 +443,11 @@ function SplitPdfContent() {
                 <p className="text-red-500 mb-4">
                   {splitResults[0].error || "An error occurred during splitting"}
                 </p>
-                <Button onClick={() => setSplitResults([])} variant="outline">
+                <Button 
+                  onClick={() => setSplitResults([])} 
+                  variant="outline"
+                  aria-label="Try splitting PDF again"
+                >
                   Try Again
                 </Button>
               </div>

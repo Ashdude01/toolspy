@@ -298,15 +298,17 @@ function UnitConverterContent() {
           <CardDescription>Choose the type of measurement to convert</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3" role="group" aria-label="Unit conversion category selection">
             {Object.keys(conversionData).map((cat) => (
               <Button
                 key={cat}
                 variant={category === cat ? "default" : "outline"}
                 onClick={() => handleCategoryChange(cat)}
                 className="flex flex-col items-center gap-2 h-20"
+                aria-label={`Select ${cat} conversion category`}
+                aria-pressed={category === cat}
               >
-                {getCategoryIcon(cat)}
+                <span aria-hidden="true">{getCategoryIcon(cat)}</span>
                 <span className="text-xs capitalize">{cat}</span>
               </Button>
             ))}
@@ -328,7 +330,7 @@ function UnitConverterContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Value</Label>
+              <Label htmlFor="inputValue">Value <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -337,15 +339,18 @@ function UnitConverterContent() {
                 onChange={(e) => setInputValue(e.target.value)}
                 step="0.001"
                 className="text-lg"
+                required
+                aria-required="true"
+                aria-label="Enter value to convert"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label>From Unit</Label>
+              <Label htmlFor="from-unit-select">From Unit</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger>
+                <SelectTrigger id="from-unit-select" aria-label={`Select source ${category} unit`}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -364,15 +369,17 @@ function UnitConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
+                aria-label="Swap source and target units"
               >
-                <ArrowUpDown className="h-4 w-4" />
+                <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only">Swap units</span>
               </Button>
             </div>
 
             <div className="space-y-2">
-              <Label>To Unit</Label>
+              <Label htmlFor="to-unit-select">To Unit</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger>
+                <SelectTrigger id="to-unit-select" aria-label={`Select target ${category} unit`}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -391,16 +398,18 @@ function UnitConverterContent() {
               onClick={convertUnits} 
               className="flex-1"
               disabled={!inputValue}
+              aria-label={`Convert ${category} units based on entered value and selected units`}
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Units
             </Button>
             <Button 
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset converter and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

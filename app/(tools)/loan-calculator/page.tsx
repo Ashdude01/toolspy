@@ -165,9 +165,9 @@ function LoanCalculatorContent() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label>Loan Type</Label>
+            <Label htmlFor="loan-type-select">Loan Type</Label>
             <Select value={loanType} onValueChange={setLoanType}>
-              <SelectTrigger>
+              <SelectTrigger id="loan-type-select" aria-label="Select loan type">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
@@ -182,7 +182,7 @@ function LoanCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="loanAmount">Loan Amount ($)</Label>
+              <Label htmlFor="loanAmount">Loan Amount ($) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="loanAmount"
                 type="number"
@@ -191,10 +191,12 @@ function LoanCalculatorContent() {
                 onChange={(e) => setLoanAmount(e.target.value)}
                 step="100"
                 min="1"
+                required
+                aria-required="true"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="interestRate">Interest Rate (%)</Label>
+              <Label htmlFor="interestRate">Interest Rate (%) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="interestRate"
                 type="number"
@@ -203,13 +205,15 @@ function LoanCalculatorContent() {
                 onChange={(e) => setInterestRate(e.target.value)}
                 step="0.1"
                 min="0.1"
+                required
+                aria-required="true"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="loanTerm">Loan Term (years)</Label>
+              <Label htmlFor="loanTerm">Loan Term (years) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="loanTerm"
                 type="number"
@@ -218,6 +222,8 @@ function LoanCalculatorContent() {
                 onChange={(e) => setLoanTerm(e.target.value)}
                 step="1"
                 min="1"
+                required
+                aria-required="true"
               />
             </div>
             <div className="space-y-2">
@@ -239,16 +245,18 @@ function LoanCalculatorContent() {
               onClick={calculateLoan} 
               className="flex-1"
               disabled={!loanAmount || !interestRate || !loanTerm}
+              aria-label="Calculate loan payment based on entered details"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Loan
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

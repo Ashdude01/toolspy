@@ -378,8 +378,13 @@ function PdfConverterContent() {
                       Files ready for conversion
                     </CardDescription>
                   </div>
-                  <Button variant="outline" onClick={clearAllFiles} size="sm">
-                    <Trash2 className="h-4 w-4 mr-2" />
+                  <Button 
+                    variant="outline" 
+                    onClick={clearAllFiles} 
+                    size="sm"
+                    aria-label="Clear all selected PDF files"
+                  >
+                    <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                     Clear All
                   </Button>
                 </div>
@@ -407,9 +412,11 @@ function PdfConverterContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => removeFile(file.id)}
+                        aria-label={`Remove ${file.originalName}`}
                         title="Remove file"
                       >
-                        <Trash2 className="h-3 w-3" />
+                        <Trash2 className="h-3 w-3" aria-hidden="true" />
+                        <span className="sr-only">Remove</span>
                       </Button>
                     </div>
                   ))}
@@ -431,9 +438,9 @@ function PdfConverterContent() {
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Format</Label>
+                    <Label htmlFor="output-format-select">Format</Label>
                     <Select value={outputFormat} onValueChange={setOutputFormat}>
-                      <SelectTrigger>
+                      <SelectTrigger id="output-format-select" aria-label="Select output format">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -462,16 +469,21 @@ function PdfConverterContent() {
                   {(outputFormat === 'png' || outputFormat === 'jpg') && (
                     <>
                       <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
-                        <Label className="text-sm font-medium">
+                        <Label htmlFor="quality-slider" className="text-sm font-medium">
                           Quality: {quality[0]}%
                         </Label>
                         <Slider
+                          id="quality-slider"
                           value={quality}
                           onValueChange={setQuality}
                           max={100}
                           min={10}
                           step={5}
                           className="w-full"
+                          aria-label="Image quality slider"
+                          aria-valuemin={10}
+                          aria-valuemax={100}
+                          aria-valuenow={quality[0]}
                         />
                         <p className="text-xs text-muted-foreground">
                           Lower = smaller files, Higher = better quality
@@ -479,16 +491,21 @@ function PdfConverterContent() {
                       </div>
 
                       <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
-                        <Label className="text-sm font-medium">
+                        <Label htmlFor="dpi-slider" className="text-sm font-medium">
                           DPI: {dpi[0]}
                         </Label>
                         <Slider
+                          id="dpi-slider"
                           value={dpi}
                           onValueChange={setDpi}
                           max={300}
                           min={72}
                           step={10}
                           className="w-full"
+                          aria-label="DPI resolution slider"
+                          aria-valuemin={72}
+                          aria-valuemax={300}
+                          aria-valuenow={dpi[0]}
                         />
                         <p className="text-xs text-muted-foreground">
                           Higher DPI = better quality, larger files
@@ -516,8 +533,11 @@ function PdfConverterContent() {
               disabled={selectedFiles.length === 0 || isConverting}
               size="lg"
               className="w-full"
+              aria-label={isConverting 
+                ? "Converting PDF files, please wait" 
+                : `Convert ${selectedFiles.length} PDF file(s) to ${outputFormat.toUpperCase()} format`}
             >
-              <ArrowUpDown className="h-5 w-5 mr-2" />
+              <ArrowUpDown className="h-5 w-5 mr-2" aria-hidden="true" />
               {isConverting
                 ? "Converting..."
                 : `Convert ${selectedFiles.length} PDF File(s) to ${outputFormat.toUpperCase()}`}

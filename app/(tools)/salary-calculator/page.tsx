@@ -216,9 +216,9 @@ function SalaryCalculatorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Salary Type</Label>
+              <Label htmlFor="salary-type-select">Salary Type</Label>
               <Select value={inputType} onValueChange={setInputType}>
-                <SelectTrigger>
+                <SelectTrigger id="salary-type-select" aria-label="Select salary input type">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -230,7 +230,7 @@ function SalaryCalculatorContent() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="inputValue">{getInputLabel()}</Label>
+              <Label htmlFor="inputValue">{getInputLabel()} <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -239,6 +239,9 @@ function SalaryCalculatorContent() {
                 onChange={(e) => setInputValue(e.target.value)}
                 step="0.01"
                 min="0"
+                required
+                aria-required="true"
+                aria-label={`Enter ${inputType} salary amount`}
               />
             </div>
           </div>
@@ -255,6 +258,7 @@ function SalaryCalculatorContent() {
                 step="0.5"
                 min="1"
                 max="80"
+                aria-label="Enter hours worked per week"
               />
             </div>
             <div className="space-y-2">
@@ -268,6 +272,7 @@ function SalaryCalculatorContent() {
                 step="1"
                 min="1"
                 max="52"
+                aria-label="Enter number of weeks worked per year"
               />
             </div>
           </div>
@@ -283,6 +288,7 @@ function SalaryCalculatorContent() {
               step="0.1"
               min="0"
               max="50"
+              aria-label="Enter tax rate percentage (optional)"
             />
           </div>
 
@@ -291,16 +297,18 @@ function SalaryCalculatorContent() {
               onClick={calculateSalary} 
               className="flex-1"
               disabled={!inputValue}
+              aria-label="Calculate salary breakdown based on entered values"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Salary
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

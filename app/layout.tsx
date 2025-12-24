@@ -6,6 +6,8 @@ import { Header } from '@/components/layout/header'
 import { Footer } from '@/components/layout/footer'
 import { PWAWrapper } from '@/components/pwa-wrapper'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
+import { ConsentInitScript } from '@/components/consent/consent-init-script'
+import { ConsentProvider } from '@/components/consent/consent-provider'
 import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
@@ -97,7 +99,8 @@ export default function RootLayout({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
-        <meta name="google-adsense-account" content="ca-pub-8490028444671399" />
+        {/* Initialize Consent Mode BEFORE any Google tags */}
+        <ConsentInitScript />
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />
@@ -110,40 +113,42 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <PWAWrapper>
-            <div className="min-h-screen bg-background font-sans antialiased">
-              <Header />
-              <main>
-                {children}
-              </main>
-              <div className="a_ads_container py-10">
-                <div
-                  id="frame"
-                  style={{
-                    width: "100%",
-                    margin: "auto",
-                    position: "relative",
-                    zIndex: 10,
-                  }}
-                >
-                  <iframe
-                    data-aa="2419400"
-                    src="//acceptable.a-ads.com/2419400/?size=Adaptive"
+          <ConsentProvider>
+            <PWAWrapper>
+              <div className="min-h-screen bg-background font-sans antialiased">
+                <Header />
+                <main>
+                  {children}
+                </main>
+                <div className="a_ads_container py-10">
+                  <div
+                    id="frame"
                     style={{
-                      border: 0,
-                      padding: 0,
-                      width: "70%",
-                      height: "auto",
-                      overflow: "hidden",
-                      display: "block",
+                      width: "100%",
                       margin: "auto",
+                      position: "relative",
+                      zIndex: 10,
                     }}
-                  ></iframe>
+                  >
+                    <iframe
+                      data-aa="2419400"
+                      src="//acceptable.a-ads.com/2419400/?size=Adaptive"
+                      style={{
+                        border: 0,
+                        padding: 0,
+                        width: "70%",
+                        height: "auto",
+                        overflow: "hidden",
+                        display: "block",
+                        margin: "auto",
+                      }}
+                    ></iframe>
+                  </div>
                 </div>
+                <Footer />
               </div>
-              <Footer />
-            </div>
-          </PWAWrapper>
+            </PWAWrapper>
+          </ConsentProvider>
         </ThemeProvider>
       </body>
     </html>

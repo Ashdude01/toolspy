@@ -235,7 +235,7 @@ function TaxCalculatorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="grossIncome">Annual Gross Income ($)</Label>
+              <Label htmlFor="grossIncome">Annual Gross Income ($) <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="grossIncome"
                 type="number"
@@ -244,12 +244,15 @@ function TaxCalculatorContent() {
                 onChange={(e) => setGrossIncome(e.target.value)}
                 step="1000"
                 min="0"
+                required
+                aria-required="true"
+                aria-label="Enter annual gross income"
               />
             </div>
             <div className="space-y-2">
-              <Label>Filing Status</Label>
+              <Label htmlFor="filing-status-select">Filing Status</Label>
               <Select value={filingStatus} onValueChange={setFilingStatus}>
-                <SelectTrigger>
+                <SelectTrigger id="filing-status-select" aria-label="Select tax filing status">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -264,9 +267,9 @@ function TaxCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>State</Label>
+              <Label htmlFor="state-select">State</Label>
               <Select value={state} onValueChange={setState}>
-                <SelectTrigger>
+                <SelectTrigger id="state-select" aria-label="Select state for state tax calculation">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -286,6 +289,7 @@ function TaxCalculatorContent() {
                 onChange={(e) => setDeductions(e.target.value)}
                 step="100"
                 min="0"
+                aria-label="Enter itemized deductions amount (optional)"
               />
             </div>
           </div>
@@ -302,11 +306,12 @@ function TaxCalculatorContent() {
                 step="1"
                 min="0"
                 max="10"
+                aria-label="Enter number of dependents"
               />
             </div>
             <div className="space-y-2">
-              <Label className="text-sm text-muted-foreground">Tax Year</Label>
-              <div className="flex items-center h-10 px-3 border rounded-md bg-muted">
+              <Label htmlFor="tax-year-display" className="text-sm text-muted-foreground">Tax Year</Label>
+              <div id="tax-year-display" className="flex items-center h-10 px-3 border rounded-md bg-muted" aria-label="Tax year: 2024">
                 <span className="text-sm">2024</span>
               </div>
             </div>
@@ -317,16 +322,18 @@ function TaxCalculatorContent() {
               onClick={calculateTax} 
               className="flex-1"
               disabled={!grossIncome}
+              aria-label="Calculate tax based on entered income and tax details"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Tax
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>

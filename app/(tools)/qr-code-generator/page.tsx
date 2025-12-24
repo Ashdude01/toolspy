@@ -244,15 +244,17 @@ function QrCodeGeneratorContent() {
         </CardHeader>
         <CardContent className="space-y-6">
           {/* Content Type Selection */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2" role="group" aria-label="QR code content type selection">
             {Object.entries(qrTypePresets).map(([type, preset]) => (
               <Button
                 key={type}
                 variant={qrType === type ? 'default' : 'outline'}
                 onClick={() => setQrType(type)}
                 className="flex items-center gap-2 h-auto py-3"
+                aria-label={`Select ${type} QR code type`}
+                aria-pressed={qrType === type}
               >
-                <preset.icon className="h-4 w-4" />
+                <preset.icon className="h-4 w-4" aria-hidden="true" />
                 <span className="capitalize">{type}</span>
               </Button>
             ))}
@@ -260,12 +262,16 @@ function QrCodeGeneratorContent() {
 
           {/* Content Input */}
           <div className="space-y-2">
-            <Label>Content</Label>
+            <Label htmlFor="qr-content-input">Content <span className="text-red-500" aria-label="required">*</span></Label>
             <Textarea
+              id="qr-content-input"
               placeholder={qrTypePresets[qrType as keyof typeof qrTypePresets]?.placeholder}
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               className="min-h-24 font-mono"
+              required
+              aria-required="true"
+              aria-label="Enter content for QR code"
             />
           </div>
 
@@ -280,6 +286,7 @@ function QrCodeGeneratorContent() {
                     variant="outline"
                     size="sm"
                     onClick={() => fillTemplate(template.template)}
+                    aria-label={`Use ${template.name} template`}
                   >
                     {template.name}
                   </Button>
@@ -291,33 +298,43 @@ function QrCodeGeneratorContent() {
           {/* Settings */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
-              <Label>Size: {size}px</Label>
+              <Label htmlFor="size-slider">Size: {size}px</Label>
               <input
+                id="size-slider"
                 type="range"
                 min="128"
                 max="1024"
                 value={size}
                 onChange={(e) => setSize(parseInt(e.target.value))}
                 className="w-full"
+                aria-label="QR code size slider"
+                aria-valuemin={128}
+                aria-valuemax={1024}
+                aria-valuenow={size}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Quality: {quality}%</Label>
+              <Label htmlFor="quality-slider">Quality: {quality}%</Label>
               <input
+                id="quality-slider"
                 type="range"
                 min="10"
                 max="100"
                 value={quality}
                 onChange={(e) => setQuality(parseInt(e.target.value))}
                 className="w-full"
+                aria-label="QR code quality slider"
+                aria-valuemin={10}
+                aria-valuemax={100}
+                aria-valuenow={quality}
               />
             </div>
 
             <div className="space-y-2">
-              <Label>Error Correction</Label>
+              <Label htmlFor="error-correction-select">Error Correction</Label>
               <Select value={errorCorrection} onValueChange={setErrorCorrection}>
-                <SelectTrigger>
+                <SelectTrigger id="error-correction-select" aria-label="Select error correction level">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -333,21 +350,27 @@ function QrCodeGeneratorContent() {
               <Label>Colors</Label>
               <div className="flex gap-2">
                 <div className="flex-1">
+                  <Label htmlFor="foreground-color" className="sr-only">Foreground Color</Label>
                   <input
+                    id="foreground-color"
                     type="color"
                     value={foregroundColor}
                     onChange={(e) => setForegroundColor(e.target.value)}
                     className="w-full h-10 rounded border"
                     title="Foreground Color"
+                    aria-label="Select foreground color for QR code"
                   />
                 </div>
                 <div className="flex-1">
+                  <Label htmlFor="background-color" className="sr-only">Background Color</Label>
                   <input
+                    id="background-color"
                     type="color"
                     value={backgroundColor}
                     onChange={(e) => setBackgroundColor(e.target.value)}
                     className="w-full h-10 rounded border"
                     title="Background Color"
+                    aria-label="Select background color for QR code"
                   />
                 </div>
               </div>
@@ -360,8 +383,9 @@ function QrCodeGeneratorContent() {
             disabled={!inputText.trim() || isGenerating}
             className="w-full"
             size="lg"
+            aria-label={isGenerating ? "Generating QR code, please wait" : "Generate QR code"}
           >
-            <QrCode className="h-4 w-4 mr-2" />
+            <QrCode className="h-4 w-4 mr-2" aria-hidden="true" />
             {isGenerating ? 'Generating...' : 'Generate QR Code'}
           </Button>
         </CardContent>
@@ -389,22 +413,24 @@ function QrCodeGeneratorContent() {
                       variant="ghost"
                       size="sm"
                       onClick={() => removeQRCode(qrCode.id)}
+                      aria-label={`Remove QR code for ${qrCode.type}`}
                     >
-                      ×
+                      <span aria-hidden="true">×</span>
+                      <span className="sr-only">Remove</span>
                     </Button>
                   </div>
 
                   <div className="flex justify-center">
                     <img
                       src={qrCode.qrCodeUrl}
-                      alt={`QR Code for ${qrCode.type}`}
+                      alt={`QR Code for ${qrCode.type}: ${qrCode.content.substring(0, 50)}${qrCode.content.length > 50 ? '...' : ''}`}
                       className="border rounded"
                       width={qrCode.size / 2}
                       height={qrCode.size / 2}
                     />
                   </div>
 
-                  <div className="text-sm text-muted-foreground break-all">
+                  <div className="text-sm text-muted-foreground break-all" aria-label={`Content: ${qrCode.content}`}>
                     {qrCode.content.length > 50 
                       ? `${qrCode.content.substring(0, 50)}...` 
                       : qrCode.content
@@ -417,8 +443,9 @@ function QrCodeGeneratorContent() {
                       size="sm"
                       onClick={() => downloadQRCode(qrCode)}
                       className="flex-1"
+                      aria-label={`Download QR code for ${qrCode.type}`}
                     >
-                      <Download className="h-4 w-4 mr-1" />
+                      <Download className="h-4 w-4 mr-1" aria-hidden="true" />
                       Download
                     </Button>
                     <Button
@@ -426,8 +453,9 @@ function QrCodeGeneratorContent() {
                       size="sm"
                       onClick={() => copyToClipboard(qrCode)}
                       className="flex-1"
+                      aria-label={`Copy QR code for ${qrCode.type} to clipboard`}
                     >
-                      <Copy className="h-4 w-4 mr-1" />
+                      <Copy className="h-4 w-4 mr-1" aria-hidden="true" />
                       Copy
                     </Button>
                   </div>
@@ -439,8 +467,9 @@ function QrCodeGeneratorContent() {
               <Button
                 variant="outline"
                 onClick={clearAll}
+                aria-label="Clear all generated QR codes"
               >
-                <RefreshCw className="h-4 w-4 mr-2" />
+                <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
                 Clear All
               </Button>
             </div>

@@ -233,8 +233,9 @@ function Base64EncoderDecoderContent() {
               onClick={handleSwapMode}
               className="px-2 sm:px-3"
               size="sm"
+              aria-label="Swap between encode and decode mode"
             >
-              <ArrowUpDown className="h-3 w-3 sm:h-4 sm:w-4" />
+              <ArrowUpDown className="h-3 w-3 sm:h-4 sm:w-4" aria-hidden="true" />
             </Button>
             <Button
               variant={mode === 'decode' ? 'default' : 'outline'}
@@ -250,9 +251,9 @@ function Base64EncoderDecoderContent() {
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label>Text Encoding</Label>
+              <Label htmlFor="text-encoding-select">Text Encoding</Label>
               <Select value={encoding} onValueChange={setEncoding}>
-                <SelectTrigger>
+                <SelectTrigger id="text-encoding-select" aria-label="Select text encoding">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -311,13 +312,15 @@ function Base64EncoderDecoderContent() {
                 onChange={handleFileUpload}
                 className="hidden"
                 id="fileInput"
+                aria-label="Load text from file"
               />
               <Button
                 variant="outline"
                 onClick={() => document.getElementById('fileInput')?.click()}
                 size="sm"
+                aria-label="Load text from file"
               >
-                <Upload className="h-4 w-4 mr-2" />
+                <Upload className="h-4 w-4 mr-2" aria-hidden="true" />
                 Load from File
               </Button>
               <Button
@@ -325,13 +328,18 @@ function Base64EncoderDecoderContent() {
                 onClick={() => handleCopy(inputText)}
                 size="sm"
                 disabled={!inputText}
+                aria-label="Copy input text to clipboard"
               >
-                <Copy className="h-4 w-4 mr-2" />
+                <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                 Copy Input
               </Button>
             </div>
             
+            <Label htmlFor="input-textarea" className="sr-only">
+              {mode === 'encode' ? 'Text to encode' : 'Base64 string to decode'}
+            </Label>
             <Textarea
+              id="input-textarea"
               placeholder={mode === 'encode' 
                 ? 'Enter text to encode...'
                 : 'Enter Base64 string to decode...'
@@ -339,7 +347,14 @@ function Base64EncoderDecoderContent() {
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
               className="min-h-32 font-mono text-sm"
+              aria-describedby="input-description"
             />
+            <div id="input-description" className="sr-only">
+              {mode === 'encode' 
+                ? 'Enter the text you want to encode to Base64'
+                : 'Enter the Base64 string you want to decode'
+              }
+            </div>
             
             <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
               <span>Characters: {getCharacterCount(inputText)}</span>
@@ -362,15 +377,16 @@ function Base64EncoderDecoderContent() {
               onClick={handleProcess}
               disabled={!inputText.trim()}
               className="flex-1"
+              aria-label={mode === 'encode' ? 'Encode text to Base64' : 'Decode Base64 to text'}
             >
               {mode === 'encode' ? (
                 <>
-                  <Code className="h-4 w-4 mr-2" />
+                  <Code className="h-4 w-4 mr-2" aria-hidden="true" />
                   Encode to Base64
                 </>
               ) : (
                 <>
-                  <FileText className="h-4 w-4 mr-2" />
+                  <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
                   Decode from Base64
                 </>
               )}
@@ -380,8 +396,9 @@ function Base64EncoderDecoderContent() {
               variant="outline"
               onClick={clearAll}
               className="flex-1 sm:flex-initial"
+              aria-label="Clear all input and output"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Clear All
             </Button>
           </div>
@@ -410,8 +427,9 @@ function Base64EncoderDecoderContent() {
                 onClick={() => handleCopy(outputText)}
                 size="sm"
                 disabled={!outputText}
+                aria-label="Copy output to clipboard"
               >
-                <Copy className="h-4 w-4 mr-2" />
+                <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                 Copy Output
               </Button>
               <Button
@@ -419,13 +437,18 @@ function Base64EncoderDecoderContent() {
                 onClick={downloadOutput}
                 size="sm"
                 disabled={!outputText}
+                aria-label="Download output as file"
               >
-                <Download className="h-4 w-4 mr-2" />
+                <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                 Download
               </Button>
             </div>
             
+            <Label htmlFor="output-textarea" className="sr-only">
+              {mode === 'encode' ? 'Base64 encoded output' : 'Decoded text output'}
+            </Label>
             <Textarea
+              id="output-textarea"
               placeholder={mode === 'encode' 
                 ? 'Base64 encoded result will appear here...'
                 : 'Decoded text will appear here...'
@@ -433,7 +456,15 @@ function Base64EncoderDecoderContent() {
               value={outputText}
               readOnly
               className="min-h-32 font-mono text-sm bg-muted"
+              aria-label={mode === 'encode' ? 'Base64 encoded result' : 'Decoded text result'}
+              aria-describedby="output-description"
             />
+            <div id="output-description" className="sr-only">
+              {mode === 'encode' 
+                ? 'Base64 encoded result'
+                : 'Decoded text result'
+              }
+            </div>
             
             <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
               <span>Characters: {getCharacterCount(outputText)}</span>

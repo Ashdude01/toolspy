@@ -185,14 +185,23 @@ export function Header({ onSearch }: HeaderProps) {
                 onMouseEnter={() => setIsDesktopDropdownOpen(true)}
                 onMouseLeave={() => setIsDesktopDropdownOpen(false)}
               >
-                <button className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1">
+                <button 
+                  className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1"
+                  aria-expanded={isDesktopDropdownOpen}
+                  aria-haspopup="true"
+                  aria-label="Tools menu"
+                >
                   Tools
                   <ChevronDown className="h-3 w-3" />
                 </button>
 
-                <div className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
-                  isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
-                }`}>
+                <div 
+                  className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
+                    isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
+                  }`}
+                  role="menu"
+                  aria-label="Tools menu"
+                >
                   <div className="p-4 !pb-24 overflow-y-auto h-[90vh]">
                     <div className="grid grid-cols-5 gap-6">
                       {(
@@ -259,10 +268,11 @@ export function Header({ onSearch }: HeaderProps) {
                 size="icon"
                 onClick={cycleTheme}
                 className="hidden sm:flex"
+                aria-label={getThemeLabel()}
                 title={getThemeLabel()}
               >
                 {getThemeIcon()}
-                <span className="sr-only">Toggle theme</span>
+                <span className="sr-only">{getThemeLabel()}</span>
               </Button>
 
               {/* Mobile Menu Button */}
@@ -271,6 +281,9 @@ export function Header({ onSearch }: HeaderProps) {
                 size="icon"
                 className="lg:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMenuOpen}
+                aria-controls="mobile-menu"
               >
                 <div className="relative w-5 h-5">
                   <span
@@ -289,7 +302,7 @@ export function Header({ onSearch }: HeaderProps) {
                     }`}
                   />
                 </div>
-                <span className="sr-only">Toggle menu</span>
+                <span className="sr-only">{isMenuOpen ? "Close menu" : "Open menu"}</span>
               </Button>
             </div>
           </div>
@@ -306,15 +319,25 @@ export function Header({ onSearch }: HeaderProps) {
 
       {/* Mobile Sliding Menu */}
       <div
+        id="mobile-menu"
         className={`fixed top-0 right-0 h-full w-80 max-w-[90vw] bg-background border-l shadow-xl z-50 lg:hidden transform transition-transform duration-300 ease-in-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="mobile-menu-title"
       >
         {/* Menu Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <h2 className="text-lg font-semibold">Menu</h2>
-          <Button variant="ghost" size="icon" onClick={closeMenu}>
+          <h2 id="mobile-menu-title" className="text-lg font-semibold">Menu</h2>
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            onClick={closeMenu}
+            aria-label="Close menu"
+          >
             <X className="h-5 w-5" />
+            <span className="sr-only">Close menu</span>
           </Button>
         </div>
 
@@ -333,21 +356,24 @@ export function Header({ onSearch }: HeaderProps) {
 
               {/* Tools Section */}
               <div className="space-y-1">
-                <div
-                  className="flex items-center justify-between px-4 py-3 text-base font-medium cursor-pointer hover:bg-accent rounded-lg"
+                <button
+                  className="flex items-center justify-between px-4 py-3 text-base font-medium cursor-pointer hover:bg-accent rounded-lg w-full text-left"
                   onClick={toggleTools}
+                  aria-expanded={isToolsExpanded}
+                  aria-controls="mobile-tools-list"
                 >
                   <span>Tools</span>
                   <ChevronRight
                     className={`h-4 w-4 transition-transform duration-200 ${
                       isToolsExpanded ? "rotate-90" : ""
                     }`}
+                    aria-hidden="true"
                   />
-                </div>
+                </button>
 
                 {/* Tool Categories */}
                 {isToolsExpanded && (
-                  <div className="ml-4 space-y-1">
+                  <div id="mobile-tools-list" className="ml-4 space-y-1">
                     {(
                       Object.entries(toolCategories) as [
                         ToolCategory,
@@ -370,6 +396,8 @@ export function Header({ onSearch }: HeaderProps) {
                             size="sm"
                             className="h-8 w-8 p-0"
                             onClick={() => toggleCategory(categoryKey)}
+                            aria-expanded={expandedCategories.has(categoryKey)}
+                            aria-label={`${expandedCategories.has(categoryKey) ? 'Collapse' : 'Expand'} ${category.name} tools`}
                           >
                             <ChevronRight
                               className={`h-3 w-3 transition-transform duration-200 ${
@@ -377,6 +405,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   ? "rotate-90"
                                   : ""
                               }`}
+                              aria-hidden="true"
                             />
                           </Button>
                         </div>

@@ -26,15 +26,20 @@ import {
   RefreshCw,
   Globe,
   Clock,
+  AlertCircle,
 } from "lucide-react";
 import { CurrencyConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { 
+  CURRENCIES, 
+  fetchExchangeRates, 
+  getExchangeRate,
+  convertCurrency as convertCurrencyAmount,
+  type CurrencyInfo 
+} from "@/lib/utils/exchange-rates";
 
-interface CurrencyRate {
-  code: string;
-  name: string;
+interface CurrencyRate extends CurrencyInfo {
   rate: number;
-  flag: string;
 }
 
 interface ConversionResult {
@@ -54,38 +59,48 @@ function CurrencyConverterContent() {
   const [result, setResult] = useState<ConversionResult | null>(null);
   const [rates, setRates] = useState<CurrencyRate[]>([]);
   const [loading, setLoading] = useState(false);
+  const [fetchingRates, setFetchingRates] = useState(true);
   const [lastUpdate, setLastUpdate] = useState<string>("");
+  const [error, setError] = useState<string | null>(null);
 
-  // Popular currencies with their details
-  const currencies: CurrencyRate[] = [
-    { code: "USD", name: "US Dollar", rate: 1.0, flag: "🇺🇸" },
-    { code: "EUR", name: "Euro", rate: 0.85, flag: "🇪🇺" },
-    { code: "GBP", name: "British Pound", rate: 0.73, flag: "🇬🇧" },
-    { code: "JPY", name: "Japanese Yen", rate: 110.0, flag: "🇯🇵" },
-    { code: "CAD", name: "Canadian Dollar", rate: 1.25, flag: "🇨🇦" },
-    { code: "AUD", name: "Australian Dollar", rate: 1.35, flag: "🇦🇺" },
-    { code: "CHF", name: "Swiss Franc", rate: 0.92, flag: "🇨🇭" },
-    { code: "CNY", name: "Chinese Yuan", rate: 6.45, flag: "🇨🇳" },
-    { code: "INR", name: "Indian Rupee", rate: 74.5, flag: "🇮🇳" },
-    { code: "KRW", name: "South Korean Won", rate: 1180.0, flag: "🇰🇷" },
-    { code: "BRL", name: "Brazilian Real", rate: 5.2, flag: "🇧🇷" },
-    { code: "RUB", name: "Russian Ruble", rate: 73.0, flag: "🇷🇺" },
-    { code: "MXN", name: "Mexican Peso", rate: 20.0, flag: "🇲🇽" },
-    { code: "SGD", name: "Singapore Dollar", rate: 1.35, flag: "🇸🇬" },
-    { code: "HKD", name: "Hong Kong Dollar", rate: 7.8, flag: "🇭🇰" },
-    { code: "NOK", name: "Norwegian Krone", rate: 8.5, flag: "🇳🇴" },
-    { code: "SEK", name: "Swedish Krona", rate: 8.6, flag: "🇸🇪" },
-    { code: "DKK", name: "Danish Krone", rate: 6.3, flag: "🇩🇰" },
-    { code: "PLN", name: "Polish Zloty", rate: 3.9, flag: "🇵🇱" },
-    { code: "TRY", name: "Turkish Lira", rate: 8.5, flag: "🇹🇷" },
-  ];
-
+  // Fetch exchange rates on mount
   useEffect(() => {
-    setRates(currencies);
-    setLastUpdate(new Date().toLocaleString());
+    const loadExchangeRates = async () => {
+      setFetchingRates(true);
+      setError(null);
+      
+      try {
+        const exchangeRates = await fetchExchangeRates();
+        
+        // Map currencies with their rates
+        const currenciesWithRates: CurrencyRate[] = CURRENCIES.map((currency) => ({
+          ...currency,
+          rate: exchangeRates[currency.code] || 1,
+        }));
+
+        setRates(currenciesWithRates);
+        setLastUpdate(new Date().toLocaleString());
+        showToast("Exchange rates updated successfully!", "success");
+      } catch (err) {
+        console.error("Failed to load exchange rates:", err);
+        setError("Failed to load exchange rates. Using fallback rates.");
+        showToast("Using fallback exchange rates", "info");
+        
+        // Use fallback rates
+        const fallbackRates: CurrencyRate[] = CURRENCIES.map((currency) => ({
+          ...currency,
+          rate: 1, // Will be updated when rates load
+        }));
+        setRates(fallbackRates);
+      } finally {
+        setFetchingRates(false);
+      }
+    };
+
+    loadExchangeRates();
   }, []);
 
-  const convertCurrency = () => {
+  const convertCurrency = async () => {
     const amountNum = parseFloat(amount);
     if (!amountNum || amountNum <= 0) {
       showToast("Please enter a valid amount", "error");
@@ -93,16 +108,11 @@ function CurrencyConverterContent() {
     }
 
     setLoading(true);
+    setError(null);
     
-    // Simulate API call delay
-    setTimeout(() => {
-      const fromRate = currencies.find(c => c.code === fromCurrency)?.rate || 1;
-      const toRate = currencies.find(c => c.code === toCurrency)?.rate || 1;
-      
-      // Convert from source currency to USD, then to target currency
-      const usdAmount = amountNum / fromRate;
-      const convertedAmount = usdAmount * toRate;
-      const exchangeRate = toRate / fromRate;
+    try {
+      const exchangeRate = await getExchangeRate(fromCurrency, toCurrency);
+      const convertedAmount = await convertCurrencyAmount(amountNum, fromCurrency, toCurrency);
 
       const conversionResult: ConversionResult = {
         fromAmount: amountNum,
@@ -114,9 +124,38 @@ function CurrencyConverterContent() {
       };
 
       setResult(conversionResult);
-      setLoading(false);
       showToast("Currency converted successfully!", "success");
-    }, 500);
+    } catch (err) {
+      console.error("Conversion error:", err);
+      setError("Failed to convert currency. Please try again.");
+      showToast("Conversion failed. Please try again.", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const refreshRates = async () => {
+    setFetchingRates(true);
+    setError(null);
+    
+    try {
+      const exchangeRates = await fetchExchangeRates();
+      
+      const currenciesWithRates: CurrencyRate[] = CURRENCIES.map((currency) => ({
+        ...currency,
+        rate: exchangeRates[currency.code] || 1,
+      }));
+
+      setRates(currenciesWithRates);
+      setLastUpdate(new Date().toLocaleString());
+      showToast("Exchange rates refreshed!", "success");
+    } catch (err) {
+      console.error("Failed to refresh rates:", err);
+      setError("Failed to refresh rates. Using cached rates.");
+      showToast("Failed to refresh rates", "error");
+    } finally {
+      setFetchingRates(false);
+    }
   };
 
   const swapCurrencies = () => {
@@ -142,7 +181,7 @@ function CurrencyConverterContent() {
   };
 
   const getCurrencyInfo = (code: string) => {
-    return currencies.find(c => c.code === code);
+    return rates.find(c => c.code === code) || CURRENCIES.find(c => c.code === code);
   };
 
   return (
@@ -178,9 +217,16 @@ function CurrencyConverterContent() {
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
+          {error && (
+            <div className="p-3 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg flex items-center gap-2 text-sm text-yellow-800 dark:text-yellow-200">
+              <AlertCircle className="h-4 w-4" aria-hidden="true" />
+              <span>{error}</span>
+            </div>
+          )}
+
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount</Label>
+              <Label htmlFor="amount">Amount <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="amount"
                 type="number"
@@ -190,19 +236,22 @@ function CurrencyConverterContent() {
                 step="0.01"
                 min="0"
                 className="text-lg"
+                required
+                aria-required="true"
+                aria-label="Enter amount to convert"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label>From Currency</Label>
+              <Label htmlFor="from-currency-select">From Currency</Label>
               <Select value={fromCurrency} onValueChange={setFromCurrency}>
-                <SelectTrigger>
+                <SelectTrigger id="from-currency-select" aria-label="Select source currency">
                   <SelectValue>
                     {getCurrencyInfo(fromCurrency) && (
                       <div className="flex items-center gap-2">
-                        <span>{getCurrencyInfo(fromCurrency)?.flag}</span>
+                        <span aria-hidden="true">{getCurrencyInfo(fromCurrency)?.flag}</span>
                         <span>{fromCurrency}</span>
                         <span className="text-muted-foreground text-sm">
                           {getCurrencyInfo(fromCurrency)?.name}
@@ -212,10 +261,20 @@ function CurrencyConverterContent() {
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  {currencies.map((currency) => (
+                  {rates.length > 0 ? rates.map((currency) => (
                     <SelectItem key={currency.code} value={currency.code}>
                       <div className="flex items-center gap-2">
-                        <span>{currency.flag}</span>
+                        <span aria-hidden="true">{currency.flag}</span>
+                        <span>{currency.code}</span>
+                        <span className="text-muted-foreground text-sm">
+                          {currency.name}
+                        </span>
+                      </div>
+                    </SelectItem>
+                  )) : CURRENCIES.map((currency) => (
+                    <SelectItem key={currency.code} value={currency.code}>
+                      <div className="flex items-center gap-2">
+                        <span aria-hidden="true">{currency.flag}</span>
                         <span>{currency.code}</span>
                         <span className="text-muted-foreground text-sm">
                           {currency.name}
@@ -233,19 +292,21 @@ function CurrencyConverterContent() {
                 size="icon"
                 onClick={swapCurrencies}
                 className="h-10 w-10"
+                aria-label="Swap source and target currencies"
               >
-                <ArrowUpDown className="h-4 w-4" />
+                <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
+                <span className="sr-only">Swap currencies</span>
               </Button>
             </div>
 
             <div className="space-y-2">
-              <Label>To Currency</Label>
+              <Label htmlFor="to-currency-select">To Currency</Label>
               <Select value={toCurrency} onValueChange={setToCurrency}>
-                <SelectTrigger>
+                <SelectTrigger id="to-currency-select" aria-label="Select target currency">
                   <SelectValue>
                     {getCurrencyInfo(toCurrency) && (
                       <div className="flex items-center gap-2">
-                        <span>{getCurrencyInfo(toCurrency)?.flag}</span>
+                        <span aria-hidden="true">{getCurrencyInfo(toCurrency)?.flag}</span>
                         <span>{toCurrency}</span>
                         <span className="text-muted-foreground text-sm">
                           {getCurrencyInfo(toCurrency)?.name}
@@ -255,10 +316,20 @@ function CurrencyConverterContent() {
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent>
-                  {currencies.map((currency) => (
+                  {rates.length > 0 ? rates.map((currency) => (
                     <SelectItem key={currency.code} value={currency.code}>
                       <div className="flex items-center gap-2">
-                        <span>{currency.flag}</span>
+                        <span aria-hidden="true">{currency.flag}</span>
+                        <span>{currency.code}</span>
+                        <span className="text-muted-foreground text-sm">
+                          {currency.name}
+                        </span>
+                      </div>
+                    </SelectItem>
+                  )) : CURRENCIES.map((currency) => (
+                    <SelectItem key={currency.code} value={currency.code}>
+                      <div className="flex items-center gap-2">
+                        <span aria-hidden="true">{currency.flag}</span>
                         <span>{currency.code}</span>
                         <span className="text-muted-foreground text-sm">
                           {currency.name}
@@ -275,22 +346,34 @@ function CurrencyConverterContent() {
             <Button 
               onClick={convertCurrency} 
               className="flex-1"
-              disabled={loading || !amount}
+              disabled={loading || !amount || fetchingRates}
+              aria-label="Convert currency based on entered amount and selected currencies"
             >
               {loading ? (
-                <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
+                <RefreshCw className="h-4 w-4 mr-2 animate-spin" aria-hidden="true" />
               ) : (
-                <Calculator className="h-4 w-4 mr-2" />
+                <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               )}
-              Convert Currency
+              {fetchingRates ? "Loading rates..." : "Convert Currency"}
             </Button>
             <Button 
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset converter and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={refreshRates}
+              disabled={fetchingRates}
+              className="flex-1 sm:flex-initial"
+              aria-label="Refresh exchange rates"
+            >
+              <RefreshCw className={`h-4 w-4 mr-2 ${fetchingRates ? 'animate-spin' : ''}`} aria-hidden="true" />
+              Refresh Rates
             </Button>
           </div>
         </CardContent>
@@ -396,8 +479,8 @@ function CurrencyConverterContent() {
               </thead>
               <tbody>
                 {[1, 5, 10, 25, 50, 100, 500, 1000].map((amount) => {
-                  const fromRate = currencies.find(c => c.code === fromCurrency)?.rate || 1;
-                  const toRate = currencies.find(c => c.code === toCurrency)?.rate || 1;
+                  const fromRate = rates.find(c => c.code === fromCurrency)?.rate || 1;
+                  const toRate = rates.find(c => c.code === toCurrency)?.rate || 1;
                   const convertedAmount = (amount / fromRate) * toRate;
                   
                   return (
@@ -423,11 +506,13 @@ function CurrencyConverterContent() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-            {currencies.slice(0, 12).map((currency) => (
+            {rates.slice(0, 12).map((currency) => (
               <div key={currency.code} className="p-3 bg-muted rounded-lg text-center">
-                <div className="text-lg mb-1">{currency.flag}</div>
+                <div className="text-lg mb-1" aria-hidden="true">{currency.flag}</div>
                 <div className="font-medium text-sm">{currency.code}</div>
-                <div className="text-xs text-muted-foreground">{currency.rate.toFixed(4)}</div>
+                <div className="text-xs text-muted-foreground" aria-label={`${currency.code} rate: ${currency.rate.toFixed(4)} USD`}>
+                  {currency.rate.toFixed(4)}
+                </div>
               </div>
             ))}
           </div>
@@ -439,11 +524,11 @@ function CurrencyConverterContent() {
         <CardContent className="p-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             <div className="flex items-center gap-2">
-              <Clock className="h-4 w-4" />
-              <span>Last updated: {lastUpdate}</span>
+              <Clock className="h-4 w-4" aria-hidden="true" />
+              <span>Last updated: <time dateTime={lastUpdate}>{lastUpdate}</time></span>
             </div>
             <div className="text-xs">
-              * Exchange rates are for demonstration purposes
+              * Exchange rates from exchangerate-api.com
             </div>
           </div>
         </CardContent>

@@ -437,7 +437,7 @@ function JsonFormatterContent() {
             <div>
               <Label htmlFor="view-mode">View Mode</Label>
               <Select value={viewMode} onValueChange={(value: any) => setViewMode(value)}>
-                <SelectTrigger>
+                <SelectTrigger id="view-mode" aria-label="Select JSON view mode">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -451,7 +451,7 @@ function JsonFormatterContent() {
             <div>
               <Label htmlFor="indent">Indent Size</Label>
               <Select value={indentSize.toString()} onValueChange={(value) => setIndentSize(parseInt(value))}>
-                <SelectTrigger>
+                <SelectTrigger id="indent" aria-label="Select indentation size">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -482,20 +482,38 @@ function JsonFormatterContent() {
           </div>
           
           <div className="flex flex-wrap gap-2">
-            <Button onClick={() => handleInputChange(input)} variant="outline">
-              <Zap size={16} className="mr-2" />
+            <Button 
+              onClick={() => handleInputChange(input)} 
+              variant="outline"
+              aria-label="Reformat JSON input"
+            >
+              <Zap size={16} className="mr-2" aria-hidden="true" />
               Reformat
             </Button>
-            <Button onClick={clearAll} variant="outline">
-              <Trash2 size={16} className="mr-2" />
+            <Button 
+              onClick={clearAll} 
+              variant="outline"
+              aria-label="Clear all input and output"
+            >
+              <Trash2 size={16} className="mr-2" aria-hidden="true" />
               Clear All
             </Button>
-            <Button onClick={() => copyToClipboard(output)} variant="outline" disabled={!output}>
-              <Copy size={16} className="mr-2" />
+            <Button 
+              onClick={() => copyToClipboard(output)} 
+              variant="outline" 
+              disabled={!output}
+              aria-label="Copy formatted JSON to clipboard"
+            >
+              <Copy size={16} className="mr-2" aria-hidden="true" />
               Copy Result
             </Button>
-            <Button onClick={downloadJson} variant="outline" disabled={!output}>
-              <Download size={16} className="mr-2" />
+            <Button 
+              onClick={downloadJson} 
+              variant="outline" 
+              disabled={!output}
+              aria-label="Download formatted JSON as file"
+            >
+              <Download size={16} className="mr-2" aria-hidden="true" />
               Download
             </Button>
           </div>
@@ -525,6 +543,15 @@ function JsonFormatterContent() {
                   const files = Array.from(e.dataTransfer.files);
                   handleFileUpload(files);
                 }}
+                role="button"
+                tabIndex={0}
+                aria-label="Upload JSON file. Drag and drop or click to select"
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    document.getElementById('json-formatter-file-input')?.click();
+                  }
+                }}
               >
                 <input
                   id="json-formatter-file-input"
@@ -537,24 +564,33 @@ function JsonFormatterContent() {
                     }
                   }}
                   className="hidden"
+                  aria-label="Select JSON file to upload"
                 />
-                <FileText size={48} className="mx-auto text-gray-400 mb-4" />
+                <FileText size={48} className="mx-auto text-gray-400 mb-4" aria-hidden="true" />
                 <h3 className="text-lg font-semibold mb-2">Drop your JSON file here</h3>
                 <p className="text-gray-600 mb-4">or click to browse files</p>
-                <Button variant="outline">
-                  <Upload size={16} className="mr-2" />
+                <Button variant="outline" aria-label="Choose JSON file">
+                  <Upload size={16} className="mr-2" aria-hidden="true" />
                   Choose File
                 </Button>
               </div>
             </CardTitle>
           </CardHeader>
           <CardContent>
+            <Label htmlFor="json-input-textarea" className="sr-only">
+              JSON input
+            </Label>
             <Textarea
+              id="json-input-textarea"
               placeholder="Paste your JSON here or upload a file..."
               value={input}
               onChange={(e) => handleInputChange(e.target.value)}
               className="min-h-[400px] font-mono text-sm"
+              aria-describedby="json-input-description"
             />
+            <div id="json-input-description" className="sr-only">
+              Enter or paste JSON data to format, validate, or view as tree
+            </div>
             
             {/* Examples */}
             <div className="mt-4">
@@ -566,6 +602,7 @@ function JsonFormatterContent() {
                     variant="outline"
                     size="sm"
                     onClick={() => handleInputChange(example.data)}
+                    aria-label={`Load ${example.name} example`}
                   >
                     {example.name}
                   </Button>
@@ -589,12 +626,23 @@ function JsonFormatterContent() {
                 {renderJsonTree(jsonTree)}
               </div>
             ) : (
-              <Textarea
-                value={output}
-                readOnly
-                className="min-h-[400px] font-mono text-sm"
-                placeholder="Formatted JSON will appear here..."
-              />
+              <>
+                <Label htmlFor="json-output-textarea" className="sr-only">
+                  Formatted JSON output
+                </Label>
+                <Textarea
+                  id="json-output-textarea"
+                  value={output}
+                  readOnly
+                  className="min-h-[400px] font-mono text-sm"
+                  placeholder="Formatted JSON will appear here..."
+                  aria-label="Formatted JSON output"
+                  aria-describedby="json-output-description"
+                />
+                <div id="json-output-description" className="sr-only">
+                  Formatted JSON result based on selected view mode and formatting options
+                </div>
+              </>
             )}
           </CardContent>
         </Card>

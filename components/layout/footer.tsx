@@ -1,5 +1,6 @@
 "use client"
 
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
@@ -22,13 +23,29 @@ import {
   Instagram
 } from "lucide-react"
 import Link from "next/link"
+import { CookieConsentModal } from "@/components/consent/cookie-consent-modal"
+import { getConsentState } from "@/lib/utils/consent"
 
 export function Footer() {
+  const [showConsentModal, setShowConsentModal] = useState(false)
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
-  const footerSections = [
+  const handleManageCookies = () => {
+    setShowConsentModal(true)
+  }
+
+  const footerSections: Array<{
+    title: string;
+    links: Array<{
+      href?: string;
+      label: string;
+      onClick?: () => void;
+      isButton?: boolean;
+    }>;
+  }> = [
     {
       title: "Popular Tools",
       links: [
@@ -48,7 +65,8 @@ export function Footer() {
         { href: "/privacy", label: "Privacy Policy" },
         { href: "/terms", label: "Terms of Service" },
         { href: "/help", label: "Help Center" },
-        { href: "/feedback", label: "Feedback" }
+        { href: "/feedback", label: "Feedback" },
+        { label: "Manage Cookies", onClick: handleManageCookies, isButton: true }
       ]
     },
 {
@@ -143,12 +161,22 @@ export function Footer() {
               <ul className="space-y-3">
                 {section.links.map((link, linkIndex) => (
                   <li key={linkIndex}>
-                    <Link 
-                      href={link.href} 
-                      className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
-                    >
-                      {link.label}
-                    </Link>
+                    {link.isButton ? (
+                      <button
+                        onClick={link.onClick}
+                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm text-left"
+                        aria-label={link.label}
+                      >
+                        {link.label}
+                      </button>
+                    ) : (
+                      <Link 
+                        href={link.href || "#"} 
+                        className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
+                      >
+                        {link.label}
+                      </Link>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -176,12 +204,27 @@ export function Footer() {
               size="sm"
               onClick={scrollToTop}
               className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+              aria-label="Scroll to top"
             >
               <ArrowUp className="h-4 w-4" />
+              <span className="sr-only">Scroll to top</span>
             </Button>
           </div>
         </div>
       </div>
+
+      {showConsentModal && (
+        <CookieConsentModal
+          onClose={(updatedConsent) => {
+            setShowConsentModal(false)
+            if (updatedConsent) {
+              // Consent was updated, page will reload or update automatically
+              window.location.reload()
+            }
+          }}
+          initialConsent={getConsentState()}
+        />
+      )}
     </footer>
   )
 }

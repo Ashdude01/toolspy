@@ -238,8 +238,13 @@ function MergePdfContent() {
                   Files will be merged in the order shown below. Use arrows to reorder.
                 </CardDescription>
               </div>
-              <Button variant="outline" onClick={clearAllFiles} size="sm">
-                <Trash2 className="h-4 w-4 mr-2" />
+              <Button 
+                variant="outline" 
+                onClick={clearAllFiles} 
+                size="sm"
+                aria-label="Clear all selected PDF files"
+              >
+                <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                 Clear All
               </Button>
             </div>
@@ -271,8 +276,10 @@ function MergePdfContent() {
                       onClick={() => moveFile(pdfFile.id, 'up')}
                       disabled={index === 0}
                       title="Move up"
+                      aria-label={`Move ${pdfFile.name} up in merge order`}
                     >
-                      <ArrowUpDown className="h-3 w-3 rotate-180" />
+                      <ArrowUpDown className="h-3 w-3 rotate-180" aria-hidden="true" />
+                      <span className="sr-only">Move up</span>
                     </Button>
                     <Button
                       variant="outline"
@@ -280,16 +287,20 @@ function MergePdfContent() {
                       onClick={() => moveFile(pdfFile.id, 'down')}
                       disabled={index === selectedFiles.length - 1}
                       title="Move down"
+                      aria-label={`Move ${pdfFile.name} down in merge order`}
                     >
-                      <ArrowUpDown className="h-3 w-3" />
+                      <ArrowUpDown className="h-3 w-3" aria-hidden="true" />
+                      <span className="sr-only">Move down</span>
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => removeFile(pdfFile.id)}
                       title="Remove file"
+                      aria-label={`Remove ${pdfFile.name}`}
                     >
-                      <Trash2 className="h-3 w-3" />
+                      <Trash2 className="h-3 w-3" aria-hidden="true" />
+                      <span className="sr-only">Remove</span>
                     </Button>
                   </div>
                 </div>
@@ -308,8 +319,11 @@ function MergePdfContent() {
               disabled={selectedFiles.length < 2 || isMerging}
               size="lg"
               className="w-full"
+              aria-label={isMerging 
+                ? "Merging PDF files, please wait" 
+                : `Merge ${selectedFiles.length} PDF file${selectedFiles.length !== 1 ? 's' : ''}`}
             >
-              <Plus className="h-5 w-5 mr-2" />
+              <Plus className="h-5 w-5 mr-2" aria-hidden="true" />
               {isMerging
                 ? "Merging PDFs..."
                 : `Merge ${selectedFiles.length} PDF Files`}
@@ -354,8 +368,12 @@ function MergePdfContent() {
                 </div>
                 
                 <div className="flex justify-center">
-                  <Button onClick={downloadMergedPdf} size="lg">
-                    <Download className="h-5 w-5 mr-2" />
+                  <Button 
+                    onClick={downloadMergedPdf} 
+                    size="lg"
+                    aria-label="Download merged PDF file"
+                  >
+                    <Download className="h-5 w-5 mr-2" aria-hidden="true" />
                     Download Merged PDF
                   </Button>
                 </div>
@@ -365,7 +383,11 @@ function MergePdfContent() {
                 <p className="text-red-500 mb-4">
                   {mergeResult.error || "An error occurred during merging"}
                 </p>
-                <Button onClick={() => setMergeResult(null)} variant="outline">
+                <Button 
+                  onClick={() => setMergeResult(null)} 
+                  variant="outline"
+                  aria-label="Try merging PDFs again"
+                >
                   Try Again
                 </Button>
               </div>

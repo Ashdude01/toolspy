@@ -188,14 +188,18 @@ function AgeCalculatorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="birthDate">Birth Date</Label>
+              <Label htmlFor="birthDate">Birth Date <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="birthDate"
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
                 max={new Date().toISOString().split('T')[0]}
+                required
+                aria-required="true"
+                aria-describedby="birth-date-description"
               />
+              <p id="birth-date-description" className="sr-only">Enter your birth date. This field is required.</p>
             </div>
             <div className="space-y-2">
               <Label htmlFor="currentDate">Current Date</Label>
@@ -204,7 +208,9 @@ function AgeCalculatorContent() {
                 type="date"
                 value={currentDate}
                 onChange={(e) => setCurrentDate(e.target.value)}
+                aria-describedby="current-date-description"
               />
+              <p id="current-date-description" className="sr-only">Enter the current date or leave blank to use today's date.</p>
             </div>
           </div>
 
@@ -213,16 +219,18 @@ function AgeCalculatorContent() {
               onClick={handleCalculate} 
               className="flex-1"
               disabled={!birthDate}
+              aria-label="Calculate age based on birth date and current date"
             >
-              <Calculator className="h-4 w-4 mr-2" />
+              <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Age
             </Button>
             <Button 
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
+              aria-label="Reset calculator and clear all fields"
             >
-              <RefreshCw className="h-4 w-4 mr-2" />
+              <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
             </Button>
           </div>
