@@ -52,7 +52,6 @@ export async function POST(request: NextRequest) {
         type: screenshotFormat,
         quality: screenshotFormat === 'jpeg' ? screenshotQuality / 100 : undefined,
         timeout: 30000, // 30 seconds timeout
-        waitUntil: 'networkidle2', // Wait for network to be idle
         delay: 1, // Small delay to ensure page is fully loaded
       });
       
@@ -179,14 +178,13 @@ export async function GET(request: NextRequest) {
       type: screenshotFormat,
       quality: screenshotFormat === 'jpeg' ? screenshotQuality / 100 : undefined,
       timeout: 30000,
-      waitUntil: 'networkidle2',
       delay: 1,
     });
 
     // Return image directly
     const mimeType = screenshotFormat === 'jpeg' ? 'image/jpeg' : screenshotFormat === 'webp' ? 'image/webp' : 'image/png';
     
-    return new NextResponse(screenshotBuffer, {
+    return new NextResponse(screenshotBuffer as any, {
       headers: {
         'Content-Type': mimeType,
         'Content-Disposition': `attachment; filename="screenshot.${screenshotFormat}"`,
