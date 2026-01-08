@@ -65,7 +65,7 @@ export function BrandedUploadModal({
       {/* Ad Slot - Top */}
       {adSlotTop && (
         <div className="absolute top-4 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="a_ads_container">
+          {/* <div className="a_ads_container">
                 <div
                   id="frame"
                   style={{
@@ -89,7 +89,7 @@ export function BrandedUploadModal({
                     }}
                   ></iframe>
                 </div>
-              </div>
+              </div> */}
         </div>
       )}
 
@@ -150,7 +150,7 @@ export function BrandedUploadModal({
       {/* Ad Slot - Bottom */}
       {adSlotBottom && (
         <div className="absolute bottom-4 left-1/2 transform -translate-x-1/2 z-10">
-          <div className="a_ads_container">
+          {/* <div className="a_ads_container">
                 <div
                   id="frame"
                   style={{
@@ -174,7 +174,7 @@ export function BrandedUploadModal({
                     }}
                   ></iframe>
                 </div>
-          </div>
+          </div> */}
         </div>
       )}
     </div>

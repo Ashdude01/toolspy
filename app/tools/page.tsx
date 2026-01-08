@@ -18,7 +18,10 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: limitTitle('All Tools - Professional Online Utilities | Toolspy'),
     description: limitDescription('Browse all free online tools available on Toolspy. Professional-grade utilities for every digital task.'),
-  }
+  },
+  alternates: {
+    canonical: 'https://toolspy.net/tools',
+  },
 };
 
 function ToolsPageSkeleton() {

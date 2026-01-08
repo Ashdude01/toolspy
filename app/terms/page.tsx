@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Terms and Conditions - Toolspy Online Tools',
   description: 'Read Toolspy\'s terms and conditions. Understand your rights and responsibilities when using our free online tools platform.',
   keywords: ['terms and conditions', 'terms of service', 'legal', 'user agreement', 'toolspy terms'],
+  alternates: {
+    canonical: 'https://toolspy.net/terms',
+  },
 };
 
 export default function TermsPage() {

@@ -24,6 +24,9 @@ export const metadata: Metadata = {
   title: 'Help Center - Toolspy Support and Documentation',
   description: 'Get help with Toolspy online tools. Find answers to common questions, troubleshooting guides, and learn how to use our free utilities effectively.',
   keywords: ['help center', 'support', 'how to use', 'troubleshooting', 'toolspy help', 'documentation'],
+  alternates: {
+    canonical: 'https://toolspy.net/help',
+  },
 };
 
 export default function HelpPage() {

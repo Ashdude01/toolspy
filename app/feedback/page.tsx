@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Feature Requests - Help Shape Toolspy\'s Future',
   description: 'Submit feature requests and suggestions for Toolspy. Help us build the tools you need most. Your feedback drives our development roadmap.',
   keywords: ['feature request', 'feedback', 'suggestions', 'toolspy development', 'new tools', 'improvements'],
+  alternates: {
+    canonical: 'https://toolspy.net/feedback',
+  },
 };
 
 export default function FeedbackPage() {

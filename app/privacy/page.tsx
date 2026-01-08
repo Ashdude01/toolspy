@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   title: 'Privacy Policy - Toolspy Online Tools',
   description: 'Read Toolspy\'s privacy policy. Learn how we protect your data with client-side processing and our commitment to zero data collection.',
   keywords: ['privacy policy', 'data protection', 'client-side processing', 'security', 'toolspy privacy'],
+  alternates: {
+    canonical: 'https://toolspy.net/privacy',
+  },
 };
 
 export default function PrivacyPage() {

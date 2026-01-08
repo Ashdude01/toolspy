@@ -71,7 +71,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
         card: 'summary_large_image',
       title: limitTitle(`${categoryInfo.name} - Professional Tools | Toolspy`),
       description: limitDescription(`${categoryInfo.description}. Browse ${tools.length} free tools.`),
-      }
+      },
+    alternates: {
+      canonical: `https://toolspy.net/tools/${category}`,
+    },
     };
   } catch (error) {
     console.error('Error generating metadata for category:', category, error);

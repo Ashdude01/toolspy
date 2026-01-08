@@ -46,7 +46,10 @@ export const metadata: Metadata = {
     title: 'About Toolspy - Professional Online Tools Platform',
     description: 'Learn about Toolspy, your trusted destination for professional online tools. Discover our mission to provide free, secure, and reliable digital utilities.',
     images: ['https://toolspy.net/og-about.jpg']
-  }
+  },
+  alternates: {
+    canonical: 'https://toolspy.net/about',
+  },
 };
 
 export default function AboutPage() {

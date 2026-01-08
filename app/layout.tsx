@@ -74,6 +74,9 @@ export const metadata: Metadata = {
       'max-snippet': -1,
     },
   },
+  alternates: {
+    canonical: siteConfig.url,
+  },
   verification: {
     google: 'google-site-verification-code',
     yandex: 'b04c69b64649efd5',
@@ -120,7 +123,7 @@ export default function RootLayout({
                 <main>
                   {children}
                 </main>
-                <div className="a_ads_container py-10">
+                {/* <div className="a_ads_container py-10">
                   <div
                     id="frame"
                     style={{
@@ -144,7 +147,7 @@ export default function RootLayout({
                       }}
                     ></iframe>
                   </div>
-                </div>
+                </div> */}
                 <Footer />
               </div>
             </PWAWrapper>

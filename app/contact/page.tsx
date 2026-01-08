@@ -13,6 +13,9 @@ export const metadata: Metadata = {
   title: 'Contact Toolspy - Get Support and Share Feedback',
   description: 'Get in touch with the Toolspy team. Report bugs, request features, or get help with our online tools. We\'re here to help!',
   keywords: ['contact toolspy', 'support', 'feedback', 'bug report', 'feature request', 'help'],
+  alternates: {
+    canonical: 'https://toolspy.net/contact',
+  },
 };
 
 export default function ContactPage() {

@@ -12,6 +12,9 @@ export const metadata: Metadata = {
   title: 'Bug Reports - Help Us Fix Issues on Toolspy',
   description: 'Report bugs and technical issues with Toolspy tools. Help us maintain the quality and reliability of our online utilities.',
   keywords: ['bug report', 'technical issues', 'toolspy problems', 'error reporting', 'troubleshooting'],
+  alternates: {
+    canonical: 'https://toolspy.net/bug-report',
+  },
 };
 
 export default function BugReportPage() {

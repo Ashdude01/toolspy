@@ -62,7 +62,7 @@ export function RelatedTools({
 
   return (
     <section className="space-y-6">
-      <div className="a_ads_container mb-10">
+      {/* <div className="a_ads_container mb-10">
                 <div
                   id="frame"
                   style={{
@@ -86,7 +86,7 @@ export function RelatedTools({
                     }}
                   ></iframe>
                 </div>
-              </div>
+              </div> */}
       <h3 className="text-2xl font-bold text-center">
         {title}
       </h3>
