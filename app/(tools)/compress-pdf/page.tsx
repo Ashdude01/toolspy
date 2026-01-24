@@ -845,7 +845,7 @@ function CompressPdfContent() {
         onError={handleError}
         multiple={true}
         maxFiles={20}
-        maxFileSize={50 * 1024 * 1024} // 50MB
+        maxFileSize={Infinity} // Unlimited
         className="mb-6 sm:mb-8"
       />
 

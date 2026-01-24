@@ -93,8 +93,8 @@ export function PDFFileUpload({
       };
     }
 
-    // Check file size
-    if (file.size > maxFileSize) {
+    // Check file size (skip if unlimited)
+    if (maxFileSize !== Infinity && file.size > maxFileSize) {
       const maxSizeMB = Math.round(maxFileSize / (1024 * 1024));
       return {
         valid: false,
@@ -275,7 +275,7 @@ export function PDFFileUpload({
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [disabled, handleFileValidation]);
 
-  const maxSizeMB = Math.round(maxFileSize / (1024 * 1024));
+  const maxSizeMB = maxFileSize === Infinity ? null : Math.round(maxFileSize / (1024 * 1024));
 
   return (
     <div className={`space-y-4 transition-all duration-300 ${className}`}>
@@ -407,7 +407,7 @@ export function PDFFileUpload({
 
               {/* Supported Formats */}
               <p className="text-sm text-muted-foreground">
-                PDF files only{multiple ? ` • Up to ${maxFiles} files` : ''} • Max {maxSizeMB}MB per file
+                PDF files only{multiple ? ` • Up to ${maxFiles} files` : ''}{maxSizeMB !== null ? ` • Max ${maxSizeMB}MB per file` : ''}
               </p>
 
               {/* Keyboard Shortcut Hint */}
