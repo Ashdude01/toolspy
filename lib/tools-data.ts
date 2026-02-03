@@ -138,10 +138,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Compressor',
-      title: 'Free Online Image Compressor – Compress Images | Toolspy',
+      title: 'Compress JPG, PNG & GIF Online – Shrink Photos Free | Toolspy',
       slug: '/image-compressor',
-      description: "Quickly compress JPG, PNG, and GIF images online with Toolspy's free, secure, browser-based image compressor. Reduce image size without quality loss instantly",
-      tags: ['compress', 'optimize', 'resize', 'jpeg', 'png', 'webp', 'toolspy']
+      description: "Shrink image size without wrecking quality. Works in your browser—no signup. Drop your JPG, PNG or GIF and get a smaller file in seconds.",
+      tags: ['compress image', 'reduce image size', 'jpg compressor', 'png compressor', 'compress photo online', 'shrink image', 'image size reducer']
     }),
     posterImage: '/images/tools/image-compressor.webp'
   },
@@ -158,10 +158,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Converter',
-      title: "Free Online Image Converter – Convert Images to Any Format | Toolspy",
+      title: 'Convert Image Format Online – JPG, PNG, WebP, HEIC | Toolspy',
       slug: '/image-converter',
-      description: "Convert images between 15+ formats including JPEG, PNG, WebP, AVIF, HEIC with professional quality. Free, private, batch processing. No uploads, no registration required.",
-      tags: ['convert', 'format', 'png', 'jpg', 'webp', 'avif', 'heic', 'batch', 'privacy', 'free', 'online', 'image converter', 'convert images', 'image format converter', 'convert jpg to png', 'convert png to jpg', 'convert heic to jpg', 'convert webp to png']
+      description: "Need a different format? Turn JPG into PNG, HEIC into JPG, WebP into PNG—15+ formats. Batch convert if you've got loads. No account needed.",
+      tags: ['image converter', 'convert jpg to png', 'convert png to jpg', 'heic to jpg', 'webp to png', 'change image format', 'convert image online', 'batch image converter']
     }),
     posterImage: '/images/tools/image-converter.webp'
   },
@@ -177,9 +177,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Resizer',
+      title: 'Resize Image Online – Set Width, Height or % | Toolspy',
       slug: '/image-resizer',
-      description: 'Resize images to specific dimensions or percentages',
-      tags: ['resize', 'dimensions', 'scale']
+      description: "Make your photo bigger or smaller. Pick exact pixels or scale by percentage. Handy for profiles, print, or fitting a layout.",
+      tags: ['resize image', 'resize photo online', 'change image size', 'image dimensions', 'scale image', 'resize picture']
     }),
     posterImage: '/images/tools/image-resizer.webp'
   },
@@ -195,9 +196,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Optimizer',
+      title: 'Optimize Images for Web – Faster Loading | Toolspy',
       slug: '/image-optimizer',
-      description: 'Optimize images for faster loading and better performance',
-      tags: ['optimize', 'performance', 'compression']
+      description: "Trim the fat off your images so pages load quicker. Same look, smaller file. Great for websites and emails.",
+      tags: ['optimize image', 'image optimizer', 'optimize photo for web', 'reduce image file size', 'faster loading images']
     }),
     posterImage: '/images/tools/image-optimizer.webp'
   },
@@ -213,9 +215,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JFIF to JPG Converter',
+      title: 'JFIF to JPG Converter – Turn JFIF Into JPG Free | Toolspy',
       slug: '/jfif-to-jpg',
-      description: 'Convert JFIF images to JPG/JPEG format with high quality preservation',
-      tags: ['jfif', 'jpg', 'jpeg', 'convert', 'format']
+      description: "Got a .jfif file? Convert it to standard JPG so any device or app can open it. Keeps the quality, no fuss.",
+      tags: ['jfif to jpg', 'convert jfif to jpeg', 'jfif converter', 'jfif to jpeg online', 'change jfif to jpg']
     }),
     posterImage: '/images/tools/jfif-jpg-convert.webp'
   },
@@ -234,9 +237,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Base64 to Image Converter',
+      title: 'Base64 to Image – Decode Base64 String to Picture | Toolspy',
       slug: '/base64-to-image',
-      description: 'Convert Base64 encoded strings back to image files with Toolspy\'s secure converter',
-      tags: ['base64', 'decode', 'image', 'convert', 'toolspy']
+      description: "Paste a Base64 string and get your image back. No uploads—everything runs in the browser. Handy for devs and data URLs.",
+      tags: ['base64 to image', 'decode base64 to image', 'base64 decoder image', 'convert base64 to picture', 'base64 to jpg']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/base64_to_image_jl5bex.webp'
   },
@@ -253,9 +257,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image to Base64 Encoder',
+      title: 'Image to Base64 – Encode Photo to Base64 String | Toolspy',
       slug: '/image-to-base64',
-      description: 'Convert images to Base64 encoded strings for embedding with Toolspy\'s professional encoder',
-      tags: ['base64', 'encode', 'image', 'convert', 'embed', 'toolspy']
+      description: "Turn any image into a Base64 string. Use it in HTML, CSS, or APIs. Runs locally so your files never leave your machine.",
+      tags: ['image to base64', 'encode image to base64', 'photo to base64', 'base64 encode image', 'image base64 converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/image_to_base64_g9bxxs.webp'
   },
@@ -271,9 +276,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Base64 Encoder/Decoder',
+      title: 'Base64 Encode Decode – Text to Base64 & Back | Toolspy',
       slug: '/base64-encoder-decoder',
-      description: 'Encode and decode text to/from Base64 format',
-      tags: ['base64', 'encode', 'decode', 'text']
+      description: "Encode text to Base64 or decode it back to plain text. Simple box in, box out. No account, no limits.",
+      tags: ['base64 encode', 'base64 decode', 'base64 encoder decoder', 'encode to base64', 'decode base64 text']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/base64_encode_decode_fipglx.webp'
   },
@@ -291,9 +297,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF Converter',
+      title: 'PDF Converter Online – Convert PDF to Any Format | Toolspy',
       slug: '/pdf-converter',
-      description: 'Convert PDFs to various formats and vice versa',
-      tags: ['pdf', 'convert', 'document']
+      description: "Switch PDFs to other formats (or the other way round). Works in the browser—your docs stay on your side. No signup.",
+      tags: ['pdf converter', 'convert pdf', 'pdf to other format', 'convert document', 'pdf conversion online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf_converter_iewyap.webp'
   },
@@ -309,9 +316,10 @@ export const tools: Tool[] = [
     status: 'coming-soon',
     seo: generateSEO({
       name: 'PDF to Word',
+      title: 'PDF to Word Converter – Make PDF Editable in Word | Toolspy',
       slug: '/pdf-to-word',
-      description: 'Convert PDF documents to editable Word files',
-      tags: ['pdf', 'word', 'convert', 'document']
+      description: "Turn a PDF into an editable Word doc so you can change the text. Comes in handy when you only have a PDF and need to edit it.",
+      tags: ['pdf to word', 'convert pdf to word', 'pdf to docx', 'pdf to doc', 'edit pdf in word']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf-word_bsyilq.webp'
   },
@@ -327,9 +335,10 @@ export const tools: Tool[] = [
     status: 'coming-soon',
     seo: generateSEO({
       name: 'PDF to JPG',
+      title: 'PDF to JPG – Convert PDF Pages to Images | Toolspy',
       slug: '/pdf-to-jpg',
-      description: 'Convert PDF pages to JPG images',
-      tags: ['pdf', 'jpg', 'convert', 'image']
+      description: "Grab each PDF page as a JPG. Pick one page or the whole thing. Useful for thumbnails, slides, or sharing as images.",
+      tags: ['pdf to jpg', 'convert pdf to jpg', 'pdf to image', 'pdf page to jpg', 'save pdf as image']
     }),
     posterImage: '/images/tools/pdf-to-jpg.webp'
   },
@@ -345,9 +354,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JFIF to PDF Converter',
+      title: 'JFIF to PDF – Turn JFIF Images Into PDF | Toolspy',
       slug: '/jfif-to-pdf',
-      description: 'Convert JFIF images to PDF documents with professional quality',
-      tags: ['jfif', 'pdf', 'convert', 'document']
+      description: "Stuck with .jfif files? Turn them into a PDF so you can share or print like a normal document. One click.",
+      tags: ['jfif to pdf', 'convert jfif to pdf', 'jfif to pdf online', 'image to pdf jfif']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/jfif-pdf_i1ulbf.webp'
   },
@@ -363,9 +373,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Merge PDF Files',
+      title: 'Merge PDF Files – Combine PDFs Into One | Toolspy',
       slug: '/merge-pdf',
-      description: 'Combine multiple PDF files into a single document',
-      tags: ['pdf', 'merge', 'combine', 'document']
+      description: "Got several PDFs? Stick them together in the order you want. One file at the end. No watermarks, no signup.",
+      tags: ['merge pdf', 'combine pdf', 'join pdf files', 'merge pdf online', 'combine pdf files into one']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/merge-pdf_y7rcdf.webp'
   },
@@ -381,9 +392,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF to Image Converter',
+      title: 'PDF to Image – Convert PDF to PNG, JPG, WebP | Toolspy',
       slug: '/pdf-to-image',
-      description: 'Convert PDF pages to various image formats (PNG, JPG, WebP)',
-      tags: ['pdf', 'image', 'convert', 'png', 'jpg']
+      description: "Turn PDF pages into images. Choose PNG, JPG or WebP. Good for screenshots, thumbnails or when you need a picture, not a doc.",
+      tags: ['pdf to image', 'pdf to png', 'pdf to jpg', 'convert pdf to image', 'pdf page to image']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf-image_wqc4kl.webp'
   },
@@ -399,9 +411,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF Compressor',
+      title: 'Compress PDF – Shrink PDF Size Free Online | Toolspy',
       slug: '/compress-pdf',
-      description: 'Compress PDF files to reduce file size while maintaining quality',
-      tags: ['pdf', 'compress', 'reduce', 'size']
+      description: "PDF too big for email or upload? Shrink it here. You pick how much—light squeeze or max compression. Stays readable.",
+      tags: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf', 'make pdf smaller']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/v1756527237/compress-pdf_cjhuif.webp'
   },
@@ -417,9 +430,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'HEIC to PDF Converter',
+      title: 'HEIC to PDF – Convert iPhone Photos to PDF | Toolspy',
       slug: '/heic-to-pdf',
-      description: 'Convert HEIC images to PDF documents with high quality',
-      tags: ['heic', 'pdf', 'convert', 'apple', 'iphone']
+      description: "iPhone shoots HEIC. Need a PDF? Drop your HEIC pics and get one PDF. Works in the browser, no app to install.",
+      tags: ['heic to pdf', 'convert heic to pdf', 'iphone photo to pdf', 'heic to pdf online', 'apple photo to pdf']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/heic-pdf_mq0spy.webp'
   },
@@ -435,9 +449,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Split PDF Files',
+      title: 'Split PDF – Split PDF by Pages Free | Toolspy',
       slug: '/split-pdf',
-      description: 'Split large PDF documents into smaller files by page ranges',
-      tags: ['pdf', 'split', 'divide', 'pages', 'separate']
+      description: "Big PDF? Chop it by page range or one page per file. Handy when you only need a few pages or want separate docs.",
+      tags: ['split pdf', 'split pdf by pages', 'divide pdf', 'extract pages from pdf', 'pdf splitter online']
     }),
     posterImage: "https://res.cloudinary.com/drby9raee/image/upload/split-pdf_bnuavw.webp"
   },
@@ -453,9 +468,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF Password Remover',
+      title: 'Remove PDF Password – Unlock PDF Free | Toolspy',
       slug: '/pdf-password-remover',
-      description: 'Remove password protection from PDF files instantly',
-      tags: ['pdf', 'password', 'unlock', 'remove', 'decrypt']
+      description: "Know the PDF password? Enter it and we'll strip it so you can open the file without typing it again. Runs in browser.",
+      tags: ['remove pdf password', 'unlock pdf', 'pdf password remover', 'decrypt pdf', 'unlock password protected pdf']
     }),
     posterImage: "https://res.cloudinary.com/drby9raee/image/upload/remove-pdf-password_pmlhby.webp"
   },
@@ -471,9 +487,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF to Excel Converter',
+      title: 'PDF to Excel – Convert PDF Table to Excel | Toolspy',
       slug: '/pdf-to-excel',
-      description: 'Convert PDF documents to Excel spreadsheets for data analysis',
-      tags: ['pdf', 'excel', 'convert', 'xlsx', 'spreadsheet']
+      description: "Tables stuck in a PDF? Pull them into Excel so you can edit, sort and crunch numbers. Good for reports and data.",
+      tags: ['pdf to excel', 'convert pdf to excel', 'pdf to xlsx', 'pdf table to excel', 'extract table from pdf']
     }),
     posterImage: "https://res.cloudinary.com/drby9raee/image/upload/pdf-excel_ox2ejz.webp"
   },
@@ -489,9 +506,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF to CSV Converter',
+      title: 'PDF to CSV – Extract Table from PDF to CSV | Toolspy',
       slug: '/pdf-to-csv',
-      description: 'Extract tabular data from PDF documents to CSV format',
-      tags: ['pdf', 'csv', 'convert', 'data', 'extract']
+      description: "Got a table in a PDF? Get it out as CSV for spreadsheets or code. One less copy-paste headache.",
+      tags: ['pdf to csv', 'convert pdf to csv', 'extract table from pdf', 'pdf table to csv', 'pdf to spreadsheet']
     }),
     posterImage: "https://res.cloudinary.com/drby9raee/image/upload/pdf-csv_yl8ljg.webp"
   },
@@ -507,9 +525,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'File Protector',
+      title: 'Password Protect File – Lock Files With Password | Toolspy',
       slug: '/file-protector',
-      description: 'Add password protection to your files for enhanced security',
-      tags: ['file', 'protect', 'password', 'security', 'encrypt']
+      description: "Put a password on a file so only someone with the code can open it. Handy for sensitive stuff you're sharing.",
+      tags: ['password protect file', 'lock file with password', 'encrypt file', 'protect file', 'file encryption online']
     }),
     posterImage: ""
   },
@@ -527,9 +546,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Percentage Calculator',
+      title: 'Percentage Calculator – Find % of a Number | Toolspy',
       slug: '/percentage-calculator',
-      description: 'Calculate percentages, percentage increases, and decreases',
-      tags: ['percentage', 'calculator', 'math']
+      description: "What's 20% of 250? Or what percent is 45 of 90? Do the math here. Increase, decrease, whatever you need.",
+      tags: ['percentage calculator', 'calculate percentage', 'percent of a number', 'percentage increase', 'percentage decrease']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/percentage_calculator_le7eov.webp'
   },
@@ -545,9 +565,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Age Calculator',
+      title: 'Age Calculator – Exact Age in Years, Months, Days | Toolspy',
       slug: '/age-calculator',
-      description: 'Calculate your exact age in years, months, days, hours, and minutes',
-      tags: ['age', 'calculator', 'birthday', 'years']
+      description: "How old are you down to the day? Or the time between two dates? Get years, months, days—even hours and minutes.",
+      tags: ['age calculator', 'calculate age', 'how old am i', 'age in days', 'date difference calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/age-calculator_l8kwxt.webp'
   },
@@ -563,9 +584,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Love Calculator',
+      title: 'Love Calculator – Compatibility % by Names | Toolspy',
       slug: '/love-calculator',
-      description: 'Calculate love compatibility percentage between two people',
-      tags: ['love', 'calculator', 'compatibility', 'relationship']
+      description: "Just for fun: type two names and get a compatibility score. Silly but popular. Share the result with your crush.",
+      tags: ['love calculator', 'love compatibility', 'name compatibility', 'love percentage', 'relationship calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/love-calculator_kzzs73.webp'
   },
@@ -581,9 +603,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'BMI Calculator',
+      title: 'BMI Calculator – Check Body Mass Index Free | Toolspy',
       slug: '/bmi-calculator',
-      description: 'Calculate Body Mass Index (BMI) and health status',
-      tags: ['bmi', 'calculator', 'health', 'weight', 'fitness']
+      description: "Enter height and weight, get your BMI and a rough idea of where you sit (underweight, normal, overweight). Not medical advice.",
+      tags: ['bmi calculator', 'body mass index', 'calculate bmi', 'bmi chart', 'weight height calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/bmi-calculator_w5fztx.webp'
   },
@@ -599,9 +622,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Loan Calculator',
+      title: 'Loan Calculator – Monthly Payment & Interest | Toolspy',
       slug: '/loan-calculator',
-      description: 'Calculate monthly loan payments, interest, and total cost',
-      tags: ['loan', 'calculator', 'finance', 'payment', 'interest']
+      description: "See what you'd pay each month on a loan. Plug in amount, rate and term—we'll show monthly payment and total interest.",
+      tags: ['loan calculator', 'monthly payment calculator', 'loan payment', 'interest calculator', 'emi calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/loan-calculator_y1tqqv.webp'
   },
@@ -617,9 +641,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Mortgage Calculator',
+      title: 'Mortgage Calculator – Home Loan Payment & Amortization | Toolspy',
       slug: '/mortgage-calculator',
-      description: 'Calculate mortgage payments, interest rates, and amortization',
-      tags: ['mortgage', 'calculator', 'home', 'loan', 'finance']
+      description: "Thinking of a home loan? See your monthly mortgage payment and how much goes to principal vs interest over time.",
+      tags: ['mortgage calculator', 'home loan calculator', 'monthly mortgage payment', 'amortization calculator', 'house loan calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/mortgage-calculator_v7lw9c.webp'
   },
@@ -635,9 +660,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Retirement Calculator',
+      title: 'Retirement Calculator – How Much to Save | Toolspy',
       slug: '/retirement-calculator',
-      description: 'Calculate retirement savings needed and investment projections',
-      tags: ['retirement', 'calculator', 'savings', 'investment', 'finance']
+      description: "Rough out how much you might need for retirement and what to save each month. Ballpark numbers, not financial advice.",
+      tags: ['retirement calculator', 'retirement savings', 'how much to save for retirement', 'retirement planning', '401k calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/retirement-calculator_ny8f3s.webp'
   },
@@ -653,9 +679,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Investment Calculator',
+      title: 'Investment Calculator – Compound Interest & Growth | Toolspy',
       slug: '/investment-calculator',
-      description: 'Calculate compound interest and investment growth over time',
-      tags: ['investment', 'calculator', 'compound', 'interest', 'finance']
+      description: "See how money grows with compound interest. Put in amount, rate and years—we'll show the growth. For planning, not advice.",
+      tags: ['investment calculator', 'compound interest calculator', 'investment growth', 'compound interest', 'savings growth calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Investment-calculator_dsq6hr.webp'
   },
@@ -671,9 +698,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Tax Calculator',
+      title: 'Tax Calculator – Income Tax & Take-Home Pay | Toolspy',
       slug: '/tax-calculator',
-      description: 'Calculate income tax, tax brackets, and take-home pay',
-      tags: ['tax', 'calculator', 'income', 'finance', 'salary']
+      description: "Estimate income tax and what's left after. Enter salary and get a ballpark. Check your country's rules for exact figures.",
+      tags: ['tax calculator', 'income tax calculator', 'take home pay', 'salary after tax', 'tax estimator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/tax-calculator_hsxfl3.webp'
   },
@@ -689,9 +717,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Salary Calculator',
+      title: 'Salary Calculator – Hourly to Yearly & Vice Versa | Toolspy',
       slug: '/salary-calculator',
-      description: 'Convert between hourly, monthly, and yearly salary rates',
-      tags: ['salary', 'calculator', 'wage', 'income', 'hourly']
+      description: "Hourly wage to yearly? Or yearly to hourly? Swap between them. Handy when comparing jobs or planning a side gig.",
+      tags: ['salary calculator', 'hourly to yearly', 'yearly to hourly', 'wage calculator', 'salary converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/salary-calculator_abj5hv.webp'
   },
@@ -709,9 +738,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Unit Converter',
+      title: 'Unit Converter – Length, Weight, Volume & More | Toolspy',
       slug: '/unit-converter',
-      description: 'Convert between different units of measurement',
-      tags: ['units', 'convert', 'measurement']
+      description: "Need kg in pounds? Liters in gallons? One place for length, weight, volume and other units. No app needed.",
+      tags: ['unit converter', 'convert units', 'measurement converter', 'kg to lbs', 'metric to imperial']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/unit_converter_ghqrmg.webp'
   },
@@ -727,9 +757,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Currency Converter',
+      title: 'Currency Converter – Live Exchange Rates | Toolspy',
       slug: '/currency-converter',
-      description: 'Convert between different currencies with live exchange rates',
-      tags: ['currency', 'converter', 'exchange', 'rate', 'money']
+      description: "How much is 100 USD in euros? Or yen? Check live rates and convert. Useful before a trip or for quick ballparks.",
+      tags: ['currency converter', 'exchange rate', 'convert currency', 'usd to inr', 'eur to usd']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/currency_converter_xreikv.webp'
   },
@@ -745,9 +776,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Temperature Converter',
+      title: 'Temperature Converter – Celsius, Fahrenheit, Kelvin | Toolspy',
       slug: '/temperature-converter',
-      description: 'Convert between Celsius, Fahrenheit, and Kelvin temperatures',
-      tags: ['temperature', 'converter', 'celsius', 'fahrenheit', 'kelvin']
+      description: "C to F? F to C? Or Kelvin? Swap between them. Cooking, weather or science—whatever you need.",
+      tags: ['temperature converter', 'celsius to fahrenheit', 'fahrenheit to celsius', 'temp converter', 'c to f']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/temperature_converter_iesjzn.webp'
   },
@@ -763,9 +795,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Length Converter',
+      title: 'Length Converter – Meters, Feet, Miles, km | Toolspy',
       slug: '/length-converter',
-      description: 'Convert between different units of length and distance',
-      tags: ['length', 'converter', 'distance', 'measurement', 'units']
+      description: "Meters to feet? Miles to km? Convert length and distance in one go. Handy for travel, DIY or school.",
+      tags: ['length converter', 'meters to feet', 'miles to km', 'distance converter', 'feet to meters']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
@@ -781,9 +814,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Weight Converter',
+      title: 'Weight Converter – kg, lbs, oz, grams | Toolspy',
       slug: '/weight-converter',
-      description: 'Convert between different units of weight and mass',
-      tags: ['weight', 'converter', 'mass', 'measurement', 'units']
+      description: "kg to pounds? Ounces to grams? Convert weight in a snap. Cooking, luggage or gym—whatever you're measuring.",
+      tags: ['weight converter', 'kg to lbs', 'pounds to kg', 'grams to ounces', 'weight conversion']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/weight_converter_k8ebov.webp'
   },
@@ -799,9 +833,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Volume Converter',
+      title: 'Volume Converter – Liters, Gallons, ml | Toolspy',
       slug: '/volume-converter',
-      description: 'Convert between different units of volume and capacity',
-      tags: ['volume', 'converter', 'capacity', 'measurement', 'units']
+      description: "Liters to gallons? ml to cups? Swap volume and capacity. Recipes, fuel or science—we've got it.",
+      tags: ['volume converter', 'liters to gallons', 'ml to oz', 'volume conversion', 'gallons to liters']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/volume_converter_owmjt1.webp'
   },
@@ -817,9 +852,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Area Converter',
+      title: 'Area Converter – sq ft, sq m, acres | Toolspy',
       slug: '/area-converter',
-      description: 'Convert between different units of area and surface measurement',
-      tags: ['area', 'converter', 'surface', 'measurement', 'units']
+      description: "Square feet to square meters? Acres to hectares? Convert area for land, rooms or homework. Simple and quick.",
+      tags: ['area converter', 'square feet to square meters', 'acres to hectares', 'area conversion', 'sq ft to sq m']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/area_converter_wbzrw9.webp'
   },
@@ -837,9 +873,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'QR Code Generator',
+      title: 'QR Code Generator – Create QR Code Free | Toolspy',
       slug: '/qr-code-generator',
-      description: 'Generate QR codes for text, URLs, and more',
-      tags: ['qr', 'code', 'generator']
+      description: "Make a QR code for a link, text or contact. Paste, click, download. No signup. Use it on flyers, menus or business cards.",
+      tags: ['qr code generator', 'create qr code', 'free qr code', 'qr code maker', 'generate qr code']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/QR_Code_Generator_rvcqcm.webp'
   },
@@ -855,9 +892,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Color Picker',
+      title: 'Color Picker – Get Hex, RGB, HSL | Toolspy',
       slug: '/color-picker',
-      description: 'Pick colors and get hex, RGB, HSL values',
-      tags: ['color', 'picker', 'hex', 'rgb']
+      description: "Click to pick a color. Get hex, RGB and HSL so you can copy into CSS, design tools or code. No install.",
+      tags: ['color picker', 'hex color picker', 'rgb color picker', 'pick color', 'color code']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Color_Picker_qnftn6.webp'
   },
@@ -874,10 +912,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Color Palette Generator',
-      title: 'Free Color Palette Generator – Create Beautiful Palettes Online | Toolspy',
+      title: 'Color Palette Generator – Create & Export Palettes | Toolspy',
       slug: '/color-palette-generator',
-      description: 'Generate beautiful color palettes with drag-and-drop reordering, lock colors, and export in CSS, SCSS, Tailwind, JSON formats. Free, private, and professional.',
-      tags: ['color', 'palette', 'generator', 'design', 'hex', 'rgb', 'hsl', 'export', 'color scheme', 'palette generator']
+      description: "Build a color palette, lock the ones you like, reorder by drag. Export as CSS, SCSS, Tailwind or JSON. Handy for design and dev.",
+      tags: ['color palette generator', 'create color palette', 'color scheme generator', 'palette maker', 'export color palette']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Color_Palettes_Generator_livayv.webp'
   },
@@ -894,10 +932,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Google Indexing API Tool',
-      title: 'Google Indexing API Tool - Submit URLs for Fast Indexing | Toolspy',
+      title: 'Google Indexing API – Submit URLs for Faster Indexing | Toolspy',
       slug: '/google-indexing-api',
-      description: 'Submit website URLs to Google Indexing API for faster indexing and improved search visibility. Bulk URL submission with service account authentication.',
-      tags: ['google', 'indexing', 'seo', 'search', 'api', 'submit', 'urls', 'batch']
+      description: "Push URLs to Google's Indexing API so new or updated pages get crawled sooner. Bulk submit with a service account. For site owners and SEO.",
+      tags: ['google indexing api', 'submit url to google', 'request indexing', 'google index api', 'url indexing tool']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Google_Indexing_API_Tool_pyjog3.webp'
   },
@@ -916,10 +954,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JSON Formatter & Validator',
-      title: 'Free Online JSON Formatter, Validator & Viewer – Beautify, Validate, Visualize JSON Instantly | Toolspy',
+      title: 'JSON Formatter – Beautify, Validate & View JSON | Toolspy',
       slug: '/json-formatter',
-      description: 'Format, validate, and visualize JSON data with our advanced online tool. Features tree view, error highlighting, minify/beautify, and secure client-side processing.',
-      tags: ['json', 'formatter', 'validator', 'tree', 'beautify', 'minify', 'validate', 'jsonlint']
+      description: "Paste messy JSON and we'll pretty-print it. Or minify. Check for errors and browse in a tree. All in the browser.",
+      tags: ['json formatter', 'json validator', 'beautify json', 'minify json', 'json viewer', 'validate json']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JSON_Formatter_Validator_tk2ubr.webp'
   },
@@ -936,10 +974,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JSON Table Converter',
-      title: 'Convert JSON to Excel, CSV, and vice versa – Fast, Free, Secure Table Converter | Toolspy',
+      title: 'JSON to CSV / Excel – Convert JSON to Table | Toolspy',
       slug: '/json-table-converter',
-      description: 'Convert JSON to CSV/Excel and table data to JSON with advanced preview, batch processing, and intelligent data mapping. Supports nested objects and custom delimiters.',
-      tags: ['json', 'csv', 'excel', 'table', 'converter', 'xlsx', 'data', 'transform', 'tableconvert']
+      description: "Turn JSON into a spreadsheet (CSV or Excel) or the other way round. Preview first, then download. Handy for data and APIs.",
+      tags: ['json to csv', 'json to excel', 'convert json to csv', 'json to spreadsheet', 'csv to json']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JSON_Table_Converter_ydiyox.webp'
   },
@@ -958,10 +996,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Code Beautifier & Minifier',
-      title: 'Free Online Code Beautifier & Minifier – Format, Minify, and Explain Code | Toolspy',
+      title: 'Code Beautifier – Format JS, CSS, HTML | Toolspy',
       slug: '/code-beautifier',
-      description: 'Format and minify JavaScript, CSS, HTML code with advanced syntax highlighting, error detection, and AI-powered code explanations. Secure client-side processing.',
-      tags: ['code', 'beautifier', 'minifier', 'javascript', 'css', 'html', 'formatter', 'prettier', 'syntax']
+      description: "Paste minified JS, CSS or HTML and we'll pretty-print it. Or minify the other way. Catches basic errors. No upload.",
+      tags: ['code beautifier', 'javascript formatter', 'css formatter', 'html formatter', 'minify javascript', 'prettify code']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Code_Beautifier_Minifier_ncesjz.webp'
   },
@@ -980,10 +1018,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Color Palette Generator',
-      title: 'Free Color Palette Generator & Picker – AI-Powered, Accessible, Export Ready | Toolspy',
+      title: 'AI Color Palette – Generate Palettes With AI | Toolspy',
       slug: '/ai-color-palette-generator',
-      description: 'Generate stunning color palettes with AI insights, accessibility checking, and professional export options. Create harmonious colors for design, branding, and web development.',
-      tags: ['color', 'palette', 'generator', 'ai', 'accessibility', 'design', 'harmony', 'picker', 'coolors']
+      description: "Get color palettes suggested by AI. Check contrast for accessibility, then export. Good for branding, UI and design.",
+      tags: ['ai color palette', 'color palette generator ai', 'generate color palette', 'color scheme ai', 'palette generator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Color_Palette_Generator_e7xt2b.webp'
   },
@@ -1000,10 +1038,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Background Remover',
-      title: 'Remove Image Background Online – Free AI Background Remover | Toolspy',
+      title: 'Remove Background from Image – AI Background Remover | Toolspy',
       slug: '/ai-background-remover',
-      description: 'Remove backgrounds from images instantly with AI. Features magic brush for touch-ups, batch processing, and professional export options. Completely private and secure.',
-      tags: ['ai', 'background', 'remover', 'image', 'magic brush', 'transparent', 'png', 'photo', 'removebg']
+      description: "Drop a photo, we strip the background. AI does the heavy lifting; you can touch up with a brush. Export as PNG. No signup.",
+      tags: ['remove background', 'background remover', 'remove bg', 'remove image background', 'transparent background']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Background_Remover_w3pdpf.webp'
   },
@@ -1020,10 +1058,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Meme Generator',
-      title: 'Free Meme Generator – Create Memes Online with AI Captions | Toolspy',
+      title: 'Meme Generator – Create Memes With AI Captions | Toolspy',
       slug: '/meme-generator',
-      description: 'Create viral memes with trending templates, AI caption suggestions, and professional editing tools. Share to social media instantly with no watermarks.',
-      tags: ['meme', 'generator', 'ai', 'captions', 'templates', 'viral', 'social media', 'humor', 'imgflip']
+      description: "Pick a template, add your text or let AI suggest captions. Make memes in seconds. No watermarks. Share straight to social.",
+      tags: ['meme generator', 'create meme', 'make meme', 'meme maker', 'meme template', 'ai meme']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Meme_Generator_xrlee8.webp'
   },
@@ -1040,10 +1078,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Writing Tools Suite',
-      title: 'Free AI Paraphraser, Summarizer & Humanizer – Improve Your Writing Instantly | Toolspy',
+      title: 'AI Paraphraser, Summarizer & Humanizer – Writing Tools | Toolspy',
       slug: '/ai-writing-tools',
-      description: 'Complete AI writing toolkit with paraphraser, summarizer, humanizer, and AI detector. Advanced customization options for professional, academic, and creative writing.',
-      tags: ['ai', 'writing', 'paraphraser', 'summarizer', 'humanizer', 'detector', 'rewriter', 'tools', 'quillbot']
+      description: "Rephrase text, shorten it, or make it sound more human. Plus check if something looks AI-written. One place for quick writing fixes.",
+      tags: ['paraphraser', 'summarizer', 'ai paraphraser', 'text humanizer', 'ai detector', 'rewrite text']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Writing_Tools_Suite_etyynu.webp'
   },
@@ -1060,10 +1098,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Image Enhancer',
-      title: 'AI Image Enhancer – Upscale, Unblur, Restore, and Colorize Photos Online | Toolspy',
+      title: 'AI Image Enhancer – Upscale, Unblur & Restore Photos | Toolspy',
       slug: '/ai-image-enhancer',
-      description: 'Enhance photos with AI: upscale resolution up to 4x, remove blur, restore old photos, and colorize black & white images. Professional quality with complete privacy.',
-      tags: ['ai', 'image', 'enhancer', 'upscale', 'unblur', 'restore', 'colorize', 'photos', 'topaz', 'waifu2x']
+      description: "Upscale a blurry or low-res photo. Unblur, restore old pics, or colorize black and white. AI does the work. Try it and see.",
+      tags: ['ai image enhancer', 'upscale image', 'unblur photo', 'restore old photo', 'colorize photo', 'image upscaler']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/ai-image-enhancer_yv5fc9.png'
   },
@@ -1080,10 +1118,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Resume Builder',
-      title: 'Free Online Resume Builder – AI-Powered, Professional Templates | Toolspy',
+      title: 'Resume Builder – AI-Powered CV & Templates | Toolspy',
       slug: '/ai-resume-builder',
-      description: 'Build professional resumes with AI-powered content suggestions, ATS optimization, job matching, and expert templates. Get hired faster with intelligent resume building.',
-      tags: ['ai', 'resume', 'builder', 'ats', 'job', 'templates', 'career', 'cv', 'resumegenius']
+      description: "Build a resume with AI suggestions and templates. Make it ATS-friendly so it gets past the bots. Fill in your stuff and tweak from there.",
+      tags: ['resume builder', 'ai resume', 'cv builder', 'resume maker', 'ats resume', 'resume template']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/AI_Resume_Builder_yy02c6.webp'
   },
@@ -1101,10 +1139,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Facebook Image Downloader',
-      title: 'Facebook Image Downloader – Save Photos in Full Quality | Toolspy',
+      title: 'Facebook Image Downloader – Save FB Photos | Toolspy',
       slug: '/facebook-image-downloader',
-      description: 'Download Facebook post images in full quality. Paste a public post URL and save photos instantly—free, fast, and secure.',
-      tags: ['facebook', 'image', 'photo', 'download', 'social']
+      description: "Paste a public Facebook post link and grab the photos in full size. No app. Works in the browser. For public posts only.",
+      tags: ['facebook image downloader', 'download facebook photos', 'save facebook images', 'fb photo download']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Facebook_Image_Downloader_qgkbdy.webp'
   },
@@ -1120,10 +1158,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'YouTube Thumbnail Downloader',
-      title: 'YouTube Thumbnail Downloader – MaxRes, HD, SD | Toolspy',
+      title: 'YouTube Thumbnail Downloader – Get Thumbnails in HD | Toolspy',
       slug: '/youtube-thumbnail-downloader',
-      description: 'Download YouTube thumbnails in max resolution (MaxRes, HD, SD). Paste a video URL or ID and save images instantly.',
-      tags: ['youtube', 'thumbnail', 'image', 'download', 'maxresdefault']
+      description: "Paste a YouTube link and get the thumbnail in max res (or HD/SD). Good for thumbnails, previews or saving the image.",
+      tags: ['youtube thumbnail downloader', 'download youtube thumbnail', 'get youtube thumbnail', 'youtube thumbnail max resolution']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Thumbnail_Downloader_awcnhy.webp'
   },
@@ -1139,10 +1177,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Instagram Reels Downloader',
-      title: 'Instagram Reels Downloader – Save Reels & Short Videos | Toolspy',
+      title: 'Instagram Reels Downloader – Save Reels Video | Toolspy',
       slug: '/instagram-reels-downloader',
-      description: 'Download Instagram Reels and short videos in high quality. Paste a reel URL and save instantly—free and secure.',
-      tags: ['instagram', 'reels', 'video', 'download']
+      description: "Paste a Reels link and download the video. Keeps the quality. No app—runs in the browser. For your own or public reels.",
+      tags: ['instagram reels downloader', 'download instagram reels', 'save reels video', 'reels download']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Reels_Downloader_twbraa.webp'
   },
@@ -1158,10 +1196,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Instagram Private Viewer (DP Only)',
-      title: 'Instagram Profile Picture Downloader – View & Save DP | Toolspy',
+      title: 'Instagram DP Downloader – View & Save Profile Pic | Toolspy',
       slug: '/instagram-private-viewer',
-      description: 'View and download Instagram profile pictures in full size. For private accounts, only DP is supported when accessible.',
-      tags: ['instagram', 'profile', 'dp', 'avatar', 'download']
+      description: "See and save Instagram profile pics in full size. Works for public DPs. Private accounts—only when the DP is viewable.",
+      tags: ['instagram dp downloader', 'download instagram profile picture', 'instagram profile pic', 'save instagram dp']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Private_Viewer_DP_Only_usclpt.webp'
   },
@@ -1177,10 +1215,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'YouTube Embed Code Generator',
-      title: 'YouTube Embed Code Generator – Responsive Iframe | Toolspy',
+      title: 'YouTube Embed Code – Get Iframe HTML | Toolspy',
       slug: '/youtube-embed-code-generator',
-      description: 'Generate responsive YouTube embed code. Choose aspect ratio, autoplay, controls, and copy clean HTML in one click.',
-      tags: ['youtube', 'embed', 'iframe', 'responsive', 'generator']
+      description: "Paste a YouTube URL and get the iframe code. Pick size, autoplay, controls. Copy the HTML and drop it in your site.",
+      tags: ['youtube embed code', 'youtube iframe', 'embed youtube video', 'youtube embed generator', 'embed code generator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Embed_Code_Generator_ngrdql.webp'
   },
@@ -1197,10 +1235,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'OCR Text Extractor',
-      title: 'Free OCR Text Extractor – Extract Text from Images and PDFs Online | Toolspy',
+      title: 'OCR – Extract Text from Image or PDF | Toolspy',
       slug: '/ocr-text-extractor',
-      description: 'Extract text from images and PDFs with advanced OCR technology. Support for 12+ languages, batch processing, editable results, and complete privacy protection.',
-      tags: ['ocr', 'text', 'extraction', 'pdf', 'image', 'scanner', 'digitize', 'multilingual', 'onlineocr']
+      description: "Upload a scan or PDF and pull out the text. Works in 12+ languages. Edit and copy. Handy when you can't copy-paste from a doc.",
+      tags: ['ocr', 'extract text from image', 'image to text', 'pdf to text', 'ocr online', 'scan to text']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/OCR_Text_Extractor_njpp5q.webp'
   },
@@ -1217,10 +1255,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Media Converter',
-      title: 'Free Media Converter – Video, Audio, GIF & Archive Converter Online | Toolspy',
+      title: 'Media Converter – Video, Audio, GIF & More | Toolspy',
       slug: '/media-converter',
-      description: 'Convert videos, audio files, and archives between formats with batch processing, quality presets, and advanced settings. Support for MP4, MP3, GIF, ZIP, and more.',
-      tags: ['video', 'audio', 'converter', 'gif', 'archive', 'batch', 'mp4', 'mp3', 'convertio']
+      description: "Convert video, audio, GIF or archives to another format. MP4, MP3, WebM, ZIP—pick what you need. Batch if you've got multiple files.",
+      tags: ['media converter', 'video converter', 'audio converter', 'convert video', 'convert mp4', 'gif converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Media_Converter_wgmsmn.webp'
   },
@@ -1237,10 +1275,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'E-book Converter',
-      title: 'Free E-book Converter – EPUB, MOBI, PDF, DOCX Converter Online | Toolspy',
+      title: 'E-book Converter – EPUB, MOBI, PDF, DOCX | Toolspy',
       slug: '/ebook-converter',
-      description: 'Convert e-books between EPUB, MOBI, PDF, DOCX formats with professional metadata editing, cover image support, and batch processing. Perfect for authors and publishers.',
-      tags: ['ebook', 'epub', 'mobi', 'pdf', 'kindle', 'converter', 'metadata', 'publisher', 'calibre']
+      description: "Switch between EPUB, MOBI, PDF and DOCX. Tweak metadata and cover if you want. Good for Kindle, Kobo or reading on any device.",
+      tags: ['ebook converter', 'epub to pdf', 'mobi to epub', 'convert epub', 'kindle converter', 'epub to mobi']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/E-book_Converter_tuf5di.webp'
   },
@@ -1257,10 +1295,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Font Converter',
-      title: 'Free Font Converter – TTF, OTF, WOFF, WOFF2 Converter Online | Toolspy',
+      title: 'Font Converter – TTF, OTF, WOFF, WOFF2 | Toolspy',
       slug: '/font-converter',
-      description: 'Convert fonts between TTF, OTF, WOFF, WOFF2 formats with live preview, AI font pairings, web optimization, and automatic CSS generation.',
-      tags: ['font', 'ttf', 'otf', 'woff', 'converter', 'typography', 'web fonts', 'css', 'fontforge']
+      description: "Convert between TTF, OTF, WOFF and WOFF2. Preview first, then download. Handy for web fonts or when a site needs a different format.",
+      tags: ['font converter', 'ttf to woff', 'otf to woff2', 'convert font', 'woff converter', 'web font converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Font_Converter_cf4unb.webp'
   },
@@ -1277,10 +1315,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Instagram Engagement Calculator',
-      title: 'Free Instagram Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      title: 'Instagram Engagement Rate Calculator | Toolspy',
       slug: '/instagram-engagement-calculator',
-      description: 'Calculate Instagram engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
-      tags: ['instagram', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'engagement rate']
+      description: "Plug in followers, likes and comments—we'll show your engagement rate. Compare with benchmarks. Useful for creators and brands.",
+      tags: ['instagram engagement calculator', 'engagement rate', 'instagram engagement rate', 'calculate engagement', 'instagram analytics']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
@@ -1297,10 +1335,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Facebook Engagement Calculator',
-      title: 'Free Facebook Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      title: 'Facebook Engagement Rate Calculator | Toolspy',
       slug: '/facebook-engagement-calculator',
-      description: 'Calculate Facebook engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
-      tags: ['facebook', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'comments', 'reactions', 'engagement rate']
+      description: "Enter page likes, post reach and reactions. Get your engagement rate and see how you stack up. Quick check for page admins.",
+      tags: ['facebook engagement calculator', 'facebook engagement rate', 'calculate fb engagement', 'facebook analytics', 'engagement rate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Facebook_Engagement_jqkmay.webp'
   },
@@ -1317,10 +1355,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Twitter Engagement Calculator',
-      title: 'Free Twitter Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      title: 'Twitter / X Engagement Rate Calculator | Toolspy',
       slug: '/twitter-engagement-calculator',
-      description: 'Calculate Twitter engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for social media analytics.',
-      tags: ['twitter', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'followers', 'likes', 'retweets', 'replies', 'engagement rate']
+      description: "Put in followers, likes, retweets and replies. We'll show your engagement rate. Handy for X (Twitter) accounts and growth checks.",
+      tags: ['twitter engagement calculator', 'x engagement rate', 'twitter engagement rate', 'calculate twitter engagement', 'x analytics']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Twitter_Engagement_ozfnc2.webp'
   },
@@ -1337,10 +1375,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'YouTube Engagement Calculator',
-      title: 'Free YouTube Engagement Calculator – Calculate Engagement Rate Online | Toolspy',
+      title: 'YouTube Engagement Rate Calculator | Toolspy',
       slug: '/youtube-engagement-calculator',
-      description: 'Calculate YouTube engagement rate with advanced algorithms, industry benchmarks, and personalized recommendations. Free online tool for video analytics.',
-      tags: ['youtube', 'engagement', 'calculator', 'social media', 'analytics', 'metrics', 'subscribers', 'likes', 'comments', 'views', 'engagement rate']
+      description: "Subs, views, likes and comments in—engagement rate out. See how your channel performs. Good for creators and quick audits.",
+      tags: ['youtube engagement calculator', 'youtube engagement rate', 'calculate youtube engagement', 'youtube analytics', 'video engagement']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Engagement_jv8cyi.webp'
   },
@@ -1357,10 +1395,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Domain WHOIS Lookup',
-      title: 'Free WHOIS Lookup – Get Domain Information Instantly | Toolspy',
+      title: 'WHOIS Lookup – Domain Info & Registration Details | Toolspy',
       slug: '/domain-whois-lookup',
-      description: 'Get comprehensive domain registration information with our free WHOIS lookup tool. Check domain ownership, registration dates, and contact details instantly.',
-      tags: ['whois', 'domain', 'lookup', 'registration', 'ownership', 'contact', 'dns', 'registrar', 'expiration', 'domain research', 'domain checker', 'whois lookup', 'domain information', 'free whois', 'domain lookup tool']
+      description: "Type a domain and see who owns it, when it expires, and where it's registered. Standard WHOIS data. No signup.",
+      tags: ['whois lookup', 'domain lookup', 'who is domain', 'domain registration info', 'check domain', 'domain whois']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Domain_WHOIS_Lookup_hrvg4w.webp'
   },
@@ -1377,10 +1415,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Expired Domain Finder',
-      title: 'Find Valuable Expired Domains – Boost Your SEO | Toolspy',
+      title: 'Expired Domain Finder – DA, Backlinks & Value | Toolspy',
       slug: '/expired-domain-finder',
-      description: 'Discover valuable expired domains with our comprehensive search tool. Get instant access to domain authority scores, backlink data, and estimated values.',
-      tags: ['expired domains', 'domain finder', 'domain authority', 'backlinks', 'seo', 'domain research', 'domain investment', 'domain value', 'expired domain finder', 'domain search', 'free domain finder', 'domain metrics']
+      description: "Hunt for expired domains with DA, backlinks and rough value. Handy for SEO or flipping. One search, no signup.",
+      tags: ['expired domain finder', 'expired domains', 'domain authority', 'backlink checker', 'domain value', 'seo domains']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Expired_Domain_Finder_zp4g7n.webp'
   },
@@ -1397,10 +1435,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'App Icon Generator',
-      title: 'Free App Icon Generator – Generate Icons for All Platforms | Toolspy',
+      title: 'App Icon Generator – Android, iOS, Windows & More | Toolspy',
       slug: '/app-icon-generator',
-      description: 'Generate professional app icons for all platforms with Toolspy\'s advanced icon generator. Create icons for Android, iOS, Windows, macOS, Linux, and Web.',
-      tags: ['app icon', 'icon generator', 'android', 'ios', 'windows', 'macos', 'linux', 'web', 'mobile', 'desktop', 'pwa', 'app development', 'free app icon generator', 'app icon generator online']
+      description: "Upload one image and get app icons for Android, iOS, Windows, macOS and web. All sizes in one go. No design app needed.",
+      tags: ['app icon generator', 'create app icon', 'android icon', 'ios app icon', 'app icon maker', 'icon generator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/App_Icon_Generator_n9bapl.webp'
   },
@@ -1417,10 +1455,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PWA Icon Generator',
-      title: 'Free PWA Icon Generator – Generate Icons for Progressive Web Apps | Toolspy',
+      title: 'PWA Icon Generator – Icons & Manifest | Toolspy',
       slug: '/pwa-icon-generator',
-      description: 'Generate PWA icons and manifest file with Toolspy\'s advanced icon generator. Create icons for Progressive Web Apps.',
-      tags: ['pwa icon', 'icon generator', 'pwa', 'progressive web app', 'manifest', 'web app', 'mobile web', 'desktop web', 'cross-platform', 'app development', 'free pwa icon generator', 'pwa icon generator online']
+      description: "Make PWA icons and a manifest from one image. Sizes and markup ready to drop into your project. Good for installable web apps.",
+      tags: ['pwa icon generator', 'pwa icons', 'progressive web app icon', 'pwa manifest', 'web app icon']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/PWA_Icon_Generator_wwsixv.webp'
   },
@@ -1437,10 +1475,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Favicon Generator',
-      title: 'Free Favicon Generator – Generate Favicons for Websites | Toolspy',
+      title: 'Favicon Generator – Create Favicon for Website | Toolspy',
       slug: '/favicon-generator',
-      description: 'Generate favicons for your website with Toolspy\'s advanced favicon generator. Create favicons for all devices and browsers.',
-      tags: ['favicon', 'icon generator', 'website', 'web app', 'browser', 'bookmark', 'html', 'seo', 'web development', 'cross-platform', 'free favicon generator', 'favicon generator online']
+      description: "Turn an image into a favicon. Get the right sizes for tabs and bookmarks. Copy the HTML and you're done.",
+      tags: ['favicon generator', 'create favicon', 'favicon maker', 'website favicon', 'favicon.ico']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Favicon_Generator_gykh4v.webp'
   },
@@ -1457,10 +1495,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image to ICO Converter',
-      title: 'Free Image to ICO Converter – Convert Images to ICO Format | Toolspy',
+      title: 'Image to ICO – Convert to ICO Format | Toolspy',
       slug: '/image-to-ico-converter',
-      description: 'Convert images to ICO format with Toolspy\'s advanced converter. Create ICO files for Windows applications and web use.',
-      tags: ['image to ico', 'ico converter', 'windows', 'desktop', 'icon', 'converter', 'format', 'web app', 'cross-platform', 'app development', 'free image to ico converter', 'image to ico converter online']
+      description: "Need a .ico file for Windows or a shortcut? Drop an image and get ICO. Handy for app icons and bookmarks.",
+      tags: ['image to ico', 'convert to ico', 'ico converter', 'create ico file', 'png to ico']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Image_to_ICO_Converter_kisnbo.webp'
   },
@@ -1477,10 +1515,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Markdown to Docs Converter',
-      title: 'Free Markdown to Docs Converter – Convert Markdown to Documents | Toolspy',
+      title: 'Markdown to Docs – HTML, PDF, Word | Toolspy',
       slug: '/markdown-to-docs-converter',
-      description: 'Convert Markdown to documents with Toolspy\'s advanced converter. Create HTML, PDF, Word, and plain text documents.',
-      tags: ['markdown to docs', 'document converter', 'html', 'pdf', 'word', 'plain text', 'markdown', 'converter', 'documentation', 'web development', 'free markdown to docs converter', 'markdown to docs converter online']
+      description: "Paste Markdown and export as HTML, PDF or Word. Good for docs, readmes or turning notes into something shareable.",
+      tags: ['markdown to pdf', 'markdown to html', 'markdown to word', 'convert markdown', 'markdown converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Markdown_to_Docs_Converter_zcirrd.webp'
   },
@@ -1499,10 +1537,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'GST Calculator',
-      title: 'Free Online GST Calculator – Calculate GST Instantly | Toolspy',
+      title: 'GST Calculator – India GST Rates 0% to 28% | Toolspy',
       slug: '/gst-calculator',
-      description: 'Calculate GST with Toolspy\'s professional calculator. Support for inclusive/exclusive modes and all GST rates (0%, 5%, 12%, 18%, 28%). Free, private, and accurate.',
-      tags: ['gst', 'calculator', 'tax', 'india', 'business', 'invoice', 'gst calculator', 'gst calculator online', 'gst calculator free', 'calculate gst', 'gst calculator india']
+      description: "Add or remove GST. Pick inclusive or exclusive. All India rates (0%, 5%, 12%, 18%, 28%). Quick for invoices and quotes.",
+      tags: ['gst calculator', 'gst calculator india', 'calculate gst', 'gst inclusive', 'gst exclusive', 'india gst']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/GST_Calculator_w0upju.webp'
   },
@@ -1519,10 +1557,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Reverse GST Calculator',
-      title: 'Free Reverse GST Calculator – Calculate Base Amount & GST Component | Toolspy',
+      title: 'Reverse GST Calculator – Base Amount From Total | Toolspy',
       slug: '/reverse-gst-calculator',
-      description: 'Calculate base amount and GST component from total amount with Toolspy\'s reverse GST calculator. Perfect for invoice analysis and tax breakdown.',
-      tags: ['reverse gst', 'calculator', 'tax', 'india', 'business', 'invoice analysis', 'reverse gst calculator', 'gst breakdown', 'tax breakdown', 'reverse gst calculator online']
+      description: "You've got a total with GST—we'll split it into base and tax. Handy for invoices and checking what the base was.",
+      tags: ['reverse gst calculator', 'gst from total', 'gst breakdown', 'base amount from gst', 'reverse gst india']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Reverse_GST_Calculator_k4b3fw.webp'
   },
@@ -1539,10 +1577,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'HSN/SAC Code Finder',
-      title: 'Free HSN/SAC Code Finder – Find Codes with GST Rates | Toolspy',
+      title: 'HSN / SAC Code Finder – GST Rates India | Toolspy',
       slug: '/hsn-sac-finder',
-      description: 'Find HSN and SAC codes with GST rates and descriptions. Quick search with auto-suggest, complete privacy protection, and instant results.',
-      tags: ['hsn', 'sac', 'code', 'finder', 'gst', 'india', 'business', 'hsn code finder', 'sac code finder', 'find hsn code', 'find sac code']
+      description: "Look up HSN or SAC codes and see the GST rate. Type a keyword and get the code. Handy for invoices and returns.",
+      tags: ['hsn code finder', 'sac code finder', 'hsn code list', 'sac code gst', 'gst hsn code', 'india gst code']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/HSNSAC_Code_Finder_jtxd92.webp'
   },
@@ -1559,10 +1597,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'CGST/SGST/IGST Splitter',
-      title: 'Free CGST/SGST/IGST Splitter – Split GST by Transaction Type | Toolspy',
+      title: 'CGST SGST IGST Splitter – Intra vs Inter State | Toolspy',
       slug: '/cgst-sgst-igst-splitter',
-      description: 'Auto-split GST into CGST, SGST, and IGST based on intra-state vs inter-state transactions. Complete privacy protection and instant results.',
-      tags: ['cgst', 'sgst', 'igst', 'splitter', 'gst', 'india', 'business', 'cgst sgst calculator', 'igst calculator', 'gst splitter', 'split gst']
+      description: "Same state or different? We'll split GST into CGST+SGST or IGST. Enter amount and state—get the breakdown.",
+      tags: ['cgst sgst igst', 'gst splitter', 'intra state gst', 'inter state gst', 'cgst sgst calculator', 'igst calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CGSTSGSTIGST_Splitter_asvwyh.webp'
   },
@@ -1579,10 +1617,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Input Tax Credit (ITC) Calculator',
-      title: 'Free ITC Calculator – Calculate Input Tax Credit | Toolspy',
+      title: 'ITC Calculator – Input Tax Credit GST | Toolspy',
       slug: '/itc-calculator',
-      description: 'Track claimable credits vs blocked credits with professional ITC calculator. Complete privacy protection and instant results.',
-      tags: ['itc', 'calculator', 'input tax credit', 'gst', 'india', 'business', 'itc calculator', 'blocked itc', 'claimable itc', 'calculate itc']
+      description: "See what's claimable vs blocked for ITC. Enter your numbers and get a clear split. For planning, not official advice.",
+      tags: ['itc calculator', 'input tax credit', 'gst itc', 'claimable itc', 'blocked itc', 'gst credit']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Input_Tax_Credit_ITC_Calculator_nyikwu.webp'
   },
@@ -1599,10 +1637,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'E-Invoice/QR Code Validator',
-      title: 'Free E-Invoice QR Code Validator – Validate & Extract Data | Toolspy',
+      title: 'E-Invoice QR Validator – Check & Extract Data | Toolspy',
       slug: '/e-invoice-qr-validator',
-      description: 'Upload/scan E-Invoice QR codes to validate invoice status and extract information. Complete privacy protection and instant results.',
-      tags: ['e-invoice', 'qr code', 'validator', 'gst', 'india', 'business', 'qr validator', 'invoice validator', 'qr scanner', 'validate qr code']
+      description: "Upload or scan an e-invoice QR and we'll validate it and pull out the details. Good for checking invoices and compliance.",
+      tags: ['e-invoice validator', 'e-invoice qr', 'gst qr validator', 'invoice qr scanner', 'e-invoice check']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/E-InvoiceQR_Code_Validator_ftaihz.webp'
   },
@@ -1619,10 +1657,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Composition vs Regular Scheme Estimator',
-      title: 'Free GST Scheme Comparison – Composition vs Regular | Toolspy',
+      title: 'Composition vs Regular GST – Compare Schemes | Toolspy',
       slug: '/composition-regular-scheme-estimator',
-      description: 'Compare tax liability under Composition and Regular GST schemes. Complete privacy protection and instant results.',
-      tags: ['composition', 'regular', 'scheme', 'gst', 'india', 'business', 'scheme comparison', 'composition vs regular', 'gst scheme calculator', 'compare gst schemes']
+      description: "See how much tax you'd pay under Composition vs Regular. Enter turnover and we'll show both. Helps you choose.",
+      tags: ['composition scheme', 'regular gst', 'composition vs regular', 'gst scheme comparison', 'composition scheme calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Composition_vs_Regular_Scheme_Estimator_zbdo04.webp'
   },
@@ -1639,10 +1677,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Penalty/Late Fee Calculator',
-      title: 'Free Penalty/Late Fee Calculator – Calculate GSTR Penalties | Toolspy',
+      title: 'GSTR Late Fee & Penalty Calculator | Toolspy',
       slug: '/penalty-late-fee-calculator',
-      description: 'Auto-calculate GSTR filing late fees and interest with professional calculator. Complete privacy protection and instant results.',
-      tags: ['penalty', 'late fee', 'calculator', 'gst', 'india', 'business', 'penalty calculator', 'late fee calculator', 'gstr penalty', 'calculate penalty']
+      description: "Filed GSTR late? See what late fee and interest might apply. Enter details and get a ballpark. Check official rules for exact amounts.",
+      tags: ['gstr late fee', 'gst penalty calculator', 'gstr penalty', 'late fee calculator gst', 'gst late filing fee']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/PenaltyLate_Fee_Calculator_ximfqw.webp'
   },
@@ -1659,10 +1697,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JEE Main Rank Predictor',
-      title: 'Free JEE Main Rank Predictor – Predict Rank & College Options | Toolspy',
+      title: 'JEE Main Rank Predictor – Rank & College Options | Toolspy',
       slug: '/jee-main-rank-predictor',
-      description: 'Predict your JEE Main rank and college options based on percentile. Complete privacy protection and instant results.',
-      tags: ['jee main', 'rank predictor', 'college predictor', 'engineering', 'admission', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee rank']
+      description: "Enter your JEE Main percentile and get a rough rank and college list. Ballpark only—use official counselling for final choices.",
+      tags: ['jee main rank predictor', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee main rank']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
   },
@@ -1679,10 +1717,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'NEET Rank Predictor',
-      title: 'Free NEET Rank Predictor – Predict Rank & Medical College Options | Toolspy',
+      title: 'NEET Rank Predictor – Rank & Medical College | Toolspy',
       slug: '/neet-rank-predictor',
-      description: 'Predict your NEET rank and medical college options based on score. Complete privacy protection and instant results.',
-      tags: ['neet', 'rank predictor', 'medical college', 'admission', 'medical', 'neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank']
+      description: "Put in your NEET score and see a rough rank and college options. For planning only—check official counselling for final list.",
+      tags: ['neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank', 'neet rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/NEET_Rank_Predictor_tffgq8.webp'
   },
@@ -1699,10 +1737,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JEE Advanced Rank Predictor',
-      title: 'Free JEE Advanced Rank Predictor – Predict Rank & IIT Options | Toolspy',
+      title: 'JEE Advanced Rank Predictor – IIT Options | Toolspy',
       slug: '/jee-advanced-rank-predictor',
-      description: 'Predict your JEE Advanced rank and IIT options based on score. Complete privacy protection and instant results.',
-      tags: ['jee advanced', 'rank predictor', 'iit predictor', 'engineering', 'admission', 'jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor', 'predict jee advanced rank']
+      description: "Enter your JEE Advanced score and get a rough rank and IIT/branch options. Estimate only—official counselling has the final say.",
+      tags: ['jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor', 'jee advanced rank', 'predict jee advanced']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Advanced_Rank_Predictor_mkthwo.webp'
   },
@@ -1719,10 +1757,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'GATE Rank Predictor',
-      title: 'Free GATE Rank Predictor – Predict Rank & College Options | Toolspy',
+      title: 'GATE Rank Predictor – Rank & College Options | Toolspy',
       slug: '/gate-rank-predictor',
-      description: 'Predict your GATE rank and college options based on score and subject. Complete privacy protection and instant results.',
-      tags: ['gate', 'rank predictor', 'college predictor', 'postgraduate', 'admission', 'gate rank predictor', 'gate rank calculator', 'gate college predictor', 'predict gate rank']
+      description: "Score and subject in—we'll show a rough GATE rank and college list. Use it to plan; check official counselling for final results.",
+      tags: ['gate rank predictor', 'gate rank calculator', 'gate college predictor', 'predict gate rank', 'gate rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/GATE_Rank_Predictor_wh8ssa.webp'
   },
@@ -1739,10 +1777,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'CAT Percentile Predictor',
-      title: 'Free CAT Percentile Predictor – Predict Percentile & MBA College Options | Toolspy',
+      title: 'CAT Percentile Predictor – MBA College Options | Toolspy',
       slug: '/cat-percentile-predictor',
-      description: 'Predict your CAT percentile and MBA college options based on sectional scores. Complete privacy protection and instant results.',
-      tags: ['cat', 'percentile predictor', 'mba predictor', 'college predictor', 'admission', 'cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile']
+      description: "Enter your CAT sectional scores and get a rough percentile and MBA college list. Ballpark for planning—official results vary.",
+      tags: ['cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile', 'cat rank predictor']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CAT_Percentile_Predictor_rf9oba.webp'
   },
@@ -1759,10 +1797,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'UPSC Rank Predictor',
-      title: 'Free UPSC Rank Predictor – Predict Rank & Civil Service Options | Toolspy',
+      title: 'UPSC Rank Predictor – Civil Service Options | Toolspy',
       slug: '/upsc-rank-predictor',
-      description: 'Predict your UPSC rank and civil service options based on exam scores. Complete privacy protection and instant results.',
-      tags: ['upsc', 'rank predictor', 'civil service predictor', 'service predictor', 'admission', 'upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank']
+      description: "Put in your UPSC marks and see a rough rank and service options. Estimate only—final allocation is from the official list.",
+      tags: ['upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank', 'upsc rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/UPSC_Rank_Predictor_u1gsli.webp'
   },
@@ -1779,10 +1817,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'SSC CGL Rank Predictor',
-      title: 'Free SSC CGL Rank Predictor – Predict Rank & Government Job Options | Toolspy',
+      title: 'SSC CGL Rank Predictor – Govt Job Options | Toolspy',
       slug: '/ssc-cgl-rank-predictor',
-      description: 'Predict your SSC CGL rank and government job options based on exam scores. Complete privacy protection and instant results.',
-      tags: ['ssc cgl', 'rank predictor', 'government job predictor', 'post predictor', 'admission', 'ssc cgl rank predictor', 'ssc cgl rank calculator', 'government job predictor', 'predict ssc cgl rank']
+      description: "Enter your SSC CGL score and get a rough rank and post options. For planning—final posting is as per official merit list.",
+      tags: ['ssc cgl rank predictor', 'ssc cgl rank calculator', 'ssc cgl post predictor', 'predict ssc cgl rank', 'government job predictor']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/SSC_CGL_Rank_Predictor_pk42ur.webp'
   },
@@ -1799,10 +1837,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Bank PO Rank Predictor',
-      title: 'Free Bank PO Rank Predictor – Predict Rank & Banking Job Options | Toolspy',
+      title: 'Bank PO Rank Predictor – Banking Job Options | Toolspy',
       slug: '/bank-po-rank-predictor',
-      description: 'Predict your Bank PO rank and banking job options based on exam scores. Complete privacy protection and instant results.',
-      tags: ['bank po', 'rank predictor', 'banking job predictor', 'bank predictor', 'admission', 'bank po rank predictor', 'bank po rank calculator', 'banking job predictor', 'predict bank po rank']
+      description: "Score in—we'll show a rough Bank PO rank and bank options. Estimate for planning; final allotment is from the exam body.",
+      tags: ['bank po rank predictor', 'bank po rank calculator', 'bank po predictor', 'predict bank po rank', 'banking exam rank']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Bank_PO_Rank_Predictor_hhbtek.webp'
   },
@@ -1819,10 +1857,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Website Screenshot',
-      title: 'Free Website Screenshot Tool – Take Screenshots of Website | Toolspy',
+      title: 'Website Screenshot – Full Page & Device Presets | Toolspy',
       slug: '/website-screenshot',
-      description: 'Capture high-quality screenshots of any website in different formats and sizes. Full-page capture, multiple device presets, PNG, JPEG, WebP support. Free, private, no registration required.',
-      tags: ['take screenshots of website', 'website screenshot', 'snapshot a webpage', 'full page screenshot url', 'website screen shot', 'snapshot site', 'web screenshot', 'screenshot website', 'website screenshot tool', 'free website screenshot', 'online screenshot', 'capture website', 'screenshot tool']
+      description: "Paste a URL and grab a screenshot. Full page or viewport. Pick device size (desktop, tablet, phone). PNG, JPEG or WebP. No install.",
+      tags: ['website screenshot', 'screenshot website', 'full page screenshot', 'capture webpage', 'web screenshot tool', 'url to screenshot']
     }),
     posterImage: '/images/tools/website-screenshot.webp'
   }

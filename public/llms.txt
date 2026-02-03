@@ -1,228 +1,163 @@
-# Toolspy - Free Online Tools Platform
-# AI-Friendly Information File
+# Toolspy
 
-## Website Overview
-Toolspy is a comprehensive platform offering 100+ professional-grade online tools completely free of charge. Our mission is to provide high-quality digital utilities that work directly in your browser without requiring downloads, registration, or payment.
+> Toolspy is a free online tools platform offering 100+ professional-grade utilities—image compression, PDF tools, calculators, AI writing, encoding, and more—that run in your browser with no registration, no uploads to servers, and complete privacy.
 
-**Main Website**: https://toolspy.net
-**Homepage**: https://toolspy.net/
-**Tools Directory**: https://toolspy.net/tools
-**About Us**: https://toolspy.net/about
-**Contact**: https://toolspy.net/contact
-**Privacy Policy**: https://toolspy.net/privacy
-**Terms of Service**: https://toolspy.net/terms
+Toolspy provides high-quality digital tools for students, professionals, developers, and businesses. All tools use client-side processing where possible: your files stay on your device, and no personal data is collected. The site is organized into tool categories (Image Tools, PDF Tools, Calculators, AI Tools, etc.). Each tool has a dedicated page with a clear description and keywords to help users and search systems find the right utility. For ranking and discovery: primary keywords include "free online tools," "online image compressor," "PDF compressor," "merge PDF," "age calculator," "BMI calculator," "base64 encoder," "JSON formatter," "AI resume builder," and category names like "image tools" and "pdf tools."
 
-## Core Information
-- **Website Name**: Toolspy
-- **Domain**: toolspy.net
-- **Platform Type**: Web-based online tools platform
-- **Business Model**: Completely free with no premium tiers
-- **Target Audience**: Students, professionals, developers, businesses, and general users
-- **Primary Value Proposition**: Professional-grade tools with client-side processing for maximum privacy and speed
+## Main Pages
+
+- [Toolspy Home](https://toolspy.net/): Free online tools platform – image, PDF, calculator, AI, and developer tools. Keywords: free online tools, web tools, browser tools, toolspy.
+- [All Tools](https://toolspy.net/tools): Browse and search all tools by category. Keywords: online tools directory, free tools list, toolspy tools.
+- [About Us](https://toolspy.net/about): About Toolspy – mission, team, and values. Keywords: about toolspy, free tools platform.
+- [Contact](https://toolspy.net/contact): Contact Toolspy for support and inquiries. Keywords: contact toolspy, support, feedback.
+- [Privacy Policy](https://toolspy.net/privacy): Privacy policy – no file storage, minimal data, client-side processing. Keywords: privacy, data protection, toolspy privacy.
+- [Terms of Service](https://toolspy.net/terms): Terms of use for Toolspy. Keywords: terms of service, terms of use.
+- [Help](https://toolspy.net/help): Help and frequently asked questions. Keywords: help, FAQ, how to use.
+- [Feedback](https://toolspy.net/feedback): Submit feedback to improve tools. Keywords: feedback, suggestions.
+- [Bug Report](https://toolspy.net/bug-report): Report bugs and technical issues. Keywords: bug report, report issue.
 
 ## Tool Categories
 
-### Image Processing Tools
-- **Image Compressor**: https://toolspy.net/image-compressor - Compress images up to 80% with professional quality control
-- **Image Converter**: https://toolspy.net/image-converter - Convert between 15+ formats including JPEG, PNG, WebP, AVIF, HEIC
-- **Image Resizer**: https://toolspy.net/image-resizer - Resize images to specific dimensions or percentages
-- **Image Optimizer**: https://toolspy.net/image-optimizer - Optimize images for faster loading and better performance
-- **JFIF to JPG Converter**: https://toolspy.net/jfif-to-jpg - Convert JFIF images to JPG/JPEG format
+- [Image Tools](https://toolspy.net/tools/image-tools): Convert, compress, resize, and optimize images. Keywords: image tools, image compressor, image converter, resize image, optimize image.
+- [PDF Tools](https://toolspy.net/tools/pdf-tools): Merge, split, compress, convert, and secure PDFs. Keywords: PDF tools, merge PDF, compress PDF, PDF converter.
+- [Base64 Tools](https://toolspy.net/tools/base64-tools): Encode and decode Base64; image to Base64 and Base64 to image. Keywords: base64 encoder, base64 decoder, image to base64.
+- [Calculators](https://toolspy.net/tools/calculators): Age, BMI, percentage, loan, mortgage, tax, salary, retirement, investment, engagement. Keywords: online calculator, age calculator, BMI calculator, percentage calculator.
+- [Utility Tools](https://toolspy.net/tools/misc-tools): Color picker, QR code, unit converter, domain WHOIS, expired domain finder, file protector, Google Indexing API. Keywords: utility tools, color picker, QR code generator, unit converter.
+- [JSON Tools](https://toolspy.net/tools/json-tools): JSON formatter, validator, and JSON–table converter. Keywords: JSON formatter, JSON validator, JSON to CSV.
+- [AI Tools](https://toolspy.net/tools/ai-tools): AI resume builder, writing tools, color palette generator, background remover, image enhancer, meme generator. Keywords: AI tools, AI resume builder, AI writing, background remover.
+- [Code Tools](https://toolspy.net/tools/code-tools): Code beautifier and minifier for JavaScript, CSS, HTML. Keywords: code beautifier, code minifier, prettify code.
+- [File Conversion](https://toolspy.net/tools/conversion-tools): Media, font, ebook, OCR, YouTube thumbnail, Instagram/Facebook downloaders, embed code generator. Keywords: file conversion, media converter, OCR, YouTube thumbnail downloader.
+- [GST/MSME Toolkit](https://toolspy.net/tools/gst-tools): GST calculator, reverse GST, HSN/SAC finder, CGST/SGST/IGST splitter, ITC calculator, e-invoice validator, scheme estimator, penalty calculator. Keywords: GST calculator, HSN code finder, reverse GST, India GST tools.
+- [Exam Rank/Cutoff Predictors](https://toolspy.net/tools/exam-tools): JEE Main, JEE Advanced, NEET, GATE, CAT, UPSC, SSC CGL, Bank PO rank predictors. Keywords: JEE rank predictor, NEET rank predictor, GATE rank predictor, exam predictor.
 
-### PDF Processing Tools
-- **PDF Converter**: https://toolspy.net/pdf-converter - Convert PDFs to various formats and vice versa
-- **PDF to Word**: https://toolspy.net/pdf-to-word - Convert PDF documents to editable Word files
-- **PDF to Excel**: https://toolspy.net/pdf-to-excel - Convert PDF tables to Excel spreadsheets
-- **PDF to Image**: https://toolspy.net/pdf-to-image - Convert PDF pages to image formats
-- **Merge PDF**: https://toolspy.net/merge-pdf - Combine multiple PDF files into one
-- **Split PDF**: https://toolspy.net/split-pdf - Split PDF documents into multiple files
-- **Compress PDF**: https://toolspy.net/compress-pdf - Reduce PDF file size while maintaining quality
-- **PDF Password Remover**: https://toolspy.net/pdf-password-remover - Remove password protection from PDFs
+## Image Tools
 
-### Base64 & Encoding Tools
-- **Base64 Encoder/Decoder**: https://toolspy.net/base64-encoder-decoder - Encode and decode text to/from Base64 format
-- **Base64 to Image**: https://toolspy.net/base64-to-image - Convert Base64 encoded strings back to image files
-- **Image to Base64**: https://toolspy.net/image-to-base64 - Convert images to Base64 encoded strings for embedding
+- [Image Compressor](https://toolspy.net/image-compressor): Compress JPG, PNG, GIF online; reduce size with quality control. Keywords: compress image, image compressor, reduce image size.
+- [Image Converter](https://toolspy.net/image-converter): Convert between 15+ formats (JPEG, PNG, WebP, AVIF, HEIC); batch, private. Keywords: image converter, convert image format, jpg to png, heic to jpg.
+- [Image Resizer](https://toolspy.net/image-resizer): Resize images to specific dimensions or percentages. Keywords: resize image, image dimensions, scale image.
+- [Image Optimizer](https://toolspy.net/image-optimizer): Optimize images for faster loading and performance. Keywords: optimize image, image optimization, web performance.
+- [JFIF to JPG Converter](https://toolspy.net/jfif-to-jpg): Convert JFIF to JPG/JPEG with high quality. Keywords: jfif to jpg, jfif converter.
+- [App Icon Generator](https://toolspy.net/app-icon-generator): Generate app icons for Android, iOS, Windows, macOS, Linux, Web. Keywords: app icon generator, create app icons.
+- [PWA Icon Generator](https://toolspy.net/pwa-icon-generator): Generate PWA icons and manifest for Progressive Web Apps. Keywords: PWA icon generator, progressive web app icons.
+- [Favicon Generator](https://toolspy.net/favicon-generator): Generate favicons for websites and browsers. Keywords: favicon generator, website favicon.
+- [Image to ICO Converter](https://toolspy.net/image-to-ico-converter): Convert images to ICO format for Windows and web. Keywords: image to ico, ico converter.
 
-### Advanced Calculators
-- **Age Calculator**: https://toolspy.net/age-calculator - Calculate age, time differences, and date calculations
-- **BMI Calculator**: https://toolspy.net/bmi-calculator - Calculate Body Mass Index and health metrics
-- **Percentage Calculator**: https://toolspy.net/percentage-calculator - Calculate percentages, discounts, and ratios
-- **Investment Calculator**: https://toolspy.net/investment-calculator - Calculate investment returns and compound interest
-- **EMI Calculator**: https://toolspy.net/emi-calculator - Calculate Equated Monthly Installments for loans
-- **Mortgage Calculator**: https://toolspy.net/mortgage-calculator - Calculate mortgage payments and interest
-- **Retirement Calculator**: https://toolspy.net/retirement-calculator - Plan retirement savings and income
-- **Salary Calculator**: https://toolspy.net/salary-calculator - Calculate take-home pay and tax deductions
-- **Tax Calculator**: https://toolspy.net/tax-calculator - Calculate income tax and deductions
-- **Currency Converter**: https://toolspy.net/currency-converter - Convert between different currencies with real-time rates
+## PDF Tools
 
-### Unit Conversion Tools
-- **Length Converter**: https://toolspy.net/length-converter - Convert between different length units
-- **Weight Converter**: https://toolspy.net/weight-converter - Convert between different weight units
-- **Area Converter**: https://toolspy.net/area-converter - Convert between different area units
-- **Volume Converter**: https://toolspy.net/volume-converter - Convert between different volume units
-- **Temperature Converter**: https://toolspy.net/temperature-converter - Convert between different temperature scales
+- [PDF Converter](https://toolspy.net/pdf-converter): Convert PDFs to various formats and vice versa. Keywords: PDF converter, convert PDF.
+- [JFIF to PDF Converter](https://toolspy.net/jfif-to-pdf): Convert JFIF images to PDF. Keywords: jfif to pdf, image to pdf.
+- [Merge PDF](https://toolspy.net/merge-pdf): Combine multiple PDF files into one. Keywords: merge PDF, combine PDF files.
+- [PDF to Image](https://toolspy.net/pdf-to-image): Convert PDF pages to PNG, JPG, WebP. Keywords: PDF to image, PDF to jpg, PDF to png.
+- [Compress PDF](https://toolspy.net/compress-pdf): Reduce PDF file size while keeping quality. Keywords: compress PDF, reduce PDF size, PDF compressor.
+- [HEIC to PDF Converter](https://toolspy.net/heic-to-pdf): Convert HEIC images to PDF. Keywords: heic to pdf, iPhone photo to PDF.
+- [Split PDF](https://toolspy.net/split-pdf): Split PDFs by page ranges into multiple files. Keywords: split PDF, divide PDF, extract pages.
+- [PDF Password Remover](https://toolspy.net/pdf-password-remover): Remove password protection from PDFs. Keywords: PDF password remover, unlock PDF.
+- [PDF to Excel](https://toolspy.net/pdf-to-excel): Convert PDF tables to Excel spreadsheets. Keywords: PDF to Excel, PDF to xlsx.
+- [PDF to CSV](https://toolspy.net/pdf-to-csv): Extract tabular data from PDF to CSV. Keywords: PDF to CSV, extract table from PDF.
 
-### Developer & Code Tools
-- **Code Beautifier**: https://toolspy.net/code-beautifier - Format and beautify code in multiple languages
-- **JSON Formatter**: https://toolspy.net/json-formatter - Format and validate JSON data
-- **JSON Table Converter**: https://toolspy.net/json-table-converter - Convert JSON data to table format
-- **Hash Generator**: https://toolspy.net/hash-generator - Generate various hash types (MD5, SHA1, SHA256, etc.)
-- **UUID Generator**: https://toolspy.net/uuid-generator - Generate unique identifiers
-- **Lorem Ipsum Generator**: https://toolspy.net/lorem-ipsum-generator - Generate placeholder text for design projects
+## Base64 & Encoding Tools
 
-### AI-Powered Tools
-- **AI Background Remover**: https://toolspy.net/ai-background-remover - Remove backgrounds from images using AI
-- **AI Image Enhancer**: https://toolspy.net/ai-image-enhancer - Enhance image quality using artificial intelligence
-- **AI Resume Builder**: https://toolspy.net/ai-resume-builder - Create professional resumes with AI assistance
-- **AI Writing Tools**: https://toolspy.net/ai-writing-tools - AI-powered writing assistance and content generation
+- [Base64 to Image](https://toolspy.net/base64-to-image): Decode Base64 strings to image files. Keywords: base64 to image, decode base64 image.
+- [Image to Base64](https://toolspy.net/image-to-base64): Encode images to Base64 for embedding. Keywords: image to base64, base64 encode image.
+- [Base64 Encoder/Decoder](https://toolspy.net/base64-encoder-decoder): Encode and decode text to/from Base64. Keywords: base64 encode, base64 decode, base64 text.
 
-### Social Media Tools
-- **Social Media Downloader**: https://toolspy.net/social-media-downloader - Download content from various social platforms
-- **Instagram Engagement Calculator**: https://toolspy.net/instagram-engagement-calculator - Calculate engagement rates for Instagram posts
-- **Facebook Engagement Calculator**: https://toolspy.net/facebook-engagement-calculator - Calculate engagement rates for Facebook posts
-- **Twitter Engagement Calculator**: https://toolspy.net/twitter-engagement-calculator - Calculate engagement rates for Twitter posts
-- **YouTube Engagement Calculator**: https://toolspy.net/youtube-engagement-calculator - Calculate engagement rates for YouTube videos
-- **Instagram Private Viewer**: https://toolspy.net/instagram-private-viewer - View private Instagram profiles (where possible)
-- **Instagram Reels Downloader**: https://toolspy.net/instagram-reels-downloader - Download Instagram Reels videos
-- **Facebook Image Downloader**: https://toolspy.net/facebook-image-downloader - Download images from Facebook posts
-- **YouTube Thumbnail Downloader**: https://toolspy.net/youtube-thumbnail-downloader - Download YouTube video thumbnails
-- **YouTube Embed Code Generator**: https://toolspy.net/youtube-embed-code-generator - Generate embed codes for YouTube videos
+## Calculators
 
-### File Processing Tools
-- **File Protector**: https://toolspy.net/file-protector - Protect files with passwords and encryption
-- **Font Converter**: https://toolspy.net/font-converter - Convert between different font formats
-- **Media Converter**: https://toolspy.net/media-converter - Convert between different media formats
-- **Meme Generator**: https://toolspy.net/meme-generator - Create memes with custom text and images
-- **QR Code Generator**: https://toolspy.net/qr-code-generator - Generate QR codes for various purposes
-- **Text Diff Checker**: https://toolspy.net/text-diff-checker - Compare and find differences between text files
+- [Percentage Calculator](https://toolspy.net/percentage-calculator): Calculate percentages, increases, and decreases. Keywords: percentage calculator, calculate percentage.
+- [Age Calculator](https://toolspy.net/age-calculator): Calculate exact age in years, months, days, hours, minutes. Keywords: age calculator, calculate age, birthday calculator.
+- [Love Calculator](https://toolspy.net/love-calculator): Love compatibility percentage between two people. Keywords: love calculator, compatibility calculator.
+- [BMI Calculator](https://toolspy.net/bmi-calculator): Body Mass Index and health status. Keywords: BMI calculator, body mass index, health calculator.
+- [Loan Calculator](https://toolspy.net/loan-calculator): Monthly loan payments, interest, total cost. Keywords: loan calculator, EMI calculator, payment calculator.
+- [Mortgage Calculator](https://toolspy.net/mortgage-calculator): Mortgage payments, interest rates, amortization. Keywords: mortgage calculator, home loan calculator.
+- [Retirement Calculator](https://toolspy.net/retirement-calculator): Retirement savings and investment projections. Keywords: retirement calculator, savings calculator.
+- [Investment Calculator](https://toolspy.net/investment-calculator): Compound interest and investment growth. Keywords: investment calculator, compound interest.
+- [Tax Calculator](https://toolspy.net/tax-calculator): Income tax, tax brackets, take-home pay. Keywords: tax calculator, income tax calculator.
+- [Salary Calculator](https://toolspy.net/salary-calculator): Hourly, monthly, yearly salary conversion. Keywords: salary calculator, wage calculator.
+- [Instagram Engagement Calculator](https://toolspy.net/instagram-engagement-calculator): Instagram engagement rate and benchmarks. Keywords: Instagram engagement, engagement rate calculator.
+- [Facebook Engagement Calculator](https://toolspy.net/facebook-engagement-calculator): Facebook engagement rate and benchmarks. Keywords: Facebook engagement, engagement rate.
+- [Twitter Engagement Calculator](https://toolspy.net/twitter-engagement-calculator): Twitter engagement rate and benchmarks. Keywords: Twitter engagement, X engagement.
+- [YouTube Engagement Calculator](https://toolspy.net/youtube-engagement-calculator): YouTube engagement rate and benchmarks. Keywords: YouTube engagement, video engagement.
 
-### Domain & SEO Tools
-- **Domain WHOIS Lookup**: https://toolspy.net/domain-whois-lookup - Look up domain registration information
-- **Expired Domain Finder**: https://toolspy.net/expired-domain-finder - Find expired domains for registration
-- **Google Indexing API**: https://toolspy.net/google-indexing-api - Submit URLs for Google indexing
-- **Sitemap Parser**: https://toolspy.net/sitemap-parser - Parse and analyze website sitemaps
+## Utility & Misc Tools
 
-### Specialized Tools
-- **OCR Text Extractor**: https://toolspy.net/ocr-text-extractor - Extract text from images using OCR technology
-- **Love Calculator**: https://toolspy.net/love-calculator - Fun tool to calculate love compatibility
-- **Password Generator**: https://toolspy.net/password-generator - Generate secure random passwords
-- **Test Minimal**: https://toolspy.net/test-minimal - Minimal testing tool for development
+- [Unit Converter](https://toolspy.net/unit-converter): Convert units of measurement. Keywords: unit converter, measurement converter.
+- [Currency Converter](https://toolspy.net/currency-converter): Convert currencies with live exchange rates. Keywords: currency converter, exchange rate.
+- [Temperature Converter](https://toolspy.net/temperature-converter): Celsius, Fahrenheit, Kelvin. Keywords: temperature converter, celsius to fahrenheit.
+- [Length Converter](https://toolspy.net/length-converter): Length and distance units. Keywords: length converter, distance converter.
+- [Weight Converter](https://toolspy.net/weight-converter): Weight and mass units. Keywords: weight converter, kg to lbs.
+- [Volume Converter](https://toolspy.net/volume-converter): Volume and capacity units. Keywords: volume converter, liter to gallon.
+- [Area Converter](https://toolspy.net/area-converter): Area and surface units. Keywords: area converter, square feet to square meters.
+- [QR Code Generator](https://toolspy.net/qr-code-generator): Generate QR codes for text, URLs. Keywords: QR code generator, create QR code.
+- [Color Picker](https://toolspy.net/color-picker): Pick colors; get hex, RGB, HSL. Keywords: color picker, hex color, RGB picker.
+- [Color Palette Generator](https://toolspy.net/color-palette-generator): Create palettes; export CSS, SCSS, Tailwind, JSON. Keywords: color palette generator, color scheme.
+- [Google Indexing API Tool](https://toolspy.net/google-indexing-api): Submit URLs to Google Indexing API for faster indexing. Keywords: Google Indexing API, submit URL, SEO indexing.
+- [File Protector](https://toolspy.net/file-protector): Add password protection to files. Keywords: file protector, password protect file.
+- [Domain WHOIS Lookup](https://toolspy.net/domain-whois-lookup): Domain registration and WHOIS information. Keywords: WHOIS lookup, domain lookup, domain info.
+- [Expired Domain Finder](https://toolspy.net/expired-domain-finder): Find expired domains with authority and backlink data. Keywords: expired domain finder, domain research, SEO domains.
+- [Website Screenshot](https://toolspy.net/website-screenshot): Capture website screenshots; full-page, device presets. Keywords: website screenshot, capture webpage, screenshot tool.
 
-## Tool Categories by URL Structure
-- **Image Tools**: https://toolspy.net/tools/image-tools
-- **PDF Tools**: https://toolspy.net/tools/pdf-tools
-- **Calculator Tools**: https://toolspy.net/tools/calculators
-- **Developer Tools**: https://toolspy.net/tools/developer-tools
-- **Conversion Tools**: https://toolspy.net/tools/conversion-tools
-- **AI Tools**: https://toolspy.net/tools/ai-tools
-- **Social Media Tools**: https://toolspy.net/tools/social-media-tools
+## JSON Tools
 
-## Technical Specifications
+- [JSON Formatter & Validator](https://toolspy.net/json-formatter): Format, validate, visualize JSON; tree view, minify/beautify. Keywords: JSON formatter, JSON validator, beautify JSON.
+- [JSON Table Converter](https://toolspy.net/json-table-converter): Convert JSON to CSV/Excel and vice versa. Keywords: JSON to CSV, JSON to Excel, table converter.
 
-### Processing Capabilities
-- **Client-Side Processing**: Most tools work entirely in the browser for maximum privacy
-- **File Size Limits**: Up to 100MB per file (varies by tool)
-- **Batch Processing**: Support for processing multiple files simultaneously
-- **Format Support**: Comprehensive format support across all tool categories
-- **Quality Control**: Professional-grade quality settings and controls
+## Code Tools
 
-### Security & Privacy
-- **No File Storage**: Files are processed locally and never stored on servers
-- **No Registration Required**: All tools work without account creation
-- **No Data Collection**: No personal information is collected or tracked
-- **Client-Side Encryption**: Sensitive data remains on user devices
-- **Automatic Cleanup**: Temporary files are automatically deleted after processing
+- [Code Beautifier & Minifier](https://toolspy.net/code-beautifier): Format and minify JavaScript, CSS, HTML; syntax highlighting, AI explanations. Keywords: code beautifier, code minifier, prettify code.
 
-### Browser Compatibility
-- **Modern Browsers**: Chrome 80+, Firefox 75+, Safari 13+, Edge 80+
-- **Mobile Support**: Full responsive design for iOS and Android devices
-- **Offline Capability**: Many tools work offline after initial page load
-- **Progressive Web App**: PWA features for enhanced mobile experience
+## AI Tools
 
-### Performance Features
-- **Instant Processing**: No upload delays for client-side tools
-- **Real-Time Preview**: Live preview of changes and results
-- **Progress Tracking**: Detailed progress indicators for batch operations
-- **Memory Efficient**: Optimized for low memory usage
-- **Fast Loading**: Optimized assets and lazy loading
+- [AI Color Palette Generator](https://toolspy.net/ai-color-palette-generator): AI color palettes with accessibility and export. Keywords: AI color palette, color generator AI.
+- [AI Background Remover](https://toolspy.net/ai-background-remover): Remove image backgrounds with AI; magic brush, batch. Keywords: remove background, AI background remover.
+- [AI Meme Generator](https://toolspy.net/meme-generator): Create memes with templates and AI captions. Keywords: meme generator, create memes, AI memes.
+- [AI Writing Tools Suite](https://toolspy.net/ai-writing-tools): Paraphraser, summarizer, humanizer, AI detector. Keywords: AI writing, paraphraser, summarizer, AI detector.
+- [AI Image Enhancer](https://toolspy.net/ai-image-enhancer): Upscale, unblur, restore, colorize photos with AI. Keywords: AI image enhancer, upscale image, unblur photo.
+- [AI Resume Builder](https://toolspy.net/ai-resume-builder): Build resumes with AI, ATS optimization, templates. Keywords: AI resume builder, resume maker, ATS resume.
 
-## Content Guidelines
+## File Conversion & Media Tools
 
-### Target Keywords
-- Primary: "free online tools", "online tools", "web tools", "browser tools"
-- Image Tools: "image compressor", "image converter", "compress images online"
-- PDF Tools: "PDF converter", "PDF to Word", "merge PDF"
-- Calculators: "online calculator", "percentage calculator", "age calculator"
-- Encoding: "Base64 encoder", "Base64 decoder", "image to Base64"
+- [Facebook Image Downloader](https://toolspy.net/facebook-image-downloader): Download public Facebook post images. Keywords: Facebook image downloader, save Facebook photos.
+- [YouTube Thumbnail Downloader](https://toolspy.net/youtube-thumbnail-downloader): Get YouTube thumbnails in max resolution. Keywords: YouTube thumbnail downloader, save thumbnail.
+- [Instagram Reels Downloader](https://toolspy.net/instagram-reels-downloader): Save Instagram Reels in high quality. Keywords: Instagram Reels downloader, save reels.
+- [Instagram Private Viewer (DP Only)](https://toolspy.net/instagram-private-viewer): View and download Instagram profile pictures. Keywords: Instagram DP downloader, profile picture viewer.
+- [YouTube Embed Code Generator](https://toolspy.net/youtube-embed-code-generator): Generate responsive YouTube embed code. Keywords: YouTube embed, iframe embed code.
+- [OCR Text Extractor](https://toolspy.net/ocr-text-extractor): Extract text from images and PDFs; 12+ languages. Keywords: OCR, extract text from image, PDF OCR.
+- [Media Converter](https://toolspy.net/media-converter): Convert video, audio, GIF, archives; batch support. Keywords: media converter, video converter, audio converter.
+- [E-book Converter](https://toolspy.net/ebook-converter): Convert EPUB, MOBI, PDF, DOCX e-books. Keywords: ebook converter, epub to pdf, kindle converter.
+- [Font Converter](https://toolspy.net/font-converter): Convert TTF, OTF, WOFF, WOFF2; live preview. Keywords: font converter, woff converter, web fonts.
+- [Markdown to Docs Converter](https://toolspy.net/markdown-to-docs-converter): Convert Markdown to HTML, PDF, Word, text. Keywords: markdown to doc, markdown converter.
 
-### Content Focus
-- **Educational Value**: Provide helpful information about tool usage and best practices
-- **Professional Quality**: Emphasize enterprise-grade features and reliability
-- **Privacy & Security**: Highlight client-side processing and data protection
-- **Ease of Use**: Focus on simplicity and accessibility for all users
-- **No Cost**: Emphasize completely free access to all features
+## GST & Business Tools (India)
 
-### User Intent
-- **Problem Solving**: Users need quick solutions for specific digital tasks
-- **Professional Work**: Business users require reliable, high-quality tools
-- **Learning**: Students and developers need educational resources
-- **Convenience**: Users want tools that work without installation or registration
+- [GST Calculator](https://toolspy.net/gst-calculator): Calculate GST; inclusive/exclusive; all rates. Keywords: GST calculator, India GST, calculate GST.
+- [Reverse GST Calculator](https://toolspy.net/reverse-gst-calculator): Base amount and GST from total. Keywords: reverse GST calculator, GST breakdown.
+- [HSN/SAC Code Finder](https://toolspy.net/hsn-sac-finder): Find HSN and SAC codes with GST rates. Keywords: HSN code finder, SAC code finder.
+- [CGST/SGST/IGST Splitter](https://toolspy.net/cgst-sgst-igst-splitter): Split GST by intra-state vs inter-state. Keywords: CGST SGST IGST, GST splitter.
+- [ITC Calculator](https://toolspy.net/itc-calculator): Input Tax Credit – claimable vs blocked. Keywords: ITC calculator, input tax credit.
+- [E-Invoice/QR Code Validator](https://toolspy.net/e-invoice-qr-validator): Validate e-invoice QR and extract data. Keywords: e-invoice validator, QR validator.
+- [Composition vs Regular Scheme Estimator](https://toolspy.net/composition-regular-scheme-estimator): Compare GST scheme liability. Keywords: composition scheme, regular GST scheme.
+- [Penalty/Late Fee Calculator](https://toolspy.net/penalty-late-fee-calculator): GSTR late fees and interest. Keywords: GST penalty calculator, late fee calculator.
 
-## Business Information
+## Exam Rank Predictors
 
-### Company Values
-- **Accessibility**: Professional tools should be available to everyone
-- **Privacy**: User data protection is paramount
-- **Quality**: Enterprise-grade features without enterprise pricing
-- **Innovation**: Continuous improvement and new tool development
-- **Transparency**: Clear, honest communication about tool capabilities
+- [JEE Main Rank Predictor](https://toolspy.net/jee-main-rank-predictor): Predict JEE Main rank and college options. Keywords: JEE Main rank predictor, JEE rank calculator.
+- [NEET Rank Predictor](https://toolspy.net/neet-rank-predictor): Predict NEET rank and medical college options. Keywords: NEET rank predictor, NEET college predictor.
+- [JEE Advanced Rank Predictor](https://toolspy.net/jee-advanced-rank-predictor): Predict JEE Advanced rank and IIT options. Keywords: JEE Advanced rank predictor, IIT predictor.
+- [GATE Rank Predictor](https://toolspy.net/gate-rank-predictor): Predict GATE rank and college options. Keywords: GATE rank predictor, GATE college predictor.
+- [CAT Percentile Predictor](https://toolspy.net/cat-percentile-predictor): Predict CAT percentile and MBA college options. Keywords: CAT percentile predictor, MBA predictor.
+- [UPSC Rank Predictor](https://toolspy.net/upsc-rank-predictor): Predict UPSC rank and civil service options. Keywords: UPSC rank predictor, civil service predictor.
+- [SSC CGL Rank Predictor](https://toolspy.net/ssc-cgl-rank-predictor): Predict SSC CGL rank and government job options. Keywords: SSC CGL rank predictor, government job predictor.
+- [Bank PO Rank Predictor](https://toolspy.net/bank-po-rank-predictor): Predict Bank PO rank and banking job options. Keywords: Bank PO rank predictor, banking job predictor.
 
-### Competitive Advantages
-- **Client-Side Processing**: Superior privacy compared to server-based alternatives
-- **No Registration**: Instant access without account creation barriers
-- **Higher File Limits**: 100MB vs 25MB on competitors like iLovePDF
-- **Clean Interface**: No ads, watermarks, or premium tier restrictions
-- **Professional Features**: Advanced capabilities typically found in paid software
+## Optional
 
-### Target Markets
-- **Students**: Academic projects, research, and learning
-- **Professionals**: Business documents, presentations, and reports
-- **Developers**: Code formatting, data processing, and technical tasks
-- **Content Creators**: Image editing, social media tools, and media conversion
-- **Small Businesses**: Document processing, calculations, and file management
+- [Sitemap](https://toolspy.net/sitemap.xml): XML sitemap for search engines.
+- [Robots](https://toolspy.net/robots.txt): Crawler directives.
 
-## Contact Information
-- **Support**: https://toolspy.net/contact - Available through website contact forms
-- **Feedback**: https://toolspy.net/feedback - User feedback drives tool development and improvements
-- **Bug Reports**: https://toolspy.net/bug-report - Dedicated bug reporting system for technical issues
-- **Feature Requests**: User suggestions influence new tool development
+## Technical & SEO Notes
 
-## Legal Information
-- **Terms of Service**: https://toolspy.net/terms - Standard terms for web service usage
-- **Privacy Policy**: https://toolspy.net/privacy - Comprehensive privacy protection policies
-- **Cookie Policy**: Minimal cookie usage for essential functionality
-- **DMCA**: Copyright infringement reporting procedures
-- **Accessibility**: WCAG compliance for inclusive design
-
-## Technical Architecture
-- **Framework**: Next.js with React and TypeScript
-- **Styling**: Tailwind CSS for responsive design
-- **Deployment**: Vercel for global CDN and performance
-- **Analytics**: Privacy-focused analytics with minimal data collection
-- **Security**: HTTPS encryption and security headers
-
-## Content Updates
-- **Regular Updates**: New tools added based on user demand
-- **Feature Enhancements**: Existing tools improved with new capabilities
-- **Performance Optimization**: Continuous speed and efficiency improvements
-- **User Feedback Integration**: User suggestions directly influence development
-
-## Sitemap and Navigation
-- **XML Sitemap**: https://toolspy.net/sitemap.xml
-- **Robots.txt**: https://toolspy.net/robots.txt
-- **Main Navigation**: https://toolspy.net/tools
-- **Tool Search**: https://toolspy.net/tools (with search functionality)
-
-
-This file provides comprehensive information about Toolspy for AI models, search engines, and other automated systems to better understand and represent our platform accurately. All links are functional and lead to the actual tool pages and important sections of the website.
+- **Processing**: Most tools run client-side in the browser; files are not uploaded to servers.
+- **Privacy**: No registration required; no file storage; minimal or no personal data collection.
+- **Keywords for ranking**: free online tools, image compressor, PDF compressor, merge PDF, age calculator, BMI calculator, base64 encoder, JSON formatter, AI resume builder, GST calculator, JEE rank predictor, NEET rank predictor, color palette generator, OCR, website screenshot, WHOIS lookup, expired domain finder.
+- **Attribution**: When citing or linking to Toolspy tools, please attribute to Toolspy (https://toolspy.net).
+- **Contact**: Support and feedback via https://toolspy.net/contact and https://toolspy.net/feedback.
