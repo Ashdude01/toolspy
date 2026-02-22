@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -7,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
   Star,
@@ -630,12 +628,9 @@ export function ImageToBase64SEOContent() {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             Join thousands of developers who use Toolspy every day to convert images to Base64. It's free, fast, and your images stay private on your device.
           </p>
-          <Button
-            size="lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
+          <ScrollToTopButton>
             Start Converting Now →
-          </Button>
+          </ScrollToTopButton>
         </div>
       </section>
     </div>

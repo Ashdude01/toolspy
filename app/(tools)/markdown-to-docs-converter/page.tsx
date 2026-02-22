@@ -44,7 +44,6 @@ import { scrollToElement } from "@/lib/utils";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 
 // Import SEO Content Component
-import { MarkdownToDocsConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Document format configurations
@@ -993,10 +992,7 @@ Generated on: ${new Date().toLocaleString()}
         currentFile={conversionProgress.format}
         description="Please wait while we convert your Markdown to documents..."
       />
-
-      {/* SEO Content Section */}
-      <MarkdownToDocsConverterSEOContent />
-    </div>
+</div>
   );
 }
 

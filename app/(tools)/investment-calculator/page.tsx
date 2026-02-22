@@ -27,7 +27,6 @@ import {
   Target,
   Calendar,
 } from "lucide-react";
-import { InvestmentCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface InvestmentResult {
@@ -571,10 +570,7 @@ function InvestmentCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <InvestmentCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

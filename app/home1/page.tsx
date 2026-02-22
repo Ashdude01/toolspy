@@ -4,6 +4,7 @@ import { useSearchParams } from 'next/navigation'
 import { ToolsSection } from '@/components/tools/tools-section'
 import { siteConfig } from '@/lib/config'
 import { HomeSeoContent } from '@/components/sections/home-seo-content'
+import { homeFaqData } from '@/lib/home-faq-data'
 import StaticPageSchema from '@/components/seo/StaticPageSchema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
@@ -20,7 +21,7 @@ function HomePageClient() {
       <StaticPageSchema pageType="homepage" />
       <ToolsSection searchQuery={search} />
       
-      <HomeSeoContent />
+      <HomeSeoContent faqData={[...homeFaqData]} />
     </>
   )
 }

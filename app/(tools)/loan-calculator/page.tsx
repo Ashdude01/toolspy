@@ -26,7 +26,6 @@ import {
   RefreshCw,
   PieChart,
 } from "lucide-react";
-import { LoanCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LoanResult {
@@ -480,10 +479,7 @@ function LoanCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <LoanCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -54,7 +54,6 @@ import { scrollToElement } from "@/lib/utils";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 
 // Import SEO Content Component
-import { ImageToICOConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // ICO size configurations
@@ -495,10 +494,7 @@ Generated on: ${new Date().toLocaleString()}
         currentFile={conversionProgress.size}
         description="Please wait while we convert your image to ICO format..."
       />
-
-      {/* SEO Content Section */}
-      <ImageToICOConverterSEOContent />
-    </div>
+</div>
   );
 }
 

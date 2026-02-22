@@ -32,7 +32,6 @@ import {
   FileSpreadsheet,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { PdfToExcelSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
@@ -682,9 +681,7 @@ function PdfToExcelContent() {
         currentFile={conversionProgress.file}
         description={`Please wait while we extract and convert your PDF files to ${outputFormat.toUpperCase()} format...`}
       />
-
-      <PdfToExcelSEOContent />
-    </div>
+</div>
   );
 }
 

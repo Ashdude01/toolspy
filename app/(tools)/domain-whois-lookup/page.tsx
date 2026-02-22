@@ -37,7 +37,6 @@ import {
   AlertTriangle,
   XCircle,
 } from "lucide-react";
-import { DomainWhoisLookupSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { 
   validateDomain, 
@@ -447,10 +446,7 @@ ${whoisData.raw}`;
           )}
         </div>
       )}
-
-      {/* SEO Content Section */}
-      <DomainWhoisLookupSEOContent />
-    </div>
+</div>
   );
 }
 

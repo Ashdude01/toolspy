@@ -54,7 +54,6 @@ import { scrollToElement } from "@/lib/utils";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 
 // Import SEO Content Component
-import { FaviconGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Favicon configurations
@@ -521,10 +520,7 @@ function FaviconGeneratorContent() {
         currentFile={generationProgress.size}
         description="Please wait while we generate your favicons..."
       />
-
-      {/* SEO Content Section */}
-      <FaviconGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Download, Link2, Search, Loader2, AlertCircle, CheckCircle2, Image as ImageIcon, X } from "lucide-react";
 import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
 import { useSearchParams } from "next/navigation";
-import { FacebookImageDownloaderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { extractFacebookImages, type FacebookImageInfo } from "@/lib/utils/facebook-extractor";
 import { formatFileSize } from "@/lib/utils/file-utils";
@@ -334,8 +333,7 @@ function Content() {
 
       {/* SEO Content */}
       <div className="mt-8">
-        <FacebookImageDownloaderSEOContent />
-      </div>
+</div>
     </div>
   );
 }

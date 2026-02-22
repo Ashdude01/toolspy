@@ -33,7 +33,6 @@ import {
   Clock,
   Calendar,
 } from "lucide-react";
-import { PenaltyLateFeeCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PenaltyCalculation {
@@ -468,8 +467,7 @@ Please verify with official GST portal for official penalty calculations.`;
       </div>
 
       {/* SEO Content */}
-      <PenaltyLateFeeCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -41,7 +41,6 @@ import {
   Sparkles,
   Zap,
 } from "lucide-react";
-import { JEEMainRankPredictorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
 
@@ -699,8 +698,7 @@ Actual ranks may vary based on various factors.`;
 
       {/* SEO Content */}
       <div className="mt-12">
-        <JEEMainRankPredictorSEOContent />
-      </div>
+</div>
     </div>
   );
 }

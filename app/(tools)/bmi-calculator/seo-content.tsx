@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -7,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
   Star,
@@ -733,12 +731,9 @@ export function BMICalculatorSEOContent() {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             Join thousands of health professionals and individuals who use Toolspy every day to calculate BMI. It's free, accurate, and your health data stays private on your device.
           </p>
-          <Button
-            size="lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
+          <ScrollToTopButton>
             Start Calculating Now →
-          </Button>
+          </ScrollToTopButton>
         </div>
       </section>
     </div>

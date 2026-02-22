@@ -38,7 +38,6 @@ import {
   ToastProvider,
   useToast,
 } from "@/components/tools/shared/toast-provider";
-import { InstagramEngagementCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
@@ -473,10 +472,7 @@ function InstagramEngagementCalculatorContent() {
           )}
         </div>
       </div>
-
-      {/* SEO Content Section */}
-      <InstagramEngagementCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

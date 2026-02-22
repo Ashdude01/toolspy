@@ -24,12 +24,9 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  output: 'export',
+  // No output: 'export' — Vercel pe normal Next.js chalta hai, APIs kaam karti hain.
+  // Saara SEO content Server Components se render hota hai, HTML crawlable rehta hai.
   trailingSlash: true,
-  // Skip problematic pages during build
-  generateBuildId: async () => {
-    return 'build-' + Date.now()
-  },
 
   images: {
     unoptimized: false,
@@ -37,10 +34,6 @@ const nextConfig = {
     loaderFile: './lib/image-loader.js',
     domains: ['res.cloudinary.com', 'ik.imagekit.io'],
   },
-  // PWA optimizations (headers not supported with export mode)
-  // Headers would be configured at the server/CDN level for static export
-  // Note: experimental.optimizeCss disabled due to critters dependency issues
-  // Enable compression (handled by server/CDN for static export)
   compress: true,
 };
 

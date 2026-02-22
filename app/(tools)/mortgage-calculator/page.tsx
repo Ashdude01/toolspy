@@ -27,7 +27,6 @@ import {
   PieChart,
   Building,
 } from "lucide-react";
-import { MortgageCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface MortgageResult {
@@ -548,10 +547,7 @@ function MortgageCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <MortgageCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

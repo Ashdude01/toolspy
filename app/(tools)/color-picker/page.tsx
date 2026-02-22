@@ -28,7 +28,6 @@ import {
   Camera,
   History,
 } from "lucide-react";
-import { ColorPickerSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ColorHistory {
@@ -666,10 +665,7 @@ function ColorPickerContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <ColorPickerSEOContent />
-    </div>
+</div>
   );
 }
 

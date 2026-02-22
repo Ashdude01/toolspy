@@ -43,7 +43,6 @@ import {
   Braces,
   AlertTriangle,
 } from "lucide-react";
-import { JSONFormatterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface JsonNode {
@@ -649,8 +648,7 @@ function JsonFormatterContent() {
       </div>
 
       {/* SEO Content */}
-              <JSONFormatterSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Calendar,
 } from "lucide-react";
-import { SalaryCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SalaryResult {
@@ -559,10 +558,7 @@ function SalaryCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <SalaryCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

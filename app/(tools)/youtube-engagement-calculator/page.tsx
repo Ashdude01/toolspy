@@ -41,7 +41,6 @@ import {
   ToastProvider,
   useToast,
 } from "@/components/tools/shared/toast-provider";
-import { YouTubeEngagementCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
@@ -511,10 +510,7 @@ function YouTubeEngagementCalculatorContent() {
           )}
         </div>
       </div>
-
-      {/* SEO Content Section */}
-      <YouTubeEngagementCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

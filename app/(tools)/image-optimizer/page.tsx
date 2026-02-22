@@ -28,7 +28,6 @@ import {
   TrendingUp,
   X,
 } from "lucide-react";
-import { ImageOptimizerSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
@@ -617,10 +616,7 @@ function ImageOptimizerContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <ImageOptimizerSEOContent />
-    </div>
+</div>
   );
 }
 

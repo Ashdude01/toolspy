@@ -50,7 +50,6 @@ import {
   Gauge,
   ArrowRight,
 } from "lucide-react";
-import { AIImageEnhancerSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EnhancementResult {
@@ -1000,8 +999,7 @@ function AiImageEnhancerContent() {
       )}
 
       {/* SEO Content */}
-      <AIImageEnhancerSEOContent />
-    </div>
+</div>
   );
 }
 

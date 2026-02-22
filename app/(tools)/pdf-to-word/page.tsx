@@ -24,7 +24,6 @@ import {
   FileType,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { PdfToWordSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -321,9 +320,7 @@ function PdfToWordContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your PDF files to Word format..."
       />
-
-      <PdfToWordSEOContent />
-    </div>
+</div>
   );
 }
 

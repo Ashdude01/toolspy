@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Download, Image as ImageIcon, Search } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
-import { YouTubeThumbnailDownloaderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function extractYouTubeId(input: string): string | null {
@@ -115,9 +114,7 @@ function Content() {
           </CardContent>
         </Card>
       )}
-
-      <YouTubeThumbnailDownloaderSEOContent />
-    </div>
+</div>
   );
 }
 

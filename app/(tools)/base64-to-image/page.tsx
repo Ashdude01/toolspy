@@ -40,7 +40,6 @@ import {
   pasteFromClipboard,
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
-import { Base64ToImageSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function Base64ToImageContent() {
@@ -454,8 +453,7 @@ function Base64ToImageContent() {
       </Card>
 
       {/* Seo Content */}
-      <Base64ToImageSEOContent />
-    </div>
+</div>
   );
 }
 

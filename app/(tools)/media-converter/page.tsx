@@ -52,7 +52,6 @@ import {
   Target,
   Layers,
 } from "lucide-react";
-import { MediaConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionJob {
@@ -793,8 +792,7 @@ function MediaConverterContent() {
       )}
 
       {/* SEO Content */}
-      <MediaConverterSEOContent />
-    </div>
+</div>
   );
 }
 

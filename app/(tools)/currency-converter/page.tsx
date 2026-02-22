@@ -28,7 +28,6 @@ import {
   Clock,
   AlertCircle,
 } from "lucide-react";
-import { CurrencyConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { 
   CURRENCIES, 
@@ -533,10 +532,7 @@ function CurrencyConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <CurrencyConverterSEOContent />
-    </div>
+</div>
   );
 }
 

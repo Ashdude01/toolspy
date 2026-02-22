@@ -31,7 +31,6 @@ import {
   Eye,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
-import { ImageConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -467,8 +466,7 @@ function ImageConverterContent() {
 
       {/* SEO Content */}
       <div className="mt-12">
-        <ImageConverterSEOContent />
-      </div>
+</div>
     </div>
   );
 }

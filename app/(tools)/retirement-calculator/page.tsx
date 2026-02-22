@@ -27,7 +27,6 @@ import {
   Calendar,
   DollarSign,
 } from "lucide-react";
-import { RetirementCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RetirementResult {
@@ -548,10 +547,7 @@ function RetirementCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <RetirementCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

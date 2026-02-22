@@ -25,7 +25,6 @@ import {
   Download,
   RotateCcw,
 } from "lucide-react";
-import { AIWritingToolsSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface WritingResult {
@@ -258,8 +257,7 @@ const AiWritingToolsContent = () => {
       )}
 
       {/* SEO Content */}
-      <AIWritingToolsSEOContent />
-    </div>
+</div>
   );
 };
 

@@ -44,7 +44,6 @@ import {
   Brain,
   Palette,
 } from "lucide-react";
-import { CodeBeautifierSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CodeStats {
@@ -808,8 +807,7 @@ throw new Error('Invalid parameters');
       )}
 
       {/* SEO Content */}
-      <CodeBeautifierSEOContent />
-    </div>
+</div>
   );
 }
 

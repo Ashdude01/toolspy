@@ -1,5 +1,3 @@
-"use client";
-
 import { ToolCategory } from "@/lib/tools-data";
 import { ImageToolsSEOContent } from "./category-content/image-tools-seo";
 import { PDFToolsSEOContent } from "./category-content/pdf-tools-seo";

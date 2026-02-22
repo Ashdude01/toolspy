@@ -27,7 +27,6 @@ import {
   TrendingDown,
   FileText,
 } from "lucide-react";
-import { TaxCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TaxResult {
@@ -543,10 +542,7 @@ function TaxCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <TaxCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

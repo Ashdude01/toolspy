@@ -55,7 +55,6 @@ import {
   Copy,
   Share2,
 } from "lucide-react";
-import { ImageResizerSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
@@ -1009,10 +1008,7 @@ function ImageResizerContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <ImageResizerSEOContent />
-    </div>
+</div>
   );
 }
 

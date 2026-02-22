@@ -46,7 +46,6 @@ import {
   ChevronDown,
   ChevronUp,
 } from "lucide-react";
-import { ExpiredDomainFinderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { 
   searchExpiredDomains, 
@@ -602,10 +601,7 @@ ${searchResults.map(domain =>
           </div>
         </div>
       )}
-
-      {/* SEO Content Section */}
-      <ExpiredDomainFinderSEOContent />
-    </div>
+</div>
   );
 }
 

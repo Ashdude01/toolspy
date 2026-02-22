@@ -33,7 +33,6 @@ import {
   AlertTriangle,
   CheckCircle,
 } from "lucide-react";
-import { CompositionRegularSchemeEstimatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SchemeComparison {
@@ -451,8 +450,7 @@ Please consult with a tax professional for official scheme selection.`;
       </div>
 
       {/* SEO Content */}
-      <CompositionRegularSchemeEstimatorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -24,7 +24,6 @@ import {
   Calculator,
   RefreshCw,
 } from "lucide-react";
-import { LoveCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LoveResult {
@@ -365,10 +364,7 @@ function LoveCalculatorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <LoveCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

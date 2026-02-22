@@ -28,7 +28,6 @@ import {
   Settings,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
-import { PdfToImageSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -532,10 +531,7 @@ function PdfToImageContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your PDF pages to images..."
       />
-
-      {/* SEO Content Section */}
-      <PdfToImageSEOContent />
-    </div>
+</div>
   );
 }
 

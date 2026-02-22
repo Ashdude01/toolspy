@@ -30,7 +30,6 @@ import {
   Settings,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
-import { PdfConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -643,10 +642,7 @@ function PdfConverterContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your PDF files..."
       />
-
-      {/* SEO Content Section */}
-      <PdfConverterSEOContent />
-    </div>
+</div>
   );
 }
 

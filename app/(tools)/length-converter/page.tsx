@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Globe,
 } from "lucide-react";
-import { LengthConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface LengthResult {
@@ -566,10 +565,7 @@ function LengthConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <LengthConverterSEOContent />
-    </div>
+</div>
   );
 }
 

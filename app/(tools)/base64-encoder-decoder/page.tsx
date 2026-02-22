@@ -27,7 +27,6 @@ import {
   FileText,
   Upload,
 } from "lucide-react";
-import { Base64EncoderDecoderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 function Base64EncoderDecoderContent() {
@@ -513,10 +512,7 @@ function Base64EncoderDecoderContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <Base64EncoderDecoderSEOContent />
-    </div>
+</div>
   );
 }
 

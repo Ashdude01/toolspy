@@ -39,7 +39,6 @@ import {
   ToastProvider,
   useToast,
 } from "@/components/tools/shared/toast-provider";
-import { FacebookEngagementCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
@@ -499,10 +498,7 @@ function FacebookEngagementCalculatorContent() {
           )}
         </div>
       </div>
-
-      {/* SEO Content Section */}
-      <FacebookEngagementCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

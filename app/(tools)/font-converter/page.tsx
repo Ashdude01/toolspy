@@ -51,7 +51,6 @@ import {
   Brain,
   Star,
 } from "lucide-react";
-import { FontConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface FontInfo {
@@ -966,8 +965,7 @@ function FontConverterContent() {
       )}
 
       {/* SEO Content */}
-      <FontConverterSEOContent />
-    </div>
+</div>
   );
 }
 

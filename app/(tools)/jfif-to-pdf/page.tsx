@@ -30,7 +30,6 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
-import { JfifToPdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -508,10 +507,7 @@ function JfifToPdfContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your JFIF images to PDF..."
       />
-
-      {/* SEO Content Section */}
-      <JfifToPdfSEOContent />
-    </div>
+</div>
   );
 }
 

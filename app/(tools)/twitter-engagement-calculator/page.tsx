@@ -39,7 +39,6 @@ import {
   ToastProvider,
   useToast,
 } from "@/components/tools/shared/toast-provider";
-import { TwitterEngagementCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface EngagementMetrics {
@@ -498,10 +497,7 @@ function TwitterEngagementCalculatorContent() {
           )}
         </div>
       </div>
-
-      {/* SEO Content Section */}
-      <TwitterEngagementCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

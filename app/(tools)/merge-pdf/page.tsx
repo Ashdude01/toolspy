@@ -25,7 +25,6 @@ import {
   Plus,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { MergePdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PdfFile {
@@ -405,10 +404,7 @@ function MergePdfContent() {
         currentFile={mergeProgress.file}
         description="Please wait while we merge your PDF files..."
       />
-
-      {/* SEO Content Section */}
-      <MergePdfSEOContent />
-    </div>
+</div>
   );
 }
 

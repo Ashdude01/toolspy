@@ -55,7 +55,6 @@ import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { createIconZip, downloadIconZip, IconFile } from "@/lib/utils/icon-zip-utils";
 
 // Import SEO Content Component
-import { PWAIconGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // PWA icon configurations
@@ -598,10 +597,7 @@ function PWAIconGeneratorContent() {
         currentFile={generationProgress.size}
         description="Please wait while we generate your PWA icons..."
       />
-
-      {/* SEO Content Section */}
-      <PWAIconGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

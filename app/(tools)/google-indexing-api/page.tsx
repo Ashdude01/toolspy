@@ -35,7 +35,6 @@ import {
   Clock,
   BookOpen,
 } from "lucide-react";
-import { GoogleIndexingApiSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ServiceAccount {
@@ -1023,10 +1022,7 @@ function GoogleIndexingApiContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <GoogleIndexingApiSEOContent />
-    </div>
+</div>
   );
 }
 

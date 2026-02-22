@@ -24,7 +24,6 @@ import {
   Calculator,
   RefreshCw,
 } from "lucide-react";
-import { AgeCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface AgeResult {
@@ -364,10 +363,7 @@ function AgeCalculatorContent() {
           </CardContent>
         </Card>
       )}
-
-      {/* SEO Content Section */}
-      <AgeCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

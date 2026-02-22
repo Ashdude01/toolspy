@@ -58,8 +58,6 @@ import {
 } from "@/lib/utils/file-utils";
 import { scrollToElement } from "@/lib/utils";
 
-// Import SEO Content Component
-import { ImageCompressorSEOContent } from "./seo-content";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 
 function ImageCompressorContent() {
@@ -1018,8 +1016,6 @@ function ImageCompressorContent() {
         description="Please wait while we compress your images..."
       />
 
-      {/* SEO Content Section */}
-      <ImageCompressorSEOContent />
     </div>
   );
 }

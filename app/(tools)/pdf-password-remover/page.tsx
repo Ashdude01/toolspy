@@ -27,7 +27,6 @@ import {
   Key,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { PdfPasswordRemoverSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface RemovalResult {
@@ -372,9 +371,7 @@ function PdfPasswordRemoverContent() {
         currentFile={removalProgress.file}
         description="Please wait while we remove password protection from your PDF files..."
       />
-
-      <PdfPasswordRemoverSEOContent />
-    </div>
+</div>
   );
 }
 

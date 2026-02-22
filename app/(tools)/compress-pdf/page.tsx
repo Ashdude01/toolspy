@@ -38,7 +38,6 @@ import {
   Package,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
-import { CompressPdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface CompressionResult {
@@ -1170,10 +1169,7 @@ function CompressPdfContent() {
         currentFile={compressionProgress.file}
         description="Please wait while we compress your PDF files..."
       />
-
-      {/* SEO Content Section */}
-      <CompressPdfSEOContent />
-    </div>
+</div>
   );
 }
 

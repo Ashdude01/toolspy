@@ -32,7 +32,6 @@ import {
   downloadZip,
 } from "@/lib/utils/file-utils";
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
-import { JFIFToJPGSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 
@@ -462,10 +461,7 @@ function JfifToJpgContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your JFIF images to JPG..."
       />
-
-      {/* SEO Content Section */}
-              <JFIFToJPGSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -27,7 +27,6 @@ import {
   RefreshCw,
   TrendingUp,
 } from "lucide-react";
-import { TemperatureConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TemperatureResult {
@@ -524,10 +523,7 @@ function TemperatureConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <TemperatureConverterSEOContent />
-    </div>
+</div>
   );
 }
 

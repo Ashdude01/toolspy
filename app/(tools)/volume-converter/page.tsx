@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Globe,
 } from "lucide-react";
-import { VolumeConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface VolumeResult {
@@ -607,10 +606,7 @@ function VolumeConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <VolumeConverterSEOContent />
-    </div>
+</div>
   );
 }
 

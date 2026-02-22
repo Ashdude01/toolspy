@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -7,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
   Star,
@@ -723,12 +721,9 @@ export function BankPORankPredictorSEOContent() {
             Join thousands of banking job aspirants who use our free rank predictor every day. 
             It's accurate, secure, and your data stays private on your device.
           </p>
-          <Button
-            size="lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
+          <ScrollToTopButton>
             Start Predicting Now →
-          </Button>
+          </ScrollToTopButton>
         </div>
       </section>
     </div>

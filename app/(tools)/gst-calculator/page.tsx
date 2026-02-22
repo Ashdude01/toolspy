@@ -31,8 +31,6 @@ import {
   Percent,
   IndianRupee,
 } from "lucide-react";
-import { GSTCalculatorSEOContent } from "./seo-content";
-
 interface GSTCalculation {
   baseAmount: number;
   gstRate: number;
@@ -381,8 +379,7 @@ Please consult with a tax professional for official GST calculations.`;
       </div>
 
       {/* SEO Content */}
-      <GSTCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -27,7 +27,6 @@ import {
   TrendingUp,
   Globe,
 } from "lucide-react";
-import { WeightConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface WeightResult {
@@ -561,10 +560,7 @@ function WeightConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <WeightConverterSEOContent />
-    </div>
+</div>
   );
 }
 

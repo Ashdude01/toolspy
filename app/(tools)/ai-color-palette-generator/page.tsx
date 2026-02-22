@@ -44,7 +44,6 @@ import {
   Heart,
   Shuffle,
 } from "lucide-react";
-import { ColorPaletteGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface Color {
@@ -786,8 +785,7 @@ function ColorPaletteGeneratorContent() {
       )}
 
       {/* SEO Content */}
-      <ColorPaletteGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   CardContent,
@@ -7,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
   Star,
@@ -663,12 +661,9 @@ export function WebsiteScreenshotSEOContent() {
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             Join thousands of users who use Toolspy every day to capture website screenshots. It's free, secure, and your screenshots are generated on-demand.
           </p>
-          <Button
-            size="lg"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          >
+          <ScrollToTopButton>
             Start Capturing Now →
-          </Button>
+          </ScrollToTopButton>
         </div>
       </section>
     </div>

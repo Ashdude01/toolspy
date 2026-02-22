@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -11,8 +9,6 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import {
-  ChevronDown,
-  ChevronUp,
   CheckCircle,
   Star,
   Target,
@@ -38,9 +34,14 @@ import { siteConfig } from "@/lib/config";
 import { RelatedTools } from "@/components/tools/related-tools";
 import Image from "next/image";
 import Link from "next/link";
+import { FAQ } from "@/components/ui/faq";
 
-export function HomeSeoContent({ faqData }: any) {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+export interface HomeFAQItem {
+  question: string;
+  answer: string;
+}
+
+export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
 
   const comparisonData = [
     {
@@ -827,56 +828,13 @@ export function HomeSeoContent({ faqData }: any) {
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ Section - client FAQ for accordion interactivity, content is in HTML */}
       <section className="space-y-6" id="faq">
-        <div className=" flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-center">
-            Frequently Asked Questions About Our Free Online Tools
-          </h3>
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-            Everything you need to know about using Toolspy's{" "}
-            <strong>online tools</strong> and services.
-          </p>
-          <div className="space-y-3">
-            {faqData.map((faq: any, index: any) => (
-              <Card key={index}>
-                <CardHeader
-                  className="cursor-pointer hover:bg-muted/50 transition-colors"
-                  onClick={() =>
-                    setSelectedFaq(selectedFaq === index ? null : index)
-                  }
-                >
-                  <button
-                    className="flex items-center justify-between w-full text-left"
-                    aria-expanded={selectedFaq === index}
-                    aria-controls={`faq-answer-${index}`}
-                    id={`faq-question-${index}`}
-                  >
-                    <CardTitle className="text-base">
-                      <h4>{faq.question}</h4>
-                    </CardTitle>
-                    {selectedFaq === index ? (
-                      <ChevronUp className="h-5 w-5" aria-hidden="true" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5" aria-hidden="true" />
-                    )}
-                  </button>
-                </CardHeader>
-                {selectedFaq === index && (
-                  <CardContent
-                    id={`faq-answer-${index}`}
-                    role="region"
-                    aria-labelledby={`faq-question-${index}`}
-                  >
-                    <p className="text-muted-foreground leading-relaxed">
-                      {faq.answer}
-                    </p>
-                  </CardContent>
-                )}
-              </Card>
-            ))}
-          </div>
-        </div>
+        <FAQ
+          title="Frequently Asked Questions About Our Free Online Tools"
+          description="Everything you need to know about using Toolspy's online tools and services."
+          faqs={faqData}
+        />
       </section>
 
       {/* Enhanced SEO Keyword Cluster Section */}
@@ -948,12 +906,9 @@ export function HomeSeoContent({ faqData }: any) {
               tasks. All <strong>online tools</strong> are free, secure, and
               designed for professional results.
             </p>
-            <Button
-              size="lg"
-              onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            >
+            <ScrollToTopButton>
               Explore All Free Online Tools →
-            </Button>
+            </ScrollToTopButton>
           </div>
         </div>
       </section>

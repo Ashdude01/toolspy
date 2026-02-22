@@ -28,7 +28,6 @@ import {
   Settings,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
-import { SplitPdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface SplitResult {
@@ -464,9 +463,7 @@ function SplitPdfContent() {
         currentFile={splitProgress.file}
         description="Please wait while we split your PDF file..."
       />
-
-      <SplitPdfSEOContent />
-    </div>
+</div>
   );
 }
 

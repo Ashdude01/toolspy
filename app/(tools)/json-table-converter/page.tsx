@@ -42,7 +42,6 @@ import {
   CheckCircle,
   AlertTriangle,
 } from "lucide-react";
-import { JSONTableConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface TableData {
@@ -709,8 +708,7 @@ function JsonTableConverterContent() {
       </div>
 
       {/* SEO Content */}
-      <JSONTableConverterSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -49,7 +49,6 @@ import {
   Sparkles,
   Brain,
 } from "lucide-react";
-import { AIResumeBuilderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PersonalInfo {
@@ -1049,8 +1048,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
       </div>
 
       {/* SEO Content */}
-      <AIResumeBuilderSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -32,7 +32,6 @@ import {
   Split,
   MapPin,
 } from "lucide-react";
-import { CGSTSGSTIGSTSplitterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface GSTSplitCalculation {
@@ -498,8 +497,7 @@ Please consult with a tax professional for official GST calculations.`;
       </div>
 
       {/* SEO Content */}
-      <CGSTSGSTIGSTSplitterSEOContent />
-    </div>
+</div>
   );
 }
 

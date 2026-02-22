@@ -33,7 +33,6 @@ import {
   Search,
   AlertTriangle,
 } from "lucide-react";
-import { EInvoiceQRValidatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ValidationResult {
@@ -371,8 +370,7 @@ Please verify with official GST portal for official validation.`;
       </div>
 
       {/* SEO Content */}
-      <EInvoiceQRValidatorSEOContent />
-    </div>
+</div>
   );
 }
 

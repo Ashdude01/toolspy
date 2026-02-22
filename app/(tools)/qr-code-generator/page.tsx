@@ -31,7 +31,6 @@ import {
   Phone,
   MessageSquare,
 } from "lucide-react";
-import { QrCodeGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface QRCodeData {
@@ -511,10 +510,7 @@ function QrCodeGeneratorContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <QrCodeGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

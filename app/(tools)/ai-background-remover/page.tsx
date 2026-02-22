@@ -46,7 +46,6 @@ import {
   Target,
   Sparkles,
 } from "lucide-react";
-import { AIBackgroundRemoverSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProcessingResult {
@@ -679,8 +678,7 @@ function AiBackgroundRemoverContent() {
       )}
 
       {/* SEO Content */}
-      <AIBackgroundRemoverSEOContent />
-    </div>
+</div>
   );
 }
 

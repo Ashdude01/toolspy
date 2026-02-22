@@ -47,7 +47,6 @@ import {
   ThumbsUp,
   Image as ImageIcon,
 } from "lucide-react";
-import { MemeGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface MemeTemplate {
@@ -839,8 +838,7 @@ function MemeGeneratorContent() {
       )}
 
       {/* SEO Content */}
-      <MemeGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

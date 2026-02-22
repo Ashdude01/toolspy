@@ -50,8 +50,6 @@ import {
   downloadZip,
 } from "@/lib/utils/file-utils";
 import { scrollToElement } from "@/lib/utils";
-import { WebsiteScreenshotSEOContent } from "./seo-content";
-
 type ScreenshotFormat = "png" | "jpeg" | "webp";
 type DevicePreset = "desktop" | "tablet" | "mobile" | "custom";
 
@@ -675,10 +673,7 @@ function WebsiteScreenshotContent() {
           </CardContent>
         </Card>
       )}
-
-      {/* SEO Content Section */}
-      <WebsiteScreenshotSEOContent />
-    </div>
+</div>
   );
 }
 

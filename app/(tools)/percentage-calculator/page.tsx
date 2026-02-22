@@ -27,7 +27,6 @@ import {
   Equal,
   ArrowRight,
 } from "lucide-react";
-import { PercentageCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface PercentageResult {
@@ -353,8 +352,7 @@ function PercentageCalculatorContent() {
 
       {/* SEO Content */}
       <div className="mt-12">
-        <PercentageCalculatorSEOContent />
-      </div>
+</div>
     </div>
   );
 }

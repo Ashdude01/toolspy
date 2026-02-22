@@ -31,7 +31,6 @@ import {
   BookOpen,
   ExternalLink,
 } from "lucide-react";
-import { HSNSACFinderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface HSNSACCode {
@@ -390,8 +389,7 @@ Please verify with official GST portal for latest updates.`;
       </div>
 
       {/* SEO Content */}
-      <HSNSACFinderSEOContent />
-    </div>
+</div>
   );
 }
 

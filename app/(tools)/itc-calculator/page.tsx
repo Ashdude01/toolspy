@@ -34,7 +34,6 @@ import {
   AlertTriangle,
   CheckCircle,
 } from "lucide-react";
-import { ITCCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ITCCalculation {
@@ -435,8 +434,7 @@ Please consult with a tax professional for official ITC calculations.`;
       </div>
 
       {/* SEO Content */}
-      <ITCCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

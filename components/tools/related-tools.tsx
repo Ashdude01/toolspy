@@ -1,9 +1,4 @@
-"use client";
-
-import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { tools, getToolBySlug, type Tool } from "@/lib/tools-data";
+import { tools, getToolBySlug } from "@/lib/tools-data";
 import Link from "next/link";
 
 interface RelatedToolsProps {

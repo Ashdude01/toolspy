@@ -29,7 +29,6 @@ import {
   RefreshCw,
   TrendingUp,
 } from "lucide-react";
-import { UnitConverterSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -595,10 +594,7 @@ function UnitConverterContent() {
           </div>
         </CardContent>
       </Card>
-
-      {/* SEO Content Section */}
-      <UnitConverterSEOContent />
-    </div>
+</div>
   );
 }
 

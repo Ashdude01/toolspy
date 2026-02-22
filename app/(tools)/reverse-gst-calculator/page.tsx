@@ -31,7 +31,6 @@ import {
   IndianRupee,
   ArrowLeft,
 } from "lucide-react";
-import { ReverseGSTCalculatorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ReverseGSTCalculation {
@@ -365,8 +364,7 @@ Please consult with a tax professional for official GST calculations.`;
       </div>
 
       {/* SEO Content */}
-      <ReverseGSTCalculatorSEOContent />
-    </div>
+</div>
   );
 }
 

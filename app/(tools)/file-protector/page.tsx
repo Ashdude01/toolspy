@@ -27,7 +27,6 @@ import {
   Key,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { FileProtectorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProtectionResult {
@@ -391,9 +390,7 @@ function FileProtectorContent() {
         currentFile={protectionProgress.file}
         description="Please wait while we add password protection to your files..."
       />
-
-      <FileProtectorSEOContent />
-    </div>
+</div>
   );
 }
 

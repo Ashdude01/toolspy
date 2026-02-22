@@ -59,7 +59,6 @@ import {
 } from "@/lib/utils/icon-zip-utils";
 
 // Import SEO Content Component
-import { AppIconGeneratorSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 // Platform configurations
@@ -824,10 +823,7 @@ function AppIconGeneratorContent() {
         currentFile={generationProgress.platform}
         description="Please wait while we generate your app icons..."
       />
-
-      {/* SEO Content Section */}
-      <AppIconGeneratorSEOContent />
-    </div>
+</div>
   );
 }
 

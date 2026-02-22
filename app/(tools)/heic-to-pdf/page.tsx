@@ -32,7 +32,6 @@ import {
   Trash2,
 } from "lucide-react";
 import { formatFileSize, downloadFile as downloadFileUtil } from "@/lib/utils/file-utils";
-import { HeicToPdfSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ProcessedFile {
@@ -610,10 +609,7 @@ function HeicToPdfContent() {
           </CardContent>
         </Card>
       )}
-
-      {/* SEO Content Section */}
-      <HeicToPdfSEOContent />
-    </div>
+</div>
   );
 }
 

@@ -24,7 +24,6 @@ import {
   Database,
 } from "lucide-react";
 import { formatFileSize, downloadFile } from "@/lib/utils/file-utils";
-import { PdfToCsvSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 
 interface ConversionResult {
@@ -321,9 +320,7 @@ function PdfToCsvContent() {
         currentFile={conversionProgress.file}
         description="Please wait while we convert your PDF files to CSV format..."
       />
-
-      <PdfToCsvSEOContent />
-    </div>
+</div>
   );
 }
 

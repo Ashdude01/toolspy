@@ -9,7 +9,6 @@ import { Badge } from "@/components/ui/badge";
 import { Download, Search, Video, Loader2, AlertCircle, CheckCircle2, X, Play, ExternalLink } from "lucide-react";
 import { useSearchParams } from "next/navigation";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
-import { InstagramReelsDownloaderSEOContent } from "./seo-content";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { extractInstagramReel, type InstagramReelInfo } from "@/lib/utils/instagram-extractor";
 import { formatFileSize } from "@/lib/utils/file-utils";
@@ -379,8 +378,7 @@ function Content() {
 
       {/* SEO Content */}
       <div className="mt-8">
-        <InstagramReelsDownloaderSEOContent />
-      </div>
+</div>
     </div>
   );
 }
