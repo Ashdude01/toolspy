@@ -188,11 +188,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
         {
           name: "Image to Base64",
           slug: "image-to-base64",
-        },
-        {
-          name: "Base64 Decoder",
-          slug: "base64-decoder",
-        },
+        }
       ],
     },
     {
@@ -343,7 +339,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
       tools: [
         {
           name: "PDF merger",
-          slug: "pdf-merger",
+          slug: "merge-pdf",
         },
         {
           name: "Image converter",
