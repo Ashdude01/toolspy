@@ -24,12 +24,14 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  // No output: 'export' — Vercel pe normal Next.js chalta hai, APIs kaam karti hain.
-  // Saara SEO content Server Components se render hota hai, HTML crawlable rehta hai.
+  // Static export: har page ka poora HTML body mein aata hai (View Source / Ctrl+U mein content dikhega).
+  // Crawlers ko content bina JavaScript chalaye milega.
+  output: 'export',
   trailingSlash: true,
 
   images: {
-    unoptimized: false,
+    // Static export ke saath custom loader limit ho sakta hai; unoptimized safe hai
+    unoptimized: true,
     loader: 'custom',
     loaderFile: './lib/image-loader.js',
     domains: ['res.cloudinary.com', 'ik.imagekit.io'],

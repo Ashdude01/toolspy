@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "next build && node scripts/prerender-html.js",
+    "build:next": "next build",
+    "prerender": "node scripts/prerender-html.js",
     "start": "next start",
     "lint": "next lint",
     "office": "next dev --hostname 192.168.1.4 -p 3000",
@@ -66,6 +68,7 @@
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "postcss": "8.4.32",
+    "puppeteer": "^24.37.5",
     "tailwindcss": "3.4.0",
     "typescript": "5.3.3"
   },
