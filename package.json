@@ -5,9 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && node scripts/prerender-html.js",
-    "build:next": "next build",
-    "prerender": "node scripts/prerender-html.js",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "office": "next dev --hostname 192.168.1.4 -p 3000",

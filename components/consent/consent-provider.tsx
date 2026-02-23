@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { CookieConsentBanner } from "./cookie-consent-banner";
 import {
   getConsentState,
@@ -25,38 +25,26 @@ export function ConsentProvider({
   children,
   region,
 }: ConsentProviderProps) {
-  const [consentInitialized, setConsentInitialized] = useState(false);
-
   useEffect(() => {
-    // Initialize consent mode before any Google tags load
+    // Initialize consent mode (ConsentInitScript sets default; here we apply stored/region)
     const stored = loadConsent();
     let initialConsent: ConsentState;
 
     if (stored && stored.hasConsented) {
       initialConsent = stored.consent;
     } else {
-      // Use region from props or try to detect
       const userRegion = region || getUserRegion();
       initialConsent = getConsentState(userRegion);
     }
 
-    // Initialize Google Consent Mode v2
     initializeConsentMode(initialConsent);
-
-    // Update consent mode if it was already set
     if (stored && stored.hasConsented) {
       updateConsentMode(initialConsent);
     }
-
-    setConsentInitialized(true);
   }, [region]);
 
-  // Don't render children until consent is initialized
-  // This ensures consent mode is set before any scripts load
-  if (!consentInitialized) {
-    return null;
-  }
-
+  // Always render children so the server can emit full HTML (SEO / View Source).
+  // ConsentInitScript runs beforeInteractive in layout; consent mode is updated in useEffect.
   return (
     <>
       {children}

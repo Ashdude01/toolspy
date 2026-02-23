@@ -24,14 +24,13 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  // Static export: har page ka poora HTML body mein aata hai (View Source / Ctrl+U mein content dikhega).
-  // Crawlers ko content bina JavaScript chalaye milega.
-  output: 'export',
+  // Normal build (no static export): server har request pe page ko HTML mein render karke bhejta hai,
+  // isliye View Source / crawlers ko body mein real content milta hai. Static export mein server nahi hota,
+  // sirf pre-built files hoti hain jismein content RSC payload (script) mein hota hai — isliye source mein HTML nahi dikhta tha.
   trailingSlash: true,
 
   images: {
-    // Static export ke saath custom loader limit ho sakta hai; unoptimized safe hai
-    unoptimized: true,
+    unoptimized: false,
     loader: 'custom',
     loaderFile: './lib/image-loader.js',
     domains: ['res.cloudinary.com', 'ik.imagekit.io'],
