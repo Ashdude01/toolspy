@@ -644,7 +644,7 @@ export function ImageResizerSEOContent() {
               Whether you're resizing images, controlling dimensions, or optimizing quality, our <strong>image resizer app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>resize images</strong> tasks to complex resizing requirements, we make it fast and secure.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our image resizer today and see why thousands of users choose Toolspy for their image resizing needs. From <strong>image resizer free</strong> planning to professional resizing, we deliver reliable results every time.
+              Try our <a href="https://www.webyurt.com/tools/resize-image-for-printing" target="_blank">image resizer</a> today and see why thousands of users choose Toolspy for their image resizing needs. From <strong>image resizer free</strong> planning to professional resizing, we deliver reliable results every time.
             </p>
           </div>
         </div>

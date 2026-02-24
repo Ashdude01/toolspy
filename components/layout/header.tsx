@@ -226,7 +226,7 @@ export function Header({ onSearch }: HeaderProps) {
                                 className={`block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors ${
                                   tool.status === "coming-soon"
                                     ? "text-muted-foreground/60 cursor-not-allowed"
-                                    : "text-muted-foreground hover:text-foreground"
+                                    : "text-foreground hover:text-foreground"
                                 }`}
                                 onClick={
                                   tool.status === "coming-soon"
