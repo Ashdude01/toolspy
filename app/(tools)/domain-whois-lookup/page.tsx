@@ -172,9 +172,9 @@ ${whoisData.raw}`;
           Privacy-First • Real-time Data
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-700 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-700 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Domain WHOIS Lookup Tool
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Get comprehensive domain registration information with our free WHOIS lookup tool. 
           Check domain ownership, registration dates, and contact details instantly.

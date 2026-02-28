@@ -363,9 +363,9 @@ function JsonFormatterContent() {
           <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl text-white">
             <Braces size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             JSON Formatter & Validator
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Format, validate, and visualize JSON data with advanced features. 

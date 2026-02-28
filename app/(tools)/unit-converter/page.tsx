@@ -281,9 +281,9 @@ function UnitConverterContent() {
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-purple-500 dark:from-purple-600 to-pink-600 dark:to-pink-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-purple-500 dark:from-purple-600 to-pink-600 dark:to-pink-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Universal Unit Converter
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Convert between different units of measurement in one comprehensive tool. 
           Support for length, weight, volume, area, and temperature conversions.

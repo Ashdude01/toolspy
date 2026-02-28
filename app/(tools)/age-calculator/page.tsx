@@ -164,9 +164,9 @@ function AgeCalculatorContent() {
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Age Calculator
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Calculate your exact age in years, months, days, hours, and minutes. 
           Get detailed age statistics and find out when your next birthday is.

@@ -460,9 +460,9 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
           <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl text-white">
             <FileText size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
             AI Resume Builder
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Create professional resumes with AI-powered suggestions, ATS optimization, 

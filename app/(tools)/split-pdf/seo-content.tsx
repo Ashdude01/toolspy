@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -177,20 +181,24 @@ export function SplitPdfSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="split-pdf"
         title="Similar Tools You Might Like"
         description="Check out our other PDF organization and management tools that work great with PDF splitting."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Split PDF Files Easily – Perfect Organization
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Divide your PDF documents into smaller, organized sections with Toolspy's advanced PDF Splitter. 
             Our tool provides superior splitting with multiple methods, complete privacy protection, 
@@ -638,7 +646,7 @@ export function SplitPdfSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

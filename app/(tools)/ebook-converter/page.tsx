@@ -396,9 +396,9 @@ function EbookConverterContent() {
           <div className="p-3 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl text-white">
             <BookOpen size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
             E-book Converter
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Convert e-books between EPUB, MOBI, PDF, DOCX formats with professional metadata editing, 

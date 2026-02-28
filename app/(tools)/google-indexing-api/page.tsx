@@ -521,9 +521,9 @@ function GoogleIndexingApiContent() {
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="w-64 h-32 bg-gradient-to-r from-blue-400/20 to-purple-400/20 rounded-full blur-3xl"></div>
           </div>
-          <h1 className="relative !leading-snug bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+          <h2 className="relative !leading-snug bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 dark:from-blue-400 dark:via-purple-400 dark:to-indigo-400 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
             Google Indexing API Tool
-          </h1>
+          </h2>
         </div>
         
         <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto mb-8 leading-relaxed">

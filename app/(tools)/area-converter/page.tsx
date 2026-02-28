@@ -190,9 +190,9 @@ function AreaConverterContent() {
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-yellow-600 dark:to-yellow-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-yellow-600 dark:to-yellow-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Area Converter
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Convert between different units of area and surface measurement. 
           Support for metric, imperial, and specialized land measurement units.

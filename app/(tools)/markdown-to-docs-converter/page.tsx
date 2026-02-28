@@ -639,9 +639,9 @@ Generated on: ${new Date().toLocaleString()}
         </Badge>
 
         {/* Main Heading */}
-        <h1 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Markdown to Docs Converter
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Convert Markdown to multiple document formats with Toolspy's advanced converter. 
           Create HTML, PDF, Word, and text documents with complete privacy protection.

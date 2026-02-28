@@ -135,9 +135,9 @@ const AiWritingToolsContent = () => {
           <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl text-white">
             <PenTool size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
             AI Writing Tools Suite
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Complete AI writing toolkit with paraphraser, summarizer, humanizer, and AI detector. 

@@ -197,9 +197,9 @@ function PercentageCalculatorContent() {
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Professional Percentage Calculator
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Calculate percentages, percentage increases, decreases, discounts, and compound growth. 
           Get step-by-step explanations for better understanding.

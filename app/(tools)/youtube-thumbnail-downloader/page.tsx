@@ -73,7 +73,7 @@ function Content() {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="text-center mb-8 space-y-3">
         <Badge variant="outline">Free • No watermark</Badge>
-        <h1 className="text-3xl font-bold">YouTube Thumbnail Downloader</h1>
+        <h2 className="text-3xl font-bold">YouTube Thumbnail Downloader</h2>
         <p className="text-muted-foreground">Get YouTube video thumbnails in max resolution (4K/HD). Paste a URL or ID and save instantly.</p>
       </div>
 

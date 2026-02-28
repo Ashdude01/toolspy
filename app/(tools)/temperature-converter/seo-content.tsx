@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -216,20 +220,24 @@ export function TemperatureConverterSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="temperature-converter"
         title="Similar Tools You Might Like"
         description="Check out our other conversion and calculation tools that work great with temperature planning."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Convert Temperature – Professional & Accurate
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Professional temperature converter with all temperature scales, instant processing, 
             and complete privacy protection. Perfect for weather, cooking, science, 
@@ -664,7 +672,7 @@ export function TemperatureConverterSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

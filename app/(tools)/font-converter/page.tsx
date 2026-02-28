@@ -440,9 +440,9 @@ function FontConverterContent() {
           <div className="p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl text-white">
             <Type size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-rose-600 bg-clip-text text-transparent">
             Font Converter
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Convert fonts between TTF, OTF, WOFF, WOFF2 formats with preview functionality, 

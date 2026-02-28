@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -215,20 +219,24 @@ export function AIImageEnhancerSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="ai-image-enhancer"
         title="Similar Tools You Might Like"
         description="Check out our other AI and image tools that work great with image enhancement and editing projects."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8 w-full">
         <div className="text-center w-full">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             AI Image Enhancer — Enhance Your Images with AI for Free Online
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Image quality is more important than ever in the digital age. Whether you're a photographer, designer, content developer, or just a regular user, crisp, high-quality photos have a big impact. But not every picture is flawless; sometimes there are issues with lighting, sharpness, or resolution. This is where ToolSpy's AI Image Enhancer comes into play. AI-powered image enhancement allows you to enhance low-resolution photos without sacrificing their natural texture, sharpen details, and rapidly increase photo quality. With no software needed, ToolSpy's AI picture enhancer is quick, free, and designed to provide amazing results.
           </p>
@@ -858,7 +866,7 @@ export function AIImageEnhancerSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

@@ -477,7 +477,7 @@ return a+b;
 throw new Error('Invalid parameters');
 }}`,
     css: `.container{display:flex;justify-content:center;align-items:center;min-height:100vh;background:linear-gradient(45deg,#ff6b6b,#4ecdc4);}`,
-    html: `<div class="header"><h1>Welcome</h1><nav><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li></ul></nav></div>`,
+    html: `<div class="header"><h1>Welcome</h2><nav><ul><li><a href="#home">Home</a></li><li><a href="#about">About</a></li></ul></nav></div>`,
     json: `{"users":[{"id":1,"name":"John","active":true},{"id":2,"name":"Jane","active":false}],"total":2}`,
     xml: `<root><users><user id="1" active="true"><name>John</name></user><user id="2" active="false"><name>Jane</name></user></users></root>`
   };
@@ -490,9 +490,9 @@ throw new Error('Invalid parameters');
           <div className="p-3 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl text-white">
             <Code size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
             Code Beautifier & Minifier
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Format, minify, and analyze your code with syntax highlighting, 

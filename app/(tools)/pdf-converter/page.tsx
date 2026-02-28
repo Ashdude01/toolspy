@@ -342,9 +342,9 @@ function PdfConverterContent() {
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-600 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-600 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           PDF Converter
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
           Convert PDF files to various formats including images, text, and more. 
           High-quality conversion with customizable settings for professional results.

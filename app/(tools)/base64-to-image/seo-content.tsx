@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -218,20 +222,24 @@ export function Base64ToImageSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="base64-to-image"
         title="Similar Tools You Might Like"
         description="Check out our other encoding and decoding tools that work great with Base64 conversion."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Convert Base64 to Images – Fast, Private, Professional
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Got Base64 encoded image data that you need to convert back to actual image files? 
             Toolspy's Base64 to Image Converter makes it simple. Whether you're a developer working with APIs, 
@@ -630,7 +638,7 @@ export function Base64ToImageSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

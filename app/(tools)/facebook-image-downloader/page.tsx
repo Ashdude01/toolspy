@@ -118,9 +118,9 @@ function Content() {
         <Badge variant="outline" className="text-xs sm:text-sm">
           Free • Private • Fast
         </Badge>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           Facebook Image Downloader
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
           Download public Facebook post images in full quality. Paste the post URL and save photos instantly.
         </p>

@@ -487,9 +487,9 @@ function AiImageEnhancerContent() {
           <div className="p-3 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white">
             <Sparkles size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
             AI Image Enhancer
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Enhance photos with AI: upscale resolution, unblur images, restore old photos, 

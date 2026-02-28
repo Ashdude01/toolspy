@@ -441,9 +441,9 @@ function ColorPaletteGeneratorContent() {
           <div className="p-3 bg-gradient-to-br from-pink-500 to-orange-600 rounded-xl text-white">
             <Palette size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-orange-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-pink-600 to-orange-600 bg-clip-text text-transparent">
             AI Color Palette Generator
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Generate beautiful color palettes with AI suggestions, 

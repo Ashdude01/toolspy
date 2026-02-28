@@ -24,9 +24,8 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  // Normal build (no static export): server har request pe page ko HTML mein render karke bhejta hai,
-  // isliye View Source / crawlers ko body mein real content milta hai. Static export mein server nahi hota,
-  // sirf pre-built files hoti hain jismein content RSC payload (script) mein hota hai — isliye source mein HTML nahi dikhta tha.
+  // SSR: server har request pe full HTML (body + text) bhejta hai — View Source / crawlers ko content milta hai.
+  // Prerender (Puppeteer) use mat karo — SSR se hi styling/animations sahi rehte hain aur source mein HTML bhi milta hai.
   trailingSlash: true,
 
   images: {

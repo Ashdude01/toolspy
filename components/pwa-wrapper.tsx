@@ -13,7 +13,7 @@ interface BeforeInstallPromptEvent extends Event {
   prompt(): Promise<void>
 }
 
-export function PWAWrapper({ children }: { children: React.ReactNode }) {
+export function PWAWrapper({ children }: { children?: React.ReactNode }) {
   const [deferredPrompt, setDeferredPrompt] = useState<BeforeInstallPromptEvent | null>(null)
   const [showInstallPrompt, setShowInstallPrompt] = useState(false)
   const [isStandalone, setIsStandalone] = useState(false)
@@ -104,8 +104,7 @@ export function PWAWrapper({ children }: { children: React.ReactNode }) {
 
   return (
     <>
-      {children}
-      
+      {children ?? null}
       {/* PWA Install Prompt */}
       {shouldShowInstallPrompt && (
         <div className="fixed bottom-4 left-4 right-4 md:left-auto md:right-4 md:max-w-md z-50">

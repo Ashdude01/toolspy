@@ -437,9 +437,9 @@ function ImageResizerContent() {
           </Badge>
         </div>
 
-        <h1 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text pb-2 text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text pb-2 text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
           Image Resizer
-        </h1>
+        </h2>
         <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Resize images to any dimension with professional quality. Perfect for social media, websites, and print. 
         </p>

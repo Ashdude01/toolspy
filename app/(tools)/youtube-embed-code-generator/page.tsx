@@ -77,7 +77,7 @@ function Content() {
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="text-center mb-8 space-y-3">
         <Badge variant="outline">Responsive • Clean HTML</Badge>
-        <h1 className="text-3xl font-bold">YouTube Embed Code Generator</h1>
+        <h2 className="text-3xl font-bold">YouTube Embed Code Generator</h2>
         <p className="text-muted-foreground">Create responsive embeds with customizable options. Copy and paste directly into your page.</p>
       </div>
 

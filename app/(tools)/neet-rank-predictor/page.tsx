@@ -250,9 +250,9 @@ Actual ranks may vary based on various factors.`;
           Privacy-First • No Data Collection • 100% Secure
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-red-600 dark:from-red-400 via-pink-600 dark:via-pink-400 to-purple-600 dark:to-purple-400 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold">
+        <h2 className="bg-gradient-to-r from-red-600 dark:from-red-400 via-pink-600 dark:via-pink-400 to-purple-600 dark:to-purple-400 bg-clip-text text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold">
           NEET Rank Predictor
-        </h1>
+        </h2>
         <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto leading-relaxed">
           Predict your NEET rank and medical college options based on your score. Our advanced algorithm helps you understand admission chances and plan your medical journey with confidence. All calculations are performed locally on your device for complete privacy.
         </p>

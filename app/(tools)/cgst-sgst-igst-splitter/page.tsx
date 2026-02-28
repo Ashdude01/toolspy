@@ -202,9 +202,9 @@ Please consult with a tax professional for official GST calculations.`;
           Privacy-First • No Data Collection
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           CGST/SGST/IGST Splitter
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Auto-split GST into CGST, SGST, and IGST based on intra-state vs inter-state transactions. 
           Perfect for understanding GST distribution across states.

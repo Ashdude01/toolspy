@@ -453,9 +453,9 @@ function MemeGeneratorContent() {
           <div className="p-3 bg-gradient-to-br from-yellow-500 to-orange-600 rounded-xl text-white">
             <Laugh size={24} />
           </div>
-          <h1 className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
             AI Meme Generator
-          </h1>
+          </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
           Create viral memes with trending templates, AI caption suggestions, 

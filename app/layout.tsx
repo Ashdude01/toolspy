@@ -1,13 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import { ThemeProvider } from '@/components/theme-provider'
-import { Header } from '@/components/layout/header'
+import { HeaderWithTheme } from '@/components/layout/header-with-theme'
 import { Footer } from '@/components/layout/footer'
 import { PWAWrapper } from '@/components/pwa-wrapper'
 import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analytics/google-tag-manager'
 import { ConsentInitScript } from '@/components/consent/consent-init-script'
 import { ConsentProvider } from '@/components/consent/consent-provider'
+import { CookieConsentBanner } from '@/components/consent/cookie-consent-banner'
 import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
@@ -110,49 +110,17 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <GoogleTagManagerNoScript />
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <ConsentProvider>
-            <PWAWrapper>
-              <div className="min-h-screen bg-background font-sans antialiased">
-                <Header />
-                <main>
-                  {children}
-                </main>
-                {/* <div className="a_ads_container py-10">
-                  <div
-                    id="frame"
-                    style={{
-                      width: "100%",
-                      margin: "auto",
-                      position: "relative",
-                      zIndex: 10,
-                    }}
-                  >
-                    <iframe
-                      data-aa="2419400"
-                      src="//acceptable.a-ads.com/2419400/?size=Adaptive"
-                      style={{
-                        border: 0,
-                        padding: 0,
-                        width: "70%",
-                        height: "auto",
-                        overflow: "hidden",
-                        display: "block",
-                        margin: "auto",
-                      }}
-                    ></iframe>
-                  </div>
-                </div> */}
-                <Footer />
-              </div>
-            </PWAWrapper>
-          </ConsentProvider>
-        </ThemeProvider>
+        <div className="min-h-screen bg-background font-sans antialiased">
+          <HeaderWithTheme />
+          <main>
+            {children}
+          </main>
+          <Footer />
+        </div>
+        <ConsentProvider>
+          <CookieConsentBanner />
+        </ConsentProvider>
+        <PWAWrapper />
       </body>
     </html>
   )

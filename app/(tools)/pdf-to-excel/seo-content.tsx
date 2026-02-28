@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -177,20 +181,24 @@ export function PdfToExcelSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="pdf-to-excel"
         title="Similar Tools You Might Like"
         description="Check out our other PDF and data conversion tools that work great with PDF to Excel conversion."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             How to Convert PDF to Excel for Free (Online PDF to Excel Converter)
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             When data is locked inside a PDF file, managing it can be difficult. It takes a lot of time and is prone to error to manually copy tables from a PDF into Excel, whether it's a business report, an invoice, or a research document. For this reason, a lot of professionals and students search for a trustworthy method to swiftly and precisely convert PDF to Excel. A straightforward and cost-free online solution is provided by ToolSpy's PDF to Excel Converter. A fully editable Excel spreadsheet can be downloaded instantly by uploading any PDF document and clicking a single button. ToolSpy makes converting PDFs to Excel simple, accurate, and quick with no installation needed and total data security.
           </p>
@@ -794,7 +802,7 @@ export function PdfToExcelSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

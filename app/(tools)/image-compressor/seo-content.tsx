@@ -1,11 +1,14 @@
+/**
+ * Server-only SEO content for the image compressor page.
+ * No "use client" and no client components — all markup is server-rendered
+ * so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
   CardDescription,
   CardHeader,
-  CardTitle,
 } from "@/components/ui/card";
-import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
   Star,
@@ -24,6 +27,7 @@ import {
   Sparkles,
   Palette,
   Smartphone,
+  Info,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
 import { RelatedTools } from "@/components/tools/related-tools";
@@ -31,6 +35,7 @@ import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
 // Import FAQ function from server-side loader
 import { getImageCompressorFAQs } from './faq-loader'
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 
 export function ImageCompressorSEOContent() {
   const tool = getToolBySlug("image-compressor");
@@ -216,20 +221,27 @@ export function ImageCompressorSEOContent() {
   ];
 
   return (
-    <div className="space-y-12 mt-16">
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="image-compressor"
-        title="Similar Tools You Might Like"
-        description="Check out our other image and optimization tools that work great with image compression and optimization projects."
-      />
+    <article
+      className="space-y-12 mt-16"
+      aria-label="Image compressor guide and SEO content"
+      itemScope
+      itemType="https://schema.org/Article"
+    >
+      {/* Related Tools - navigation to similar tools */}
+      <nav aria-label="Similar tools">
+        <RelatedTools
+          currentToolSlug="image-compressor"
+          title="Similar Tools You Might Like"
+          description="Check out our other image and optimization tools that work great with image compression and optimization projects."
+        />
+      </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
+      {/* Introduction Section - main H1 for this content (page has its own H1 in tool UI) */}
+      <section className="space-y-8" aria-labelledby="intro-heading">
+        <header className="text-center">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             Compress Images – Fast & Private
-          </h2>
+          </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Professional image compressor with complete privacy protection, 
             high-quality compression, and fast processing. Perfect for web developers, 
@@ -320,7 +332,7 @@ export function ImageCompressorSEOContent() {
                 </div>
               </div>
 
-              <div className="relative">
+              <figure className="relative">
                 <NextImage
                   width={1200}
                   height={680}
@@ -329,72 +341,80 @@ export function ImageCompressorSEOContent() {
                   className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
                   loading="lazy"
                 />
+                <figcaption className="sr-only">
+                  Toolspy Professional Image Compressor - High-quality compression with complete privacy protection and fast processing
+                </figcaption>
                 <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
                   ✨ High Quality
                 </div>
-              </div>
+              </figure>
             </div>
           </div>
-        </div>
+        </header>
       </section>
 
       {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="how-to-use-heading">
+        <h2 id="how-to-use-heading" className="text-2xl font-bold text-center">
           How to Use Our Image Compressor
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
           Follow these simple steps to compress images securely with professional precision:
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Upload Image</h4>
-            <p className="text-sm text-muted-foreground">
-              Upload the image you want 
-              to compress.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Settings</h4>
-            <p className="text-sm text-muted-foreground">
-              Select your compression 
-              preferences and quality settings.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Compress Image</h4>
-            <p className="text-sm text-muted-foreground">
-              Click compress and get your 
-              compressed image instantly.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Download & Use</h4>
-            <p className="text-sm text-muted-foreground">
-              Download the compressed image 
-              and use it in your projects.
-            </p>
-          </Card>
-        </div>
+        <ol className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 list-none p-0 m-0" aria-label="Steps to use the image compressor">
+          <li>
+            <Card className="p-4 bg-muted">
+              <h3 className="font-semibold mb-2 text-lg">1. Upload Image</h3>
+              <p className="text-sm text-muted-foreground">
+                Upload the image you want 
+                to compress.
+              </p>
+            </Card>
+          </li>
+          <li>
+            <Card className="p-4 bg-muted">
+              <h3 className="font-semibold mb-2 text-lg">2. Choose Settings</h3>
+              <p className="text-sm text-muted-foreground">
+                Select your compression 
+                preferences and quality settings.
+              </p>
+            </Card>
+          </li>
+          <li>
+            <Card className="p-4 bg-muted">
+              <h3 className="font-semibold mb-2 text-lg">3. Compress Image</h3>
+              <p className="text-sm text-muted-foreground">
+                Click compress and get your 
+                compressed image instantly.
+              </p>
+            </Card>
+          </li>
+          <li>
+            <Card className="p-4 bg-muted">
+              <h3 className="font-semibold mb-2 text-lg">4. Download & Use</h3>
+              <p className="text-sm text-muted-foreground">
+                Download the compressed image 
+                and use it in your projects.
+              </p>
+            </Card>
+          </li>
+        </ol>
       </section>
 
       {/* Compressor Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="compressor-types-heading">
+        <h2 id="compressor-types-heading" className="text-2xl font-bold text-center">
           Compressor Types & Use Cases
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           Choose the right compressor type for your specific needs with detailed information and examples.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6" role="list">
           {compressorTypes.map((type, index) => (
-            <Card key={index} className="p-6">
+            <Card key={index} className="p-6" role="listitem">
               <div className="flex items-center mb-4">
-                <Image className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
+                <Image className="h-5 w-5 mr-2 text-primary" aria-hidden />
+                <h3 className="font-semibold text-lg">{type.type}</h3>
               </div>
               <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
               <div className="space-y-2 text-sm">
@@ -408,37 +428,39 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="benefits-heading">
+        <h2 id="benefits-heading" className="text-2xl font-bold text-center">
           Why Toolspy's Image Compressor Rocks
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           Here's what makes our tool special and why professionals and users love using it.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <ul className="grid grid-cols-1 md:grid-cols-2 gap-6 list-none p-0 m-0">
           {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
+            <li key={index}>
+              <Card className="p-6">
+                <div className="flex items-start space-x-4">
+                  <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary" aria-hidden>
+                    {benefit.icon}
+                  </div>
+                  <div>
+                    <h3 className="font-semibold mb-2 text-lg">{benefit.title}</h3>
                   <p className="text-sm text-muted-foreground">
                     {benefit.description}
                   </p>
                 </div>
               </div>
             </Card>
+          </li>
           ))}
-        </div>
+        </ul>
       </section>
 
       {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="features-heading">
+        <h2 id="features-heading" className="text-2xl font-bold text-center">
           Everything You Get with Our Image Compressor
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           All the features you need for professional image compression, completely free.
         </p>
@@ -452,20 +474,25 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="comparison-heading">
+        <h2 id="comparison-heading" className="text-2xl font-bold text-center">
           Detailed Feature Comparison
-        </h3>
+        </h2>
         <Card>
           <CardHeader>
-            <CardTitle>Toolspy vs. Leading Image Compressors</CardTitle>
+            <h3 className="text-lg font-semibold leading-none tracking-tight">
+              Toolspy vs. Leading Image Compressors
+            </h3>
             <CardDescription>
               Comprehensive comparison of features and capabilities across popular image compression tools.
             </CardDescription>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full text-sm">
+              <table className="w-full text-sm" role="table" aria-describedby="comparison-heading">
+                <caption className="sr-only">
+                  Feature comparison: Toolspy vs TinyPNG, ImageCompressor, and CompressJPEG
+                </caption>
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Feature</th>
@@ -503,19 +530,19 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="competitors-heading">
+        <h2 id="competitors-heading" className="text-2xl font-bold text-center">
           Why Choose Toolspy Over Other Image Compressors
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           Here's how we compare to other popular image compression tools.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6" role="list">
           {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
+            <Card key={index} className="p-6" role="listitem">
+              <h3 className="font-semibold mb-4 text-primary text-lg">
                 {competitor.title}
-              </h4>
+              </h3>
               <ul className="space-y-2">
                 {competitor.advantages.map((advantage, advIndex) => (
                   <li
@@ -533,10 +560,10 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="step-guide-heading">
+        <h2 id="step-guide-heading" className="text-2xl font-bold text-center">
           Complete Step-by-Step Guide
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           Detailed instructions for getting the best results from our
           professional image compression tool.
@@ -569,10 +596,10 @@ export function ImageCompressorSEOContent() {
             },
           ].map((item, index) => (
             <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
+              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4" aria-hidden>
                 {item.step}
               </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
+              <h3 className="font-semibold mb-2 text-lg">{item.title}</h3>
               <p className="text-sm text-muted-foreground">
                 {item.description}
               </p>
@@ -582,41 +609,41 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+      <section className="space-y-6" aria-labelledby="use-cases-heading">
+        <h2 id="use-cases-heading" className="text-2xl font-bold text-center">
           Common Use Cases
-        </h3>
+        </h2>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
           Professional applications for image compression across various scenarios.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="p-6 text-center">
-            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">File Size Reduction</h4>
+            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" aria-hidden />
+            <h3 className="font-semibold mb-2 text-lg">File Size Reduction</h3>
             <p className="text-sm text-muted-foreground">
               Reduce image file sizes for storage
             </p>
           </Card>
 
           <Card className="p-6 text-center">
-            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Web Optimization</h4>
+            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" aria-hidden />
+            <h3 className="font-semibold mb-2 text-lg">Web Optimization</h3>
             <p className="text-sm text-muted-foreground">
               Optimize images for web use
             </p>
           </Card>
 
           <Card className="p-6 text-center">
-            <Image className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Quality Control</h4>
+            <Image className="h-8 w-8 mx-auto mb-4 text-primary" aria-hidden />
+            <h3 className="font-semibold mb-2 text-lg">Quality Control</h3>
             <p className="text-sm text-muted-foreground">
               Control image quality during compression
             </p>
           </Card>
 
           <Card className="p-6 text-center">
-            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Mobile Compression</h4>
+            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" aria-hidden />
+            <h3 className="font-semibold mb-2 text-lg">Mobile Compression</h3>
             <p className="text-sm text-muted-foreground">
               Compress images on mobile devices
             </p>
@@ -628,11 +655,11 @@ export function ImageCompressorSEOContent() {
       <FAQ faqs={getImageCompressorFAQs()} />
 
       {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
+      <section className="space-y-6" aria-labelledby="keyword-cluster-heading">
         <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
+          <h2 id="keyword-cluster-heading" className="text-2xl font-bold text-center mb-6">
             Professional Image Compression for All Project Needs
-          </h3>
+          </h2>
           <div className="max-w-4xl mx-auto">
             <p className="text-muted-foreground leading-relaxed">
               Need to <strong>compress images</strong> for your project needs? Looking for a reliable way to <strong>image compressor</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>compress images</strong>, <strong>compress images free</strong>, or <strong>compress images online</strong>, our tool handles all compression with professional accuracy and complete privacy.
@@ -651,20 +678,21 @@ export function ImageCompressorSEOContent() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="space-y-6">
+      <section className="space-y-6" aria-labelledby="cta-heading">
         <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
+          <h2 id="cta-heading" className="text-2xl font-bold mb-4">
             Ready to Compress Your Images?
-          </h3>
+          </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
             Join thousands of users who use Toolspy every day to compress images. It's free, secure, and your data stays private on your device.
           </p>
           <ScrollToTopButton>
-            Start Compressing Now →
+          Start Compressing Now →
           </ScrollToTopButton>
+           
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 

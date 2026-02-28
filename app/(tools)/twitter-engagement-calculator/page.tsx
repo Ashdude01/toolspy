@@ -191,9 +191,9 @@ function TwitterEngagementCalculatorContent() {
           Professional Twitter Analytics
         </Badge>
 
-        <h1 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-cyan-700 dark:to-cyan-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-cyan-700 dark:to-cyan-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
           Twitter Engagement Calculator
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Calculate your Twitter engagement rate and analyze your social media performance 
           with our professional analytics tool. Get insights and recommendations to improve your reach.

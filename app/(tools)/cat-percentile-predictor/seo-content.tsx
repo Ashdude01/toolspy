@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import {
   Card,
   CardContent,
@@ -234,20 +238,24 @@ const competitorAdvantages = [
 
 export function CATPercentilePredictorSEOContent() {
   return (
-    <div className="space-y-12 mt-16">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
       {/* Related Tools */}
+      <nav aria-label="Similar tools">
+
       <RelatedTools
         currentToolSlug="cat-percentile-predictor"
         title="Similar Tools You Might Like"
         description="Check out our other exam prediction tools that work great with CAT percentile prediction."
       />
 
+      </nav>
+
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
+          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-indigo-600 bg-clip-text text-transparent">
             CAT Percentile Predictor – Free & Accurate
-        </h2>
+        </h1>
           <p className="text-xl text-muted-foreground mb-8">
             Predict your CAT percentile instantly and discover which MBA colleges you can target. 
             Our free tool uses historical data and advanced algorithms to give you accurate percentile estimates 
@@ -726,6 +734,6 @@ export function CATPercentilePredictorSEOContent() {
           </ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }

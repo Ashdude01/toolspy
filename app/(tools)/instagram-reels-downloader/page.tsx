@@ -133,9 +133,9 @@ function Content() {
         <Badge variant="outline" className="text-xs sm:text-sm">
           Fast • Free • Secure
         </Badge>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           Instagram Reels Downloader
-        </h1>
+        </h2>
         <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
           Save Instagram Reels and short videos in high quality. Paste a reel URL and download fast.
         </p>

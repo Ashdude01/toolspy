@@ -1,3 +1,7 @@
+/**
+ * Server-only SEO content for this tool page.
+ * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ */
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Search, Globe, Zap, Shield, CheckCircle, Clock, TrendingUp, Target, Rocket, Users, Star, ArrowRight, BookOpen, AlertTriangle } from "lucide-react";

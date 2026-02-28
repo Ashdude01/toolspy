@@ -137,7 +137,7 @@ function ImageToBase64Content() {
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
       {/* Header */}
       <div className="text-center mb-6 sm:mb-8">
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Image to Base64 Encoder</h1>
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Image to Base64 Encoder</h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
           Convert images to Base64 format with Toolspy's professional encoder.
           Perfect for embedding in HTML, CSS, or data URLs.

@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import { CookieConsentBanner } from "./cookie-consent-banner";
 import {
   getConsentState,
   loadConsent,
@@ -43,13 +42,8 @@ export function ConsentProvider({
     }
   }, [region]);
 
-  // Always render children so the server can emit full HTML (SEO / View Source).
   // ConsentInitScript runs beforeInteractive in layout; consent mode is updated in useEffect.
-  return (
-    <>
-      {children}
-      <CookieConsentBanner />
-    </>
-  );
+  // Layout passes CookieConsentBanner as children when we only want the banner (no app wrap).
+  return <>{children}</>;
 }
 
