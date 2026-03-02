@@ -93,7 +93,7 @@ export function RelatedTools({
           <Link
             href={tool.href}
             key={index}
-            className="p-6 group relative rounded-xl overflow-hidden
+            className="p-6 related-tool-card relative rounded-xl overflow-hidden
               border border-gray-300 dark:border-transparent
               bg-stone-100 dark:bg-zinc-900
               hover:bg-stone-50 dark:hover:bg-zinc-950

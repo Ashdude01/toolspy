@@ -106,7 +106,9 @@ h1{
   @apply !text-4xl md:!text-5xl lg:!text-6xl md:!pb-3;
 }
 
-.group::before, .group::after {
+/* Related tools cards only – do not use .group here to avoid affecting homepage etc. */
+.related-tool-card::before,
+.related-tool-card::after {
   content: "";
   position: absolute;
   pointer-events: none;
@@ -119,55 +121,50 @@ h1{
     border-color 0.3s cubic-bezier(.6,0,.3,1),
     transform 0.44s cubic-bezier(.4,0,.2,1);
 }
-.group::before {
+.related-tool-card::before {
   border: 2.8px solid transparent;
   opacity: 0;
   box-shadow: 0 0 0px 0 #c7d2fe44, 0 5px 22px -6px #a7f3d068;
   transform: scale(1.01);
 }
-.group:hover::before,
-.group:focus-visible::before {
+.related-tool-card:hover::before,
+.related-tool-card:focus-visible::before {
   opacity: 1;
   box-shadow: 0 3px 40px -9px #a5b4fc44, 0 20px 52px -18px #bae6fd33;
   border: 2.2px solid #a5b4fc;
   transform: scale(1.033);
 }
-.group::after {
+.related-tool-card::after {
   border-radius: 0.85rem;
   opacity: 0;
   mix-blend-mode: lighten;
-  
+
   box-shadow: none;
 }
-.group:hover::after,
-.group:focus-visible::after {
+.related-tool-card:hover::after,
+.related-tool-card:focus-visible::after {
   opacity: 1;
   box-shadow: 0 0 30px 4px #bae6fd11;
 }
-/* Light mode: no background color change on hover */
-.group:hover, .group:focus-visible {
-  /* transform still applies for float effect */
+.related-tool-card:hover,
+.related-tool-card:focus-visible {
   transform: translateY(-2px) scale(1.015);
 }
 @media (hover: none) {
-  .group:focus-visible {
+  .related-tool-card:focus-visible {
     /* no light bg */
   }
 }
-/* Subtle floating effect also on keyboard focus */
-/* Animate in some sparkle for a subtle touch */
-.group .tool-sparkles {
+.related-tool-card .tool-sparkles {
   opacity: 0;
   transition: opacity 0.7s cubic-bezier(.65,.01,.22,1);
 }
-.group:hover .tool-sparkles,
-.group:focus-visible .tool-sparkles {
+.related-tool-card:hover .tool-sparkles,
+.related-tool-card:focus-visible .tool-sparkles {
   opacity: 0.33;
 }
-
-/* Light mode: grayish particles only */
 @media (prefers-color-scheme: light) {
-  .group .tool-sparkles circle {
+  .related-tool-card .tool-sparkles circle {
     fill: #222 !important;
     opacity: 0.9 !important;
     filter: blur(0.5px);
