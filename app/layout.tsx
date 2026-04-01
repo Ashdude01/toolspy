@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter as headingFont } from 'next/font/google'
+import { Plus_Jakarta_Sans as bodyFont } from 'next/font/google'
 import './globals.css'
 import { HeaderWithTheme } from '@/components/layout/header-with-theme'
 import { Footer } from '@/components/layout/footer'
@@ -12,8 +13,9 @@ import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
 
-const inter = Inter({ subsets: ['latin'] })
-
+// const inter = Inter({ subsets: ['latin'] })
+const headingFontFamily= headingFont({subsets: ['latin'] })
+const bodyFontFamily = bodyFont({ subsets: ['latin'] })
 export const metadata: Metadata = {
   title: limitTitle(siteConfig.title),
   description: limitDescription(siteConfig.description),
@@ -107,10 +109,21 @@ export default function RootLayout({
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />
+        <style>{`
+          p, a, li, ul, ol, blockquote, cite, code, pre, small, strong, sub, sup,
+          textarea, input, select, option, button, table, form {
+            font-family: ${bodyFontFamily.style.fontFamily} !important;
+          }
+          h1, h2, h3, h4, h5, h6 {
+            font-family: ${headingFontFamily.style.fontFamily} !important;
+          }
+        `}</style>
       </head>
-      <body className={inter.className}>
+      <body
+        className={`${bodyFontFamily.className} ${headingFontFamily.className} antialiased`}
+      >
         <GoogleTagManagerNoScript />
-        <div className="min-h-screen bg-background font-sans antialiased">
+        <div className="min-h-screen bg-background">
           <HeaderWithTheme />
           <main>
             {children}

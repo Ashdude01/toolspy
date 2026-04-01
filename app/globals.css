@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -60,16 +61,21 @@
 }
 
 @layer base {
-  * {
-    @apply border-border;
-  }
   body {
     @apply bg-background text-foreground;
   }
-} 
+}
+
 main .container, main .max-w-6xl{
   @apply !max-w-7xl
 }
+
+/*  */
+/* @theme {
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
+  --font-serif: 'Bricolage Grotesque', serif;
+} */
+
 h2.text-5xl{
   @apply text-3xl md:text-4xl;
   font-size: 2rem;
