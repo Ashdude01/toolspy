@@ -52,7 +52,6 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
     ToolCategory | "all"
   >("all");
   const [filteredTools, setFilteredTools] = useState<Tool[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
 
   const categorizedTools = getToolsByCategory();
   const [isVisible, setIsVisible] = useState(false);
@@ -64,7 +63,6 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
   // Filter tools based on search and category
   const filterTools = () => {
-    setIsLoading(true);
     let filtered = tools;
 
     if (selectedCategory !== "all") {
@@ -82,7 +80,6 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
     }
 
     setFilteredTools(filtered);
-    setTimeout(() => setIsLoading(false), 300); // Simulate loading
   };
 
   // Trigger filter when search or category changes
@@ -284,7 +281,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   />
 
                   <Button
-                    type="submit"
+                    type="button"
                     size="sm"
                     className="mr-2 h-10 px-2 sm:px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 flex-shrink-0"
                   >
@@ -450,23 +447,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               </Button>
             </div>
 
-            {isLoading ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-5">
-                {[...Array(6)].map((_, i) => (
-                  <Card key={i} className="border-0 bg-white dark:bg-slate-800">
-                    <CardHeader>
-                      <div className="flex justify-between">
-                        <div className="w-10 h-10 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
-                        <div className="w-28 h-5 bg-slate-200 dark:bg-slate-700 rounded-lg animate-pulse"></div>
-                      </div>
-                      <div className="h-6 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
-                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
-                      <div className="h-4 bg-slate-200 dark:bg-slate-700 rounded animate-pulse"></div>
-                    </CardHeader>
-                  </Card>
-                ))}
-              </div>
-            ) : filteredTools.length > 0 ? (
+            {filteredTools.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
                 {filteredTools.map((tool, index) => (
                   <Link
@@ -555,9 +536,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   >
                     Clear Filters
                   </Button>
-                  <Link href="/contact">
-                    <Button variant="default">Request a Tool</Button>
-                  </Link>
+                  <Button variant="default" asChild>
+                    <Link href="/contact">Request a Tool</Link>
+                  </Button>
                 </div>
               </div>
             )}

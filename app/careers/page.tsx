@@ -69,10 +69,30 @@ export default function CareersPage() {
     setFormData(prev => ({ ...prev, resume: file }))
   }
 
+  const MAX_RESUME_BYTES = 10 * 1024 * 1024
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setIsSubmitting(true)
     setError('')
+
+    if (!formData.position.trim()) {
+      setError('Please select a position.')
+      return
+    }
+    if (!formData.experience.trim()) {
+      setError('Please select your years of experience.')
+      return
+    }
+    if (!formData.resume) {
+      setError('Please upload your resume.')
+      return
+    }
+    if (formData.resume.size > MAX_RESUME_BYTES) {
+      setError('Resume must be 10MB or smaller. Please choose a smaller file.')
+      return
+    }
+
+    setIsSubmitting(true)
 
     try {
       const formDataToSend = new FormData()
@@ -95,12 +115,22 @@ export default function CareersPage() {
       })
 
       if (!response.ok) {
-        throw new Error('Failed to submit application')
+        let detail = ''
+        try {
+          detail = (await response.text()).slice(0, 200)
+        } catch {
+          /* ignore */
+        }
+        throw new Error(detail || `Server returned ${response.status}`)
       }
 
       setIsSubmitted(true)
     } catch (err) {
-      setError('Failed to submit application. Please try again.')
+      const message =
+        err instanceof Error && err.message
+          ? `Could not submit: ${err.message}. Please try again or email us from the Contact page.`
+          : 'Failed to submit application. Please try again.'
+      setError(message)
     } finally {
       setIsSubmitting(false)
     }
@@ -148,11 +178,9 @@ export default function CareersPage() {
           </div>
 
           <div className="text-center">
-            <Link href="/">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700">
-                Back to Home
-              </Button>
-            </Link>
+            <Button asChild size="lg" className="bg-blue-600 hover:bg-blue-700">
+              <Link href="/">Back to Home</Link>
+            </Button>
           </div>
         </div>
         </div>
@@ -185,7 +213,11 @@ export default function CareersPage() {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-6">
+            <form
+              onSubmit={handleSubmit}
+              className="space-y-6"
+              aria-busy={isSubmitting}
+            >
               {error && (
                 <Alert variant="destructive">
                   <AlertDescription>{error}</AlertDescription>
@@ -343,10 +375,11 @@ export default function CareersPage() {
               <Button
                 type="submit"
                 disabled={isSubmitting}
+                aria-busy={isSubmitting}
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3"
                 size="lg"
               >
-                {isSubmitting ? 'Submitting Application...' : 'Submit Application'}
+                {isSubmitting ? 'Submitting application…' : 'Submit Application'}
               </Button>
             </form>
           </CardContent>

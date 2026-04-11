@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Button } from '@/components/ui/button';
 import { ExternalLink, Clock, CheckCircle } from 'lucide-react';
 import { Tool } from '@/lib/tools-data';
 
@@ -95,22 +94,23 @@ export function ToolCard({ tool, className }: ToolCardProps) {
             )}
           </div>
 
-          <div className="flex justify-between items-center">
-            <Button 
-              variant={isClickable ? "outline" : "link"} 
-              size="sm" 
-              disabled={!isClickable}
-              className="w-full border-gray-300"
+          <div className="flex justify-between items-center pointer-events-none">
+            <span
+              className={`inline-flex w-full items-center justify-center rounded-md border px-3 py-2 text-sm font-medium ${
+                isClickable
+                  ? "border-gray-300 bg-background text-foreground"
+                  : "border-transparent text-muted-foreground"
+              }`}
             >
               {isClickable ? (
                 <>
                   Use Tool
-                  <ExternalLink className="w-4 h-4 ml-2" />
+                  <ExternalLink className="w-4 h-4 ml-2 shrink-0" aria-hidden />
                 </>
               ) : (
-                'Coming Soon'
+                "Coming Soon"
               )}
-            </Button>
+            </span>
           </div>
         </CardContent>
       </Card>

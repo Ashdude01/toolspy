@@ -23,10 +23,6 @@ export async function generateStaticParams() {
     category: category,
   }));
   
-  // Log for debugging during build
-  console.log('Generating static params for categories:', categories);
-  console.log('Generated params:', params);
-  
   return params;
 }
 
@@ -136,7 +132,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                     </svg>
                   </li>
                   <li className="inline-flex items-center gap-1.5">
-                    <span role="link" aria-disabled="true" aria-current="page" className="font-normal text-foreground">
+                    <span aria-current="page" className="font-normal text-foreground">
                       {categoryInfo.name}
                     </span>
                   </li>

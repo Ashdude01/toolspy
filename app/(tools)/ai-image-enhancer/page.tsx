@@ -628,7 +628,13 @@ function AiImageEnhancerContent() {
                 )}
               </div>
               
-              <Button onClick={processBatch} disabled={isProcessing} className="w-full">
+              <Button
+                type="button"
+                onClick={processBatch}
+                disabled={isProcessing}
+                aria-busy={isProcessing}
+                className="w-full"
+              >
                 {isProcessing ? (
                   <>
                     <RefreshCw size={16} className="mr-2 animate-spin" />
@@ -713,7 +719,9 @@ function AiImageEnhancerContent() {
                 {presets.map((preset, index) => (
                   <Button
                     key={index}
+                    type="button"
                     variant="outline"
+                    disabled={isProcessing}
                     onClick={() => setSettings(preset.settings)}
                     className="h-auto p-3"
                   >
@@ -836,7 +844,12 @@ function AiImageEnhancerContent() {
             </div>
             
             <div className="flex flex-wrap gap-2">
-              <Button onClick={handleManualEnhance} disabled={isProcessing}>
+              <Button
+                type="button"
+                onClick={handleManualEnhance}
+                disabled={isProcessing}
+                aria-busy={isProcessing}
+              >
                 {isProcessing ? (
                   <RefreshCw size={16} className="mr-2 animate-spin" />
                 ) : (
@@ -845,7 +858,7 @@ function AiImageEnhancerContent() {
                 Enhance Image
               </Button>
               
-              <Button onClick={clearAll} variant="outline">
+              <Button type="button" onClick={clearAll} variant="outline" disabled={isProcessing}>
                 <Trash2 size={16} className="mr-2" />
                 Clear All
               </Button>
