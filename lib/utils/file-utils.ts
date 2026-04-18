@@ -288,8 +288,8 @@ export function loadImageFromUrl(url: string): Promise<File> {
           return;
         }
       }
-    } catch (fetchError) {
-      console.log('Direct fetch failed, trying alternative method...');
+    } catch {
+      // try next method
     }
 
     // Method 2: CORS Proxy (for stubborn CORS-blocked images)
@@ -309,8 +309,8 @@ export function loadImageFromUrl(url: string): Promise<File> {
           return;
         }
       }
-    } catch (proxyError) {
-      console.log('Proxy method failed, trying image element...');
+    } catch {
+      // try image element method
     }
 
     // Method 3: Image element with canvas (most reliable for CORS-blocked images)
@@ -444,8 +444,6 @@ export async function createZipFromFiles(files: File[], zipName: string = 'compr
     throw new Error('No files provided for ZIP creation');
   }
 
-  console.log(`Creating ZIP with ${files.length} files:`, files.map(f => f.name));
-
   // Dynamically import JSZip to avoid SSR issues
   const JSZip = (await import('jszip')).default;
   const zip = new JSZip();
@@ -489,7 +487,6 @@ export async function createZipFromFiles(files: File[], zipName: string = 'compr
       }
       
       zip.file(uniqueFileName, arrayBuffer);
-      console.log(`Added file ${i + 1}/${files.length}: ${uniqueFileName} (${arrayBuffer.byteLength} bytes)`);
     } catch (error) {
       console.error(`Failed to add file ${uniqueFileName}:`, error);
       // Continue with other files instead of breaking the whole process
@@ -499,8 +496,7 @@ export async function createZipFromFiles(files: File[], zipName: string = 'compr
   }
   
   const zipFileCount = Object.keys(zip.files).length;
-  console.log(`Generating ZIP file with ${zipFileCount} files`);
-  
+
   if (zipFileCount === 0) {
     throw new Error('No files were successfully added to the ZIP');
   }
@@ -513,8 +509,7 @@ export async function createZipFromFiles(files: File[], zipName: string = 'compr
       level: 6
     }
   });
-  
-  console.log(`ZIP generation complete. Final ZIP size: ${result.size} bytes`);
+
   return result;
 }
 

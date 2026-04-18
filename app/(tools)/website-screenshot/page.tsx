@@ -131,15 +131,6 @@ function WebsiteScreenshotContent() {
     
     try {
       // Call our internal API route that uses capture-website package
-      console.log('Calling screenshot API with:', {
-        url: normalizedUrl,
-        width: dimensions.width,
-        height: dimensions.height,
-        format: settings.format,
-        fullPage: settings.fullPage,
-        quality: settings.quality
-      });
-      
       const response = await fetch("/api/screenshot", {
         method: "POST",
         headers: {
@@ -170,8 +161,7 @@ function WebsiteScreenshotContent() {
       }
 
       const data = await response.json();
-      console.log("API Response:", { success: data.success, hasImage: !!data.image, format: data.format });
-      
+
       if (!data.success || !data.image) {
         const errorMsg = data.error || data.details || "Failed to capture screenshot";
         console.error("API returned unsuccessful response:", data);

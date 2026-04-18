@@ -34,15 +34,6 @@ export async function POST(request: NextRequest) {
     const screenshotQuality = quality && quality >= 1 && quality <= 100 ? quality : 90;
 
     // Capture screenshot using capture-website
-    console.log('Capturing screenshot:', {
-      url: normalizedUrl,
-      width: viewportWidth,
-      height: viewportHeight,
-      format: screenshotFormat,
-      fullPage: isFullPage,
-      quality: screenshotQuality
-    });
-
     let screenshotBuffer: Buffer;
     try {
       screenshotBuffer = await captureWebsite.buffer(normalizedUrl, {
@@ -58,8 +49,6 @@ export async function POST(request: NextRequest) {
       if (!screenshotBuffer || screenshotBuffer.length === 0) {
         throw new Error('Screenshot buffer is empty');
       }
-      
-      console.log('Screenshot captured successfully, buffer size:', screenshotBuffer.length);
     } catch (captureError: any) {
       console.error('captureWebsite.buffer error:', captureError);
       console.error('Error details:', {

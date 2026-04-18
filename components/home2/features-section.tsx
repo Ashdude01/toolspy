@@ -78,7 +78,7 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section id="features" className="py-16 px-4 bg-white dark:bg-gray-900 overflow-x-hidden w-full">
+    <section id="features" className="py-16 px-4 overflow-x-hidden w-full">
       <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">

@@ -31,8 +31,6 @@ export async function createIconZip(
     throw new Error('No icon files provided for ZIP creation');
   }
 
-  console.log(`Creating icon ZIP with ${iconFiles.length} files`);
-
   // Dynamically import JSZip to avoid SSR issues
   const JSZip = (await import('jszip')).default;
   const zip = new JSZip();
@@ -52,18 +50,15 @@ export async function createIconZip(
     files.forEach((file) => {
       // Add file directly to platform folder (no subfolders)
       zip.file(`${platform}/${file.name}`, file);
-      console.log(`Added ${platform}/${file.name}`);
     });
   });
 
   // Add manifest.json to root
   if (options.manifestContent) {
     zip.file('manifest.json', options.manifestContent);
-    console.log('Added manifest.json to root');
   }
 
   const zipFileCount = Object.keys(zip.files).length;
-  console.log(`Generating icon ZIP with ${zipFileCount} files`);
 
   if (zipFileCount === 0) {
     throw new Error('No files were successfully added to the ZIP');
@@ -78,7 +73,6 @@ export async function createIconZip(
     }
   });
 
-  console.log(`Icon ZIP generation complete. Final ZIP size: ${result.size} bytes`);
   return result;
 }
 

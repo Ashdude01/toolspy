@@ -96,7 +96,7 @@ export function BrowseCategoriesSection() {
   };
 
   return (
-    <section className="py-16 px-4 bg-gray-100 dark:bg-black overflow-x-hidden w-full">
+    <section className="py-16 px-4 overflow-x-hidden w-full">
       <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <Badge
@@ -107,8 +107,8 @@ export function BrowseCategoriesSection() {
             Browse by Category
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              Explore Tools by Category
+           Explore Tools by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+               Category
             </span>
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">

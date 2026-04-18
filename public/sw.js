@@ -25,15 +25,12 @@ const CACHE_STRATEGIES = {
 
 // Install event - cache static assets
 self.addEventListener('install', (event) => {
-  console.log('Service Worker installing...');
   event.waitUntil(
     caches.open(STATIC_CACHE_NAME)
       .then((cache) => {
-        console.log('Caching static assets');
         return cache.addAll(STATIC_ASSETS);
       })
       .then(() => {
-        console.log('Static assets cached');
         return self.skipWaiting();
       })
       .catch((error) => {
@@ -44,7 +41,6 @@ self.addEventListener('install', (event) => {
 
 // Activate event - clean up old caches
 self.addEventListener('activate', (event) => {
-  console.log('Service Worker activating...');
   event.waitUntil(
     caches.keys()
       .then((cacheNames) => {
@@ -55,13 +51,11 @@ self.addEventListener('activate', (event) => {
                      cacheName !== DYNAMIC_CACHE_NAME;
             })
             .map((cacheName) => {
-              console.log('Deleting old cache:', cacheName);
               return caches.delete(cacheName);
             })
         );
       })
       .then(() => {
-        console.log('Service Worker activated');
         return self.clients.claim();
       })
   );
@@ -182,20 +176,17 @@ function isDynamicContent(pathname) {
 }
 
 // Background sync for offline actions (if needed)
-self.addEventListener('sync', (event) => {
-  console.log('Background sync:', event.tag);
+self.addEventListener('sync', () => {
   // Handle background sync tasks here if needed
 });
 
 // Push notifications (if needed in the future)
-self.addEventListener('push', (event) => {
-  console.log('Push message received');
+self.addEventListener('push', () => {
   // Handle push notifications here if needed
 });
 
 // Notification click handling
 self.addEventListener('notificationclick', (event) => {
-  console.log('Notification clicked');
   event.notification.close();
   
   event.waitUntil(

@@ -30,6 +30,7 @@ import {
   Terminal,
   Bot,
   FileJson,
+  SearchIcon,
 } from "lucide-react";
 import {
   tools,
@@ -179,7 +180,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   ];
 
   return (
-    <section id="tools" className="pt-8 pb-12 px-4 dark:bg-slate-950 w-full">
+    <section id="tools" className="pt-8 pb-12 dark:bg-slate-950 px-4 w-full">
       <div className="container mx-auto px-0">
         {/* Background Elements */}
 
@@ -216,10 +217,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
             <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               Convert, compress, calculate, and process your files instantly.
-              <span className="font-semibold text-blue-600 dark:text-blue-400">
-                {" "}
                 No registration required
-              </span>
               , completely free, and your privacy is protected.
             </p>
           </div>
@@ -260,13 +258,13 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               {/* <div className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-pink-500/20 opacity-0 group-hover:opacity-100 transition-all duration-500 blur-xl"></div> */}
 
               {/* Main search container */}
-              <div className="relative px-2 sm:px-4 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 shadow-lg group-hover:shadow-xl transition-shadow duration-200 w-full transform-gpu">
+              <div className="relative pl-3 pr-0 bg-white dark:bg-slate-800 rounded-full border border-slate-200 dark:border-slate-700 w-full transform-gpu">
                 <div
                   // onSubmit={handleSubmit}
-                  className="flex items-center py-2 flex-row gap-2 sm:gap-4 w-full"
+                  className="flex items-center py-1.5 flex-row gap-2 sm:gap-4 w-full"
                 >
                   {/* Search icon with animation */}
-                  <div className="flex items-center justify-center flex-shrink-0">
+                  <div className="items-center hidden md:flex justify-center flex-shrink-0">
                     <Search className="h-5 w-5 sm:h-6 sm:w-6 text-slate-400 group-focus-within:text-blue-500 transition-all duration-300 group-hover:scale-110" />
                   </div>
 
@@ -283,9 +281,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                   <Button
                     type="button"
                     size="sm"
-                    className="mr-2 h-10 px-2 sm:px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 group-hover:scale-105 flex-shrink-0"
+                    className="mr-2 h-10 px-4 sm:px-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white rounded-full"
                   >
-                    <Sparkle className="h-4 w-4 mr-1 sm:mr-2" />
+                    <SearchIcon className="h-4 w-4" />
                     <span className="hidden sm:inline">Search</span>
                   </Button>
                 </div>

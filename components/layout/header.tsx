@@ -3,8 +3,6 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Search,
-  Menu,
   X,
   Moon,
   Sun,
@@ -12,9 +10,7 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { useTheme } from "next-themes";
-import { siteConfig } from "@/lib/config";
 import {
   toolCategories,
   getToolsByCategory,
@@ -42,28 +38,11 @@ export function Header({ onSearch }: HeaderProps) {
     setMounted(true);
   }, []);
 
-  // Debug logging for theme values
-  useEffect(() => {
-    if (mounted) {
-      console.log('Theme Debug:', { theme, resolvedTheme, mounted });
-    }
-  }, [theme, resolvedTheme, mounted]);
-
   // Theme toggle between dark and light only (dark default)
   const cycleTheme = () => {
     setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
-  // Get the current theme icon based on resolved theme (actual appearance)
-  const getThemeIcon = () => {
-    if (!mounted) return <Sun className="h-4 w-4" />;
-    // Ensure icon is visible in both themes by adjusting color
-    return resolvedTheme === "dark" ? (
-      <Moon className="h-4 w-4 text-yellow-300" />
-    ) : (
-      <Sun className="h-4 w-4 text-amber-600" />
-    );
-  };
 
   const getThemeLabel = () => {
     if (!mounted) return "Toggle theme";
@@ -142,32 +121,20 @@ export function Header({ onSearch }: HeaderProps) {
               className="flex items-center space-x-2"
               onClick={closeMenu}
             >
-              {!mounted ? (
-                // Show default logo during hydration to prevent flash
                 <Image
                   src="/logo/black.webp"
                   alt="Toolspy"
                   width={1080}
                   height={1080}
-                  className="w-28"
+                  className="w-28 block dark:hidden"
                 />
-              ) : resolvedTheme === "dark" ? (
                 <Image
                   src="/logo/white.webp"
                   alt="Toolspy"
                   width={1080}
                   height={1080}
-                  className="w-28"
+                  className="w-28 hidden dark:block"
                 />
-              ) : (
-                <Image
-                  src="/logo/black.webp"
-                  alt="Toolspy"
-                  width={1080}
-                  height={1080}
-                  className="w-28"
-                />
-              )}
             </Link>
 
             {/* Desktop Navigation */}
@@ -271,7 +238,8 @@ export function Header({ onSearch }: HeaderProps) {
                 aria-label={getThemeLabel()}
                 title={getThemeLabel()}
               >
-                {getThemeIcon()}
+                <Moon className="h-4 w-4 text-yellow-300 hidden dark:block" />
+                <Sun className="h-4 w-4 text-amber-600 block dark:hidden" />
                 <span className="sr-only">{getThemeLabel()}</span>
               </Button>
 
@@ -475,7 +443,9 @@ export function Header({ onSearch }: HeaderProps) {
               onClick={cycleTheme}
               className="w-full justify-start text-md border-t py-6 rounded-none"
             >
-              <span className="mr-3">{getThemeIcon()}</span>
+              <span className="mr-3">
+              <Moon className="h-4 w-4 text-yellow-300 hidden dark:block" />
+              <Sun className="h-4 w-4 text-amber-600 block dark:hidden" /></span>
               {getThemeLabel()}
             </Button>
           </div>

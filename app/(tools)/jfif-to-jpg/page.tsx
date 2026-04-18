@@ -60,7 +60,6 @@ function JfifToJpgContent() {
   const afterUploadRef = useRef<HTMLDivElement>(null);
   const handleFileSelect = (files: File[]) => {
     // Filter only JFIF files
-    console.log(files);
     const jfifFiles = files.filter(
       (file) =>
         file.type === "image/jpeg" ||

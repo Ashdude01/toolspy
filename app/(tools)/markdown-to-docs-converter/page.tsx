@@ -180,7 +180,6 @@ function MarkdownToDocsConverterContent() {
         }
 
         try {
-          console.log(`Converting to ${format}...`);
           
           switch (format) {
             case "html":
@@ -205,7 +204,6 @@ function MarkdownToDocsConverterContent() {
               throw new Error(`Unsupported format: ${format}`);
           }
           
-          console.log(`Successfully converted to ${format}`);
         } catch (conversionError) {
           console.error(`Error converting to ${format}:`, conversionError);
           throw new Error(`Failed to convert to ${format}: ${conversionError instanceof Error ? conversionError.message : 'Unknown error'}`);
@@ -214,7 +212,6 @@ function MarkdownToDocsConverterContent() {
         try {
           const file = new (File as any)([convertedContent], fileName, { type: mimeType });
           results.push(file);
-          console.log(`Created file: ${fileName}`);
         } catch (fileError) {
           console.error(`Error creating file ${fileName}:`, fileError);
           throw new Error(`Failed to create file ${fileName}: ${fileError instanceof Error ? fileError.message : 'Unknown error'}`);

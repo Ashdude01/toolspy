@@ -175,24 +175,10 @@ function validateWebPageSchema(schema: any): boolean {
   )
 }
 
-// Development helper to log schema validation results
+// Development helper — runs validation when called (no console output)
 export function logSchemaValidation(tool?: Tool) {
   if (process.env.NODE_ENV === 'development') {
-    const results = validateSchemas(tool)
-    console.group('🔍 Schema Validation Results')
-    
-    results.forEach(result => {
-      const emoji = result.valid ? '✅' : '❌'
-      console.log(`${emoji} ${result.type}: ${result.valid ? 'Valid' : 'Invalid'}`)
-      if (result.errors.length > 0) {
-        console.log('   Errors:', result.errors)
-      }
-    })
-    
-    const validCount = results.filter(r => r.valid).length
-    const totalCount = results.length
-    console.log(`\n📊 Summary: ${validCount}/${totalCount} schemas valid`)
-    console.groupEnd()
+    void validateSchemas(tool)
   }
 }
 

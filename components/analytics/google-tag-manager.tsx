@@ -32,9 +32,6 @@ export function GoogleTagManager({ gtmId }: GTMProps) {
           'gtm.start': new Date().getTime(),
           event: 'gtm.js'
         })
-      } else {
-        // Consent not granted - don't load GTM
-        console.log('GTM not loaded: Analytics/Ads consent not granted')
       }
     }
   }, [])

@@ -533,8 +533,6 @@ function ImageCompressorContent() {
 
   const downloadAllAsZip = async () => {
     try {
-      console.log("Starting ZIP download...");
-      console.log("Compressed results count:", compressedResults.length);
 
       if (compressedResults.length === 0) {
         showToast("No compressed images available for download", "error");
@@ -542,10 +540,6 @@ function ImageCompressorContent() {
       }
 
       const files = compressedResults.map((result) => result.file);
-      console.log(
-        "Files to zip:",
-        files.map((f) => ({ name: f.name, size: f.size, type: f.type }))
-      );
 
       const zipBlob = await createZipFromFiles(files, "compressed-images.zip");
 

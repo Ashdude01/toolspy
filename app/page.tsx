@@ -18,7 +18,7 @@ export default function HomePage() {
         ]}
       />
       <FAQSchema faqs={[...homeFaqData]} />
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-900 overflow-x-hidden w-full">
+      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden w-full">
         <HomePageClient />
         <HomeSeoContent faqData={[...homeFaqData]} />
         <TestimonialsSection />

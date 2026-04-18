@@ -25,6 +25,7 @@ import {
 import Link from "next/link"
 import { CookieConsentModal } from "@/components/consent/cookie-consent-modal"
 import { getConsentState } from "@/lib/utils/consent"
+import Image from "next/image"
 
 export function Footer() {
   const [showConsentModal, setShowConsentModal] = useState(false)
@@ -113,9 +114,8 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2">
             <div className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Sparkles className="h-5 w-5 text-white" />
-              </div>
+              {/* <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center"> */}
+                <Image src="/logo.png" alt="Toolspy" width={32} height={32} />
               <span className="text-xl font-bold">Toolspy</span>
             </div>
             <p className="text-slate-400 mb-6 leading-relaxed">

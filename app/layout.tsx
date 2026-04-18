@@ -123,7 +123,7 @@ export default function RootLayout({
         className={`${bodyFontFamily.className} ${headingFontFamily.className} antialiased`}
       >
         <GoogleTagManagerNoScript />
-        <div className="min-h-screen bg-background">
+        <div className="min-h-screen bg-background dark:bg-slate-950">
           <HeaderWithTheme />
           <main>
             {children}

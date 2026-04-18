@@ -33,14 +33,6 @@ export function PWAWrapper({ children }: { children?: React.ReactNode }) {
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker
         .register('/sw.js', { scope: '/' })
-        .then((registration) => {
-          console.log('Service Worker registered successfully:', registration.scope)
-          
-          // Check for updates
-          registration.addEventListener('updatefound', () => {
-            console.log('Service Worker update found')
-          })
-        })
         .catch((error) => {
           console.error('Service Worker registration failed:', error)
         })
@@ -64,7 +56,6 @@ export function PWAWrapper({ children }: { children?: React.ReactNode }) {
 
     // Listen for successful installation
     window.addEventListener('appinstalled', () => {
-      console.log('PWA was installed')
       setShowInstallPrompt(false)
       setDeferredPrompt(null)
     })
@@ -78,14 +69,8 @@ export function PWAWrapper({ children }: { children?: React.ReactNode }) {
     if (!deferredPrompt) return
 
     deferredPrompt.prompt()
-    const { outcome } = await deferredPrompt.userChoice
-    
-    if (outcome === 'accepted') {
-      console.log('User accepted the install prompt')
-    } else {
-      console.log('User dismissed the install prompt')
-    }
-    
+    await deferredPrompt.userChoice
+
     setDeferredPrompt(null)
     setShowInstallPrompt(false)
   }
