@@ -118,13 +118,6 @@ export function Footer() {
               className="h-20 -mt-10"
             >
                 <Image
-                  src="/logo/black.webp"
-                  alt="Toolspy"
-                  width={1080}
-                  height={1080}
-                  className="w-28 block dark:hidden"
-                />
-                <Image
                   src="/logo/white.webp"
                   alt="Toolspy"
                   width={1080}
