@@ -67,39 +67,33 @@ function Content() {
   const downloadImage = async (imgUrl: string, index: number) => {
     setDownloadingIndex(index);
     try {
-      // Try direct download first
-      const response = await fetch(imgUrl, { 
-        mode: 'cors',
-        headers: {
-          'Referer': 'https://www.facebook.com/',
-        }
-      });
+      // Same-origin proxy avoids FB CDN CORS blocks on direct browser fetch
+      const proxyUrl = `/api/facebook-image-proxy?url=${encodeURIComponent(imgUrl)}`;
+      const response = await fetch(proxyUrl);
 
       if (!response.ok) {
-        throw new Error('Failed to fetch image');
+        throw new Error("Failed to fetch image");
       }
 
       const blob = await response.blob();
-      const url = URL.createObjectURL(blob);
-      
-      // Get file extension from URL or blob type
-      const urlExtension = imgUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i)?.[1] || 'jpg';
-      const blobExtension = blob.type.split('/')[1] || urlExtension;
+      const objectUrl = URL.createObjectURL(blob);
+
+      const urlExtension = imgUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i)?.[1] || "jpg";
+      const blobExtension = blob.type.split("/")[1]?.split(";")[0] || urlExtension;
       const extension = blobExtension || urlExtension;
-      
-      const a = document.createElement('a');
-      a.href = url;
+
+      const a = document.createElement("a");
+      a.href = objectUrl;
       a.download = `facebook-image-${Date.now()}.${extension}`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
+
+      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
       showToast("Image downloaded successfully!", "success");
-    } catch (error) {
-      // Fallback: open in new tab
-      showToast("Direct download failed. Opening image in new tab...", "info");
-      window.open(imgUrl, '_blank');
+    } catch {
+      showToast("Proxy download failed. Opening image in new tab...", "info");
+      window.open(imgUrl, "_blank");
     } finally {
       setDownloadingIndex(null);
     }

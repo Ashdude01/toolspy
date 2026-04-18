@@ -22,6 +22,10 @@ interface FileUploadProps {
   showBrandedModal?: boolean; // Enable/disable branded modal (default: true)
   modalDuration?: number; // Duration in milliseconds (default: 2000)
   onModalClose?: () => void; // Callback when modal closes
+  /** Show the branded “uploading” overlay while importing from URLs (e.g. extension_data). */
+  importInProgress?: boolean;
+  importModalMessage?: string;
+  importModalSubMessage?: string;
   // Ad placement zones (for future use)
   adSlotTop?: React.ReactNode; // Ad component to show above modal
   adSlotBottom?: React.ReactNode; // Ad component to show below modal
@@ -42,6 +46,9 @@ export function FileUpload({
   showBrandedModal = true,
   modalDuration = 2000,
   onModalClose,
+  importInProgress = false,
+  importModalMessage = 'Importing images',
+  importModalSubMessage = 'Fetching your images—this may take a moment…',
   adSlotTop,
   adSlotBottom,
   adSlotLeft,
@@ -437,14 +444,25 @@ export function FileUpload({
 
       {/* Branded Upload Modal with Ad Placement Zones */}
       <BrandedUploadModal
-        isOpen={isUploadModalOpen && showBrandedModal}
+        isOpen={
+          showBrandedModal &&
+          (isUploadModalOpen || importInProgress)
+        }
         onClose={() => {
           setIsUploadModalOpen(false);
           onModalClose?.();
         }}
         duration={modalDuration}
-        message="Uploading on Toolspy"
-        subMessage="Processing your images..."
+        autoClose={!importInProgress}
+        allowBackdropClose={!importInProgress}
+        message={
+          importInProgress ? importModalMessage : 'Uploading on Toolspy'
+        }
+        subMessage={
+          importInProgress
+            ? importModalSubMessage
+            : 'Processing your images...'
+        }
         adSlotTop={adSlotTop}
         adSlotBottom={adSlotBottom}
         adSlotLeft={adSlotLeft}

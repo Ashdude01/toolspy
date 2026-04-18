@@ -3,13 +3,15 @@
 import { useEffect } from 'react';
 import Image from 'next/image';
 import { Loader2 } from 'lucide-react';
-import { useTheme } from 'next-themes';
-import { useState } from 'react';
 
 export interface BrandedUploadModalProps {
   isOpen: boolean;
   onClose: () => void;
   duration?: number; // Duration in milliseconds (default: 2000)
+  /** When false, modal stays open until `isOpen` becomes false (e.g. long URL imports). */
+  autoClose?: boolean;
+  /** When false, clicking the backdrop does not close the modal. */
+  allowBackdropClose?: boolean;
   message?: string; // Custom message (default: "Uploading on Toolspy")
   subMessage?: string; // Custom sub-message (default: "Processing your files...")
   // Ad placement zones (for future use)
@@ -23,6 +25,8 @@ export function BrandedUploadModal({
   isOpen,
   onClose,
   duration = 2000,
+  autoClose = true,
+  allowBackdropClose = true,
   message = 'Uploading on Toolspy',
   subMessage = 'Processing your files...',
   adSlotTop,
@@ -30,37 +34,21 @@ export function BrandedUploadModal({
   adSlotLeft,
   adSlotRight
 }: BrandedUploadModalProps) {
-  const { resolvedTheme } = useTheme();
-  const [mounted, setMounted] = useState(false);
-
-  // Theme mounting
+  // Auto-close modal after duration (skipped when autoClose is false)
   useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  // Auto-close modal after duration
-  useEffect(() => {
-    if (isOpen) {
-      const timer = setTimeout(() => {
-        onClose();
-      }, duration);
-
-      return () => clearTimeout(timer);
-    }
-  }, [isOpen, duration, onClose]);
+    if (!isOpen || !autoClose) return;
+    const timer = setTimeout(() => {
+      onClose();
+    }, duration);
+    return () => clearTimeout(timer);
+  }, [isOpen, duration, onClose, autoClose]);
 
   if (!isOpen) return null;
-
-  const logoSrc = !mounted 
-    ? '/logo/black.webp'
-    : resolvedTheme === 'dark' 
-    ? '/logo/white.webp' 
-    : '/logo/black.webp';
 
   return (
     <div 
       className="fixed inset-0 z-50 flex items-center justify-center bg-background/90 backdrop-blur-md animate-in fade-in duration-300"
-      onClick={onClose}
+      onClick={() => allowBackdropClose && onClose()}
     >
       {/* Ad Slot - Top */}
       {adSlotTop && (
@@ -113,14 +101,22 @@ export function BrandedUploadModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center space-y-6">
-          {/* Logo */}
+          {/* Logo — Tailwind dark: matches html.dark (next-themes); avoids wrong asset on first paint */}
           <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
             <Image
-              src={logoSrc}
+              src="/logo/black.webp"
               alt="Toolspy"
               width={128}
               height={128}
-              className="w-full h-full object-contain"
+              className="h-full w-full object-contain dark:hidden"
+              priority
+            />
+            <Image
+              src="/logo/white.webp"
+              alt="Toolspy"
+              width={128}
+              height={128}
+              className="hidden h-full w-full object-contain dark:block"
               priority
             />
           </div>

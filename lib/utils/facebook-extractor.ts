@@ -10,6 +10,94 @@ export interface FacebookImageInfo {
   error?: string;
 }
 
+function decodeMetaContent(raw: string): string {
+  return raw
+    .replace(/&amp;/g, "&")
+    .replace(/&quot;/g, '"')
+    .replace(/&#039;/g, "'")
+    .trim();
+}
+
+/**
+ * Parse Open Graph / link image URLs from raw HTML.
+ * Facebook often uses content="..." before property="og:image", so multiple patterns are required.
+ */
+export function parseOgImagesFromHtml(html: string): string[] {
+  const images: string[] = [];
+  const seen = new Set<string>();
+  const push = (raw: string) => {
+    const u = decodeMetaContent(raw);
+    if (!u || seen.has(u)) return;
+    if (!/^https?:\/\//i.test(u)) return;
+    seen.add(u);
+    images.push(u);
+  };
+
+  const patterns: RegExp[] = [
+    /<meta\s+[^>]*property=["']og:image["'][^>]*content=["']([^"']+)["']/gi,
+    /<meta\s+[^>]*content=["']([^"']+)["'][^>]*property=["']og:image["']/gi,
+    /<meta\s+[^>]*property=["']og:image:secure_url["'][^>]*content=["']([^"']+)["']/gi,
+    /<meta\s+[^>]*content=["']([^"']+)["'][^>]*property=["']og:image:secure_url["']/gi,
+    /<link\s+[^>]*rel=["']image_src["'][^>]*href=["']([^"']+)["']/gi,
+    /<link\s+[^>]*href=["']([^"']+)["'][^>]*rel=["']image_src["']/gi,
+  ];
+
+  for (const re of patterns) {
+    let m: RegExpExecArray | null;
+    const r = new RegExp(re.source, re.flags);
+    while ((m = r.exec(html)) !== null) {
+      push(m[1]);
+    }
+  }
+
+  return images;
+}
+
+export function parseOgTitleFromHtml(html: string): string | undefined {
+  const t =
+    html.match(/<meta\s+[^>]*property=["']og:title["'][^>]*content=["']([^"']+)["']/i) ||
+    html.match(/<meta\s+[^>]*content=["']([^"']+)["'][^>]*property=["']og:title["']/i);
+  return t?.[1] ? decodeMetaContent(t[1]) : undefined;
+}
+
+export function parseOgDescriptionFromHtml(html: string): string | undefined {
+  const d =
+    html.match(/<meta\s+[^>]*property=["']og:description["'][^>]*content=["']([^"']+)["']/i) ||
+    html.match(/<meta\s+[^>]*content=["']([^"']+)["'][^>]*property=["']og:description["']/i);
+  return d?.[1] ? decodeMetaContent(d[1]) : undefined;
+}
+
+/**
+ * Alternate URL shapes for the same photo (improves OG availability for some links).
+ */
+export function facebookUrlVariants(url: string): string[] {
+  const trimmed = url.trim();
+  const out: string[] = [trimmed];
+  try {
+    const u = new URL(trimmed);
+    const host = u.hostname.toLowerCase();
+    if (!host.includes("facebook.com") && !host.includes("fb.com")) {
+      return Array.from(new Set(out));
+    }
+
+    if (host === "m.facebook.com") {
+      out.push(trimmed.replace(/\/\/m\.facebook\.com/i, "//www.facebook.com"));
+    }
+
+    const fbid = u.searchParams.get("fbid");
+    if (fbid && u.pathname.includes("/photo")) {
+      const set = u.searchParams.get("set");
+      const q = new URLSearchParams();
+      q.set("fbid", fbid);
+      if (set) q.set("set", set);
+      out.push(`https://www.facebook.com/photo.php?${q.toString()}`);
+    }
+  } catch {
+    /* ignore */
+  }
+  return Array.from(new Set(out));
+}
+
 /**
  * Normalize Facebook URL to different formats
  */
@@ -42,49 +130,27 @@ export function normalizeFacebookUrl(url: string): string[] {
  */
 export async function extractViaOpenGraph(url: string): Promise<FacebookImageInfo> {
   try {
-    // Use a CORS proxy or server-side fetch
-    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-    const response = await fetch(proxyUrl);
-    
-    if (!response.ok) {
-      throw new Error('Failed to fetch page');
+    const variants = facebookUrlVariants(url);
+    for (const pageUrl of variants) {
+      const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(pageUrl)}`;
+      const response = await fetch(proxyUrl);
+      if (!response.ok) continue;
+
+      const data = await response.json();
+      const html = data.contents as string;
+      if (!html || typeof html !== "string") continue;
+
+      const images = parseOgImagesFromHtml(html);
+      if (images.length === 0) continue;
+
+      return {
+        images,
+        title: parseOgTitleFromHtml(html),
+        description: parseOgDescriptionFromHtml(html),
+      };
     }
-    
-    const data = await response.json();
-    const html = data.contents;
-    
-    // Extract Open Graph images
-    const ogImageRegex = /<meta\s+property=["']og:image["']\s+content=["']([^"']+)["']/gi;
-    const images: string[] = [];
-    let match;
-    
-    while ((match = ogImageRegex.exec(html)) !== null) {
-      if (match[1] && !images.includes(match[1])) {
-        images.push(match[1]);
-      }
-    }
-    
-    // Also check for og:image:secure_url
-    const secureImageRegex = /<meta\s+property=["']og:image:secure_url["']\s+content=["']([^"']+)["']/gi;
-    while ((match = secureImageRegex.exec(html)) !== null) {
-      if (match[1] && !images.includes(match[1])) {
-        images.push(match[1]);
-      }
-    }
-    
-    // Extract title
-    const titleMatch = html.match(/<meta\s+property=["']og:title["']\s+content=["']([^"']+)["']/i);
-    const title = titleMatch ? titleMatch[1] : undefined;
-    
-    // Extract description
-    const descMatch = html.match(/<meta\s+property=["']og:description["']\s+content=["']([^"']+)["']/i);
-    const description = descMatch ? descMatch[1] : undefined;
-    
-    return {
-      images: images.length > 0 ? images : [],
-      title,
-      description,
-    };
+
+    return { images: [] };
   } catch (error) {
     return {
       images: [],
@@ -113,6 +179,36 @@ export function extractDirectImage(url: string): FacebookImageInfo | null {
   }
   
   return null;
+}
+
+/**
+ * Fetch page HTML via Next.js route (server-side) and parse OG tags.
+ * Used from the browser only; avoids relying solely on public CORS proxies.
+ */
+async function extractViaNextRoute(url: string): Promise<FacebookImageInfo> {
+  if (typeof window === "undefined") {
+    return { images: [] };
+  }
+  try {
+    const res = await fetch("/api/facebook-image-extract", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ url }),
+      cache: "no-store",
+    });
+    const data = await res.json();
+    const images = Array.isArray(data.images) ? data.images : [];
+    if (images.length > 0) {
+      return {
+        images,
+        title: data.title,
+        description: data.description,
+      };
+    }
+    return { images: [], error: typeof data.error === "string" ? data.error : undefined };
+  } catch {
+    return { images: [] };
+  }
 }
 
 /**
@@ -209,6 +305,12 @@ export async function extractFacebookImages(url: string): Promise<FacebookImageI
     if (apiResult.images.length > 0) {
       return apiResult;
     }
+  }
+
+  // Same-origin API: server fetches Facebook HTML (better than client-only proxies)
+  const nextRouteResult = await extractViaNextRoute(url);
+  if (nextRouteResult.images.length > 0) {
+    return nextRouteResult;
   }
   
   // Try Open Graph method (fallback)

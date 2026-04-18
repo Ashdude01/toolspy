@@ -1,6 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useSearchParams } from "next/navigation";
+import { scrollToElement } from "@/lib/utils";
 import {
   Card,
   CardContent,
@@ -44,8 +46,13 @@ interface ConversionResult {
   error?: string;
 }
 
+const CONVERTER_OUTPUT_FORMATS = ["png", "jpeg", "webp", "gif", "bmp", "tiff"] as const;
+
 function ImageConverterContent() {
   const { showToast } = useToast();
+  const searchParams = useSearchParams();
+  const selectedSectionRef = useRef<HTMLDivElement>(null);
+  const [linkImportLoading, setLinkImportLoading] = useState(false);
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>([]);
   const [isConverting, setIsConverting] = useState(false);
@@ -65,6 +72,122 @@ function ImageConverterContent() {
     { value: "bmp", label: "BMP", description: "Uncompressed, large file sizes" },
     { value: "tiff", label: "TIFF", description: "High quality, professional use" },
   ];
+
+  // ?extension_data= or #extension_data= — same JSON
+  useEffect(() => {
+    const fromQuery = searchParams?.get("extension_data");
+    let fromHash: string | null = null;
+    if (typeof window !== "undefined" && !fromQuery) {
+      const h = window.location.hash;
+      if (h.startsWith("#extension_data=")) {
+        try {
+          fromHash = decodeURIComponent(h.slice("#extension_data=".length));
+        } catch {
+          showToast("Invalid extension_data in link", "error");
+          return;
+        }
+      }
+    }
+    const extensionDataParam = fromQuery || fromHash;
+    if (!extensionDataParam) return;
+    const clearHashAfterImport = Boolean(fromHash);
+
+    let canceled = false;
+
+    const parsePayload = (): {
+      images: string[];
+      format: (typeof CONVERTER_OUTPUT_FORMATS)[number];
+      quality: number;
+    } | null => {
+      try {
+        const parsed = JSON.parse(extensionDataParam as string);
+        if (!parsed || typeof parsed !== "object") {
+          showToast("Invalid extension_data format", "error");
+          return null;
+        }
+        if (!Array.isArray(parsed.images) || parsed.images.length === 0) {
+          showToast("No images in extension_data", "error");
+          return null;
+        }
+        const images = parsed.images.filter(
+          (u: unknown): u is string => typeof u === "string" && u.trim().length > 0
+        );
+        if (images.length === 0) {
+          showToast("No valid image URLs in extension_data", "error");
+          return null;
+        }
+        const settings =
+          parsed.settings && typeof parsed.settings === "object" ? parsed.settings : {};
+        const fmt =
+          typeof settings.format === "string" &&
+          (CONVERTER_OUTPUT_FORMATS as readonly string[]).includes(settings.format)
+            ? settings.format
+            : "webp";
+        const qualityNum =
+          typeof settings.quality === "number"
+            ? Math.max(1, Math.min(100, Math.round(settings.quality)))
+            : 85;
+        return { images, format: fmt, quality: qualityNum };
+      } catch {
+        showToast("Failed to parse extension_data", "error");
+        return null;
+      }
+    };
+
+    const data = parsePayload();
+    if (!data || canceled) return;
+
+    setLinkImportLoading(true);
+
+    setOutputFormat(data.format);
+    setQuality([data.quality]);
+
+    const fetchAsFile = async (url: string, index: number): Promise<File | null> => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return null;
+        const blob = await res.blob();
+        if (!blob.type.startsWith("image/")) return null;
+        const ext = blob.type.split("/")[1] || "jpg";
+        return new File([blob], `imported-${index + 1}.${ext}`, { type: blob.type });
+      } catch {
+        return null;
+      }
+    };
+
+    (async () => {
+      try {
+        showToast(`Fetching ${data.images.length} image(s)…`, "info");
+        const files = (
+          await Promise.all(data.images.map((u, i) => fetchAsFile(u, i)))
+        ).filter((f): f is File => !!f);
+        if (canceled) return;
+        if (files.length === 0) {
+          showToast("Failed to fetch any images from extension_data", "error");
+          return;
+        }
+        if (files.length < data.images.length) {
+          showToast(`Loaded ${files.length} of ${data.images.length} image(s)`, "warning");
+        }
+        setSelectedFiles(files);
+
+        if (clearHashAfterImport && typeof window !== "undefined") {
+          window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+
+        setTimeout(() => {
+          if (!canceled) scrollToElement(selectedSectionRef, 50);
+        }, 200);
+      } finally {
+        if (!canceled) setLinkImportLoading(false);
+      }
+    })();
+
+    return () => {
+      canceled = true;
+      setLinkImportLoading(false);
+    };
+  }, [searchParams, showToast]);
 
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
@@ -278,11 +401,18 @@ function ImageConverterContent() {
         onError={handleError}
         multiple={true}
         maxFiles={50}
+        autoCollapse={true}
+        showBrandedModal={true}
+        modalDuration={2000}
+        importInProgress={linkImportLoading}
+        importModalMessage="Importing images"
+        importModalSubMessage="Fetching your images—almost there…"
       />
 
 
-      {/* Selected Files */}
+      {/* Selected Files + settings (ref for scroll after extension import) */}
       {selectedFiles.length > 0 && (
+        <div ref={selectedSectionRef} className="space-y-6">
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
             <CardTitle>Selected Images ({selectedFiles.length})</CardTitle>
@@ -300,9 +430,6 @@ function ImageConverterContent() {
             </div>
           </CardContent>
         </Card>
-      )}
-       {/* Settings */}
-       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -377,11 +504,12 @@ function ImageConverterContent() {
             </div>
           </CardContent>
         </Card>
+        </div>
       )}
 
       {/* Conversion Results */}
       {convertedResults.length > 0 && (
-        <Card>
+        <Card className="mt-6">
           <CardHeader>
             <div className="flex items-center justify-between">
               <CardTitle>Conversion Results</CardTitle>
@@ -393,7 +521,7 @@ function ImageConverterContent() {
                     aria-label={`Download all ${convertedResults.filter(r => r.success).length} converted images`}
                   >
                     <Archive className="h-4 w-4 mr-2" aria-hidden="true" />
-                    Download All ({convertedResults.filter(r => r.success).length})
+                    Download Zip ({convertedResults.filter(r => r.success).length})
                   </Button>
                 )}
               </div>

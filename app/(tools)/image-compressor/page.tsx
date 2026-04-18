@@ -91,6 +91,69 @@ function ImageCompressorContent() {
   const resultsRef = useRef<HTMLDivElement>(null);
   const compressionSettingsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
+  const [linkImportLoading, setLinkImportLoading] = useState(false);
+
+  // Extension / long URL lists: ts-images=#... (hash is not sent to server; avoids query length limits)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const raw = window.location.hash;
+    if (!raw.startsWith("#ts-images=")) return;
+
+    let urls: string[] = [];
+    try {
+      const decoded = decodeURIComponent(raw.slice("#ts-images=".length));
+      const parsed = JSON.parse(decoded);
+      if (Array.isArray(parsed)) {
+        urls = parsed.filter((u): u is string => typeof u === "string" && u.trim().length > 0);
+      }
+    } catch {
+      showToast("Could not read images from link", "error");
+      return;
+    }
+
+    if (urls.length === 0) return;
+
+    let canceled = false;
+    setLinkImportLoading(true);
+
+    const fetchAsFile = async (url: string, index: number): Promise<File | null> => {
+      try {
+        const res = await fetch(url, { cache: "no-store" });
+        if (!res.ok) return null;
+        const blob = await res.blob();
+        const ext = blob.type.split("/")[1] || "jpg";
+        const name = `imported-${index}.${ext}`;
+        return new File([blob], name, { type: blob.type });
+      } catch {
+        return null;
+      }
+    };
+
+    (async () => {
+      try {
+        showToast(`Fetching ${urls.length} image(s)…`, "info");
+        const files = (await Promise.all(urls.map((u, i) => fetchAsFile(u, i)))).filter(
+          (f): f is File => !!f
+        );
+        if (canceled || files.length === 0) {
+          if (!canceled && files.length === 0) showToast("Failed to fetch images from link", "error");
+          return;
+        }
+        setSelectedFiles((prev) => [...prev, ...files]);
+        scrollToElement(afterUploadRef, 50);
+        const path = window.location.pathname + window.location.search;
+        window.history.replaceState(null, "", path);
+      } finally {
+        if (!canceled) setLinkImportLoading(false);
+      }
+    })();
+
+    return () => {
+      canceled = true;
+      setLinkImportLoading(false);
+    };
+  }, [showToast]);
   
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
@@ -98,11 +161,16 @@ function ImageCompressorContent() {
   };
 
   // Auto-import images from search params (?images=url or ?images=[url1,url2])
-  // Skip if extension_data is present to avoid conflicts
+  // Skip if extension_data is present (query or hash) to avoid conflicts
   useEffect(() => {
     const extensionDataParam = searchParams?.get("extension_data");
     if (extensionDataParam) return; // extension_data takes priority
-    
+    if (
+      typeof window !== "undefined" &&
+      window.location.hash.startsWith("#extension_data=")
+    )
+      return;
+
     const imagesParam = searchParams?.get("images");
     if (!imagesParam) return;
 
@@ -121,6 +189,7 @@ function ImageCompressorContent() {
     if (urls.length === 0) return;
 
     let canceled = false;
+    setLinkImportLoading(true);
     const fetchAsFile = async (url: string, index: number): Promise<File | null> => {
       try {
         const res = await fetch(url, { cache: 'no-store' });
@@ -135,23 +204,42 @@ function ImageCompressorContent() {
     };
 
     (async () => {
-      const files = (await Promise.all(urls.map((u, i) => fetchAsFile(u, i)))).filter(
-        (f): f is File => !!f
-      );
-      if (canceled || files.length === 0) return;
-      setSelectedFiles((prev) => [...prev, ...files]);
-      scrollToElement(afterUploadRef, 50);
+      try {
+        const files = (await Promise.all(urls.map((u, i) => fetchAsFile(u, i)))).filter(
+          (f): f is File => !!f
+        );
+        if (canceled || files.length === 0) return;
+        setSelectedFiles((prev) => [...prev, ...files]);
+        scrollToElement(afterUploadRef, 50);
+      } finally {
+        if (!canceled) setLinkImportLoading(false);
+      }
     })();
 
     return () => {
       canceled = true;
+      setLinkImportLoading(false);
     };
   }, [searchParams]);
 
-  // Handle extension_data search param with images and settings
+  // Handle extension_data: ?extension_data= or #extension_data=
   useEffect(() => {
-    const extensionDataParam = searchParams?.get("extension_data");
+    const fromQuery = searchParams?.get("extension_data");
+    let fromHash: string | null = null;
+    if (typeof window !== "undefined" && !fromQuery) {
+      const h = window.location.hash;
+      if (h.startsWith("#extension_data=")) {
+        try {
+          fromHash = decodeURIComponent(h.slice("#extension_data=".length));
+        } catch {
+          showToast("Invalid extension_data in link", "error");
+          return;
+        }
+      }
+    }
+    const extensionDataParam = fromQuery || fromHash;
     if (!extensionDataParam) return;
+    const clearHashAfterImport = Boolean(fromHash);
 
     let canceled = false;
 
@@ -173,7 +261,7 @@ function ImageCompressorContent() {
       };
     } | null => {
       try {
-        const parsed = JSON.parse(extensionDataParam);
+        const parsed = JSON.parse(extensionDataParam as string);
         
         // Validate structure
         if (!parsed || typeof parsed !== 'object') {
@@ -269,6 +357,8 @@ function ImageCompressorContent() {
     const data = parseExtensionData();
     if (!data || canceled) return;
 
+    setLinkImportLoading(true);
+
     // Apply settings to state
     setCurrentPreset(data.settings.preset);
     setQuality([data.settings.quality]);
@@ -306,36 +396,43 @@ function ImageCompressorContent() {
     };
 
     (async () => {
-      showToast(`Fetching ${data.images.length} image(s)...`, "info");
-      
-      const files = (await Promise.all(
-        data.images.map((url, i) => fetchAsFile(url, i))
-      )).filter((f): f is File => !!f);
+      try {
+        showToast(`Fetching ${data.images.length} image(s)...`, "info");
 
-      if (canceled) return;
+        const files = (await Promise.all(
+          data.images.map((url, i) => fetchAsFile(url, i))
+        )).filter((f): f is File => !!f);
 
-      if (files.length === 0) {
-        showToast("Failed to fetch any images", "error");
-        return;
-      }
+        if (canceled) return;
 
-      if (files.length < data.images.length) {
-        showToast(`Fetched ${files.length} of ${data.images.length} images`, "warning");
-      }
-
-      setSelectedFiles(files);
-      
-      // Scroll to compression settings area after a short delay to ensure state is updated
-      setTimeout(() => {
-        if (!canceled) {
-          // scrollToElement(compressionSettingsRef, 50);
-          scrollToElement(afterUploadRef, 50);
+        if (files.length === 0) {
+          showToast("Failed to fetch any images", "error");
+          return;
         }
-      }, 300);
+
+        if (files.length < data.images.length) {
+          showToast(`Fetched ${files.length} of ${data.images.length} images`, "warning");
+        }
+
+        setSelectedFiles(files);
+
+        if (clearHashAfterImport && typeof window !== "undefined") {
+          window.history.replaceState(null, "", window.location.pathname + window.location.search);
+        }
+
+        setTimeout(() => {
+          if (!canceled) {
+            scrollToElement(afterUploadRef, 50);
+          }
+        }, 300);
+      } finally {
+        if (!canceled) setLinkImportLoading(false);
+      }
     })();
 
     return () => {
       canceled = true;
+      setLinkImportLoading(false);
     };
   }, [searchParams, showToast]);
 
@@ -531,6 +628,9 @@ function ImageCompressorContent() {
         autoCollapse={true}
         showBrandedModal={true}
         modalDuration={2000}
+        importInProgress={linkImportLoading}
+        importModalMessage="Importing images"
+        importModalSubMessage="Fetching your images—almost there…"
         onModalClose={() => {
           // Optional: Add any logic when modal closes
         }}
