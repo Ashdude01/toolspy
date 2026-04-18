@@ -112,12 +112,26 @@ export function Footer() {
         {/* Main Footer Content */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
           {/* Brand Section */}
-          <div className="lg:col-span-2">
-            <div className="flex items-center space-x-2 mb-4">
-              {/* <div className="w-8 h-8 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg flex items-center justify-center"> */}
-                <Image src="/logo.png" alt="Toolspy" width={32} height={32} />
-              <span className="text-xl font-bold">Toolspy</span>
-            </div>
+          <div className="lg:col-span-2 flex flex-col">
+          <Link
+              href="/"
+              className="h-20 -mt-10"
+            >
+                <Image
+                  src="/logo/black.webp"
+                  alt="Toolspy"
+                  width={1080}
+                  height={1080}
+                  className="w-28 block dark:hidden"
+                />
+                <Image
+                  src="/logo/white.webp"
+                  alt="Toolspy"
+                  width={1080}
+                  height={1080}
+                  className="w-28 hidden dark:block"
+                />
+            </Link>
             <p className="text-slate-400 mb-6 leading-relaxed">
               Professional online tools for all your digital needs. Free, secure, and privacy-focused. 
               Trusted by millions of users worldwide.
