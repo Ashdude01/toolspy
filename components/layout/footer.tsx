@@ -122,7 +122,7 @@ export function Footer() {
                   alt="Toolspy"
                   width={1080}
                   height={1080}
-                  className="w-28 hidden dark:block"
+                  className="w-28"
                 />
             </Link>
             <p className="text-slate-400 mb-6 leading-relaxed">
