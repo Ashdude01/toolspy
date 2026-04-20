@@ -1,7 +1,14 @@
 "use client";
 
-import { useState, useRef, useCallback } from "react";
+import {
+  useState,
+  useCallback,
+  useEffect,
+  type Dispatch,
+  type SetStateAction,
+} from "react";
 import Link from "next/link";
+import JSZip from "jszip";
 import {
   Card,
   CardContent,
@@ -11,7 +18,6 @@ import {
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Switch } from "@/components/ui/switch";
 import {
@@ -29,28 +35,56 @@ import {
 
 import {
   Download,
-  Copy,
   Trash2,
-  Wand2,
   Upload,
   Settings,
-  Zap,
-  Eye,
-  EyeOff,
   RefreshCw,
   Sparkles,
-  Palette,
-  Maximize,
-  Focus,
   Image as ImageIcon,
-  Star,
-  TrendingUp,
   Layers,
   Contrast,
   Gauge,
   ArrowRight,
+  FileArchive,
+  ArrowLeftRight,
+  Expand,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+
+function readFileAsDataUrl(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onerror = () => reject(new Error("read failed"));
+    reader.onload = () => resolve(reader.result as string);
+    reader.readAsDataURL(file);
+  });
+}
+
+function dataUrlToBlob(dataUrl: string): Blob {
+  const [header, data] = dataUrl.split(",");
+  const mime = /data:([^;]+)/.exec(header)?.[1] ?? "image/png";
+  const binary = atob(data);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return new Blob([bytes], { type: mime });
+}
+
+function safeDownloadFilename(name: string): string {
+  return name.replace(/[^\w.\- ()\[\]]+/g, "_");
+}
+
+interface PresetDefinition {
+  id: string;
+  name: string;
+  subtitle: string;
+  settings: EnhancementSettings;
+}
+
+interface BatchSourceItem {
+  id: string;
+  file: File;
+  dataUrl: string;
+}
 
 interface EnhancementResult {
   original: string;
@@ -77,127 +111,586 @@ interface EnhancementSettings {
   aiStrength: number;
 }
 
+/** Industry-style presets: each id is stable; configs tuned for distinct looks (Lightroom / Topaz–style balance). */
+const ENHANCEMENT_PRESETS: PresetDefinition[] = [
+  {
+    id: "preset-smart-auto",
+    name: "Smart Auto",
+    subtitle: "Neutral balance — best default for mixed shots",
+    settings: {
+      enhancement: "auto",
+      upscaleFactor: 1,
+      qualityBoost: 62,
+      colorEnhancement: 42,
+      contrastBoost: 26,
+      sharpenAmount: 44,
+      preserveDetails: true,
+      aiStrength: 76,
+    },
+  },
+  {
+    id: "preset-portrait",
+    name: "Portrait",
+    subtitle: "Soft contrast, natural skin, gentle clarity",
+    settings: {
+      enhancement: "auto",
+      upscaleFactor: 1,
+      qualityBoost: 68,
+      colorEnhancement: 34,
+      contrastBoost: 18,
+      sharpenAmount: 46,
+      preserveDetails: true,
+      aiStrength: 72,
+    },
+  },
+  {
+    id: "preset-landscape",
+    name: "Landscape",
+    subtitle: "Sky detail, punchy color, micro-contrast",
+    settings: {
+      enhancement: "auto",
+      upscaleFactor: 1,
+      qualityBoost: 52,
+      colorEnhancement: 58,
+      contrastBoost: 38,
+      sharpenAmount: 56,
+      preserveDetails: true,
+      aiStrength: 82,
+    },
+  },
+  {
+    id: "preset-night-low-light",
+    name: "Night & low light",
+    subtitle: "Lift shadows, tame noise, keep edges soft",
+    settings: {
+      enhancement: "denoise",
+      upscaleFactor: 1,
+      qualityBoost: 78,
+      colorEnhancement: 32,
+      contrastBoost: 22,
+      sharpenAmount: 32,
+      preserveDetails: true,
+      aiStrength: 84,
+    },
+  },
+  {
+    id: "preset-old-photo",
+    name: "Old photo restore",
+    subtitle: "Faded dyes, yellowed paper, vintage scans",
+    settings: {
+      enhancement: "restore",
+      upscaleFactor: 1,
+      qualityBoost: 86,
+      colorEnhancement: 52,
+      contrastBoost: 46,
+      sharpenAmount: 44,
+      preserveDetails: true,
+      aiStrength: 88,
+    },
+  },
+  {
+    id: "preset-super-2x",
+    name: "Super resolution 2×",
+    subtitle: "Web → print-friendly; sharp but natural",
+    settings: {
+      enhancement: "upscale",
+      upscaleFactor: 2,
+      qualityBoost: 58,
+      colorEnhancement: 36,
+      contrastBoost: 24,
+      sharpenAmount: 62,
+      preserveDetails: true,
+      aiStrength: 86,
+    },
+  },
+  {
+    id: "preset-super-4x",
+    name: "Super resolution 4×",
+    subtitle: "Max enlargement — use on small sources only",
+    settings: {
+      enhancement: "upscale",
+      upscaleFactor: 4,
+      qualityBoost: 54,
+      colorEnhancement: 30,
+      contrastBoost: 20,
+      sharpenAmount: 58,
+      preserveDetails: true,
+      aiStrength: 90,
+    },
+  },
+  {
+    id: "preset-sharpen-deblur",
+    name: "Sharpen & deblur",
+    subtitle: "Camera shake, missed focus, soft lenses",
+    settings: {
+      enhancement: "unblur",
+      upscaleFactor: 1,
+      qualityBoost: 64,
+      colorEnhancement: 36,
+      contrastBoost: 52,
+      sharpenAmount: 82,
+      preserveDetails: true,
+      aiStrength: 84,
+    },
+  },
+  {
+    id: "preset-colorize-bw",
+    name: "Colorize B&W",
+    subtitle: "Rich tones for monochrome or flat color",
+    settings: {
+      enhancement: "colorize",
+      upscaleFactor: 1,
+      qualityBoost: 48,
+      colorEnhancement: 92,
+      contrastBoost: 34,
+      sharpenAmount: 40,
+      preserveDetails: true,
+      aiStrength: 88,
+    },
+  },
+  {
+    id: "preset-document",
+    name: "Document & text",
+    subtitle: "Screenshots, scans, receipts — crisp edges",
+    settings: {
+      enhancement: "unblur",
+      upscaleFactor: 1,
+      qualityBoost: 48,
+      colorEnhancement: 18,
+      contrastBoost: 52,
+      sharpenAmount: 76,
+      preserveDetails: true,
+      aiStrength: 74,
+    },
+  },
+];
+
+const DEFAULT_PRESET_ID = "preset-smart-auto";
+
+const DEFAULT_ENHANCEMENT_SETTINGS: EnhancementSettings =
+  ENHANCEMENT_PRESETS.find((p) => p.id === DEFAULT_PRESET_ID)!.settings;
+
+function EnhancementSettingsForm({
+  settings,
+  onSettingsChange,
+  presets,
+  activePresetId,
+  onPresetSelect,
+  enhancementModeHints,
+}: {
+  settings: EnhancementSettings;
+  onSettingsChange: Dispatch<SetStateAction<EnhancementSettings>>;
+  presets: PresetDefinition[];
+  activePresetId: string | null;
+  onPresetSelect: (preset: PresetDefinition) => void;
+  enhancementModeHints: Record<EnhancementSettings["enhancement"], string>;
+}) {
+  return (
+    <div className="space-y-6">
+      <div>
+        <Label className="text-sm font-medium mb-2 block">Quick presets</Label>
+        
+        <div
+          className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1"
+          style={{ scrollbarWidth: "thin" }}
+        >
+          {presets.map((preset) => {
+            const isActive = activePresetId === preset.id;
+            return (
+              <Button
+                key={preset.id}
+                type="button"
+                variant="outline"
+                onClick={() => onPresetSelect(preset)}
+                className={`h-auto py-3 px-3 flex flex-col items-stretch text-left gap-0.5 transition-all ${
+                  isActive
+                    ? "bg-gradient-to-r from-emerald-600 to-teal-600 text-white hover:from-emerald-700 hover:to-teal-700 border-emerald-500/80 shadow-md ring-2 ring-emerald-400/70"
+                    : "hover:border-emerald-400/80"
+                }`}
+              >
+                <span className="font-medium text-sm leading-tight">{preset.name}</span>
+                <span
+                  className={`text-xs font-normal leading-snug ${
+                    isActive ? "text-white/90" : "text-muted-foreground"
+                  }`}
+                >
+                  {preset.subtitle}
+                </span>
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+
+      <div>
+        <Label htmlFor="enhancement">Enhancement mode</Label>
+        
+        <Select
+          value={settings.enhancement}
+          onValueChange={(value: EnhancementSettings["enhancement"]) =>
+            onSettingsChange((prev) => ({ ...prev, enhancement: value }))
+          }
+        >
+          <SelectTrigger id="enhancement">
+            <SelectValue />
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value="auto">Smart Auto — general purpose</SelectItem>
+            <SelectItem value="upscale">Super resolution (upscale)</SelectItem>
+            <SelectItem value="unblur">Sharpen &amp; deblur</SelectItem>
+            <SelectItem value="restore">Old / faded photo restore</SelectItem>
+            <SelectItem value="colorize">Colorize black &amp; white</SelectItem>
+            <SelectItem value="denoise">Reduce noise &amp; grain</SelectItem>
+          </SelectContent>
+        </Select>
+        <p className="text-xs text-muted-foreground mt-2">
+          {enhancementModeHints[settings.enhancement]}
+        </p>
+      </div>
+
+      <div>
+        <p className="text-sm font-medium mb-3">Fine adjustments</p>
+        
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {settings.enhancement === "upscale" && (
+            <div className="sm:col-span-2">
+              <Label htmlFor="upscale-factor">Scale factor: {settings.upscaleFactor}×</Label>
+             
+              <Slider
+                id="upscale-factor"
+                value={[settings.upscaleFactor]}
+                onValueChange={([value]) =>
+                  onSettingsChange((prev) => ({ ...prev, upscaleFactor: value }))
+                }
+                max={4}
+                min={1}
+                step={1}
+                className="mt-2"
+              />
+            </div>
+          )}
+
+          <div>
+            <Label htmlFor="quality-boost">Exposure / brightness lift</Label>
+            
+            <Slider
+              id="quality-boost"
+              value={[settings.qualityBoost]}
+              onValueChange={([value]) =>
+                onSettingsChange((prev) => ({ ...prev, qualityBoost: value }))
+              }
+              max={100}
+              min={0}
+              step={5}
+              className="mt-2"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="color-enhancement">Vibrance &amp; saturation</Label>
+           
+            <Slider
+              id="color-enhancement"
+              value={[settings.colorEnhancement]}
+              onValueChange={([value]) =>
+                onSettingsChange((prev) => ({ ...prev, colorEnhancement: value }))
+              }
+              max={100}
+              min={0}
+              step={5}
+              className="mt-2"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="contrast-boost">Contrast &amp; punch</Label>
+            
+            <Slider
+              id="contrast-boost"
+              value={[settings.contrastBoost]}
+              onValueChange={([value]) =>
+                onSettingsChange((prev) => ({ ...prev, contrastBoost: value }))
+              }
+              max={100}
+              min={0}
+              step={5}
+              className="mt-2"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="sharpen-amount">Clarity &amp; sharpness</Label>
+            
+            <Slider
+              id="sharpen-amount"
+              value={[settings.sharpenAmount]}
+              onValueChange={([value]) =>
+                onSettingsChange((prev) => ({ ...prev, sharpenAmount: value }))
+              }
+              max={100}
+              min={0}
+              step={5}
+              className="mt-2"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="ai-strength">Enhancement strength</Label>
+            
+            <Slider
+              id="ai-strength"
+              value={[settings.aiStrength]}
+              onValueChange={([value]) =>
+                onSettingsChange((prev) => ({ ...prev, aiStrength: value }))
+              }
+              max={100}
+              min={0}
+              step={5}
+              className="mt-2"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex items-start gap-3 rounded-lg border bg-muted/30 p-3">
+        <Switch
+          id="preserve-details"
+          checked={settings.preserveDetails}
+          onCheckedChange={(checked) =>
+            onSettingsChange((prev) => ({ ...prev, preserveDetails: checked }))
+          }
+          className="mt-0.5"
+        />
+        <div>
+          <Label htmlFor="preserve-details" className="cursor-pointer">
+            Preserve fine detail (reduce halos)
+          </Label>
+          <p className="text-xs text-muted-foreground mt-1">
+            Keeps edges and texture cleaner when pushing sharpness or contrast.
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function PostDownloadToolsCard() {
+  return (
+    <Card className="border-emerald-200/80 dark:border-emerald-900/80 bg-muted/15">
+      <CardHeader>
+        <CardTitle className="text-lg">Compress, convert &amp; resize</CardTitle>
+        <CardDescription>
+          After you export, use these tools on your saved images — each opens a dedicated page on Toolspy.
+        </CardDescription>
+      </CardHeader>
+      <CardContent>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <Link href="/image-compressor" className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            <div className="flex h-full flex-col gap-1 rounded-lg border border-border bg-background p-4 transition-colors group-hover:border-emerald-500/50 group-hover:bg-emerald-50/60 dark:group-hover:bg-emerald-950/25">
+              <div className="flex items-center gap-2 font-medium text-foreground">
+                <Gauge size={18} className="text-emerald-600 shrink-0" />
+                Compress
+                <ArrowRight size={14} className="ml-auto text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+              <p className="text-xs text-muted-foreground leading-snug">
+                Smaller files for web, chat, and email.
+              </p>
+            </div>
+          </Link>
+          <Link href="/image-converter" className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            <div className="flex h-full flex-col gap-1 rounded-lg border border-border bg-background p-4 transition-colors group-hover:border-emerald-500/50 group-hover:bg-emerald-50/60 dark:group-hover:bg-emerald-950/25">
+              <div className="flex items-center gap-2 font-medium text-foreground">
+                <ArrowLeftRight size={18} className="text-emerald-600 shrink-0" />
+                Convert
+                <ArrowRight size={14} className="ml-auto text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+              <p className="text-xs text-muted-foreground leading-snug">
+                JPG, PNG, WebP, and more — change format in-browser.
+              </p>
+            </div>
+          </Link>
+          <Link href="/image-resizer" className="group block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-500">
+            <div className="flex h-full flex-col gap-1 rounded-lg border border-border bg-background p-4 transition-colors group-hover:border-emerald-500/50 group-hover:bg-emerald-50/60 dark:group-hover:bg-emerald-950/25">
+              <div className="flex items-center gap-2 font-medium text-foreground">
+                <Expand size={18} className="text-emerald-600 shrink-0" />
+                Resize
+                <ArrowRight size={14} className="ml-auto text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
+              </div>
+              <p className="text-xs text-muted-foreground leading-snug">
+                Set width, height, or scale for exact dimensions.
+              </p>
+            </div>
+          </Link>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
 function AiImageEnhancerContent() {
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [result, setResult] = useState<EnhancementResult | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const [processingProgress, setProcessingProgress] = useState(0);
-  const [showComparison, setShowComparison] = useState(true);
+  const [comparePosition, setComparePosition] = useState(50);
   const [imageLoading, setImageLoading] = useState(false);
-  const [settings, setSettings] = useState<EnhancementSettings>({
-    enhancement: 'auto',
-    upscaleFactor: 2,
-    qualityBoost: 70,
-    colorEnhancement: 50,
-    contrastBoost: 30,
-    sharpenAmount: 40,
-    preserveDetails: true,
-    aiStrength: 80
-  });
+  const [settings, setSettings] = useState<EnhancementSettings>(() => ({
+    ...DEFAULT_ENHANCEMENT_SETTINGS,
+  }));
+  const [activePresetId, setActivePresetId] = useState<string | null>(
+    DEFAULT_PRESET_ID
+  );
+
+  const onSettingsChange = useCallback(
+    (u: SetStateAction<EnhancementSettings>) => {
+      setActivePresetId(null);
+      setSettings(u);
+    },
+    []
+  );
+
+  const onPresetSelect = useCallback((preset: PresetDefinition) => {
+    setActivePresetId(preset.id);
+    setSettings({ ...preset.settings });
+  }, []);
+
   const [batchMode, setBatchMode] = useState(false);
-  const [batchFiles, setBatchFiles] = useState<File[]>([]);
-  
+  const [batchSources, setBatchSources] = useState<BatchSourceItem[]>([]);
+  const [batchEnhanced, setBatchEnhanced] = useState<Record<string, string>>({});
+  const [batchSelectedIds, setBatchSelectedIds] = useState<string[]>([]);
+
   const { showToast } = useToast();
-  const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // Simulate AI image enhancement processing
-  const processImage = useCallback(async (imageData: string) => {
-    setIsProcessing(true);
-    setProcessingProgress(0);
-
-    try {
-      // Simulate processing steps based on enhancement type
-      const steps = [
-        { progress: 15, message: "Analyzing image quality..." },
-        { progress: 30, message: "Applying AI enhancement..." },
-        { progress: 50, message: "Optimizing resolution..." },
-        { progress: 70, message: "Enhancing details..." },
-        { progress: 85, message: "Fine-tuning colors..." },
-        { progress: 95, message: "Finalizing result..." },
-        { progress: 100, message: "Complete!" }
-      ];
-
-      for (const step of steps) {
-        await new Promise(resolve => setTimeout(resolve, 800));
-        setProcessingProgress(step.progress);
-      }
-
-      // Create enhanced version
-      const canvas = document.createElement('canvas');
-      const ctx = canvas.getContext('2d');
-      const img = new Image();
-      
-      return new Promise<EnhancementResult>((resolve) => {
+  /** Client-side enhancement (instant preview; no simulated delays). */
+  const generateEnhancementResult = useCallback(
+    (imageData: string, s: EnhancementSettings): Promise<EnhancementResult> => {
+      return new Promise((resolve, reject) => {
+        const canvas = document.createElement("canvas");
+        const ctx = canvas.getContext("2d");
+        const img = new Image();
+        img.onerror = () => reject(new Error("Failed to load image"));
         img.onload = () => {
-          // Calculate new dimensions based on upscaling
-          const scaleFactor = settings.enhancement === 'upscale' ? settings.upscaleFactor : 1;
+          if (!ctx) {
+            reject(new Error("Canvas not supported"));
+            return;
+          }
+          const scaleFactor = s.enhancement === "upscale" ? s.upscaleFactor : 1;
           canvas.width = img.width * scaleFactor;
           canvas.height = img.height * scaleFactor;
-          
-          if (ctx) {
-            // Apply various enhancements based on settings
-            ctx.imageSmoothingEnabled = true;
-            ctx.imageSmoothingQuality = 'high';
-            
-            // Draw upscaled image
-            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-            
-            // Apply filters based on enhancement type
-            let filter = '';
-            
-            if (settings.enhancement === 'unblur' || settings.enhancement === 'auto') {
-              filter += `contrast(${100 + settings.contrastBoost}%) `;
-              filter += `brightness(${100 + settings.qualityBoost/3}%) `;
-            }
-            
-            if (settings.enhancement === 'colorize' || settings.enhancement === 'auto') {
-              filter += `saturate(${100 + settings.colorEnhancement}%) `;
-            }
-            
-            if (settings.enhancement === 'restore' || settings.enhancement === 'auto') {
-              filter += `contrast(${100 + settings.contrastBoost}%) `;
-              filter += `brightness(105%) `;
-            }
-            
-            if (filter) {
-              ctx.filter = filter;
-              ctx.drawImage(canvas, 0, 0);
-              ctx.filter = 'none';
-            }
-            
-            const enhancedImage = canvas.toDataURL('image/png', 0.95);
-            
-            // Calculate improvement metrics
-            const improvements = {
-              resolution: settings.enhancement === 'upscale' 
-                ? `${img.width}x${img.height} → ${canvas.width}x${canvas.height}` 
-                : `${img.width}x${img.height}`,
-              quality: Math.min(100, 60 + settings.qualityBoost),
-              clarity: Math.min(100, 50 + settings.sharpenAmount + settings.contrastBoost),
-              colors: Math.min(100, 70 + settings.colorEnhancement)
-            };
-            
-            resolve({
-              original: uploadedImage!,
-              enhanced: enhancedImage,
-              enhancement: settings.enhancement,
-              processingTime: 6000,
-              improvements,
-              settings: { ...settings }
-            });
+
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = "high";
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+          let filter = "";
+          const strength = 0.5 + (s.aiStrength / 100) * 0.5;
+          const c = s.contrastBoost * strength;
+          const q = s.qualityBoost * strength;
+          const col = s.colorEnhancement * strength;
+
+          if (s.enhancement === "unblur" || s.enhancement === "auto") {
+            filter += `contrast(${100 + c}%) `;
+            filter += `brightness(${100 + q / 3}%) `;
           }
+
+          if (s.enhancement === "colorize" || s.enhancement === "auto") {
+            filter += `saturate(${100 + col}%) `;
+          }
+
+          if (s.enhancement === "restore" || s.enhancement === "auto") {
+            filter += `contrast(${100 + c}%) `;
+            filter += `brightness(105%) `;
+          }
+
+          if (s.enhancement === "denoise") {
+            filter += `contrast(${100 + c / 2}%) `;
+            filter += `brightness(${100 + q / 4}%) `;
+          }
+
+          if (filter) {
+            ctx.filter = filter;
+            ctx.drawImage(canvas, 0, 0);
+            ctx.filter = "none";
+          }
+
+          const enhancedImage = canvas.toDataURL("image/png", 0.95);
+
+          const improvements = {
+            resolution:
+              s.enhancement === "upscale"
+                ? `${img.width}x${img.height} → ${canvas.width}x${canvas.height}`
+                : `${img.width}x${img.height}`,
+            quality: Math.min(100, 60 + q),
+            clarity: Math.min(100, 50 + s.sharpenAmount * strength + c),
+            colors: Math.min(100, 70 + col),
+          };
+
+          resolve({
+            original: imageData,
+            enhanced: enhancedImage,
+            enhancement: s.enhancement,
+            processingTime: 0,
+            improvements,
+            settings: { ...s },
+          });
         };
         img.src = imageData;
       });
+    },
+    []
+  );
 
-    } catch (error) {
-      showToast("Enhancement failed. Please try again.", "error");
-      throw error;
-    } finally {
-      setIsProcessing(false);
-      setProcessingProgress(0);
+  useEffect(() => {
+    if (!uploadedImage || batchMode) {
+      setResult(null);
+      return;
     }
-  }, [settings, uploadedImage]);
+    let cancelled = false;
+    (async () => {
+      try {
+        const next = await generateEnhancementResult(uploadedImage, settings);
+        if (!cancelled) setResult(next);
+      } catch {
+        if (!cancelled) {
+          setResult(null);
+          showToast("Could not preview enhancement. Try another image.", "error");
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- showToast from context is stable
+  }, [uploadedImage, settings, batchMode, generateEnhancementResult]);
+
+  const batchSourcesKey = batchSources.map((s) => s.id).join("|");
+
+  useEffect(() => {
+    if (!batchMode || batchSources.length === 0) {
+      setBatchEnhanced({});
+      return;
+    }
+    let cancelled = false;
+    (async () => {
+      try {
+        const entries = await Promise.all(
+          batchSources.map(async (s) => {
+            const r = await generateEnhancementResult(s.dataUrl, settings);
+            return [s.id, r.enhanced] as const;
+          })
+        );
+        if (cancelled) return;
+        setBatchEnhanced(Object.fromEntries(entries));
+      } catch {
+        if (!cancelled) {
+          setBatchEnhanced({});
+          showToast("Could not update batch previews.", "error");
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- batchSourcesKey tracks list identity
+  }, [batchMode, settings, batchSourcesKey, generateEnhancementResult]);
 
   const handleImageUpload = async (files: File[]) => {
     const file = files[0];
@@ -222,22 +715,9 @@ function AiImageEnhancerContent() {
       try {
         const imageData = e.target?.result as string;
         setUploadedImage(imageData);
-        setResult(null);
-        setShowComparison(true); // Reset comparison view when new image is uploaded
+        setComparePosition(50);
         setImageLoading(false);
-        
-        // Auto-enhance if enabled
-        if (settings.enhancement === 'auto') {
-          try {
-            const enhanced = await processImage(imageData);
-            setResult(enhanced);
-            showToast("Image enhanced automatically!", "success");
-          } catch (error) {
-            // Error already handled in processImage
-          }
-        } else {
-          showToast("Image uploaded successfully! Click 'Enhance Image' to process.", "success");
-        }
+        showToast("Image uploaded. Adjust settings — preview updates live.", "success");
       } catch (error) {
         setImageLoading(false);
         showToast("Failed to process image", "error");
@@ -246,62 +726,126 @@ function AiImageEnhancerContent() {
     reader.readAsDataURL(file);
   };
 
-  const handleBatchUpload = (files: File[]) => {
-    const imageFiles = files.filter(file => file.type.startsWith('image/'));
+  const handleBatchUpload = async (files: File[]) => {
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) {
       showToast("Please upload image files", "error");
       return;
     }
-    
-    setBatchFiles(imageFiles);
-    setBatchMode(true);
-    showToast(`${imageFiles.length} images ready for batch processing`, "success");
-  };
-
-  const processBatch = async () => {
-    if (batchFiles.length === 0) return;
-    
-    setIsProcessing(true);
-    let processed = 0;
-    
-    for (const file of batchFiles) {
-      try {
-        const reader = new FileReader();
-        const imageData = await new Promise<string>((resolve) => {
-          reader.onload = (e) => resolve(e.target?.result as string);
-          reader.readAsDataURL(file);
-        });
-        
-        await processImage(imageData);
-        processed++;
-        setProcessingProgress((processed / batchFiles.length) * 100);
-        
-        // Simulate download for batch processing
-        await new Promise(resolve => setTimeout(resolve, 500));
-        
-      } catch (error) {
-        console.error(`Failed to process ${file.name}`);
-      }
-    }
-    
-    setIsProcessing(false);
-    setProcessingProgress(0);
-    showToast(`Batch processing complete! ${processed}/${batchFiles.length} images enhanced.`, "success");
-  };
-
-  const handleManualEnhance = async () => {
-    if (!uploadedImage) {
-      showToast("Please upload an image first", "error");
-      return;
-    }
 
     try {
-      const enhanced = await processImage(uploadedImage);
-      setResult(enhanced);
-      showToast("Image enhanced successfully!", "success");
-    } catch (error) {
-      // Error already handled in processImage
+      const items: BatchSourceItem[] = await Promise.all(
+        imageFiles.map(async (file, i) => ({
+          id:
+            typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `batch-${Date.now()}-${i}`,
+          file,
+          dataUrl: await readFileAsDataUrl(file),
+        }))
+      );
+      setBatchSources(items);
+      setBatchSelectedIds(items.map((x) => x.id));
+      setBatchEnhanced({});
+      setBatchMode(true);
+      showToast(
+        `${items.length} image(s) loaded. Adjust settings — all previews update together.`,
+        "success"
+      );
+    } catch {
+      showToast("Failed to read one or more files.", "error");
     }
+  };
+
+  const handleAddMoreBatchImages = async (files: File[]) => {
+    const imageFiles = files.filter((file) => file.type.startsWith("image/"));
+    if (imageFiles.length === 0) {
+      showToast("Please choose image files.", "error");
+      return;
+    }
+    try {
+      const newItems: BatchSourceItem[] = await Promise.all(
+        imageFiles.map(async (file, i) => ({
+          id:
+            typeof crypto !== "undefined" && crypto.randomUUID
+              ? crypto.randomUUID()
+              : `batch-add-${Date.now()}-${i}`,
+          file,
+          dataUrl: await readFileAsDataUrl(file),
+        }))
+      );
+      setBatchSources((prev) => [...prev, ...newItems]);
+      setBatchSelectedIds((prev) => [...prev, ...newItems.map((x) => x.id)]);
+      showToast(
+        `${newItems.length} added — same settings (and active preset) apply to all thumbnails.`,
+        "success"
+      );
+    } catch {
+      showToast("Failed to read added files.", "error");
+    }
+  };
+
+  const toggleBatchSelect = (id: string) => {
+    setBatchSelectedIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id]
+    );
+  };
+
+  const selectAllBatch = () => {
+    setBatchSelectedIds(batchSources.map((s) => s.id));
+  };
+
+  const clearBatchSelection = () => {
+    setBatchSelectedIds([]);
+  };
+
+  const downloadBatchZip = async (scope: "all" | "selected") => {
+    if (scope === "selected" && batchSelectedIds.length === 0) {
+      showToast("Select one or more thumbnails first.", "error");
+      return;
+    }
+    const ids =
+      scope === "selected" ? batchSelectedIds : batchSources.map((s) => s.id);
+    const ready = ids.filter((id) => batchEnhanced[id]);
+    if (ready.length === 0) {
+      showToast("No enhanced previews ready yet. Wait a moment or adjust settings.", "error");
+      return;
+    }
+    try {
+      showToast("Building ZIP…", "info");
+      const zip = new JSZip();
+      const folder = zip.folder("enhanced");
+      ready.forEach((id, index) => {
+        const src = batchSources.find((s) => s.id === id);
+        const data = batchEnhanced[id];
+        if (!src || !data) return;
+        const base = src.file.name.replace(/\.[^.]+$/, "") || "image";
+        const name = `${String(index + 1).padStart(3, "0")}-${safeDownloadFilename(base)}-enhanced.png`;
+        folder?.file(name, dataUrlToBlob(data));
+      });
+      const blob = await zip.generateAsync({ type: "blob" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `enhanced-images-${Date.now()}.zip`;
+      a.click();
+      URL.revokeObjectURL(url);
+      showToast(`Downloaded ${ready.length} file(s) in ZIP.`, "success");
+    } catch {
+      showToast("Could not create ZIP.", "error");
+    }
+  };
+
+  const downloadSingleBatchEnhanced = (id: string) => {
+    const data = batchEnhanced[id];
+    const src = batchSources.find((s) => s.id === id);
+    if (!data || !src) return;
+    const base = src.file.name.replace(/\.[^.]+$/, "") || "image";
+    const a = document.createElement("a");
+    a.href = data;
+    a.download = `${safeDownloadFilename(base)}-enhanced.png`;
+    a.click();
+    showToast("Download started.", "success");
   };
 
   const downloadResult = async (format: 'original' | 'enhanced' | 'comparison') => {
@@ -317,7 +861,7 @@ function AiImageEnhancerContent() {
       if (format === 'original') {
         imageData = result.original;
         filename = `original-${Date.now()}`;
-        
+
         // Download immediately for original
         const link = document.createElement('a');
         link.download = `${filename}.png`;
@@ -331,15 +875,15 @@ function AiImageEnhancerContent() {
         showToast("Creating comparison image...", "info");
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
-        
+
         if (!ctx) {
           showToast("Failed to create comparison image", "error");
           return;
         }
-        
+
         const originalImg = new Image();
         const enhancedImg = new Image();
-        
+
         await Promise.all([
           new Promise<void>((resolve, reject) => {
             originalImg.onload = () => resolve();
@@ -352,37 +896,37 @@ function AiImageEnhancerContent() {
             enhancedImg.src = result.enhanced;
           })
         ]);
-        
+
         // Calculate dimensions with padding
         const padding = 20;
         const labelHeight = 40;
         const maxHeight = Math.max(originalImg.height, enhancedImg.height);
         const totalWidth = originalImg.width + enhancedImg.width + padding * 3;
         const totalHeight = maxHeight + labelHeight + padding * 2;
-        
+
         canvas.width = totalWidth;
         canvas.height = totalHeight;
-        
+
         // White background
         ctx.fillStyle = '#ffffff';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
+
         // Draw original
         ctx.drawImage(originalImg, padding, padding);
-        
+
         // Draw enhanced
         ctx.drawImage(enhancedImg, originalImg.width + padding * 2, padding);
-        
+
         // Add labels with better styling
         ctx.font = 'bold 18px Arial';
         ctx.fillStyle = '#333333';
         ctx.textAlign = 'left';
         ctx.fillText('Original', padding, maxHeight + padding + 25);
         ctx.fillText('Enhanced', originalImg.width + padding * 2, maxHeight + padding + 25);
-        
+
         imageData = canvas.toDataURL('image/png', 0.95);
         filename = `comparison-${Date.now()}`;
-        
+
         // Download comparison
         const link = document.createElement('a');
         link.download = `${filename}.png`;
@@ -410,67 +954,32 @@ function AiImageEnhancerContent() {
   const clearAll = () => {
     setUploadedImage(null);
     setResult(null);
-    setBatchFiles([]);
+    setBatchSources([]);
+    setBatchEnhanced({});
+    setBatchSelectedIds([]);
     setBatchMode(false);
-    setShowComparison(true);
+    setComparePosition(50);
     setImageLoading(false);
+    setSettings({ ...DEFAULT_ENHANCEMENT_SETTINGS });
+    setActivePresetId(DEFAULT_PRESET_ID);
     showToast("All data cleared", "info");
   };
 
-  const presets = [
-    {
-      name: "Photo Restoration",
-      settings: {
-        enhancement: 'restore' as const,
-        upscaleFactor: 1,
-        qualityBoost: 80,
-        colorEnhancement: 60,
-        contrastBoost: 40,
-        sharpenAmount: 50,
-        preserveDetails: true,
-        aiStrength: 90
-      }
-    },
-    {
-      name: "Upscale 4K",
-      settings: {
-        enhancement: 'upscale' as const,
-        upscaleFactor: 4,
-        qualityBoost: 60,
-        colorEnhancement: 30,
-        contrastBoost: 20,
-        sharpenAmount: 60,
-        preserveDetails: true,
-        aiStrength: 85
-      }
-    },
-    {
-      name: "Colorize B&W",
-      settings: {
-        enhancement: 'colorize' as const,
-        upscaleFactor: 1,
-        qualityBoost: 50,
-        colorEnhancement: 90,
-        contrastBoost: 30,
-        sharpenAmount: 40,
-        preserveDetails: true,
-        aiStrength: 95
-      }
-    },
-    {
-      name: "Unblur Focus",
-      settings: {
-        enhancement: 'unblur' as const,
-        upscaleFactor: 1,
-        qualityBoost: 70,
-        colorEnhancement: 40,
-        contrastBoost: 60,
-        sharpenAmount: 80,
-        preserveDetails: true,
-        aiStrength: 80
-      }
-    }
-  ];
+  const exitBatchMode = () => {
+    setBatchMode(false);
+    setBatchSources([]);
+    setBatchEnhanced({});
+    setBatchSelectedIds([]);
+  };
+
+  const enhancementModeHints: Record<EnhancementSettings["enhancement"], string> = {
+    auto: "One-click balance — good starting point for any image.",
+    upscale: "Increase pixel dimensions (2× / 4×). Best for small or pixelated sources.",
+    unblur: "Boost clarity and local contrast — motion blur and soft focus.",
+    restore: "Lift faded scans and damaged prints — stronger contrast and brightness.",
+    colorize: "Push saturation — use with black & white or flat color.",
+    denoise: "Smooth grain in dark or high-ISO shots.",
+  };
 
   const examples = [
     { name: "Old Photos", desc: "Restore vintage and damaged photos" },
@@ -483,16 +992,11 @@ function AiImageEnhancerContent() {
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="text-center space-y-4">
-        <div className="flex items-center justify-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-emerald-500 to-teal-600 rounded-xl text-white">
-            <Sparkles size={24} />
-          </div>
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
-            AI Image Enhancer
-          </h2>
-        </div>
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+          AI Image Enhancer
+        </h2>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Enhance photos with AI: upscale resolution, unblur images, restore old photos, 
+          Enhance photos with AI: upscale resolution, unblur images, restore old photos,
           and colorize black & white pictures with professional quality.
         </p>
       </div>
@@ -581,7 +1085,7 @@ function AiImageEnhancerContent() {
                 <Button variant="outline">Choose Images</Button>
               </div>
             </div>
-            
+
             {/* Examples */}
             <div className="mt-6">
               <Label className="text-sm font-medium mb-3 block">Perfect for:</Label>
@@ -598,421 +1102,385 @@ function AiImageEnhancerContent() {
         </Card>
       )}
 
-      {/* Batch Mode Interface */}
-      {batchMode && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <Layers size={20} />
-                Batch Processing ({batchFiles.length} images)
-              </span>
-              <Button onClick={() => setBatchMode(false)} variant="outline">
-                Switch to Single Mode
-              </Button>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
-                {batchFiles.slice(0, 8).map((file, index) => (
-                  <div key={index} className="p-2 border rounded text-center">
-                    <div className="text-xs font-mono truncate">{file.name}</div>
-                    <div className="text-xs text-gray-500">{(file.size / 1024).toFixed(1)}KB</div>
-                  </div>
-                ))}
-                {batchFiles.length > 8 && (
-                  <div className="p-2 border rounded text-center text-gray-500">
-                    +{batchFiles.length - 8} more
-                  </div>
-                )}
-              </div>
-              
-              <Button
-                type="button"
-                onClick={processBatch}
-                disabled={isProcessing}
-                aria-busy={isProcessing}
-                className="w-full"
-              >
-                {isProcessing ? (
-                  <>
-                    <RefreshCw size={16} className="mr-2 animate-spin" />
-                    Processing Batch... {processingProgress.toFixed(0)}%
-                  </>
-                ) : (
-                  <>
-                    <Zap size={16} className="mr-2" />
-                    Process All Images
-                  </>
-                )}
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Processing Progress */}
-      {isProcessing && !batchMode && (
-        <Card>
-          <CardContent className="pt-6">
-            <div className="space-y-4">
-              <div className="flex items-center gap-3">
-                <RefreshCw size={20} className="animate-spin text-emerald-600" />
-                <span className="font-medium">Enhancing image with AI...</span>
-              </div>
-              <div className="w-full bg-gray-200 rounded-full h-3">
-                <div 
-                  className="bg-gradient-to-r from-emerald-500 to-teal-600 h-3 rounded-full transition-all duration-300"
-                  style={{ width: `${processingProgress}%` }}
-                />
-              </div>
-              <div className="text-sm text-gray-600 text-center">
-                {processingProgress}% complete
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Uploaded Image Preview */}
-      {uploadedImage && !result && !batchMode && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <ImageIcon size={20} />
-              Uploaded Image Preview
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="relative border rounded-lg overflow-hidden bg-gray-100">
-              {imageLoading ? (
-                <div className="flex items-center justify-center h-64">
-                  <RefreshCw size={24} className="animate-spin text-emerald-600" />
-                </div>
-              ) : (
-                <img 
-                  src={uploadedImage} 
-                  alt="Uploaded" 
-                  className="w-full h-auto max-h-96 object-contain mx-auto"
-                />
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Settings & Controls */}
-      {uploadedImage && !batchMode && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Settings size={20} />
-              Enhancement Settings
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {/* Presets */}
-            <div>
-              <Label className="text-sm font-medium mb-3 block">Quick Presets</Label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                {presets.map((preset, index) => (
-                  <Button
-                    key={index}
-                    type="button"
-                    variant="outline"
-                    disabled={isProcessing}
-                    onClick={() => setSettings(preset.settings)}
-                    className="h-auto p-3"
-                  >
-                    <div className="text-center">
-                      <div className="font-medium text-sm">{preset.name}</div>
-                      <div className="text-xs text-gray-600 mt-1">
-                        {preset.settings.enhancement}
-                      </div>
-                    </div>
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Enhancement Type */}
-            <div>
-              <Label htmlFor="enhancement">Enhancement Type</Label>
-              <Select 
-                value={settings.enhancement} 
-                onValueChange={(value: any) => setSettings(prev => ({ ...prev, enhancement: value }))}
-              >
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="auto">Auto Enhance</SelectItem>
-                  <SelectItem value="upscale">Upscale Resolution</SelectItem>
-                  <SelectItem value="unblur">Remove Blur</SelectItem>
-                  <SelectItem value="restore">Restore Quality</SelectItem>
-                  <SelectItem value="colorize">Colorize B&W</SelectItem>
-                  <SelectItem value="denoise">Remove Noise</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-
-            {/* Advanced Settings */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {settings.enhancement === 'upscale' && (
-                <div>
-                  <Label htmlFor="upscale-factor">Upscale Factor: {settings.upscaleFactor}x</Label>
-                  <Slider
-                    value={[settings.upscaleFactor]}
-                    onValueChange={([value]) => setSettings(prev => ({ ...prev, upscaleFactor: value }))}
-                    max={4}
-                    min={1}
-                    step={1}
-                    className="mt-2"
-                  />
-                </div>
-              )}
-              
-              <div>
-                <Label htmlFor="quality-boost">Quality Boost: {settings.qualityBoost}%</Label>
-                <Slider
-                  value={[settings.qualityBoost]}
-                  onValueChange={([value]) => setSettings(prev => ({ ...prev, qualityBoost: value }))}
-                  max={100}
-                  min={0}
-                  step={5}
-                  className="mt-2"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="color-enhancement">Color Enhancement: {settings.colorEnhancement}%</Label>
-                <Slider
-                  value={[settings.colorEnhancement]}
-                  onValueChange={([value]) => setSettings(prev => ({ ...prev, colorEnhancement: value }))}
-                  max={100}
-                  min={0}
-                  step={5}
-                  className="mt-2"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="contrast-boost">Contrast Boost: {settings.contrastBoost}%</Label>
-                <Slider
-                  value={[settings.contrastBoost]}
-                  onValueChange={([value]) => setSettings(prev => ({ ...prev, contrastBoost: value }))}
-                  max={100}
-                  min={0}
-                  step={5}
-                  className="mt-2"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="sharpen-amount">Sharpen Amount: {settings.sharpenAmount}%</Label>
-                <Slider
-                  value={[settings.sharpenAmount]}
-                  onValueChange={([value]) => setSettings(prev => ({ ...prev, sharpenAmount: value }))}
-                  max={100}
-                  min={0}
-                  step={5}
-                  className="mt-2"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="ai-strength">AI Strength: {settings.aiStrength}%</Label>
-                <Slider
-                  value={[settings.aiStrength]}
-                  onValueChange={([value]) => setSettings(prev => ({ ...prev, aiStrength: value }))}
-                  max={100}
-                  min={0}
-                  step={5}
-                  className="mt-2"
-                />
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="preserve-details"
-                checked={settings.preserveDetails}
-                onCheckedChange={(checked) => setSettings(prev => ({ ...prev, preserveDetails: checked }))}
+      {/* Batch: same settings (left) + thumbnail grid (right) */}
+      {batchMode && batchSources.length > 0 && (
+        <div className="space-y-6">
+        <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <Card className="order-2 lg:order-1 max-h-fit flex flex-col overflow-hidden" style={{scrollbarWidth: 'thin'}}>
+            <CardHeader className="shrink-0">
+              <CardTitle className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="flex items-center gap-2">
+                  <Layers size={20} />
+                  Batch · {batchSources.length} images
+                </span>
+                <Button type="button" onClick={exitBatchMode} variant="outline" size="sm">
+                  Exit batch
+                </Button>
+              </CardTitle>
+              <CardDescription>
+                One set of controls applies to every image. Thumbnails refresh when you change a setting.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 overflow-y-auto flex-1 min-h-0 pr-1">
+              <EnhancementSettingsForm
+                settings={settings}
+                onSettingsChange={onSettingsChange}
+                presets={ENHANCEMENT_PRESETS}
+                activePresetId={activePresetId}
+                onPresetSelect={onPresetSelect}
+                enhancementModeHints={enhancementModeHints}
               />
-              <Label htmlFor="preserve-details">Preserve fine details</Label>
-            </div>
-            
-            <div className="flex flex-wrap gap-2">
-              <Button
-                type="button"
-                onClick={handleManualEnhance}
-                disabled={isProcessing}
-                aria-busy={isProcessing}
-              >
-                {isProcessing ? (
-                  <RefreshCw size={16} className="mr-2 animate-spin" />
-                ) : (
-                  <Sparkles size={16} className="mr-2" />
-                )}
-                Enhance Image
-              </Button>
-              
-              <Button type="button" onClick={clearAll} variant="outline" disabled={isProcessing}>
-                <Trash2 size={16} className="mr-2" />
-                Clear All
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Results */}
-      {result && (
-        <Card>
-          <CardHeader>
-            <CardTitle className="flex items-center justify-between">
-              <span className="flex items-center gap-2">
-                <Star size={20} />
-                Enhancement Results
-              </span>
-              <div className="flex gap-2">
-                <Button onClick={() => setShowComparison(!showComparison)} variant="outline">
-                  {showComparison ? <EyeOff size={16} /> : <Eye size={16} />}
-                  <span className="ml-2">{showComparison ? "Hide" : "Show"} Original</span>
+              <div className="flex flex-wrap gap-2 pt-2 border-t">
+                <Button type="button" variant="outline" size="sm" onClick={selectAllBatch}>
+                  Select all
                 </Button>
-                <Button onClick={() => downloadResult('enhanced')} variant="outline">
-                  <Download size={16} className="mr-2" />
-                  Enhanced
+                <Button type="button" variant="outline" size="sm" onClick={clearBatchSelection}>
+                  Clear selection
                 </Button>
-                <Button onClick={() => downloadResult('comparison')} variant="outline">
-                  <Download size={16} className="mr-2" />
-                  Comparison
+                <span className="text-xs text-muted-foreground self-center">
+                  {batchSelectedIds.length} selected
+                </span>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                <Button type="button" onClick={clearAll} variant="outline">
+                  <Trash2 size={16} className="mr-2" />
+                  Clear everything
                 </Button>
               </div>
-            </CardTitle>
-          </CardHeader>
-          <CardContent>
-            {/* Improvement Metrics */}
-            <div className="mb-6 p-4 bg-emerald-50 rounded-lg">
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span className="font-medium">Resolution:</span>
-                  <div className="text-emerald-600">{result.improvements.resolution}</div>
-                </div>
-                <div>
-                  <span className="font-medium">Quality Score:</span>
-                  <div className="text-emerald-600">{result.improvements.quality}/100</div>
-                </div>
-                <div>
-                  <span className="font-medium">Clarity:</span>
-                  <div className="text-emerald-600">{result.improvements.clarity}/100</div>
-                </div>
-                <div>
-                  <span className="font-medium">Color Enhancement:</span>
-                  <div className="text-emerald-600">{result.improvements.colors}/100</div>
-                </div>
-              </div>
-            </div>
+            </CardContent>
+          </Card>
 
-            {/* Image Comparison */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {showComparison && result.original && (
-                <div className="space-y-2">
-                  <Label className="text-sm font-medium mb-2 flex items-center gap-2">
-                    <ImageIcon size={16} />
-                    Original Image
-                  </Label>
-                  <div className="relative border rounded-lg overflow-hidden bg-gray-100 min-h-[200px] flex items-center justify-center">
-                    <img 
-                      src={result.original} 
-                      alt="Original" 
-                      className="w-full h-auto max-h-96 object-contain"
-                      onError={(e) => {
-                        console.error('Failed to load original image');
-                        showToast("Failed to load original image", "error");
-                      }}
-                    />
-                  </div>
+          <Card className="order-1 lg:order-2 lg:sticky lg:top-4 min-h-0 flex flex-col max-h-fit">
+            <CardHeader className="shrink-0 space-y-3">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
+                <div>
+                  <CardTitle className="flex items-center gap-2">
+                    <ImageIcon size={20} />
+                    Enhanced previews
+                  </CardTitle>
+                  <CardDescription className="mt-1.5">
+                    Thumbnails only — no comparison slider. Use checkboxes for ZIP selection.
+                  </CardDescription>
                 </div>
-              )}
-              
-              <div className={showComparison ? '' : 'lg:col-span-2'}>
-                <Label className="text-sm font-medium mb-2 flex items-center gap-2">
-                  <Sparkles size={16} />
-                  Enhanced Image
-                  <Badge variant="secondary" className="ml-2">
-                    {result.enhancement} enhancement
-                  </Badge>
-                </Label>
-                <div className="relative border rounded-lg overflow-hidden bg-gray-100 min-h-[200px] flex items-center justify-center">
-                  <img 
-                    src={result.enhanced} 
-                    alt="Enhanced" 
-                    className="w-full h-auto max-h-96 object-contain"
-                    onError={(e) => {
-                      console.error('Failed to load enhanced image');
-                      showToast("Failed to load enhanced image", "error");
+                <div className="flex flex-col gap-2 shrink-0">
+                  <input
+                    id="batch-add-more-input"
+                    type="file"
+                    accept="image/*"
+                    multiple
+                    className="hidden"
+                    onChange={(e) => {
+                      if (e.target.files?.length) {
+                        handleAddMoreBatchImages(Array.from(e.target.files));
+                        e.target.value = "";
+                      }
                     }}
                   />
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="sm"
+                    className="whitespace-nowrap"
+                    onClick={() =>
+                      document.getElementById("batch-add-more-input")?.click()
+                    }
+                  >
+                    <Upload size={14} className="mr-2" />
+                    Add more images
+                  </Button>
                 </div>
               </div>
-            </div>
-
-            {/* Download Options */}
-            <div className="mt-6 pt-4 border-t">
-              <Label className="text-sm font-medium mb-3 block">Download Options:</Label>
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                <Button variant="outline" onClick={() => downloadResult('enhanced')} className="justify-start">
-                  <Sparkles size={16} className="mr-2" />
-                  Enhanced Image
-                </Button>
-                <Button variant="outline" onClick={() => downloadResult('original')} className="justify-start">
-                  <ImageIcon size={16} className="mr-2" />
-                  Original Image
-                </Button>
-                <Button variant="outline" onClick={() => downloadResult('comparison')} className="justify-start">
-                  <Contrast size={16} className="mr-2" />
-                  Side-by-Side
-                </Button>
-                <Button variant="outline" disabled className="justify-start">
-                  <TrendingUp size={16} className="mr-2" />
-                  4K Version (Pro)
-                </Button>
-              </div>
-            </div>
-
-            {/* Compress Image CTA */}
-            <div className="mt-6 pt-6 border-t">
-              <div className="bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950/20 dark:to-teal-950/20 rounded-lg p-6 border border-emerald-200 dark:border-emerald-800">
-                <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-                  <div className="flex items-center gap-4">
-                    <div className="p-3 bg-emerald-100 dark:bg-emerald-900/30 rounded-lg">
-                      <Gauge size={24} className="text-emerald-600 dark:text-emerald-400" />
+            </CardHeader>
+            <CardContent className="flex-1 min-h-0 overflow-y-auto pr-1">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(112px,1fr))] gap-2">
+                {batchSources.map((item) => {
+                  const enhanced = batchEnhanced[item.id];
+                  const checked = batchSelectedIds.includes(item.id);
+                  return (
+                    <div
+                      key={item.id}
+                      className={`relative rounded-md border bg-muted/30 overflow-hidden flex flex-col ${
+                        checked ? "ring-2 ring-emerald-500" : ""
+                      }`}
+                    >
+                      <label className="absolute top-1 left-1 z-10 flex items-center justify-center rounded bg-background/90 p-0.5 shadow">
+                        <input
+                          type="checkbox"
+                          checked={checked}
+                          onChange={() => toggleBatchSelect(item.id)}
+                          className="h-3.5 w-3.5 accent-emerald-600 cursor-pointer"
+                          aria-label={`Select ${item.file.name}`}
+                        />
+                      </label>
+                      <button
+                        type="button"
+                        className="absolute top-1 right-1 z-10 rounded bg-background/90 p-1 shadow hover:bg-muted"
+                        onClick={() => downloadSingleBatchEnhanced(item.id)}
+                        disabled={!enhanced}
+                        title="Download this image"
+                      >
+                        <Download size={12} className="text-emerald-700" />
+                      </button>
+                      <div className="aspect-square w-full bg-muted flex items-center justify-center">
+                        {enhanced ? (
+                          <img
+                            src={enhanced}
+                            alt=""
+                            className="w-full h-full object-cover"
+                          />
+                        ) : (
+                          <RefreshCw size={20} className="animate-spin text-emerald-600" />
+                        )}
+                      </div>
+                      <div className="px-1 py-1 text-[10px] leading-tight text-muted-foreground truncate border-t bg-background/80">
+                        {item.file.name}
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-semibold text-lg mb-1">Want to compress your enhanced image?</h4>
-                      <p className="text-sm text-muted-foreground">
-                        Reduce file size while maintaining quality for faster loading and sharing
-                      </p>
-                    </div>
-                  </div>
-                  <Link href="/image-compressor">
-                    <Button size="lg" className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white">
-                      <Gauge size={18} className="mr-2" />
-                      Compress Image
-                      <ArrowRight size={18} className="ml-2" />
-                    </Button>
-                  </Link>
-                </div>
+                  );
+                })}
               </div>
-            </div>
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="border-emerald-200 dark:border-emerald-900 shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Download size={20} className="text-emerald-600" />
+              Download exports (batch)
+            </CardTitle>
+            <CardDescription>
+              All options stay visible here — no scrolling past settings to find them.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="flex flex-col sm:flex-row flex-wrap gap-3">
+            <Button type="button" onClick={() => downloadBatchZip("all")} className="justify-start">
+              <FileArchive size={16} className="mr-2" />
+              Download all as ZIP
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => downloadBatchZip("selected")}
+              disabled={batchSelectedIds.length === 0}
+              className="justify-start"
+            >
+              <FileArchive size={16} className="mr-2" />
+              Download selected as ZIP
+            </Button>
           </CardContent>
         </Card>
+        <PostDownloadToolsCard />
+        </div>
+      )}
+
+      {/* Single image: controls (left) + live before/after (right) */}
+      {uploadedImage && !batchMode && (
+        <div className="space-y-6">
+        <div className="grid lg:grid-cols-2 gap-6 items-start">
+          <Card className="order-2 lg:order-1 flex flex-col overflow-y-auto h-fit">
+            <CardHeader className="shrink-0">
+              <CardTitle className="flex items-center gap-2">
+                <Settings size={20} />
+                Enhancement settings
+              </CardTitle>
+              <CardDescription>
+                Changes apply instantly to the preview — no extra button needed.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6 overflow-y-auto flex-1 min-h-0 pr-1">
+              <EnhancementSettingsForm
+                settings={settings}
+                onSettingsChange={onSettingsChange}
+                presets={ENHANCEMENT_PRESETS}
+                activePresetId={activePresetId}
+                onPresetSelect={onPresetSelect}
+                enhancementModeHints={enhancementModeHints}
+              />
+              <div className="flex flex-wrap gap-2 pt-2 border-t">
+                <Button type="button" onClick={clearAll} variant="outline">
+                  <Trash2 size={16} className="mr-2" />
+                  Clear &amp; new image
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          <Card className="order-1 lg:order-2 lg:sticky lg:top-4">
+            <CardHeader>
+              <CardTitle className="flex items-center justify-between gap-2 flex-wrap">
+                <span className="flex items-center gap-2">
+                  <Contrast size={20} />
+                  Before / after
+                </span>
+                {result && (
+                  <Badge variant="secondary">{result.enhancement}</Badge>
+                )}
+              </CardTitle>
+              <CardDescription>
+                Drag the slider to compare original (left) with enhanced (right). Preview updates as you change settings.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-4">
+              {imageLoading || !result ? (
+                <div className="flex flex-col items-center justify-center min-h-[280px] rounded-lg border bg-muted/40">
+                  <RefreshCw size={28} className="animate-spin text-emerald-600 mb-3" />
+                  <p className="text-sm text-muted-foreground">Building preview…</p>
+                </div>
+              ) : (
+                <>
+                  <div className="relative w-full rounded-lg overflow-hidden border bg-muted/30">
+                    <img
+                      src={result.enhanced}
+                      alt=""
+                      className="block w-full h-auto max-h-[min(70vh,560px)] object-contain mx-auto"
+                    />
+                    <div className="absolute inset-0 pointer-events-none">
+                      <img
+                        src={result.original}
+                        alt=""
+                        className="absolute inset-0 w-full h-full object-contain"
+                        style={{
+                          clipPath: `inset(0 ${100 - comparePosition}% 0 0)`,
+                        }}
+                      />
+                    </div>
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      value={comparePosition}
+                      onChange={(e) => setComparePosition(Number(e.target.value))}
+                      className="absolute inset-0 w-full h-full opacity-0 cursor-ew-resize z-10"
+                      aria-label="Compare original and enhanced"
+                    />
+                    <div
+                      className="absolute top-0 bottom-0 w-0.5 bg-white shadow-md pointer-events-none z-[5]"
+                      style={{ left: `${comparePosition}%`, transform: "translateX(-50%)" }}
+                    />
+                    <div className="absolute bottom-2 left-2 right-2 flex justify-between text-[11px] font-semibold text-white drop-shadow-[0_1px_2px_rgba(0,0,0,0.85)] pointer-events-none z-[6]">
+                      <span>Original</span>
+                      <span>Enhanced</span>
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>More original</span>
+                      <span>More enhanced</span>
+                    </div>
+                    <Slider
+                      value={[comparePosition]}
+                      onValueChange={([v]) => setComparePosition(v)}
+                      max={100}
+                      min={0}
+                      step={1}
+                    />
+                  </div>
+
+                  <div className="p-4 bg-emerald-50 dark:bg-emerald-950/30 rounded-lg">
+                    <div className="grid grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <span className="font-medium text-muted-foreground">Resolution</span>
+                        <div className="text-emerald-700 dark:text-emerald-400">
+                          {result.improvements.resolution}
+                        </div>
+                      </div>
+                      <div>
+                        <span className="font-medium text-muted-foreground">Quality</span>
+                        <div className="text-emerald-700 dark:text-emerald-400">
+                          {result.improvements.quality}/100
+                        </div>
+                      </div>
+                      <div>
+                        <span className="font-medium text-muted-foreground">Clarity</span>
+                        <div className="text-emerald-700 dark:text-emerald-400">
+                          {result.improvements.clarity}/100
+                        </div>
+                      </div>
+                      <div>
+                        <span className="font-medium text-muted-foreground">Color</span>
+                        <div className="text-emerald-700 dark:text-emerald-400">
+                          {result.improvements.colors}/100
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <Card className="border-emerald-200 dark:border-emerald-900 shadow-sm">
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2 text-lg">
+              <Download size={20} className="text-emerald-600" />
+              Download &amp; next steps
+            </CardTitle>
+            <CardDescription>
+              Export your enhanced image or a side-by-side comparison. Below this card you can jump to compress, convert, or resize tools.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="space-y-6">
+            {result ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="justify-start h-auto py-3 min-h-[3.5rem]"
+                  onClick={() => downloadResult("enhanced")}
+                >
+                  <Sparkles size={16} className="mr-2 shrink-0" />
+                  <span className="text-left">
+                    <span className="block font-medium">Enhanced PNG</span>
+                    <span className="block text-xs text-muted-foreground font-normal">
+                      Full result
+                    </span>
+                  </span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="justify-start h-auto py-3 min-h-[3.5rem]"
+                  onClick={() => downloadResult("original")}
+                >
+                  <ImageIcon size={16} className="mr-2 shrink-0" />
+                  <span className="text-left">
+                    <span className="block font-medium">Original</span>
+                    <span className="block text-xs text-muted-foreground font-normal">
+                      Unchanged upload
+                    </span>
+                  </span>
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="justify-start h-auto py-3 min-h-[3.5rem] sm:col-span-2 lg:col-span-2"
+                  onClick={() => downloadResult("comparison")}
+                >
+                  <Contrast size={16} className="mr-2 shrink-0" />
+                  <span className="text-left">
+                    <span className="block font-medium">Side-by-side comparison</span>
+                    <span className="block text-xs text-muted-foreground font-normal">
+                      Original + enhanced in one PNG
+                    </span>
+                  </span>
+                </Button>
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                Preview is still loading — download buttons will appear here when ready.
+              </p>
+            )}
+          </CardContent>
+        </Card>
+        <PostDownloadToolsCard />
+        </div>
       )}
 
       {/* SEO Content */}
-</div>
+    </div>
   );
 }
 

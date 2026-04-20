@@ -233,7 +233,7 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Introduction Section */}
       <section className="space-y-8 w-full">
-        <div className="text-center w-full">
+        <div className="text-left md:text-center  w-full">
           <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
             AI Image Enhancer — Enhance Your Images with AI for Free Online
           </h1>
@@ -322,21 +322,21 @@ export function AIImageEnhancerSEOContent() {
 
       {/* How to Use */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           How Can You Enhance Images with AI for Free?
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           With ToolSpy, you can use AI to improve image quality right in your browser for free. The procedure is straightforward: upload your photo, allow the{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI image enhancement system</strong> to process it, and then receive the improved version right away. There is no need to install software or register. Your device stays fast while the intensive processing takes place safely online because the{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI picture enhancement generator</strong> operates fully in the cloud.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Everyone can use AI to improve images without having to purchase pricey tools thanks to ToolSpy's{" "}
           <strong className="text-green-600 dark:text-green-400">free AI picture enhancer</strong>. This{" "}
           <strong className="text-pink-600 dark:text-pink-400">free AI picture improvement technology</strong> may be used to improve product images for e-commerce, update your social media visuals, or restore old family photos. Powered by cutting-edge deep learning models, ToolSpy's{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI enhance picture free</strong> gives you professional-grade improvement in a matter of seconds.
         </p>
-        <h4 className="text-xl font-bold text-center mt-8">
+        <h4 className="text-xl font-bold text-start md:text-center mt-8">
           Follow these simple steps to enhance images securely with AI assistance:
         </h4>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -376,21 +376,21 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Why AI Enhancement is Better */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Why AI Image Enhancement Is Better Than Manual Editing
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Conventional photo editing takes time and skill. It can take hours to manually adjust brightness, contrast, and noise, and the results are still not always consistent. However, by learning how perfect photographs should seem,{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI image enhancement</strong> provides reliable and automated improvement. ToolSpy's{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI-powered picture enhancer</strong> can provide realistic enhancements without distortion since it comprehends object characteristics, color tones, and lighting dynamics.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Users may rapidly restore lost details and correct underexposed or fuzzy photographs using ToolSpy's{" "}
           <strong className="text-green-600 dark:text-green-400">free AI image enhancer</strong>. The{" "}
           <strong className="text-pink-600 dark:text-pink-400">AI augmentation</strong> is done intelligently; it doesn't artificially change colors or oversharpen. Rather, natural detail and visual depth are restored by the{" "}
           <strong className="text-orange-600 dark:text-orange-400">image enhancement AI technology</strong>, resulting in pictures that are both realistic and lovely.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
                     Millions of high-resolution photos are used to train ToolSpy's{" "}
                     <strong className="text-orange-600 dark:text-orange-400">
                       AI image enhancing technology
@@ -405,20 +405,20 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Online AI Image Enhancer */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           AI Image Enhancer Online — No Download Required
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Convenience is the main goal of ToolSpy's{" "}
           <strong className="text-blue-600 dark:text-blue-400">online AI image enhancer platform</strong>. You don't need to have editing skills or install any complicated software. Simply upload your photo, and the{" "}
           <strong className="text-purple-600 dark:text-purple-400">online AI image enhancer</strong> will instantly improve it. The output can be downloaded instantaneously, and the full enhancing process takes place on secure servers.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           ToolSpy is a{" "}
           <strong className="text-green-600 dark:text-green-400">free AI image enhancer</strong> that works with JPEG, PNG, and even scanned photographs. It is ideal for both personal and business use. ToolSpy's{" "}
           <strong className="text-pink-600 dark:text-pink-400">AI image enhancer free online tool</strong> guarantees consistently high-quality results whether you need to improve a selfie, product photo, or landscape photograph.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI image enhancement free online</strong> system employs the same deep learning methods as high-end editing software, but it is available to everyone for free. This implies that you don't need to worry about subscriptions or technological setup in order to enjoy advanced{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI picture improvement</strong> directly from your browser.
@@ -427,20 +427,20 @@ export function AIImageEnhancerSEOContent() {
 
       {/* 4K Enhancement */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Enhance Image Quality with AI — Get 4K Results Instantly
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The capacity of ToolSpy to{" "}
           <strong className="text-blue-600 dark:text-blue-400">improve image quality AI</strong> for ultra-high-resolution output is one of its most notable capabilities. Upscaling low-quality photographs to greater resolutions while maintaining fine details is possible with the{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI image enhancer 4K mode</strong>. For photographers, marketers, and online retailers who want crisp images, this makes it perfect.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The{" "}
           <strong className="text-green-600 dark:text-green-400">AI image quality enhancer</strong> allows you to improve textures at the pixel level, eliminate grain, and fix blurriness. The end product is a high-resolution, properly balanced image that maintains its natural appearance even when enlarged. With no distortion or pixelation, ToolSpy's{" "}
           <strong className="text-pink-600 dark:text-pink-400">boost image quality AI technology</strong> helps turn ordinary photos into professional-caliber visuals.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           ToolSpy consistently performs well whether you want to upgrade old photos to 4K or use{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI to improve images</strong> for social media. It ensures that your photographs always appear vivid and realistic by combining intelligent enhancement with color correction and sharpness.
         </p>
@@ -448,21 +448,21 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Best Free AI Image Enhancer */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Best Free AI Image Enhancer — Why ToolSpy Leads the Way
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Although there are numerous programs on the market today that promise to use{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI to improve images</strong>, ToolSpy's{" "}
           <strong className="text-purple-600 dark:text-purple-400">free AI image enhancer platform</strong> stands out for its accuracy, usefulness, and quality. Because it offers premium effects without fee or watermarks, it is regarded as one of the{" "}
           <strong className="text-green-600 dark:text-green-400">finest free AI picture enhancers</strong>.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           While most tools restrict free use or lower image quality, ToolSpy offers free full-quality improvement. To better identify faces, backgrounds, and textures, its{" "}
           <strong className="text-pink-600 dark:text-pink-400">AI picture enhancing technologies</strong> are updated on a regular basis. ToolSpy's{" "}
           <strong className="text-orange-600 dark:text-orange-400">top AI picture enhancer</strong> works with all types of photos, whether you're enhancing graphics, landscapes, or portraits.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           ToolSpy's{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI image enhancer tools</strong> are made with quality and speed in mind. Each photograph is meticulously processed by the AI engine to produce crisp, natural, and clean results. ToolSpy is one of the{" "}
           <strong className="text-purple-600 dark:text-purple-400">best AI-free picture enhancer solutions</strong> available because of its cutting-edge technology and intuitive design.
@@ -471,14 +471,14 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Face and Portrait Enhancement */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           AI Image Enhancer for Faces and Portraits
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           One of the most difficult aspects of photo editing is portrait enhancement. Precision is necessary for facial features because excessive augmentation might make them appear fake. The{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI image enhancer face technology</strong> from ToolSpy has been specially trained for human features. Without altering the natural appearance, it increases lighting, sharpens details, lessens imperfections, and brightens skin tone.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Realistic textures and expressions are preserved in the{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI-enhanced image output</strong>. You'll see smoother skin, brighter eyes, and better contrast that still looks real when you use ToolSpy's{" "}
           <strong className="text-green-600 dark:text-green-400">face model to enhance images AI-free</strong>. For photographers, influencers, and social media users who wish to easily enhance selfies or portraits, ToolSpy's{" "}
@@ -488,20 +488,20 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Software vs Online Tools */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           AI Image Enhancer Software vs. Online Tools
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Although some people like desktop-based{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI image enhancement tools</strong>, ToolSpy's web version provides greater flexibility. The{" "}
           <strong className="text-purple-600 dark:text-purple-400">online AI image enhancer</strong> operates right within your browser, in contrast to software that needs to be installed, updated, and have system resources. You can access it from a computer, tablet, or phone at any time and from any location.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The{" "}
           <strong className="text-green-600 dark:text-green-400">free online version</strong> of ToolSpy's{" "}
           <strong className="text-pink-600 dark:text-pink-400">AI picture enhancer</strong> offers the same level of quality improvement as commercial products. Because of its accessible style, you may effortlessly improve one or several photos. Additionally, your files stay safe and are automatically erased after processing to preserve your privacy.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           ToolSpy's{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI enhancer pictures platform</strong> strikes the ideal mix between convenience and performance because of its simplicity. It's the best option for quick and efficient{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI picture improvement online</strong> because it requires no downloads, has no watermarks, and produces results instantly.
@@ -510,20 +510,20 @@ export function AIImageEnhancerSEOContent() {
 
       {/* How ToolSpy Improves Details */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           How ToolSpy's AI Enhancer Improves Every Detail
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The secret behind ToolSpy's powerful{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI enhancing image process</strong> lies in its multi-layer neural network. The system doesn't just sharpen edges — it reconstructs lost data intelligently. This means every pixel is analyzed and enhanced based on contextual information, restoring fine details and improving overall depth.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           The{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI improvement image technology</strong> intelligently balances brightness and contrast while correcting blur brought on either motion or dim illumination. In addition to improving color vibrancy and lowering visual noise, the{" "}
           <strong className="text-green-600 dark:text-green-400">picture quality enhancer AI model</strong> produces more realistic and polished images. ToolSpy's{" "}
           <strong className="text-pink-600 dark:text-pink-400">AI image enhance feature</strong> guarantees consistent outcomes whether you're creating high-quality images for your website or bringing back memories.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Every{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI-enhanced photo</strong> retains its inherent charm while feeling clearer, cleaner, and more aesthetically pleasing. You may discover the full potential of ToolSpy's next-generation{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI picture enhancement capabilities</strong> with only one click.
@@ -532,21 +532,21 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Free Unlimited Access */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Free AI Image Enhancement — Unlimited Access with ToolSpy
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           According to ToolSpy, everyone should have access to high-quality picture enhancing. Because of this, there are no restrictions on file uploads or conversions when using the{" "}
           <strong className="text-blue-600 dark:text-blue-400">free AI image enhancement feature</strong>.{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI may improve your image for free</strong> at any moment, whether you're using it for commercial marketing, academic projects, or personal use.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Even novices can easily obtain expert-level photo improvement with our{" "}
           <strong className="text-green-600 dark:text-green-400">free AI image enhancer</strong>. New models for improved facial recognition, sharper edges, and color correction are constantly added to the{" "}
           <strong className="text-pink-600 dark:text-pink-400">free AI picture enhancer service</strong>. ToolSpy helps customers get studio-quality results right in their browser by providing a{" "}
           <strong className="text-orange-600 dark:text-orange-400">free AI picture enhancer</strong>.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Using{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI to turn images</strong> into high-quality, professional-grade visuals is more important than simply improving their appearance. Because of this, ToolSpy is one of the most reputable brands in{" "}
           <strong className="text-purple-600 dark:text-purple-400">AI image enhancement free platforms</strong> globally.
@@ -555,10 +555,10 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Enhancer Types Guide */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Enhancer Types & Use Cases
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Choose the right enhancer type for your specific needs with detailed information and examples.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -581,10 +581,10 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Key Benefits Grid */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Why Toolspy's AI Image Enhancer Rocks
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Here's what makes our tool special and why professionals and users love using it.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -608,10 +608,10 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Point-wise Benefits */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Everything You Get with Our AI Image Enhancer
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           All the features you need for professional AI image enhancement, completely free.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -625,7 +625,7 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Comparison Table */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Detailed Feature Comparison
         </h3>
         <Card>
@@ -676,10 +676,10 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Competitor Advantages */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Why Choose Toolspy Over Other AI Image Enhancers
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Here's how we compare to other popular AI image enhancement tools.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -706,10 +706,10 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Step-by-Step Guide */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Complete Step-by-Step Guide
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Detailed instructions for getting the best results from our
           professional AI image enhancement tool.
         </p>
@@ -755,7 +755,7 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Use Cases Section */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Common Use Cases
         </h3>
         <p className="text-center text-muted-foreground w-full">
@@ -801,21 +801,21 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Enhance Images Instantly */}
       <section className="space-y-6 w-full">
-        <h3 className="text-2xl font-bold text-center">
+        <h3 className="text-2xl font-bold text-start md:text-center">
           Enhance Your Images Instantly with ToolSpy's AI Technology
         </h3>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           With its{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI picture enhancer tools</strong> for both novices and experts, ToolSpy is setting the standard in the quickly developing field of{" "}
           <strong className="text-purple-600 dark:text-purple-400">image improving AI</strong>.{" "}
           <strong className="text-green-600 dark:text-green-400">AI allows you to immediately improve photographs</strong> without any expertise. Enhanced photographs may be uploaded, processed, and downloaded in a matter of seconds thanks to the tool's user-friendly interface.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           ToolSpy guarantees that every element is maximized, whether you want to{" "}
           <strong className="text-pink-600 dark:text-pink-400">improve AI images</strong> for creative projects, personal photography, or company branding. With just one click, the upcoming{" "}
           <strong className="text-orange-600 dark:text-orange-400">AI image enhancer free extension</strong> will allow you to improve photographs straight from your browser, giving marketers and creators even more simplicity.
         </p>
-        <p className="text-center text-muted-foreground w-full">
+        <p className="text-start md:text-center text-muted-foreground w-full">
           Modern algorithms are used by ToolSpy's{" "}
           <strong className="text-blue-600 dark:text-blue-400">AI free picture enhancer</strong> to give high-definition enhancements while maintaining the naturalness and detail of the photographs. Every function, from{" "}
           <strong className="text-purple-600 dark:text-purple-400">free AI picture enhancement</strong> to{" "}
@@ -826,7 +826,7 @@ export function AIImageEnhancerSEOContent() {
       {/* SEO Keyword Cluster Section */}
       <section className="space-y-6 w-full">
         <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
+          <h3 className="text-2xl font-bold text-start md:text-center mb-6">
             Start Enhancing Images with ToolSpy — Fast, Smart, and Free
           </h3>
           <div className="w-full">
@@ -854,7 +854,7 @@ export function AIImageEnhancerSEOContent() {
 
       {/* Final CTA Section */}
       <section className="space-y-6 w-full">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
+        <div className="text-start md:text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
           <h3 className="text-2xl font-bold mb-4">
             Ready to Enhance Your Images with AI?
           </h3>
