@@ -1150,7 +1150,7 @@ function AiImageEnhancerContent() {
             </CardContent>
           </Card>
 
-          <Card className="order-1 lg:order-2 lg:sticky lg:top-4 min-h-0 flex flex-col max-h-fit">
+          <Card className="order-1 lg:order-2 lg:sticky lg:top-12 min-h-0 flex flex-col max-h-fit">
             <CardHeader className="shrink-0 space-y-3">
               <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3">
                 <div>
@@ -1199,7 +1199,7 @@ function AiImageEnhancerContent() {
                   return (
                     <div
                       key={item.id}
-                      className={`relative rounded-md border bg-muted/30 overflow-hidden flex flex-col ${
+                      className={`relative rounded-md border bg-muted/30 h-fit overflow-hidden flex flex-col ${
                         checked ? "ring-2 ring-emerald-500" : ""
                       }`}
                     >
@@ -1214,12 +1214,12 @@ function AiImageEnhancerContent() {
                       </label>
                       <button
                         type="button"
-                        className="absolute top-1 right-1 z-10 rounded bg-background/90 p-1 shadow hover:bg-muted"
+                        className="absolute top-1 right-1 z-10 rounded bg-muted/50 text-white p-1 shadow hover:bg-muted"
                         onClick={() => downloadSingleBatchEnhanced(item.id)}
                         disabled={!enhanced}
                         title="Download this image"
                       >
-                        <Download size={12} className="text-emerald-700" />
+                        <Download size={12} className="" />
                       </button>
                       <div className="aspect-square w-full bg-muted flex items-center justify-center">
                         {enhanced ? (

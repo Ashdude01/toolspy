@@ -1,6 +1,6 @@
-"use client";
+﻿"use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, type ReactNode } from "react";
 import {
   Card,
   CardContent,
@@ -21,26 +21,22 @@ import {
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
 import {
   ToastProvider,
   useToast,
 } from "@/components/tools/shared/toast-provider";
 import { FileUpload } from "@/components/tools/shared/file-upload";
 import { ProgressModal } from "@/components/tools/shared/progress-modal";
-import { ImagePreview } from "@/components/tools/shared/image-preview";
 import {
   Download,
   RefreshCw,
   Shield,
   FileImage,
   Maximize2,
-  Minimize2,
   Square,
   X,
-  Settings,
-  Smartphone,
-  Monitor,
-  Tablet,
   Zap,
   Info,
   CheckCircle,
@@ -52,8 +48,6 @@ import {
   Gauge,
   FileDown,
   Trash2,
-  Copy,
-  Share2,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
@@ -99,6 +93,14 @@ const PRESET_DIMENSIONS = {
   },
 };
 
+function StepCircle({ children }: { children: ReactNode }) {
+  return (
+    <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+      {children}
+    </span>
+  );
+}
+
 function ImageResizerContent() {
   const { showToast } = useToast();
   const [files, setFiles] = useState<ProcessedFile[]>([]);
@@ -111,10 +113,6 @@ function ImageResizerContent() {
   const [maintainAspectRatio, setMaintainAspectRatio] = useState(true);
   const [quality, setQuality] = useState(90);
   const [format, setFormat] = useState("original");
-  const [selectedPreset, setSelectedPreset] = useState("");
-  const [showAdvanced, setShowAdvanced] = useState(false);
-  const [dragOver, setDragOver] = useState(false);
-  const fileInputRef = useRef<HTMLInputElement>(null);
   const settingsRef = useRef<HTMLDivElement>(null);
 
   const maxFiles = 10;
@@ -152,7 +150,7 @@ function ImageResizerContent() {
 
           if (newFiles.length === selectedFiles.length) {
             setFiles((prev) => [...prev, ...newFiles]);
-              showToast(`${selectedFiles.length} image(s) added successfully! ✨`, "success");
+              showToast(`${selectedFiles.length} image(s) added successfully! âœ¨`, "success");
               scrollToElement(settingsRef, 50)
           }
         };
@@ -343,7 +341,7 @@ function ImageResizerContent() {
         setFiles([...updatedFiles]);
       }
 
-      showToast("🎉 Images resized successfully!", "success");
+      showToast("ðŸŽ‰ Images resized successfully!", "success");
     } catch (error) {
       console.error("Resize error:", error);
       showToast("Resize failed. Please try again.", "error");
@@ -369,7 +367,7 @@ function ImageResizerContent() {
     link.click();
     document.body.removeChild(link);
 
-    showToast(`${file.name} downloaded successfully! 📁`, "success");
+    showToast(`${file.name} downloaded successfully! ðŸ“`, "success");
   };
 
   const downloadAllFiles = () => {
@@ -394,8 +392,34 @@ function ImageResizerContent() {
     setMaintainAspectRatio(true);
     setQuality(90);
     setFormat("original");
-    setSelectedPreset("");
-    setShowAdvanced(false);
+  };
+
+  /** Fit each image inside the W×H box without stretching (industry-standard "max size" behavior). */
+  const applyCustomPixelsToAll = () => {
+    const w = typeof customWidth === "number" ? customWidth : 0;
+    const h = typeof customHeight === "number" ? customHeight : 0;
+    if (w < 1 || h < 1) {
+      showToast("Enter both max width and max height (pixels) before applying.", "error");
+      return;
+    }
+    setFiles((prev) =>
+      prev.map((file) => {
+        if (!maintainAspectRatio) {
+          return { ...file, newWidth: w, newHeight: h };
+        }
+        const ar = file.originalWidth / file.originalHeight;
+        const boxAr = w / h;
+        if (ar > boxAr) {
+          const newW = w;
+          const newH = Math.round(w / ar);
+          return { ...file, newWidth: newW, newHeight: newH };
+        }
+        const newH = h;
+        const newW = Math.round(h * ar);
+        return { ...file, newWidth: newW, newHeight: newH };
+      })
+    );
+    showToast(`Fitted all images within ${w}x${h}px`, "success");
   };
 
   const getStatusIcon = (status: string) => {
@@ -417,280 +441,274 @@ function ImageResizerContent() {
   const compressionRatio = totalOriginalSize > 0 ? ((totalOriginalSize - totalNewSize) / totalOriginalSize * 100).toFixed(1) : "0";
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-      {/* Enhanced Header */}
-      <div className="text-center mb-8 sm:mb-12">
-        <div className="flex items-center justify-center gap-2 mb-4">
-        <Badge
-          variant="outline"
-            className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900/20 border-green-200 dark:border-green-800"
-        >
-          <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
-        </Badge>
+    <div className="mx-auto max-w-7xl space-y-10 px-4 py-8">
+      <header className="space-y-4 text-center">
+        <div className="flex flex-wrap items-center justify-center gap-2">
           <Badge
             variant="outline"
-            className="font-bold hidden md:flex text-blue-800 dark:text-blue-200 bg-blue-100 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800"
+            className="border-emerald-200 bg-emerald-50 font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-100"
           >
-            <Zap className="w-4 h-4 mr-2" />
-            Instant Processing
+            <Shield className="mr-1.5 h-3.5 w-3.5" />
+            Private — processed in your browser
+          </Badge>
+          <Badge
+            variant="outline"
+            className="hidden font-medium sm:inline-flex border-sky-200 bg-sky-50 text-sky-900 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-100"
+          >
+            <Zap className="mr-1.5 h-3.5 w-3.5" />
+            Batch up to {maxFiles} files
           </Badge>
         </div>
-
-        <h2 className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text pb-2 text-transparent text-3xl sm:text-4xl lg:text-5xl font-bold mb-4">
-          Image Resizer
-        </h2>
-        <p className="text-lg sm:text-xl lg:text-2xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-          Resize images to any dimension with professional quality. Perfect for social media, websites, and print. 
+        <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
+          Image resizer
+        </h1>
+        <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
+          Scale by percent, set exact pixel sizes, or pick a social / print preset — then choose format and quality. Left: settings. Right: queue and downloads.
         </p>
-      </div>
+      </header>
 
-      {/* Enhanced File Upload */}
-      
-      <FileUpload
-        onFileSelect={handleFileSelect}
-        onError={handleFileUploadError}
-        accept="image/*"
-        multiple
-        maxFiles={maxFiles}
-          />
-          
-          {files.length > 0 && (
-            <div className="mt-4 p-4 bg-muted/50 rounded-lg mb-6">
-              <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium">Upload Summary</span>
-                <Button variant="ghost" size="sm" onClick={clearAllFiles}>
-                  <Trash2 className="h-4 w-4 mr-2" />
-                  Clear All
-                </Button>
-              </div>
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                <div>
-                  <span className="text-muted-foreground">Files:</span>
-                  <span className="ml-2 font-medium">{files.length}</span>
+      <div className="grid gap-8 lg:grid-cols-2 lg:items-start lg:gap-10">
+        {/* Left: workflow */}
+        <div ref={settingsRef} className="space-y-6">
+          <Card>
+            <CardHeader className="space-y-3 pb-4">
+              <div className="flex gap-3">
+                <StepCircle>1</StepCircle>
+                <div className="min-w-0 space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Upload
+                  </p>
+                  <CardTitle className="text-xl">Add images</CardTitle>
+                  <CardDescription>
+                    Drag and drop or browse. Images stay on your device until you download.
+                  </CardDescription>
                 </div>
-                <div>
-                  <span className="text-muted-foreground">Total Size:</span>
-                  <span className="ml-2 font-medium">{formatFileSize(totalOriginalSize)}</span>
+              </div>
+            </CardHeader>
+            <CardContent>
+              <FileUpload
+                onFileSelect={handleFileSelect}
+                onError={handleFileUploadError}
+                accept="image/*"
+                multiple
+                maxFiles={maxFiles}
+              />
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="space-y-3 pb-4">
+              <div className="flex gap-3">
+                <StepCircle>2</StepCircle>
+                <div className="min-w-0 space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Resize
+                  </p>
+                  <CardTitle className="text-xl">How to resize</CardTitle>
+                  <CardDescription>
+                    Choose one method. Use &quot;Apply to all&quot; where shown so every image matches.
+                  </CardDescription>
                 </div>
-                <div>
-                  <span className="text-muted-foreground">Completed:</span>
-                  <span className="ml-2 font-medium text-green-600">{completedCount}</span>
-                </div>
-                {totalNewSize > 0 && (
-                  <div>
-                    <span className="text-muted-foreground">Compression:</span>
-                    <span className="ml-2 font-medium text-blue-600">{compressionRatio}%</span>
-                  </div>
-                )}
               </div>
-            </div>
-          )}
-
-      {/* Enhanced Resize Settings */}
-      <Card className="mb-8" ref={settingsRef}>
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Settings className="h-5 w-5" />
-            Resize Settings
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setShowAdvanced(!showAdvanced)}
-              className="ml-auto"
-            >
-              {showAdvanced ? "Hide" : "Show"} Advanced
-            </Button>
-          </CardTitle>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          {/* Resize Mode Selection */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <div
-              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                resizeMode === "percentage"
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
-                  : "border-border hover:border-blue-300"
-              }`}
-              onClick={() => setResizeMode("percentage")}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Target className="h-5 w-5 text-blue-600" />
-                <span className="font-medium">Percentage</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Scale images by percentage</p>
-            </div>
-
-            <div
-              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                resizeMode === "pixels"
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
-                  : "border-border hover:border-blue-300"
-              }`}
-              onClick={() => setResizeMode("pixels")}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Square className="h-5 w-5 text-purple-600" />
-                <span className="font-medium">Custom Dimensions</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Set exact pixel dimensions</p>
-            </div>
-
-            <div
-              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
-                resizeMode === "preset"
-                  ? "border-blue-500 bg-blue-50 dark:bg-blue-950/20"
-                  : "border-border hover:border-blue-300"
-              }`}
-              onClick={() => setResizeMode("preset")}
-            >
-              <div className="flex items-center gap-2 mb-2">
-                <Sparkles className="h-5 w-5 text-pink-600" />
-                <span className="font-medium">Presets</span>
-              </div>
-              <p className="text-sm text-muted-foreground">Use common dimensions</p>
-            </div>
-              </div>
-
-          {/* Mode-specific controls */}
-              {resizeMode === "percentage" && (
-            <div className="space-y-4">
-                <div className="space-y-2">
-                <div className="flex items-center justify-between">
-                  <Label>Scale: {percentage[0]}%</Label>
-                  <Badge variant="secondary">{percentage[0]}%</Badge>
-                </div>
-                  <Slider
-                    value={percentage}
-                    onValueChange={setPercentage}
-                    max={300}
-                    min={10}
-                    step={5}
-                    className="w-full"
-                  />
-                <div className="flex gap-2">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPercentage([50])}
+            </CardHeader>
+            <CardContent>
+              <Tabs
+                value={resizeMode}
+                onValueChange={(v) =>
+                  setResizeMode(v as "percentage" | "pixels" | "preset")
+                }
+              >
+                <TabsList className="grid h-auto w-full grid-cols-3 gap-1 p-1">
+                  <TabsTrigger
+                    value="percentage"
+                    className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
-                    50%
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPercentage([75])}
+                    <Target className="h-3.5 w-3.5 opacity-70" />
+                    By %
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="pixels"
+                    className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
-                    75%
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPercentage([100])}
+                    <Square className="h-3.5 w-3.5 opacity-70" />
+                    Pixels
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="preset"
+                    className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
-                    100%
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPercentage([150])}
-                  >
-                    150%
-                  </Button>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={() => setPercentage([200])}
-                  >
-                    200%
-                  </Button>
-                </div>
-                <Button
-                  variant="outline"
-                    onClick={applyPercentageToAll}
-                    className="w-full"
-                  >
-                  <ArrowRight className="h-4 w-4 mr-2" />
-                    Apply to All Images
-                  </Button>
-              </div>
-            </div>
-          )}
+                    <Sparkles className="h-3.5 w-3.5 opacity-70" />
+                    Presets
+                  </TabsTrigger>
+                </TabsList>
 
-          {resizeMode === "pixels" && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>Width (pixels)</Label>
-                <Input
-                  type="number"
-                  value={customWidth}
-                  onChange={(e) => setCustomWidth(parseInt(e.target.value) || "")}
-                  placeholder="Enter width"
-                  className="w-full"
-                />
-              </div>
-              <div className="space-y-2">
-                <Label>Height (pixels)</Label>
-                <Input
-                  type="number"
-                  value={customHeight}
-                  onChange={(e) => setCustomHeight(parseInt(e.target.value) || "")}
-                  placeholder="Enter height"
-                  className="w-full"
-                />
-              </div>
-            </div>
-          )}
-
-          {resizeMode === "preset" && (
-            <div className="space-y-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {Object.entries(PRESET_DIMENSIONS).map(([category, presets]) => (
-                  <div key={category} className="space-y-2">
-                    <Label className="text-sm font-medium text-muted-foreground">{category}</Label>
-                    <div className="space-y-1">
-                      {Object.entries(presets).map(([preset, dimensions]) => (
+                <TabsContent value="percentage" className="mt-6 space-y-4 outline-none">
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between gap-2">
+                      <Label className="text-base">Scale</Label>
+                      <Badge variant="secondary">{percentage[0]}%</Badge>
+                    </div>
+                    <Slider
+                      value={percentage}
+                      onValueChange={setPercentage}
+                      max={300}
+                      min={10}
+                      step={5}
+                      className="w-full"
+                    />
+                    <div className="flex flex-wrap gap-2">
+                      {[50, 75, 100, 150, 200].map((p) => (
                         <Button
-                          key={preset}
+                          key={p}
+                          type="button"
                           variant="outline"
                           size="sm"
-                          onClick={() => applyPresetToAll(`${category} - ${preset}`)}
-                          className="w-full justify-start text-xs"
+                          onClick={() => setPercentage([p])}
                         >
-                          {preset} ({dimensions.width}×{dimensions.height})
+                          {p}%
                         </Button>
                       ))}
                     </div>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="w-full"
+                      onClick={applyPercentageToAll}
+                      disabled={files.length === 0}
+                    >
+                      <ArrowRight className="mr-2 h-4 w-4" />
+                      Apply {percentage[0]}% to all images
+                    </Button>
                   </div>
-                ))}
-              </div>
-                </div>
-              )}
+                </TabsContent>
 
-          {/* Advanced Settings */}
-          {showAdvanced && (
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4 border-t">
-              <div className="space-y-4">
+                <TabsContent value="pixels" className="mt-6 space-y-4 outline-none">
+                  <p className="text-sm text-muted-foreground">
+                    Enter a <strong>maximum width and height</strong>. With aspect ratio on, each image fits inside this box without stretching.
+                  </p>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="max-w">Max width (px)</Label>
+                      <Input
+                        id="max-w"
+                        type="number"
+                        min={1}
+                        value={customWidth}
+                        onChange={(e) =>
+                          setCustomWidth(
+                            e.target.value ? parseInt(e.target.value, 10) : ""
+                          )
+                        }
+                        placeholder="e.g. 1920"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="max-h">Max height (px)</Label>
+                      <Input
+                        id="max-h"
+                        type="number"
+                        min={1}
+                        value={customHeight}
+                        onChange={(e) =>
+                          setCustomHeight(
+                            e.target.value ? parseInt(e.target.value, 10) : ""
+                          )
+                        }
+                        placeholder="e.g. 1080"
+                      />
+                    </div>
+                  </div>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    className="w-full"
+                    onClick={applyCustomPixelsToAll}
+                    disabled={files.length === 0}
+                  >
+                    Apply box to all images
+                  </Button>
+                  <p className="text-xs text-muted-foreground">
+                    Need different sizes per image? Use width/height under each thumbnail in the queue (right).
+                  </p>
+                </TabsContent>
+
+                <TabsContent
+                  value="preset"
+                  className="mt-6 max-h-[min(360px,50vh)] space-y-4 overflow-y-auto pr-1 outline-none"
+                >
+                  <p className="text-sm text-muted-foreground">
+                    Social and print targets. Images are fitted inside each preset without cropping.
+                  </p>
+                  <div className="space-y-6">
+                    {Object.entries(PRESET_DIMENSIONS).map(([category, presets]) => (
+                      <div key={category} className="space-y-2">
+                        <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                          {category}
+                        </p>
+                        <div className="grid gap-2">
+                          {Object.entries(presets).map(([preset, dimensions]) => (
+                            <Button
+                              key={preset}
+                              type="button"
+                              variant="outline"
+                              size="sm"
+                              className="h-auto justify-start whitespace-normal py-2 text-left text-xs"
+                              onClick={() =>
+                                applyPresetToAll(`${category} - ${preset}`)
+                              }
+                              disabled={files.length === 0}
+                            >
+                              <span className="font-medium">{preset}</span>
+                              <span className="ml-2 text-muted-foreground">
+                                {dimensions.width}×{dimensions.height}px
+                              </span>
+                            </Button>
+                          ))}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </TabsContent>
+              </Tabs>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader className="space-y-3 pb-4">
+              <div className="flex gap-3">
+                <StepCircle>3</StepCircle>
+                <div className="min-w-0 space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Output
+                  </p>
+                  <CardTitle className="text-xl">Format &amp; quality</CardTitle>
+                  <CardDescription>
+                    Same options as most desktop apps: file type, compression, and aspect lock.
+                  </CardDescription>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label>Output Format</Label>
+                <Label>Output format</Label>
                 <Select value={format} onValueChange={setFormat}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="original">Original Format</SelectItem>
-                      <SelectItem value="jpeg">JPEG (Best for photos)</SelectItem>
-                      <SelectItem value="png">PNG (Best for graphics)</SelectItem>
-                      <SelectItem value="webp">WebP (Best for web)</SelectItem>
+                    <SelectItem value="original">Keep original type</SelectItem>
+                    <SelectItem value="jpeg">JPEG — photos, smaller files</SelectItem>
+                    <SelectItem value="png">PNG — graphics, transparency</SelectItem>
+                    <SelectItem value="webp">WebP — modern web</SelectItem>
                   </SelectContent>
                 </Select>
-            </div>
+              </div>
 
-              <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                <Label>Quality: {quality}%</Label>
-                    <Badge variant="secondary">{quality}%</Badge>
-                  </div>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between gap-2">
+                  <Label>Quality</Label>
+                  <Badge variant="secondary">{quality}%</Badge>
+                </div>
                 <Slider
                   value={[quality]}
                   onValueChange={(value) => setQuality(value[0])}
@@ -699,316 +717,375 @@ function ImageResizerContent() {
                   step={5}
                   className="w-full"
                 />
-                  <div className="flex gap-2">
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setQuality(60)}
-                    >
-                      Low
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setQuality(80)}
-                    >
-                      Medium
-                    </Button>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                      onClick={() => setQuality(95)}
-                    >
-                      High
-                    </Button>
-                  </div>
+                <div className="flex flex-wrap gap-2">
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setQuality(60)}
+                  >
+                    60%
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setQuality(80)}
+                  >
+                    80%
+                  </Button>
+                  <Button
+                    type="button"
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setQuality(95)}
+                  >
+                    95%
+                  </Button>
                 </div>
               </div>
 
-              <div className="space-y-4">
-              <div className="flex items-center space-x-2">
-                  <Switch
+              <Separator />
+
+              <div className="flex gap-3 rounded-lg border bg-muted/30 p-4">
+                <Switch
                   id="aspectRatio"
                   checked={maintainAspectRatio}
-                    onCheckedChange={setMaintainAspectRatio}
-                  />
-                  <Label htmlFor="aspectRatio" className="text-sm">
-                    Maintain aspect ratio
+                  onCheckedChange={setMaintainAspectRatio}
+                  className="mt-0.5"
+                />
+                <div className="space-y-1">
+                  <Label htmlFor="aspectRatio" className="text-base">
+                    Lock aspect ratio
                   </Label>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    Keeps proportions when you change width or height (recommended). Turn off only if you need a non-uniform stretch.
+                  </p>
                 </div>
-                
-                <div className="p-3 bg-muted/50 rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <Info className="h-4 w-4 text-blue-600" />
-                    <span className="text-sm font-medium">Quality Tips</span>
-                  </div>
-                  <ul className="text-xs text-muted-foreground space-y-1">
-                    <li>• JPEG: Best for photographs (smaller files)</li>
-                    <li>• PNG: Best for graphics with transparency</li>
-                    <li>• WebP: Best for web (smaller, modern format)</li>
-                    <li>• Higher quality = larger file size</li>
-                  </ul>
               </div>
-            </div>
-          </div>
-          )}
-        </CardContent>
-      </Card>
 
-      {/* Enhanced Image List */}
-      {files.length > 0 && (
-        <Card className="mb-8">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <FileImage className="h-5 w-5" />
-              Images to Resize
-              <Badge variant="secondary" className="ml-2">
-                {files.length} selected
-              </Badge>
-            </CardTitle>
-            <CardDescription>
-              {completedCount} of {files.length} images processed successfully
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="space-y-4">
-              {files.map((file) => (
-                <div key={file.id} className="border rounded-lg p-4 hover:bg-muted/30 transition-colors">
-                  <div className="flex items-start gap-4">
-                    <div className="flex-shrink-0 relative">
-                      <img
-                        src={file.previewUrl}
-                        alt={file.name}
-                        className="w-20 h-20 object-cover rounded-lg border"
-                      />
-                      {file.status === "completed" && (
-                        <div className="absolute -top-1 -right-1 bg-green-500 text-white rounded-full p-1">
-                          <CheckCircle className="h-3 w-3" />
-                        </div>
-                      )}
-                    </div>
+              <div className="flex gap-2 rounded-md bg-muted/50 p-3 text-xs text-muted-foreground">
+                <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
+                <span>
+                  JPEG is best for photos; PNG for logos and transparency; WebP often gives the smallest size for the web.
+                </span>
+              </div>
+            </CardContent>
+          </Card>
 
-                    <div className="flex-1 space-y-3">
-                      <div className="flex items-center gap-2">
-                        {getStatusIcon(file.status)}
-                        <span className="font-medium truncate">{file.name}</span>
-                        {file.status === "completed" && file.newSize && (
-                          <Badge variant="outline" className="text-xs">
-                            {formatFileSize(file.newSize)}
-                          </Badge>
-                        )}
-                      </div>
-
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm">
-                        <div>
-                          <span className="text-muted-foreground">Original:</span>
-                          <div className="font-medium">
-                            {file.originalWidth} × {file.originalHeight}
-                          </div>
-                          <div className="text-xs text-muted-foreground">
-                            {formatFileSize(file.originalSize)}
-                          </div>
-                        </div>
-                        <div>
-                          <span className="text-muted-foreground">New:</span>
-                          <div className="font-medium">
-                            {file.newWidth} × {file.newHeight}
-                          </div>
-                          {file.newSize && (
-                            <div className="text-xs text-muted-foreground">
-                              {formatFileSize(file.newSize)}
-                            </div>
-                          )}
-                        </div>
-                        {file.newSize && (
-                          <div>
-                            <span className="text-muted-foreground">Compression:</span>
-                            <div className="font-medium text-green-600">
-                              {((file.originalSize - file.newSize) / file.originalSize * 100).toFixed(1)}%
-                            </div>
-                          </div>
-                        )}
-                        <div>
-                          <span className="text-muted-foreground">Status:</span>
-                          <div className="font-medium capitalize">{file.status}</div>
-                        </div>
-                      </div>
-
-                      {resizeMode === "pixels" && (
-                        <div className="grid grid-cols-2 gap-2">
-                          <div>
-                            <Label htmlFor={`width-${file.id}`} className="text-xs">
-                              Width
-                            </Label>
-                            <Input
-                              id={`width-${file.id}`}
-                              type="number"
-                              value={file.newWidth}
-                              onChange={(e) =>
-                                handleWidthChange(
-                                  file.id,
-                                  parseInt(e.target.value) || 0
-                                )
-                              }
-                              className="h-8"
-                            />
-                          </div>
-                          <div>
-                            <Label htmlFor={`height-${file.id}`} className="text-xs">
-                              Height
-                            </Label>
-                            <Input
-                              id={`height-${file.id}`}
-                              type="number"
-                              value={file.newHeight}
-                              onChange={(e) =>
-                                handleHeightChange(
-                                  file.id,
-                                  parseInt(e.target.value) || 0
-                                )
-                              }
-                              className="h-8"
-                            />
-                          </div>
-                        </div>
-                      )}
-
-                      {file.error && (
-                        <div className="p-2 bg-red-50 dark:bg-red-950/20 border border-red-200 dark:border-red-800 rounded text-red-600 text-sm">
-                          {file.error}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      {file.status === "completed" && file.resizedUrl && (
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => downloadFile(file)}
-                        >
-                          <Download className="h-4 w-4" />
-                        </Button>
-                      )}
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => removeFile(file.id)}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Enhanced Action Buttons */}
-      <Card className="mb-8">
-        <CardContent className="pt-6">
-          <div className="flex flex-col sm:flex-row gap-3">
-            <Button
-              onClick={resizeImages}
-              disabled={files.length === 0 || isProcessing}
-              className="flex-1 h-12 text-lg"
-              size="lg"
-            >
-              <Maximize2 className="h-5 w-5 mr-2" />
-              {isProcessing
-                ? "Resizing..."
-                : `Resize Images${files.length > 1 ? ` (${files.length})` : ""}`}
-            </Button>
-
-            {completedCount > 0 && (
+          <Card className="border-primary/25 shadow-sm">
+            <CardHeader className="pb-2">
+              <CardTitle className="text-lg">Resize &amp; download</CardTitle>
+              <CardDescription>
+                Process the queue, then grab files from the right or here.
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-3">
               <Button
-                variant="outline"
-                onClick={downloadAllFiles}
-                disabled={isProcessing}
-                className="flex-1 sm:flex-initial h-12"
+                type="button"
+                onClick={resizeImages}
+                disabled={files.length === 0 || isProcessing}
+                className="h-12 w-full text-base"
                 size="lg"
               >
-                <FileDown className="h-5 w-5 mr-2" />
-                Download All ({completedCount})
+                <Maximize2 className="mr-2 h-5 w-5" />
+                {isProcessing
+                  ? "Resizing…"
+                  : `Resize images${files.length > 1 ? ` (${files.length})` : ""}`}
               </Button>
-            )}
+              <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={downloadAllFiles}
+                  disabled={isProcessing || completedCount === 0}
+                >
+                  <FileDown className="mr-2 h-4 w-4" />
+                  Download all ({completedCount})
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={resetAll}
+                  disabled={isProcessing}
+                >
+                  <RefreshCw className="mr-2 h-4 w-4" />
+                  Reset all
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
 
-            <Button
-              variant="outline"
-              onClick={resetAll}
-              disabled={isProcessing}
-              className="flex-1 sm:flex-initial h-12"
-              size="lg"
-            >
-              <RefreshCw className="h-5 w-5 mr-2" />
-              Reset All
-            </Button>
+        {/* Right: queue */}
+        <div className="space-y-6 lg:sticky lg:top-6">
+          <Card className="flex min-h-[280px] flex-col">
+            <CardHeader className="flex flex-row flex-wrap items-start justify-between gap-4 space-y-0 pb-4">
+              <div className="flex gap-3">
+                <StepCircle>4</StepCircle>
+                <div className="min-w-0 space-y-1">
+                  <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
+                    Queue
+                  </p>
+                  <CardTitle className="text-xl">Preview &amp; files</CardTitle>
+                  <CardDescription>
+                    {files.length === 0
+                      ? "Nothing uploaded yet."
+                      : `${files.length} file(s) Â· ${formatFileSize(totalOriginalSize)}`}
+                  </CardDescription>
+                </div>
+              </div>
+              {files.length > 0 && (
+                <Button variant="outline" size="sm" onClick={clearAllFiles}>
+                  <Trash2 className="mr-2 h-4 w-4" />
+                  Clear all
+                </Button>
+              )}
+            </CardHeader>
+            <CardContent className="flex-1 space-y-4">
+              {files.length === 0 ? (
+                <div className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-lg border border-dashed p-8 text-center">
+                  <FileImage className="h-12 w-12 text-muted-foreground/40" />
+                  <div className="space-y-1">
+                    <p className="font-medium text-foreground">No images in queue</p>
+                    <p className="max-w-xs text-sm text-muted-foreground">
+                      Complete step 1 on the left. Thumbnails and per-file controls appear here.
+                    </p>
+                  </div>
+                </div>
+              ) : (
+                <>
+                  <div className="grid grid-cols-2 gap-3 text-sm sm:grid-cols-4">
+                    <div className="rounded-lg border bg-muted/30 px-3 py-2">
+                      <p className="text-xs text-muted-foreground">Files</p>
+                      <p className="font-semibold">{files.length}</p>
+                    </div>
+                    <div className="rounded-lg border bg-muted/30 px-3 py-2">
+                      <p className="text-xs text-muted-foreground">Resized</p>
+                      <p className="font-semibold text-green-600">{completedCount}</p>
+                    </div>
+                    <div className="rounded-lg border bg-muted/30 px-3 py-2">
+                      <p className="text-xs text-muted-foreground">Original total</p>
+                      <p className="font-semibold">{formatFileSize(totalOriginalSize)}</p>
+                    </div>
+                    {totalNewSize > 0 && (
+                      <div className="rounded-lg border bg-muted/30 px-3 py-2">
+                        <p className="text-xs text-muted-foreground">Size change</p>
+                        <p className="font-semibold text-sky-600">{compressionRatio}%</p>
+                      </div>
+                    )}
+                  </div>
+                  <Separator />
+                  <div className="flex max-h-[min(70vh,720px)] flex-col gap-3 overflow-y-auto pr-1">
+                    {files.map((file) => (
+                      <div
+                        key={file.id}
+                        className="rounded-lg border bg-card p-3 transition-colors hover:bg-muted/30"
+                      >
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start">
+                          <div className="relative h-16 w-16 shrink-0 overflow-hidden rounded-md border bg-muted">
+                            <img
+                              src={file.previewUrl}
+                              alt=""
+                              className="h-full w-full object-cover"
+                            />
+                            {file.status === "completed" && (
+                              <span className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-500 text-white">
+                                <CheckCircle className="h-3 w-3" />
+                              </span>
+                            )}
+                          </div>
+                          <div className="min-w-0 flex-1 space-y-2">
+                            <div className="flex flex-wrap items-center gap-2">
+                              {getStatusIcon(file.status)}
+                              <span className="truncate font-medium text-sm">
+                                {file.name}
+                              </span>
+                              {file.status === "completed" && file.newSize && (
+                                <Badge variant="outline" className="text-xs">
+                                  {formatFileSize(file.newSize)}
+                                </Badge>
+                              )}
+                            </div>
+                            <div className="grid grid-cols-2 gap-2 text-xs sm:grid-cols-4">
+                              <div>
+                                <span className="text-muted-foreground">Original</span>
+                                <div className="font-medium">
+                                  {file.originalWidth}×{file.originalHeight}
+                                </div>
+                                <div className="text-muted-foreground">
+                                  {formatFileSize(file.originalSize)}
+                                </div>
+                              </div>
+                              <div>
+                                <span className="text-muted-foreground">New size</span>
+                                <div className="font-medium">
+                                  {file.newWidth}×{file.newHeight}
+                                </div>
+                                {file.newSize ? (
+                                  <div className="text-muted-foreground">
+                                    {formatFileSize(file.newSize)}
+                                  </div>
+                                ) : null}
+                              </div>
+                              {file.newSize ? (
+                                <div>
+                                  <span className="text-muted-foreground">Saved</span>
+                                  <div className="font-medium text-green-600">
+                                    {(
+                                      ((file.originalSize - file.newSize) /
+                                        file.originalSize) *
+                                      100
+                                    ).toFixed(0)}
+                                    %
+                                  </div>
+                                </div>
+                              ) : (
+                                <div />
+                              )}
+                              <div>
+                                <span className="text-muted-foreground">Status</span>
+                                <div className="capitalize">{file.status}</div>
+                              </div>
+                            </div>
+                            {resizeMode === "pixels" && (
+                              <div className="grid grid-cols-2 gap-2 pt-1">
+                                <div>
+                                  <Label htmlFor={`width-${file.id}`} className="text-xs">
+                                    Width
+                                  </Label>
+                                  <Input
+                                    id={`width-${file.id}`}
+                                    type="number"
+                                    value={file.newWidth}
+                                    onChange={(e) =>
+                                      handleWidthChange(
+                                        file.id,
+                                        parseInt(e.target.value, 10) || 0
+                                      )
+                                    }
+                                    className="h-8"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor={`height-${file.id}`} className="text-xs">
+                                    Height
+                                  </Label>
+                                  <Input
+                                    id={`height-${file.id}`}
+                                    type="number"
+                                    value={file.newHeight}
+                                    onChange={(e) =>
+                                      handleHeightChange(
+                                        file.id,
+                                        parseInt(e.target.value, 10) || 0
+                                      )
+                                    }
+                                    className="h-8"
+                                  />
+                                </div>
+                              </div>
+                            )}
+                            {file.error && (
+                              <div className="rounded border border-red-200 bg-red-50 p-2 text-xs text-red-700 dark:border-red-900 dark:bg-red-950/20 dark:text-red-300">
+                                {file.error}
+                              </div>
+                            )}
+                          </div>
+                          <div className="flex shrink-0 gap-2 sm:flex-col">
+                            {file.status === "completed" && file.resizedUrl && (
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => downloadFile(file)}
+                                title="Download"
+                              >
+                                <Download className="h-4 w-4" />
+                              </Button>
+                            )}
+                            <Button
+                              type="button"
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => removeFile(file.id)}
+                              title="Remove"
+                            >
+                              <X className="h-4 w-4" />
+                            </Button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2 text-base">
+            <Info className="h-4 w-4" />
+            How this works
+          </CardTitle>
+          <CardDescription>
+            Same ideas as popular online resizers: control dimensions first, then export quality.
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center gap-2 font-medium">
+                <Target className="h-4 w-4 text-blue-600" />
+                Aspect ratio
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Keeping aspect ratio avoids stretched people and objects. Turn it off only for special layouts.
+              </p>
+            </div>
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center gap-2 font-medium">
+                <Gauge className="h-4 w-4 text-green-600" />
+                Quality vs size
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                Lower quality or smaller dimensions reduce file size. Match your use: web, email, or print.
+              </p>
+            </div>
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center gap-2 font-medium">
+                <Zap className="h-4 w-4 text-purple-600" />
+                Batch
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                One set of settings applies to every file. Adjust individuals in the queue when needed.
+              </p>
+            </div>
+            <div className="space-y-4 rounded-lg border p-4">
+              <div className="flex items-center gap-2 font-medium">
+                <Palette className="h-4 w-4 text-pink-600" />
+                Formats
+              </div>
+              <p className="text-sm text-muted-foreground leading-relaxed">
+                You can keep the original type or switch to JPEG, PNG, or WebP before download.
+              </p>
+            </div>
           </div>
         </CardContent>
       </Card>
 
-      {/* Progress Modal */}
       <ProgressModal
         isOpen={isProcessing}
         current={currentFile}
         total={files.length}
-        title="Resizing Images"
-        description="Processing your images with professional quality..."
+        title="Resizing images"
+        description="Processing your images…"
         currentFile={files[currentFile]?.name}
       />
-
-      {/* Enhanced Info Section */}
-      <Card className="mb-8">
-        <CardHeader>
-          <CardTitle className="flex items-center gap-2">
-            <Info className="h-5 w-5" />
-            About Image Resizing
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-sm">
-            <div className="p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-lg border border-blue-200 dark:border-blue-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Target className="h-4 w-4 text-blue-600" />
-                <div className="font-medium text-blue-900 dark:text-blue-100">Aspect Ratio</div>
-              </div>
-              <div className="text-blue-700 dark:text-blue-300">
-                Maintain original proportions to prevent distortion
-              </div>
-            </div>
-            <div className="p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-lg border border-green-200 dark:border-green-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Gauge className="h-4 w-4 text-green-600" />
-                <div className="font-medium text-green-900 dark:text-green-100">Quality Control</div>
-              </div>
-              <div className="text-green-700 dark:text-green-300">
-                Adjust compression to balance file size and quality
-              </div>
-            </div>
-            <div className="p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-lg border border-purple-200 dark:border-purple-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Zap className="h-4 w-4 text-purple-600" />
-                <div className="font-medium text-purple-900 dark:text-purple-100">Batch Processing</div>
-              </div>
-              <div className="text-purple-700 dark:text-purple-300">
-                Resize multiple images with the same settings
-              </div>
-            </div>
-            <div className="p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-lg border border-pink-200 dark:border-pink-800">
-              <div className="flex items-center gap-2 mb-2">
-                <Palette className="h-4 w-4 text-pink-600" />
-                <div className="font-medium text-pink-900 dark:text-pink-100">Format Support</div>
-              </div>
-              <div className="text-pink-700 dark:text-pink-300">
-                Convert between JPEG, PNG, WebP formats
-              </div>
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-</div>
+    </div>
   );
 }
 
