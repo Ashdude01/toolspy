@@ -635,7 +635,7 @@ function ImageCompressorContent() {
         <div ref={afterUploadRef} className="animate-in fade-in slide-in-from-top-4 duration-500">
           <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
             {/* Selected Files Preview */}
-            <Card className="mb-6 sm:mb-8 md:col-span-4 ">
+            <Card className="mb-6 sm:mb-8 md:col-span-3 lg:col-span-4">
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
@@ -672,7 +672,7 @@ function ImageCompressorContent() {
             </Card>
 
             {/* Compression Presets */}
-            <Card className="mb-6 sm:mb-8 md:col-span-2">
+            <Card className="mb-6 sm:mb-8 md:col-span-3 lg:col-span-2">
               <CardHeader>
                 <CardTitle>Compression Preset</CardTitle>
                 <CardDescription>

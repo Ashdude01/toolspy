@@ -197,7 +197,7 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
             <p className="text-slate-400 text-sm">
-              © 2024 Toolspy. All rights reserved.
+              © {new Date().getFullYear()} Toolspy. All rights reserved.
             </p>
           </div>
           

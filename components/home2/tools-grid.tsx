@@ -186,11 +186,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         <div className="text-center max-w-7xl mx-auto">
           <div
-            className={`transition-all duration-1000 ${
-              isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-10"
-            }`}
+            className={`transition-all duration-1000 ${isVisible
+              ? "opacity-100 translate-y-0"
+              : "opacity-0 translate-y-10"
+              }`}
           >
             <Badge
               variant="outline"
@@ -217,7 +216,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
             <p className="text-base md:text-lg text-slate-600 dark:text-slate-300 mb-8 leading-relaxed max-w-3xl mx-auto">
               Convert, compress, calculate, and process your files instantly.
-                No registration required
+              No registration required
               , completely free, and your privacy is protected.
             </p>
           </div>
@@ -365,7 +364,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                       <div className="flex items-start justify-between mb-4">
                         <div className="relative">
                           <div
-                            className={`p-2 bg-gradient-to-br ${getCategoryColor(
+                            className={`p-1.5 bg-gradient-to-br ${getCategoryColor(
                               tool.category
                             )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                           >
@@ -375,6 +374,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                         <Badge variant="outline" className="text-xs">
                           {toolCategories[tool.category]?.name}
                         </Badge>
+
                       </div>
 
                       {/* Content */}
@@ -387,7 +387,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                         </p>
                       </div>
                     </div>
-                    
+
                     {/* Decorative elements - adaptive for light/dark mode */}
                     <div
                       className="absolute top-4 right-4 w-16 h-16 
@@ -457,29 +457,30 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                     <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
                       <div className="relative">
                         {/* Header with icon and badge */}
-                        <div className="flex items-start justify-between mb-4">
+                        <div className="flex items-start gap-4 mb-4">
                           <div className="relative">
                             <div
-                              className={`p-2 bg-gradient-to-br ${getCategoryColor(
+                              className={`p-1.5 bg-gradient-to-br ${getCategoryColor(
                                 tool.category
                               )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
                             >
                               {getCategoryIcon(tool.category)}
                             </div>
                           </div>
-                          <Badge
+                          {/* <Badge
                             variant="outline"
                             className="text-xs hidden md:block"
-                          >
+                          > 
                             {toolCategories[tool.category]?.name}
-                          </Badge>
+                          </Badge> */}
+                          <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                            {tool.name}
+                          </h3>
                         </div>
 
                         {/* Content */}
                         <div>
-                          <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                            {tool.name}
-                          </h3>
+                          
                           <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                             {tool.description.slice(0, 60)}...
                           </p>
@@ -488,7 +489,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
                       {/* Decorative elements */}
                       <div
-                      className="absolute top-4 right-4 w-16 h-16 
+                        className="absolute top-4 right-4 w-16 h-16 
                         bg-gradient-to-br 
                         from-red-600/10 to-yellow-400/10
                         dark:from-yellow-400/10 dark:to-zinc-300/10
@@ -496,9 +497,9 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                         opacity-0 group-hover:opacity-100
                         transition-opacity duration-500
                         pointer-events-none"
-                    ></div>
-                    <div
-                      className="absolute bottom-4 left-4 w-12 h-12 
+                      ></div>
+                      <div
+                        className="absolute bottom-4 left-4 w-12 h-12 
                         bg-gradient-to-br 
                         from-purple-600/10 to-cyan-500/10
                         dark:from-zinc-400/10 dark:to-red-300/10
@@ -506,8 +507,8 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                         opacity-0 group-hover:opacity-100
                         transition-opacity duration-500 delay-100
                         pointer-events-none"
-                    ></div>
-                      </div>
+                      ></div>
+                    </div>
                   </Link>
                 ))}
               </div>
