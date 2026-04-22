@@ -38,7 +38,7 @@ export function PDFFileUpload({
   onError, 
   multiple = false, 
   maxFiles,
-  maxFileSize = 50 * 1024 * 1024, // 50MB default
+  maxFileSize = 1024 * 1024 * 1024, // 1GB default
   className = '',
   disabled = false,
   collapsed: externalCollapsed,

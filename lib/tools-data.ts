@@ -1139,7 +1139,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Facebook Image Downloader',
-      title: 'Facebook Image Downloader – Save FB Photos | Toolspy',
+      title: 'Facebook Image Downloader – Facebook Photo Downloader | Toolspy',
       slug: '/facebook-image-downloader',
       description: "Paste a public Facebook post link and grab the photos in full size. No app. Works in the browser. For public posts only.",
       tags: ['facebook image downloader', 'download facebook photos', 'save facebook images', 'fb photo download']

@@ -97,13 +97,6 @@ export function generateWebPageSchema(
               priceCurrency: 'USD',
               availability: 'https://schema.org/InStock'
             },
-            aggregateRating: {
-              '@type': 'AggregateRating',
-              ratingValue: '4.8',
-              ratingCount: '2547',
-              bestRating: '5',
-              worstRating: '1'
-            }
           }
         ]
       }

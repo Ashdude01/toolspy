@@ -1,6 +1,3 @@
-import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import {
   Card,
   CardContent,
@@ -8,906 +5,322 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
+import { FAQ } from "@/components/ui/faq";
+import { SectionHeader } from "@/components/seo/section-header";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
+  Folder,
+  Lightbulb,
+  ListChecks,
+  MessagesSquare,
   Shield,
-  Settings,
-  Calculator,
-  FileImage,
-  FileText,
-  Code,
-  Globe,
-  Smartphone,
-  Clock,
-  Download,
-  Lock,
-  Users,
-  TrendingUp,
-  Heart,
-  Award,
   Sparkles,
 } from "lucide-react";
-import { siteConfig } from "@/lib/config";
-import { RelatedTools } from "@/components/tools/related-tools";
 import Image from "next/image";
 import Link from "next/link";
-import { FAQ } from "@/components/ui/faq";
 
 export interface HomeFAQItem {
   question: string;
   answer: string;
 }
 
+const QUICK_START = [
+  {
+    title: "Find the tool you need",
+    body: "Use the search box and categories to jump straight to the right tool.",
+  },
+  {
+    title: "Run it in your browser",
+    body: "Most tools work instantly without installing an app or creating an account.",
+  },
+  {
+    title: "Download and move on",
+    body: "Get your result and keep working — ideal for quick tasks and checklists.",
+  },
+];
+
+const CATEGORIES = [
+  {
+    title: "Image tools",
+    description: "Compress, convert, resize, optimize, and generate icons for web and apps.",
+    links: [
+      { label: "Image Compressor", href: "/image-compressor" },
+      { label: "Image Converter", href: "/image-converter" },
+      { label: "Image Resizer", href: "/image-resizer" },
+      { label: "Image Optimizer", href: "/image-optimizer" },
+      { label: "Favicon Generator", href: "/favicon-generator" },
+    ],
+  },
+  {
+    title: "PDF tools",
+    description: "Merge, split, compress, convert, and unlock PDFs for everyday document work.",
+    links: [
+      { label: "Merge PDF", href: "/merge-pdf" },
+      { label: "Split PDF", href: "/split-pdf" },
+      { label: "Compress PDF", href: "/compress-pdf" },
+      { label: "PDF to Word", href: "/pdf-to-word" },
+      { label: "PDF to Image", href: "/pdf-to-image" },
+    ],
+  },
+  {
+    title: "Developer utilities",
+    description: "Clean up and transform data quickly while debugging or building.",
+    links: [
+      { label: "JSON Formatter", href: "/json-formatter" },
+      { label: "Base64 Encoder/Decoder", href: "/base64-encoder-decoder" },
+      { label: "Code Beautifier", href: "/code-beautifier" },
+    ],
+  },
+  {
+    title: "Calculators",
+    description: "Everyday math, finance, and planning calculators.",
+    links: [
+      { label: "Percentage Calculator", href: "/percentage-calculator" },
+      { label: "Loan Calculator", href: "/loan-calculator" },
+      { label: "Tax Calculator", href: "/tax-calculator" },
+      { label: "Salary Calculator", href: "/salary-calculator" },
+    ],
+  },
+];
+
+const QUALITY_NOTES = [
+  {
+    title: "Privacy-first by design",
+    body: "Many tools run locally in your browser. If a tool needs server-side processing, treat your files as temporary and avoid uploading anything sensitive.",
+  },
+  {
+    title: "Simple, not salesy",
+    body: "We focus on clear inputs, predictable outputs, and practical guidance so the tool is easy to use even if you’re in a hurry.",
+  },
+  {
+    title: "Built for real workflows",
+    body: "Batch-friendly where it matters, sensible defaults, and links to related tools so you can finish the entire task in one place.",
+  },
+];
+
+const PITFALLS = [
+  {
+    title: "Know what the tool expects",
+    body: "Some tools need a URL, some need a file, and some need average metrics. Read the labels and use realistic inputs.",
+  },
+  {
+    title: "Use the right tool for the goal",
+    body: "For example: optimize images for web delivery, but keep high-quality originals for design work.",
+  },
+  {
+    title: "Treat estimates as estimates",
+    body: "Finance and engagement calculators are for planning and comparisons — not official results.",
+  },
+];
+
+const CHECKLIST = [
+  { feature: "No signup for most tools", value: "Yes", note: "Quick access for small tasks." },
+  { feature: "Browser-first workflow", value: "Yes", note: "No app install required." },
+  { feature: "Clear guides and FAQs", value: "Yes", note: "Help text for common questions." },
+  { feature: "Tool-to-tool navigation", value: "Yes", note: "Related links to finish workflows." },
+];
+
 export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
-
-  const comparisonData = [
-    {
-      feature: "Number of Tools",
-      toolspy: "50+ Professional Tools",
-      ilovepdf: "25 Basic Tools",
-      cloudconvert: "200+ Formats",
-      imageresizer: "Desktop Only",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "File Processing",
-      toolspy: "✅ Client-side (Private)",
-      ilovepdf: "⚠️ Server uploads",
-      cloudconvert: "⚠️ Cloud processing",
-      imageresizer: "❌ Local software",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "File Size Limits",
-      toolspy: "✅ Up to 100MB",
-      ilovepdf: "❌ 25MB (free)",
-      cloudconvert: "✅ Unlimited (paid)",
-      imageresizer: "✅ No limits",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Free Usage",
-      toolspy: "✅ Unlimited forever",
-      ilovepdf: "❌ Limited tasks",
-      cloudconvert: "❌ 10 files/day",
-      imageresizer: "⚠️ Freemium model",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Registration Required",
-      toolspy: "✅ No registration",
-      ilovepdf: "❌ Account required",
-      cloudconvert: "❌ API access needs signup",
-      imageresizer: "✅ No registration",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Ads & Watermarks",
-      toolspy: "✅ Clean interface",
-      ilovepdf: "❌ Ads in free tier",
-      cloudconvert: "✅ No ads",
-      imageresizer: "✅ No ads",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Optimized",
-      toolspy: "✅ Fully responsive",
-      ilovepdf: "✅ Mobile apps",
-      cloudconvert: "⚠️ Basic mobile",
-      imageresizer: "❌ Desktop only",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant (offline)",
-      ilovepdf: "⚠️ Upload + wait",
-      cloudconvert: "⚠️ Queue system",
-      imageresizer: "✅ Fast (local)",
-      toolspyStatus: "excellent",
-    },
-  ];
-
-  const toolCategories = [
-    {
-      icon: <FileImage className="h-6 w-6" />,
-      title: "Image Processing Tools",
-      description:
-        "Professional image compression, conversion, resizing, and optimization tools",
-      tools: [
-        {
-          name: "Image Compressor",
-          slug: "image-compressor",
-        },
-        {
-          name: "Image Converter",
-          slug: "image-converter",
-        },
-        {
-          name: "Image Resizer",
-          slug: "image-resizer",
-        },
-        {
-          name: "Image Optimizer",
-          slug: "image-optimizer",
-        },
-        {
-          name: "JFIF to JPG",
-          slug: "jfif-to-jpg",
-        },
-      ],
-    },
-    {
-      icon: <FileText className="h-6 w-6" />,
-      title: "PDF Processing Tools",
-      description:
-        "Complete PDF manipulation suite for merging, splitting, converting, and protecting documents",
-      tools: [
-        {
-          name: "PDF Converter",
-          slug: "pdf-converter",
-        },
-        {
-          name: "Merge PDF",
-          slug: "merge-pdf",
-        },
-        {
-          name: "Split PDF",
-          slug: "split-pdf",
-        },
-        {
-          name: "PDF to Word",
-          slug: "pdf-to-word",
-        },
-        {
-          name: "PDF to Excel",
-          slug: "pdf-to-excel",
-        },
-        {
-          name: "PDF to Image",
-          slug: "pdf-to-image",
-        },
-      ],
-    },
-    {
-      icon: <Code className="h-6 w-6" />,
-      title: "Base64 & Encoding Tools",
-      description:
-        "Secure encoding and decoding tools for developers and data processing",
-      tools: [
-        {
-          name: "Base64 Encoder",
-          slug: "base64-encoder-decoder",
-        },
-        {
-          name: "Base64 to Image",
-          slug: "base64-to-image",
-        },
-        {
-          name: "Image to Base64",
-          slug: "image-to-base64",
-        }
-      ],
-    },
-    {
-      icon: <Calculator className="h-6 w-6" />,
-      title: "Advanced Calculators",
-      description:
-        "Financial, mathematical, and unit conversion calculators for every need",
-      tools: [
-        {
-          name: "Age Calculator",
-          slug: "age-calculator",
-        },
-        {
-          name: "BMI Calculator",
-          slug: "bmi-calculator",
-        },
-        {
-          name: "BMI Calculator",
-          slug: "bmi-calculator",
-        },
-        {
-          name: "Percentage Calculator",
-          slug: "percentage-calculator",
-        },
-        {
-          name: "Investment Calculator",
-          slug: "investment-calculator",
-        },
-      ],
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: <Target className="h-6 w-6" />,
-      title: "Professional-Grade Tools",
-      description:
-        "Get access to enterprise-quality tools with advanced algorithms and professional features, all completely free and browser-based.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning-Fast Processing",
-      description:
-        "Client-side processing ensures maximum speed and privacy with no upload delays or server processing time for most tools.",
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Your files never leave your device with our secure client-side processing. No data collection, no tracking, no storage on our servers.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Control Options",
-      description:
-        "Precision controls and professional settings give you complete control over output quality and file specifications.",
-    },
-    {
-      icon: <Globe className="h-6 w-6" />,
-      title: "Universal Compatibility",
-      description:
-        "Works on all devices and browsers with no software installation required. Full mobile optimization included for all tools.",
-    },
-    {
-      icon: <Clock className="h-6 w-6" />,
-      title: "Always Available",
-      description:
-        "24/7 access to all tools with no downtime, registration, or usage limits. Process files anytime, anywhere you need.",
-    },
-  ];
-
-  const keyBenefits = [
-    "🎯 50+ professional-grade online tools completely free forever",
-    "⚡ Client-side processing for maximum privacy and lightning speed",
-    "🔒 No registration, account creation, or personal data required ever",
-    "📱 Fully responsive design optimized for all devices and screen sizes",
-    "🖥️ Works offline after initial page load for many processing tools",
-    "📦 Batch processing support for efficient workflow and time savings",
-    "🎨 Clean, professional interface without intrusive ads or distractions",
-    "⚙️ Advanced options and precision controls for professional results",
-    "🌐 Universal browser compatibility across all platforms and devices",
-    "💼 Suitable for both personal and commercial use without restrictions",
-    "🔄 Regular updates with new tools and features based on user feedback",
-    "💯 No watermarks, usage limits, or premium tiers hiding features",
-    "🚀 Instant results with real-time processing feedback and progress tracking",
-    "📊 Detailed processing statistics and before/after comparisons available",
-    "💾 Multiple download options including individual files and ZIP archives",
-    "🛡️ Enterprise-level security and privacy protection built into every tool",
-    "🎯 Smart defaults and presets for quick results without manual configuration",
-    "📈 Scalable processing that handles small files to large professional documents",
-  ];
-
-  const popularTools = [
-    {
-      name: "Image Compressor",
-      description:
-        "Compress images up to 80% with professional quality control",
-      icon: "🗜️",
-      slug: "image-compressor",
-    },
-    {
-      name: "PDF Converter",
-      description: "Convert PDFs to Word, Excel, and other formats instantly",
-      icon: "📄",
-      slug: "pdf-converter",
-    },
-    {
-      name: "Base64 Encoder",
-      description:
-        "Secure encoding and decoding for developers and data processing",
-      icon: "🔤",
-      slug: "base64-encoder-decoder",
-    },
-    {
-      name: "Age Calculator",
-      description: "Calculate age, time differences, and date calculations",
-      icon: "📅",
-      slug: "age-calculator",
-    },
-  ];
-
-  const useCases = [
-    {
-      category: "For Students",
-      tools: [
-        {
-          name: "PDF to Word",
-          slug: "pdf-to-word",
-        },
-        {
-          name: "Image compressor",
-          slug: "image-compressor",
-        },
-        {
-          name: "Percentage calculator",
-          slug: "percentage-calculator",
-        },
-        {
-          name: "Age calculator",
-          slug: "age-calculator",
-        },
-      ],
-      description:
-        "Perfect for academic projects, research papers, and homework assignments",
-    },
-    {
-      category: "For Professionals",
-      tools: [
-        {
-          name: "PDF merger",
-          slug: "merge-pdf",
-        },
-        {
-          name: "Image converter",
-          slug: "image-converter",
-        },
-        {
-          name: "Investment calculator",
-          slug: "investment-calculator",
-        },
-        {
-          name: "Salary calculator",
-          slug: "salary-calculator",
-        },
-      ],
-      description:
-        "Essential tools for business documents, presentations, and financial planning",
-    },
-    {
-      category: "For Developers",
-      tools: [
-        {
-          name: "Base64 Tool",
-          slug: "base64-encoder-decoder",
-        },
-        {
-          name: "JSON formatter",
-          slug: "json-formatter",
-        },
-        {
-          name: "Code beautifier",
-          slug: "code-beautifier",
-        },
-      ],
-      description:
-        "Professional coding utilities for data processing and development workflows",
-    },
-    {
-      category: "For Content Creators",
-      tools: [
-        {
-          name: "Image optimizer",
-          slug: "image-optimizer",
-        },
-        {
-          name: "QR code generator",
-          slug: "qr-code-generator",
-        },
-        {
-          name: "Meme generator",
-          slug: "meme-generator",
-        },
-      ],
-      description:
-        "Creative tools for social media, marketing, and digital content creation",
-    },
-  ];
-
   return (
-    <div className="space-y-12 my-16 max-w-7xl mx-auto container px-4">
-      {/* Hero Section with Enhanced Visual Appeal */}
-
-      {/* Enhanced Introduction Section - Two Column Layout */}
-      <section className="space-y-8">
-        <div className="text-center space-y-6">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Free Online Tools - Professional Quality, Zero Cost
+    <article className="mx-auto max-w-5xl space-y-14 my-16 px-4 text-base sm:text-[17px] leading-relaxed">
+      {/* Intro */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h2 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Toolspy: free online tools for everyday work
           </h2>
-          <p className="text-xl text-muted-foreground leading-relaxed">
-            Welcome to Toolspy, your go-to destination for{" "}
-            <strong className="text-blue-600 dark:text-blue-400">
-              professional online tools
-            </strong>{" "}
-            that actually work! Whether you need to{" "}
-            <strong className="text-purple-600 dark:text-purple-400">
-              compress images online
-            </strong>
-            ,{" "}
-            <strong className="text-pink-600 dark:text-pink-400">
-              convert PDF to Word
-            </strong>
-            , use an{" "}
-            <strong className="text-green-600 dark:text-green-400">
-              online calculator
-            </strong>
-            , or access{" "}
-            <strong className="text-orange-600 dark:text-orange-400">
-              Base64 encoding tools
-            </strong>
-            , we've got you covered with over 50 powerful tools that work
-            instantly in your browser.
+          <p className="text-start md:text-center text-muted-foreground">
+            Toolspy is a collection of browser-based utilities for common tasks like compressing
+            images, working with PDFs, formatting data, and running quick calculations. Pick a tool,
+            enter your inputs, and get the result — fast.
           </p>
-          <div className="mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free online converters
-                    </strong>{" "}
-                    support all major file formats and work entirely in your
-                    browser for maximum security. Need to{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      resize images
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      merge PDF files
-                    </strong>
-                    , or use our{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      percentage calculator
-                    </strong>
-                    ? All tools feature{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      batch processing
-                    </strong>
-                    , real-time previews, and professional-grade algorithms.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    From{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      image optimization
-                    </strong>{" "}
-                    and{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      document conversion
-                    </strong>{" "}
-                    to{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      advanced calculators
-                    </strong>{" "}
-                    and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      encoding tools
-                    </strong>
-                    , Toolspy offers a complete digital toolkit for students,
-                    professionals, developers, and businesses. Experience the
-                    convenience of having enterprise-grade tools at your
-                    fingertips—completely free, secure, and optimized for every
-                    device.
-                  </p>
-                </div>
+        </div>
 
-                {/* Enhanced Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto mb-8">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">80+</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Professional Tools
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      100MB
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Max File Size
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">∞</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Free Forever
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">100%</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Private & Secure
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <Image
-                  width={1200}
-                  height={680}
-                  src={"/images/main.webp"}
-                  alt="Toolspy Professional Online Tools - Advanced compression, conversion, and calculation tools with batch processing and quality control"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Most Popular
-                </div>
-              </div>
-            </div>
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Instead of hunting for a different site every time you need to resize an image, merge
+              PDFs, or calculate a percentage, you can keep one toolbox bookmarked. Each tool page
+              includes a short guide, common pitfalls, and links to related tools.
+            </p>
+            <p>
+              If you’re new, start with the{" "}
+              <Link href="/tools" className="underline underline-offset-4 text-foreground">
+                tools directory
+              </Link>{" "}
+              and browse by category.
+            </p>
           </div>
+
+          <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+            <Image
+              width={1600}
+              height={900}
+              src="/images/main.webp"
+              alt="Toolspy — browse tools by category and run utilities in the browser"
+              className="w-full h-auto"
+              loading="lazy"
+            />
+          </figure>
         </div>
       </section>
 
-      {/* How to Use Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Toolspy's Free Online Tools
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          It's incredibly simple! Here's how you can access professional tools
-          in seconds:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Choose Your Tool</h4>
-            <p className="text-sm text-muted-foreground">
-              Browse our collection of 50+ professional tools. From image
-              compression to PDF conversion, we have everything you need for
-              your digital tasks.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Upload Your Files</h4>
-            <p className="text-sm text-muted-foreground">
-              Simply drag and drop your files or click to select them. Most
-              tools support batch processing - perfect for handling multiple
-              files at once.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Customize Settings</h4>
-            <p className="text-sm text-muted-foreground">
-              Adjust quality settings, choose output formats, or use our smart
-              presets. Every tool gives you professional-grade control options.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Download Results</h4>
-            <p className="text-sm text-muted-foreground">
-              Get your processed files instantly with detailed statistics.
-              Download individually or as a convenient ZIP archive for batch
-              operations.
-            </p>
-          </Card>
+      {/* Quick start */}
+      <section className="space-y-6" id="quick-start">
+        <SectionHeader
+          eyebrow="Quick start"
+          icon={Sparkles}
+          title="How to use Toolspy"
+          lead="Three steps for most tools."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          {QUICK_START.map((s) => (
+            <Card key={s.title} className="p-4 bg-muted/40">
+              <h3 className="font-semibold mb-1">{s.title}</h3>
+              <p className="text-sm text-muted-foreground">{s.body}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Perfect for Every User Type
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Whether you're a student, professional, developer, or content creator,
-          Toolspy has the tools you need to succeed.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {useCases.map((useCase, index) => (
-            <Card
-              key={index}
-              className="p-6 hover:shadow-lg transition-all duration-300"
-            >
-              <div className="text-center">
-                <h4 className="font-semibold mb-3 text-primary">
-                  {useCase.category}
-                </h4>
-                <p className="text-sm text-muted-foreground mb-4">
-                  {useCase.description}
-                </p>
-                <div className="space-y-2">
-                  {useCase.tools.map((tool: { name: string; slug: string; }, toolIndex: number) => (
-                    <Link key={toolIndex} href={`/${tool.slug}`}> 
-                    <Badge
-                      variant="secondary"
-                      className="text-xs mr-1 mb-1"
-                    >
-                      {tool.name}
-                    </Badge>
-                    </Link>
-                  ))}
-                </div>
+      {/* Categories */}
+      <section className="space-y-6" id="categories">
+        <SectionHeader
+          eyebrow="Browse"
+          icon={Folder}
+          title="Popular categories"
+          lead="A few common starting points."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {CATEGORIES.map((c) => (
+            <Card key={c.title} className="p-5">
+              <h3 className="font-semibold">{c.title}</h3>
+              <p className="text-sm text-muted-foreground mt-1">{c.description}</p>
+              <div className="mt-4 flex flex-wrap gap-2">
+                {c.links.map((l) => (
+                  <Link
+                    key={l.href}
+                    href={l.href}
+                    className="text-sm underline underline-offset-4 text-foreground"
+                  >
+                    {l.label}
+                  </Link>
+                ))}
               </div>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Popular Tools Section */}
-      <section className="space-y-6">
-        <div className="">
-          <h2 className="text-3xl font-bold text-center mb-6">
-            Most Popular Free Online Tools
-          </h2>
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto mb-8">
-            Discover our most-used professional tools that millions trust for
-            their daily digital tasks.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {popularTools.map((tool, index) => (
-              <Card
-                key={index}
-                className="p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-              >
-                <div className="text-center">
-                  <div className="text-4xl mb-4">{tool.icon}</div>
-                  <h3 className="font-semibold mb-2">{tool.name}</h3>
-                  <p className="text-sm text-muted-foreground mb-4">
-                    {tool.description}
-                  </p>
-                  <Link href={tool.slug}>
-                    <Button
-                      variant="outline"
-                      size="sm"
-                    >
-                      Try Now →
-                    </Button>
-                  </Link>
-                </div>
-              </Card>
-            ))}
-          </div>
+      {/* Quality notes */}
+      <section className="space-y-6" id="quality">
+        <SectionHeader
+          eyebrow="Quality"
+          icon={Shield}
+          title="Notes on privacy and content quality"
+          lead="Clear expectations, less surprise."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {QUALITY_NOTES.map((b) => (
+            <Card key={b.title} className="p-5">
+              <h3 className="font-semibold mb-1">{b.title}</h3>
+              <p className="text-sm text-muted-foreground">{b.body}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Tool Categories Overview */}
-      <section className="space-y-6">
-        <div className=" flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-center">
-            Complete Tool Categories for Every Digital Need
-          </h3>
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-            Discover our comprehensive collection of{" "}
-            <strong>professional online tools</strong>, organized by category
-            for easy access and maximum productivity.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {toolCategories.map((category, index) => (
-              <Card
-                key={index}
-                className="p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                    {category.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">{category.title}</h4>
-                    <p className="text-sm text-muted-foreground mb-3">
-                      {category.description}
-                    </p>
-                    <div className="flex flex-wrap gap-1">
-                      {category.tools.map((tool: { name: string; slug: string; }, toolIndex: number) => (
-                        <Link key={toolIndex} href={`/${tool.slug}`}>
-                        <Badge
-                          key={toolIndex}
-                          variant="secondary"
-                          className="text-xs"
-                        >
-                          {tool.name}
-                        </Badge>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
+      {/* Common pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {PITFALLS.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <div className=" flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-center">
-            Why Professionals Choose Toolspy for Online Tools
-          </h3>
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-            Experience the difference with professional-grade tools designed for
-            privacy, speed, and reliability.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {benefits.map((benefit, index) => (
-              <Card
-                key={index}
-                className="p-6 hover:shadow-md transition-shadow"
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                    {benefit.icon}
-                  </div>
-                  <div>
-                    <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                    <p className="text-sm text-muted-foreground">
-                      {benefit.description}
-                    </p>
-                  </div>
-                </div>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <div className=" flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-center">
-            Everything You Get with Toolspy's Free Online Tools
-          </h3>
-          <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-            Comprehensive features and capabilities that make Toolspy the
-            preferred choice for <strong>online tools</strong>.
-          </p>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {keyBenefits.map((benefit, index) => (
-              <Card
-                key={index}
-                className="p-4 hover:shadow-md transition-shadow"
-              >
-                <p className="text-sm">{benefit}</p>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <div className=" flex flex-col gap-4">
-          <h3 className="text-2xl font-bold text-center">
-            How Toolspy Compares to Popular Online Tool Platforms
-          </h3>
-          <Card>
-            <CardHeader>
-              <CardTitle>
-                Toolspy vs. iLovePDF, CloudConvert & ImageResizer
-              </CardTitle>
-              <CardDescription>
-                See how we stack up against the most popular{" "}
-                <strong>online tool platforms</strong> and why users are
-                switching to Toolspy.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <div className="overflow-x-auto">
-                <table className="w-full text-sm">
-                  <thead>
-                    <tr className="border-b">
-                      <th className="text-left p-3 font-medium">Feature</th>
-                      <th className="text-left p-3 font-medium">Toolspy</th>
-                      <th className="text-left p-3 font-medium">iLovePDF</th>
-                      <th className="text-left p-3 font-medium">
-                        CloudConvert
-                      </th>
-                      <th className="text-left p-3 font-medium">
-                        ImageResizer
-                      </th>
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader eyebrow="Overview" icon={ListChecks} title="What you can expect" />
+        <Card>
+          <CardHeader>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>A quick summary of the experience.</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {CHECKLIST.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
                     </tr>
-                  </thead>
-                  <tbody>
-                    {comparisonData.map((row, index) => (
-                      <tr key={index} className="border-b hover:bg-muted/50">
-                        <td className="p-3 font-medium">{row.feature}</td>
-                        <td className="p-3">
-                          <div className="flex items-center space-x-2">
-                            <span>{row.toolspy}</span>
-                            {row.toolspyStatus === "excellent" && (
-                              <Star className="h-4 w-4 text-yellow-500" />
-                            )}
-                          </div>
-                        </td>
-                        <td className="p-3 text-muted-foreground">
-                          {row.ilovepdf}
-                        </td>
-                        <td className="p-3 text-muted-foreground">
-                          {row.cloudconvert}
-                        </td>
-                        <td className="p-3 text-muted-foreground">
-                          {row.imageresizer}
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
-      {/* FAQ Section - client FAQ for accordion interactivity, content is in HTML */}
+      {/* FAQ */}
       <section className="space-y-6" id="faq">
         <FAQ
-          title="Frequently Asked Questions About Our Free Online Tools"
-          description="Everything you need to know about using Toolspy's online tools and services."
+          title="Frequently asked questions"
+          description="Quick answers about how the site works."
           faqs={faqData}
         />
       </section>
 
-      {/* Enhanced SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
-            <h3 className="text-2xl font-bold text-center mb-6">
-              Professional Online Tools for Every Digital Need
-            </h3>
-            <div className="max-w-4xl mx-auto">
-              <p className="text-muted-foreground leading-relaxed">
-                Looking for reliable <strong>online tools</strong> that actually
-                work? Toolspy is your one-stop destination for{" "}
-                <strong>free online utilities</strong> that professionals trust.
-                Whether you need to <strong>compress images online</strong>,{" "}
-                <strong>convert PDF to Word</strong>, use an{" "}
-                <strong>online calculator</strong>, or access{" "}
-                <strong>Base64 encoding tools</strong>, we've designed every
-                tool with privacy, speed, and professional results in mind.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Our <strong>free online converters</strong> support all major
-                file formats and work entirely in your browser for maximum
-                security. Need to <strong>resize images</strong>,{" "}
-                <strong>merge PDF files</strong>, or use our{" "}
-                <strong>percentage calculator</strong>? All tools feature{" "}
-                <strong>batch processing</strong>, real-time previews, and
-                professional-grade algorithms. From{" "}
-                <strong>image optimization</strong> to{" "}
-                <strong>document conversion</strong>, every tool is optimized
-                for both personal and commercial use.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Experience the difference with{" "}
-                <strong>browser-based tools</strong> that require no downloads,
-                registration, or payment. Our{" "}
-                <strong>web-based utilities</strong> include advanced features
-                like precision quality control, multiple format support, and
-                secure client-side processing. Whether you're a student,
-                developer, designer, or business professional, Toolspy provides
-                the <strong>digital tools</strong> you need to work efficiently
-                and securely.
-              </p>
-              <p className="text-muted-foreground leading-relaxed mt-4">
-                Join thousands who use Toolspy daily for{" "}
-                <strong>file processing</strong>,{" "}
-                <strong>image compression</strong>,{" "}
-                <strong>PDF manipulation</strong>, and{" "}
-                <strong>data conversion</strong>. All tools are
-                mobile-optimized, regularly updated, and built with
-                enterprise-level security. Try our{" "}
-                <strong>online tool collection</strong> today and discover why
-                professionals choose Toolspy for their digital workflow needs.
-              </p>
-            </div>
+      {/* Feedback */}
+      <section className="space-y-6" id="feedback">
+        <SectionHeader eyebrow="Help us improve" icon={MessagesSquare} title="Feedback" />
+        <Card className="p-5">
+          <div className="space-y-3 text-muted-foreground">
+            <p>
+              If a tool is missing a format, needs a better default, or you want a new utility
+              added, leave a note on our{" "}
+              <Link href="/feedback" className="underline underline-offset-4 text-foreground">
+                feedback page
+              </Link>
+              .
+            </p>
           </div>
-        </div>
+        </Card>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="">
-          <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-            <h3 className="text-2xl font-bold mb-4">
-              Ready to Streamline Your Digital Workflow?
-            </h3>
-            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-              Join millions of users who trust Toolspy for their daily digital
-              tasks. All <strong>online tools</strong> are free, secure, and
-              designed for professional results.
-            </p>
-            <ScrollToTopButton>
-              Explore All Free Online Tools →
-            </ScrollToTopButton>
-          </div>
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h3 className="text-2xl font-bold tracking-tight">Ready to find your tool?</h3>
+          <p className="text-muted-foreground">
+            Browse categories or search — most tools take less than a minute.
+          </p>
+          <ScrollToTopButton>Explore tools →</ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
+

@@ -12,441 +12,407 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Palette,
-  Copy,
-  Download,
-  FileText,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Droplets,
-  TextCursor,
-  Sparkles,
+  Keyboard,
+  Link2,
   Lock,
-  Share2,
+  Contrast,
+  Download,
+  Lightbulb,
+  ListChecks,
+  Rocket,
+  MessagesSquare,
+  Sparkles,
+  Palette,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function ColorPaletteGeneratorSEOContent() {
   const tool = getToolBySlug("color-palette-generator");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
+  const featureChecklist = [
+    { feature: "Generate a 5-color palette", value: "Yes", note: "Press Space or click Generate." },
+    { feature: "Lock individual colors", value: "Yes", note: "Keep a color fixed while regenerating others." },
+    { feature: "Drag to reorder", value: "Yes", note: "Horizontal on desktop, vertical on mobile." },
+    { feature: "Edit hex directly", value: "Yes", note: "Click a swatch to enter a specific hex code." },
+    { feature: "Add / remove colors (2–10)", value: "Yes", note: "Insert between colors or remove when more than two exist." },
+    { feature: "Undo / redo", value: "Yes", note: "Step back and forward through palette history." },
+    { feature: "Export formats", value: "Yes", note: "CSS, SCSS, Tailwind, JSON, Array, PNG." },
+    { feature: "Shareable URL", value: "Yes", note: "URL encodes colors (e.g. ?colors=ff6b6b-4ecdc4-...)." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
+  ];
+
+  const exportFormats = [
     {
-      feature: "Palette Generation Quality",
-      toolspy: "✅ High quality",
-      coolors: "⚠️ Limited quality",
-      adobe: "❌ Requires subscription",
-      toolspyStatus: "excellent",
+      name: "CSS",
+      description: "Root custom properties for use across your stylesheet.",
+      example: ":root {\n  --color-1: #ff6b6b;\n  --color-2: #4ecdc4;\n}",
     },
     {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant generation",
-      coolors: "⚠️ Server delays",
-      adobe: "❌ Slow processing",
-      toolspyStatus: "excellent",
+      name: "SCSS",
+      description: "SCSS variables, ready to import into your design system.",
+      example: "$color-1: #ff6b6b;\n$color-2: #4ecdc4;",
     },
     {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      coolors: "⚠️ Server-based",
-      adobe: "⚠️ Server-based",
-      toolspyStatus: "excellent",
+      name: "Tailwind",
+      description: "A colors block you can paste into your tailwind.config.",
+      example: "colors: {\n  'color-1': '#ff6b6b',\n  'color-2': '#4ecdc4'\n}",
     },
     {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      coolors: "⚠️ Limited free",
-      adobe: "❌ Paid only",
-      toolspyStatus: "excellent",
+      name: "JSON",
+      description: "A JSON object with hex codes — good for scripts and tools.",
+      example: '{\n  "color1": "#ff6b6b",\n  "color2": "#4ecdc4"\n}',
     },
     {
-      feature: "Export Formats",
-      toolspy: "✅ Multiple formats",
-      coolors: "⚠️ Limited formats",
-      adobe: "✅ Multiple formats",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Drag & Drop",
-      toolspy: "✅ Full support",
-      coolors: "⚠️ Limited",
-      adobe: "✅ Full support",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Color Locking",
-      toolspy: "✅ Yes",
-      coolors: "✅ Yes",
-      adobe: "✅ Yes",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      coolors: "❌ Ad-heavy",
-      adobe: "✅ Clean interface",
-      toolspyStatus: "excellent",
+      name: "PNG",
+      description: "Download the palette as an image to share in mockups or slides.",
+      example: "palette.png",
     },
   ];
 
-  const generatorTypes = [
-    {
-      type: "Random Palette Generator",
-      description: "Generate random color palettes instantly",
-      useCase: "Design inspiration, quick color schemes, creative projects",
-      precision: "Instant generation",
-      example: "Generate random palettes for design projects",
-    },
-    {
-      type: "Drag & Drop Reordering",
-      description: "Reorder colors by dragging and dropping",
-      useCase: "Palette organization, color arrangement, design workflow",
-      precision: "Smooth drag and drop",
-      example: "Reorder colors in your palette",
-    },
-    {
-      type: "Color Locking",
-      description: "Lock specific colors while generating new ones",
-      useCase: "Maintaining base colors, exploring variations, design consistency",
-      precision: "Selective generation",
-      example: "Lock base colors and generate variations",
-    },
-    {
-      type: "Export & Sharing",
-      description: "Export in CSS, SCSS, Tailwind, JSON formats and share URLs",
-      useCase: "Code integration, design sharing, project collaboration",
-      precision: "Multiple format support",
-      example: "Export palettes for development",
-    },
+  const shortcuts = [
+    { keys: "Space", action: "Generate a new palette (unlocked colors regenerate)." },
+    { keys: "Drag", action: "Reorder colors (horizontal on desktop, vertical on mobile)." },
+    { keys: "Click hex", action: "Edit a color directly with a specific hex value." },
+    { keys: "Lock icon", action: "Lock the color so it stays when you generate." },
   ];
 
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your palettes never leave your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Instant Generation",
-      description:
-        "Generate new palettes instantly with no server delays or uploads.",
-    },
-    {
-      icon: <Palette className="h-6 w-6" />,
-      title: "Professional Quality",
-      description:
-        "Create beautiful, harmonious color palettes with professional precision.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description:
-        "Drag-and-drop reordering, color locking, undo/redo, and multiple export formats.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional palette generation with complete privacy protection",
-    "⚡ Instant generation with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple generator types: random, drag-and-drop, locking, export",
-    "🔧 Real-time palette editing and instant results",
-    "📊 Complete history tracking with undo/redo",
-    "📋 Multiple export formats: CSS, SCSS, Tailwind, JSON, PNG",
-    "🎯 Professional-grade palette generation capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise color control and palette optimization",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive palette generation and export tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. Coolors",
-      advantages: [
-        "Better Quality: High quality vs. limited quality",
-        "Better Speed: Instant generation vs. server delays",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "No Ads: Clean interface vs. ad-heavy",
-      ],
-    },
-    {
-      title: "Toolspy vs. Adobe Color",
-      advantages: [
-        "Better Price: Free forever vs. paid subscription",
-        "Better Speed: Instant generation vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "No Registration: Free access vs. account required",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. limited mobile",
-      ],
-    },
+  // Curated sample palettes — each click loads the palette into the tool.
+  const samplePalettes: { name: string; mood: string; colors: string[] }[] = [
+    { name: "Sunset", mood: "Warm", colors: ["ff6b6b", "ffa94d", "ffd43b", "ff8787", "fab005"] },
+    { name: "Ocean", mood: "Cool", colors: ["1b4965", "3d5a80", "45b7d1", "4ecdc4", "a8dadc"] },
+    { name: "Forest", mood: "Natural", colors: ["2d6a4f", "40916c", "52b788", "74c69d", "b7e4c7"] },
+    { name: "Pastel", mood: "Soft", colors: ["ffadad", "ffd6a5", "fdffb6", "caffbf", "9bf6ff"] },
+    { name: "Monochrome", mood: "Neutral", colors: ["212529", "495057", "6c757d", "adb5bd", "dee2e6"] },
+    { name: "Neon", mood: "Vibrant", colors: ["ff006e", "8338ec", "3a86ff", "06ffa5", "ffbe0b"] },
   ];
 
   return (
-    <div className="space-y-12 mt-16 container max-w-7xl mx-auto">
+    <article
+      className="mx-auto max-w-5xl space-y-14 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Sample palettes — unique, visual, clickable */}
+      <section className="space-y-6 md:space-y-10" id="samples">
+        <SectionHeader
+          eyebrow="Inspiration"
+          icon={Sparkles}
+          title="Sample palettes to start from"
+          lead="Click any color combo to load it into the builder."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {samplePalettes.map((p) => (
+            <a
+              key={p.name}
+              href={`/color-palette-generator?colors=${p.colors.join("-")}`}
+              className="group block rounded-xl border bg-card overflow-hidden transition-shadow hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+            >
+              <div className="grid grid-cols-5 h-16">
+                {p.colors.map((c) => (
+                  <div
+                    key={c}
+                    style={{ backgroundColor: `#${c}` }}
+                    aria-hidden="true"
+                  />
+                ))}
+              </div>
+              <div className="p-3 flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-sm font-semibold truncate">{p.name}</p>
+                  <p className="text-xs text-muted-foreground">{p.mood}</p>
+                </div>
+                <p className="text-[11px] font-mono text-muted-foreground opacity-0 group-hover:opacity-100 transition-opacity truncate">
+                  {p.colors.map((c) => `#${c}`).join(" · ")}
+                </p>
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="color-palette-generator"
-        title="Similar Tools You Might Like"
-        description="Check out our other design and color tools that work great with palette generation and design projects."
-      />
-
+        <RelatedTools
+          currentToolSlug="color-palette-generator"
+          title="Similar Tools You Might Like"
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Generate Color Palettes – Fast & Private
+      {/* Intro (H1 — the tool UI above has no heading of its own) */}
+      <section id="intro" className="space-y-8">
+        <div className=" space-y-3">
+          <h1 className="text-center font-bold tracking-tight">
+            Color Palette Generator
           </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional color palette generator with complete privacy protection, 
-            instant generation, and advanced features. Perfect for designers, 
-            developers, and anyone needing beautiful color schemes.
+          <p className="text-muted-foreground text-start md:text-center">
+            A fast color palette builder and color combo generator for designers and developers.
+            Start from scratch or generate a color palette from a seed color, lock the shades you
+            like, and export as CSS, Tailwind, JSON, or PNG.
           </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free color palette generator
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      palette generator online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      generate color palettes
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      color palette generator free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      color scheme generator
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      color palette generator app
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced generation technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      instant generation
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      generate palettes free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
+        </div>
 
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">5+</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Formats
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Instant
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      🔒
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Private
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">🎨</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Palettes
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Color Palette Generator - High-quality generation with complete privacy protection and instant processing"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ High Quality
-                </div>
-              </div>
-            </div>
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Designers and developers use this color palette builder to lock a seed hex, explore
+              matching shades, and export the final palette to CSS, Tailwind, SCSS, JSON, or PNG
+              in one click — no account, no install.
+            </p>
+            <p>
+              Tweak individual colors, drag to reorder, and share the result through a URL that
+              encodes the exact palette. Prefer preset inspiration? The sample color combos below
+              load into the builder in one click so you can iterate from a known starting point.
+            </p>
           </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Color palette generator interface — five color swatches with lock, drag, and edit controls"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
         </div>
       </section>
 
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Color Palette Generator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to generate beautiful color palettes securely with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Generate</h4>
+
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to use it"
+          lead="Build a palette in a few seconds."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Generate</h3>
             <p className="text-sm text-muted-foreground">
-              Press Spacebar or click Generate to create a new palette.
+              Press Space or click Generate to get a new palette.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Customize</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Lock colors</h3>
             <p className="text-sm text-muted-foreground">
-              Lock colors, drag to reorder, or edit hex values directly.
+              Lock the ones you like — they stay when you regenerate.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Export</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Tweak hex values</h3>
             <p className="text-sm text-muted-foreground">
-              Export in CSS, SCSS, Tailwind, JSON, or download as PNG.
+              Click a swatch to enter a specific hex code.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Share</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">4. Export or share</h3>
             <p className="text-sm text-muted-foreground">
-              Share your palette via URL or copy to clipboard.
+              Export to CSS, Tailwind, JSON, or PNG. Or copy a share URL.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Generator Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Generator Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right generator type for your specific needs with detailed information and examples.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {generatorTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <Palette className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
+
+
+      {/* Generate from a seed color — answers "generate color palette from color" intent */}
+      <section className="space-y-4" id="from-color">
+        <SectionHeader
+          eyebrow="Starting point"
+          icon={Palette}
+          title="Generate a color palette from a color"
+          lead="Use any hex as a seed to build the rest of the palette."
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            If you already have a brand color, a photo accent, or a mood color in mind, you can
+            generate a color palette from that one color in four steps:
+          </p>
+          <ol className="list-decimal pl-5 space-y-1 text-sm">
+            <li>
+              Click the first swatch and enter your seed hex (for example{" "}
+              <code className="bg-muted rounded px-1.5 py-0.5 text-xs">#4ecdc4</code>).
+            </li>
+            <li>Lock that swatch using the lock icon so it stays fixed.</li>
+            <li>Press Space to regenerate the remaining colors around it.</li>
+            <li>Repeat until the full palette fits — lock more shades as you like them.</li>
+          </ol>
+          <p className="text-sm">
+            This turns the tool into a color palette scheme generator centered on your anchor
+            color, and it is often faster than trying to hand-pick every shade.
+          </p>
+        </div>
+      </section>
+
+      {/* Shortcuts */}
+      <section className="space-y-6" id="shortcuts">
+        <SectionHeader
+          eyebrow="Workflow"
+          icon={Keyboard}
+          title="Shortcuts & gestures"
+          lead="Small interactions that speed up your workflow."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {shortcuts.map((s, i) => (
+            <Card key={i} className="p-4">
+              <div className="flex items-start gap-3">
+                <span className="inline-block shrink-0 rounded-md border px-2 py-1 text-xs font-mono bg-muted">
+                  {s.keys}
+                </span>
+                <p className="text-sm text-muted-foreground">{s.action}</p>
               </div>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Color Palette Generator Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and users love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Color Palette Generator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional palette generation, completely free.
-        </p>
+      {/* Export formats */}
+      <section className="space-y-6" id="exports">
+        <SectionHeader
+          eyebrow="Export"
+          icon={Download}
+          title="Supported export formats"
+          lead="Use the same palette across your design and code stack."
+        />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
+          {exportFormats.map((f, i) => (
+            <Card key={i} className="p-5">
+              <h3 className="font-semibold mb-1">{f.name}</h3>
+              <p className="text-sm text-muted-foreground mb-3">{f.description}</p>
+              <pre className="text-xs bg-muted/60 rounded-md p-3 overflow-x-auto whitespace-pre-wrap">
+                {f.example}
+              </pre>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Share via URL */}
+      <section className="space-y-4" id="share">
+        <SectionHeader eyebrow="Sharing" icon={Link2} title="Share palettes via URL" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Click <strong className="text-foreground">Share</strong> to copy a URL that encodes
+            your palette in the query string. Open the URL on any device and the same palette
+            appears.
+          </p>
+          <p className="text-sm">
+            Example:{" "}
+            <code className="bg-muted rounded px-1.5 py-0.5 text-xs">
+              ?colors=ff6b6b-4ecdc4-45b7d1-f7b731-9b59b6
+            </code>
+          </p>
+          <p className="text-sm">
+            The URL format is hex codes without <code>#</code>, joined by <code>-</code>. You can
+            construct such URLs by hand for demos, docs, or bookmarks.
+          </p>
+        </div>
+      </section>
+
+      {/* Lock & generate variations */}
+      <section className="space-y-4" id="lock">
+        <SectionHeader
+          eyebrow="Pro tip"
+          icon={Lock}
+          title="Lock colors to explore variations"
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Locking is the fastest way to keep a base color (brand or background) while exploring
+            accents and neutrals. Lock your brand hex first, then press Space repeatedly to scan
+            through companion colors.
+          </p>
+          <p>Want all colors fresh? Make sure no locks are on and press Space.</p>
+        </div>
+      </section>
+
+      {/* Accessibility / contrast */}
+      <section className="space-y-4" id="contrast">
+        <SectionHeader
+          eyebrow="Accessibility"
+          icon={Contrast}
+          title="Contrast & accessibility notes"
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Palette aesthetics and accessibility are two different things. Before shipping a
+            palette, check contrast for any text/background pair you plan to use against{" "}
+            <strong className="text-foreground">WCAG AA</strong>: 4.5:1 for body text, 3:1 for
+            large text.
+          </p>
+          <p>A few practical tips:</p>
+          <ul className="list-disc pl-5 space-y-1 text-sm">
+            <li>Pair a darker accent with a light background (or vice versa) for body text.</li>
+            <li>
+              Colors that sit very close on the color wheel often fail contrast — pick one and use
+              the other as an accent.
+            </li>
+            <li>
+              Test real UI states: default, hover, focus, disabled. Many palettes look great on a
+              canvas but break on buttons.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      {/* Common pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <Card className="p-5">
+            <h3 className="font-semibold mb-1">Locking every color</h3>
+            <p className="text-sm text-muted-foreground">
+              If every swatch is locked, Generate has nothing to change. Unlock at least one to
+              explore variations.
+            </p>
+          </Card>
+          <Card className="p-5">
+            <h3 className="font-semibold mb-1">Too many similar hues</h3>
+            <p className="text-sm text-muted-foreground">
+              Five similar blues look elegant but limit contrast options. Include at least one
+              neutral and one accent.
+            </p>
+          </Card>
+          <Card className="p-5">
+            <h3 className="font-semibold mb-1">Forgetting dark mode</h3>
+            <p className="text-sm text-muted-foreground">
+              Export your palette, then preview in a dark theme to catch unreadable pairs before
+              shipping.
+            </p>
+          </Card>
+          <Card className="p-5">
+            <h3 className="font-semibold mb-1">Skipping semantic names</h3>
+            <p className="text-sm text-muted-foreground">
+              In CSS or Tailwind, rename generated variables to semantic tokens (primary, accent,
+              neutral) before using in a real project.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
         <Card>
           <CardHeader>
-            <CardTitle>Toolspy vs. Leading Palette Generators</CardTitle>
+            <CardTitle>Feature checklist</CardTitle>
             <CardDescription>
-              Comprehensive comparison of features and capabilities across popular palette generation tools.
+              A factual summary of what the color palette generator does.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -455,28 +421,23 @@ export function ColorPaletteGeneratorSEOContent() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">Coolors</th>
-                    <th className="text-left p-3 font-medium">Adobe Color</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
                       <td className="p-3 font-medium">{row.feature}</td>
                       <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
                         </div>
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.coolors}</td>
-                      <td className="p-3 text-muted-foreground">{row.adobe}</td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -486,77 +447,90 @@ export function ColorPaletteGeneratorSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Palette Generators
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular palette generation tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ))}
+      {/* When to use vs color picker */}
+      <section className="space-y-4" id="vs-picker">
+        <SectionHeader title="Palette generator vs color picker" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Use a <strong className="text-foreground">color picker</strong> when you already know
+            the exact color you want (from a brand, image, or mockup) and just need its hex, RGB,
+            or HSL values.
+          </p>
+          <p>
+            Use a <strong className="text-foreground">color palette generator</strong> when you’re
+            starting fresh and want a set of colors that look good together — ideal for landing
+            pages, illustrations, brand guidelines, or quick design explorations.
+          </p>
+          <p className="text-sm">
+            Need a picker?{" "}
+            <Link href="/color-picker" className="underline underline-offset-4">
+              Try the Color Picker tool
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getColorPaletteGeneratorFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Palette Generation for All Design Needs
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>generate color palettes</strong> for your design needs? Looking for a reliable way to <strong>color palette generator</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>generate palettes</strong>, <strong>generate palettes free</strong>, or <strong>generate palettes online</strong>, our tool handles all generation with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>color palette generator online</strong> provides support for all major palette types. Users love our tool for <strong>color palette generator free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality generation. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're working on design projects, creating color schemes, or building palettes, our <strong>color palette generator app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>generate palettes</strong> tasks to complex generation requirements, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our color palette generator today and see why thousands of users choose Toolspy for their palette generation needs. From <strong>color palette generator free</strong> planning to professional generation, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Generate Your Color Palettes?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users who use Toolspy every day to generate color palettes. It's free, secure, and your data stays private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to build your palette?</h2>
+          <p className="text-muted-foreground">
+            Press Space to generate, lock the colors you like, then export to your format of
+            choice.
           </p>
-          <ScrollToTopButton>
-            Start Generating Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Generating →</ScrollToTopButton>
         </div>
       </section>
-    </div>
+    </article>
   );
 }
 
@@ -564,58 +538,46 @@ export function ColorPaletteGeneratorSEOContent() {
 export function getColorPaletteGeneratorFAQs() {
   return [
     {
-      question: "Is Toolspy's color palette generator completely free to use?",
-      answer:
-        "Yes, our professional color palette generator is completely free with no hidden costs, registration requirements, or usage limitations. You can generate unlimited palettes without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all palette generation capabilities free of charge.",
+      question: "Is the color palette generator free to use?",
+      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
     },
     {
-      question: "How fast is the palette generation?",
+      question: "How do I generate a new palette?",
       answer:
-        "Our color palette generator provides instant generation for any palette type. Since all processing happens in your browser, there are no server delays or upload times. You can generate multiple palettes quickly, making it perfect for real-time generation and design needs.",
+        "Press the Spacebar or click Generate. Lock any color you want to keep before you regenerate.",
     },
     {
-      question: "How secure is the palette generation process?",
+      question: "Can I generate a color palette from one base color?",
       answer:
-        "Absolutely secure! Our color palette generator uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based generators.",
+        "Yes. Click the first swatch, enter your seed hex code, lock it with the lock icon, then press Space to generate matching companion colors around it.",
+    },
+    {
+      question: "Can I choose exact hex codes?",
+      answer:
+        "Yes. Click a swatch to open the color input and type (or paste) a specific hex code.",
     },
     {
       question: "What export formats are supported?",
       answer:
-        "Our generator supports multiple export formats including CSS, SCSS, Tailwind, JSON, Array, and PNG. We also support high-quality generation and can handle various palette requirements with proper formatting.",
+        "CSS custom properties, SCSS variables, a Tailwind colors block, JSON, Array, and a PNG image.",
     },
     {
-      question: "Can I customize the palette generation options?",
+      question: "Can I share a palette?",
       answer:
-        "Yes! Our color palette generator excels at customization. You can lock colors, drag to reorder, edit hex values, add/remove colors, and adjust palette parameters. This is perfect for meeting specific generation requirements and design standards.",
+        "Yes. Click Share to copy a URL that encodes your palette. Opening the URL recreates the same palette.",
     },
     {
-      question: "Why choose Toolspy over other free palette generators like Coolors or Adobe Color?",
+      question: "How many colors can the palette have?",
       answer:
-        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, instant generation, and multiple export format options. Many competitors like Coolors and Adobe Color use server-based methods, have limited quality, or require paid subscriptions. Our tool provides better privacy protection, more options, and superior functionality completely free.",
+        "Between 2 and 10 colors. You can add a color between existing ones or remove any color when there are more than two.",
     },
     {
-      question: "Can I generate palettes for different design needs?",
+      question: "Is it accessible for users with visual impairments?",
       answer:
-        "Absolutely! Our color palette generator handles different design needs perfectly. You can generate palettes for design projects, color schemes, branding, and any other generation requirement. The tool supports all standard generation scenarios.",
-    },
-    {
-      question: "What generation options are available?",
-      answer:
-        "Our tool provides multiple generation formats including random generation, drag-and-drop reordering, color locking, undo/redo, and various export features. All generations include professional formatting, making it easy to use the results in your projects.",
-    },
-    {
-      question: "Is it safe to use online palette generators?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based generators, our tool provides complete privacy and security for your palette generation.",
-    },
-    {
-      question: "Can I use the generated palettes for professional purposes?",
-      answer:
-        "Yes! Our color palette generator creates professional generation results that follow ethical guidelines. These results are suitable for professional use in design, branding, web development, and any other application requiring palette generation.",
+        "The interface is keyboard-accessible with screen-reader labels. For accessible output, verify text/background contrast against WCAG AA (4.5:1 body text, 3:1 large text).",
     },
   ];
 }
 
 // Register FAQ data for this tool
 registerToolFAQ("color-palette-generator", getColorPaletteGeneratorFAQs);
-

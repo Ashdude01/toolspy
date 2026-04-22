@@ -12,462 +12,238 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
+  Rocket,
   Calculator,
-  DollarSign,
-  TrendingUp,
-  FileText,
-  File,
-  ArrowRight,
-  FileDown,
-  CreditCard,
-  PiggyBank,
-  Building,
-  GraduationCap,
+  ListChecks,
+  Lightbulb,
+  MessagesSquare,
+  Table2,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function LoanCalculatorSEOContent() {
   const tool = getToolBySlug("loan-calculator");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
-    {
-      feature: "Calculation Accuracy",
-      toolspy: "✅ Bank-level precision",
-      loancalculator: "⚠️ Basic calculation",
-      mortgagecalculator: "⚠️ Limited accuracy",
-      paymentcalculator: "❌ Approximate only",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Calculation Speed",
-      toolspy: "✅ Instant calculation",
-      loancalculator: "⚠️ Server delays",
-      mortgagecalculator: "⚠️ Slow processing",
-      paymentcalculator: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      loancalculator: "⚠️ Server-based",
-      mortgagecalculator: "⚠️ Server-based",
-      paymentcalculator: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Loan Types",
-      toolspy: "✅ All loan types",
-      loancalculator: "⚠️ Limited types",
-      mortgagecalculator: "❌ Mortgage only",
-      paymentcalculator: "⚠️ Basic types",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      loancalculator: "✅ Free",
-      mortgagecalculator: "✅ Free",
-      paymentcalculator: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      loancalculator: "⚠️ Copy only",
-      mortgagecalculator: "❌ No export",
-      paymentcalculator: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Amortization Schedule",
-      toolspy: "✅ Complete breakdown",
-      loancalculator: "❌ No schedule",
-      mortgagecalculator: "⚠️ Basic schedule",
-      paymentcalculator: "❌ No schedule",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      loancalculator: "❌ Ad-heavy",
-      mortgagecalculator: "❌ Ad-heavy",
-      paymentcalculator: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
-    },
+  const inputs = [
+    { label: "Principal", note: "The loan amount you borrow." },
+    { label: "Interest rate (p.a.)", note: "Annual rate quoted by the lender." },
+    { label: "Tenure", note: "In months or years — the tool handles both." },
+    { label: "Start date (optional)", note: "Used to generate a dated amortization schedule." },
   ];
 
-  const loanTypes = [
-    {
-      type: "Personal Loans",
-      description: "Unsecured loans for personal expenses, debt consolidation, or major purchases",
-      useCase: "Debt consolidation, home improvements, medical expenses",
-      precision: "Accurate to the penny",
-      example: "$10,000 loan at 8% for 5 years = $203 monthly",
-    },
-    {
-      type: "Auto Loans",
-      description: "Secured loans for vehicle purchases with competitive interest rates",
-      useCase: "Car purchases, motorcycle financing, RV loans",
-      precision: "Bank-level accuracy",
-      example: "$25,000 auto loan at 4.5% for 6 years = $395 monthly",
-    },
-    {
-      type: "Student Loans",
-      description: "Educational financing with flexible repayment options and terms",
-      useCase: "College tuition, graduate school, professional development",
-      precision: "Federal and private loan calculations",
-      example: "$50,000 student loan at 6.8% for 10 years = $575 monthly",
-    },
-    {
-      type: "Business Loans",
-      description: "Commercial financing for business expansion, equipment, or working capital",
-      useCase: "Business expansion, equipment purchases, inventory financing",
-      precision: "Professional business calculations",
-      example: "$100,000 business loan at 7.5% for 7 years = $1,485 monthly",
-    },
+  const useCases = [
+    { title: "Personal loan planning", body: "Estimate EMI and total interest before you apply." },
+    { title: "Car loan comparison", body: "Compare different rates and tenures side by side." },
+    { title: "Education loan budgeting", body: "See monthly payment against your expected income." },
+    { title: "Top-up or refinance", body: "Check if a better rate actually helps." },
   ];
 
-  const benefits = [
-    {
-      icon: <Calculator className="h-6 w-6" />,
-      title: "Bank-Level Accuracy",
-      description:
-        "Professional loan calculations with precise interest calculations and amortization schedules.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Instant Results",
-      description:
-        "Real-time loan calculations with no server delays or manual refresh requirements.",
-    },
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your financial information never leaves your device.",
-    },
-    {
-      icon: <DollarSign className="h-6 w-6" />,
-      title: "Multiple Loan Types",
-      description:
-        "Personal loans, auto loans, student loans, business loans, and more all in one tool.",
-    },
+  const featureChecklist = [
+    { feature: "EMI / monthly payment", value: "Yes", note: "Standard reducing-balance EMI formula." },
+    { feature: "Total interest payable", value: "Yes", note: "Across the full tenure." },
+    { feature: "Total amount (principal + interest)", value: "Yes", note: "What you actually repay in full." },
+    { feature: "Amortization schedule", value: "Yes", note: "Month-by-month principal vs interest split." },
+    { feature: "Tenure in months or years", value: "Yes", note: "Switch without recalculating." },
+    { feature: "Currency-agnostic", value: "Yes", note: "Works with any currency — the ratios stay the same." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
-  const keyBenefits = [
-    "💰 Professional loan calculations with bank-level accuracy",
-    "⚡ Instant calculation with no server delays or uploads",
-    "🔒 Complete privacy protection - financial data never leaves your device",
-    "📊 Multiple loan types: personal, auto, student, business, and more",
-    "🔧 Real-time updates and instant results",
-    "📊 Complete amortization schedules and payment breakdowns",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade loan calculation algorithms",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Interest calculations, payment schedules, and total cost analysis",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Full payment history and interest breakdowns",
-  ];
-
-  const competitorAdvantages = [
+  const pitfalls = [
     {
-      title: "Toolspy vs. LoanCalculator.net",
-      advantages: [
-        "Better Privacy: Client-side processing vs. server uploads",
-        "More Accurate: Bank-level precision vs. basic calculation",
-        "Better Types: All loan types vs. limited types",
-        "Better Export: Multiple formats vs. copy only",
-        "No Ads: Clean interface vs. ad-heavy layout",
-        "Better Schedule: Complete breakdown vs. no schedule",
-      ],
+      title: "Quoted flat rate vs reducing-balance",
+      body: "‘Flat 10%’ isn’t the same as ‘10% reducing’. Reducing-balance EMIs are typically lower for the same headline number.",
     },
     {
-      title: "Toolspy vs. MortgageCalculator.com",
-      advantages: [
-        "More Types: All loan types vs. mortgage only",
-        "Better Privacy: No data transmission vs. server-based",
-        "Better Accuracy: Bank-level vs. limited accuracy",
-        "Better Schedule: Complete breakdown vs. basic schedule",
-        "Faster Processing: Instant vs. slow processing",
-        "Professional Features: Advanced options vs. basic calculator",
-      ],
+      title: "Ignoring processing fees",
+      body: "EMIs don’t include one-off processing fees and stamp duty. Add those to total cost when comparing offers.",
     },
     {
-      title: "Toolspy vs. PaymentCalculator.com",
-      advantages: [
-        "More Accurate: Bank-level precision vs. approximate results",
-        "Better Privacy: Client-side vs. server-based processing",
-        "Better Types: All types vs. basic types",
-        "Better Schedule: Complete breakdown vs. no schedule",
-        "Export Options: Multiple formats vs. basic export",
-        "Clean Interface: No ads vs. ad-heavy experience",
-      ],
+      title: "Tenure extending cost",
+      body: "Longer tenure lowers EMI but raises total interest. Always check both numbers.",
+    },
+    {
+      title: "Prepayment penalties",
+      body: "Some loans charge for early closure. Confirm with the lender before planning foreclosure.",
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Intro (H1) */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Loan Calculator
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            A fast online loan calculator and EMI calculator. Estimate monthly payments,
+            interest, and total cost — plus a full amortization schedule. No signup.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Use this loan calculator to estimate EMI, total interest, and the repayment split
+              for personal, car, home, and education loans. Enter principal, rate, and tenure —
+              the tool returns the monthly payment and a dated amortization schedule.
+            </p>
+            <p>
+              Compare options quickly: change the rate or tenure to see how much you save on
+              interest. Works with any currency and handles both month- and year-based tenures.
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Loan calculator — principal, rate, tenure inputs with EMI result and amortization schedule"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="loan-calculator"
-        title="Similar Tools You Might Like"
-        description="Check out our other financial and calculation tools that work great with loan planning."
-      />
-
+        <RelatedTools
+          currentToolSlug="loan-calculator"
+          title="Similar Tools You Might Like"
+          description="Other financial calculators."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Calculate Loans – Professional & Accurate
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional loan calculator with bank-level accuracy, instant processing, 
-            and complete privacy protection. Perfect for loan planning, debt consolidation, 
-            and anyone needing accurate loan calculations.
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to calculate an EMI"
+          lead="Four quick steps."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Principal</h3>
+            <p className="text-sm text-muted-foreground">Enter the loan amount.</p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Interest rate</h3>
+            <p className="text-sm text-muted-foreground">Annual rate quoted by the lender.</p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Tenure</h3>
+            <p className="text-sm text-muted-foreground">In months or years.</p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">4. Read result</h3>
+            <p className="text-sm text-muted-foreground">
+              EMI, total interest, amortization schedule.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Inputs */}
+      <section className="space-y-6" id="inputs">
+        <SectionHeader
+          eyebrow="Inputs"
+          icon={Calculator}
+          title="What the tool needs"
+          lead="Four simple numbers to get a full picture."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {inputs.map((i) => (
+            <Card key={i.label} className="p-5">
+              <h3 className="font-semibold mb-1">{i.label}</h3>
+              <p className="text-sm text-muted-foreground">{i.note}</p>
+            </Card>
+          ))}
+        </div>
+      </section>
+
+      {/* Formula */}
+      <section className="space-y-4" id="formula">
+        <SectionHeader
+          eyebrow="The maths"
+          icon={Table2}
+          title="EMI formula"
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            <code className="bg-muted rounded px-1.5 py-0.5 text-xs">
+              EMI = P × r × (1 + r)ⁿ / ((1 + r)ⁿ − 1)
+            </code>
           </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free loan calculator
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      loan calculator online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      calculate loan
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      loan calculator free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      loan calculator download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      loan calculator app
-                    </strong>{" "}
-                    is designed for both individuals and professionals. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced calculation technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      multiple loan types
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      complete privacy protection
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      calculate loan free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">Bank</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Level
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Instant
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      ∞
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Privacy
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">💰</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      All Types
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Loan Calculator - High-quality calculations with bank-level accuracy and privacy protection"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Bank Level
-                </div>
-              </div>
-            </div>
-          </div>
+          <p className="text-sm">
+            where <strong className="text-foreground">P</strong> = principal,{" "}
+            <strong className="text-foreground">r</strong> = monthly interest rate (annual ÷ 12 ÷
+            100), <strong className="text-foreground">n</strong> = tenure in months.
+          </p>
+          <p className="text-sm">
+            The amortization schedule shows how each EMI splits into interest and principal —
+            early EMIs are interest-heavy, later ones are principal-heavy.
+          </p>
         </div>
       </section>
 
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Loan Calculator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to calculate loan payments accurately with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Select Loan Type</h4>
-            <p className="text-sm text-muted-foreground">
-              Choose your loan type: personal, auto, student, business, or other. 
-              Each type has specific calculation methods.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Enter Loan Details</h4>
-            <p className="text-sm text-muted-foreground">
-              Input loan amount, interest rate, and loan term. Our tool validates 
-              all inputs and provides real-time calculations.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Get Results</h4>
-            <p className="text-sm text-muted-foreground">
-              View your monthly payment, total interest, and complete 
-              amortization schedule instantly.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Analyze Details</h4>
-            <p className="text-sm text-muted-foreground">
-              Review payment breakdowns, interest calculations, and total costs 
-              for informed financial decisions.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* Loan Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Loan Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right loan type for your specific needs with detailed information and examples.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {loanTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <CreditCard className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
-              </div>
+      {/* Use cases */}
+      <section className="space-y-6" id="use-cases">
+        <SectionHeader
+          eyebrow="When it helps"
+          title="Typical reasons to use the loan calculator"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {useCases.map((u) => (
+            <Card key={u.title} className="p-5">
+              <h3 className="font-semibold mb-1">{u.title}</h3>
+              <p className="text-sm text-muted-foreground">{u.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Loan Calculator Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and individuals love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
+      {/* Pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Loan Calculator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional loan calculations, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
         <Card>
           <CardHeader>
-            <CardTitle>Toolspy vs. Leading Loan Calculators</CardTitle>
+            <CardTitle>Feature checklist</CardTitle>
             <CardDescription>
-              Comprehensive comparison of features and capabilities across popular loan calculation tools.
+              A factual summary of what the loan calculator does.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -476,30 +252,23 @@ export function LoanCalculatorSEOContent() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">LoanCalculator.net</th>
-                    <th className="text-left p-3 font-medium">MortgageCalculator.com</th>
-                    <th className="text-left p-3 font-medium">PaymentCalculator.com</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
                       <td className="p-3 font-medium">{row.feature}</td>
                       <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
                         </div>
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.loancalculator}</td>
-                      <td className="p-3 text-muted-foreground">{row.mortgagecalculator}</td>
-                      <td className="p-3 text-muted-foreground">{row.paymentcalculator}</td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -509,166 +278,93 @@ export function LoanCalculatorSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Loan Calculators
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular loan calculation tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ))}
+      {/* Related */}
+      <section className="space-y-4" id="related-usage">
+        <SectionHeader title="Related financial calculators" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            For home loans specifically:{" "}
+            <Link href="/mortgage-calculator" className="underline underline-offset-4 text-foreground">
+              Mortgage calculator
+            </Link>
+            .
+          </p>
+          <p>
+            Long-term growth:{" "}
+            <Link href="/investment-calculator" className="underline underline-offset-4 text-foreground">
+              Investment calculator
+            </Link>{" "}
+            and{" "}
+            <Link href="/retirement-calculator" className="underline underline-offset-4 text-foreground">
+              Retirement calculator
+            </Link>
+            .
+          </p>
+          <p>
+            Tax on salary / take-home:{" "}
+            <Link href="/tax-calculator" className="underline underline-offset-4 text-foreground">
+              Tax calculator
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional loan calculation tool.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Choose Loan Type",
-              description:
-                "Select your loan type: personal, auto, student, business, or other. Each type has specific calculation methods and requirements.",
-            },
-            {
-              step: "2",
-              title: "Input Loan Details",
-              description:
-                "Enter loan amount, interest rate, and loan term. Our tool validates all inputs and provides real-time feedback.",
-            },
-            {
-              step: "3",
-              title: "Review Results",
-              description:
-                "View your monthly payment, total interest, and complete amortization schedule with detailed breakdowns.",
-            },
-            {
-              step: "4",
-              title: "Export or Share",
-              description:
-                "Copy results, download reports, or share calculations. All data includes professional formatting and complete details.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for loan calculation across various financial scenarios.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <Calculator className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Loan Planning</h4>
-            <p className="text-sm text-muted-foreground">
-              Plan your loan strategy and determine affordable payment amounts
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <DollarSign className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Debt Consolidation</h4>
-            <p className="text-sm text-muted-foreground">
-              Compare consolidation loan options and calculate potential savings
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <GraduationCap className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Student Loans</h4>
-            <p className="text-sm text-muted-foreground">
-              Calculate student loan payments and plan repayment strategies
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Building className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Business Financing</h4>
-            <p className="text-sm text-muted-foreground">
-              Analyze business loan options and calculate financing costs
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getLoanCalculatorFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Loan Calculations for Financial Planning
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>calculate loan</strong> for your financial planning? Looking for a reliable way to <strong>loan calculator</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>calculate loan payment</strong>, <strong>calculate loan interest</strong>, or <strong>calculate loan affordability</strong>, our tool handles all calculations with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>loan calculator online</strong> provides bank-level accuracy with complete amortization schedules. Individuals love our tool for <strong>loan calculator free</strong> functionality, while professionals appreciate the detailed breakdowns and multiple loan types. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're planning a personal loan, auto financing, student loans, or business financing, our <strong>loan calculator app</strong> processes everything locally in your browser. Your financial information never leaves your device, ensuring complete privacy. From simple <strong>calculate loan</strong> tasks to complex financial analysis, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our loan calculator today and see why thousands of individuals and professionals choose Toolspy for their loan calculation needs. From <strong>loan calculator free</strong> planning to professional financial analysis, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Calculate Your Loan?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of individuals and professionals who use Toolspy every day to calculate loans. It's free, accurate, and your financial data stays private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to plan your loan?</h2>
+          <p className="text-muted-foreground">
+            Enter principal, rate, tenure — see the EMI and full amortization in seconds.
           </p>
-          <ScrollToTopButton>
-            Start Calculating Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Calculating →</ScrollToTopButton>
         </div>
       </section>
     </article>
@@ -679,57 +375,36 @@ export function LoanCalculatorSEOContent() {
 export function getLoanCalculatorFAQs() {
   return [
     {
-      question: "Is Toolspy's loan calculator completely free to use?",
-      answer:
-        "Yes, our professional loan calculator is completely free with no hidden costs, registration requirements, or usage limitations. You can perform unlimited loan calculations without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all loan calculation capabilities free of charge.",
+      question: "Is the loan calculator free to use?",
+      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
     },
     {
-      question: "How accurate are the loan calculations?",
+      question: "How is the EMI calculated?",
       answer:
-        "Our loan calculator uses bank-level precision algorithms to ensure 100% accuracy. All calculations include precise interest calculations, payment schedules, and complete amortization tables. The tool provides detailed breakdowns showing exactly how each payment is applied to principal and interest, matching professional financial software accuracy.",
+        "Using the standard reducing-balance formula: EMI = P × r × (1+r)ⁿ / ((1+r)ⁿ − 1), where P is principal, r is monthly interest rate, and n is tenure in months.",
     },
     {
-      question: "How secure is the loan calculation process?",
+      question: "Can I see an amortization schedule?",
       answer:
-        "Absolutely secure! Our loan calculator uses client-side processing, meaning your financial information is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive financial data never leaves your device, making it safer than server-based calculators.",
+        "Yes. The tool shows a month-by-month split of principal and interest so you can see exactly how the loan unwinds.",
     },
     {
-      question: "What types of loans can I calculate?",
+      question: "Does it work for any currency?",
       answer:
-        "Our calculator supports all major loan types including personal loans, auto loans, student loans, business loans, mortgage loans, and more. Each loan type includes specific calculation methods and provides detailed payment schedules, interest breakdowns, and total cost analysis.",
+        "Yes. The formula is currency-agnostic — just enter numbers in your preferred currency. The ratios and percentages stay correct.",
     },
     {
-      question: "Can I see the complete amortization schedule?",
+      question: "What about processing fees and taxes?",
       answer:
-        "Yes! Our loan calculator provides a complete amortization schedule showing every payment throughout the loan term. You can see exactly how much of each payment goes toward principal vs. interest, track your remaining balance, and understand the total cost of your loan over time.",
+        "Those aren’t part of the EMI itself. Add one-off processing fees and stamp duty separately when comparing total loan costs.",
     },
     {
-      question: "Why choose Toolspy over other free loan calculators like LoanCalculator.net or MortgageCalculator.com?",
+      question: "Does this store my numbers?",
       answer:
-        "Toolspy offers professional-grade features like bank-level accuracy, client-side processing for privacy, multiple loan types, and complete amortization schedules. Many competitors like LoanCalculator.net and MortgageCalculator.com have limited accuracy, use server-based processing, or lack comprehensive features. Our tool provides better privacy protection, higher accuracy, and superior functionality completely free.",
-    },
-    {
-      question: "How fast are the loan calculations?",
-      answer:
-        "Our loan calculator provides instant results for any loan scenario. Since all processing happens in your browser, there are no server delays or upload times. You can calculate multiple loan scenarios quickly, making it perfect for loan comparison, financial planning, and decision-making.",
-    },
-    {
-      question: "Can I calculate different loan scenarios for comparison?",
-      answer:
-        "Absolutely! Our loan calculator is perfect for comparing different loan scenarios. You can easily adjust loan amounts, interest rates, and terms to see how they affect your monthly payments and total costs. This is ideal for finding the best loan terms and understanding the impact of different financing options.",
-    },
-    {
-      question: "What are the export options available?",
-      answer:
-        "Our tool provides multiple export formats including copy to clipboard, downloadable reports, and shareable links. All exports include detailed breakdowns, complete amortization schedules, and professional formatting, making it easy to use the results in loan applications or financial planning documents.",
-    },
-    {
-      question: "Is it safe to use online loan calculators?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your financial information is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based calculators, our tool provides complete privacy and security for your loan calculations.",
+        "No. Calculations run in your browser and aren’t stored on our servers.",
     },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ("loan-calculator", getLoanCalculatorFAQs); 
+registerToolFAQ("loan-calculator", getLoanCalculatorFAQs);

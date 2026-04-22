@@ -219,7 +219,7 @@ function MergePdfContent() {
         onError={handleError}
         multiple={true}
         maxFiles={20}
-        maxFileSize={50 * 1024 * 1024} // 50MB
+        maxFileSize={1024 * 1024 * 1024} // 1GB
         className="mb-6 sm:mb-8"
       />
 

@@ -12,556 +12,179 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Lock,
-  Hash,
-  Copy,
-  Download,
-  Eye,
-  FileText,
-  Fingerprint,
-  Database,
-  Key,
-  Cpu,
-  Type,
-  BookOpen,
-  AlignLeft,
+  Rocket,
   Calendar,
+  ListChecks,
+  Lightbulb,
+  MessagesSquare,
   Clock,
-  Calculator,
-  User,
-  File,
-  ArrowRight,
-  FileDown,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function AgeCalculatorSEOContent() {
   const tool = getToolBySlug("age-calculator");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
-    {
-      feature: "Calculation Accuracy",
-      toolspy: "✅ Precise to the day",
-      agecalculator: "⚠️ Basic calculation",
-      birthdaycalculator: "❌ Approximate only",
-      agefinder: "⚠️ Rounded results",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Calculation Speed",
-      toolspy: "✅ Instant calculation",
-      agecalculator: "⚠️ Server delays",
-      birthdaycalculator: "❌ Slow processing",
-      agefinder: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      agecalculator: "⚠️ Server-based",
-      birthdaycalculator: "⚠️ Server-based",
-      agefinder: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Multiple Formats",
-      toolspy: "✅ Years, months, days",
-      agecalculator: "⚠️ Years only",
-      birthdaycalculator: "❌ Basic format",
-      agefinder: "⚠️ Limited formats",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      agecalculator: "✅ Free",
-      birthdaycalculator: "✅ Free",
-      agefinder: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      agecalculator: "⚠️ Copy only",
-      birthdaycalculator: "❌ No export",
-      agefinder: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Future Age Calculator",
-      toolspy: "✅ Calculate future age",
-      agecalculator: "❌ No future calculation",
-      birthdaycalculator: "❌ No future calculation",
-      agefinder: "❌ No future calculation",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      agecalculator: "❌ Ad-heavy",
-      birthdaycalculator: "❌ Ad-heavy",
-      agefinder: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
-    },
+  const breakdowns = [
+    { unit: "Years, months, days", when: "Birthday cards, profile info, the classic answer." },
+    { unit: "Total months", when: "Child milestones, vesting periods, visas." },
+    { unit: "Total weeks", when: "Pregnancy milestones, habit tracking." },
+    { unit: "Total days", when: "Countdowns, anniversaries, quick comparisons." },
+    { unit: "Total hours / minutes", when: "Birthday fun facts and novelty." },
   ];
 
-  const calculationTypes = [
-    {
-      type: "Current Age",
-      description: "Calculate exact age from birth date to today",
-      useCase: "Personal records, legal documents",
-      precision: "Years, months, days",
-      example: "25 years, 3 months, 15 days",
-    },
-    {
-      type: "Age Between Dates",
-      description: "Calculate age between any two specific dates",
-      useCase: "Historical records, research",
-      precision: "Exact duration",
-      example: "2 years, 6 months, 8 days",
-    },
-    {
-      type: "Future Age Calculator",
-      description: "Calculate age at a future date",
-      useCase: "Planning, projections",
-      precision: "Years, months, days",
-      example: "30 years, 2 months, 10 days",
-    },
-    {
-      type: "Age in Different Units",
-      description: "Convert age to weeks, hours, minutes, seconds",
-      useCase: "Scientific calculations, fun facts",
-      precision: "Multiple time units",
-      example: "1,315 weeks, 220,752 hours",
-    },
+  const useCases = [
+    { title: "Know your exact age", body: "Down to the day, not just the year." },
+    { title: "Plan an anniversary", body: "Days until the next milestone from a date." },
+    { title: "Age eligibility check", body: "18+, retirement, scheme cutoffs." },
+    { title: "Days between two dates", body: "Between any two dates — not only birthdays." },
   ];
 
-  const faqData = [
-    {
-      question: "Is Toolspy's age calculator completely free to use?",
-      answer:
-        "Yes, our professional age calculator is completely free with no hidden costs, registration requirements, or usage limitations. You can calculate ages unlimited times without any restrictions. Unlike many competitors who have calculation limits or require paid subscriptions for advanced features, Toolspy provides all age calculation capabilities free of charge.",
-    },
-    {
-      question: "How accurate is the age calculation?",
-      answer:
-        "Our age calculator provides precise calculations down to the day. It accounts for leap years, different month lengths, and provides results in years, months, and days. The calculation is based on the exact number of days between dates, ensuring maximum accuracy for any age calculation you need.",
-    },
-    {
-      question: "How secure is the age calculation process?",
-      answer:
-        "Absolutely secure! Our age calculator uses client-side processing, meaning your birth dates and personal information are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive date information never leaves your device, making it safer than server-based calculators.",
-    },
-    {
-      question: "Can I calculate age between any two dates?",
-      answer:
-        "Yes! Our age calculator supports calculating age between any two specific dates. You can calculate current age from birth date, age between two historical dates, or even project future ages. This is perfect for research, historical records, or planning purposes.",
-    },
-    {
-      question: "What different age formats are available?",
-      answer:
-        "Our tool provides multiple age formats including years, months, and days; total days only; or detailed breakdowns. You can also calculate age in different units like weeks, hours, minutes, and even seconds for fun or scientific purposes. The results are displayed clearly and can be copied or exported.",
-    },
-    {
-      question: "Why choose Toolspy over other free age calculators like AgeCalculator.net or BirthdayCalculator.com?",
-      answer:
-        "Toolspy offers professional-grade features like precise day-level calculations, client-side processing for privacy, multiple calculation types, and real-time results. Many competitors like AgeCalculator.net and BirthdayCalculator.com have limited accuracy, use server-based processing, or lack advanced features. Our tool provides better privacy protection, more accurate calculations, and superior functionality completely free.",
-    },
-    {
-      question: "How fast is the age calculation?",
-      answer:
-        "Our age calculator provides instant results for any date calculation. Since all processing happens in your browser, there are no server delays or upload times. You can calculate ages for multiple dates in milliseconds, making it perfect for research, planning, or bulk calculations.",
-    },
-    {
-      question: "Can I calculate future ages?",
-      answer:
-        "Yes! Our tool includes a future age calculator that can project your age at any future date. This is perfect for planning purposes, retirement calculations, or simply satisfying curiosity about how old you'll be on a specific date in the future.",
-    },
-    {
-      question: "What are the different calculation types available?",
-      answer:
-        "Our tool offers four main calculation types: Current Age (from birth to today), Age Between Dates (any two dates), Future Age Calculator (projected age), and Age in Different Units (weeks, hours, etc.). Each type serves different purposes and provides precise, detailed results.",
-    },
-    {
-      question: "Is it safe to use online age calculators?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your birth dates and personal information are processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based calculators, our tool provides complete privacy and security for your age calculations.",
-    },
+  const featureChecklist = [
+    { feature: "Age in years, months, days", value: "Yes", note: "Calendar-accurate breakdown." },
+    { feature: "Total months / weeks / days", value: "Yes", note: "Different units for different needs." },
+    { feature: "Hours, minutes, seconds", value: "Yes", note: "Novelty granular breakdowns." },
+    { feature: "Days between two dates", value: "Yes", note: "Works for any date range, not only birthdays." },
+    { feature: "Upcoming birthday countdown", value: "Yes", note: "Shows days until your next birthday." },
+    { feature: "Leap year aware", value: "Yes", note: "Correct handling for Feb 29." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
-  const benefits = [
+  const pitfalls = [
     {
-      icon: <Calculator className="h-6 w-6" />,
-      title: "Precise Calculations",
-      description:
-        "Calculate age with precision down to the day, accounting for leap years and month variations.",
+      title: "Wrong timezone",
+      body: "Birthdays are date-based, not instant-based. Crossing timezones shouldn’t flip the day — pick the locale of birth.",
     },
     {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Instant Results",
-      description:
-        "Real-time age calculation with no server delays or upload requirements.",
+      title: "Mixing ‘months’ and ‘4 weeks’",
+      body: "A month isn’t always 4 weeks. Use months for age, weeks for short intervals.",
     },
     {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your birth dates never leave your device, providing maximum security.",
+      title: "Age vs birthday logic",
+      body: "You ‘turn’ X on your birthday. Until then, you’re still X − 1 even if months are close.",
     },
     {
-      icon: <Calendar className="h-6 w-6" />,
-      title: "Multiple Calculation Types",
-      description:
-        "Current age, age between dates, future age, and age in different time units.",
-    },
-  ];
-
-  const keyBenefits = [
-    "📅 Precise age calculation down to the day",
-    "⚡ Instant calculation with no server delays or uploads",
-    "🔒 Complete privacy protection - birth dates never leave your device",
-    "📊 Multiple calculation types: current, between dates, future age",
-    "🔧 Multiple output formats: years/months/days, total days, different units",
-    "📊 Real-time calculation and display",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade age calculation algorithms",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Leap year and month length calculations",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Future age projection capabilities",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. AgeCalculator.net",
-      advantages: [
-        "Better Privacy: Client-side processing vs. server uploads",
-        "More Accurate: Day-level precision vs. basic calculation",
-        "Multiple Types: Current, between dates, future vs. current only",
-        "Multiple Formats: Years/months/days vs. years only",
-        "No Ads: Clean interface vs. ad-heavy layout",
-        "Better Export: Multiple formats vs. copy only",
-      ],
-    },
-    {
-      title: "Toolspy vs. BirthdayCalculator.com",
-      advantages: [
-        "More Accurate: Precise calculation vs. approximate results",
-        "Better Privacy: No data transmission vs. server-based",
-        "Multiple Types: All calculation types vs. basic only",
-        "Faster Processing: Instant vs. slow processing",
-        "Real-time Calculation: Immediate results vs. delays",
-        "Professional Features: Advanced options vs. basic calculation",
-      ],
-    },
-    {
-      title: "Toolspy vs. AgeFinder.com",
-      advantages: [
-        "More Accurate: Day-level precision vs. rounded results",
-        "Better Privacy: Client-side vs. server-based processing",
-        "Multiple Types: All types vs. limited calculation types",
-        "Multiple Formats: All formats vs. basic formatting",
-        "Export Options: Multiple formats vs. basic export",
-        "Clean Interface: No ads vs. ad-heavy experience",
-      ],
+      title: "Leap-day birthdays",
+      body: "Feb 29 birthdays usually celebrate on Feb 28 / Mar 1 in non-leap years. The tool reports calendar-accurate age either way.",
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Intro (H1) */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Age Calculator
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            A fast online age calculator. Find your exact age in years, months, and days — or
+            compute the days between any two dates. Runs in your browser, no signup.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Use this age calculator to work out exact age from a date of birth, days between
+              two dates, or countdown to the next birthday. Results break down into years,
+              months, days, and total weeks, hours, and minutes for fun.
+            </p>
+            <p>
+              Useful for forms that ask for exact age, eligibility checks, anniversary planning,
+              and travel visa rules. Leap-year handling, timezone-friendly, and accurate to the
+              day.
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Age calculator — pick birth date and today, see exact age and next-birthday countdown"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="age-calculator"
-        title="Similar Tools You Might Like"
-        description="Check out our other calculation and utility tools that work great with age calculations."
-      />
-
+        <RelatedTools
+          currentToolSlug="age-calculator"
+          title="Similar Tools You Might Like"
+          description="Other calculators that pair well."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Calculate Age – Professional & Accurate
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional age calculator with precise day-level accuracy, instant processing, 
-            and complete privacy protection. Perfect for personal records, legal documents, 
-            and anyone needing accurate age calculations.
-          </p>
-          <div className="max-w-7xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free age calculator
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      age calculator online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      calculate age
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      age calculator free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      age calculator download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      age calculator app
-                    </strong>{" "}
-                    is designed for both beginners and professionals. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced calculation technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      multiple calculation types
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      precise day-level accuracy
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      calculate age free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">Day</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Precision
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Instant
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      ∞
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Privacy
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">📊</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Multiple Types
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Age Calculator - High-quality calculations with day-level precision and privacy protection"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Day Precision
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Age Calculator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to calculate accurate ages with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Enter Birth Date</h4>
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to use the age calculator"
+          lead="Three steps for your answer."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Enter birth date</h3>
             <p className="text-sm text-muted-foreground">
-              Input the birth date or start date using our easy-to-use date picker. 
-              The tool supports any date format and validates input automatically.
+              Pick your date of birth (or any start date).
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Calculation Type</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Set end date</h3>
             <p className="text-sm text-muted-foreground">
-              Select your calculation type: current age, age between dates, 
-              future age, or age in different time units.
+              Defaults to today. Change it for any date range.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Get Results</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Read the breakdown</h3>
             <p className="text-sm text-muted-foreground">
-              View your precise age calculation instantly. Copy results or 
-              export in your preferred format for records.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Use Your Results</h4>
-            <p className="text-sm text-muted-foreground">
-              Copy to clipboard, download results, or share with others. All 
-              calculations include detailed breakdowns for professional use.
+              Years / months / days plus alternate units and countdown.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Calculation Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Calculation Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right calculation type for your specific needs with detailed precision information.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {calculationTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <Clock className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Age Calculator Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and individuals love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Age Calculator
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional age calculations, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Breakdown units */}
+      <section className="space-y-6" id="breakdowns">
+        <SectionHeader
+          eyebrow="Units"
+          icon={Clock}
+          title="Different ways to view the same age"
+          lead="Pick the unit that fits what you need."
+        />
         <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading Age Calculators</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across popular age calculation tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">AgeCalculator.net</th>
-                    <th className="text-left p-3 font-medium">BirthdayCalculator.com</th>
-                    <th className="text-left p-3 font-medium">AgeFinder.com</th>
+                    <th className="text-left p-3 font-medium">Unit</th>
+                    <th className="text-left p-3 font-medium">When to use</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-muted-foreground">{row.agecalculator}</td>
-                      <td className="p-3 text-muted-foreground">{row.birthdaycalculator}</td>
-                      <td className="p-3 text-muted-foreground">{row.agefinder}</td>
+                  {breakdowns.map((b) => (
+                    <tr key={b.unit} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{b.unit}</td>
+                      <td className="p-3 text-muted-foreground">{b.when}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -571,166 +194,159 @@ export function AgeCalculatorSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Age Calculators
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular age calculation tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Use cases */}
+      <section className="space-y-6" id="use-cases">
+        <SectionHeader
+          eyebrow="When it helps"
+          icon={Calendar}
+          title="Typical reasons to use the age calculator"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {useCases.map((u) => (
+            <Card key={u.title} className="p-5">
+              <h3 className="font-semibold mb-1">{u.title}</h3>
+              <p className="text-sm text-muted-foreground">{u.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional age calculation tool.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Select Calculation Type",
-              description:
-                "Choose from current age, age between dates, future age, or age in different units based on your specific needs.",
-            },
-            {
-              step: "2",
-              title: "Input Your Dates",
-              description:
-                "Enter the birth date or start date using our intuitive date picker. Add end date if calculating between dates.",
-            },
-            {
-              step: "3",
-              title: "Review Results",
-              description:
-                "View your precise age calculation with detailed breakdown in years, months, and days. Results update instantly.",
-            },
-            {
-              step: "4",
-              title: "Export or Share",
-              description:
-                "Copy results to clipboard, download in multiple formats, or share directly. All calculations maintain precision.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
+      {/* Pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for age calculation across various industries and personal needs.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <User className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Personal Records</h4>
-            <p className="text-sm text-muted-foreground">
-              Calculate exact age for personal records, family history, and documentation
-            </p>
-          </Card>
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>
+              A factual summary of what the age calculator does.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
-          <Card className="p-6 text-center">
-            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Legal Documents</h4>
-            <p className="text-sm text-muted-foreground">
-              Precise age calculations for legal documents, contracts, and official records
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Calculator className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Research & Analysis</h4>
-            <p className="text-sm text-muted-foreground">
-              Calculate age differences, historical records, and demographic research
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Calendar className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Planning & Projections</h4>
-            <p className="text-sm text-muted-foreground">
-              Project future ages for planning, retirement, and milestone tracking
-            </p>
-          </Card>
+      {/* Related */}
+      <section className="space-y-4" id="related-usage">
+        <SectionHeader title="Related calculators" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Retirement planning?{" "}
+            <Link href="/retirement-calculator" className="underline underline-offset-4 text-foreground">
+              Retirement calculator
+            </Link>
+            .
+          </p>
+          <p>
+            Percentage maths?{" "}
+            <Link href="/percentage-calculator" className="underline underline-offset-4 text-foreground">
+              Percentage calculator
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getAgeCalculatorFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Age Calculations for Any Purpose
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>calculate age</strong> for your projects? Looking for a reliable way to <strong>age calculator</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>calculate age from birthday</strong>, <strong>calculate age between dates</strong>, or <strong>calculate future age</strong>, our tool handles all calculations with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>age calculator online</strong> provides day-level precision with support for leap years and month variations. Individuals love our tool for <strong>age calculator free</strong> functionality, while professionals appreciate the precise calculations and multiple export options. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're working on personal records, legal documents, or research projects, our <strong>age calculator app</strong> processes everything locally in your browser. Your birth dates never leave your device, ensuring complete privacy. From simple <strong>calculate age</strong> tasks to complex historical calculations, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our age calculator today and see why thousands of individuals and professionals choose Toolspy for their age calculation needs. From <strong>age calculator free</strong> tasks to professional demographic analysis, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Calculate Age?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of individuals who use Toolspy every day to calculate ages. It's free, fast, and your birth dates stay private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to check your exact age?</h2>
+          <p className="text-muted-foreground">
+            Pick a date of birth, read the full breakdown, and see when your next birthday
+            lands.
           </p>
-          <ScrollToTopButton>
-            Start Calculating Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Calculating →</ScrollToTopButton>
         </div>
       </section>
     </article>
@@ -741,57 +357,36 @@ export function AgeCalculatorSEOContent() {
 export function getAgeCalculatorFAQs() {
   return [
     {
-      question: "Is Toolspy's age calculator completely free to use?",
-      answer:
-        "Yes, our professional age calculator is completely free with no hidden costs, registration requirements, or usage limitations. You can calculate ages unlimited times without any restrictions. Unlike many competitors who have calculation limits or require paid subscriptions for advanced features, Toolspy provides all age calculation capabilities free of charge.",
+      question: "Is the age calculator free to use?",
+      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
     },
     {
-      question: "How accurate is the age calculation?",
+      question: "How does it calculate exact age?",
       answer:
-        "Our age calculator provides precise calculations down to the day. It accounts for leap years, different month lengths, and provides results in years, months, and days. The calculation is based on the exact number of days between dates, ensuring maximum accuracy for any age calculation you need.",
+        "Calendar-aware: it counts completed years, then months, then days between your birth date and the end date. Leap years (including Feb 29 birthdays) are handled correctly.",
     },
     {
-      question: "How secure is the age calculation process?",
+      question: "Can I find days between two dates (not only age)?",
       answer:
-        "Absolutely secure! Our age calculator uses client-side processing, meaning your birth dates and personal information are processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your sensitive date information never leaves your device, making it safer than server-based calculators.",
+        "Yes. Change the end date and use any two dates to get the exact gap in days, weeks, and months.",
     },
     {
-      question: "Can I calculate age between any two dates?",
+      question: "Does it show my next birthday?",
       answer:
-        "Yes! Our age calculator supports calculating age between any two specific dates. You can calculate current age from birth date, age between two historical dates, or even project future ages. This is perfect for research, historical records, or planning purposes.",
+        "Yes. A countdown shows how many days until your next birthday based on today’s date.",
     },
     {
-      question: "What different age formats are available?",
+      question: "What about timezones?",
       answer:
-        "Our tool provides multiple age formats including years, months, and days; total days only; or detailed breakdowns. You can also calculate age in different units like weeks, hours, minutes, and even seconds for fun or scientific purposes. The results are displayed clearly and can be copied or exported.",
+        "Birthdays are date-based rather than instant-based, so timezone shouldn’t change the day. Use the locale of birth if a border case comes up.",
     },
     {
-      question: "Why choose Toolspy over other free age calculators like AgeCalculator.net or BirthdayCalculator.com?",
+      question: "Does the tool upload my dates to a server?",
       answer:
-        "Toolspy offers professional-grade features like precise day-level calculations, client-side processing for privacy, multiple calculation types, and real-time results. Many competitors like AgeCalculator.net and BirthdayCalculator.com have limited accuracy, use server-based processing, or lack advanced features. Our tool provides better privacy protection, more accurate calculations, and superior functionality completely free.",
-    },
-    {
-      question: "How fast is the age calculation?",
-      answer:
-        "Our age calculator provides instant results for any date calculation. Since all processing happens in your browser, there are no server delays or upload times. You can calculate ages for multiple dates in milliseconds, making it perfect for research, planning, or bulk calculations.",
-    },
-    {
-      question: "Can I calculate future ages?",
-      answer:
-        "Yes! Our tool includes a future age calculator that can project your age at any future date. This is perfect for planning purposes, retirement calculations, or simply satisfying curiosity about how old you'll be on a specific date in the future.",
-    },
-    {
-      question: "What are the different calculation types available?",
-      answer:
-        "Our tool offers four main calculation types: Current Age (from birth to today), Age Between Dates (any two dates), Future Age Calculator (projected age), and Age in Different Units (weeks, hours, etc.). Each type serves different purposes and provides precise, detailed results.",
-    },
-    {
-      question: "Is it safe to use online age calculators?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your birth dates and personal information are processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based calculators, our tool provides complete privacy and security for your age calculations.",
+        "No. All calculations happen in your browser.",
     },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ("age-calculator", getAgeCalculatorFAQs); 
+registerToolFAQ("age-calculator", getAgeCalculatorFAQs);

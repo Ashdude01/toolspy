@@ -182,7 +182,7 @@ function PdfToCsvContent() {
         onError={handleError}
         multiple={true}
         maxFiles={10}
-        maxFileSize={50 * 1024 * 1024}
+        maxFileSize={1024 * 1024 * 1024} // 1GB
         className="mb-6 sm:mb-8"
       />
 

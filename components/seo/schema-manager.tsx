@@ -102,30 +102,12 @@ export function SchemaManager({
     if (includeReviews) {
       const reviewsSchema = generateReviewsSchema(tool)
       
-      // Calculate aggregate rating from reviews
-      if (reviewsSchema.length > 0) {
-        const totalRating = reviewsSchema.reduce((sum, review) => {
-          return sum + (review.reviewRating?.ratingValue || 0)
-        }, 0)
-        const averageRating = totalRating / reviewsSchema.length
-        const ratingCount = reviewsSchema.length
-        
-        // Embed aggregate rating in software schema
-        softwareSchema.aggregateRating = {
-          '@type': 'AggregateRating',
-          ratingValue: Math.round(averageRating * 10) / 10,
-          ratingCount: ratingCount.toString(),
-          bestRating: '5',
-          worstRating: '1'
+      // Add individual review schemas (only when you have real, visible reviews)
+      reviewsSchema.forEach(review => {
+        if (validateSchema(review)) {
+          schemas.push(review)
         }
-        
-        // Add individual review schemas
-        reviewsSchema.forEach(review => {
-          if (validateSchema(review)) {
-            schemas.push(review)
-          }
-        })
-      }
+      })
     }
     
     // Validate and add software schema

@@ -86,50 +86,6 @@ export function DynamicToolLayout({
     return children
   }
 
-  const defaultReviews = [
-    {
-      author: "John Doe",
-      rating: 5,
-      text: `The ${tool.name} is absolutely fantastic! It exceeded my expectations and is incredibly easy to use. Highly recommend it to everyone!`
-    },
-    {
-      author: "Jane Smith",
-      rating: 5,
-      text: `I am thoroughly impressed with the ${tool.name}. It delivers outstanding performance and the results are always top-notch. A must-have tool!`
-    },
-    {
-      author: "Alex Johnson",
-      rating: 5,
-      text: `Using the ${tool.name} has been a game-changer for me. It's efficient, reliable, and the quality is unmatched. Five stars!`
-    },
-    {
-      author: "Emily Davis",
-      rating: 5,
-      text: `The ${tool.name} is simply the best. It offers great value and the user experience is seamless. I can't imagine working without it!`
-    },
-    {
-      author: "Michael Brown",
-      rating: 5,
-      text: `I love the ${tool.name}! It's intuitive and delivers excellent results every time. I highly recommend it to anyone in need of a reliable tool.`
-    }
-  ]
-
-  const pageData = {
-    title: tool.seo.metaTitle,
-    description: tool.seo.metaDescription,
-    path: tool.path,
-    serviceType: tool.name,
-    faqs: faqs || [],
-    reviews: reviews || defaultReviews,
-    aggregateRating: {
-      rating: 4.9,
-      reviewCount: 1247,
-      bestRating: 5,
-    },
-    image: tool.posterImage || tool.seo.ogImage,
-  };
-
-
   return (
     <>
       {/* Enhanced Schema Markup */}

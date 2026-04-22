@@ -12,462 +12,191 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
+  Lightbulb,
+  ListChecks,
+  MessagesSquare,
+  Rocket,
+  Sigma,
   Type,
-  FileText,
-  Copy,
-  Download,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Palette,
-  Smartphone,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function FontConverterSEOContent() {
   const tool = getToolBySlug("font-converter");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
+  const commonTargets = ["WOFF", "WOFF2", "TTF", "OTF"];
+
+  const useCases = [
     {
-      feature: "Conversion Quality",
-      toolspy: "✅ High quality",
-      fontconverter: "⚠️ Limited quality",
-      fontforge: "❌ Low quality",
-      onlinefontconverter: "⚠️ Variable quality",
-      toolspyStatus: "excellent",
+      title: "Web font packaging",
+      body: "Convert TTF/OTF into WOFF/WOFF2 for faster web delivery.",
     },
     {
-      feature: "Conversion Speed",
-      toolspy: "✅ Fast conversion",
-      fontconverter: "⚠️ Slow processing",
-      fontforge: "❌ Very slow",
-      onlinefontconverter: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
+      title: "Cross-tool compatibility",
+      body: "Some design or build tools prefer one format. Convert to match the required input.",
     },
     {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      fontconverter: "⚠️ Server-based",
-      fontforge: "⚠️ Server-based",
-      onlinefontconverter: "⚠️ Server-based",
-      toolspyStatus: "excellent",
+      title: "Legacy support",
+      body: "Generate multiple outputs when you need to support older environments.",
     },
     {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      fontconverter: "✅ Free",
-      fontforge: "✅ Free",
-      onlinefontconverter: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      fontconverter: "⚠️ Basic mobile",
-      fontforge: "❌ Poor mobile",
-      onlinefontconverter: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      fontconverter: "⚠️ Limited formats",
-      fontforge: "❌ No export",
-      onlinefontconverter: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple fonts",
-      fontconverter: "❌ Single font",
-      fontforge: "❌ Single font",
-      onlinefontconverter: "❌ Single font",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      fontconverter: "❌ Ad-heavy",
-      fontforge: "❌ Ad-heavy",
-      onlinefontconverter: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
+      title: "Quick testing",
+      body: "Try a conversion to confirm a font renders as expected before committing to a build pipeline.",
     },
   ];
 
-  const converterTypes = [
+  const pitfalls = [
     {
-      type: "Font Converter",
-      description: "Convert fonts between different formats",
-      useCase: "Font conversion, format compatibility, cross-platform fonts",
-      precision: "High-quality conversion",
-      example: "Convert TTF to OTF format",
+      title: "Licensing restrictions",
+      body: "Some fonts can’t be redistributed or transformed under their license. Only convert fonts you’re allowed to use and convert.",
     },
     {
-      type: "Format Support",
-      description: "Support for TTF, OTF, WOFF, and other formats",
-      useCase: "Multiple format support, compatibility needs, specific requirements",
-      precision: "Multiple format conversion",
-      example: "Convert between various font formats",
+      title: "Subsetting vs full fonts",
+      body: "A full font can be large. For web performance, consider subsetting (if supported) to include only needed glyphs.",
     },
     {
-      type: "Batch Converter",
-      description: "Convert multiple fonts simultaneously",
-      useCase: "Bulk conversion, font libraries, project requirements",
-      precision: "Multiple font processing",
-      example: "Convert entire font collections",
+      title: "Rendering differences",
+      body: "Hinting and rendering can vary across platforms. Always test on your target browsers/devices.",
     },
     {
-      type: "Quality Optimizer",
-      description: "Optimize font quality during conversion",
-      useCase: "Quality improvement, optimization needs, professional results",
-      precision: "Quality-optimized conversion",
-      example: "Optimize fonts for web use",
+      title: "Sensitive uploads",
+      body: "Font conversion may require processing your file to produce output. Avoid uploading proprietary files unless you trust the workflow for this tool.",
     },
   ];
 
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your data never leaves your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Fast Conversion",
-      description:
-        "Convert fonts quickly with no server delays or uploads.",
-    },
-    {
-      icon: <Type className="h-6 w-6" />,
-      title: "High-Quality Conversion",
-      description:
-        "Convert fonts in the highest available quality with multiple format options.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Conversion Options",
-      description:
-        "Customize conversion settings, quality preferences, and format choices.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional font conversion with complete privacy protection",
-    "⚡ Fast conversion with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple converter types: font converter, format support, batch processing",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete conversion history and font tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade conversion capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise conversion and font access",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive font conversion and analysis tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. FontConverter",
-      advantages: [
-        "Better Quality: High quality vs. limited quality",
-        "Better Speed: Fast conversion vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Batch Processing: Multiple fonts vs. single font",
-      ],
-    },
-    {
-      title: "Toolspy vs. FontForge",
-      advantages: [
-        "Better Quality: High quality vs. low quality",
-        "Better Speed: Fast conversion vs. very slow",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. no export",
-        "Mobile Experience: Responsive design vs. poor mobile",
-        "Batch Processing: Multiple fonts vs. single font",
-      ],
-    },
-    {
-      title: "Toolspy vs. OnlineFontConverter",
-      advantages: [
-        "Better Quality: High quality vs. variable quality",
-        "Better Speed: Fast conversion vs. variable speed",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. basic export",
-        "Mobile Experience: Responsive design vs. limited mobile",
-        "Batch Processing: Multiple fonts vs. single font",
-      ],
-    },
+  const featureChecklist = [
+    { feature: "Convert common font formats", value: "Yes", note: `Targets: ${commonTargets.join(", ")} (varies by input).` },
+    { feature: "Preview before download", value: "Depends", note: "Varies by tool options." },
+    { feature: "Multiple outputs", value: "Depends", note: "Depending on selected formats." },
+    { feature: "Signup required", value: "No", note: "No account needed." },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
-      {/* Related Tools */}
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Font Converter
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            Convert fonts between common formats like TTF, OTF, WOFF, and WOFF2. Useful for web
+            delivery and tool compatibility.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              When a tool or website needs a specific font format, a simple conversion is often
+              enough. This converter helps you switch formats so you can use the same font across
+              different workflows.
+            </p>
+            <p>
+              Converting Markdown docs instead? Try{" "}
+              <Link
+                href="/markdown-to-docs-converter"
+                className="underline underline-offset-4 text-foreground"
+              >
+                Markdown to Docs converter
+              </Link>
+              .
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Font converter — convert TTF/OTF to WOFF/WOFF2 and more"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="font-converter"
-        title="Similar Tools You Might Like"
-        description="Check out our other conversion and font tools that work great with typography and design projects."
-      />
-
+        <RelatedTools
+          currentToolSlug="font-converter"
+          title="Similar Tools You Might Like"
+          description="Other conversion tools for files and documents."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Convert Fonts – Fast & Private
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional font converter with complete privacy protection, 
-            high-quality conversion, and fast processing. Perfect for designers, 
-            developers, and anyone needing font format conversion.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free font converter
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      font converter online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      convert fonts
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      font converter free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      font converter download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      font converter app
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced conversion technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      fast processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      convert fonts free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">4</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Types
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Fast
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      🔒
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Private
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">🔤</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Fonts
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Font Converter - High-quality conversion with complete privacy protection and fast processing"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ High Quality
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Font Converter
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to convert fonts securely with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Upload Font</h4>
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to convert a font"
+          lead="Upload, choose output format, then download."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Upload the font</h3>
             <p className="text-sm text-muted-foreground">
-              Upload the font file you want 
-              to convert to a different format.
+              Provide TTF/OTF/WOFF/WOFF2 depending on what you have.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Format</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Choose output</h3>
             <p className="text-sm text-muted-foreground">
-              Select your target font 
-              format and quality options.
+              For web, WOFF2 is typically the best starting point.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Convert Font</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Download and test</h3>
             <p className="text-sm text-muted-foreground">
-              Click convert and get your 
-              font in the new format instantly.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Download & Use</h4>
-            <p className="text-sm text-muted-foreground">
-              Download the converted font 
-              and use it in your projects.
+              Test rendering in your target browsers/devices.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Converter Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Converter Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right converter type for your specific needs with detailed information and examples.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {converterTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <Type className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
-              </div>
+      <section className="space-y-6" id="use-cases">
+        <SectionHeader eyebrow="Use cases" icon={Sigma} title="Common uses" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {useCases.map((x) => (
+            <Card key={x.title} className="p-5">
+              <h3 className="font-semibold mb-1">{x.title}</h3>
+              <p className="text-sm text-muted-foreground">{x.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Font Converter Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and users love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Font Converter
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional font conversion, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      <section className="space-y-6" id="features">
+        <SectionHeader eyebrow="Overview" icon={ListChecks} title="What this tool supports" />
         <Card>
           <CardHeader>
-            <CardTitle>Toolspy vs. Leading Font Converters</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across popular font conversion tools.
-            </CardDescription>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>A factual summary of what the converter does.</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="overflow-x-auto">
@@ -475,30 +204,21 @@ export function FontConverterSEOContent() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">FontConverter</th>
-                    <th className="text-left p-3 font-medium">FontForge</th>
-                    <th className="text-left p-3 font-medium">OnlineFontConverter</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
                       <td className="p-3 font-medium">{row.feature}</td>
                       <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && <CheckCircle className="h-4 w-4 text-green-500" />}
                         </div>
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.fontconverter}</td>
-                      <td className="p-3 text-muted-foreground">{row.fontforge}</td>
-                      <td className="p-3 text-muted-foreground">{row.onlinefontconverter}</td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -508,227 +228,82 @@ export function FontConverterSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Font Converters
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular font conversion tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional font conversion tool.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Upload Font",
-              description:
-                "Upload the font file you want to convert to a different format.",
-            },
-            {
-              step: "2",
-              title: "Choose Format",
-              description:
-                "Select your target font format and quality options.",
-            },
-            {
-              step: "3",
-              title: "Convert Font",
-              description:
-                "Click convert and get your font in the new format instantly.",
-            },
-            {
-              step: "4",
-              title: "Download & Use",
-              description:
-                "Download the converted font and use it in your projects.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for font conversion across various scenarios.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Design Projects</h4>
-            <p className="text-sm text-muted-foreground">
-              Convert fonts for design and typography projects
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Web Development</h4>
-            <p className="text-sm text-muted-foreground">
-              Convert fonts for web compatibility and use
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Type className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Typography</h4>
-            <p className="text-sm text-muted-foreground">
-              Convert fonts for typography and text projects
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Mobile Apps</h4>
-            <p className="text-sm text-muted-foreground">
-              Convert fonts for mobile app development
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
       <FAQ faqs={getFontConverterFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Font Conversion for All Typography Needs
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>convert fonts</strong> for your typography needs? Looking for a reliable way to <strong>font converter</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>convert fonts</strong>, <strong>convert fonts free</strong>, or <strong>convert fonts online</strong>, our tool handles all conversion with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>font converter online</strong> provides support for all major font formats. Users love our tool for <strong>font converter free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality conversion. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're designing projects, developing websites, or working with typography, our <strong>font converter app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>convert fonts</strong> tasks to complex conversion requirements, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our font converter today and see why thousands of users choose Toolspy for their font conversion needs. From <strong>font converter free</strong> planning to professional conversion, we deliver reliable results every time.
-            </p>
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">{ratingSummary.ratingValue}/5</span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">{ratingSummary.reviewCount}</span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{r.reviewBody}</p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Convert Your Fonts?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users who use Toolspy every day to convert fonts. It's free, secure, and your data stays private on your device.
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Need a different font format?</h2>
+          <p className="text-muted-foreground">
+            Convert your font and test it in your target environment.
           </p>
-          <ScrollToTopButton>
-            Start Converting Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Convert Font →</ScrollToTopButton>
         </div>
       </section>
     </article>
   );
 }
 
-// Export FAQ data for schema generation
 export function getFontConverterFAQs() {
   return [
     {
-      question: "Is Toolspy's font converter completely free to use?",
+      question: "Which format should I use for websites?",
       answer:
-        "Yes, our professional font converter is completely free with no hidden costs, registration requirements, or usage limitations. You can convert unlimited fonts without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all font conversion capabilities free of charge.",
+        "WOFF2 is generally the best starting point for modern browsers. You may also provide WOFF for broader compatibility if needed.",
     },
     {
-      question: "How fast is the font conversion?",
+      question: "Can I convert any font I find online?",
       answer:
-        "Our font converter provides fast conversion for any font format. Since all processing happens in your browser, there are no server delays or upload times. You can convert multiple fonts quickly, making it perfect for batch conversion and real-time needs.",
+        "Only convert fonts you’re licensed to use and transform. Many fonts have redistribution and modification restrictions.",
     },
     {
-      question: "How secure is the font conversion process?",
+      question: "Will converting change how the font looks?",
       answer:
-        "Absolutely secure! Our font converter uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based converters.",
+        "It can vary slightly due to hinting and rendering differences. Always test in your target browsers/devices.",
     },
     {
-      question: "What font formats are supported?",
+      question: "Does the tool store my font file?",
       answer:
-        "Our converter supports all major font formats including TTF, OTF, WOFF, and other formats. We also support high-quality conversion and can handle various font requirements with proper analysis.",
-    },
-    {
-      question: "Can I customize the conversion options?",
-      answer:
-        "Yes! Our font converter excels at customization. You can choose font formats, set quality preferences, configure conversion options, and adjust conversion parameters. This is perfect for meeting specific conversion requirements and quality standards.",
-    },
-    {
-      question: "Why choose Toolspy over other free font converters like FontConverter or FontForge?",
-      answer:
-        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality conversion, and multiple format options. Many competitors like FontConverter and FontForge use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
-    },
-    {
-      question: "Can I convert fonts for different typography needs?",
-      answer:
-        "Absolutely! Our font converter handles different typography needs perfectly. You can convert fonts for design projects, web development, typography work, and any other conversion requirement. The tool supports all standard conversion scenarios.",
-    },
-    {
-      question: "What conversion options are available?",
-      answer:
-        "Our tool provides multiple conversion formats including high-quality fonts, multiple file types, and various quality options. All conversions include professional formatting, making it easy to use the results in your projects.",
-    },
-    {
-      question: "Is it safe to use online font converters?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based converters, our tool provides complete privacy and security for your font conversion.",
-    },
-    {
-      question: "Can I use the converted fonts for professional purposes?",
-      answer:
-        "Yes! Our font converter creates professional conversion results that follow ethical guidelines. These results are suitable for professional use in design projects, web development, and any other application requiring font conversion.",
+        "The tool processes your file to produce an output. Avoid uploading proprietary fonts unless you trust the workflow for this tool.",
     },
   ];
 }
 
-// Register FAQ data for this tool
 registerToolFAQ("font-converter", getFontConverterFAQs);
+

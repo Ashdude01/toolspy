@@ -95,8 +95,8 @@ export function RelatedTools({
             key={index}
             className="p-6 related-tool-card relative rounded-xl overflow-hidden
               border border-gray-300 dark:border-transparent
-              bg-stone-100 dark:bg-zinc-900
-              hover:bg-stone-50 dark:hover:bg-zinc-950
+              bg-muted/30
+              hover:bg-muted/50
               shadow transition-all duration-300
               hover:shadow-lg focus-visible:ring-2 focus-visible:ring-sky-400 hover:border hover:border-stone-500 hover:dark:border-neutral-400
             " style={{ position: 'relative', zIndex: 1 }}
@@ -126,9 +126,9 @@ export function RelatedTools({
                 <p className="text-sm text-muted-foreground mb-4">
                   {tool.description}
                 </p>
-                <p className="text-xs text-muted-foreground mb-4">
+                {/* <p className="text-xs text-muted-foreground mb-4">
                   <b>Keywords</b>: {tool.keywords}
-                </p>
+                </p> */}
                 {/* {tool.comingSoon ? (
                   <Badge variant="secondary">Coming Soon</Badge>
                 ) : (

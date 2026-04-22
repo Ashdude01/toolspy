@@ -12,484 +12,208 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Lock,
-  FileText,
-  Code,
-  Download,
-  File,
-  ArrowRight,
-  FileDown,
-  Database,
+  Rocket,
+  ArrowLeftRight,
+  ListChecks,
+  Lightbulb,
+  MessagesSquare,
+  HelpCircle,
+  Globe,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function Base64EncoderDecoderSEOContent() {
   const tool = getToolBySlug("base64-encoder-decoder");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
+  const useCases = [
     {
-      feature: "Max Text Length",
-      toolspy: "✅ Unlimited",
-      base64decode: "⚠️ 10MB limit",
-      base64encode: "⚠️ 5MB limit",
-      rapidtables: "❌ 1MB limit",
-      toolspyStatus: "excellent",
+      title: "Debug an API token or header",
+      body: "JWTs, auth headers, and webhook payloads often ship as Base64. Decode to inspect the contents.",
     },
     {
-      feature: "Character Encoding",
-      toolspy: "✅ UTF-8, ASCII, Latin1",
-      base64decode: "⚠️ UTF-8 only",
-      base64encode: "⚠️ UTF-8 only",
-      rapidtables: "⚠️ UTF-8 only",
-      toolspyStatus: "excellent",
+      title: "Encode binary for transport",
+      body: "Text-only channels (JSON, query strings, env vars) need Base64 to carry raw bytes.",
     },
     {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple lines",
-      base64decode: "❌ Single input",
-      base64encode: "❌ Single input",
-      rapidtables: "❌ Single input",
-      toolspyStatus: "excellent",
+      title: "Prepare data URIs",
+      body: "Convert small text blobs to data URIs that embed directly in HTML or CSS.",
     },
     {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      base64decode: "⚠️ Server-based",
-      base64encode: "⚠️ Server-based",
-      rapidtables: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      base64decode: "✅ Free",
-      base64encode: "✅ Free",
-      rapidtables: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Advanced Features",
-      toolspy: "✅ URL encoding, validation",
-      base64decode: "❌ Basic only",
-      base64encode: "❌ Basic only",
-      rapidtables: "❌ Basic only",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Error Detection",
-      toolspy: "✅ Real-time validation",
-      base64decode: "⚠️ Basic errors",
-      base64encode: "⚠️ Basic errors",
-      rapidtables: "⚠️ Basic errors",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Copy, download, share",
-      base64decode: "✅ Copy only",
-      base64encode: "✅ Copy only",
-      rapidtables: "✅ Copy only",
-      toolspyStatus: "excellent",
+      title: "Inspect URL-safe tokens",
+      body: "Reset-password links and invites often include URL-safe Base64 payloads.",
     },
   ];
 
-  const encodingData = [
+  const examples = [
     {
-      encoding: "UTF-8",
-      description: "Universal character encoding",
-      useCase: "International text, emojis",
-      compatibility: "99% of modern systems",
-      size: "Variable (1-4 bytes per character)",
+      label: "Plain text",
+      input: "Hello, world!",
+      output: "SGVsbG8sIHdvcmxkIQ==",
     },
     {
-      encoding: "ASCII",
-      description: "Basic English character set",
-      useCase: "English text, simple data",
-      compatibility: "100% universal",
-      size: "1 byte per character",
+      label: "Emoji / unicode",
+      input: "Namaste 🙏",
+      output: "TmFtYXN0ZSDwn5mP",
     },
     {
-      encoding: "Latin1",
-      description: "Western European characters",
-      useCase: "European languages",
-      compatibility: "95% of systems",
-      size: "1 byte per character",
+      label: "JSON payload",
+      input: '{"id":42,"ok":true}',
+      output: "eyJpZCI6NDIsIm9rIjp0cnVlfQ==",
     },
   ];
 
-  const benefits = [
-    {
-      icon: <Lock className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your data never leaves your device, providing maximum security and privacy for sensitive information.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning-Fast Processing",
-      description:
-        "Instant encoding and decoding with no server delays. Process unlimited text with real-time validation and error detection.",
-    },
-    {
-      icon: <Code className="h-6 w-6" />,
-      title: "Multiple Character Encodings",
-      description:
-        "Support for UTF-8, ASCII, and Latin1 encodings ensures compatibility with all systems and international text requirements.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description:
-        "Batch processing, URL-safe encoding, real-time validation, and comprehensive error detection for professional use cases.",
-    },
+  const featureChecklist = [
+    { feature: "Encode text to Base64", value: "Yes", note: "UTF-8 safe — handles emoji and international characters." },
+    { feature: "Decode Base64 to text", value: "Yes", note: "Accepts standard and URL-safe variants." },
+    { feature: "URL-safe Base64", value: "Yes", note: "Swap + / for - _ and drop padding when needed." },
+    { feature: "Line wrapping control", value: "Yes", note: "Optional 76-column wrap for email / MIME outputs." },
+    { feature: "Copy to clipboard", value: "Yes", note: "One click to copy the result." },
+    { feature: "Large input support", value: "Yes", note: "Works for long payloads; runs entirely in your browser." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
-  const keyBenefits = [
-    "🔒 Complete privacy protection - data never leaves your device",
-    "⚡ Lightning-fast client-side processing for instant results",
-    "🌍 Multiple character encodings: UTF-8, ASCII, Latin1",
-    "📝 Unlimited text length with no file size restrictions",
-    "🔄 Batch processing support for multiple lines of text",
-    "✅ Real-time validation with detailed error messages",
-    "🔗 URL-safe encoding options for web applications",
-    "📋 Advanced copy, download, and export functionality",
-    "🎯 Professional-grade encoding algorithms",
-    "🛡️ Comprehensive error detection and correction",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "📊 Detailed encoding statistics and character counts",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-  ];
-
-  const competitorAdvantages = [
+  const pitfalls = [
     {
-      title: "Toolspy vs. Base64Decode.org",
-      advantages: [
-        "Better Privacy: Client-side processing vs. server uploads",
-        "Multiple Encodings: UTF-8, ASCII, Latin1 vs. UTF-8 only",
-        "Unlimited Length: No size restrictions vs. 10MB limit",
-        "Batch Processing: Multiple lines vs. single input",
-        "Advanced Features: URL encoding, validation vs. basic only",
-        "No Ads: Clean interface vs. ad-heavy layout",
-      ],
+      title: "Confusing Base64 with encryption",
+      body: "Base64 is an encoding, not a cipher. Anyone with the string can decode it. Don’t use it to “hide” sensitive data.",
     },
     {
-      title: "Toolspy vs. Base64Encode.org",
-      advantages: [
-        "No Registration: Instant access vs. account requirements",
-        "Faster Processing: No upload time vs. server processing",
-        "Better Privacy: No data transmission vs. server-based",
-        "Multiple Encodings: Three options vs. single encoding",
-        "Unlimited Size: No restrictions vs. 5MB limit",
-        "Real-time Validation: Instant feedback vs. basic errors",
-      ],
+      title: "Forgetting UTF-8",
+      body: "Naive Base64 on unicode strings can mangle characters. This tool handles UTF-8, but some libraries don’t — pair with a proper encoder on the other side.",
     },
     {
-      title: "Toolspy vs. RapidTables",
-      advantages: [
-        "Unlimited Processing: No size limits vs. 1MB restriction",
-        "Multiple Encodings: Comprehensive support vs. basic only",
-        "Batch Processing: Handle multiple inputs vs. single line",
-        "Advanced Features: Professional tools vs. basic converter",
-        "Better Privacy: Client-side vs. server-based processing",
-        "Clean Interface: No ads vs. ad-heavy experience",
-      ],
+      title: "Copying strings with line breaks",
+      body: "MIME-wrapped Base64 has line breaks every 76 chars. Most decoders handle it, but some strict parsers fail. Toggle wrapping off when pasting into code.",
+    },
+    {
+      title: "URL-safe vs standard",
+      body: "Standard Base64 uses + and /, URL-safe swaps them for - and _. Mismatched encoders / decoders will produce gibberish.",
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Intro (H1) */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Base64 Encoder / Decoder
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            A fast online Base64 encoder and Base64 decoder. Convert text to Base64, decode
+            Base64 to text, with full UTF-8 and URL-safe support — in your browser, no signup.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Use this Base64 encoder / decoder to convert text to Base64 or decode Base64 back
+              to text. Handles UTF-8 (so emoji and international characters round-trip cleanly),
+              URL-safe variants, and MIME line wrapping for email contexts.
+            </p>
+            <p>
+              Ideal for debugging API headers, inspecting JWT payloads, encoding strings for
+              JSON transport, and preparing tokens for URLs. Paste any length — short phrase or
+              long payload — and copy the result with one click.
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Base64 encoder / decoder — paste text or Base64, toggle encode / decode, copy result"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="base64-encoder-decoder"
-        title="Similar Tools You Might Like"
-        description="Check out our other encoding and conversion tools that work great with Base64 processing."
-      />
-
+        <RelatedTools
+          currentToolSlug="base64-encoder-decoder"
+          title="Similar Tools You Might Like"
+          description="Other Base64 and text utilities that pair well."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Encode & Decode Base64 – Secure & Fast
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional Base64 encoding and decoding with multiple character encodings, 
-            unlimited text length, and complete privacy protection. Perfect for developers, 
-            system administrators, and anyone working with data encoding.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free Base64 encoder decoder
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      Base64 converter online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      encode Base64
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      decode Base64
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      Base64 converter free
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      Base64 encoder decoder app
-                    </strong>{" "}
-                    is designed for both beginners and professionals. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced encoding technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      multiple character support
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      unlimited text length
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      encode decode Base64 free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">∞</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Text Length
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      3
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Encodings
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      ∞
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Privacy
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">⚡</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Fast
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Base64 Encoder Decoder - High-quality encoding with multiple character support and privacy protection"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Unlimited Text
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Base64 Encoder/Decoder
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to encode or decode your text with professional results:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Enter Your Text</h4>
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to encode or decode Base64"
+          lead="Three steps from input to copied result."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Pick mode</h3>
             <p className="text-sm text-muted-foreground">
-              Paste your text in the input field. For encoding, enter plain text. For decoding, 
-              paste your Base64 string. The tool supports unlimited text length.
+              Switch between Encode and Decode with a single tab.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Encoding</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Paste input</h3>
             <p className="text-sm text-muted-foreground">
-              Select your preferred character encoding: UTF-8 for international text, 
-              ASCII for English, or Latin1 for European languages. Choose encode or decode mode.
+              Drop text or a Base64 string into the input box.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Process Data</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Copy output</h3>
             <p className="text-sm text-muted-foreground">
-              Click encode or decode and watch real-time progress. Get instant results with 
-              validation and error detection.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Get Results</h4>
-            <p className="text-sm text-muted-foreground">
-              Instantly see your encoded or decoded text with real-time validation. 
-              Copy, download, or share your results with one click.
+              One-click copy. URL-safe and line-wrapping toggles available.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Character Encoding Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Character Encoding Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right encoding for your specific use case and ensure maximum compatibility.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {encodingData.map((encoding, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <FileText className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{encoding.encoding}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{encoding.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {encoding.useCase}</div>
-                <div><strong>Compatibility:</strong> {encoding.compatibility}</div>
-                <div><strong>Size:</strong> {encoding.size}</div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Base64 Tool Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why developers and professionals love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Base64 Tool
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional Base64 encoding and decoding, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Examples */}
+      <section className="space-y-6" id="examples">
+        <SectionHeader
+          eyebrow="Examples"
+          icon={ArrowLeftRight}
+          title="Encoding examples"
+          lead="A quick look at how input → Base64 maps."
+        />
         <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading Base64 Tools</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across popular Base64 encoding and decoding tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">Base64Decode.org</th>
-                    <th className="text-left p-3 font-medium">Base64Encode.org</th>
-                    <th className="text-left p-3 font-medium">RapidTables</th>
+                    <th className="text-left p-3 font-medium">Type</th>
+                    <th className="text-left p-3 font-medium">Input</th>
+                    <th className="text-left p-3 font-medium">Base64</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
+                  {examples.map((e) => (
+                    <tr key={e.label} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{e.label}</td>
+                      <td className="p-3 text-muted-foreground font-mono text-xs sm:text-sm">
+                        {e.input}
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.base64decode}</td>
-                      <td className="p-3 text-muted-foreground">{row.base64encode}</td>
-                      <td className="p-3 text-muted-foreground">{row.rapidtables}</td>
+                      <td className="p-3 text-muted-foreground font-mono text-xs sm:text-sm break-all">
+                        {e.output}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -499,166 +223,177 @@ export function Base64EncoderDecoderSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Base64 Tools
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular Base64 encoding and decoding tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* URL-safe explainer */}
+      <section className="space-y-4" id="url-safe">
+        <SectionHeader
+          eyebrow="Variants"
+          icon={Globe}
+          title="Standard vs URL-safe Base64"
+          lead="Pick the variant that matches your destination."
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Standard Base64 uses the alphabet{" "}
+            <code className="bg-muted rounded px-1.5 py-0.5 text-xs">A-Z a-z 0-9 + /</code> and
+            pads to multiples of 4 with <code className="bg-muted rounded px-1.5 py-0.5 text-xs">=</code>.
+          </p>
+          <p>
+            URL-safe Base64 replaces <code>+</code> with <code>-</code> and{" "}
+            <code>/</code> with <code>_</code>, and often drops padding. Use it in URLs,
+            cookies, filenames, and any place where <code>+ /</code> could be mis-interpreted.
+          </p>
+        </div>
+      </section>
+
+      {/* Use cases */}
+      <section className="space-y-6" id="use-cases">
+        <SectionHeader
+          eyebrow="When it helps"
+          icon={HelpCircle}
+          title="Typical reasons to use Base64"
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {useCases.map((u) => (
+            <Card key={u.title} className="p-5">
+              <h3 className="font-semibold mb-1">{u.title}</h3>
+              <p className="text-sm text-muted-foreground">{u.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional Base64 encoding and decoding tool.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Prepare Your Text",
-              description:
-                "Copy your text or Base64 string. For encoding, use plain text. For decoding, ensure your Base64 string is valid and complete.",
-            },
-            {
-              step: "2",
-              title: "Select Mode & Encoding",
-              description:
-                "Choose between encode or decode mode. Select character encoding: UTF-8 for international text, ASCII for English, or Latin1 for European languages.",
-            },
-            {
-              step: "3",
-              title: "Process Your Data",
-              description:
-                "Click the process button and watch real-time progress. Our tool provides instant validation and detailed error detection for optimal results.",
-            },
-            {
-              step: "4",
-              title: "Use Your Results",
-              description:
-                "Copy results to clipboard, download as text files, or share directly. All output maintains your selected encoding format and quality.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
+      {/* Pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for Base64 encoding and decoding across various industries.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <Code className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Web Development</h4>
-            <p className="text-sm text-muted-foreground">
-              Embed images in CSS, encode data in JSON, and handle binary data in web applications
-            </p>
-          </Card>
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>
+              A factual summary of what the Base64 encoder / decoder does.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
 
-          <Card className="p-6 text-center">
-            <Download className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">File Attachments</h4>
-            <p className="text-sm text-muted-foreground">
-              Encode files for email transmission, database storage, and API responses
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Shield className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Data Security</h4>
-            <p className="text-sm text-muted-foreground">
-              Encode sensitive data for secure transmission and storage in text-based systems
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Settings className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">System Integration</h4>
-            <p className="text-sm text-muted-foreground">
-              Integrate binary data with text-based protocols and legacy systems
-            </p>
-          </Card>
+      {/* Related */}
+      <section className="space-y-4" id="related-usage">
+        <SectionHeader title="Related Base64 tools" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Working with images?{" "}
+            <Link href="/image-to-base64" className="underline underline-offset-4 text-foreground">
+              Image to Base64 encoder
+            </Link>{" "}
+            or{" "}
+            <Link href="/base64-to-image" className="underline underline-offset-4 text-foreground">
+              Base64 to image decoder
+            </Link>
+            .
+          </p>
         </div>
       </section>
 
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getBase64EncoderDecoderFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-950/20 dark:to-indigo-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Base64 Encoding and Decoding
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>encode Base64</strong> for your projects? Looking for a reliable way to <strong>decode Base64</strong> strings? Toolspy's professional tool makes it effortless. Whether you need to <strong>Base64 encode</strong>, <strong>Base64 decode</strong>, or <strong>convert Base64</strong> between formats, our tool handles all conversions with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>Base64 encoder decoder</strong> supports multiple character encodings (UTF-8, ASCII, Latin1) and unlimited text length. Developers love our tool for <strong>Base64 converter</strong> functionality, while system administrators appreciate the batch processing and real-time validation capabilities. Unlike other tools, we have no file size restrictions.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're working with web applications, email systems, or data storage, our <strong>Base64 encoder decoder online</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>encode decode Base64</strong> tasks to complex batch processing, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our Base64 tool today and see why thousands of professionals choose Toolspy for their encoding needs. From <strong>Base64 converter free</strong> tasks to professional data processing, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Encode or Decode Your Data?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of developers who use Toolspy every day to encode and decode Base64 data. It's free, fast, and your data stays private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to encode or decode?</h2>
+          <p className="text-muted-foreground">
+            Paste any text or Base64 string, flip the mode, and copy the result in one click.
           </p>
-          <ScrollToTopButton>
-            Start Converting Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Encoding →</ScrollToTopButton>
         </div>
       </section>
     </article>
@@ -669,57 +404,36 @@ export function Base64EncoderDecoderSEOContent() {
 export function getBase64EncoderDecoderFAQs() {
   return [
     {
-      question: "Is Toolspy's Base64 encoder/decoder completely free to use?",
-      answer:
-        "Yes, our professional Base64 encoder/decoder is completely free with no hidden costs, registration requirements, or usage limitations. You can encode and decode unlimited text without any restrictions. Unlike many competitors who have file size limits or require paid subscriptions for advanced features, Toolspy provides all encoding capabilities free of charge.",
+      question: "Is the Base64 encoder / decoder free to use?",
+      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
     },
     {
-      question: "What is Base64 encoding and when should I use it?",
+      question: "Does it handle unicode and emoji?",
       answer:
-        "Base64 encoding converts binary data into ASCII text format, making it safe for transmission over text-based protocols like email, HTTP, and JSON. It's commonly used for embedding images in HTML/CSS, storing binary data in databases, and encoding file attachments. Our tool supports multiple character encodings (UTF-8, ASCII, Latin1) for maximum compatibility.",
+        "Yes. The tool uses UTF-8 internally, so accented characters, Devanagari, CJK, and emoji round-trip correctly.",
     },
     {
-      question: "How secure is the data I encode/decode with Toolspy?",
+      question: "What is URL-safe Base64?",
       answer:
-        "Absolutely secure! Our Base64 encoder/decoder uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security for your sensitive information. Your data never leaves your device, making it safer than server-based encoding tools.",
+        "A variant that swaps + for - and / for _ so the encoded string is safe inside URLs, cookies, and filenames. The tool lets you toggle between standard and URL-safe output.",
     },
     {
-      question: "What character encodings does the tool support?",
+      question: "Is Base64 encryption?",
       answer:
-        "We support three major character encodings: UTF-8 for international text and emojis, ASCII for basic English text, and Latin1 for Western European languages. UTF-8 is recommended for most modern applications as it supports all Unicode characters. ASCII is perfect for simple English text, while Latin1 is ideal for European languages.",
+        "No. Base64 is an encoding — it can always be reversed without a key. Don’t use it to hide secrets or protect sensitive data.",
     },
     {
-      question: "Can I process large amounts of text with this tool?",
+      question: "Can I encode very long strings?",
       answer:
-        "Yes! Unlike many competitors who limit text to 1-10MB, our tool supports unlimited text length. You can encode or decode large documents, multiple lines of text, and complex data structures. The tool also supports batch processing, allowing you to handle multiple lines of text simultaneously with real-time validation.",
+        "Yes. Encoding runs locally in your browser, so payload length is bounded only by your device’s memory.",
     },
     {
-      question: "Why choose Toolspy over other free Base64 tools like Base64Decode.org or RapidTables?",
+      question: "Does the tool upload my text to a server?",
       answer:
-        "Toolspy offers professional-grade features like multiple character encodings, unlimited text length, batch processing, real-time validation, and client-side processing. Many competitors like Base64Decode.org and RapidTables lack these advanced features or have strict file size limits. Our tool provides better privacy protection, more encoding options, and superior error detection completely free.",
-    },
-    {
-      question: "How do I know if my Base64 string is valid?",
-      answer:
-        "Our tool provides real-time validation with detailed error messages. Valid Base64 strings contain only A-Z, a-z, 0-9, +, /, and = characters. The length should be a multiple of 4, with = padding at the end if necessary. Our advanced error detection highlights invalid characters and provides suggestions for correction.",
-    },
-    {
-      question: "Can I encode/decode binary files like images or documents?",
-      answer:
-        "For binary files, we recommend using our specialized Image to Base64 and Base64 to Image converters. However, our text encoder can handle small binary data when converted to text format. For large files, use our dedicated file conversion tools for better performance and specialized handling.",
-    },
-    {
-      question: "What's the difference between URL-safe and standard Base64?",
-      answer:
-        "Standard Base64 uses + and / characters, which can cause issues in URLs. URL-safe Base64 replaces + with - and / with _, making it safe for URL parameters and filenames. Our tool automatically detects the format and provides options for both encoding types. URL-safe encoding is recommended for web applications.",
-    },
-    {
-      question: "How does batch processing work in Toolspy's Base64 tool?",
-      answer:
-        "You can paste multiple lines of text, and our tool will process each line individually. Each line can be encoded or decoded separately, and you can copy all results at once. This is perfect for processing lists of strings, multiple data entries, or converting entire documents line by line.",
+        "No. Encoding and decoding happen entirely in your browser.",
     },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ("base64-encoder-decoder", getBase64EncoderDecoderFAQs); 
+registerToolFAQ("base64-encoder-decoder", getBase64EncoderDecoderFAQs);

@@ -99,11 +99,11 @@ function Content() {
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !loading) {
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !loading) {
       analyze();
     }
-  };
+  }
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
@@ -112,11 +112,11 @@ function Content() {
         <Badge variant="outline" className="text-xs sm:text-sm">
           Free • Private • Fast
         </Badge>
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
+        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           Facebook Image Downloader
-        </h2>
+        </h1>
         <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-          Download public Facebook post images in full quality. Paste the post URL and save photos instantly.
+          A fast Facebook photo downloader for public posts. Paste the post URL and download images in full quality.
         </p>
       </div>
 
@@ -137,7 +137,7 @@ function Content() {
                 placeholder="https://www.facebook.com/photo/?fbid=..."
                 value={url}
                 onChange={(e) => setUrl(e.target.value)}
-                onKeyPress={handleKeyPress}
+                onKeyDown={handleKeyDown}
                 className="flex-1 border"
                 disabled={loading}
                 
@@ -325,9 +325,6 @@ function Content() {
         </Card>
       )}
 
-      {/* SEO Content */}
-      <div className="mt-8">
-</div>
     </div>
   );
 }

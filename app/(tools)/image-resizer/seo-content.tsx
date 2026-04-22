@@ -12,495 +12,237 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Image,
-  
-  Copy,
-  Download,
-  FileText,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Sparkles,
-  Palette,
-  Smartphone,
+  Rocket,
+  Ruler,
+  ListChecks,
+  Lightbulb,
+  MessagesSquare,
+  Percent,
+  Lock,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function ImageResizerSEOContent() {
   const tool = getToolBySlug("image-resizer");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
-    {
-      feature: "Resizing Quality",
-      toolspy: "✅ High quality",
-      imageresizer: "⚠️ Limited quality",
-      resizepic: "❌ Low quality",
-      resizr: "⚠️ Variable quality",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Processing Speed",
-      toolspy: "✅ Fast processing",
-      imageresizer: "⚠️ Slow processing",
-      resizepic: "❌ Very slow",
-      resizr: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      imageresizer: "⚠️ Server-based",
-      resizepic: "⚠️ Server-based",
-      resizr: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      imageresizer: "✅ Free",
-      resizepic: "✅ Free",
-      resizr: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      imageresizer: "⚠️ Basic mobile",
-      resizepic: "❌ Poor mobile",
-      resizr: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      imageresizer: "⚠️ Limited formats",
-      resizepic: "❌ No export",
-      resizr: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple images",
-      imageresizer: "⚠️ Limited batch",
-      resizepic: "❌ No batch",
-      resizr: "⚠️ Basic batch",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      imageresizer: "❌ Ad-heavy",
-      resizepic: "❌ Ad-heavy",
-      resizr: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
-    },
+  // Common target dimensions — unique, useful reference content.
+  const commonSizes = [
+    { label: "Instagram post (square)", size: "1080 × 1080 px" },
+    { label: "Instagram story / reel", size: "1080 × 1920 px" },
+    { label: "Facebook cover photo", size: "820 × 312 px" },
+    { label: "YouTube thumbnail", size: "1280 × 720 px" },
+    { label: "Twitter / X header", size: "1500 × 500 px" },
+    { label: "LinkedIn profile banner", size: "1584 × 396 px" },
+    { label: "Passport photo (common)", size: "413 × 531 px (35 × 45 mm)" },
+    { label: "Web hero image (16:9)", size: "1920 × 1080 px" },
   ];
 
-  const resizerTypes = [
-    {
-      type: "Image Resizer",
-      description: "Resize images to different dimensions",
-      useCase: "Image resizing, dimension adjustment, format optimization",
-      precision: "High-quality resizing",
-      example: "Resize images to specific dimensions",
-    },
-    {
-      type: "Dimension Control",
-      description: "Control image dimensions and aspect ratios",
-      useCase: "Aspect ratio maintenance, dimension optimization, format requirements",
-      precision: "Precise dimension control",
-      example: "Maintain aspect ratio while resizing",
-    },
-    {
-      type: "Quality Optimization",
-      description: "Optimize image quality during resizing",
-      useCase: "Quality preservation, file size optimization, professional output",
-      precision: "Quality optimization options",
-      example: "Optimize quality during resizing",
-    },
-    {
-      type: "Batch Processing",
-      description: "Process multiple images simultaneously",
-      useCase: "Bulk resizing, image libraries, project requirements",
-      precision: "Multiple image processing",
-      example: "Resize entire image collections",
-    },
+  const featureChecklist = [
+    { feature: "Resize by pixels (W × H)", value: "Yes", note: "Enter exact dimensions in pixels." },
+    { feature: "Resize by percentage", value: "Yes", note: "Scale up or down by a percentage of the original." },
+    { feature: "Maintain aspect ratio", value: "Yes", note: "Locked by default so the image doesn’t stretch." },
+    { feature: "Resize without distortion", value: "Yes", note: "Fit / cover modes to avoid skew when ratios differ." },
+    { feature: "Batch resize", value: "Yes", note: "Upload many images, apply the same size to all." },
+    { feature: "Preserve format", value: "Yes", note: "Resize without changing JPG / PNG / WebP." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
-  const benefits = [
+  const pitfalls = [
     {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your data never leaves your device.",
+      title: "Turning off aspect ratio by accident",
+      body: "Without the ratio lock, setting both width and height independently will squash the image.",
     },
     {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Fast Processing",
-      description:
-        "Resize images quickly with no server delays or uploads.",
+      title: "Upscaling a small image a lot",
+      body: "Scaling a 300-px image to 2000 px will look blurry. Resize stretches existing pixels — it doesn’t add detail.",
     },
     {
-      icon: <Image className="h-6 w-6" />,
-      title: "High-Quality Resizing",
-      description:
-        "Resize images with professional quality and dimension control.",
+      title: "Wrong output size for the platform",
+      body: "Each platform has its own dimensions. Use the reference list above instead of guessing.",
     },
     {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description:
-        "Advanced resizing with customization options and professional tools.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional image resizing with complete privacy protection",
-    "⚡ Fast processing with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple resizer types: image resizer, dimension control, quality optimization, batch processing",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete resizing history and image tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade resizing capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise resizing and quality control",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive image resizing and analysis tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. ImageResizer",
-      advantages: [
-        "Better Quality: High quality vs. limited quality",
-        "Better Speed: Fast processing vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Batch Processing: Multiple images vs. limited batch",
-      ],
-    },
-    {
-      title: "Toolspy vs. ResizePic",
-      advantages: [
-        "Better Quality: High quality vs. low quality",
-        "Better Speed: Fast processing vs. very slow",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. no export",
-        "Mobile Experience: Responsive design vs. poor mobile",
-        "Batch Processing: Multiple images vs. no batch",
-      ],
-    },
-    {
-      title: "Toolspy vs. Resizr",
-      advantages: [
-        "Better Quality: High quality vs. variable quality",
-        "Better Speed: Fast processing vs. variable speed",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. basic export",
-        "Mobile Experience: Responsive design vs. limited mobile",
-        "Batch Processing: Multiple images vs. basic batch",
-      ],
+      title: "Resizing lossy formats repeatedly",
+      body: "Every resize + save of a JPG drops a little quality. Keep a lossless copy (PNG / WebP lossless) if you plan to resize again later.",
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Intro (H1) */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            Image Resizer
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            A fast online image resizer to change image size by exact pixels or by percentage —
+            resize a photo for profiles, social media, or a web layout in seconds.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Use this image resizer to set a specific width and height, or scale the picture by a
+              percentage. Aspect ratio is locked by default, so the image doesn’t stretch when
+              only one dimension changes.
+            </p>
+            <p>
+              Works in the browser for JPG, PNG, WebP, and more. Resize a single photo or batch
+              resize many images at once, keeping the same format and quality. Useful for
+              profiles, uploads, print, or fitting images into a design layout.
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="Image resizer — width and height inputs with an aspect ratio lock and percentage option"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="image-resizer"
-        title="Similar Tools You Might Like"
-        description="Check out our other image and editing tools that work great with image resizing and dimension projects."
-      />
-
+        <RelatedTools
+          currentToolSlug="image-resizer"
+          title="Similar Tools You Might Like"
+          description="Other image utilities that pair well with resizing."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Resize Images – Fast & Private
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional image resizer with complete privacy protection, 
-            high-quality resizing, and fast processing. Perfect for designers, 
-            developers, and anyone needing professional image resizing.
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to resize an image"
+          lead="Four steps, no setup."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Upload</h3>
+            <p className="text-sm text-muted-foreground">
+              Drop one or more images — JPG, PNG, WebP, and other common formats.
+            </p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Pick a mode</h3>
+            <p className="text-sm text-muted-foreground">
+              Choose exact pixels (width × height) or a percentage of the original.
+            </p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Enter size</h3>
+            <p className="text-sm text-muted-foreground">
+              Type the value — aspect ratio stays locked unless you turn it off.
+            </p>
+          </Card>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">4. Download</h3>
+            <p className="text-sm text-muted-foreground">
+              Save each file, or download the batch in one go.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Pixels vs percentage */}
+      <section className="space-y-4" id="pixels-vs-percent">
+        <SectionHeader
+          eyebrow="Two ways"
+          icon={Ruler}
+          title="Resize by pixels or by percentage"
+          lead="Use exact pixels for precise targets, percentage for quick scaling."
+        />
+        <div className="grid md:grid-cols-2 gap-4">
+          <Card className="p-5">
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <Ruler className="h-4 w-4" /> Pixels
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Enter the exact width and height you need (e.g. 1080 × 1080). Best when a platform
+              or layout requires a specific size.
+            </p>
+          </Card>
+          <Card className="p-5">
+            <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <Percent className="h-4 w-4" /> Percentage
+            </h3>
+            <p className="text-sm text-muted-foreground">
+              Enter a percentage of the original (e.g. 50% to halve the size). Handy when the
+              exact number doesn’t matter — just a smaller or bigger copy.
+            </p>
+          </Card>
+        </div>
+      </section>
+
+      {/* Aspect ratio */}
+      <section className="space-y-4" id="aspect">
+        <SectionHeader
+          eyebrow="Keep it clean"
+          icon={Lock}
+          title="Aspect ratio lock prevents distortion"
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            When the lock is on, entering either width or height automatically fills the other so
+            the image keeps its proportions. Turn the lock off only when you deliberately want a
+            specific stretched or squashed output — most photos and screenshots look wrong
+            without it.
           </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free image resizer
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      image resizer online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      resize images
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      image resizer free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      image resizer download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      image resizer app
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced resizing technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      fast processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      resize images free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">4</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Types
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Fast
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      🔒
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Private
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">📏</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Resize
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Image Resizer - High-quality resizing with complete privacy protection and fast processing"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ High Quality
-                </div>
-              </div>
-            </div>
-          </div>
+          <p>
+            For social covers or banners where the target ratio differs from the source, the
+            easiest flow is: resize one dimension first, then crop the other to the platform’s
+            exact ratio.
+          </p>
         </div>
       </section>
 
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Image Resizer
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to resize images securely with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Upload Image</h4>
-            <p className="text-sm text-muted-foreground">
-              Upload the image you want 
-              to resize.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Set Dimensions</h4>
-            <p className="text-sm text-muted-foreground">
-              Choose your target dimensions 
-              and aspect ratio.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Resize Image</h4>
-            <p className="text-sm text-muted-foreground">
-              Click resize and get your 
-              resized image instantly.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Download & Use</h4>
-            <p className="text-sm text-muted-foreground">
-              Download the resized image 
-              and use it in your projects.
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* Resizer Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Resizer Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right resizer type for your specific needs with detailed information and examples.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {resizerTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <Image className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Image Resizer Rocks
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and users love using it.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Image Resizer
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional image resizing, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Common sizes reference */}
+      <section className="space-y-6" id="common-sizes">
+        <SectionHeader
+          eyebrow="Reference"
+          icon={Ruler}
+          title="Common image sizes to resize to"
+          lead="A quick list for social media, profiles, and the web."
+        />
         <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading Image Resizers</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across popular image resizing tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">ImageResizer</th>
-                    <th className="text-left p-3 font-medium">ResizePic</th>
-                    <th className="text-left p-3 font-medium">Resizr</th>
+                    <th className="text-left p-3 font-medium">Use</th>
+                    <th className="text-left p-3 font-medium">Size</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
+                  {commonSizes.map((s) => (
+                    <tr key={s.label} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{s.label}</td>
+                      <td className="p-3 text-muted-foreground font-mono text-xs sm:text-sm">
+                        {s.size}
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.imageresizer}</td>
-                      <td className="p-3 text-muted-foreground">{row.resizepic}</td>
-                      <td className="p-3 text-muted-foreground">{row.resizr}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -510,166 +252,145 @@ export function ImageResizerSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Image Resizers
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular image resizing tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* Common pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional image resizing tool.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Upload Image",
-              description:
-                "Upload the image you want to resize.",
-            },
-            {
-              step: "2",
-              title: "Set Dimensions",
-              description:
-                "Choose your target dimensions and aspect ratio.",
-            },
-            {
-              step: "3",
-              title: "Resize Image",
-              description:
-                "Click resize and get your resized image instantly.",
-            },
-            {
-              step: "4",
-              title: "Download & Use",
-              description:
-                "Download the resized image and use it in your projects.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
-            </Card>
-          ))}
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>
+              A factual summary of what the image resizer does.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Related tools */}
+      <section className="space-y-4" id="related-usage">
+        <SectionHeader title="Resizer vs compressor vs converter" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Use the <strong className="text-foreground">image resizer</strong> when the pixel
+            dimensions need to change.
+          </p>
+          <p>
+            Use the{" "}
+            <Link href="/image-compressor" className="underline underline-offset-4 text-foreground">
+              image compressor
+            </Link>{" "}
+            when the dimensions are fine but the file size is too large.
+          </p>
+          <p>
+            Use the{" "}
+            <Link href="/image-converter" className="underline underline-offset-4 text-foreground">
+              image converter
+            </Link>{" "}
+            when you need a different file format (e.g. HEIC to JPG).
+          </p>
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for image resizing across various scenarios.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Image Resizing</h4>
-            <p className="text-sm text-muted-foreground">
-              Resize images to different dimensions
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Dimension Control</h4>
-            <p className="text-sm text-muted-foreground">
-              Control image dimensions and aspect ratios
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Image className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Quality Optimization</h4>
-            <p className="text-sm text-muted-foreground">
-              Optimize image quality during resizing
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Mobile Resizing</h4>
-            <p className="text-sm text-muted-foreground">
-              Resize images on mobile devices
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getImageResizerFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Image Resizing for All Project Needs
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>resize images</strong> for your project needs? Looking for a reliable way to <strong>image resizer</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>resize images</strong>, <strong>resize images free</strong>, or <strong>resize images online</strong>, our tool handles all resizing with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>image resizer online</strong> provides support for all major resizing types. Users love our tool for <strong>image resizer free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality resizing. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're resizing images, controlling dimensions, or optimizing quality, our <strong>image resizer app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>resize images</strong> tasks to complex resizing requirements, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our <a href="https://www.webyurt.com/tools/resize-image-for-printing" target="_blank">image resizer</a> today and see why thousands of users choose Toolspy for their image resizing needs. From <strong>image resizer free</strong> planning to professional resizing, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Resize Your Images?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users who use Toolspy every day to resize images. It's free, secure, and your data stays private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to resize your images?</h2>
+          <p className="text-muted-foreground">
+            Upload a photo, set the size in pixels or percentage, and download the resized image.
           </p>
-          <ScrollToTopButton>
-            Start Resizing Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Resizing →</ScrollToTopButton>
         </div>
       </section>
     </article>
@@ -680,57 +401,36 @@ export function ImageResizerSEOContent() {
 export function getImageResizerFAQs() {
   return [
     {
-      question: "Is Toolspy's image resizer completely free to use?",
-      answer:
-        "Yes, our professional image resizer is completely free with no hidden costs, registration requirements, or usage limitations. You can resize unlimited images without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all image resizing capabilities free of charge.",
+      question: "Is the image resizer free to use?",
+      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
     },
     {
-      question: "How fast is the image resizing?",
+      question: "Can I resize by exact pixels or by percentage?",
       answer:
-        "Our image resizer provides fast processing for any image type. Since all processing happens in your browser, there are no server delays or upload times. You can resize multiple images quickly, making it perfect for batch processing and real-time needs.",
+        "Both. Enter a specific width and height in pixels, or enter a percentage to scale the original up or down.",
     },
     {
-      question: "How secure is the image resizing process?",
+      question: "Does resizing distort the image?",
       answer:
-        "Absolutely secure! Our image resizer uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based resizers.",
+        "Not when the aspect ratio lock is on — it keeps proportions correct. Turning the lock off lets you set both dimensions freely, which can squash the image if ratios differ.",
     },
     {
-      question: "What image formats are supported?",
+      question: "Can I resize many images at once?",
       answer:
-        "Our resizer supports all major image formats including JPG, PNG, GIF, WebP, and other formats. We also support high-quality resizing and can handle various image requirements with proper analysis.",
+        "Yes. Upload multiple files, apply one size to all, and download them in a single batch.",
     },
     {
-      question: "Can I customize the resizing options?",
+      question: "Will the tool change my image format?",
       answer:
-        "Yes! Our image resizer excels at customization. You can choose dimensions, set aspect ratios, configure resizing options, and adjust resizing parameters. This is perfect for meeting specific resizing requirements and quality standards.",
+        "No. The resizer keeps your original format (JPG stays JPG, PNG stays PNG). If you also need a different format, use the image converter.",
     },
     {
-      question: "Why choose Toolspy over other free image resizers like ImageResizer or ResizePic?",
+      question: "Does the tool upload my images to a server?",
       answer:
-        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality resizing, and multiple format options. Many competitors like ImageResizer and ResizePic use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
-    },
-    {
-      question: "Can I resize images for different project needs?",
-      answer:
-        "Absolutely! Our image resizer handles different project needs perfectly. You can resize images for dimension adjustment, format optimization, quality optimization, and any other resizing requirement. The tool supports all standard resizing scenarios.",
-    },
-    {
-      question: "What resizing options are available?",
-      answer:
-        "Our tool provides multiple resizing formats including high-quality images, multiple dimensions, and various quality options. All resizing includes professional formatting, making it easy to use the results in your projects.",
-    },
-    {
-      question: "Is it safe to use online image resizers?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based resizers, our tool provides complete privacy and security for your image resizing.",
-    },
-    {
-      question: "Can I use the resized images for professional purposes?",
-      answer:
-        "Yes! Our image resizer creates professional resizing results that follow ethical guidelines. These results are suitable for professional use in design, development, and any other application requiring image resizing.",
+        "Resizing runs in your browser. Files are processed locally and not stored on our servers.",
     },
   ];
 }
 
 // Register FAQ data for this tool
-registerToolFAQ("image-resizer", getImageResizerFAQs); 
+registerToolFAQ("image-resizer", getImageResizerFAQs);

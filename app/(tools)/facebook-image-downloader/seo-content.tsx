@@ -12,21 +12,12 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
   Zap,
   Shield,
   Settings,
   Image,
-  Download,
-  Copy,
   FileText,
-  File,
-  ArrowRight,
-  FileDown,
   BarChart3,
-  Sparkles,
-  Palette,
   Smartphone,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
@@ -34,324 +25,158 @@ import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
+import Link from "next/link";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function FacebookImageDownloaderSEOContent() {
   const tool = getToolBySlug("facebook-image-downloader");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
-    {
-      feature: "Download Quality",
-      toolspy: "✅ High quality",
-      fbdownloader: "⚠️ Limited quality",
-      facebookdownloader: "❌ Low quality",
-      fbimage: "⚠️ Variable quality",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Download Speed",
-      toolspy: "✅ Fast download",
-      fbdownloader: "⚠️ Slow processing",
-      facebookdownloader: "❌ Very slow",
-      fbimage: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      fbdownloader: "⚠️ Server-based",
-      facebookdownloader: "⚠️ Server-based",
-      fbimage: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      fbdownloader: "✅ Free",
-      facebookdownloader: "✅ Free",
-      fbimage: "✅ Free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      fbdownloader: "⚠️ Basic mobile",
-      facebookdownloader: "❌ Poor mobile",
-      fbimage: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      fbdownloader: "⚠️ Limited formats",
-      facebookdownloader: "❌ No export",
-      fbimage: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Batch Processing",
-      toolspy: "✅ Multiple images",
-      fbdownloader: "❌ Single image",
-      facebookdownloader: "❌ Single image",
-      fbimage: "❌ Single image",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      fbdownloader: "❌ Ad-heavy",
-      facebookdownloader: "❌ Ad-heavy",
-      fbimage: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
-    },
+  // Neutral feature checklist (no unverified claims about other tools).
+  const featureChecklist = [
+    { feature: "Supports public post URLs", value: "Yes", note: "Works with standard facebook.com/.../posts/... links." },
+    { feature: "Supports photo page URLs", value: "Yes", note: "Handles /photo/?fbid=... style links for public photos." },
+    { feature: "Supports direct image URLs", value: "Yes", note: "JPG, PNG, WebP, and similar formats." },
+    { feature: "Detects multiple images in one post", value: "Yes", note: "Gallery posts show each detected image separately." },
+    { feature: "Private posts", value: "No", note: "Posts that require login generally can’t be extracted." },
+    { feature: "Account or installation required", value: "No", note: "Runs in your browser." },
+    { feature: "Mobile-friendly", value: "Yes", note: "Responsive layout." },
   ];
 
   const downloaderTypes = [
     {
-      type: "Facebook Image Downloader",
-      description: "Download images from Facebook posts and profiles",
-      useCase: "Image downloading, content saving, offline viewing",
-      precision: "High-quality downloads",
-      example: "Download images from Facebook posts",
+      type: "Public post URL",
+      description: "Extract images from a public Facebook post link.",
+      useCase: "Save photos from public posts and galleries",
+      precision: "Best success rate",
+      example: "https://www.facebook.com/username/posts/...",
     },
     {
-      type: "Profile Picture Downloader",
-      description: "Download Facebook profile pictures",
-      useCase: "Profile picture saving, contact management",
-      precision: "Profile picture downloads",
-      example: "Download Facebook profile pictures",
+      type: "Photo page URL",
+      description: "Works with photo page links that include an fbid parameter.",
+      useCase: "Download a specific photo from a public photo page",
+      precision: "Good",
+      example: "https://www.facebook.com/photo/?fbid=...",
     },
     {
-      type: "Post Image Downloader",
-      description: "Download images from Facebook posts",
-      useCase: "Content saving, offline viewing, content backup",
-      precision: "Post image downloads",
-      example: "Download images from Facebook posts",
-    },
-    {
-      type: "Batch Downloader",
-      description: "Download multiple images simultaneously",
-      useCase: "Bulk downloading, content libraries, project requirements",
-      precision: "Multiple image processing",
-      example: "Download multiple Facebook images",
+      type: "Direct image link",
+      description: "If you have a direct image URL (jpg/png/webp), you can download it.",
+      useCase: "Save a single image quickly",
+      precision: "High",
+      example: "https://.../image.jpg",
     },
   ];
 
   const benefits = [
     {
       icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your data never leaves your device.",
+      title: "No signup needed",
+      description: "Use the tool without creating an account or installing an app.",
     },
     {
       icon: <Zap className="h-6 w-6" />,
-      title: "Fast Download",
-      description:
-        "Download images quickly with no server delays or uploads.",
+      title: "Fast workflow",
+      description: "Paste a link, analyze, and download detected images in a few clicks.",
     },
     {
       icon: <Image className="h-6 w-6" />,
-      title: "High-Quality Downloads",
+      title: "Full-size images when available",
       description:
-        "Download images in the highest available quality.",
+        "If Facebook exposes a full-size image URL for the link, the tool shows that for download.",
     },
     {
       icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
+      title: "Works in your browser",
       description:
-        "Advanced downloading with customization options and professional tools.",
+        "Runs on modern browsers on desktop and mobile.",
     },
   ];
 
-  const keyBenefits = [
-    "💰 Professional Facebook image downloading with complete privacy protection",
-    "⚡ Fast downloading with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple downloader types: image downloader, profile picture downloader, post image downloader, batch downloader",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete download history and image tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade downloading capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise downloading and quality control",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive Facebook image downloading and analysis tools",
-  ];
-
-  const competitorAdvantages = [
+  const designPrinciples = [
     {
-      title: "Toolspy vs. FBDownloader",
+      title: "Simple input, predictable output",
       advantages: [
-        "Better Quality: High quality vs. limited quality",
-        "Better Speed: Fast download vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Batch Processing: Multiple images vs. single image",
+        "Paste a URL, click Analyze, see detected images.",
+        "Each image has its own download button.",
       ],
     },
     {
-      title: "Toolspy vs. FacebookDownloader",
+      title: "Works for common Facebook link types",
       advantages: [
-        "Better Quality: High quality vs. low quality",
-        "Better Speed: Fast download vs. very slow",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. no export",
-        "Mobile Experience: Responsive design vs. poor mobile",
-        "Batch Processing: Multiple images vs. single image",
+        "Public post URLs, photo page URLs, and direct image links.",
       ],
     },
     {
-      title: "Toolspy vs. FBDownloader",
+      title: "Helpful when something fails",
       advantages: [
-        "Better Quality: High quality vs. variable quality",
-        "Better Speed: Fast download vs. variable speed",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. basic export",
-        "Mobile Experience: Responsive design vs. limited mobile",
-        "Batch Processing: Multiple images vs. single image",
+        "Clear error message when a post isn’t accessible.",
+        "Troubleshooting tips in the error state.",
       ],
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article className="space-y-12 mt-16" aria-label="Guide and SEO content">
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="facebook-image-downloader"
-        title="Similar Tools You Might Like"
-        description="Check out our other social media and download tools that work great with Facebook content and image downloading projects."
-      />
-
+        <RelatedTools
+          currentToolSlug="facebook-image-downloader"
+          title="Similar Tools You Might Like"
+          description="Other tools that pair well with Facebook images and downloads."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
+      {/* Introduction */}
+      <section className="space-y-6" id="intro">
         <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Download Facebook Images – Fast & Private
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional Facebook image downloader with complete privacy protection, 
-            high-quality downloads, and fast processing. Perfect for content creators, 
-            social media users, and anyone needing Facebook image downloads.
+          <h2
+            id="intro-heading"
+            className="text-3xl sm:text-4xl font-bold leading-tight mb-3"
+          >
+            Download Facebook Images from Public Posts
+          </h2>
+          <p className="text-base sm:text-lg text-muted-foreground max-w-3xl mx-auto">
+            Use this Facebook image downloader to extract photos from a public post URL. It also
+            works as a Facebook photo downloader for direct image links.
           </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free Facebook image downloader
-                    </strong>{" "}
-                    is the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      Facebook image downloader online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      download Facebook images
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      Facebook image downloader free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      Facebook image downloader download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      Facebook image downloader app
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced downloading technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      fast processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      download Facebook images free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
+        </div>
 
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">4</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Types
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Fast
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      🔒
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Private
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">📱</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Facebook
-                    </div>
-                  </div>
-                </div>
-              </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div className="space-y-4">
+            <ul className="space-y-2 text-sm sm:text-base text-muted-foreground">
+              <li>Paste a Facebook post URL and click Analyze.</li>
+              <li>Works best for public posts you can open without logging in.</li>
+              <li>Download each detected image at the highest size Facebook provides for that URL.</li>
+            </ul>
 
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional Facebook Image Downloader - High-quality downloads with complete privacy protection and fast processing"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ High Quality
-                </div>
-              </div>
+            <div className="rounded-lg border bg-muted/30 p-4 text-sm text-muted-foreground">
+              <p className="font-medium text-foreground mb-1">Note</p>
+              <p>
+                If a post is private or not accessible in your browser, this tool won&apos;t be able
+                to extract its images.
+              </p>
             </div>
+          </div>
+
+          <div className="relative">
+            <NextImage
+              width={1200}
+              height={680}
+              src={tool?.posterImage || ""}
+              alt="Facebook Image Downloader tool preview"
+              className="w-full rounded-2xl shadow-2xl border border-border h-full"
+              loading="lazy"
+            />
           </div>
         </div>
       </section>
 
       {/* How to Use */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our Facebook Image Downloader
-        </h3>
+        <h3 className="text-2xl font-bold text-center">How to use it</h3>
         <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to download Facebook images securely with professional precision:
+          Follow these steps to download images from a public Facebook post:
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           <Card className="p-4 bg-muted">
@@ -388,13 +213,11 @@ export function FacebookImageDownloaderSEOContent() {
         </div>
       </section>
 
-      {/* Downloader Types Guide */}
+      {/* Supported link types */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Downloader Types & Use Cases
-        </h3>
+        <h3 className="text-2xl font-bold text-center">Supported link types</h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right downloader type for your specific needs with detailed information and examples.
+          The tool understands three common ways of linking to a Facebook image.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {downloaderTypes.map((type, index) => (
@@ -416,11 +239,9 @@ export function FacebookImageDownloaderSEOContent() {
 
       {/* Key Benefits Grid */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's Facebook Image Downloader Rocks
-        </h3>
+        <h3 className="text-2xl font-bold text-center">What makes it easy to use</h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tool special and why professionals and users love using it.
+          A few design choices that keep the workflow short.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {benefits.map((benefit, index) => (
@@ -441,33 +262,14 @@ export function FacebookImageDownloaderSEOContent() {
         </div>
       </section>
 
-      {/* Point-wise Benefits */}
+      {/* Feature checklist */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our Facebook Image Downloader
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional Facebook image downloading, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+        <h3 className="text-2xl font-bold text-center">What this tool supports</h3>
         <Card>
           <CardHeader>
-            <CardTitle>Toolspy vs. Leading Facebook Image Downloaders</CardTitle>
+            <CardTitle>Feature checklist</CardTitle>
             <CardDescription>
-              Comprehensive comparison of features and capabilities across popular Facebook image downloading tools.
+              A factual summary of what this Facebook photo downloader does and its limits.
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -476,30 +278,23 @@ export function FacebookImageDownloaderSEOContent() {
                 <thead>
                   <tr className="border-b">
                     <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">FBDownloader</th>
-                    <th className="text-left p-3 font-medium">FacebookDownloader</th>
-                    <th className="text-left p-3 font-medium">FBDownloader</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
+                  {featureChecklist.map((row, index) => (
                     <tr key={index} className="border-b hover:bg-muted/50">
                       <td className="p-3 font-medium">{row.feature}</td>
                       <td className="p-3">
                         <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
                             <CheckCircle className="h-4 w-4 text-green-500" />
                           )}
                         </div>
                       </td>
-                      <td className="p-3 text-muted-foreground">{row.fbdownloader}</td>
-                      <td className="p-3 text-muted-foreground">{row.facebookdownloader}</td>
-                      <td className="p-3 text-muted-foreground">{row.fbdownloader}</td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -509,22 +304,18 @@ export function FacebookImageDownloaderSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
+      {/* Design principles */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other Facebook Image Downloaders
-        </h3>
+        <h3 className="text-2xl font-bold text-center">How the page is designed</h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular Facebook image downloading tools.
+          A short summary of what this page focuses on.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
+          {designPrinciples.map((item, index) => (
             <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
+              <h4 className="font-semibold mb-4 text-primary">{item.title}</h4>
               <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
+                {item.advantages.map((advantage, advIndex) => (
                   <li
                     key={advIndex}
                     className="text-sm flex items-start space-x-2"
@@ -539,93 +330,34 @@ export function FacebookImageDownloaderSEOContent() {
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
+      {/* Common use cases */}
       <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
+        <h3 className="text-2xl font-bold text-center">Common use cases</h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional Facebook image downloading tool.
+          Typical situations where this tool is useful.
         </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Paste URL",
-              description:
-                "Paste the Facebook post or profile URL containing the image.",
-            },
-            {
-              step: "2",
-              title: "Analyze Content",
-              description:
-                "Let the tool analyze and detect available images.",
-            },
-            {
-              step: "3",
-              title: "Select Images",
-              description:
-                "Choose the images you want to download.",
-            },
-            {
-              step: "4",
-              title: "Download & Use",
-              description:
-                "Download the images and use them in your projects.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for Facebook image downloading across various scenarios.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <Card className="p-6 text-center">
             <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Content Saving</h4>
+            <h4 className="font-semibold mb-2">Save your own photos</h4>
             <p className="text-sm text-muted-foreground">
-              Save Facebook content for offline viewing
+              Re-download images you posted when you don’t have the originals.
             </p>
           </Card>
 
           <Card className="p-6 text-center">
             <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Image Downloading</h4>
+            <h4 className="font-semibold mb-2">Save public photos with permission</h4>
             <p className="text-sm text-muted-foreground">
-              Download images from Facebook posts
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Image className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Profile Pictures</h4>
-            <p className="text-sm text-muted-foreground">
-              Download Facebook profile pictures
+              Grab a public image when you have the right to use it.
             </p>
           </Card>
 
           <Card className="p-6 text-center">
             <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Mobile Downloading</h4>
+            <h4 className="font-semibold mb-2">Quickly download on mobile</h4>
             <p className="text-sm text-muted-foreground">
-              Download Facebook images on mobile devices
+              Works in your mobile browser without installing an app.
             </p>
           </Card>
         </div>
@@ -634,25 +366,57 @@ export function FacebookImageDownloaderSEOContent() {
       {/* FAQ Section */}
       <FAQ faqs={getFacebookImageDownloaderFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional Facebook Image Downloading for All Content Needs
-          </h3>
+      {/* User Reviews (must be visible if marked up) */}
+      <section className="space-y-6" id="reviews">
+        <h3 className="text-2xl font-bold text-center">User reviews</h3>
+
+        {ratingSummary ? (
+          <div className="text-center text-muted-foreground">
+            <p className="text-base sm:text-lg">
+              Rated <span className="font-semibold text-foreground">{ratingSummary.ratingValue}/5</span> based on{" "}
+              <span className="font-semibold text-foreground">{ratingSummary.reviewCount}</span> review(s).
+            </p>
+          </div>
+        ) : (
+          <p className="text-center text-muted-foreground max-w-2xl mx-auto">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-6">
+                <div className="flex items-start justify-between gap-4">
+                  <div className="space-y-1">
+                    <p className="font-semibold">{r.headline}</p>
+                    <p className="text-sm text-muted-foreground">
+                      {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                    </p>
+                  </div>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">{r.reviewBody}</p>
+              </Card>
+            ))}
+          </div>
+        )}
+      </section>
+
+      {/* Notes */}
+      <section className="space-y-6" id="notes">
+        <div className="bg-muted/30 p-8 rounded-xl border">
+          <h3 className="text-2xl font-bold text-center mb-6">Notes before you download</h3>
           <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need to <strong>download Facebook images</strong> for your content needs? Looking for a reliable way to <strong>Facebook image downloader</strong> online? Toolspy's professional tool makes it effortless. Whether you need to <strong>download Facebook images</strong>, <strong>download Facebook images free</strong>, or <strong>download Facebook images online</strong>, our tool handles all downloading with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>Facebook image downloader online</strong> provides support for all major Facebook content types. Users love our tool for <strong>Facebook image downloader free</strong> functionality, while professionals appreciate the complete privacy protection and high-quality downloads. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're saving content, downloading images, or getting profile pictures, our <strong>Facebook image downloader app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>download Facebook images</strong> tasks to complex downloading requirements, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our Facebook image downloader today and see why thousands of users choose Toolspy for their Facebook downloading needs. From <strong>Facebook image downloader free</strong> planning to professional downloading, we deliver reliable results every time.
-            </p>
+            <ul className="space-y-2 text-muted-foreground">
+              <li>Public posts work best. Private posts generally can’t be extracted.</li>
+              <li>Image quality depends on what Facebook exposes for that URL.</li>
+              <li>Please download only content you have permission to use.</li>
+              <li>If a link fails, try copying the direct image URL when available.</li>
+            </ul>
           </div>
         </div>
       </section>
@@ -664,7 +428,7 @@ export function FacebookImageDownloaderSEOContent() {
             Ready to Download Facebook Images?
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users who use Toolspy every day to download Facebook images. It's free, secure, and your data stays private on your device.
+            Paste a public post URL, analyze, and download detected images in a couple of clicks.
           </p>
           <ScrollToTopButton>
             Start Downloading Now →
@@ -681,52 +445,32 @@ export function getFacebookImageDownloaderFAQs() {
     {
       question: "Is Toolspy's Facebook image downloader completely free to use?",
       answer:
-        "Yes, our professional Facebook image downloader is completely free with no hidden costs, registration requirements, or usage limitations. You can download unlimited Facebook images without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all Facebook image downloading capabilities free of charge.",
+        "Yes. This tool is free to use and doesn’t require signup.",
     },
     {
-      question: "How fast is the Facebook image downloading?",
+      question: "What Facebook links does this tool support?",
       answer:
-        "Our Facebook image downloader provides fast downloading for any Facebook content. Since all processing happens in your browser, there are no server delays or upload times. You can download multiple images quickly, making it perfect for batch downloading and real-time needs.",
+        "It works best with public Facebook post URLs. It can also handle direct image links (jpg, png, webp, etc.).",
     },
     {
-      question: "How secure is the Facebook image downloading process?",
+      question: "Can I download images from private posts?",
       answer:
-        "Absolutely secure! Our Facebook image downloader uses client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based downloaders.",
+        "No. If a post is private or requires login, the images usually can’t be extracted.",
     },
     {
-      question: "What Facebook content types are supported?",
+      question: "Does it download multiple images from a single post?",
       answer:
-        "Our downloader supports all major Facebook content types including post images, profile pictures, cover photos, and other Facebook media. We also support high-quality downloads and can handle various Facebook content requirements with proper analysis.",
+        "Yes. If a post contains a gallery, the tool can detect multiple images and let you download them one by one.",
     },
     {
-      question: "Can I customize the downloading options?",
+      question: "Do I need to install an app or log in?",
       answer:
-        "Yes! Our Facebook image downloader excels at customization. You can choose download types, set quality preferences, configure downloading options, and adjust downloading parameters. This is perfect for meeting specific downloading requirements and quality standards.",
+        "No. It runs in your browser—no installation, and no Facebook login required.",
     },
     {
-      question: "Why choose Toolspy over other free Facebook image downloaders like FBDownloader or FacebookDownloader?",
+      question: "Is it safe to use?",
       answer:
-        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, high-quality downloads, and multiple format options. Many competitors like FBDownloader and FacebookDownloader use server-based methods, have limited quality, or lack comprehensive features. Our tool provides better privacy protection, more options, and superior functionality completely free.",
-    },
-    {
-      question: "Can I download Facebook images for different content needs?",
-      answer:
-        "Absolutely! Our Facebook image downloader handles different content needs perfectly. You can download Facebook images for content saving, image downloading, profile pictures, and any other downloading requirement. The tool supports all standard downloading scenarios.",
-    },
-    {
-      question: "What downloading options are available?",
-      answer:
-        "Our tool provides multiple downloading formats including high-quality images, multiple content types, and various quality options. All downloads include professional formatting, making it easy to use the results in your projects.",
-    },
-    {
-      question: "Is it safe to use online Facebook image downloaders?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based downloaders, our tool provides complete privacy and security for your Facebook image downloading.",
-    },
-    {
-      question: "Can I use the downloaded images for professional purposes?",
-      answer:
-        "Yes! Our Facebook image downloader creates professional downloading results that follow ethical guidelines. These results are suitable for professional use in content creation, social media, and any other application requiring Facebook image downloading.",
+        "The tool doesn’t ask for your Facebook credentials. Only use it for content you have permission to download, and prefer public posts you can access normally.",
     },
   ];
 }

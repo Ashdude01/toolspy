@@ -12,496 +12,216 @@ import {
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import {
   CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Type,
-  BookOpen,
-  AlignLeft,
-  Copy,
-  Download,
-  FileText,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Brain,
+  Rocket,
   Sparkles,
-  Smartphone,
+  ListChecks,
+  Lightbulb,
+  MessagesSquare,
+  PenLine,
+  ShieldCheck,
 } from "lucide-react";
-import { getToolBySlug } from "@/lib/tools-data";
+import NextImage from "next/image";
+import Link from "next/link";
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import NextImage from "next/image";
+import { SectionHeader } from "@/components/seo/section-header";
+import { getToolBySlug } from "@/lib/tools-data";
+import { getToolRatingSummary, getToolReviews } from "@/lib/tool-reviews";
 
 export function AIWritingToolsSEOContent() {
   const tool = getToolBySlug("ai-writing-tools");
+  const reviews = tool ? getToolReviews(tool) : [];
+  const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  const comparisonData = [
+  const modes = [
     {
-      feature: "Writing Quality",
-      toolspy: "✅ Professional quality",
-      grammarly: "⚠️ Basic suggestions",
-      hemingway: "❌ Limited features",
-      prowritingaid: "⚠️ Complex interface",
-      toolspyStatus: "excellent",
+      name: "Paraphraser",
+      use: "Rewrite a sentence or paragraph",
+      notes: "Pick a tone (formal, casual, confident). Keeps the meaning, changes the words.",
     },
     {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant processing",
-      grammarly: "⚠️ Server delays",
-      hemingway: "❌ Slow processing",
-      prowritingaid: "⚠️ Variable speed",
-      toolspyStatus: "excellent",
+      name: "Summarizer",
+      use: "Condense long text into key points",
+      notes: "Bullet or paragraph output. Good for articles, reports, and meeting notes.",
     },
     {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      grammarly: "⚠️ Server-based",
-      hemingway: "⚠️ Server-based",
-      prowritingaid: "⚠️ Server-based",
-      toolspyStatus: "excellent",
+      name: "Humanizer",
+      use: "Make AI text sound more natural",
+      notes: "Softens overly polished tone; rebalances rhythm and word choice.",
     },
     {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      grammarly: "⚠️ Limited free",
-      hemingway: "❌ Paid only",
-      prowritingaid: "⚠️ Limited free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      grammarly: "⚠️ Basic mobile",
-      hemingway: "❌ Poor mobile",
-      prowritingaid: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Export Options",
-      toolspy: "✅ Multiple formats",
-      grammarly: "⚠️ Limited formats",
-      hemingway: "❌ No export",
-      prowritingaid: "⚠️ Basic export",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Advanced Features",
-      toolspy: "✅ AI-powered writing",
-      grammarly: "⚠️ Basic grammar",
-      hemingway: "❌ Simple editor",
-      prowritingaid: "⚠️ Complex features",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Ads",
-      toolspy: "✅ Clean interface",
-      grammarly: "❌ Ad-heavy",
-      hemingway: "❌ Ad-heavy",
-      prowritingaid: "❌ Ad-heavy",
-      toolspyStatus: "excellent",
+      name: "AI Detector",
+      use: "Estimate how AI-like a piece of text reads",
+      notes: "A signal, not a verdict. Treat scores as guidance, not proof.",
     },
   ];
 
-  const writingTypes = [
-    {
-      type: "AI Writing Assistant",
-      description: "AI-powered writing assistance and improvement",
-      useCase: "Content creation, writing improvement, professional writing",
-      precision: "AI-enhanced writing",
-      example: "Improve writing with AI suggestions",
-    },
-    {
-      type: "Grammar Checker",
-      description: "Advanced grammar and style checking",
-      useCase: "Grammar correction, style improvement, writing quality",
-      precision: "Professional grammar checking",
-      example: "Check and correct grammar errors",
-    },
-    {
-      type: "Content Generator",
-      description: "Generate high-quality content with AI",
-      useCase: "Content creation, writing inspiration, idea generation",
-      precision: "AI content generation",
-      example: "Generate content ideas and drafts",
-    },
-    {
-      type: "Writing Analyzer",
-      description: "Analyze and improve writing style and readability",
-      useCase: "Style analysis, readability improvement, writing optimization",
-      precision: "Comprehensive writing analysis",
-      example: "Analyze writing style and readability",
-    },
+  const tones = [
+    { name: "Formal", when: "Business email, reports, proposals" },
+    { name: "Casual", when: "Blog posts, social captions, DMs" },
+    { name: "Confident", when: "Pitches, landing pages, sales copy" },
+    { name: "Friendly", when: "Newsletters, support replies, onboarding" },
+    { name: "Academic", when: "Essays, papers, technical write-ups" },
+    { name: "Simple", when: "Tooltips, in-app copy, plain-English" },
   ];
 
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description:
-        "Client-side processing ensures your data never leaves your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Instant Processing",
-      description:
-        "Get AI writing assistance instantly with no server delays or uploads.",
-    },
-    {
-      icon: <Brain className="h-6 w-6" />,
-      title: "AI-Powered Writing",
-      description:
-        "Advanced AI technology for professional writing assistance and improvement.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Writing Features",
-      description:
-        "Comprehensive writing tools with customization options and professional features.",
-    },
+  const featureChecklist = [
+    { feature: "Paraphrase with tone", value: "Yes", note: "Formal, casual, confident, friendly, academic, simple." },
+    { feature: "Summarize long text", value: "Yes", note: "Bullet or paragraph output; adjustable length." },
+    { feature: "Humanize AI-generated text", value: "Yes", note: "Reduce polish, vary sentence rhythm." },
+    { feature: "AI detection estimate", value: "Yes", note: "Score plus per-sentence hints." },
+    { feature: "Multi-language support", value: "Yes", note: "Works with common languages; best quality in English." },
+    { feature: "Word / character counter", value: "Yes", note: "Track length against platform limits." },
+    { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
-  const keyBenefits = [
-    "💰 Professional AI writing tools with complete privacy protection",
-    "⚡ Instant processing with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple writing types: AI assistant, grammar checker, content generator",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete writing history and improvement tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade writing capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tool requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise writing assistance and improvement",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive AI writing and analysis tools",
-  ];
-
-  const competitorAdvantages = [
+  const pitfalls = [
     {
-      title: "Toolspy vs. Grammarly",
-      advantages: [
-        "Better Quality: Professional quality vs. basic suggestions",
-        "Better Speed: Instant processing vs. server delays",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Advanced Features: AI-powered writing vs. basic grammar",
-      ],
+      title: "Trusting AI detection as proof",
+      body: "No detector is fully reliable. Use scores as a signal, not as evidence someone cheated.",
     },
     {
-      title: "Toolspy vs. Hemingway",
-      advantages: [
-        "Better Quality: Professional quality vs. limited features",
-        "Better Speed: Instant processing vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. no export",
-        "Mobile Experience: Responsive design vs. poor mobile",
-        "Advanced Features: AI-powered writing vs. simple editor",
-      ],
+      title: "Paraphrasing facts away",
+      body: "Paraphrasers can shift meaning subtly. For citations and claims, re-check the source text.",
     },
     {
-      title: "Toolspy vs. ProWritingAid",
-      advantages: [
-        "Better Quality: Professional quality vs. complex interface",
-        "Better Speed: Instant processing vs. variable speed",
-        "Better Privacy: Client-side vs. server-based",
-        "Export Options: Multiple formats vs. basic export",
-        "Mobile Experience: Responsive design vs. limited mobile",
-        "Advanced Features: AI-powered writing vs. complex features",
-      ],
+      title: "Summarizing a summary",
+      body: "Passes compound errors. Summarize from the original source whenever possible.",
+    },
+    {
+      title: "One-size-fits-all tone",
+      body: "Pick the tone to match where the text will live. A friendly email and a legal notice need different voices.",
     },
   ];
 
   return (
-    <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
+    <article
+      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      aria-label="Guide and SEO content"
+    >
+      {/* Intro (H1) */}
+      <section id="intro" className="space-y-8">
+        <div className="space-y-3">
+          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+            AI Writing Tools Suite
+          </h1>
+          <p className="text-start md:text-center text-muted-foreground">
+            A fast AI writing toolkit — paraphraser, summarizer, humanizer, and AI detector in
+            one place. Rewrite, condense, and polish text without jumping between apps.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Use this AI writing suite to paraphrase a paragraph in a different tone, summarize
+              a long article into key points, humanize AI-generated copy, or run text through an
+              AI detector. Paste your text, pick a mode, and get a clean output.
+            </p>
+            <p>
+              Built for bloggers, students, marketers, and teams that write a lot. Swap tone in
+              one click, choose bullet or paragraph summaries, and tune length to match platform
+              limits. Everything runs from your browser — no account needed.
+            </p>
+          </div>
+
+          {tool?.posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={tool.posterImage}
+                width={1600}
+                height={900}
+                alt="AI writing tools — paraphraser, summarizer, humanizer, and detector modes"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
+        </div>
+      </section>
+
       {/* Related Tools */}
       <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="ai-writing-tools"
-        title="Similar Tools You Might Like"
-        description="Check out our other writing and content creation tools that work great with AI-powered writing assistance."
-      />
-
+        <RelatedTools
+          currentToolSlug="ai-writing-tools"
+          title="Similar Tools You Might Like"
+          description="Other AI and content utilities that pair well."
+        />
       </nav>
 
-      {/* Introduction Section */}
-      <section className="space-y-8">
-        <div className="text-center">
-          <h1 id="intro-heading" className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            AI Writing Tools – Professional & Private
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8">
-            Professional AI writing tools with complete privacy protection, 
-            instant processing, and AI-powered writing assistance. Perfect for writers, 
-            content creators, and anyone needing professional writing help.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      free AI writing tools
-                    </strong>{" "}
-                    are the ultimate{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      AI writing tools online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      AI writing assistance
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      AI writing tools free
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      AI writing tools download
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      AI writing tools app
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      advanced AI technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      instant processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      use AI writing tools free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-xl border border-blue-200 dark:border-blue-800">
-                    <div className="text-2xl font-bold text-blue-600">4</div>
-                    <div className="text-sm text-blue-700 dark:text-blue-300">
-                      Types
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">
-                      ⚡
-                    </div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Instant
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">
-                      🔒
-                    </div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Private
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">🤖</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      AI-Powered
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-                <NextImage
-                  width={1200}
-                  height={680}
-                  src={tool?.posterImage || ""}
-                  alt="Toolspy Professional AI Writing Tools - AI-powered writing assistance with complete privacy protection and instant processing"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ AI-Powered
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* How to Use */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          How to Use Our AI Writing Tools
-        </h3>
-        <p className="text-center text-muted-foreground max-w-2xl mx-auto">
-          Follow these simple steps to get AI writing assistance securely with professional precision:
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">1. Enter Your Text</h4>
+      {/* How to use */}
+      <section className="space-y-6" id="how-to-use">
+        <SectionHeader
+          eyebrow="Getting started"
+          icon={Rocket}
+          title="How to use the writing suite"
+          lead="Three steps from input to improved output."
+        />
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">1. Pick a mode</h3>
             <p className="text-sm text-muted-foreground">
-              Type or paste the text you want 
-              to improve or analyze.
+              Paraphrase, summarize, humanize, or detect.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">2. Choose Tool Type</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">2. Paste text</h3>
             <p className="text-sm text-muted-foreground">
-              Select the AI writing tool you 
-              want to use for assistance.
+              Drop your text — a sentence, a paragraph, or a full article.
             </p>
           </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">3. Get AI Assistance</h4>
+          <Card className="p-4 bg-muted/40">
+            <h3 className="font-semibold mb-1">3. Tune &amp; copy</h3>
             <p className="text-sm text-muted-foreground">
-              Receive instant AI-powered 
-              writing suggestions and improvements.
-            </p>
-          </Card>
-
-          <Card className="p-4 bg-muted">
-            <h4 className="font-semibold mb-2">4. Apply & Export</h4>
-            <p className="text-sm text-muted-foreground">
-              Apply the suggestions and export 
-              your improved text.
+              Set tone / length, generate, and copy the result.
             </p>
           </Card>
         </div>
       </section>
 
-      {/* Writing Types Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Writing Tool Types & Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Choose the right writing tool type for your specific needs with detailed information and examples.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {writingTypes.map((type, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-center mb-4">
-                <Type className="h-5 w-5 mr-2 text-primary" />
-                <h4 className="font-semibold">{type.type}</h4>
-              </div>
-              <p className="text-sm text-muted-foreground mb-3">{type.description}</p>
-              <div className="space-y-2 text-sm">
-                <div><strong>Use Case:</strong> {type.useCase}</div>
-                <div><strong>Precision:</strong> {type.precision}</div>
-                <div><strong>Example:</strong> {type.example}</div>
-              </div>
+      {/* Modes */}
+      <section className="space-y-6" id="modes">
+        <SectionHeader
+          eyebrow="Modes"
+          icon={Sparkles}
+          title="Four modes, one workflow"
+          lead="Pick what you need — switch without re-pasting."
+        />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {modes.map((m) => (
+            <Card key={m.name} className="p-5">
+              <h3 className="font-semibold mb-1">{m.name}</h3>
+              <p className="text-sm text-muted-foreground italic mb-2">{m.use}</p>
+              <p className="text-sm text-muted-foreground">{m.notes}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Key Benefits Grid */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Toolspy's AI Writing Tools Rock
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's what makes our tools special and why professionals and users love using them.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="p-6">
-              <div className="flex items-start space-x-4">
-                <div className="flex-shrink-0 p-2 bg-primary/10 rounded-lg text-primary">
-                  {benefit.icon}
-                </div>
-                <div>
-                  <h4 className="font-semibold mb-2">{benefit.title}</h4>
-                  <p className="text-sm text-muted-foreground">
-                    {benefit.description}
-                  </p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Point-wise Benefits */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Everything You Get with Our AI Writing Tools
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          All the features you need for professional AI writing assistance, completely free.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {keyBenefits.map((benefit, index) => (
-            <Card key={index} className="p-4 hover:shadow-md transition-shadow">
-              <p className="text-sm">{benefit}</p>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Detailed Feature Comparison
-        </h3>
+      {/* Tones */}
+      <section className="space-y-6" id="tones">
+        <SectionHeader
+          eyebrow="Paraphraser"
+          icon={PenLine}
+          title="Tones you can target"
+          lead="Shape the rewrite to match the surface it lives on."
+        />
         <Card>
-          <CardHeader>
-            <CardTitle>Toolspy vs. Leading AI Writing Tools</CardTitle>
-            <CardDescription>
-              Comprehensive comparison of features and capabilities across popular AI writing tools.
-            </CardDescription>
-          </CardHeader>
-          <CardContent>
+          <CardContent className="p-0">
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b">
-                    <th className="text-left p-3 font-medium">Feature</th>
-                    <th className="text-left p-3 font-medium">Toolspy</th>
-                    <th className="text-left p-3 font-medium">Grammarly</th>
-                    <th className="text-left p-3 font-medium">Hemingway</th>
-                    <th className="text-left p-3 font-medium">ProWritingAid</th>
+                    <th className="text-left p-3 font-medium">Tone</th>
+                    <th className="text-left p-3 font-medium">Good for</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="border-b hover:bg-muted/50">
-                      <td className="p-3 font-medium">{row.feature}</td>
-                      <td className="p-3">
-                        <div className="flex items-center space-x-2">
-                          <span>{row.toolspy}</span>
-                          {row.toolspyStatus === "excellent" && (
-                            <Star className="h-4 w-4 text-yellow-500" />
-                          )}
-                          {row.toolspyStatus === "good" && (
-                            <CheckCircle className="h-4 w-4 text-green-500" />
-                          )}
-                        </div>
-                      </td>
-                      <td className="p-3 text-muted-foreground">{row.grammarly}</td>
-                      <td className="p-3 text-muted-foreground">{row.hemingway}</td>
-                      <td className="p-3 text-muted-foreground">{row.prowritingaid}</td>
+                  {tones.map((t) => (
+                    <tr key={t.name} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{t.name}</td>
+                      <td className="p-3 text-muted-foreground">{t.when}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -511,166 +231,162 @@ export function AIWritingToolsSEOContent() {
         </Card>
       </section>
 
-      {/* Competitor Advantages */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Why Choose Toolspy Over Other AI Writing Tools
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Here's how we compare to other popular AI writing tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="p-6">
-              <h4 className="font-semibold mb-4 text-primary">
-                {competitor.title}
-              </h4>
-              <ul className="space-y-2">
-                {competitor.advantages.map((advantage, advIndex) => (
-                  <li
-                    key={advIndex}
-                    className="text-sm flex items-start space-x-2"
-                  >
-                    <CheckCircle className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                    <span>{advantage}</span>
-                  </li>
-                ))}
-              </ul>
+      {/* AI detector caveats */}
+      <section className="space-y-4" id="detector">
+        <SectionHeader
+          eyebrow="About the detector"
+          icon={ShieldCheck}
+          title="Treat detection scores as a signal, not a verdict"
+        />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            AI detection is imperfect — the best models still produce false positives and
+            negatives, especially on short or heavily edited text. Use the score as one input
+            alongside context: assignment brief, writing history, and a real reader’s intuition.
+          </p>
+          <p>
+            If you need writing to pass as &quot;human&quot;, run it through{" "}
+            <strong className="text-foreground">Humanizer</strong> first. The suite combines
+            well: generate → paraphrase → humanize → check.
+          </p>
+        </div>
+      </section>
+
+      {/* Pitfalls */}
+      <section className="space-y-6" id="pitfalls">
+        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          {pitfalls.map((p) => (
+            <Card key={p.title} className="p-5">
+              <h3 className="font-semibold mb-1">{p.title}</h3>
+              <p className="text-sm text-muted-foreground">{p.body}</p>
             </Card>
           ))}
         </div>
       </section>
 
-      {/* Step-by-Step Guide */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Complete Step-by-Step Guide
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Detailed instructions for getting the best results from our
-          professional AI writing tools.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            {
-              step: "1",
-              title: "Enter Your Text",
-              description:
-                "Type or paste the text you want to improve or analyze.",
-            },
-            {
-              step: "2",
-              title: "Choose Tool Type",
-              description:
-                "Select the AI writing tool you want to use for assistance.",
-            },
-            {
-              step: "3",
-              title: "Get AI Assistance",
-              description:
-                "Receive instant AI-powered writing suggestions and improvements.",
-            },
-            {
-              step: "4",
-              title: "Apply & Export",
-              description:
-                "Apply the suggestions and export your improved text.",
-            },
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6">
-              <div className="w-12 h-12 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-4">
-                {item.step}
-              </div>
-              <h4 className="font-semibold mb-2">{item.title}</h4>
-              <p className="text-sm text-muted-foreground">
-                {item.description}
-              </p>
-            </Card>
-          ))}
+      {/* Feature checklist */}
+      <section className="space-y-6" id="features">
+        <SectionHeader
+          eyebrow="Overview"
+          icon={ListChecks}
+          title="What this tool supports"
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Feature checklist</CardTitle>
+            <CardDescription>
+              A factual summary of what the AI writing suite does.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Feature</th>
+                    <th className="text-left p-3 font-medium">Supported</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {featureChecklist.map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row.feature}</td>
+                      <td className="p-3">
+                        <div className="inline-flex items-center gap-2">
+                          <span>{row.value}</span>
+                          {row.value === "Yes" && (
+                            <CheckCircle className="h-4 w-4 text-green-500" />
+                          )}
+                        </div>
+                      </td>
+                      <td className="p-3 text-muted-foreground">{row.note}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
+      </section>
+
+      {/* Related */}
+      <section className="space-y-4" id="related-usage">
+        <SectionHeader title="Related tools" />
+        <div className="space-y-3 text-muted-foreground">
+          <p>
+            Writing for a resume?{" "}
+            <Link href="/ai-resume-builder" className="underline underline-offset-4 text-foreground">
+              AI resume builder
+            </Link>
+            .
+          </p>
+          <p>
+            Need to summarize a PDF first?{" "}
+            <Link href="/pdf-to-word" className="underline underline-offset-4 text-foreground">
+              PDF to Word
+            </Link>{" "}
+            — extract text, then summarize.
+          </p>
         </div>
       </section>
 
-      {/* Use Cases Section */}
-      <section className="space-y-6">
-        <h3 className="text-2xl font-bold text-center">
-          Common Use Cases
-        </h3>
-        <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Professional applications for AI writing tools across various scenarios.
-        </p>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="p-6 text-center">
-            <FileText className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Content Creation</h4>
-            <p className="text-sm text-muted-foreground">
-              Create high-quality content with AI assistance
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <BarChart3 className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Writing Improvement</h4>
-            <p className="text-sm text-muted-foreground">
-              Improve writing quality and style with AI
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Type className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Grammar Checking</h4>
-            <p className="text-sm text-muted-foreground">
-              Check and correct grammar errors professionally
-            </p>
-          </Card>
-
-          <Card className="p-6 text-center">
-            <Smartphone className="h-8 w-8 mx-auto mb-4 text-primary" />
-            <h4 className="font-semibold mb-2">Mobile Writing</h4>
-            <p className="text-sm text-muted-foreground">
-              Use AI writing tools on mobile devices
-            </p>
-          </Card>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
+      {/* FAQ */}
       <FAQ faqs={getAIWritingToolsFAQs()} />
 
-      {/* SEO Keyword Cluster Section */}
-      <section className="space-y-6">
-        <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/20 dark:to-blue-950/20 p-8 rounded-xl">
-          <h3 className="text-2xl font-bold text-center mb-6">
-            Professional AI Writing Tools for All Writing Needs
-          </h3>
-          <div className="max-w-4xl mx-auto">
-            <p className="text-muted-foreground leading-relaxed">
-              Need <strong>AI writing tools</strong> for your writing needs? Looking for a reliable way to <strong>AI writing assistance</strong> online? Toolspy's professional tools make it effortless. Whether you need <strong>AI writing tools free</strong>, <strong>AI writing assistance</strong>, or <strong>AI writing tools online</strong>, our tools handle all writing assistance with professional accuracy and complete privacy.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Our advanced <strong>AI writing tools online</strong> provide support for all major writing types. Users love our tools for <strong>AI writing tools free</strong> functionality, while professionals appreciate the complete privacy protection and AI-powered assistance. Unlike other tools, we provide instant results with no server delays.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Whether you're creating content, improving writing, or checking grammar, our <strong>AI writing tools app</strong> processes everything locally in your browser. Your data never leaves your device, ensuring complete privacy. From simple <strong>AI writing assistance</strong> tasks to complex writing requirements, we make it fast and secure.
-            </p>
-            <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our AI writing tools today and see why thousands of users choose Toolspy for their AI writing needs. From <strong>AI writing tools free</strong> planning to professional writing assistance, we deliver reliable results every time.
-            </p>
+      {/* User reviews */}
+      <section className="space-y-6" id="reviews">
+        <SectionHeader eyebrow="Community" icon={MessagesSquare} title="User reviews" />
+        {ratingSummary ? (
+          <p className="text-center text-muted-foreground">
+            Rated{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.ratingValue}/5
+            </span>{" "}
+            based on{" "}
+            <span className="font-semibold text-foreground">
+              {ratingSummary.reviewCount}
+            </span>{" "}
+            review(s).
+          </p>
+        ) : (
+          <p className="text-center text-muted-foreground">
+            No reviews yet. If you used the tool, you can share feedback on our{" "}
+            <Link className="underline underline-offset-4" href="/feedback">
+              feedback page
+            </Link>
+            .
+          </p>
+        )}
+
+        {reviews.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {reviews.slice(0, 6).map((r, idx) => (
+              <Card key={idx} className="p-5">
+                <div className="space-y-1">
+                  <p className="font-semibold">{r.headline}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {r.authorName} • {r.datePublished} • {r.ratingValue}/5
+                  </p>
+                </div>
+                <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                  {r.reviewBody}
+                </p>
+              </Card>
+            ))}
           </div>
-        </div>
+        )}
       </section>
 
-      {/* Final CTA Section */}
-      <section className="space-y-6">
-        <div className="text-center p-8 bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl">
-          <h3 className="text-2xl font-bold mb-4">
-            Ready to Improve Your Writing with AI?
-          </h3>
-          <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users who use Toolspy every day for AI writing assistance. It's free, secure, and your data stays private on your device.
+      {/* Final CTA */}
+      <section>
+        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
+          <h2 className="text-2xl font-bold tracking-tight">Ready to rewrite?</h2>
+          <p className="text-muted-foreground">
+            Pick a mode, paste your text, and get a cleaner, sharper draft in seconds.
           </p>
-          <ScrollToTopButton>
-            Start Writing with AI Now →
-          </ScrollToTopButton>
+          <ScrollToTopButton>Start Writing →</ScrollToTopButton>
         </div>
       </section>
     </article>
@@ -681,54 +397,33 @@ export function AIWritingToolsSEOContent() {
 export function getAIWritingToolsFAQs() {
   return [
     {
-      question: "Are Toolspy's AI writing tools completely free to use?",
-      answer:
-        "Yes, our professional AI writing tools are completely free with no hidden costs, registration requirements, or usage limitations. You can use unlimited AI writing assistance without any restrictions. Unlike many competitors who have limited features or require paid subscriptions, Toolspy provides all AI writing capabilities free of charge.",
+      question: "Is the AI writing suite free to use?",
+      answer: "Yes. It’s free — no signup, no install.",
     },
     {
-      question: "How fast is the AI writing assistance?",
+      question: "Which tools are included?",
       answer:
-        "Our AI writing tools provide instant assistance for any writing task. Since all processing happens in your browser, there are no server delays or upload times. You can get AI writing help quickly, making it perfect for real-time writing assistance and improvement.",
+        "Four modes in one place: paraphraser (with tone options), summarizer (bullet / paragraph), humanizer (for AI-sounding text), and AI detector (estimate AI-likelihood).",
     },
     {
-      question: "How secure is the AI writing process?",
+      question: "Can I pick a specific tone when paraphrasing?",
       answer:
-        "Absolutely secure! Our AI writing tools use client-side processing, meaning your data is processed directly in your browser and never uploaded to our servers. This ensures complete privacy and security. Your information never leaves your device, making it safer than server-based tools.",
+        "Yes. Formal, casual, confident, friendly, academic, and simple. Pick the one that matches where the text will live.",
     },
     {
-      question: "What writing tool types are supported?",
+      question: "How reliable is the AI detector?",
       answer:
-        "Our tools support all major writing types including AI writing assistance, grammar checking, content generation, and writing analysis. We also support high-quality writing improvement and can handle various writing requirements with proper analysis.",
+        "Detection is a signal, not a verdict. Even the best models return false positives and negatives on short or heavily edited text — treat scores as guidance.",
     },
     {
-      question: "Can I customize the AI writing options?",
+      question: "Does it support languages other than English?",
       answer:
-        "Yes! Our AI writing tools excel at customization. You can choose writing types, set improvement preferences, configure assistance options, and adjust writing parameters. This is perfect for meeting specific writing requirements and improvement standards.",
+        "It works with common languages, with the strongest results in English. Quality can vary in other languages depending on the mode.",
     },
     {
-      question: "Why choose Toolspy over other free AI writing tools like Grammarly or Hemingway?",
+      question: "Does the tool send my text to a server?",
       answer:
-        "Toolspy offers professional-grade features like client-side processing for privacy, complete privacy protection, AI-powered writing assistance, and multiple format options. Many competitors like Grammarly and Hemingway use server-based methods, have limited features, or lack comprehensive AI assistance. Our tools provide better privacy protection, more options, and superior functionality completely free.",
-    },
-    {
-      question: "Can I use the AI writing tools for different writing needs?",
-      answer:
-        "Absolutely! Our AI writing tools handle different writing needs perfectly. You can use them for content creation, writing improvement, grammar checking, and any other writing requirement. The tools support all standard writing scenarios.",
-    },
-    {
-      question: "What export options are available?",
-      answer:
-        "Our tools provide multiple export formats including improved text, multiple file types, and various quality options. All exports include professional formatting, making it easy to use the results in your writing.",
-    },
-    {
-      question: "Is it safe to use online AI writing tools?",
-      answer:
-        "With Toolspy, yes! Our client-side processing ensures your data is processed locally in your browser and never transmitted to our servers. This eliminates the risk of data being logged, stored, or intercepted. Unlike server-based tools, our tools provide complete privacy and security for your AI writing assistance.",
-    },
-    {
-      question: "Can I use the AI writing assistance for professional purposes?",
-      answer:
-        "Yes! Our AI writing tools create professional writing results that follow ethical guidelines. These results are suitable for professional use in content creation, writing improvement, and any other application requiring AI writing assistance.",
+        "The writing models run as a managed service. Text is sent securely for processing and is not used to train models or retained long-term.",
     },
   ];
 }

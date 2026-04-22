@@ -257,7 +257,7 @@ function SplitPdfContent() {
         onError={handleError}
         multiple={false}
         maxFiles={1}
-        maxFileSize={100 * 1024 * 1024}
+        maxFileSize={1024 * 1024 * 1024} // 1GB
         className="mb-6 sm:mb-8"
       />
 

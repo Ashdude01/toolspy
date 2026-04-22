@@ -1,7 +1,8 @@
-import { SoftwareApplicationSchema, AggregateRating, Offer } from '../schema-types'
+import { SoftwareApplicationSchema, Offer } from '../schema-types'
 import { Tool, ToolCategory } from '@/lib/tools-data'
 import { siteConfig } from '@/lib/config'
 import { generateOrganizationSchema } from './organization-schema'
+import { getToolRatingSummary } from '@/lib/tool-reviews'
 
 export function generateSoftwareSchema(tool: Tool): SoftwareApplicationSchema {
   const organization = generateOrganizationSchema()
@@ -12,14 +13,8 @@ export function generateSoftwareSchema(tool: Tool): SoftwareApplicationSchema {
     priceCurrency: 'USD',
     availability: 'https://schema.org/InStock'
   }
-
-  const aggregateRating: AggregateRating = {
-    '@type': 'AggregateRating',
-    ratingValue: '4.8',
-    ratingCount: '2547',
-    bestRating: '5',
-    worstRating: '1'
-  }
+  
+  const ratingSummary = getToolRatingSummary(tool)
 
   return {
     '@context': 'https://schema.org',
@@ -27,12 +22,23 @@ export function generateSoftwareSchema(tool: Tool): SoftwareApplicationSchema {
     name: tool.name,
     description: tool.description,
     url: tool.seo.canonicalUrl,
+    '@id': `${tool.seo.canonicalUrl}#softwareapp`,
     applicationCategory: getApplicationCategory(tool.category),
     operatingSystem: 'Web Browser',
     softwareVersion: '2.0',
     author: organization,
     offers: offer,
-    aggregateRating: aggregateRating,
+    ...(ratingSummary
+      ? {
+          aggregateRating: {
+            '@type': 'AggregateRating',
+            ratingValue: ratingSummary.ratingValue.toString(),
+            reviewCount: ratingSummary.reviewCount.toString(),
+            bestRating: '5',
+            worstRating: '1',
+          },
+        }
+      : {}),
     featureList: tool.tags,
     screenshot: `${siteConfig.url}/images/tools/${tool.slug.replace('/', '')}-screenshot.webp`,
     softwareHelp: {
