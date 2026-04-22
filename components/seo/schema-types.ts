@@ -18,6 +18,7 @@ export interface OrganizationSchema extends BaseSchema {
 
 export interface SoftwareApplicationSchema extends BaseSchema {
   '@type': 'SoftwareApplication'
+  '@id'?: string
   name: string
   description: string
   url: string
@@ -130,6 +131,7 @@ export interface AggregateRating {
   '@type': 'AggregateRating'
   ratingValue: string | number
   ratingCount: string | number
+  reviewCount?: string | number
   bestRating?: string | number
   worstRating?: string | number
 }

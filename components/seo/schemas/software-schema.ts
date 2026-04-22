@@ -33,6 +33,7 @@ export function generateSoftwareSchema(tool: Tool): SoftwareApplicationSchema {
           aggregateRating: {
             '@type': 'AggregateRating',
             ratingValue: ratingSummary.ratingValue.toString(),
+            ratingCount: ratingSummary.reviewCount.toString(),
             reviewCount: ratingSummary.reviewCount.toString(),
             bestRating: '5',
             worstRating: '1',
