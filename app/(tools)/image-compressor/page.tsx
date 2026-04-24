@@ -57,6 +57,7 @@ import {
   downloadZip,
 } from "@/lib/utils/file-utils";
 import { scrollToElement } from "@/lib/utils";
+import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
 
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 
@@ -92,6 +93,7 @@ function ImageCompressorContent() {
   const compressionSettingsRef = useRef<HTMLDivElement>(null);
   const searchParams = useSearchParams();
   const [linkImportLoading, setLinkImportLoading] = useState(false);
+  const abortRef = useRef<AbortController | null>(null);
 
   // Extension / long URL lists: ts-images=#... (hash is not sent to server; avoids query length limits)
   useEffect(() => {
@@ -159,6 +161,12 @@ function ImageCompressorContent() {
     setSelectedFiles((prev) => [...prev, ...files]);
     scrollToElement(afterUploadRef, 50);
   };
+
+  useToolImageHandoffImport((files) => {
+    setSelectedFiles((prev) => [...prev, ...files]);
+    scrollToElement(afterUploadRef, 50);
+    showToast("Image loaded from another Toolspy tool", "success");
+  });
 
   // Auto-import images from search params (?images=url or ?images=[url1,url2])
   // Skip if extension_data is present (query or hash) to avoid conflicts
@@ -463,6 +471,9 @@ function ImageCompressorContent() {
       return;
     }
 
+    abortRef.current?.abort();
+    abortRef.current = new AbortController();
+
     setIsCompressing(true);
     setCompressionProgress({
       current: 0,
@@ -494,8 +505,17 @@ function ImageCompressorContent() {
         settings,
         (current, total, currentFile) => {
           setCompressionProgress({ current, total, file: currentFile });
-        }
+        },
+        { signal: abortRef.current.signal }
       );
+
+      if (results.length === 0) {
+        showToast(
+          "No images could be compressed. If you uploaded HEIC/HEIF/SVG or a restricted format, try converting to JPG/PNG first.",
+          "error"
+        );
+        return;
+      }
 
       setCompressedResults(results);
       const totalSaved = results.reduce(
@@ -510,6 +530,10 @@ function ImageCompressorContent() {
       );
       scrollToElement(resultsRef);
     } catch (error) {
+      if (error instanceof DOMException && error.name === "AbortError") {
+        showToast("Compression cancelled", "info");
+        return;
+      }
       showToast(
         "Compression failed: " +
           (error instanceof Error ? error.message : "Unknown error"),
@@ -517,7 +541,12 @@ function ImageCompressorContent() {
       );
     } finally {
       setIsCompressing(false);
+      abortRef.current = null;
     }
+  };
+
+  const cancelCompression = () => {
+    abortRef.current?.abort();
   };
 
   const downloadSingle = (result: CompressionResult) => {
@@ -1108,6 +1137,7 @@ function ImageCompressorContent() {
         total={compressionProgress.total}
         currentFile={compressionProgress.file}
         description="Please wait while we compress your images..."
+        onCancel={cancelCompression}
       />
 
     </div>

@@ -51,6 +51,7 @@ import {
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
+import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
 
 interface ProcessedFile {
   id: string;
@@ -159,6 +160,11 @@ function ImageResizerContent() {
       reader.readAsDataURL(file);
     });
   };
+
+  useToolImageHandoffImport((selectedFiles) => {
+    handleFileSelect(selectedFiles);
+    showToast("Image loaded from another Toolspy tool", "success");
+  });
 
   const handleFileUploadError = (error: string) => {
     showToast(error, "error");

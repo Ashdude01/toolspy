@@ -11,6 +11,7 @@ interface ProgressModalProps {
   total: number;
   currentFile?: string;
   description?: string;
+  onCancel?: () => void;
 }
 
 // Function to intelligently truncate filename
@@ -53,13 +54,19 @@ export function ProgressModal({
   current,
   total,
   currentFile,
-  description
+  description,
+  onCancel,
 }: ProgressModalProps) {
   const percentage = total > 0 ? Math.round((current / total) * 100) : 0;
   const displayFilename = currentFile ? truncateFilename(currentFile, 35) : '';
 
   return (
-    <Dialog open={isOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) onCancel?.();
+      }}
+    >
       <DialogContent className="sm:max-w-md max-w-[90vw]">
         <DialogHeader>
           <DialogTitle className="flex items-center space-x-2 pr-6">

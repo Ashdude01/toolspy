@@ -34,6 +34,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
 
 interface ConversionResult {
   file: File;
@@ -192,6 +193,12 @@ function ImageConverterContent() {
   const handleFileSelect = (files: File[]) => {
     setSelectedFiles((prev) => [...prev, ...files]);
   };
+
+  useToolImageHandoffImport((files) => {
+    setSelectedFiles((prev) => [...prev, ...files]);
+    showToast("Image loaded from another Toolspy tool", "success");
+    setTimeout(() => scrollToElement(selectedSectionRef, 50), 200);
+  });
 
   const handleError = (error: string) => {
     showToast(error, "error");

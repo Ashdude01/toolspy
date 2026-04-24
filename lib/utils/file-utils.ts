@@ -201,6 +201,21 @@ export async function copyToClipboard(text: string): Promise<void> {
   }
 }
 
+/** Best-effort clipboard write; no download fallback (for cross-tool navigation handoff). */
+export async function tryCopyImageToClipboard(blob: Blob): Promise<boolean> {
+  try {
+    if (navigator.clipboard && navigator.clipboard.write && window.isSecureContext) {
+      const pngBlob = await convertToPng(blob);
+      const clipboardItem = new ClipboardItem({ "image/png": pngBlob });
+      await navigator.clipboard.write([clipboardItem]);
+      return true;
+    }
+  } catch {
+    // ignore
+  }
+  return false;
+}
+
 export async function copyImageToClipboard(blob: Blob): Promise<void> {
   try {
     // Check if clipboard API is available and we're in secure context

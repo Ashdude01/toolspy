@@ -146,6 +146,34 @@ export const tools: Tool[] = [
     posterImage: '/images/tools/image-compressor.webp'
   },
   {
+    id: 'online-image-cropper',
+    name: 'Online Image Cropper',
+    slug: 'online-image-cropper',
+    description: 'Crop images by free selection, aspect ratio, or predefined shapes like circle and polygons — runs in your browser.',
+    category: 'image-tools',
+    icon: '✂️',
+    tags: ['crop image', 'image cropper', 'aspect ratio crop', 'circle crop', 'shape crop', 'online', 'browser'],
+    path: '/online-image-cropper',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Online Image Cropper',
+      title: 'Online Image Cropper – Freeform, Aspect Ratio & Shape Crop | Toolspy',
+      slug: '/online-image-cropper',
+      description:
+        'Crop images in your browser: freeform selection, fixed aspect ratios, or shapes like circle and polygons. No upload required—download PNG/WebP/JPEG.',
+      tags: [
+        'online image cropper',
+        'crop image online',
+        'crop photo',
+        'circle image cropper',
+        'aspect ratio crop',
+        'square crop',
+        'crop png',
+      ],
+    }),
+    posterImage: '/images/main.webp',
+  },
+  {
     id: 'image-converter',
     name: 'Image Converter',
     slug: 'image-converter',

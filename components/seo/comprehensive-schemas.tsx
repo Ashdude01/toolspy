@@ -268,7 +268,7 @@ export function WebPageSchema({
   title, 
   description, 
   url, 
-  image = `${siteConfig.url}/main.webp`,
+  image = `/logo/facebook_photo_downloader.png`,
   breadcrumbs 
 }: WebPageSchemaProps) {
   const baseUrl = siteConfig.url
