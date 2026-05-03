@@ -130,7 +130,7 @@ export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
           </div>
         </div>
 
-        <div className="relative rounded-2xl border bg-muted/30 overflow-hidden">
+        <div className="relative overflow-hidden">
           <Image
             src={data.posterImage || "/images/main.webp"}
             width={1600}
@@ -239,9 +239,9 @@ export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
       {/* Use */}
       <section className="space-y-8" id="use">
         <SectionHeader icon={Globe} title="How to use" />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div className="flex gap-4 w-full">
           {data.howToUse.map((g) => (
-            <Card key={g.title}>
+            <Card key={g.title} className="w-full">
               <CardHeader>
                 <CardTitle className="text-base">{g.title}</CardTitle>
                 <CardDescription>Quick workflow</CardDescription>

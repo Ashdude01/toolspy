@@ -50,7 +50,7 @@ export const extensions: ExtensionLandingData[] = [
     name: "Image Compressor Extension",
     shortDescription:
       "Detect images on the current page, select what you need, and compress with Toolspy-style presets and advanced options.",
-    posterImage: "/images/main.webp",
+    posterImage: "/logo/image_compressor_extn.png",
     primaryToolPath: "/image-compressor",
     highlights: [
       "Auto-detect images on the current page",
@@ -137,10 +137,10 @@ export const extensions: ExtensionLandingData[] = [
     ],
     downloads: [
       { browser: "chrome", label: "Chrome", href: "/downloads/extensions/image-compressor/chrome.zip" },
-      { browser: "edge", label: "Edge", href: "/downloads/extensions/image-compressor/edge.zip" },
-      { browser: "firefox", label: "Firefox", href: "/downloads/extensions/image-compressor/firefox.zip" },
+      { browser: "edge", label: "Edge", href: "https://microsoftedge.microsoft.com/addons/detail/toolspy-image-compressor/jobmkodfjbikokkbifeddbnmdmbifcgp" },
+      { browser: "firefox", label: "Firefox", href: "https://addons.mozilla.org/en-US/firefox/addon/toolspy-image-compressor" },
       { browser: "safari", label: "Safari", href: "/downloads/extensions/image-compressor/safari.zip" },
-      { browser: "opera", label: "Opera", href: "/downloads/extensions/image-compressor/opera.zip" },
+      { browser: "opera", label: "Opera", href: "https://addons.opera.com/en/extensions/details/toolspy-image-compressor/" },
     ],
     reviews: [
       {
@@ -340,8 +340,8 @@ export const extensions: ExtensionLandingData[] = [
     ],
     downloads: [
       { browser: "chrome", label: "Chrome", href: "/downloads/extensions/facebook-photo-downloader/chrome.zip" },
-      { browser: "edge", label: "Edge", href: "/downloads/extensions/facebook-photo-downloader/edge.zip" },
-      { browser: "firefox", label: "Firefox", href: "/downloads/extensions/facebook-photo-downloader/firefox.zip" },
+      { browser: "edge", label: "Edge", href: "https://microsoftedge.microsoft.com/addons/detail/facebook-photo-downloader/lakkbdacjloafgcbikclebmblpdephoi" },
+      { browser: "firefox", label: "Firefox", href: "https://addons.mozilla.org/en-US/firefox/addon/facebook-photo-downloader/" },
       { browser: "safari", label: "Safari", href: "/downloads/extensions/facebook-photo-downloader/safari.zip" },
       { browser: "opera", label: "Opera", href: "/downloads/extensions/facebook-photo-downloader/opera.zip" },
     ],
@@ -454,7 +454,7 @@ export const extensions: ExtensionLandingData[] = [
     name: "Image Downloader",
     shortDescription:
       "Download images from any website. Scan the page, select thumbnails, download selected or as a ZIP, or open in Toolspy to compress/convert.",
-    posterImage: "/images/main.webp",
+    posterImage: "https://res.cloudinary.com/drby9raee/image/upload/v1777785656/toolspy-compressed-1_37_f6pibe.webp",
     primaryToolPath: "/image-compressor",
     highlights: [
       "Works on most sites (depends on restrictions)",
@@ -541,8 +541,8 @@ export const extensions: ExtensionLandingData[] = [
     ],
     downloads: [
       { browser: "chrome", label: "Chrome", href: "/downloads/extensions/image-downloader/chrome.zip" },
-      { browser: "edge", label: "Edge", href: "/downloads/extensions/image-downloader/edge.zip" },
-      { browser: "firefox", label: "Firefox", href: "/downloads/extensions/image-downloader/firefox.zip" },
+      { browser: "edge", label: "Edge", href: "https://microsoftedge.microsoft.com/addons/detail/image-downloader/ibgopgamdpjbjijnbfijmbojckelgdpp" },
+      { browser: "firefox", label: "Firefox", href: "https://addons.mozilla.org/en-US/firefox/addon/image-downloader-zip-convert/" },
       { browser: "safari", label: "Safari", href: "/downloads/extensions/image-downloader/safari.zip" },
       { browser: "opera", label: "Opera", href: "/downloads/extensions/image-downloader/opera.zip" },
     ],
