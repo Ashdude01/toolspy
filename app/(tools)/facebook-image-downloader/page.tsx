@@ -11,7 +11,7 @@ import { useToast, ToastProvider } from "@/components/tools/shared/toast-provide
 import { useSearchParams } from "next/navigation";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { extractFacebookImages, type FacebookImageInfo } from "@/lib/utils/facebook-extractor";
-import { formatFileSize } from "@/lib/utils/file-utils";
+import { FacebookPhotoExtensionCta } from "@/components/tools/facebook-photo-extension-cta";
 
 export default function FacebookImageDownloaderPage() {
   return (
@@ -30,6 +30,7 @@ function Content() {
   const [imageInfo, setImageInfo] = useState<FacebookImageInfo | null>(null);
   const [loading, setLoading] = useState(false);
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null);
+  const [downloadFailedIndices, setDownloadFailedIndices] = useState<Set<number>>(() => new Set());
 
   useEffect(() => {
     const u = params?.get("url");
@@ -45,6 +46,7 @@ function Content() {
     setLoading(true);
     setImageInfo(null);
     setDownloadingIndex(null);
+    setDownloadFailedIndices(new Set());
 
     try {
       const result = await extractFacebookImages(url);
@@ -91,7 +93,14 @@ function Content() {
 
       setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
       showToast("Image downloaded successfully!", "success");
+      setDownloadFailedIndices((prev) => {
+        if (!prev.has(index)) return prev;
+        const next = new Set(prev);
+        next.delete(index);
+        return next;
+      });
     } catch {
+      setDownloadFailedIndices((prev) => new Set(prev).add(index));
       showToast("Proxy download failed. Opening image in new tab...", "info");
       window.open(imgUrl, "_blank");
     } finally {
@@ -103,7 +112,7 @@ function Content() {
     if (e.key === "Enter" && !loading) {
       analyze();
     }
-  }
+  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
@@ -211,6 +220,25 @@ function Content() {
                 </div>
               </div>
             </div>
+                <FacebookPhotoExtensionCta variant="recovery" />
+          </CardContent>
+        </Card>
+      )}
+
+      {/* No images returned (no error string from extractor) */}
+      {imageInfo && !loading && imageInfo.images.length === 0 && !imageInfo.error && (
+        <Card className="mb-6 sm:mb-8">
+          <CardContent className="py-8">
+            <div className="flex items-start gap-3">
+              <AlertCircle className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" aria-hidden="true" />
+              <div className="flex-1 space-y-1">
+                <h3 className="font-semibold text-sm sm:text-base">No images found</h3>
+                <p className="text-xs sm:text-sm text-muted-foreground">
+                  No public image links here—try another URL, or use the extension below on Facebook.
+                </p>
+                <FacebookPhotoExtensionCta variant="recovery" />
+              </div>
+            </div>
           </CardContent>
         </Card>
       )}
@@ -237,6 +265,7 @@ function Content() {
                 onClick={() => {
                   setImageInfo(null);
                   setUrl("");
+                  setDownloadFailedIndices(new Set());
                 }}
               >
                 <X className="h-4 w-4 mr-2" />
@@ -308,6 +337,9 @@ function Content() {
                         Open
                       </Button>
                     </div>
+                    {downloadFailedIndices.has(idx) ? (
+                      <FacebookPhotoExtensionCta variant="download-fail" imageIndex={idx} />
+                    ) : null}
                   </div>
                 </div>
               ))}
@@ -325,6 +357,7 @@ function Content() {
         </Card>
       )}
 
+      <FacebookPhotoExtensionCta variant="persistent" />
     </div>
   );
 }

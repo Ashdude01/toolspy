@@ -152,7 +152,54 @@ export function Header({ onSearch }: HeaderProps) {
                 About
               </Link>
 
-              
+               {/* Desktop Extensions Dropdown */}
+               <div
+                className="relative"
+                onMouseEnter={() => setIsDesktopExtensionsOpen(true)}
+                onMouseLeave={() => setIsDesktopExtensionsOpen(false)}
+              >
+                <button
+                  className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1"
+                  aria-expanded={isDesktopExtensionsOpen}
+                  aria-haspopup="true"
+                  aria-label="Extensions menu"
+                >
+                  Extensions
+                  <ChevronDown className="h-3 w-3" />
+                </button>
+
+                <div
+                  className={`absolute top-8 left-1/2 -translate-x-1/2 mt-2 w-80 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
+                    isDesktopExtensionsOpen ? "opacity-100 visible" : "opacity-0 invisible"
+                  }`}
+                  role="menu"
+                  aria-label="Extensions menu"
+                >
+                  <div className="p-2">
+                    <Link
+                      href="/extensions/image-compressor"
+                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
+                      onClick={closeDesktopExtensions}
+                    >
+                      Image Compressor
+                    </Link>
+                    <Link
+                      href="/extensions/facebook-photo-downloader"
+                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
+                      onClick={closeDesktopExtensions}
+                    >
+                      Facebook Photo Downloader
+                    </Link>
+                    <Link
+                      href="/extensions/image-downloader"
+                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
+                      onClick={closeDesktopExtensions}
+                    >
+                      Image Downloader
+                    </Link>
+                  </div>
+                </div>
+              </div>
 
               {/* Desktop Tools Dropdown */}
               <div 
@@ -171,7 +218,7 @@ export function Header({ onSearch }: HeaderProps) {
                 </button>
 
                 <div 
-                  className={`absolute top-8 left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
+                  className={`absolute top-8 -left-3/2 -translate-x-1/2 mt-2 w-[90vw] min-w-96 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
                     isDesktopDropdownOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
                   }`}
                   role="menu"
@@ -220,54 +267,7 @@ export function Header({ onSearch }: HeaderProps) {
                 </div>
               </div>
 
-              {/* Desktop Extensions Dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setIsDesktopExtensionsOpen(true)}
-                onMouseLeave={() => setIsDesktopExtensionsOpen(false)}
-              >
-                <button
-                  className="text-sm font-medium transition-colors hover:text-primary flex items-center gap-1"
-                  aria-expanded={isDesktopExtensionsOpen}
-                  aria-haspopup="true"
-                  aria-label="Extensions menu"
-                >
-                  Extensions
-                  <ChevronDown className="h-3 w-3" />
-                </button>
-
-                <div
-                  className={`absolute top-8 left-1/2 -translate-x-1/2 mt-2 w-80 bg-background border rounded-lg shadow-lg transition-all duration-200 z-50 ${
-                    isDesktopExtensionsOpen ? "opacity-100 visible" : "opacity-0 invisible"
-                  }`}
-                  role="menu"
-                  aria-label="Extensions menu"
-                >
-                  <div className="p-2">
-                    <Link
-                      href="/extensions/image-compressor"
-                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
-                      onClick={closeDesktopExtensions}
-                    >
-                      Image Compressor
-                    </Link>
-                    <Link
-                      href="/extensions/facebook-photo-downloader"
-                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
-                      onClick={closeDesktopExtensions}
-                    >
-                      Facebook Photo Downloader
-                    </Link>
-                    <Link
-                      href="/extensions/image-downloader"
-                      className="block px-3 py-2 text-sm hover:bg-accent rounded-md"
-                      onClick={closeDesktopExtensions}
-                    >
-                      Image Downloader
-                    </Link>
-                  </div>
-                </div>
-              </div>
+             
 
               <Link
                 href="/careers"
