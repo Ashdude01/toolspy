@@ -35,7 +35,7 @@ export function FAQ({
         <CardHeader className="text-center p-0 mb-5">
           <CardTitle className="flex items-center justify-start gap-3 md:justify-center text-xl md:text-3xl">
             <HelpCircle className="h-8 w-8 text-indigo-600" />
-            {title}
+            <h2>{title}</h2>
           </CardTitle>
           {description && (
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">

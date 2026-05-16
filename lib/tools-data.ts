@@ -466,6 +466,34 @@ export const tools: Tool[] = [
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/heic-pdf_mq0spy.webp'
   },
   {
+    id: 'image-to-pdf',
+    name: 'Image to PDF Converter',
+    slug: 'image-to-pdf',
+    description: 'Convert JPG, PNG, WebP and other images into a single PDF online',
+    category: 'pdf-tools',
+    icon: '📄',
+    tags: ['image', 'pdf', 'convert', 'jpg', 'png', 'merge'],
+    path: '/image-to-pdf',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Image to PDF Converter',
+      title: 'Image to PDF Converter – Free & Fast Online Tool | ToolSpy',
+      slug: '/image-to-pdf',
+      description:
+        "Convert images to PDF instantly with ToolSpy's free online image to PDF converter. No sign-up needed. Merge JPG, PNG, WebP files into one polished PDF in seconds.",
+      tags: [
+        'image to pdf',
+        'convert image to pdf',
+        'jpg to pdf',
+        'png to pdf',
+        'merge images to pdf',
+        'image to pdf converter free',
+      ],
+    }),
+    posterImage:
+      'https://res.cloudinary.com/drby9raee/image/upload/merge-pdf_y7rcdf.webp',
+  },
+  {
     id: 'split-pdf',
     name: 'Split PDF Files',
     slug: 'split-pdf',

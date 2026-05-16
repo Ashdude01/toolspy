@@ -80,5 +80,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     }));
 
-  return [...staticPages, ...categoryPages, ...toolPages];
+  // Browser extension landing pages (app/(extension)/extensions/*)
+  const extensionPages: MetadataRoute.Sitemap = [
+    {
+      url: `${baseUrl}/extensions/image-compressor`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/extensions/image-downloader`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    },
+    {
+      url: `${baseUrl}/extensions/facebook-photo-downloader`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.75,
+    },
+  ];
+
+  const all: MetadataRoute.Sitemap = [
+    ...staticPages,
+    ...categoryPages,
+    ...toolPages,
+    ...extensionPages,
+  ];
+
+  // De-dupe by URL (e.g. /image-to-pdf is both a registered tool and may be listed explicitly elsewhere)
+  const seen = new Set<string>();
+  return all.filter((entry) => {
+    if (seen.has(entry.url)) return false;
+    seen.add(entry.url);
+    return true;
+  });
 } 
