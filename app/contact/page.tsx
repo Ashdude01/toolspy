@@ -233,28 +233,6 @@ export default function ContactPage() {
           </Card>
         </div>
       </section>
-
-      {/* Community Section */}
-      <section className="space-y-6">
-        <Card className="p-8 bg-primary/5">
-          <div className="text-center space-y-4">
-            <div className="flex justify-center">
-              <Github className="h-12 w-12 text-primary" />
-            </div>
-            <h2 className="text-2xl font-bold">Join Our Community</h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Toolspy is open source and community-driven. Join our GitHub community to contribute, 
-              report issues, or just follow along with development.
-            </p>
-            <Button asChild>
-              <Link href="https://github.com/toolspy" target="_blank" rel="noopener noreferrer">
-                <Github className="mr-2 h-4 w-4" />
-                View on GitHub
-              </Link>
-            </Button>
-          </div>
-        </Card>
-      </section>
       </div>
     </>
   );
