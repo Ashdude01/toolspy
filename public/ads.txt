@@ -1,4 +1,3 @@
 #Ads.txt toolspy.net
 
-# 11201
-google.com, pub-8490028444671399, DIRECT, f08c47fec0942fa0
+google.com, pub-2872990999715744, DIRECT, f08c47fec0942fa0
