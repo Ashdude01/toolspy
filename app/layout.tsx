@@ -98,6 +98,7 @@ export default function RootLayout({
         <meta name="theme-color" content="#3b82f6" />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="google-adsense-account" content="ca-pub-2872990999715744">
         <meta name="apple-mobile-web-app-title" content="Toolspy" />
         <meta name="mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" sizes="180x180" href="/icon-192.png" />
