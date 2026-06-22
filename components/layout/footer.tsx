@@ -62,6 +62,7 @@ export function Footer() {
       title: "Company",
       links: [
         { href: "/about", label: "About Us" },
+        { href: "/digital-marketing", label: "Digital Marketing" },
         { href: "/contact", label: "Contact" },
         { href: "/privacy", label: "Privacy Policy" },
         { href: "/terms", label: "Terms of Service" },

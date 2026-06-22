@@ -378,7 +378,6 @@ export function Header({ onSearch }: HeaderProps) {
               >
                 About
               </Link>
-
               
 
               {/* Tools Section */}
@@ -504,6 +503,14 @@ export function Header({ onSearch }: HeaderProps) {
                 </div>
               </div>
 
+              <Link
+                href="/digital-marketing"
+                className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
+                onClick={closeMenu}
+              >
+                Digital Marketing
+              </Link>
+              
               {/* Careers Link */}
               <Link
                 href="/careers"
