@@ -1,363 +1,630 @@
-"use client";
+import Link from "next/link";
+import Downloader from "./Downloader";
+import { cn } from "@/lib/utils";
 
-import { useEffect, useState } from "react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
-import { Download, Link2, Search, Loader2, AlertCircle, CheckCircle2, Image as ImageIcon, X } from "lucide-react";
-import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
-import { useSearchParams } from "next/navigation";
-import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
-import { extractFacebookImages, type FacebookImageInfo } from "@/lib/utils/facebook-extractor";
-import { FacebookPhotoExtensionCta } from "@/components/tools/facebook-photo-extension-cta";
+const CONTAINER = "mx-auto w-full max-w-7xl px-4 sm:px-6";
 
-export default function FacebookImageDownloaderPage() {
+const HOW_TO_STEPS = [
+  {
+    title: "Open the Facebook post or photo",
+    desc: "Navigate to the public Facebook post, photo page, or profile you want to save. Make sure the content is publicly visible — posts that require login cannot be downloaded.",
+  },
+  {
+    title: "Copy the URL from your browser address bar",
+    desc: 'Click the address bar and copy the full URL. On mobile, tap the share icon → "Copy link". Works with facebook.com/posts/…, facebook.com/photo/?fbid=…, or a direct image URL.',
+  },
+  {
+    title: "Paste the link — the tool auto-analyzes it",
+    desc: 'Paste the copied URL into the input box above. The downloader detects it automatically and starts analyzing. You can also click "Analyze" manually to start.',
+  },
+  {
+    title: "Download photos in full size",
+    desc: 'Click "Download Image" to save the selected photo, or "Download All" to grab every image in a gallery at once. Photos are saved at the highest resolution Facebook exposes.',
+  },
+];
+
+const STEPS = [
+  {
+    n: "1",
+    title: "Paste the link",
+    desc: "Copy the URL of a public Facebook post or photo and paste it into the box above.",
+  },
+  {
+    n: "2",
+    title: "Analyze",
+    desc: "We scan the page and pull out every image we can find in the post.",
+  },
+  {
+    n: "3",
+    title: "Pick your photos",
+    desc: "Browse the detected images and choose the ones you actually want.",
+  },
+  {
+    n: "4",
+    title: "Download",
+    desc: "Save them in full size and use them wherever you need.",
+  },
+];
+
+const TYPES = [
+  {
+    title: "Public post URL",
+    desc: "The most reliable option. Works with standard post links that anyone can open without logging in.",
+    useCase: "Public posts & galleries",
+    precision: "Best success rate",
+    example: "facebook.com/username/posts/…",
+  },
+  {
+    title: "Photo page URL",
+    desc: "Links that open a single photo and include an fbid parameter in the address.",
+    useCase: "A specific public photo",
+    precision: "Good",
+    example: "facebook.com/photo/?fbid=…",
+  },
+  {
+    title: "Direct image link",
+    desc: "Already have the image's direct .jpg, .png, or .webp URL? Drop it in and download it straight away.",
+    useCase: "Save a single image fast",
+    precision: "High",
+    example: "…/image.jpg",
+  },
+];
+
+const DOWNLOAD_TYPES = [
+  {
+    title: "Photos from posts",
+    desc: "Download any photo or image from a public Facebook post in one click — single shots or whole galleries.",
+  },
+  {
+    title: "Profile pictures (DP)",
+    desc: "Save a public Facebook profile photo at the largest size available — a quick Facebook profile pic downloader and DP download.",
+  },
+  {
+    title: "Cover photos",
+    desc: "Paste a public profile or page link to download a Facebook cover photo along with any other images.",
+  },
+  {
+    title: "HD & full-size images",
+    desc: "When Facebook exposes a full-size version, you can download HD photos from Facebook at the highest available resolution.",
+  },
+];
+
+const FEATURES = [
+  {
+    title: "No signup needed",
+    desc: "Use the tool without creating an account or installing anything.",
+  },
+  {
+    title: "Fast workflow",
+    desc: "Paste a link, analyze, and download the detected images in a few clicks.",
+  },
+  {
+    title: "Full size when available",
+    desc: "If Facebook exposes a full-size version, that's exactly what you download.",
+  },
+  {
+    title: "Works in your browser",
+    desc: "Runs on modern browsers across desktop and mobile.",
+  },
+];
+
+const TABLE = [
+  { f: "Public post URLs", ok: true, note: "Standard facebook.com/…/posts/… links." },
+  { f: "Photo page URLs", ok: true, note: "Handles /photo/?fbid=… public photos." },
+  { f: "Direct image URLs", ok: true, note: "JPG, PNG, WebP and similar formats." },
+  { f: "Multiple images per post", ok: true, note: "Gallery posts list each detected image." },
+  { f: "Private posts", ok: false, note: "Login-required posts can't be extracted." },
+  { f: "Account / install required", ok: false, note: "Everything runs in your browser." },
+  { f: "Mobile-friendly", ok: true, note: "Fully responsive layout." },
+];
+
+const RELATED_TOOLS = [
+  {
+    href: "/instagram-reels-downloader",
+    title: "Instagram Reels Downloader",
+    desc: "Save Instagram Reels and videos in high quality. Paste a reel URL and download instantly.",
+    label: "Instagram",
+  },
+  {
+    href: "/ai-image-enhancer",
+    title: "AI Image Enhancer",
+    desc: "Upscale, unblur, or restore downloaded Facebook photos with AI — get the best quality from any image.",
+    label: "AI Tool",
+  },
+  {
+    href: "/ai-background-remover",
+    title: "Background Remover",
+    desc: "Remove the background from a downloaded profile picture or any image with one click.",
+    label: "AI Tool",
+  },
+  {
+    href: "/image-compressor",
+    title: "Image Compressor",
+    desc: "Compress downloaded Facebook photos to reduce file size without visible quality loss.",
+    label: "Image",
+  },
+  {
+    href: "/image-resizer",
+    title: "Image Resizer",
+    desc: "Resize downloaded photos to exact dimensions — perfect for profile pictures, wallpapers, or web use.",
+    label: "Image",
+  },
+  {
+    href: "/instagram-private-viewer",
+    title: "Instagram DP Viewer",
+    desc: "View and download public Instagram profile pictures at full size — no app or account needed.",
+    label: "Instagram",
+  },
+];
+
+const FAQS = [
+  {
+    q: "Is the Facebook image downloader free?",
+    a: "Yes. It's completely free to use. There's no signup, no software to install, and no watermarks on your downloads.",
+  },
+  {
+    q: "Which Facebook links work?",
+    a: "You can use public post URLs, photo page links that contain an fbid, and direct image links ending in .jpg, .png, or .webp.",
+  },
+  {
+    q: "Can I download photos from private posts?",
+    a: "No. If a post requires you to log in to see it, the images can't be pulled. The tool only works with content that's publicly visible.",
+  },
+  {
+    q: "Can it download more than one photo at once?",
+    a: 'Yes. When a post contains a gallery, every photo shows up separately so you can grab them one at a time or all together using "Download All".',
+  },
+  {
+    q: "Do I need an account or an app?",
+    a: "No. Everything runs in your browser — there's nothing to download or sign up for.",
+  },
+  {
+    q: "Is it safe to use?",
+    a: "Yes. Images are fetched directly in your browser. Please only download photos you have permission to use.",
+  },
+  {
+    q: "Can I download a Facebook profile picture?",
+    a: "Yes. Paste a public profile link and the tool works as a Facebook profile pic downloader — it saves the profile photo (DP) at the largest size that's publicly available. Profile pictures on private accounts that require login can't be downloaded.",
+  },
+  {
+    q: "Can I download HD or full-size Facebook photos?",
+    a: "Yes. Whenever Facebook provides a full-size version of an image, you can download HD photos from Facebook at the highest resolution available for that link.",
+  },
+  {
+    q: "Can I download a Facebook cover photo?",
+    a: "Yes. Paste the public profile or page URL and you can download the Facebook cover photo just like any other image in a post.",
+  },
+  {
+    q: "Is there a Chrome extension?",
+    a: "Yes. If you'd rather save images while you browse, our Chrome Facebook photo downloader extension lets you scan and download pictures in one click.",
+  },
+  {
+    q: "How do I download photos from a Facebook group?",
+    a: "If the group is public, paste the post URL and the tool will extract the images. Private group posts require login and cannot be downloaded — only publicly accessible content works.",
+  },
+  {
+    q: "Can I download all photos from a Facebook album?",
+    a: "Yes, when an album or gallery post is publicly accessible, the tool detects all images in it. Use the \"Download All\" button to save every photo from the album in one go.",
+  },
+  {
+    q: "Does it work on mobile (Android and iPhone)?",
+    a: "Yes. The tool is fully responsive and works in any modern mobile browser. On Android or iPhone, open your browser, paste the Facebook link, and download as usual. No app installation needed.",
+  },
+  {
+    q: "Why can't I download this photo?",
+    a: "The most common reasons are: (1) the post is private or requires login, (2) the link format isn't supported — try using the direct post URL instead of a shared link, (3) Facebook may have changed the page structure. If downloads fail, the tool will open the image in a new tab as a fallback.",
+  },
+  {
+    q: "Is it legal to download Facebook photos?",
+    a: "Downloading publicly available Facebook photos is technically possible with this tool, but legality depends on your intended use. Saving photos for personal use is generally fine. Republishing, selling, or using someone else's photos commercially without permission may violate copyright law and Facebook's Terms of Service. Always respect the original creator's rights.",
+  },
+];
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: FAQS.map((f) => ({
+    "@type": "Question",
+    name: f.q,
+    acceptedAnswer: { "@type": "Answer", text: f.a },
+  })),
+};
+
+const appJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  name: "Facebook Image Downloader",
+  applicationCategory: "MultimediaApplication",
+  operatingSystem: "Any (web browser)",
+  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+  url: "https://toolspy.net/facebook-image-downloader",
+};
+
+const howToJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "HowTo",
+  name: "How to Download Facebook Photos",
+  description:
+    "Download photos from public Facebook posts, profile pictures, and cover photos in HD quality — no app or account required.",
+  step: HOW_TO_STEPS.map((s, i) => ({
+    "@type": "HowToStep",
+    position: i + 1,
+    name: s.title,
+    text: s.desc,
+  })),
+  tool: [{ "@type": "HowToTool", name: "Facebook Image Downloader — toolspy.net" }],
+};
+
+const breadcrumbJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: "Home", item: "https://toolspy.net" },
+    {
+      "@type": "ListItem",
+      position: 2,
+      name: "Facebook Image Downloader",
+      item: "https://toolspy.net/facebook-image-downloader",
+    },
+  ],
+};
+
+function Kicker({ children }: { children: React.ReactNode }) {
   return (
-    <ToolPageWrapper toolSlug="facebook-image-downloader">
-      <ToastProvider>
-        <Content />
-      </ToastProvider>
-    </ToolPageWrapper>
+    <p className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:text-blue-400">
+      {children}
+    </p>
   );
 }
 
-function Content() {
-  const { showToast } = useToast();
-  const params = useSearchParams();
-  const [url, setUrl] = useState("");
-  const [imageInfo, setImageInfo] = useState<FacebookImageInfo | null>(null);
-  const [loading, setLoading] = useState(false);
-  const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null);
-  const [downloadFailedIndices, setDownloadFailedIndices] = useState<Set<number>>(() => new Set());
-
-  useEffect(() => {
-    const u = params?.get("url");
-    if (u) setUrl(u);
-  }, [params]);
-
-  const analyze = async () => {
-    if (!url.trim()) {
-      showToast("Please paste a Facebook post URL", "error");
-      return;
-    }
-
-    setLoading(true);
-    setImageInfo(null);
-    setDownloadingIndex(null);
-    setDownloadFailedIndices(new Set());
-
-    try {
-      const result = await extractFacebookImages(url);
-      setImageInfo(result);
-
-      if (result.images.length > 0) {
-        showToast(`Found ${result.images.length} image(s)`, "success");
-      } else {
-        showToast(result.error || "No images found", "error");
-      }
-    } catch (error) {
-      const errorMessage = error instanceof Error ? error.message : "Failed to extract images";
-      setImageInfo({ images: [], error: errorMessage });
-      showToast(errorMessage, "error");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const downloadImage = async (imgUrl: string, index: number) => {
-    setDownloadingIndex(index);
-    try {
-      // Same-origin proxy avoids FB CDN CORS blocks on direct browser fetch
-      const proxyUrl = `/api/facebook-image-proxy?url=${encodeURIComponent(imgUrl)}`;
-      const response = await fetch(proxyUrl);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch image");
-      }
-
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-
-      const urlExtension = imgUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i)?.[1] || "jpg";
-      const blobExtension = blob.type.split("/")[1]?.split(";")[0] || urlExtension;
-      const extension = blobExtension || urlExtension;
-
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = `facebook-image-${Date.now()}.${extension}`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
-      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
-      showToast("Image downloaded successfully!", "success");
-      setDownloadFailedIndices((prev) => {
-        if (!prev.has(index)) return prev;
-        const next = new Set(prev);
-        next.delete(index);
-        return next;
-      });
-    } catch {
-      setDownloadFailedIndices((prev) => new Set(prev).add(index));
-      showToast("Proxy download failed. Opening image in new tab...", "info");
-      window.open(imgUrl, "_blank");
-    } finally {
-      setDownloadingIndex(null);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !loading) {
-      analyze();
-    }
-  };
-
+function FeatureIcon() {
   return (
-    <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
-      {/* Header */}
-      <div className="text-center mb-6 sm:mb-8 space-y-3">
-        <Badge variant="outline" className="text-xs sm:text-sm">
-          Free • Private • Fast
-        </Badge>
-        <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
-          Facebook Image Downloader
-        </h1>
-        <p className="text-sm sm:text-base lg:text-lg text-muted-foreground max-w-2xl mx-auto px-2">
-          A fast Facebook photo downloader for public posts. Paste the post URL and download images in full quality.
-        </p>
-      </div>
+    <div className="mb-3.5 flex h-9 w-9 items-center justify-center rounded-lg bg-[#1877F2]/10 dark:bg-blue-500/15">
+      <span className="h-3.5 w-3.5 rounded-sm bg-[#1877F2] dark:bg-blue-400" />
+    </div>
+  );
+}
 
-      {/* Input Section */}
-      <Card className="mb-6 sm:mb-8">
-        <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">Paste Post URL</CardTitle>
-          <CardDescription className="text-xs sm:text-sm">
-            Supports public posts, photos, and direct image links
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <Label htmlFor="url" className="text-sm font-medium">Facebook URL</Label>
-            <div className="flex flex-col sm:flex-row gap-2">
-              <Input
-                id="url"
-                placeholder="https://www.facebook.com/photo/?fbid=..."
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                onKeyDown={handleKeyDown}
-                className="flex-1 border"
-                disabled={loading}
-                
-              />
-              <Button 
-                onClick={analyze} 
-                disabled={loading || !url.trim()}
-                className="w-full sm:w-auto min-w-[120px]"
+export default function FacebookImageDownloaderPage() {
+  return (
+    <div className="w-full bg-background text-foreground">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+
+      {/* Hero */}
+      <section className="border-b border-border bg-gradient-to-b from-muted/60 to-background">
+        <div className={cn(CONTAINER, "py-12 text-center sm:py-16")}>
+          <span className="inline-flex items-center rounded-full border border-[#1877F2]/20 bg-[#1877F2]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400">
+            Free • No Signup • Works in Browser
+          </span>
+          <h1 className="mx-auto mt-5 max-w-3xl !pb-0 !text-[2rem] font-extrabold leading-tight tracking-tight sm:!text-4xl lg:!text-5xl">
+            Facebook Image Downloader
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+            Download full-size photos, profile pictures, and cover photos from public Facebook posts
+            in HD. Paste a link — no app to install, no account needed, everything runs in your
+            browser.
+          </p>
+
+          <div className="mt-8 w-full">
+            <Downloader />
+          </div>
+
+          <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
+            {[
+              "No signup needed",
+              "Runs in your browser",
+              "Public posts only",
+              "HD quality",
+            ].map((item) => (
+              <span
+                key={item}
+                className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
               >
-                {loading ? (
-                  <>
-                    <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                    Analyzing...
-                  </>
-                ) : (
-                  <>
-                    <Search className="h-4 w-4 mr-2" />
-                    Analyze
-                  </>
-                )}
-              </Button>
-            </div>
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                {item}
+              </span>
+            ))}
           </div>
-          
-          {/* URL Examples */}
-          <div className="text-xs sm:text-sm text-muted-foreground space-y-1">
-            <p className="font-medium">Supported URL formats:</p>
-            <ul className="list-disc list-inside space-y-1 ml-2">
-              <li>https://www.facebook.com/photo/?fbid=...</li>
-              <li>https://www.facebook.com/username/posts/...</li>
-              <li>Direct image URLs (jpg, png, webp, etc.)</li>
-            </ul>
-          </div>
-        </CardContent>
-      </Card>
+        </div>
+      </section>
 
-      {/* Loading State */}
-      {loading && (
-        <Card className="mb-6 sm:mb-8">
-          <CardContent className="py-12">
-            <div className="text-center space-y-4">
-              <Loader2 className="h-12 w-12 animate-spin text-primary mx-auto" />
-              <div className="space-y-2">
-                <h3 className="text-base sm:text-lg font-medium">Analyzing URL...</h3>
-                <p className="text-sm sm:text-base text-muted-foreground">
-                  Extracting images from Facebook post
-                </p>
+      {/* How to download Facebook photos — featured snippet target */}
+      <section className="border-t border-border py-14 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>Step-by-step guide</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            How to Download Facebook Photos
+          </h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">
+            Downloading a photo from Facebook takes less than a minute. Here&apos;s exactly how to
+            save any public Facebook image to your device.
+          </p>
+          <ol className="mt-8 max-w-2xl space-y-3">
+            {HOW_TO_STEPS.map((step, i) => (
+              <li
+                key={i}
+                className="flex gap-4 rounded-xl border border-border bg-card p-5 shadow-sm"
+              >
+                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1877F2] text-sm font-extrabold text-white dark:bg-blue-600">
+                  {i + 1}
+                </div>
+                <div>
+                  <p className="font-bold text-foreground">{step.title}</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{step.desc}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* What you can download */}
+      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>What you can download</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Photos, profile pictures, cover photos &amp; more
+          </h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">
+            Whether you need a single image, a Facebook profile picture, or a full cover photo, the
+            downloader pulls the highest-quality version a public link allows.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {DOWNLOAD_TYPES.map((t) => (
+              <div
+                key={t.title}
+                className="rounded-xl border border-border bg-card p-5 shadow-sm"
+              >
+                <FeatureIcon />
+                <h3 className="font-bold text-foreground">{t.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+            ))}
+          </div>
+          <p className="mt-6 text-sm text-muted-foreground">
+            After downloading, you can{" "}
+            <Link
+              href="/image-compressor"
+              className="font-medium text-[#1877F2] hover:underline dark:text-blue-400"
+            >
+              compress the image
+            </Link>
+            ,{" "}
+            <Link
+              href="/image-resizer"
+              className="font-medium text-[#1877F2] hover:underline dark:text-blue-400"
+            >
+              resize it for any platform
+            </Link>
+            , or{" "}
+            <Link
+              href="/ai-background-remover"
+              className="font-medium text-[#1877F2] hover:underline dark:text-blue-400"
+            >
+              remove the background
+            </Link>{" "}
+            — all free tools, right here.
+          </p>
+        </div>
+      </section>
 
-      {/* Error State */}
-      {imageInfo && imageInfo.error && imageInfo.images.length === 0 && (
-        <Card className="mb-6 sm:mb-8 border-destructive">
-          <CardContent className="py-8">
-            <div className="flex items-start space-x-3">
-              <AlertCircle className="h-5 w-5 text-destructive flex-shrink-0 mt-0.5" />
-              <div className="flex-1 space-y-2">
-                <h3 className="font-semibold text-sm sm:text-base">Unable to Extract Images</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">{imageInfo.error}</p>
-                <div className="pt-2 space-y-1 text-xs sm:text-sm text-muted-foreground">
-                  <p className="font-medium">Tips:</p>
-                  <ul className="list-disc list-inside space-y-1 ml-2">
-                    <li>Ensure the post is public and accessible</li>
-                    <li>Try copying the direct image URL instead</li>
-                    <li>Check if the URL is correct and complete</li>
-                    <li>Some private posts cannot be accessed</li>
-                  </ul>
+      {/* How it works */}
+      <section className="border-t border-border py-14 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>How it works</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Download images in four steps
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {STEPS.map((s) => (
+              <div
+                key={s.n}
+                className="flex flex-col gap-2.5 rounded-xl border border-border bg-card p-5 shadow-sm"
+              >
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#1877F2] text-sm font-extrabold text-white dark:bg-blue-600">
+                  {s.n}
+                </div>
+                <p className="font-bold text-foreground">{s.title}</p>
+                <p className="text-sm leading-relaxed text-muted-foreground">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Supported links */}
+      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>Supported links</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Three ways to link a photo
+          </h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">
+            The tool understands the common ways people link to a Facebook image — and tells you how
+            reliable each one is.
+          </p>
+          <div className="mt-8 grid gap-4 lg:grid-cols-3">
+            {TYPES.map((t) => (
+              <div
+                key={t.title}
+                className="flex min-h-[200px] flex-col gap-3 rounded-xl border border-border bg-card p-6 shadow-sm"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-foreground">{t.title}</h3>
+                  <span className="shrink-0 rounded-full bg-[#1877F2]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#1877F2] dark:bg-blue-500/15 dark:text-blue-400">
+                    {t.precision}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+                <div className="mt-auto space-y-2">
+                  <p className="text-sm text-muted-foreground">
+                    <span className="text-muted-foreground/70">Use case: </span>
+                    {t.useCase}
+                  </p>
+                  <code className="block truncate rounded-lg bg-muted px-3 py-2 font-mono text-xs text-foreground">
+                    {t.example}
+                  </code>
                 </div>
               </div>
-            </div>
-                <FacebookPhotoExtensionCta variant="recovery" />
-          </CardContent>
-        </Card>
-      )}
+            ))}
+          </div>
+        </div>
+      </section>
 
-      {/* No images returned (no error string from extractor) */}
-      {imageInfo && !loading && imageInfo.images.length === 0 && !imageInfo.error && (
-        <Card className="mb-6 sm:mb-8">
-          <CardContent className="py-8">
-            <div className="flex items-start gap-3">
-              <AlertCircle className="h-5 w-5 text-muted-foreground flex-shrink-0 mt-0.5" aria-hidden="true" />
-              <div className="flex-1 space-y-1">
-                <h3 className="font-semibold text-sm sm:text-base">No images found</h3>
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  No public image links here—try another URL, or use the extension below on Facebook.
-                </p>
-                <FacebookPhotoExtensionCta variant="recovery" />
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      )}
-
-      {/* Success State - Images Found */}
-      {imageInfo && imageInfo.images.length > 0 && (
-        <Card>
-          <CardHeader>
-            <div className="flex items-center justify-between">
-              <div>
-                <CardTitle className="text-lg sm:text-xl flex items-center space-x-2">
-                  <CheckCircle2 className="h-5 w-5 text-green-600" />
-                  <span>Detected Images ({imageInfo.images.length})</span>
-                </CardTitle>
-                {imageInfo.title && (
-                  <CardDescription className="text-xs sm:text-sm mt-1">
-                    {imageInfo.title}
-                  </CardDescription>
-                )}
-              </div>
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={() => {
-                  setImageInfo(null);
-                  setUrl("");
-                  setDownloadFailedIndices(new Set());
-                }}
+      {/* Why it's easy */}
+      <section className="border-t border-border py-14 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>Why it&apos;s easy</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Built for a short, predictable workflow
+          </h2>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {FEATURES.map((f) => (
+              <div
+                key={f.title}
+                className="rounded-xl border border-border bg-card p-5 shadow-sm"
               >
-                <X className="h-4 w-4 mr-2" />
-                Clear
-              </Button>
-            </div>
-          </CardHeader>
-          <CardContent>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {imageInfo.images.map((img, idx) => (
-                <div
-                  key={idx}
-                  className="group relative border rounded-lg overflow-hidden bg-muted/50 hover:shadow-lg transition-shadow"
-                >
-                  {/* Image Preview */}
-                  <div className="relative aspect-square bg-muted">
-                    <img
-                      src={img}
-                      alt={`Facebook image ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        const target = e.target as HTMLImageElement;
-                        target.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect fill="%23ccc"/><text x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23999">Image not available</text></svg>';
-                      }}
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors" />
-                  </div>
-
-                  {/* Image Info & Actions */}
-                  <div className="p-3 space-y-2">
-                    <div className="flex items-center justify-between text-xs text-muted-foreground">
-                      <span className="flex items-center space-x-1">
-                        <ImageIcon className="h-3 w-3" />
-                        <span>Image {idx + 1}</span>
-                      </span>
-                      <Badge variant="secondary" className="text-xs">
-                        Full Quality
-                      </Badge>
-                    </div>
-
-                    {/* Action Buttons */}
-                    <div className="flex gap-2">
-                      <Button
-                        size="sm"
-                        onClick={() => downloadImage(img, idx)}
-                        disabled={downloadingIndex === idx}
-                        className="flex-1 text-xs sm:text-sm"
-                      >
-                        {downloadingIndex === idx ? (
-                          <>
-                            <Loader2 className="h-3 w-3 sm:h-4 sm:w-4 mr-2 animate-spin" />
-                            <span className="hidden sm:inline">Downloading...</span>
-                            <span className="sm:hidden">...</span>
-                          </>
-                        ) : (
-                          <>
-                            <Download className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-                            Download
-                          </>
-                        )}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => window.open(img, '_blank')}
-                        className="flex-1 text-xs sm:text-sm"
-                      >
-                        <Link2 className="h-3 w-3 sm:h-4 sm:w-4 mr-2" />
-                        Open
-                      </Button>
-                    </div>
-                    {downloadFailedIndices.has(idx) ? (
-                      <FacebookPhotoExtensionCta variant="download-fail" imageIndex={idx} />
-                    ) : null}
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Description */}
-            {imageInfo.description && (
-              <div className="mt-4 p-3 bg-muted rounded-lg">
-                <p className="text-xs sm:text-sm text-muted-foreground">
-                  {imageInfo.description}
-                </p>
+                <FeatureIcon />
+                <h3 className="font-bold text-foreground">{f.title}</h3>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{f.desc}</p>
               </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
+            ))}
+          </div>
+        </div>
+      </section>
 
-      <FacebookPhotoExtensionCta variant="persistent" />
+      {/* Capabilities table */}
+      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>What it supports</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Capabilities &amp; limits
+          </h2>
+          <div className="mt-8 overflow-hidden rounded-xl border border-border bg-card shadow-sm">
+            <div className="hidden grid-cols-[1.4fr_0.7fr_2fr] bg-muted/60 text-xs font-semibold uppercase tracking-wider text-muted-foreground sm:grid">
+              <div className="px-5 py-3.5">Feature</div>
+              <div className="px-5 py-3.5">Supported</div>
+              <div className="px-5 py-3.5">Notes</div>
+            </div>
+            {TABLE.map((r) => (
+              <div
+                key={r.f}
+                className="grid grid-cols-1 gap-1 border-t border-border px-5 py-3.5 first:border-t-0 sm:grid-cols-[1.4fr_0.7fr_2fr] sm:items-center sm:gap-0 sm:py-0"
+              >
+                <div className="py-1 text-sm font-semibold text-foreground sm:px-0 sm:py-3.5">
+                  {r.f}
+                </div>
+                <div className="py-1 sm:py-3.5">
+                  <span
+                    className={cn(
+                      "inline-block rounded-full px-2.5 py-0.5 text-xs font-bold",
+                      r.ok
+                        ? "bg-green-100 text-green-700 dark:bg-green-950 dark:text-green-400"
+                        : "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-400",
+                    )}
+                  >
+                    {r.ok ? "Yes" : "No"}
+                  </span>
+                </div>
+                <div className="py-1 text-sm text-muted-foreground sm:py-3.5">{r.note}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="border-t border-border py-14 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>FAQ</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            Frequently asked questions
+          </h2>
+          <div className="mt-6 max-w-3xl space-y-2">
+            {FAQS.map((f) => (
+              <details
+                key={f.q}
+                className="group rounded-xl border border-border bg-card shadow-sm"
+              >
+                <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+                  <span>{f.q}</span>
+                  <span className="relative h-4 w-4 shrink-0 text-[#1877F2] dark:text-blue-400">
+                    <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded bg-current" />
+                    <span className="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 rounded bg-current transition-transform group-open:rotate-90" />
+                  </span>
+                </summary>
+                <p className="px-5 pb-4 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Related Tools */}
+      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>Related tools</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            More free tools you might need
+          </h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">
+            Download from other platforms, enhance your photos, or edit them — all free, no signup.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {RELATED_TOOLS.map((t) => (
+              <Link
+                key={t.href}
+                href={t.href}
+                className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-foreground group-hover:text-[#1877F2] dark:group-hover:text-blue-400">
+                    {t.title}
+                  </h3>
+                  <span className="shrink-0 rounded-full bg-[#1877F2]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#1877F2] dark:bg-blue-500/15 dark:text-blue-400">
+                    {t.label}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="bg-gradient-to-br from-[#1877F2] to-[#0d56c4] py-14 text-center sm:py-16">
+        <div className={CONTAINER}>
+          <h2 className="!text-2xl font-extrabold tracking-tight text-white sm:!text-3xl">
+            Ready to download Facebook images?
+          </h2>
+          <p className="mx-auto mt-3 max-w-lg text-blue-100">
+            Paste a public post link, analyze, and save the photos you need in just a couple of
+            clicks.
+          </p>
+          <a
+            href="#top"
+            className="mt-6 inline-flex h-12 items-center rounded-lg bg-white px-8 text-sm font-bold text-[#1877F2] shadow transition hover:bg-blue-50"
+          >
+            Start downloading
+          </a>
+        </div>
+      </section>
     </div>
   );
 }
