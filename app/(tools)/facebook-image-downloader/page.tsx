@@ -230,21 +230,6 @@ const FAQS = [
 // emitted once per tool by SchemaManager (via DynamicToolLayout). We do NOT
 // emit a second WebApplication here to avoid duplicate app structured data.
 
-const howToJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "HowTo",
-  name: "How to Download Facebook Photos",
-  description:
-    "Download photos from public Facebook posts, profile pictures, and cover photos in HD quality - no app or account required.",
-  step: HOW_TO_STEPS.map((s, i) => ({
-    "@type": "HowToStep",
-    position: i + 1,
-    name: s.title,
-    text: s.desc,
-  })),
-  tool: [{ "@type": "HowToTool", name: "Facebook Image Downloader - toolspy.net" }],
-};
-
 const breadcrumbJsonLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -280,6 +265,35 @@ export default function FacebookImageDownloaderPage() {
   // in sync and is easy to change in one place in the future.
   const tool = getToolBySlug("facebook-image-downloader");
   const posterImage = tool?.posterImage;
+  const canonicalUrl =
+    tool?.seo?.canonicalUrl || "https://toolspy.net/facebook-image-downloader";
+
+  // Complete, best-practice HowTo schema. Built here (not at module scope) so it
+  // can use the dynamic poster image and canonical URL from tools-data. Note:
+  // Google deprecated HowTo rich results in 2023, so this no longer earns a rich
+  // snippet, but it remains valid structured data that helps AI/answer engines
+  // understand the steps and keeps the markup complete and correct.
+  const howToJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    name: "How to Download Facebook Photos",
+    description:
+      "Download photos from public Facebook posts, profile pictures, and cover photos in HD quality - no app or account required.",
+    ...(posterImage ? { image: posterImage } : {}),
+    totalTime: "PT1M",
+    estimatedCost: { "@type": "MonetaryAmount", currency: "USD", value: "0" },
+    supply: [
+      { "@type": "HowToSupply", name: "A public Facebook post, photo, or profile URL" },
+    ],
+    tool: [{ "@type": "HowToTool", name: "Toolspy Facebook Image Downloader" }],
+    step: HOW_TO_STEPS.map((s, i) => ({
+      "@type": "HowToStep",
+      position: i + 1,
+      name: s.title,
+      text: s.desc,
+      url: `${canonicalUrl}#step-${i + 1}`,
+    })),
+  };
 
   return (
     <div className="w-full bg-background text-foreground">
@@ -420,7 +434,8 @@ export default function FacebookImageDownloaderPage() {
             {HOW_TO_STEPS.map((step, i) => (
               <li
                 key={i}
-                className="flex gap-4 rounded-xl border border-border bg-card p-5 shadow-sm"
+                id={`step-${i + 1}`}
+                className="flex scroll-mt-24 gap-4 rounded-xl border border-border bg-card p-5 shadow-sm"
               >
                 <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1877F2] text-sm font-extrabold text-white dark:bg-blue-600">
                   {i + 1}

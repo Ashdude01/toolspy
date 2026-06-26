@@ -49,10 +49,11 @@ export function generateFAQSchema(tool: Tool): FAQPageSchema | null {
       '@type': 'FAQPage',
       mainEntity: questions,
       url: tool.seo?.canonicalUrl || `${siteConfig.url}${tool.path}`,
+      // Reference the complete SoftwareApplication (defined in software-schema.ts)
+      // by @id instead of repeating a bare copy. A stub with only name/url is
+      // flagged by Google for missing required SoftwareApplication properties.
       about: {
-        '@type': 'SoftwareApplication',
-        name: tool.name,
-        url: tool.seo?.canonicalUrl || `${siteConfig.url}${tool.path}`
+        '@id': `${tool.seo?.canonicalUrl || `${siteConfig.url}${tool.path}`}#softwareapp`
       }
     }
     

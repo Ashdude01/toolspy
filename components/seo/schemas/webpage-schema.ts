@@ -2,25 +2,6 @@ import { WebPageSchema, ImageObject, BreadcrumbList, Thing } from '../schema-typ
 import { Tool, ToolCategory } from '@/lib/tools-data'
 import { siteConfig } from '@/lib/config'
 
-// Helper function to map tool categories to schema.org application categories
-function getApplicationCategory(category: ToolCategory): string {
-  const categoryMap: Record<ToolCategory, string> = {
-    'image-tools': 'MultimediaApplication',
-    'pdf-tools': 'BusinessApplication',
-    'base64-tools': 'DeveloperApplication',
-    'calculators': 'UtilitiesApplication',
-    'misc-tools': 'UtilitiesApplication',
-    'json-tools': 'DeveloperApplication',
-    'ai-tools': 'MultimediaApplication',
-    'code-tools': 'DeveloperApplication',
-    'conversion-tools': 'WebApplication',
-    'gst-tools': 'BusinessApplication',
-    'exam-tools': 'EducationalApplication'
-  };
-  
-  return categoryMap[category] || 'UtilitiesApplication'
-}
-
 export function generateWebPageSchema(
   pageType: 'homepage' | 'tool' | 'category' | 'about' | 'contact' | 'help',
   data?: { tool?: Tool; category?: ToolCategory; customTitle?: string; customDescription?: string }
@@ -84,19 +65,12 @@ export function generateWebPageSchema(
           caption: `${data.tool.name} - ${siteConfig.name}`
         },
         breadcrumb: generateBreadcrumbs('tool', data.tool),
+        // Reference the single canonical SoftwareApplication (software-schema.ts)
+        // by @id rather than repeating the full object, so there is exactly one
+        // SoftwareApplication entity per page.
         about: [
           {
-            '@type': 'SoftwareApplication',
-            name: data.tool.name,
-            url: data.tool.seo.canonicalUrl,
-            applicationCategory: getApplicationCategory(data.tool.category),
-            operatingSystem: 'Web Browser',
-            offers: {
-              '@type': 'Offer',
-              price: '0',
-              priceCurrency: 'USD',
-              availability: 'https://schema.org/InStock'
-            },
+            '@id': `${data.tool.seo.canonicalUrl}#softwareapp`
           }
         ]
       }
