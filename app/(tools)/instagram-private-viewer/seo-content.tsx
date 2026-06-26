@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -49,7 +49,7 @@ export function InstagramPrivateViewerSEOContent() {
     },
     {
       title: "Design references",
-      body: "Use a DP as a reference for shape/cropping in UI design — not for impersonation.",
+      body: "Use a DP as a reference for shape/cropping in UI design - not for impersonation.",
     },
   ];
 
@@ -120,7 +120,7 @@ export function InstagramPrivateViewerSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Instagram DP downloader — get a profile picture when accessible"
+                alt="Instagram DP downloader - get a profile picture when accessible"
                 className="w-full h-auto"
                 loading="lazy"
               />

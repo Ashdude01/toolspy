@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -116,7 +116,7 @@ export function GSTCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="GST calculator — inclusive and exclusive modes with GST rate selection"
+                alt="GST calculator - inclusive and exclusive modes with GST rate selection"
                 className="w-full h-auto"
                 loading="lazy"
               />

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -84,7 +84,7 @@ export function PWAIconGeneratorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online PWA icon generator for Progressive Web Apps. Upload one source image
-            and export every required icon plus a ready-to-use manifest.json — no signup, no
+            and export every required icon plus a ready-to-use manifest.json - no signup, no
             install.
           </p>
         </div>
@@ -93,7 +93,7 @@ export function PWAIconGeneratorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this PWA icon generator to produce the full icon set a Progressive Web App
-              needs — 192, 512, maskable variants, Apple touch icon, and smaller sizes — all
+              needs - 192, 512, maskable variants, Apple touch icon, and smaller sizes - all
               from a single square image. The tool also writes a matching{" "}
               <code className="bg-muted rounded px-1.5 py-0.5 text-xs">manifest.json</code>.
             </p>
@@ -111,7 +111,7 @@ export function PWAIconGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PWA icon generator — upload a square image, export every size plus manifest.json"
+                alt="PWA icon generator - upload a square image, export every size plus manifest.json"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -251,7 +251,7 @@ export function PWAIconGeneratorSEOContent() {
           </p>
           <p>
             A maskable icon keeps the important content in the{" "}
-            <strong className="text-foreground">safe zone</strong> — the inner ~80% — and uses
+            <strong className="text-foreground">safe zone</strong> - the inner ~80% - and uses
             the outer 10% on each side for background fill. The generator outputs a 512 × 512
             maskable PNG with this safe zone already accounted for.
           </p>
@@ -415,7 +415,7 @@ export function getPWAIconGeneratorFAQs() {
   return [
     {
       question: "Is the PWA icon generator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which PWA icon sizes are required?",

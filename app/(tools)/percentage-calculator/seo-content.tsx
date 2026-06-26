@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -65,7 +65,7 @@ export function PercentageCalculatorSEOContent() {
 
   const featureChecklist = [
     { feature: "‘What is X% of Y’", value: "Yes", note: "Classic percent calculation." },
-    { feature: "‘X is what % of Y’", value: "Yes", note: "Inverse — find the percentage." },
+    { feature: "‘X is what % of Y’", value: "Yes", note: "Inverse - find the percentage." },
     { feature: "Percent increase / decrease", value: "Yes", note: "Compare old vs new value." },
     { feature: "Add / subtract a percentage", value: "Yes", note: "Markups, discounts, tax." },
     { feature: "Decimal precision control", value: "Yes", note: "Round to the digits you need." },
@@ -104,7 +104,7 @@ export function PercentageCalculatorSEOContent() {
             Percentage Calculator
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online percentage calculator — find X% of Y, what % one number is of
+            A fast online percentage calculator - find X% of Y, what % one number is of
             another, and percent increase or decrease. Runs in your browser, no signup.
           </p>
         </div>
@@ -114,7 +114,7 @@ export function PercentageCalculatorSEOContent() {
             <p>
               Use this percentage calculator for everyday maths: how much is 18% of 2500,
               percent discount on a price, percent marks on a test, or percent change from last
-              month. Pick the mode and type — results update live.
+              month. Pick the mode and type - results update live.
             </p>
             <p>
               Supports increases and decreases, add / subtract percentages for tax and markup,
@@ -129,7 +129,7 @@ export function PercentageCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Percentage calculator — mode selector with instant results as you type"
+                alt="Percentage calculator - mode selector with instant results as you type"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -165,7 +165,7 @@ export function PercentageCalculatorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Enter values</h3>
             <p className="text-sm text-muted-foreground">
-              Type the numbers — decimals and negatives allowed.
+              Type the numbers - decimals and negatives allowed.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -383,7 +383,7 @@ export function getPercentageCalculatorFAQs() {
   return [
     {
       question: "Is the percentage calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How do I find X% of a number?",
@@ -393,12 +393,12 @@ export function getPercentageCalculatorFAQs() {
     {
       question: "How do I calculate percent increase or decrease?",
       answer:
-        "Use the change mode. Enter the old and new values — the tool returns the percent change: (new − old) / old × 100.",
+        "Use the change mode. Enter the old and new values - the tool returns the percent change: (new − old) / old × 100.",
     },
     {
       question: "Can I add tax or GST using percentages?",
       answer:
-        "Yes. Use the ‘X% change from Y’ mode to increase a base amount by a percentage — ideal for adding tax, service charges, or markups.",
+        "Yes. Use the ‘X% change from Y’ mode to increase a base amount by a percentage - ideal for adding tax, service charges, or markups.",
     },
     {
       question: "Are there rounding issues?",

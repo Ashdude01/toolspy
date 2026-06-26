@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -36,7 +36,7 @@ export function LoanCalculatorSEOContent() {
   const inputs = [
     { label: "Principal", note: "The loan amount you borrow." },
     { label: "Interest rate (p.a.)", note: "Annual rate quoted by the lender." },
-    { label: "Tenure", note: "In months or years — the tool handles both." },
+    { label: "Tenure", note: "In months or years - the tool handles both." },
     { label: "Start date (optional)", note: "Used to generate a dated amortization schedule." },
   ];
 
@@ -53,7 +53,7 @@ export function LoanCalculatorSEOContent() {
     { feature: "Total amount (principal + interest)", value: "Yes", note: "What you actually repay in full." },
     { feature: "Amortization schedule", value: "Yes", note: "Month-by-month principal vs interest split." },
     { feature: "Tenure in months or years", value: "Yes", note: "Switch without recalculating." },
-    { feature: "Currency-agnostic", value: "Yes", note: "Works with any currency — the ratios stay the same." },
+    { feature: "Currency-agnostic", value: "Yes", note: "Works with any currency - the ratios stay the same." },
     { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
@@ -89,7 +89,7 @@ export function LoanCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online loan calculator and EMI calculator. Estimate monthly payments,
-            interest, and total cost — plus a full amortization schedule. No signup.
+            interest, and total cost - plus a full amortization schedule. No signup.
           </p>
         </div>
 
@@ -97,7 +97,7 @@ export function LoanCalculatorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this loan calculator to estimate EMI, total interest, and the repayment split
-              for personal, car, home, and education loans. Enter principal, rate, and tenure —
+              for personal, car, home, and education loans. Enter principal, rate, and tenure -
               the tool returns the monthly payment and a dated amortization schedule.
             </p>
             <p>
@@ -112,7 +112,7 @@ export function LoanCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Loan calculator — principal, rate, tenure inputs with EMI result and amortization schedule"
+                alt="Loan calculator - principal, rate, tenure inputs with EMI result and amortization schedule"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -197,7 +197,7 @@ export function LoanCalculatorSEOContent() {
             100), <strong className="text-foreground">n</strong> = tenure in months.
           </p>
           <p className="text-sm">
-            The amortization schedule shows how each EMI splits into interest and principal —
+            The amortization schedule shows how each EMI splits into interest and principal -
             early EMIs are interest-heavy, later ones are principal-heavy.
           </p>
         </div>
@@ -362,7 +362,7 @@ export function LoanCalculatorSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to plan your loan?</h2>
           <p className="text-muted-foreground">
-            Enter principal, rate, tenure — see the EMI and full amortization in seconds.
+            Enter principal, rate, tenure - see the EMI and full amortization in seconds.
           </p>
           <ScrollToTopButton>Start Calculating →</ScrollToTopButton>
         </div>
@@ -376,7 +376,7 @@ export function getLoanCalculatorFAQs() {
   return [
     {
       question: "Is the loan calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How is the EMI calculated?",
@@ -391,7 +391,7 @@ export function getLoanCalculatorFAQs() {
     {
       question: "Does it work for any currency?",
       answer:
-        "Yes. The formula is currency-agnostic — just enter numbers in your preferred currency. The ratios and percentages stay correct.",
+        "Yes. The formula is currency-agnostic - just enter numbers in your preferred currency. The ratios and percentages stay correct.",
     },
     {
       question: "What about processing fees and taxes?",

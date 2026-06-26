@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -121,7 +121,7 @@ export function FontConverterSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Font converter — convert TTF/OTF to WOFF/WOFF2 and more"
+                alt="Font converter - convert TTF/OTF to WOFF/WOFF2 and more"
                 className="w-full h-auto"
                 loading="lazy"
               />

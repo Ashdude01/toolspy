@@ -582,7 +582,7 @@ function OnlineImageCropperContent() {
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
           Crop by free selection, fixed aspect ratio, or shapes like circle and polygons. No uploads,
-          no account—just crop and download.
+          no account-just crop and download.
         </p>
       </div>
 

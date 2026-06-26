@@ -173,7 +173,7 @@ export const extensions: ExtensionLandingData[] = [
         date: "2026-02-10",
         title: "Great for quick optimization",
         body:
-          "I use it when building landing pages—download, compress, and drop assets into the project in minutes.",
+          "I use it when building landing pages-download, compress, and drop assets into the project in minutes.",
       },
       {
         author: "Vikram P.",
@@ -269,7 +269,7 @@ export const extensions: ExtensionLandingData[] = [
       {
         title: "Selective downloads",
         description:
-          "Select specific images and download only what you need—useful for posts with multiple photos.",
+          "Select specific images and download only what you need-useful for posts with multiple photos.",
       },
       {
         title: "ZIP download",
@@ -286,7 +286,7 @@ export const extensions: ExtensionLandingData[] = [
       {
         title: "Faster saves from posts",
         description:
-          "No need to open each image in a new tab—scan once and download what you want.",
+          "No need to open each image in a new tab-scan once and download what you want.",
       },
       {
         title: "Cleaner workflow",

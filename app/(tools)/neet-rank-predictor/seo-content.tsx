@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -91,7 +91,7 @@ export function NEETRankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate your NEET rank from score and explore college options for planning. Results can
-            vary by year, tie-break rules, category, and counselling — verify with official cutoffs.
+            vary by year, tie-break rules, category, and counselling - verify with official cutoffs.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export function NEETRankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="NEET rank predictor — estimate rank and explore medical college options"
+                alt="NEET rank predictor - estimate rank and explore medical college options"
                 className="w-full h-auto"
                 loading="lazy"
               />

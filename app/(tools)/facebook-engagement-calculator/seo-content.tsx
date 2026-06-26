@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -146,7 +146,7 @@ export function FacebookEngagementCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Facebook engagement rate calculator — inputs for reactions, comments and shares"
+                alt="Facebook engagement rate calculator - inputs for reactions, comments and shares"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -388,12 +388,12 @@ export function getFacebookEngagementCalculatorFAQs() {
   return [
     {
       question: "Is the Facebook engagement calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "Should I use reach or followers as the denominator?",
       answer:
-        "Reach is usually better if you have it. If not, followers/page likes can be used as a proxy — just stay consistent for comparisons.",
+        "Reach is usually better if you have it. If not, followers/page likes can be used as a proxy - just stay consistent for comparisons.",
     },
     {
       question: "What interactions count as engagement on Facebook?",

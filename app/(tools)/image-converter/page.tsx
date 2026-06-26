@@ -74,7 +74,7 @@ function ImageConverterContent() {
     { value: "tiff", label: "TIFF", description: "High quality, professional use" },
   ];
 
-  // ?extension_data= or #extension_data= — same JSON
+  // ?extension_data= or #extension_data= - same JSON
   useEffect(() => {
     const fromQuery = searchParams?.get("extension_data");
     let fromHash: string | null = null;
@@ -413,7 +413,7 @@ function ImageConverterContent() {
         modalDuration={2000}
         importInProgress={linkImportLoading}
         importModalMessage="Importing images"
-        importModalSubMessage="Fetching your images—almost there…"
+        importModalSubMessage="Fetching your images-almost there…"
       />
 
 

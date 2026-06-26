@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -71,7 +71,7 @@ export function MortgageCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Mortgage calculator — inputs for home price, down payment, term and rate with a monthly payment breakdown"
+                alt="Mortgage calculator - inputs for home price, down payment, term and rate with a monthly payment breakdown"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -185,7 +185,7 @@ export function MortgageCalculatorSEOContent() {
           {[
             {
               title: "Mixing monthly and annual numbers",
-              body: "Enter interest rate as annual percent, and taxes/insurance as annual amounts — the calculator divides them into monthly values.",
+              body: "Enter interest rate as annual percent, and taxes/insurance as annual amounts - the calculator divides them into monthly values.",
             },
             {
               title: "Ignoring PMI with low down payment",
@@ -331,7 +331,7 @@ export function MortgageCalculatorSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to estimate your payment?</h2>
           <p className="text-muted-foreground">
-            Enter price, down payment, term and rate — then fine-tune taxes and insurance.
+            Enter price, down payment, term and rate - then fine-tune taxes and insurance.
           </p>
           <ScrollToTopButton>Start Calculating →</ScrollToTopButton>
         </div>
@@ -346,7 +346,7 @@ export function getMortgageCalculatorFAQs() {
     {
       question: "Is the mortgage calculator free to use?",
       answer:
-        "Yes. It’s free and runs in your browser — no signup required.",
+        "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "What does the monthly payment include?",

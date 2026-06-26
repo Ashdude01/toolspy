@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -98,7 +98,7 @@ export function PdfToImageSEOContent() {
             PDF to Image Converter
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online PDF to image converter — convert PDF to JPG, PNG, or WebP. Export each
+            A fast online PDF to image converter - convert PDF to JPG, PNG, or WebP. Export each
             page as an image, pick a DPI, and download in the browser, no signup.
           </p>
         </div>
@@ -123,7 +123,7 @@ export function PdfToImageSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF to image — pick format and DPI, download each page as an image"
+                alt="PDF to image - pick format and DPI, download each page as an image"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -159,7 +159,7 @@ export function PdfToImageSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Pick format</h3>
             <p className="text-sm text-muted-foreground">
-              JPG, PNG, or WebP — based on where the images will be used.
+              JPG, PNG, or WebP - based on where the images will be used.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -400,7 +400,7 @@ export function getPdfToImageFAQs() {
   return [
     {
       question: "Is the PDF to image converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which image formats can I export?",
@@ -420,7 +420,7 @@ export function getPdfToImageFAQs() {
     {
       question: "Will text be editable in the output?",
       answer:
-        "No — the result is a picture, not editable text. For editable text, use PDF to Word or PDF to Excel depending on the content.",
+        "No - the result is a picture, not editable text. For editable text, use PDF to Word or PDF to Excel depending on the content.",
     },
     {
       question: "Does the tool upload my PDFs to a server?",

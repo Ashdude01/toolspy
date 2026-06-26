@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -63,7 +63,7 @@ export function HSNSACFinderSEOContent() {
     },
     {
       title: "Product vs service confusion",
-      body: "HSN is typically for goods, SAC for services. Some businesses have mixed cases—choose the right class for the transaction.",
+      body: "HSN is typically for goods, SAC for services. Some businesses have mixed cases-choose the right class for the transaction.",
     },
     {
       title: "Final responsibility",
@@ -118,7 +118,7 @@ export function HSNSACFinderSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="HSN/SAC finder — search by keyword and view matching GST codes"
+                alt="HSN/SAC finder - search by keyword and view matching GST codes"
                 className="w-full h-auto"
                 loading="lazy"
               />

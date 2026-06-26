@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -96,7 +96,7 @@ export function ImageConverterSEOContent() {
     },
     {
       title: "Expecting a higher quality than the source",
-      body: "Converting a low-quality JPG to PNG does not restore detail — it just saves what is already there.",
+      body: "Converting a low-quality JPG to PNG does not restore detail - it just saves what is already there.",
     },
     {
       title: "Forgetting older browsers",
@@ -117,7 +117,7 @@ export function ImageConverterSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online image converter and image format converter for JPG, PNG, WebP, AVIF,
-            HEIC and more — change image format in the browser, no signup.
+            HEIC and more - change image format in the browser, no signup.
           </p>
         </div>
 
@@ -125,7 +125,7 @@ export function ImageConverterSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this image converter to convert JPG to PNG, PNG to JPG, HEIC to JPG, or WebP to
-              PNG in a single step. Drop a single file or batch convert a folder — the tool
+              PNG in a single step. Drop a single file or batch convert a folder - the tool
               returns every image in your chosen target format as a quick download or a ZIP.
             </p>
             <p>
@@ -141,7 +141,7 @@ export function ImageConverterSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image converter — upload files, pick an output format, and download the converted images"
+                alt="Image converter - upload files, pick an output format, and download the converted images"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -171,7 +171,7 @@ export function ImageConverterSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop one or many images — JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, or SVG.
+              Drop one or many images - JPG, PNG, WebP, AVIF, HEIC, GIF, BMP, TIFF, or SVG.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -421,7 +421,7 @@ export function getImageConverterFAQs() {
   return [
     {
       question: "Is the image converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which input and output formats are supported?",

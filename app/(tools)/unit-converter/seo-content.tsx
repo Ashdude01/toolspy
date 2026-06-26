@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -447,7 +447,7 @@ export function UnitConverterSEOContent() {
           Everything You Get with Our Unit Converter
         </h3>
         <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-          Every feature you need to convert units professionally—completely free.
+          Every feature you need to convert units professionally-completely free.
         </p>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {keyBenefits.map((benefit, index) => (
@@ -650,7 +650,7 @@ export function UnitConverterSEOContent() {
               Whether you're working on engineering projects, cooking recipes, travel plans, or scientific analysis, our <strong>unit converter app</strong> runs entirely in your browser. Your data never leaves your device, delivering complete privacy. From quick <strong>convert units</strong> tasks to deeper measurement analysis, everything stays fast, accurate, and secure.
             </p>
             <p className="text-muted-foreground leading-relaxed mt-4">
-              Try our unit converter today and see why so many professionals and users choose Toolspy for their unit conversion needs. From <strong>unit converter free</strong> planning to professional measurement analysis, you get consistent, trustworthy results—completely free.
+              Try our unit converter today and see why so many professionals and users choose Toolspy for their unit conversion needs. From <strong>unit converter free</strong> planning to professional measurement analysis, you get consistent, trustworthy results-completely free.
             </p>
           </div>
         </div>
@@ -663,7 +663,7 @@ export function UnitConverterSEOContent() {
             Ready to Convert Your Units?
           </h3>
           <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
-            Join thousands of users and professionals who rely on Toolspy every day for precise, secure, and professional unit conversions—completely free, with all your data kept safely on your own device.
+            Join thousands of users and professionals who rely on Toolspy every day for precise, secure, and professional unit conversions-completely free, with all your data kept safely on your own device.
           </p>
           <ScrollToTopButton>
             Start Converting Now →

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -117,7 +117,7 @@ export function SalaryCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Salary calculator — convert hourly, weekly, monthly and yearly pay"
+                alt="Salary calculator - convert hourly, weekly, monthly and yearly pay"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -147,7 +147,7 @@ export function SalaryCalculatorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Choose the unit</h3>
             <p className="text-sm text-muted-foreground">
-              Hourly, weekly, monthly, or yearly — start with the number you have.
+              Hourly, weekly, monthly, or yearly - start with the number you have.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -336,7 +336,7 @@ export function getSalaryCalculatorFAQs() {
   return [
     {
       question: "Is the salary calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "How do you convert hourly pay to yearly salary?",

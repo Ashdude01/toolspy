@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -37,7 +37,7 @@ export function AIResumeBuilderSEOContent() {
   const atsTips = [
     {
       title: "Match job keywords",
-      body: "Mirror key phrases from the job description — title, tools, responsibilities. ATS scans for these.",
+      body: "Mirror key phrases from the job description - title, tools, responsibilities. ATS scans for these.",
     },
     {
       title: "Skip fancy columns",
@@ -45,7 +45,7 @@ export function AIResumeBuilderSEOContent() {
     },
     {
       title: "Standard section names",
-      body: '“Experience”, “Education”, “Skills”, “Projects” — avoid cute headings that parsers miss.',
+      body: '“Experience”, “Education”, “Skills”, “Projects” - avoid cute headings that parsers miss.',
     },
     {
       title: "Real dates and places",
@@ -76,7 +76,7 @@ export function AIResumeBuilderSEOContent() {
     },
     {
       name: "Projects",
-      what: "Link to real work — repos, demos, case studies.",
+      what: "Link to real work - repos, demos, case studies.",
     },
   ];
 
@@ -105,7 +105,7 @@ export function AIResumeBuilderSEOContent() {
     },
     {
       title: "Treating AI drafts as final",
-      body: "AI drafts are starting points. Edit to match your voice — hiring managers spot generic phrasing quickly.",
+      body: "AI drafts are starting points. Edit to match your voice - hiring managers spot generic phrasing quickly.",
     },
   ];
 
@@ -134,7 +134,7 @@ export function AIResumeBuilderSEOContent() {
               job description and let the tool flag missing keywords.
             </p>
             <p>
-              Pick from classic, modern, and compact templates — all built single-column and
+              Pick from classic, modern, and compact templates - all built single-column and
               parser-safe. Export to PDF, save your progress, and tailor the resume per
               application without starting from scratch each time.
             </p>
@@ -146,7 +146,7 @@ export function AIResumeBuilderSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI resume builder — fill in experience, match a JD, export an ATS-friendly PDF"
+                alt="AI resume builder - fill in experience, match a JD, export an ATS-friendly PDF"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -246,7 +246,7 @@ export function AIResumeBuilderSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             Paste the target job description into the tool. It highlights keywords missing from
-            your resume — skills, tools, responsibilities — so you can decide what to add.
+            your resume - skills, tools, responsibilities - so you can decide what to add.
           </p>
           <p>
             The goal isn’t to cram every keyword. It’s to surface the ones you genuinely match
@@ -324,7 +324,7 @@ export function AIResumeBuilderSEOContent() {
             <Link href="/ai-writing-tools" className="underline underline-offset-4 text-foreground">
               AI writing tools
             </Link>{" "}
-            — paraphrase, summarize, humanize.
+            - paraphrase, summarize, humanize.
           </p>
           <p>
             Shrink the final PDF before uploading:{" "}
@@ -403,7 +403,7 @@ export function getAIResumeBuilderFAQs() {
   return [
     {
       question: "Is the AI resume builder free to use?",
-      answer: "Yes. Core features are free — no signup required for the main workflow.",
+      answer: "Yes. Core features are free - no signup required for the main workflow.",
     },
     {
       question: "Are the templates ATS-friendly?",
@@ -423,7 +423,7 @@ export function getAIResumeBuilderFAQs() {
     {
       question: "Is the AI content generic?",
       answer:
-        "The AI produces drafts — they work best as a starting point. Spend a minute editing summaries and bullets to match your voice before exporting.",
+        "The AI produces drafts - they work best as a starting point. Spend a minute editing summaries and bullets to match your voice before exporting.",
     },
     {
       question: "Can I save and come back later?",

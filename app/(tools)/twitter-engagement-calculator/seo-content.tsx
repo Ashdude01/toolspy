@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -119,7 +119,7 @@ export function TwitterEngagementCalculatorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Engagement rate turns raw interactions into a percentage so you can compare performance
-              over time — even when impressions and audience size change.
+              over time - even when impressions and audience size change.
             </p>
             <p>
               For other platforms, check{" "}
@@ -146,7 +146,7 @@ export function TwitterEngagementCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Twitter/X engagement rate calculator — inputs for likes, reposts, replies and impressions"
+                alt="Twitter/X engagement rate calculator - inputs for likes, reposts, replies and impressions"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -386,7 +386,7 @@ export function getTwitterEngagementCalculatorFAQs() {
   return [
     {
       question: "Is the Twitter/X engagement calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "Should I use impressions or followers as the denominator?",

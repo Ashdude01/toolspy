@@ -297,7 +297,7 @@ async function compressToTargetSize(
     for (let attempt = 0; attempt < 3; attempt++) {
       if (Math.abs(best.size - targetSizeBytes) <= tolerance) return best;
 
-      // If we're under target, keep the best we found—don't upscale.
+      // If we're under target, keep the best we found-don't upscale.
       if (best.size < targetSizeBytes) return best;
 
       const ratio = targetSizeBytes / best.size;

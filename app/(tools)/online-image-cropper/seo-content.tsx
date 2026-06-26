@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -99,7 +99,7 @@ export function OnlineImageCropperSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Crop images by free selection, fixed aspect ratios, or shapes like circle and polygons.
-            Works in your browser — no upload required.
+            Works in your browser - no upload required.
           </p>
         </div>
 
@@ -122,7 +122,7 @@ export function OnlineImageCropperSEOContent() {
                 src={tool?.posterImage || "/images/main.webp"}
                 width={1600}
                 height={900}
-                alt="Online image cropper — crop area selection and export settings"
+                alt="Online image cropper - crop area selection and export settings"
                 className="w-full h-auto"
                 loading="lazy"
               />

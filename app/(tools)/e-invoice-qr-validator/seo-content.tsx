@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -98,7 +98,7 @@ export function EInvoiceQRValidatorSEOContent() {
         <div className="grid md:grid-cols-2 gap-5 items-center">
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              This tool is built for quick invoice checks in day-to-day workflows — parse the QR,
+              This tool is built for quick invoice checks in day-to-day workflows - parse the QR,
               review fields, and cross-check against your records. It can help reduce manual typing
               errors and speed up reviews.
             </p>
@@ -117,7 +117,7 @@ export function EInvoiceQRValidatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="E-invoice QR validator — upload a QR and extract invoice details"
+                alt="E-invoice QR validator - upload a QR and extract invoice details"
                 className="w-full h-auto"
                 loading="lazy"
               />

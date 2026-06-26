@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -35,7 +35,7 @@ export function MemeGeneratorSEOContent() {
   const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
   const templateIdeas = [
-    { name: "Drake Hotline", note: "Two panels — reject one thing, approve another." },
+    { name: "Drake Hotline", note: "Two panels - reject one thing, approve another." },
     { name: "Distracted Boyfriend", note: "Three-character tension / preference." },
     { name: "Two Buttons", note: "A character sweating over a choice." },
     { name: "Woman Yelling at Cat", note: "Debate / argument setup." },
@@ -60,7 +60,7 @@ export function MemeGeneratorSEOContent() {
 
   const featureChecklist = [
     { feature: "Trending meme templates", value: "Yes", note: "Classic and modern templates ready to caption." },
-    { feature: "AI caption suggestions", value: "Yes", note: "Describe the context — AI proposes top / bottom text." },
+    { feature: "AI caption suggestions", value: "Yes", note: "Describe the context - AI proposes top / bottom text." },
     { feature: "Upload your own image", value: "Yes", note: "Make original memes from any picture." },
     { feature: "Text styling", value: "Yes", note: "Font, size, outline, colour, stroke, and position." },
     { feature: "Multi-panel templates", value: "Yes", note: "Two / three / four-panel formats supported." },
@@ -75,7 +75,7 @@ export function MemeGeneratorSEOContent() {
     },
     {
       title: "Overcrowded captions",
-      body: "Two or three lines land — long paragraphs don’t. Cut until only the punchline remains.",
+      body: "Two or three lines land - long paragraphs don’t. Cut until only the punchline remains.",
     },
     {
       title: "Low-contrast colours",
@@ -113,7 +113,7 @@ export function MemeGeneratorSEOContent() {
             </p>
             <p>
               Designed for fast posts and social content. Export as PNG or JPG, ready to share on
-              Instagram, X, WhatsApp, and Reddit. Everything runs in your browser — your
+              Instagram, X, WhatsApp, and Reddit. Everything runs in your browser - your
               uploads stay on your device.
             </p>
           </div>
@@ -124,7 +124,7 @@ export function MemeGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI meme generator — pick a template, add captions, export a meme in seconds"
+                alt="AI meme generator - pick a template, add captions, export a meme in seconds"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -166,7 +166,7 @@ export function MemeGeneratorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Style</h3>
             <p className="text-sm text-muted-foreground">
-              Font, size, stroke, colour — tune for readability.
+              Font, size, stroke, colour - tune for readability.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -237,8 +237,8 @@ export function MemeGeneratorSEOContent() {
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
-            Describe what the meme is about in one or two lines — &quot;debugging on a Monday,
-            everything is on fire&quot; — and the AI proposes a few top / bottom text options.
+            Describe what the meme is about in one or two lines - &quot;debugging on a Monday,
+            everything is on fire&quot; - and the AI proposes a few top / bottom text options.
             Pick one, tweak, or rewrite.
           </p>
           <p>
@@ -401,7 +401,7 @@ export function getMemeGeneratorFAQs() {
   return [
     {
       question: "Is the AI meme generator free to use?",
-      answer: "Yes. It’s free — no signup, no install.",
+      answer: "Yes. It’s free - no signup, no install.",
     },
     {
       question: "Can I upload my own image?",
@@ -411,7 +411,7 @@ export function getMemeGeneratorFAQs() {
     {
       question: "How good are the AI caption suggestions?",
       answer:
-        "They’re a solid starting point — describe your context and pick the option that fits. Tweak the text to match your voice and you’ll usually get something that lands.",
+        "They’re a solid starting point - describe your context and pick the option that fits. Tweak the text to match your voice and you’ll usually get something that lands.",
     },
     {
       question: "What export formats are supported?",

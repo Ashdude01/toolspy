@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -34,7 +34,7 @@ export function ImageResizerSEOContent() {
   const reviews = tool ? getToolReviews(tool) : [];
   const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
-  // Common target dimensions — unique, useful reference content.
+  // Common target dimensions - unique, useful reference content.
   const commonSizes = [
     { label: "Instagram post (square)", size: "1080 × 1080 px" },
     { label: "Instagram story / reel", size: "1080 × 1920 px" },
@@ -63,7 +63,7 @@ export function ImageResizerSEOContent() {
     },
     {
       title: "Upscaling a small image a lot",
-      body: "Scaling a 300-px image to 2000 px will look blurry. Resize stretches existing pixels — it doesn’t add detail.",
+      body: "Scaling a 300-px image to 2000 px will look blurry. Resize stretches existing pixels - it doesn’t add detail.",
     },
     {
       title: "Wrong output size for the platform",
@@ -87,7 +87,7 @@ export function ImageResizerSEOContent() {
             Image Resizer
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online image resizer to change image size by exact pixels or by percentage —
+            A fast online image resizer to change image size by exact pixels or by percentage -
             resize a photo for profiles, social media, or a web layout in seconds.
           </p>
         </div>
@@ -112,7 +112,7 @@ export function ImageResizerSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image resizer — width and height inputs with an aspect ratio lock and percentage option"
+                alt="Image resizer - width and height inputs with an aspect ratio lock and percentage option"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -142,7 +142,7 @@ export function ImageResizerSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop one or more images — JPG, PNG, WebP, and other common formats.
+              Drop one or more images - JPG, PNG, WebP, and other common formats.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -154,7 +154,7 @@ export function ImageResizerSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Enter size</h3>
             <p className="text-sm text-muted-foreground">
-              Type the value — aspect ratio stays locked unless you turn it off.
+              Type the value - aspect ratio stays locked unless you turn it off.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -190,7 +190,7 @@ export function ImageResizerSEOContent() {
             </h3>
             <p className="text-sm text-muted-foreground">
               Enter a percentage of the original (e.g. 50% to halve the size). Handy when the
-              exact number doesn’t matter — just a smaller or bigger copy.
+              exact number doesn’t matter - just a smaller or bigger copy.
             </p>
           </Card>
         </div>
@@ -207,7 +207,7 @@ export function ImageResizerSEOContent() {
           <p>
             When the lock is on, entering either width or height automatically fills the other so
             the image keeps its proportions. Turn the lock off only when you deliberately want a
-            specific stretched or squashed output — most photos and screenshots look wrong
+            specific stretched or squashed output - most photos and screenshots look wrong
             without it.
           </p>
           <p>
@@ -402,7 +402,7 @@ export function getImageResizerFAQs() {
   return [
     {
       question: "Is the image resizer free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can I resize by exact pixels or by percentage?",
@@ -412,7 +412,7 @@ export function getImageResizerFAQs() {
     {
       question: "Does resizing distort the image?",
       answer:
-        "Not when the aspect ratio lock is on — it keeps proportions correct. Turning the lock off lets you set both dimensions freely, which can squash the image if ratios differ.",
+        "Not when the aspect ratio lock is on - it keeps proportions correct. Turning the lock off lets you set both dimensions freely, which can squash the image if ratios differ.",
     },
     {
       question: "Can I resize many images at once?",

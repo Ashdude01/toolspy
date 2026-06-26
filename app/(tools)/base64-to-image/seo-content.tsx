@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -36,7 +36,7 @@ export function Base64ToImageSEOContent() {
   const useCases = [
     {
       title: "Debug API responses",
-      body: "APIs that return images as Base64 — decode the string to check what the client actually receives.",
+      body: "APIs that return images as Base64 - decode the string to check what the client actually receives.",
     },
     {
       title: "Inspect data URIs",
@@ -61,7 +61,7 @@ export function Base64ToImageSEOContent() {
     {
       label: "Data URI",
       example: "data:image/png;base64,iVBORw0KGgo...",
-      note: "Includes the MIME type prefix — the tool strips it automatically.",
+      note: "Includes the MIME type prefix - the tool strips it automatically.",
     },
     {
       label: "URL-safe Base64",
@@ -112,7 +112,7 @@ export function Base64ToImageSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online Base64 to image converter and Base64 image decoder. Paste a Base64
-            string or data URI, preview the image, and download it — in your browser, no
+            string or data URI, preview the image, and download it - in your browser, no
             signup.
           </p>
         </div>
@@ -122,11 +122,11 @@ export function Base64ToImageSEOContent() {
             <p>
               Use this Base64 to image converter to decode Base64 strings into real image files.
               Paste a raw Base64 payload or a <code className="bg-muted rounded px-1.5 py-0.5 text-xs">data:image/...;base64,</code>{" "}
-              URI — the tool detects the image format and shows a preview before download.
+              URI - the tool detects the image format and shows a preview before download.
             </p>
             <p>
               Handy for developers debugging API responses, inspecting data URIs embedded in
-              HTML or CSS, or recovering screenshots from logs. Everything runs locally — your
+              HTML or CSS, or recovering screenshots from logs. Everything runs locally - your
               strings and files stay on your device.
             </p>
           </div>
@@ -137,7 +137,7 @@ export function Base64ToImageSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Base64 to image — paste a string, preview the decoded image, and download it"
+                alt="Base64 to image - paste a string, preview the decoded image, and download it"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -369,12 +369,12 @@ export function getBase64ToImageFAQs() {
   return [
     {
       question: "Is the Base64 to image converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Do I need to strip the data URI prefix?",
       answer:
-        "No. The tool handles both raw Base64 strings and full data URIs like data:image/png;base64,... — the prefix is stripped automatically.",
+        "No. The tool handles both raw Base64 strings and full data URIs like data:image/png;base64,... - the prefix is stripped automatically.",
     },
     {
       question: "Which image formats are supported?",
@@ -382,7 +382,7 @@ export function getBase64ToImageFAQs() {
         "PNG, JPG, WebP, GIF, BMP, and SVG (when encoded with the correct MIME type or detected by signature).",
     },
     {
-      question: "My Base64 string is very long — can I still decode it?",
+      question: "My Base64 string is very long - can I still decode it?",
       answer:
         "Yes. For very long strings, you can also upload a .txt file containing the Base64 payload and decode that.",
     },

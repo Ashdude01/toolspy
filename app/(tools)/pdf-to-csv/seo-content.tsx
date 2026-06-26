@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -36,7 +36,7 @@ export function PdfToCsvSEOContent() {
   const useCases = [
     {
       title: "Feed data into a script",
-      body: "Pandas, R, Google Sheets imports, SQL loaders — they all speak CSV first.",
+      body: "Pandas, R, Google Sheets imports, SQL loaders - they all speak CSV first.",
     },
     {
       title: "Bulk upload to dashboards",
@@ -44,7 +44,7 @@ export function PdfToCsvSEOContent() {
     },
     {
       title: "Invoices & receipts to bookkeeping",
-      body: "Line items as rows — easy to total, categorize, and pass to your accountant.",
+      body: "Line items as rows - easy to total, categorize, and pass to your accountant.",
     },
     {
       title: "Lightweight, diffable archives",
@@ -58,14 +58,14 @@ export function PdfToCsvSEOContent() {
     { feature: "Comma, semicolon, or tab", value: "Yes", note: "Pick the delimiter your downstream tool expects." },
     { feature: "Pick pages", value: "Yes", note: "Extract only the pages with tables." },
     { feature: "Batch convert", value: "Yes", note: "Queue several PDFs, download as ZIP." },
-    { feature: "Strip headers / footers", value: "Yes", note: "Optional — cleaner rows for data tools." },
+    { feature: "Strip headers / footers", value: "Yes", note: "Optional - cleaner rows for data tools." },
     { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
   const pitfalls = [
     {
       title: "Commas inside cells",
-      body: "Values with commas need quoting — CSV handles it, but some tools misread. Use a tab or semicolon delimiter if your data has many commas.",
+      body: "Values with commas need quoting - CSV handles it, but some tools misread. Use a tab or semicolon delimiter if your data has many commas.",
     },
     {
       title: "Merged header rows",
@@ -94,7 +94,7 @@ export function PdfToCsvSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online PDF to CSV converter. Extract tabular data from a PDF into a clean
-            CSV file — ready for scripts, dashboards, and spreadsheets. In your browser, no
+            CSV file - ready for scripts, dashboards, and spreadsheets. In your browser, no
             signup.
           </p>
         </div>
@@ -120,7 +120,7 @@ export function PdfToCsvSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF to CSV — pick delimiter and pages, download CSV rows ready for any tool"
+                alt="PDF to CSV - pick delimiter and pages, download CSV rows ready for any tool"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -162,7 +162,7 @@ export function PdfToCsvSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Choose delimiter</h3>
             <p className="text-sm text-muted-foreground">
-              Comma, semicolon, or tab — match your downstream tool.
+              Comma, semicolon, or tab - match your downstream tool.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -344,7 +344,7 @@ export function getPdfToCsvFAQs() {
   return [
     {
       question: "Is the PDF to CSV converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which delimiters can I pick?",

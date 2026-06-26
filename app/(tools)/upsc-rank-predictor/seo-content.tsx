@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -91,7 +91,7 @@ export function UPSCRankPredictorSEOContent() {
           <p className="text-start md:text-center text-muted-foreground">
             Estimate a UPSC rank band from your marks assumptions and explore service allocation
             possibilities for planning. Results depend on official rules, vacancies, and year-to-year
-            variation — verify with official lists.
+            variation - verify with official lists.
           </p>
         </div>
 
@@ -117,7 +117,7 @@ export function UPSCRankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="UPSC rank predictor — estimate rank band and explore service options"
+                alt="UPSC rank predictor - estimate rank band and explore service options"
                 className="w-full h-auto"
                 loading="lazy"
               />

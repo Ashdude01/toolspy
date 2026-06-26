@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -45,7 +45,7 @@ export function LoveCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fun love compatibility calculator based on two names. Type the names, get a
-            playful percentage and a short message — just for entertainment.
+            playful percentage and a short message - just for entertainment.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ export function LoveCalculatorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               This love calculator uses a simple name-based scoring method to generate a
-              compatibility percentage. It’s not a scientific measure — treat it like a quick
+              compatibility percentage. It’s not a scientific measure - treat it like a quick
               party trick you can share with friends.
             </p>
             <p>
@@ -68,7 +68,7 @@ export function LoveCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Love calculator — two name inputs and a compatibility percentage result"
+                alt="Love calculator - two name inputs and a compatibility percentage result"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -110,7 +110,7 @@ export function LoveCalculatorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Share for fun</h3>
             <p className="text-sm text-muted-foreground">
-              Take it lightly — it’s meant for entertainment, not real-world decisions.
+              Take it lightly - it’s meant for entertainment, not real-world decisions.
             </p>
           </Card>
         </div>
@@ -134,7 +134,7 @@ export function LoveCalculatorSEOContent() {
           <Card className="p-5">
             <h3 className="font-semibold mb-1">Entertainment only</h3>
             <p className="text-sm text-muted-foreground">
-              Think of it like a game. A high score doesn’t guarantee anything — and a low score
+              Think of it like a game. A high score doesn’t guarantee anything - and a low score
               doesn’t mean anything either.
             </p>
           </Card>
@@ -264,12 +264,12 @@ export function getLoveCalculatorFAQs() {
     {
       question: "Is the love calculator free to use?",
       answer:
-        "Yes. It’s free and runs in your browser — no signup, no install.",
+        "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Is the love compatibility score accurate?",
       answer:
-        "It’s designed for entertainment. The percentage is a playful, name-based score — not a scientific measure of a relationship.",
+        "It’s designed for entertainment. The percentage is a playful, name-based score - not a scientific measure of a relationship.",
     },
     {
       question: "Does the tool store my names?",
@@ -284,12 +284,12 @@ export function getLoveCalculatorFAQs() {
     {
       question: "Can I try nicknames or full names?",
       answer:
-        "Yes. You can use first names, nicknames, or full names — any two text inputs work.",
+        "Yes. You can use first names, nicknames, or full names - any two text inputs work.",
     },
     {
       question: "Is this meant for serious relationship decisions?",
       answer:
-        "No. It’s a fun tool. For anything serious, rely on real communication and how you both feel — not a number.",
+        "No. It’s a fun tool. For anything serious, rely on real communication and how you both feel - not a number.",
     },
   ];
 }

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -77,7 +77,7 @@ export function AppIconGeneratorSEOContent() {
     },
     {
       title: "Not rounding corners yourself",
-      body: "iOS and most launchers mask icons automatically. Don’t pre-round — ship a full square design.",
+      body: "iOS and most launchers mask icons automatically. Don’t pre-round - ship a full square design.",
     },
   ];
 
@@ -94,7 +94,7 @@ export function AppIconGeneratorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online app icon generator for iOS, Android, Windows, macOS, Linux, and the
-            web. Upload one high-resolution image and get every size your app needs — no signup,
+            web. Upload one high-resolution image and get every size your app needs - no signup,
             no install.
           </p>
         </div>
@@ -104,7 +104,7 @@ export function AppIconGeneratorSEOContent() {
             <p>
               Use this app icon generator to produce a complete icon set from a single source
               image. The tool outputs iPhone, iPad, App Store, Android mdpi–xxxhdpi, Play Store,
-              Windows, macOS, Linux, and web-app sizes — all named correctly for each platform.
+              Windows, macOS, Linux, and web-app sizes - all named correctly for each platform.
             </p>
             <p>
               Start with a 1024 × 1024 PNG or JPG and download a ZIP that you can drop into Xcode,
@@ -119,7 +119,7 @@ export function AppIconGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="App icon generator — upload one square image and export every platform size"
+                alt="App icon generator - upload one square image and export every platform size"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -161,7 +161,7 @@ export function AppIconGeneratorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Select platforms</h3>
             <p className="text-sm text-muted-foreground">
-              Choose iOS, Android, Windows, macOS, Linux, Web — or all.
+              Choose iOS, Android, Windows, macOS, Linux, Web - or all.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -342,7 +342,7 @@ export function AppIconGeneratorSEOContent() {
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
-            Each platform is organized in its own folder with correct file names — for example,{" "}
+            Each platform is organized in its own folder with correct file names - for example,{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">ios/Icon-60@3x.png</code>,{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">android/mipmap-xxxhdpi/ic_launcher.png</code>,{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">web/icon-512.png</code>. You
@@ -418,7 +418,7 @@ export function getAppIconGeneratorFAQs() {
   return [
     {
       question: "Is the app icon generator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "What source image size do I need?",
@@ -438,7 +438,7 @@ export function getAppIconGeneratorFAQs() {
     {
       question: "Can my icon have a transparent background?",
       answer:
-        "For Android and web it’s fine. iOS expects a solid background — transparent pixels can look off, so use a coloured fill.",
+        "For Android and web it’s fine. iOS expects a solid background - transparent pixels can look off, so use a coloured fill.",
     },
     {
       question: "Does the tool upload my file to a server?",

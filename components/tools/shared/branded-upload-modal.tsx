@@ -101,7 +101,7 @@ export function BrandedUploadModal({
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex flex-col items-center space-y-6">
-          {/* Logo — Tailwind dark: matches html.dark (next-themes); avoids wrong asset on first paint */}
+          {/* Logo - Tailwind dark: matches html.dark (next-themes); avoids wrong asset on first paint */}
           <div className="relative w-24 h-24 md:w-32 md:h-32 animate-pulse">
             <Image
               src="/logo/black.webp"

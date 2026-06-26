@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -107,7 +107,7 @@ export function AIWritingToolsSEOContent() {
             AI Writing Tools Suite
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast AI writing toolkit — paraphraser, summarizer, humanizer, and AI detector in
+            A fast AI writing toolkit - paraphraser, summarizer, humanizer, and AI detector in
             one place. Rewrite, condense, and polish text without jumping between apps.
           </p>
         </div>
@@ -122,7 +122,7 @@ export function AIWritingToolsSEOContent() {
             <p>
               Built for bloggers, students, marketers, and teams that write a lot. Swap tone in
               one click, choose bullet or paragraph summaries, and tune length to match platform
-              limits. Everything runs from your browser — no account needed.
+              limits. Everything runs from your browser - no account needed.
             </p>
           </div>
 
@@ -132,7 +132,7 @@ export function AIWritingToolsSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI writing tools — paraphraser, summarizer, humanizer, and detector modes"
+                alt="AI writing tools - paraphraser, summarizer, humanizer, and detector modes"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -168,7 +168,7 @@ export function AIWritingToolsSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Paste text</h3>
             <p className="text-sm text-muted-foreground">
-              Drop your text — a sentence, a paragraph, or a full article.
+              Drop your text - a sentence, a paragraph, or a full article.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -186,7 +186,7 @@ export function AIWritingToolsSEOContent() {
           eyebrow="Modes"
           icon={Sparkles}
           title="Four modes, one workflow"
-          lead="Pick what you need — switch without re-pasting."
+          lead="Pick what you need - switch without re-pasting."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {modes.map((m) => (
@@ -240,7 +240,7 @@ export function AIWritingToolsSEOContent() {
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
-            AI detection is imperfect — the best models still produce false positives and
+            AI detection is imperfect - the best models still produce false positives and
             negatives, especially on short or heavily edited text. Use the score as one input
             alongside context: assignment brief, writing history, and a real reader’s intuition.
           </p>
@@ -327,7 +327,7 @@ export function AIWritingToolsSEOContent() {
             <Link href="/pdf-to-word" className="underline underline-offset-4 text-foreground">
               PDF to Word
             </Link>{" "}
-            — extract text, then summarize.
+            - extract text, then summarize.
           </p>
         </div>
       </section>
@@ -398,7 +398,7 @@ export function getAIWritingToolsFAQs() {
   return [
     {
       question: "Is the AI writing suite free to use?",
-      answer: "Yes. It’s free — no signup, no install.",
+      answer: "Yes. It’s free - no signup, no install.",
     },
     {
       question: "Which tools are included?",
@@ -413,7 +413,7 @@ export function getAIWritingToolsFAQs() {
     {
       question: "How reliable is the AI detector?",
       answer:
-        "Detection is a signal, not a verdict. Even the best models return false positives and negatives on short or heavily edited text — treat scores as guidance.",
+        "Detection is a signal, not a verdict. Even the best models return false positives and negatives on short or heavily edited text - treat scores as guidance.",
     },
     {
       question: "Does it support languages other than English?",

@@ -48,7 +48,7 @@ export function FileUpload({
   onModalClose,
   importInProgress = false,
   importModalMessage = 'Importing images',
-  importModalSubMessage = 'Fetching your images—this may take a moment…',
+  importModalSubMessage = 'Fetching your images-this may take a moment…',
   adSlotTop,
   adSlotBottom,
   adSlotLeft,

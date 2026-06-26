@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -61,7 +61,7 @@ export function AIImageEnhancerSEOContent() {
     { feature: "Upscale 2× / 4× / 8×", value: "Yes", note: "Pick how much resolution to add." },
     { feature: "Unblur photos", value: "Yes", note: "Recovers detail on mildly blurred images." },
     { feature: "Restore old / damaged photos", value: "Yes", note: "Scratches, dust, noise, fade reduction." },
-    { feature: "Colorize black & white", value: "Yes", note: "AI estimates colours — not a historical record." },
+    { feature: "Colorize black & white", value: "Yes", note: "AI estimates colours - not a historical record." },
     { feature: "Preserve original aspect ratio", value: "Yes", note: "No cropping unless you ask for it." },
     { feature: "Export as PNG / JPG / WebP", value: "Yes", note: "Keep original format or switch." },
     { feature: "Account required", value: "No", note: "No signup, no install." },
@@ -70,7 +70,7 @@ export function AIImageEnhancerSEOContent() {
   const pitfalls = [
     {
       title: "Expecting 8× to look like a DSLR",
-      body: "Upscaling invents plausible detail. 2× or 4× usually looks most natural — 8× can feel over-processed.",
+      body: "Upscaling invents plausible detail. 2× or 4× usually looks most natural - 8× can feel over-processed.",
     },
     {
       title: "Enhancing very low-quality sources",
@@ -99,7 +99,7 @@ export function AIImageEnhancerSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast AI image enhancer and AI photo upscaler. Upscale resolution, unblur photos,
-            restore old pictures, and colorize black &amp; white — in one tool.
+            restore old pictures, and colorize black &amp; white - in one tool.
           </p>
         </div>
 
@@ -112,7 +112,7 @@ export function AIImageEnhancerSEOContent() {
             </p>
             <p>
               Ideal when you need to prep a hero image, rescue a blurry memory, or modernise an
-              old family photo. Works for JPG, PNG, and WebP — output preserves your original
+              old family photo. Works for JPG, PNG, and WebP - output preserves your original
               aspect ratio.
             </p>
           </div>
@@ -123,7 +123,7 @@ export function AIImageEnhancerSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI image enhancer — upscale, unblur, restore, or colorize photos in a few clicks"
+                alt="AI image enhancer - upscale, unblur, restore, or colorize photos in a few clicks"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -153,7 +153,7 @@ export function AIImageEnhancerSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop a photo — JPG, PNG, or WebP.
+              Drop a photo - JPG, PNG, or WebP.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -205,15 +205,15 @@ export function AIImageEnhancerSEOContent() {
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
-            <strong className="text-foreground">2×</strong> — almost always the safest choice.
+            <strong className="text-foreground">2×</strong> - almost always the safest choice.
             Adds detail without the &quot;over-processed&quot; look.
           </p>
           <p>
-            <strong className="text-foreground">4×</strong> — a big step up in resolution. Works
+            <strong className="text-foreground">4×</strong> - a big step up in resolution. Works
             well when the source is already decent quality.
           </p>
           <p>
-            <strong className="text-foreground">8×</strong> — extreme. Great for tiny sources
+            <strong className="text-foreground">8×</strong> - extreme. Great for tiny sources
             you need to blow up, but expect some AI-invented texture. Check carefully before
             using for important work.
           </p>
@@ -373,7 +373,7 @@ export function getAIImageEnhancerFAQs() {
   return [
     {
       question: "Is the AI image enhancer free to use?",
-      answer: "Yes. It’s free — no signup, no install.",
+      answer: "Yes. It’s free - no signup, no install.",
     },
     {
       question: "Which modes are included?",
@@ -383,12 +383,12 @@ export function getAIImageEnhancerFAQs() {
     {
       question: "How much should I upscale?",
       answer:
-        "2× is safest and looks most natural. 4× is a big jump that works well with decent sources. 8× is extreme — great for tiny inputs, but review carefully before using the result in important work.",
+        "2× is safest and looks most natural. 4× is a big jump that works well with decent sources. 8× is extreme - great for tiny inputs, but review carefully before using the result in important work.",
     },
     {
       question: "Can it rescue a heavily blurred photo?",
       answer:
-        "It helps with mild to moderate blur. Severe blur or shake can’t be fully recovered — there’s not enough original signal for the model to work with.",
+        "It helps with mild to moderate blur. Severe blur or shake can’t be fully recovered - there’s not enough original signal for the model to work with.",
     },
     {
       question: "Is colorization historically accurate?",

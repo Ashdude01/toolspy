@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function CATPercentilePredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate your CAT percentile from your score and use it to shortlist MBA programs.
-            Percentiles vary by normalization, year, and category — verify with official results and
+            Percentiles vary by normalization, year, and category - verify with official results and
             institute criteria.
           </p>
         </div>
@@ -120,7 +120,7 @@ export function CATPercentilePredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="CAT percentile predictor — estimate percentile and shortlist MBA programs"
+                alt="CAT percentile predictor - estimate percentile and shortlist MBA programs"
                 className="w-full h-auto"
                 loading="lazy"
               />

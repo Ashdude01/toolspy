@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -56,7 +56,7 @@ export function AIBackgroundRemoverSEOContent() {
     },
     {
       title: "Subjects touching image edges",
-      body: "The cutout is clipped by the frame — add padding to the original if you need room to grow.",
+      body: "The cutout is clipped by the frame - add padding to the original if you need room to grow.",
     },
   ];
 
@@ -64,8 +64,8 @@ export function AIBackgroundRemoverSEOContent() {
     { feature: "Automatic background removal", value: "Yes", note: "One-click AI cutout for photos with a clear subject." },
     { feature: "Magic brush for touch-ups", value: "Yes", note: "Refine edges, restore or erase regions manually." },
     { feature: "Batch processing", value: "Yes", note: "Queue multiple photos; download as ZIP." },
-    { feature: "Transparent PNG output", value: "Yes", note: "Alpha channel preserved — drop into any design." },
-    { feature: "Solid background fill", value: "Yes", note: "Optional — pick white, black, brand hex, or keep transparency." },
+    { feature: "Transparent PNG output", value: "Yes", note: "Alpha channel preserved - drop into any design." },
+    { feature: "Solid background fill", value: "Yes", note: "Optional - pick white, black, brand hex, or keep transparency." },
     { feature: "High-res export", value: "Yes", note: "Original pixel dimensions kept in the result." },
     { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
@@ -102,7 +102,7 @@ export function AIBackgroundRemoverSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online AI background remover. Cut out the subject in one click, refine with a
-            magic brush, and download a transparent PNG — in your browser, no signup.
+            magic brush, and download a transparent PNG - in your browser, no signup.
           </p>
         </div>
 
@@ -111,7 +111,7 @@ export function AIBackgroundRemoverSEOContent() {
             <p>
               Use this AI background remover to remove the background from an image
               automatically. Upload a photo, the AI detects the subject, and the result is a
-              clean transparent PNG — ready to drop into product pages, thumbnails, posters, or
+              clean transparent PNG - ready to drop into product pages, thumbnails, posters, or
               design mockups.
             </p>
             <p>
@@ -128,7 +128,7 @@ export function AIBackgroundRemoverSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI background remover — subject cut out with transparent background and magic brush controls"
+                alt="AI background remover - subject cut out with transparent background and magic brush controls"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -158,7 +158,7 @@ export function AIBackgroundRemoverSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop a photo — JPG, PNG, or WebP.
+              Drop a photo - JPG, PNG, or WebP.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -191,8 +191,8 @@ export function AIBackgroundRemoverSEOContent() {
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
-            The AI cut is a strong first pass, but edges — especially hair, fur, or thin
-            objects — sometimes need a second look. The magic brush has two modes:{" "}
+            The AI cut is a strong first pass, but edges - especially hair, fur, or thin
+            objects - sometimes need a second look. The magic brush has two modes:{" "}
             <strong className="text-foreground">restore</strong> (bring pixels back) and{" "}
             <strong className="text-foreground">erase</strong> (remove more). Zoom in for
             precision.
@@ -247,7 +247,7 @@ export function AIBackgroundRemoverSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             For e-commerce catalogues and social batches, drop several photos at once. The tool
-            processes them in parallel and returns a single ZIP of transparent PNGs — ideal for
+            processes them in parallel and returns a single ZIP of transparent PNGs - ideal for
             consistent product shots or team headshots.
           </p>
           <p>
@@ -410,7 +410,7 @@ export function getAIBackgroundRemoverFAQs() {
   return [
     {
       question: "Is the AI background remover free to use?",
-      answer: "Yes. It’s free — no signup, no install.",
+      answer: "Yes. It’s free - no signup, no install.",
     },
     {
       question: "What image formats are supported?",

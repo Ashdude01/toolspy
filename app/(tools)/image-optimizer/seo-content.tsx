@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -102,7 +102,7 @@ export function ImageOptimizerSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online image optimizer for faster-loading images on your website, blog, or
-            store. Reduce image file size without changing what visitors see — works in the
+            store. Reduce image file size without changing what visitors see - works in the
             browser, no signup.
           </p>
         </div>
@@ -112,13 +112,13 @@ export function ImageOptimizerSEOContent() {
             <p>
               Use this image optimizer to optimize a photo for web, reduce image file size, and
               get faster-loading images across JPG, PNG, and WebP. Drop one file or a whole
-              batch — each image is re-encoded with settings tuned to keep quality visible and
+              batch - each image is re-encoded with settings tuned to keep quality visible and
               file size low.
             </p>
             <p>
               Handy before publishing a blog post, shipping a landing page, or sending a
               newsletter. Optionally resize at the same time, convert to WebP or AVIF for extra
-              savings, or strip unused metadata — everything runs locally in your browser.
+              savings, or strip unused metadata - everything runs locally in your browser.
             </p>
           </div>
 
@@ -128,7 +128,7 @@ export function ImageOptimizerSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image optimizer — batch upload with one-click web-optimized output"
+                alt="Image optimizer - batch upload with one-click web-optimized output"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -158,7 +158,7 @@ export function ImageOptimizerSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop one or many images — JPG, PNG, or WebP.
+              Drop one or many images - JPG, PNG, or WebP.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -389,7 +389,7 @@ export function getImageOptimizerFAQs() {
   return [
     {
       question: "Is the image optimizer free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "What does ‘optimize for web’ actually do?",

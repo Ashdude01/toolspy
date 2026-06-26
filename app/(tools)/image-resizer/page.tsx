@@ -455,7 +455,7 @@ function ImageResizerContent() {
             className="border-emerald-200 bg-emerald-50 font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-100"
           >
             <Shield className="mr-1.5 h-3.5 w-3.5" />
-            Private — processed in your browser
+            Private - processed in your browser
           </Badge>
           <Badge
             variant="outline"
@@ -469,7 +469,7 @@ function ImageResizerContent() {
           Image resizer
         </h1>
         <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
-          Scale by percent, set exact pixel sizes, or pick a social / print preset — then choose format and quality. Left: settings. Right: queue and downloads.
+          Scale by percent, set exact pixel sizes, or pick a social / print preset - then choose format and quality. Left: settings. Right: queue and downloads.
         </p>
       </header>
 
@@ -703,9 +703,9 @@ function ImageResizerContent() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="original">Keep original type</SelectItem>
-                    <SelectItem value="jpeg">JPEG — photos, smaller files</SelectItem>
-                    <SelectItem value="png">PNG — graphics, transparency</SelectItem>
-                    <SelectItem value="webp">WebP — modern web</SelectItem>
+                    <SelectItem value="jpeg">JPEG - photos, smaller files</SelectItem>
+                    <SelectItem value="png">PNG - graphics, transparency</SelectItem>
+                    <SelectItem value="webp">WebP - modern web</SelectItem>
                   </SelectContent>
                 </Select>
               </div>

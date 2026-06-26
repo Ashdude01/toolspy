@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -48,7 +48,7 @@ export function ImageCompressorSEOContent() {
     {
       name: "Max Compression",
       useCase: "Email, messaging, archives",
-      description: "Smallest possible file size. Expect some loss of sharpness — best for previews.",
+      description: "Smallest possible file size. Expect some loss of sharpness - best for previews.",
     },
     {
       name: "Web Optimized",
@@ -108,7 +108,7 @@ export function ImageCompressorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online image compressor for photos, screenshots, and web assets. Shrink image
-            size without wrecking quality — works in your browser, no signup.
+            size without wrecking quality - works in your browser, no signup.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function ImageCompressorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this image compressor to reduce image size across JPG, PNG, WebP, and AVIF in
-              one pass. Pick a preset, fine-tune quality, or set a target size in KB — the tool
+              one pass. Pick a preset, fine-tune quality, or set a target size in KB - the tool
               compresses up to 100 images at once and hands you a ZIP of the results.
             </p>
             <p>
@@ -132,7 +132,7 @@ export function ImageCompressorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image compressor — file upload, preset cards, quality slider, and download controls"
+                alt="Image compressor - file upload, preset cards, quality slider, and download controls"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -186,7 +186,7 @@ export function ImageCompressorSEOContent() {
         </div>
       </section>
 
-      {/* Target a specific KB — matches intent "reduce image size to 100KB / 50KB" */}
+      {/* Target a specific KB - matches intent "reduce image size to 100KB / 50KB" */}
       <section className="space-y-4" id="target-size">
         <SectionHeader
           eyebrow="Size control"
@@ -203,11 +203,11 @@ export function ImageCompressorSEOContent() {
           <ol className="list-decimal pl-5 space-y-1 text-sm">
             <li>Upload the image.</li>
             <li>Keep the format on &quot;Keep Original&quot; or pick WebP / AVIF for extra savings.</li>
-            <li>Type the target — for example <code className="bg-muted rounded px-1.5 py-0.5 text-xs">100</code> for 100&nbsp;KB.</li>
+            <li>Type the target - for example <code className="bg-muted rounded px-1.5 py-0.5 text-xs">100</code> for 100&nbsp;KB.</li>
             <li>Compress and verify the result below the input.</li>
           </ol>
           <p className="text-sm">
-            If the target is too aggressive for the source image, resize the dimensions as well —
+            If the target is too aggressive for the source image, resize the dimensions as well -
             this is usually the fastest way to hit a very small KB budget.
           </p>
         </div>
@@ -219,7 +219,7 @@ export function ImageCompressorSEOContent() {
           eyebrow="Presets"
           icon={Sparkles}
           title="Which preset to choose"
-          lead="Pick one — you can always fine-tune after."
+          lead="Pick one - you can always fine-tune after."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {presets.map((p) => (
@@ -402,7 +402,7 @@ export function getImageCompressorFAQs() {
   return [
     {
       question: "Is the image compressor free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How do I reduce an image to a specific KB size?",

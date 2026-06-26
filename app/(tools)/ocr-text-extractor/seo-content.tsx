@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -98,7 +98,7 @@ export function OCRTextExtractorSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               OCR (optical character recognition) converts pixels into text. The output depends on
-              scan quality and layout — but for clean scans it can save a lot of manual typing.
+              scan quality and layout - but for clean scans it can save a lot of manual typing.
             </p>
             <p>
               Need to convert images to a PDF first? Try{" "}
@@ -115,7 +115,7 @@ export function OCRTextExtractorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="OCR text extractor — upload an image or PDF and get copyable text"
+                alt="OCR text extractor - upload an image or PDF and get copyable text"
                 className="w-full h-auto"
                 loading="lazy"
               />

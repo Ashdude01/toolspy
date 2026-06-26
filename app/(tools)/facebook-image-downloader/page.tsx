@@ -7,14 +7,14 @@ const CONTAINER = "mx-auto w-full max-w-7xl px-4 sm:px-6";
 const HOW_TO_STEPS = [
   {
     title: "Open the Facebook post or photo",
-    desc: "Navigate to the public Facebook post, photo page, or profile you want to save. Make sure the content is publicly visible — posts that require login cannot be downloaded.",
+    desc: "Navigate to the public Facebook post, photo page, or profile you want to save. Make sure the content is publicly visible - posts that require login cannot be downloaded.",
   },
   {
     title: "Copy the URL from your browser address bar",
     desc: 'Click the address bar and copy the full URL. On mobile, tap the share icon → "Copy link". Works with facebook.com/posts/…, facebook.com/photo/?fbid=…, or a direct image URL.',
   },
   {
-    title: "Paste the link — the tool auto-analyzes it",
+    title: "Paste the link - the tool auto-analyzes it",
     desc: 'Paste the copied URL into the input box above. The downloader detects it automatically and starts analyzing. You can also click "Analyze" manually to start.',
   },
   {
@@ -73,11 +73,11 @@ const TYPES = [
 const DOWNLOAD_TYPES = [
   {
     title: "Photos from posts",
-    desc: "Download any photo or image from a public Facebook post in one click — single shots or whole galleries.",
+    desc: "Download any photo or image from a public Facebook post in one click - single shots or whole galleries.",
   },
   {
     title: "Profile pictures (DP)",
-    desc: "Save a public Facebook profile photo at the largest size available — a quick Facebook profile pic downloader and DP download.",
+    desc: "Save a public Facebook profile photo at the largest size available - a quick Facebook profile pic downloader and DP download.",
   },
   {
     title: "Cover photos",
@@ -128,7 +128,7 @@ const RELATED_TOOLS = [
   {
     href: "/ai-image-enhancer",
     title: "AI Image Enhancer",
-    desc: "Upscale, unblur, or restore downloaded Facebook photos with AI — get the best quality from any image.",
+    desc: "Upscale, unblur, or restore downloaded Facebook photos with AI - get the best quality from any image.",
     label: "AI Tool",
   },
   {
@@ -146,13 +146,13 @@ const RELATED_TOOLS = [
   {
     href: "/image-resizer",
     title: "Image Resizer",
-    desc: "Resize downloaded photos to exact dimensions — perfect for profile pictures, wallpapers, or web use.",
+    desc: "Resize downloaded photos to exact dimensions - perfect for profile pictures, wallpapers, or web use.",
     label: "Image",
   },
   {
     href: "/instagram-private-viewer",
     title: "Instagram DP Viewer",
-    desc: "View and download public Instagram profile pictures at full size — no app or account needed.",
+    desc: "View and download public Instagram profile pictures at full size - no app or account needed.",
     label: "Instagram",
   },
 ];
@@ -176,7 +176,7 @@ const FAQS = [
   },
   {
     q: "Do I need an account or an app?",
-    a: "No. Everything runs in your browser — there's nothing to download or sign up for.",
+    a: "No. Everything runs in your browser - there's nothing to download or sign up for.",
   },
   {
     q: "Is it safe to use?",
@@ -184,7 +184,7 @@ const FAQS = [
   },
   {
     q: "Can I download a Facebook profile picture?",
-    a: "Yes. Paste a public profile link and the tool works as a Facebook profile pic downloader — it saves the profile photo (DP) at the largest size that's publicly available. Profile pictures on private accounts that require login can't be downloaded.",
+    a: "Yes. Paste a public profile link and the tool works as a Facebook profile pic downloader - it saves the profile photo (DP) at the largest size that's publicly available. Profile pictures on private accounts that require login can't be downloaded.",
   },
   {
     q: "Can I download HD or full-size Facebook photos?",
@@ -200,7 +200,7 @@ const FAQS = [
   },
   {
     q: "How do I download photos from a Facebook group?",
-    a: "If the group is public, paste the post URL and the tool will extract the images. Private group posts require login and cannot be downloaded — only publicly accessible content works.",
+    a: "If the group is public, paste the post URL and the tool will extract the images. Private group posts require login and cannot be downloaded - only publicly accessible content works.",
   },
   {
     q: "Can I download all photos from a Facebook album?",
@@ -212,7 +212,7 @@ const FAQS = [
   },
   {
     q: "Why can't I download this photo?",
-    a: "The most common reasons are: (1) the post is private or requires login, (2) the link format isn't supported — try using the direct post URL instead of a shared link, (3) Facebook may have changed the page structure. If downloads fail, the tool will open the image in a new tab as a fallback.",
+    a: "The most common reasons are: (1) the post is private or requires login, (2) the link format isn't supported - try using the direct post URL instead of a shared link, (3) Facebook may have changed the page structure. If downloads fail, the tool will open the image in a new tab as a fallback.",
   },
   {
     q: "Is it legal to download Facebook photos?",
@@ -220,15 +220,10 @@ const FAQS = [
   },
 ];
 
-const faqJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  mainEntity: FAQS.map((f) => ({
-    "@type": "Question",
-    name: f.q,
-    acceptedAnswer: { "@type": "Answer", text: f.a },
-  })),
-};
+// NOTE: The FAQPage JSON-LD is emitted globally via `faq-loader.ts`
+// (registerToolFAQ -> DynamicToolLayout). We intentionally do NOT emit a
+// second FAQPage here to avoid duplicate FAQPage structured data on the page.
+// Keep faq-loader.ts in sync with the FAQS list below (visible content).
 
 const appJsonLd = {
   "@context": "https://schema.org",
@@ -245,14 +240,14 @@ const howToJsonLd = {
   "@type": "HowTo",
   name: "How to Download Facebook Photos",
   description:
-    "Download photos from public Facebook posts, profile pictures, and cover photos in HD quality — no app or account required.",
+    "Download photos from public Facebook posts, profile pictures, and cover photos in HD quality - no app or account required.",
   step: HOW_TO_STEPS.map((s, i) => ({
     "@type": "HowToStep",
     position: i + 1,
     name: s.title,
     text: s.desc,
   })),
-  tool: [{ "@type": "HowToTool", name: "Facebook Image Downloader — toolspy.net" }],
+  tool: [{ "@type": "HowToTool", name: "Facebook Image Downloader - toolspy.net" }],
 };
 
 const breadcrumbJsonLd = {
@@ -290,10 +285,6 @@ export default function FacebookImageDownloaderPage() {
     <div className="w-full bg-background text-foreground">
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-      />
-      <script
-        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
       />
       <script
@@ -308,16 +299,16 @@ export default function FacebookImageDownloaderPage() {
       {/* Hero */}
       <section className="border-b border-border bg-gradient-to-b from-muted/60 to-background">
         <div className={cn(CONTAINER, "py-12 text-center sm:py-16")}>
-          <span className="inline-flex items-center rounded-full border border-[#1877F2]/20 bg-[#1877F2]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400">
+          {/* <span className="inline-flex items-center rounded-full border border-[#1877F2]/20 bg-[#1877F2]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400">
             Free • No Signup • Works in Browser
-          </span>
+          </span> */}
           <h1 className="mx-auto mt-5 max-w-3xl !pb-0 !text-[2rem] font-extrabold leading-tight tracking-tight sm:!text-4xl lg:!text-5xl">
             Facebook Image Downloader
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
             Download full-size photos, profile pictures, and cover photos from public Facebook posts
-            in HD. Paste a link — no app to install, no account needed, everything runs in your
-            browser.
+            in HD. Paste a link - no app to install, no account needed, no watermarks, and everything
+            runs privately in your browser.
           </p>
 
           <div className="mt-8 w-full">
@@ -326,10 +317,10 @@ export default function FacebookImageDownloaderPage() {
 
           <div className="mt-8 flex flex-wrap items-center justify-center gap-x-7 gap-y-3">
             {[
-              "No signup needed",
-              "Runs in your browser",
-              "Public posts only",
-              "HD quality",
+              "No watermark",
+              "No signup or login",
+              "Private - runs in your browser",
+              "HD & full size",
             ].map((item) => (
               <span
                 key={item}
@@ -343,18 +334,18 @@ export default function FacebookImageDownloaderPage() {
         </div>
       </section>
 
-      {/* How to download Facebook photos — featured snippet target */}
+      {/* How to download Facebook photos - featured snippet target */}
       <section className="border-t border-border py-14 sm:py-16">
         <div className={CONTAINER}>
           <Kicker>Step-by-step guide</Kicker>
           <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
             How to Download Facebook Photos
           </h2>
-          <p className="mt-2 max-w-xl text-muted-foreground">
+          <p className="mt-2 text-muted-foreground">
             Downloading a photo from Facebook takes less than a minute. Here&apos;s exactly how to
             save any public Facebook image to your device.
           </p>
-          <ol className="mt-8 max-w-2xl space-y-3">
+          <ol className="mt-8 space-y-3">
             {HOW_TO_STEPS.map((step, i) => (
               <li
                 key={i}
@@ -418,7 +409,7 @@ export default function FacebookImageDownloaderPage() {
             >
               remove the background
             </Link>{" "}
-            — all free tools, right here.
+            - all free tools, right here.
           </p>
         </div>
       </section>
@@ -455,7 +446,7 @@ export default function FacebookImageDownloaderPage() {
             Three ways to link a photo
           </h2>
           <p className="mt-2 max-w-xl text-muted-foreground">
-            The tool understands the common ways people link to a Facebook image — and tells you how
+            The tool understands the common ways people link to a Facebook image - and tells you how
             reliable each one is.
           </p>
           <div className="mt-8 grid gap-4 lg:grid-cols-3">
@@ -555,7 +546,7 @@ export default function FacebookImageDownloaderPage() {
           <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
             Frequently asked questions
           </h2>
-          <div className="mt-6 max-w-3xl space-y-2">
+          <div className="mt-6 space-y-2">
             {FAQS.map((f) => (
               <details
                 key={f.q}
@@ -583,7 +574,7 @@ export default function FacebookImageDownloaderPage() {
             More free tools you might need
           </h2>
           <p className="mt-2 max-w-xl text-muted-foreground">
-            Download from other platforms, enhance your photos, or edit them — all free, no signup.
+            Download from other platforms, enhance your photos, or edit them - all free, no signup.
           </p>
           <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {RELATED_TOOLS.map((t) => (

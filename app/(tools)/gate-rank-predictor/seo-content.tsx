@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function GATERankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate your GATE rank from score and explore institute options for planning. Results
-            vary by discipline, category, and year — verify with official cutoffs.
+            vary by discipline, category, and year - verify with official cutoffs.
           </p>
         </div>
 
@@ -116,7 +116,7 @@ export function GATERankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="GATE rank predictor — estimate rank and explore institute options"
+                alt="GATE rank predictor - estimate rank and explore institute options"
                 className="w-full h-auto"
                 loading="lazy"
               />

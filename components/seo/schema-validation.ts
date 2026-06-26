@@ -175,7 +175,7 @@ function validateWebPageSchema(schema: any): boolean {
   )
 }
 
-// Development helper — runs validation when called (no console output)
+// Development helper - runs validation when called (no console output)
 export function logSchemaValidation(tool?: Tool) {
   if (process.env.NODE_ENV === 'development') {
     void validateSchemas(tool)

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -68,7 +68,7 @@ export function ColorPaletteGeneratorSEOContent() {
     },
     {
       name: "JSON",
-      description: "A JSON object with hex codes — good for scripts and tools.",
+      description: "A JSON object with hex codes - good for scripts and tools.",
       example: '{\n  "color1": "#ff6b6b",\n  "color2": "#4ecdc4"\n}',
     },
     {
@@ -85,7 +85,7 @@ export function ColorPaletteGeneratorSEOContent() {
     { keys: "Lock icon", action: "Lock the color so it stays when you generate." },
   ];
 
-  // Curated sample palettes — each click loads the palette into the tool.
+  // Curated sample palettes - each click loads the palette into the tool.
   const samplePalettes: { name: string; mood: string; colors: string[] }[] = [
     { name: "Sunset", mood: "Warm", colors: ["ff6b6b", "ffa94d", "ffd43b", "ff8787", "fab005"] },
     { name: "Ocean", mood: "Cool", colors: ["1b4965", "3d5a80", "45b7d1", "4ecdc4", "a8dadc"] },
@@ -100,7 +100,7 @@ export function ColorPaletteGeneratorSEOContent() {
       className="mx-auto max-w-5xl space-y-14 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
-      {/* Sample palettes — unique, visual, clickable */}
+      {/* Sample palettes - unique, visual, clickable */}
       <section className="space-y-6 md:space-y-10" id="samples">
         <SectionHeader
           eyebrow="Inspiration"
@@ -145,7 +145,7 @@ export function ColorPaletteGeneratorSEOContent() {
         />
       </nav>
 
-      {/* Intro (H1 — the tool UI above has no heading of its own) */}
+      {/* Intro (H1 - the tool UI above has no heading of its own) */}
       <section id="intro" className="space-y-8">
         <div className=" space-y-3">
           <h1 className="text-center font-bold tracking-tight">
@@ -163,7 +163,7 @@ export function ColorPaletteGeneratorSEOContent() {
             <p>
               Designers and developers use this color palette builder to lock a seed hex, explore
               matching shades, and export the final palette to CSS, Tailwind, SCSS, JSON, or PNG
-              in one click — no account, no install.
+              in one click - no account, no install.
             </p>
             <p>
               Tweak individual colors, drag to reorder, and share the result through a URL that
@@ -178,7 +178,7 @@ export function ColorPaletteGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Color palette generator interface — five color swatches with lock, drag, and edit controls"
+                alt="Color palette generator interface - five color swatches with lock, drag, and edit controls"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -206,7 +206,7 @@ export function ColorPaletteGeneratorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Lock colors</h3>
             <p className="text-sm text-muted-foreground">
-              Lock the ones you like — they stay when you regenerate.
+              Lock the ones you like - they stay when you regenerate.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -226,7 +226,7 @@ export function ColorPaletteGeneratorSEOContent() {
 
 
 
-      {/* Generate from a seed color — answers "generate color palette from color" intent */}
+      {/* Generate from a seed color - answers "generate color palette from color" intent */}
       <section className="space-y-4" id="from-color">
         <SectionHeader
           eyebrow="Starting point"
@@ -246,7 +246,7 @@ export function ColorPaletteGeneratorSEOContent() {
             </li>
             <li>Lock that swatch using the lock icon so it stays fixed.</li>
             <li>Press Space to regenerate the remaining colors around it.</li>
-            <li>Repeat until the full palette fits — lock more shades as you like them.</li>
+            <li>Repeat until the full palette fits - lock more shades as you like them.</li>
           </ol>
           <p className="text-sm">
             This turns the tool into a color palette scheme generator centered on your anchor
@@ -355,7 +355,7 @@ export function ColorPaletteGeneratorSEOContent() {
           <ul className="list-disc pl-5 space-y-1 text-sm">
             <li>Pair a darker accent with a light background (or vice versa) for body text.</li>
             <li>
-              Colors that sit very close on the color wheel often fail contrast — pick one and use
+              Colors that sit very close on the color wheel often fail contrast - pick one and use
               the other as an accent.
             </li>
             <li>
@@ -458,7 +458,7 @@ export function ColorPaletteGeneratorSEOContent() {
           </p>
           <p>
             Use a <strong className="text-foreground">color palette generator</strong> when you’re
-            starting fresh and want a set of colors that look good together — ideal for landing
+            starting fresh and want a set of colors that look good together - ideal for landing
             pages, illustrations, brand guidelines, or quick design explorations.
           </p>
           <p className="text-sm">
@@ -539,7 +539,7 @@ export function getColorPaletteGeneratorFAQs() {
   return [
     {
       question: "Is the color palette generator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How do I generate a new palette?",

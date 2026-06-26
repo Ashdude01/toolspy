@@ -653,7 +653,7 @@ function ImageCompressorContent() {
         modalDuration={2000}
         importInProgress={linkImportLoading}
         importModalMessage="Importing images"
-        importModalSubMessage="Fetching your images—almost there…"
+        importModalSubMessage="Fetching your images-almost there…"
         onModalClose={() => {
           // Optional: Add any logic when modal closes
         }}

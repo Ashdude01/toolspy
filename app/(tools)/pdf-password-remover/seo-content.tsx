@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -36,7 +36,7 @@ export function PdfPasswordRemoverSEOContent() {
   const whenItMakesSense = [
     {
       title: "Your own files",
-      body: "Bank statements, payslips, insurance PDFs you receive — removing the password for your own archive is fine.",
+      body: "Bank statements, payslips, insurance PDFs you receive - removing the password for your own archive is fine.",
     },
     {
       title: "Shared work files",
@@ -53,7 +53,7 @@ export function PdfPasswordRemoverSEOContent() {
   ];
 
   const featureChecklist = [
-    { feature: "Remove user (open) password", value: "Yes", note: "You must know the password — the tool doesn’t crack PDFs." },
+    { feature: "Remove user (open) password", value: "Yes", note: "You must know the password - the tool doesn’t crack PDFs." },
     { feature: "Remove owner permissions", value: "Yes", note: "Allow copy, edit, or print on unlocked PDFs you own." },
     { feature: "Batch unlock", value: "Yes", note: "Queue multiple PDFs and download as ZIP." },
     { feature: "Preserve text & links", value: "Yes", note: "Content, bookmarks, and internal links stay intact." },
@@ -93,7 +93,7 @@ export function PdfPasswordRemoverSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online PDF password remover and PDF unlocker. Remove passwords from PDFs you
-            own so you can view, edit, or share them freely — runs in your browser, no signup.
+            own so you can view, edit, or share them freely - runs in your browser, no signup.
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export function PdfPasswordRemoverSEOContent() {
             </p>
             <p>
               Common for bank statements, insurance PDFs, and shared work documents. Unlocking
-              runs locally in your browser — your passwords and files never leave your device.
+              runs locally in your browser - your passwords and files never leave your device.
               This is not a cracker: you must know the password.
             </p>
           </div>
@@ -118,7 +118,7 @@ export function PdfPasswordRemoverSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF password remover — upload a locked PDF, enter the password, download the unlocked file"
+                alt="PDF password remover - upload a locked PDF, enter the password, download the unlocked file"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -193,8 +193,8 @@ export function PdfPasswordRemoverSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             This tool is not a password cracker. It can only remove a password when you already
-            know it. Use it for your own documents — bank statements, receipts, work files with
-            a known password — not to bypass security on someone else&apos;s content.
+            know it. Use it for your own documents - bank statements, receipts, work files with
+            a known password - not to bypass security on someone else&apos;s content.
           </p>
           <p>
             Digitally signed PDFs may invalidate their signature once modified. If signatures
@@ -357,7 +357,7 @@ export function getPdfPasswordRemoverFAQs() {
   return [
     {
       question: "Is the PDF password remover free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can this tool crack a PDF password?",
@@ -372,7 +372,7 @@ export function getPdfPasswordRemoverFAQs() {
     {
       question: "Is it safe to upload a sensitive PDF?",
       answer:
-        "Unlocking runs in your browser. The PDF and password stay on your device — they are not uploaded to our servers.",
+        "Unlocking runs in your browser. The PDF and password stay on your device - they are not uploaded to our servers.",
     },
     {
       question: "Will the PDF content change?",

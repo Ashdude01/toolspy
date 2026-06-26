@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -41,7 +41,7 @@ export function MergePdfSEOContent() {
   ];
 
   const featureChecklist = [
-    { feature: "Merge multiple PDFs", value: "Yes", note: "No upper limit for common use — order you pick is preserved." },
+    { feature: "Merge multiple PDFs", value: "Yes", note: "No upper limit for common use - order you pick is preserved." },
     { feature: "Drag to reorder files", value: "Yes", note: "Re-arrange visually before merging." },
     { feature: "Mix page ranges", value: "Yes", note: "Pick specific pages from each file." },
     { feature: "Preserve bookmarks & links", value: "Yes", note: "Internal links carry over where the PDF supports them." },
@@ -64,7 +64,7 @@ export function MergePdfSEOContent() {
     },
     {
       title: "Expecting edits during merge",
-      body: "Merge only joins the files as-is. Edit each PDF first, then merge — or split the result and re-merge after edits.",
+      body: "Merge only joins the files as-is. Edit each PDF first, then merge - or split the result and re-merge after edits.",
     },
   ];
 
@@ -81,7 +81,7 @@ export function MergePdfSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online merge PDF tool and PDF combiner. Drop your files, drag them into
-            order, and combine PDFs into one document — no signup, no install.
+            order, and combine PDFs into one document - no signup, no install.
           </p>
         </div>
 
@@ -106,7 +106,7 @@ export function MergePdfSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Merge PDF — drag-to-reorder file list with a combine button and download output"
+                alt="Merge PDF - drag-to-reorder file list with a combine button and download output"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -188,14 +188,14 @@ export function MergePdfSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             The file list becomes your outline: drag each row up or down to set the exact order
-            pages appear in the merged PDF. You can also specify a page range per file — for
+            pages appear in the merged PDF. You can also specify a page range per file - for
             example,{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">1-3, 5</code> keeps pages 1
             through 3 and page 5 only.
           </p>
           <p>
             This is useful when you only need the signed page from a contract, or the summary
-            section from a long report — no need to pre-split the file.
+            section from a long report - no need to pre-split the file.
           </p>
         </div>
       </section>
@@ -353,7 +353,7 @@ export function getMergePdfFAQs() {
   return [
     {
       question: "Is the merge PDF tool free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How many PDFs can I merge at once?",
@@ -371,9 +371,9 @@ export function getMergePdfFAQs() {
         "No. The tool joins the files as-is. Bookmarks and internal links are preserved when the source PDF supports them.",
     },
     {
-      question: "The merged PDF is large — what now?",
+      question: "The merged PDF is large - what now?",
       answer:
-        "Run the result through the PDF compressor. It keeps readable quality while cutting file size — useful before emailing or uploading.",
+        "Run the result through the PDF compressor. It keeps readable quality while cutting file size - useful before emailing or uploading.",
     },
     {
       question: "Does the tool upload my files to a server?",

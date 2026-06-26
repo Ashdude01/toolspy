@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -55,7 +55,7 @@ export function PdfToWordSEOContent() {
   const tricky = [
     {
       title: "Scanned pages",
-      body: "A scanned PDF is an image. Without OCR, you get an image embedded in a Word doc — not editable text.",
+      body: "A scanned PDF is an image. Without OCR, you get an image embedded in a Word doc - not editable text.",
     },
     {
       title: "Complex columns",
@@ -77,7 +77,7 @@ export function PdfToWordSEOContent() {
     { feature: "Inline images", value: "Yes", note: "Kept at their position on each page." },
     { feature: "Basic tables", value: "Yes", note: "Simple tables round-trip reasonably well." },
     { feature: "Batch convert", value: "Yes", note: "Queue several PDFs and download as ZIP." },
-    { feature: "Editable output", value: "Yes", note: "Output is a real DOCX — not an image wrapped in a doc." },
+    { feature: "Editable output", value: "Yes", note: "Output is a real DOCX - not an image wrapped in a doc." },
     { feature: "Account required", value: "No", note: "No signup, no install." },
   ];
 
@@ -94,7 +94,7 @@ export function PdfToWordSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online PDF to Word converter. Turn a PDF into an editable DOCX for Microsoft
-            Word or Google Docs — works in your browser, no signup.
+            Word or Google Docs - works in your browser, no signup.
           </p>
         </div>
 
@@ -118,7 +118,7 @@ export function PdfToWordSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF to Word converter — upload a PDF and download an editable DOCX"
+                alt="PDF to Word converter - upload a PDF and download an editable DOCX"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -332,7 +332,7 @@ export function PdfToWordSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to convert PDF to Word?</h2>
           <p className="text-muted-foreground">
-            Upload your PDF and download an editable DOCX — ready to open in Word or Google
+            Upload your PDF and download an editable DOCX - ready to open in Word or Google
             Docs.
           </p>
           <ScrollToTopButton>Start Converting →</ScrollToTopButton>
@@ -347,17 +347,17 @@ export function getPdfToWordFAQs() {
   return [
     {
       question: "Is the PDF to Word converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Will the converted Word file match the PDF exactly?",
       answer:
-        "For text-based PDFs with simple layouts, yes — paragraphs, headings, lists, and inline images are preserved. Complex multi-column layouts, custom fonts, and heavy tables may need manual cleanup.",
+        "For text-based PDFs with simple layouts, yes - paragraphs, headings, lists, and inline images are preserved. Complex multi-column layouts, custom fonts, and heavy tables may need manual cleanup.",
     },
     {
       question: "Can I convert a scanned PDF to Word?",
       answer:
-        "You’ll need OCR first. Without it, the converter produces a Word file with the scanned page as an image inside — not editable text. Run OCR, then convert.",
+        "You’ll need OCR first. Without it, the converter produces a Word file with the scanned page as an image inside - not editable text. Run OCR, then convert.",
     },
     {
       question: "What file type do I get?",

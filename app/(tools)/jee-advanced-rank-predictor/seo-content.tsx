@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -91,7 +91,7 @@ export function JEEAdvancedRankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate JEE Advanced rank from score and explore IIT/branch options for planning.
-            Estimates vary by year and category — verify with official counselling cutoffs.
+            Estimates vary by year and category - verify with official counselling cutoffs.
           </p>
         </div>
 
@@ -119,7 +119,7 @@ export function JEEAdvancedRankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="JEE Advanced rank predictor — estimate rank and explore IIT options"
+                alt="JEE Advanced rank predictor - estimate rank and explore IIT options"
                 className="w-full h-auto"
                 loading="lazy"
               />

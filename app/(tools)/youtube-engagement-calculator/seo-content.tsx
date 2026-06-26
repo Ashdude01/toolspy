@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -87,7 +87,7 @@ export function YouTubeEngagementCalculatorSEOContent() {
     },
     {
       title: "Views inflation by traffic sources",
-      body: "External embeds, shorts feed, and suggested traffic can change audience intent — which changes engagement behavior.",
+      body: "External embeds, shorts feed, and suggested traffic can change audience intent - which changes engagement behavior.",
     },
   ];
 
@@ -111,7 +111,7 @@ export function YouTubeEngagementCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Calculate YouTube engagement rate from views, likes, and comments. Great for comparing
-            videos and tracking performance over time — best used with averages across a set of
+            videos and tracking performance over time - best used with averages across a set of
             recent videos.
           </p>
         </div>
@@ -148,7 +148,7 @@ export function YouTubeEngagementCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="YouTube engagement rate calculator — inputs for views, likes and comments"
+                alt="YouTube engagement rate calculator - inputs for views, likes and comments"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -388,7 +388,7 @@ export function getYouTubeEngagementCalculatorFAQs() {
   return [
     {
       question: "Is the YouTube engagement calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "What is a good engagement rate on YouTube?",

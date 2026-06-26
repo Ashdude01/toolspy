@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -34,7 +34,7 @@ export function PdfToExcelSEOContent() {
   const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
   const worksWellFor = [
-    { title: "Bank statements", body: "Most exported bank PDFs have clean, predictable tables — usually round-trip well." },
+    { title: "Bank statements", body: "Most exported bank PDFs have clean, predictable tables - usually round-trip well." },
     { title: "Invoices & receipts", body: "Line items, totals, and dates end up in their own cells." },
     { title: "Exported reports", body: "Reports saved directly from a spreadsheet tool tend to convert cleanly." },
     { title: "Simple rows & columns", body: "Straightforward tables with clear borders are the best case." },
@@ -81,7 +81,7 @@ export function PdfToExcelSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online PDF to Excel converter. Extract tables from a PDF into an editable
-            XLSX spreadsheet — works in your browser, no signup.
+            XLSX spreadsheet - works in your browser, no signup.
           </p>
         </div>
 
@@ -105,7 +105,7 @@ export function PdfToExcelSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF to Excel — select pages, convert tables into editable XLSX"
+                alt="PDF to Excel - select pages, convert tables into editable XLSX"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -335,7 +335,7 @@ export function getPdfToExcelFAQs() {
   return [
     {
       question: "Is the PDF to Excel converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Will all my tables come through correctly?",
@@ -345,7 +345,7 @@ export function getPdfToExcelFAQs() {
     {
       question: "Can I convert a scanned PDF?",
       answer:
-        "Not directly — a scan is an image. Run OCR first so the PDF contains text, then convert.",
+        "Not directly - a scan is an image. Run OCR first so the PDF contains text, then convert.",
     },
     {
       question: "What file format do I get?",

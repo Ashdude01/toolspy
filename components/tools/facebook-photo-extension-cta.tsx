@@ -39,7 +39,7 @@ export function FacebookPhotoExtensionCta({
           Save failed in the browser?
         </p>
         <p className="text-xs text-muted-foreground mt-1">
-          Grab our free extension—it downloads straight from Facebook.
+          Grab our free extension-it downloads straight from Facebook.
         </p>
         <Button asChild variant="link" className="h-auto min-h-11 p-0 mt-1 text-xs sm:text-sm">
           <Link href={FACEBOOK_PHOTO_EXTENSION_PAGE}>Download Facebook Photo Downloader</Link>
@@ -84,24 +84,27 @@ export function FacebookPhotoExtensionCta({
     >
       <Card className="border bg-muted/20 shadow-sm">
         <CardContent className="p-4 sm:p-6">
-          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 sm:items-center">
-            <Image
-              src="/logo/facebook_photo_downloader.png"
-              alt=""
-              width={100}
-              height={100}
-              className="object-cover shrink-0 self-start"
-            />
-            <div className="flex-1 space-y-2 min-w-0">
-              <h2 id="fb-photo-ext-aside-title" className="text-base sm:text-lg font-semibold">
-                Extension for Facebook
-              </h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">
-                <span className="text-foreground font-medium">Facebook Photo Downloader</span> - free,
-                one click to scan and save images.
-              </p>
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-between sm:items-center">
+            <div className="flex gap-4 items-center">
+
+
+              <Image
+                src="/logo/facebook_photo_downloader.png"
+                alt=""
+                width={100}
+                height={100}
+                className="object-cover w-16 md:w-20 shrink-0 self-start"
+              />
+              <div className="flex flex-col justify-start items-start ">
+                <h2 className="text-base sm:text-lg font-semibold">
+                Facebook Photo Downloader
+                </h2>
+                <p className="text-sm sm:text-sm text-muted-foreground text-start">
+                  Free one click to scan and download images from facebook.
+                </p>
+              </div>
             </div>
-            <Button asChild variant="secondary" className="w-full sm:w-auto shrink-0 min-h-11">
+            <Button asChild variant="secondary" className="w-fit px-4 py-2 mx-auto font-semibold bg-[#1877F2] text-white hover:bg-[#166FE5]">
               <Link href={FACEBOOK_PHOTO_EXTENSION_PAGE}>Download extension</Link>
             </Button>
           </div>

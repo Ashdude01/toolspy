@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -61,7 +61,7 @@ export function ImageToBase64SEOContent() {
     {
       format: "Data URI",
       example: "data:image/png;base64,iVBORw0KGgo...",
-      note: "Includes the MIME prefix — drop directly into <img src>, CSS url(), or JSON.",
+      note: "Includes the MIME prefix - drop directly into <img src>, CSS url(), or JSON.",
     },
     {
       format: "CSS url()",
@@ -117,7 +117,7 @@ export function ImageToBase64SEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online image to Base64 encoder. Convert an image to a Base64 string or data
-            URI — paste it into HTML, CSS, JSON, or an API payload in seconds.
+            URI - paste it into HTML, CSS, JSON, or an API payload in seconds.
           </p>
         </div>
 
@@ -128,11 +128,11 @@ export function ImageToBase64SEOContent() {
               Base64 string. Pick raw output, a full data URI, a CSS{" "}
               <code className="bg-muted rounded px-1.5 py-0.5 text-xs">url()</code> wrapper, or a
               complete <code className="bg-muted rounded px-1.5 py-0.5 text-xs">&lt;img&gt;</code>{" "}
-              tag — whichever you need.
+              tag - whichever you need.
             </p>
             <p>
               Ideal for embedding small icons in a stylesheet, inlining avatars in email
-              templates, or posting images in a JSON API call. Everything runs in your browser —
+              templates, or posting images in a JSON API call. Everything runs in your browser -
               files never leave your device.
             </p>
           </div>
@@ -143,7 +143,7 @@ export function ImageToBase64SEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image to Base64 — drop an image, copy a data URI or Base64 string ready to paste"
+                alt="Image to Base64 - drop an image, copy a data URI or Base64 string ready to paste"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -173,7 +173,7 @@ export function ImageToBase64SEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">1. Upload</h3>
             <p className="text-sm text-muted-foreground">
-              Drop an image — PNG, JPG, WebP, GIF, or SVG.
+              Drop an image - PNG, JPG, WebP, GIF, or SVG.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -375,7 +375,7 @@ export function getImageToBase64FAQs() {
   return [
     {
       question: "Is the image to Base64 encoder free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "What output formats can I get?",
@@ -395,7 +395,7 @@ export function getImageToBase64FAQs() {
     {
       question: "Can I encode many images at once?",
       answer:
-        "Yes. Upload multiple files and get a list of Base64 strings — useful when you need to embed a set of icons or avatars.",
+        "Yes. Upload multiple files and get a list of Base64 strings - useful when you need to embed a set of icons or avatars.",
     },
     {
       question: "Does the tool upload my images to a server?",

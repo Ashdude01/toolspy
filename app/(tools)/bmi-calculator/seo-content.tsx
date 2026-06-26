@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -58,7 +58,7 @@ export function BMICalculatorSEOContent() {
     },
     {
       title: "Adult vs child interpretations",
-      body: "BMI categories here are for adults. Children and teens use age-specific percentiles — check a paediatric chart.",
+      body: "BMI categories here are for adults. Children and teens use age-specific percentiles - check a paediatric chart.",
     },
     {
       title: "Snapshot, not a trend",
@@ -83,7 +83,7 @@ export function BMICalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online BMI calculator. Enter your height and weight in metric or imperial
-            units and see your Body Mass Index and category — in your browser, no signup.
+            units and see your Body Mass Index and category - in your browser, no signup.
           </p>
         </div>
 
@@ -107,7 +107,7 @@ export function BMICalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="BMI calculator — height and weight inputs with BMI result and category"
+                alt="BMI calculator - height and weight inputs with BMI result and category"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -143,7 +143,7 @@ export function BMICalculatorSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Enter measurements</h3>
             <p className="text-sm text-muted-foreground">
-              Height and weight — decimals allowed.
+              Height and weight - decimals allowed.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -212,7 +212,7 @@ export function BMICalculatorSEOContent() {
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">BMI = 703 × weight(lb) / height(in)²</code>
           </p>
           <p className="text-sm">
-            The tool handles both — just enter the numbers and pick units.
+            The tool handles both - just enter the numbers and pick units.
           </p>
         </div>
       </section>
@@ -349,7 +349,7 @@ export function BMICalculatorSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to check your BMI?</h2>
           <p className="text-muted-foreground">
-            Enter your height and weight — see your BMI, category, and healthy range.
+            Enter your height and weight - see your BMI, category, and healthy range.
           </p>
           <ScrollToTopButton>Start Calculating →</ScrollToTopButton>
         </div>
@@ -363,12 +363,12 @@ export function getBMICalculatorFAQs() {
   return [
     {
       question: "Is the BMI calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Does it support both metric and imperial?",
       answer:
-        "Yes. Enter height and weight in kg / cm or lb / ft-in — the BMI is calculated either way.",
+        "Yes. Enter height and weight in kg / cm or lb / ft-in - the BMI is calculated either way.",
     },
     {
       question: "What BMI range is healthy?",

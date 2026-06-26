@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -34,10 +34,10 @@ export function JfifToPdfSEOContent() {
   const ratingSummary = tool ? getToolRatingSummary(tool) : null;
 
   const useCases = [
-    { title: "Form / job uploads", body: "Portals that reject .jfif but accept PDF — build one PDF and upload." },
+    { title: "Form / job uploads", body: "Portals that reject .jfif but accept PDF - build one PDF and upload." },
     { title: "Bundle downloaded photos", body: "Combine .jfif images Windows saved from the web into a single shareable document." },
     { title: "Archive screenshots", body: "Keep browser screenshots (often saved as JFIF) as a compact PDF." },
-    { title: "Email attachments", body: "PDF attachments open cleanly on every platform — no JFIF support issues." },
+    { title: "Email attachments", body: "PDF attachments open cleanly on every platform - no JFIF support issues." },
   ];
 
   const featureChecklist = [
@@ -53,7 +53,7 @@ export function JfifToPdfSEOContent() {
   const pitfalls = [
     {
       title: "Assuming quality will improve",
-      body: "JFIF is JPEG image data. Wrapping it in a PDF doesn’t add detail — it only makes the file easier to share.",
+      body: "JFIF is JPEG image data. Wrapping it in a PDF doesn’t add detail - it only makes the file easier to share.",
     },
     {
       title: "Large bundle sizes",
@@ -61,7 +61,7 @@ export function JfifToPdfSEOContent() {
     },
     {
       title: "Wrong page order",
-      body: "The tool uses the order you set — drag each thumbnail to sort before you generate the PDF.",
+      body: "The tool uses the order you set - drag each thumbnail to sort before you generate the PDF.",
     },
     {
       title: "Expecting searchable text",
@@ -81,7 +81,7 @@ export function JfifToPdfSEOContent() {
             JFIF to PDF Converter
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online JFIF to PDF converter. Turn one JFIF image — or several at once —
+            A fast online JFIF to PDF converter. Turn one JFIF image - or several at once -
             into a clean, shareable PDF in your browser, no signup.
           </p>
         </div>
@@ -96,7 +96,7 @@ export function JfifToPdfSEOContent() {
             <p>
               Ideal when a form or email client won’t accept .jfif, when you want to archive
               downloaded photos together, or when you need a single shareable document. Quality
-              is preserved — the JFIF image data is embedded as-is.
+              is preserved - the JFIF image data is embedded as-is.
             </p>
           </div>
 
@@ -106,7 +106,7 @@ export function JfifToPdfSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="JFIF to PDF — drop JFIF files, reorder, and export a single PDF document"
+                alt="JFIF to PDF - drop JFIF files, reorder, and export a single PDF document"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -193,7 +193,7 @@ export function JfifToPdfSEOContent() {
             instead of .jpg, which trips up apps that only look at the extension.
           </p>
           <p>
-            Wrapping JFIF in a PDF sidesteps that — almost every app, email client, and platform
+            Wrapping JFIF in a PDF sidesteps that - almost every app, email client, and platform
             opens PDFs without a fuss. If you only want JPG files instead, use the dedicated{" "}
             <Link href="/jfif-to-jpg" className="underline underline-offset-4 text-foreground">
               JFIF to JPG converter
@@ -356,7 +356,7 @@ export function getJfifToPdfFAQs() {
   return [
     {
       question: "Is the JFIF to PDF converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can I combine multiple JFIF images into one PDF?",

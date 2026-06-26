@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function CompositionRegularSchemeEstimatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Compare composition and regular GST schemes with a rough estimate based on your inputs.
-            Use it for planning — verify eligibility, rates, and filing requirements before deciding.
+            Use it for planning - verify eligibility, rates, and filing requirements before deciding.
           </p>
         </div>
 
@@ -99,7 +99,7 @@ export function CompositionRegularSchemeEstimatorSEOContent() {
             <p>
               Choosing between composition and regular scheme affects compliance, invoicing, and how
               tax flows through your business. This estimator helps you compare scenarios quickly
-              using simple inputs — useful when you’re planning, budgeting, or evaluating a switch.
+              using simple inputs - useful when you’re planning, budgeting, or evaluating a switch.
             </p>
             <p>
               Want to estimate ITC in a scenario? Use the{" "}
@@ -116,7 +116,7 @@ export function CompositionRegularSchemeEstimatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Composition vs regular scheme estimator — compare scenarios for GST scheme choice"
+                alt="Composition vs regular scheme estimator - compare scenarios for GST scheme choice"
                 className="w-full h-auto"
                 loading="lazy"
               />

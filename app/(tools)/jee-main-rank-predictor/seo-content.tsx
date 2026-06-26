@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function JEEMainRankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate your JEE Main rank from percentile and explore college options for planning.
-            Estimates vary by year, category, and counselling rules — always verify with official
+            Estimates vary by year, category, and counselling rules - always verify with official
             cutoffs.
           </p>
         </div>
@@ -119,7 +119,7 @@ export function JEEMainRankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="JEE Main rank predictor — estimate rank and explore college options"
+                alt="JEE Main rank predictor - estimate rank and explore college options"
                 className="w-full h-auto"
                 loading="lazy"
               />

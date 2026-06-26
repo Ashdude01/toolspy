@@ -140,7 +140,7 @@ export const tools: Tool[] = [
       name: 'Image Compressor',
       title: 'Compress JPG, PNG & GIF Online – Shrink Photos Free | Toolspy',
       slug: '/image-compressor',
-      description: "Shrink image size without wrecking quality. Works in your browser—no signup. Drop your JPG, PNG or GIF and get a smaller file in seconds.",
+      description: "Shrink image size without wrecking quality. Works in your browser-no signup. Drop your JPG, PNG or GIF and get a smaller file in seconds.",
       tags: ['compress image', 'reduce image size', 'jpg compressor', 'png compressor', 'compress photo online', 'shrink image', 'image size reducer']
     }),
     posterImage: '/images/tools/image-compressor.webp'
@@ -149,7 +149,7 @@ export const tools: Tool[] = [
     id: 'online-image-cropper',
     name: 'Online Image Cropper',
     slug: 'online-image-cropper',
-    description: 'Crop images by free selection, aspect ratio, or predefined shapes like circle and polygons — runs in your browser.',
+    description: 'Crop images by free selection, aspect ratio, or predefined shapes like circle and polygons - runs in your browser.',
     category: 'image-tools',
     icon: '✂️',
     tags: ['crop image', 'image cropper', 'aspect ratio crop', 'circle crop', 'shape crop', 'online', 'browser'],
@@ -160,7 +160,7 @@ export const tools: Tool[] = [
       title: 'Online Image Cropper – Freeform, Aspect Ratio & Shape Crop | Toolspy',
       slug: '/online-image-cropper',
       description:
-        'Crop images in your browser: freeform selection, fixed aspect ratios, or shapes like circle and polygons. No upload required—download PNG/WebP/JPEG.',
+        'Crop images in your browser: freeform selection, fixed aspect ratios, or shapes like circle and polygons. No upload required-download PNG/WebP/JPEG.',
       tags: [
         'online image cropper',
         'crop image online',
@@ -188,7 +188,7 @@ export const tools: Tool[] = [
       name: 'Image Converter',
       title: 'Convert Image Format Online – JPG, PNG, WebP, HEIC | Toolspy',
       slug: '/image-converter',
-      description: "Need a different format? Turn JPG into PNG, HEIC into JPG, WebP into PNG—15+ formats. Batch convert if you've got loads. No account needed.",
+      description: "Need a different format? Turn JPG into PNG, HEIC into JPG, WebP into PNG-15+ formats. Batch convert if you've got loads. No account needed.",
       tags: ['image converter', 'convert jpg to png', 'convert png to jpg', 'heic to jpg', 'webp to png', 'change image format', 'convert image online', 'batch image converter']
     }),
     posterImage: '/images/tools/image-converter.webp'
@@ -267,7 +267,7 @@ export const tools: Tool[] = [
       name: 'Base64 to Image Converter',
       title: 'Base64 to Image – Decode Base64 String to Picture | Toolspy',
       slug: '/base64-to-image',
-      description: "Paste a Base64 string and get your image back. No uploads—everything runs in the browser. Handy for devs and data URLs.",
+      description: "Paste a Base64 string and get your image back. No uploads-everything runs in the browser. Handy for devs and data URLs.",
       tags: ['base64 to image', 'decode base64 to image', 'base64 decoder image', 'convert base64 to picture', 'base64 to jpg']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/base64_to_image_jl5bex.webp'
@@ -327,7 +327,7 @@ export const tools: Tool[] = [
       name: 'PDF Converter',
       title: 'PDF Converter Online – Convert PDF to Any Format | Toolspy',
       slug: '/pdf-converter',
-      description: "Switch PDFs to other formats (or the other way round). Works in the browser—your docs stay on your side. No signup.",
+      description: "Switch PDFs to other formats (or the other way round). Works in the browser-your docs stay on your side. No signup.",
       tags: ['pdf converter', 'convert pdf', 'pdf to other format', 'convert document', 'pdf conversion online']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/pdf_converter_iewyap.webp'
@@ -441,7 +441,7 @@ export const tools: Tool[] = [
       name: 'PDF Compressor',
       title: 'Compress PDF – Shrink PDF Size Free Online | Toolspy',
       slug: '/compress-pdf',
-      description: "PDF too big for email or upload? Shrink it here. You pick how much—light squeeze or max compression. Stays readable.",
+      description: "PDF too big for email or upload? Shrink it here. You pick how much-light squeeze or max compression. Stays readable.",
       tags: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf', 'make pdf smaller']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/v1756527237/compress-pdf_cjhuif.webp'
@@ -623,7 +623,7 @@ export const tools: Tool[] = [
       name: 'Age Calculator',
       title: 'Age Calculator – Exact Age in Years, Months, Days | Toolspy',
       slug: '/age-calculator',
-      description: "How old are you down to the day? Or the time between two dates? Get years, months, days—even hours and minutes.",
+      description: "How old are you down to the day? Or the time between two dates? Get years, months, days-even hours and minutes.",
       tags: ['age calculator', 'calculate age', 'how old am i', 'age in days', 'date difference calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/age-calculator_l8kwxt.webp'
@@ -680,7 +680,7 @@ export const tools: Tool[] = [
       name: 'Loan Calculator',
       title: 'Loan Calculator – Monthly Payment & Interest | Toolspy',
       slug: '/loan-calculator',
-      description: "See what you'd pay each month on a loan. Plug in amount, rate and term—we'll show monthly payment and total interest.",
+      description: "See what you'd pay each month on a loan. Plug in amount, rate and term-we'll show monthly payment and total interest.",
       tags: ['loan calculator', 'monthly payment calculator', 'loan payment', 'interest calculator', 'emi calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/loan-calculator_y1tqqv.webp'
@@ -737,7 +737,7 @@ export const tools: Tool[] = [
       name: 'Investment Calculator',
       title: 'Investment Calculator – Compound Interest & Growth | Toolspy',
       slug: '/investment-calculator',
-      description: "See how money grows with compound interest. Put in amount, rate and years—we'll show the growth. For planning, not advice.",
+      description: "See how money grows with compound interest. Put in amount, rate and years-we'll show the growth. For planning, not advice.",
       tags: ['investment calculator', 'compound interest calculator', 'investment growth', 'compound interest', 'savings growth calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Investment-calculator_dsq6hr.webp'
@@ -834,7 +834,7 @@ export const tools: Tool[] = [
       name: 'Temperature Converter',
       title: 'Temperature Converter – Celsius, Fahrenheit, Kelvin | Toolspy',
       slug: '/temperature-converter',
-      description: "C to F? F to C? Or Kelvin? Swap between them. Cooking, weather or science—whatever you need.",
+      description: "C to F? F to C? Or Kelvin? Swap between them. Cooking, weather or science-whatever you need.",
       tags: ['temperature converter', 'celsius to fahrenheit', 'fahrenheit to celsius', 'temp converter', 'c to f']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/temperature_converter_iesjzn.webp'
@@ -872,7 +872,7 @@ export const tools: Tool[] = [
       name: 'Weight Converter',
       title: 'Weight Converter – kg, lbs, oz, grams | Toolspy',
       slug: '/weight-converter',
-      description: "kg to pounds? Ounces to grams? Convert weight in a snap. Cooking, luggage or gym—whatever you're measuring.",
+      description: "kg to pounds? Ounces to grams? Convert weight in a snap. Cooking, luggage or gym-whatever you're measuring.",
       tags: ['weight converter', 'kg to lbs', 'pounds to kg', 'grams to ounces', 'weight conversion']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/weight_converter_k8ebov.webp'
@@ -891,7 +891,7 @@ export const tools: Tool[] = [
       name: 'Volume Converter',
       title: 'Volume Converter – Liters, Gallons, ml | Toolspy',
       slug: '/volume-converter',
-      description: "Liters to gallons? ml to cups? Swap volume and capacity. Recipes, fuel or science—we've got it.",
+      description: "Liters to gallons? ml to cups? Swap volume and capacity. Recipes, fuel or science-we've got it.",
       tags: ['volume converter', 'liters to gallons', 'ml to oz', 'volume conversion', 'gallons to liters']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/volume_converter_owmjt1.webp'
@@ -1186,19 +1186,41 @@ export const tools: Tool[] = [
     id: 'facebook-image-downloader',
     name: 'Facebook Image Downloader',
     slug: 'facebook-image-downloader',
-    description: 'Download public Facebook post images in full quality. Paste a post URL and save photos instantly.',
+    description: 'Free Facebook image downloader for public posts. Paste a link to download Facebook photos, profile pictures (DP), and cover photos in HD - no app, no login, right in your browser.',
     category: 'conversion-tools',
     icon: '📘',
     featured: true,
-    tags: ['facebook', 'image', 'photo', 'download', 'social'],
+    tags: [
+      'facebook image downloader',
+      'facebook photo downloader',
+      'download facebook photos',
+      'download facebook profile picture',
+      'facebook dp download',
+      'facebook profile pic downloader',
+      'download hd facebook photos',
+      'facebook cover photo download',
+      'download fb photo',
+      'save facebook images',
+    ],
     path: '/facebook-image-downloader',
     status: 'active',
     seo: generateSEO({
       name: 'Facebook Image Downloader',
-      title: 'Facebook Image Downloader – Facebook Photo Downloader | Toolspy',
+      title: 'Facebook Image Downloader – Download Photos, DP & HD Images | Toolspy',
       slug: '/facebook-image-downloader',
-      description: "Paste a public Facebook post link and grab the photos in full size. No app. Works in the browser. For public posts only.",
-      tags: ['facebook image downloader', 'download facebook photos', 'save facebook images', 'fb photo download']
+      description: 'Free Facebook image downloader for public posts. Paste a link to download Facebook photos, profile pictures (DP), and cover photos in HD - no app, no login.',
+      tags: [
+        'facebook image downloader',
+        'facebook photo downloader',
+        'download facebook photos',
+        'download facebook profile picture',
+        'facebook dp download',
+        'facebook profile pic downloader',
+        'download hd facebook photos',
+        'facebook cover photo download',
+        'download fb photo',
+        'save facebook images',
+      ],
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Facebook_Image_Downloader_qgkbdy.webp'
   },
@@ -1235,7 +1257,7 @@ export const tools: Tool[] = [
       name: 'Instagram Reels Downloader',
       title: 'Instagram Reels Downloader – Save Reels Video | Toolspy',
       slug: '/instagram-reels-downloader',
-      description: "Paste a Reels link and download the video. Keeps the quality. No app—runs in the browser. For your own or public reels.",
+      description: "Paste a Reels link and download the video. Keeps the quality. No app-runs in the browser. For your own or public reels.",
       tags: ['instagram reels downloader', 'download instagram reels', 'save reels video', 'reels download']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Reels_Downloader_twbraa.webp'
@@ -1254,7 +1276,7 @@ export const tools: Tool[] = [
       name: 'Instagram Private Viewer (DP Only)',
       title: 'Instagram DP Downloader – View & Save Profile Pic | Toolspy',
       slug: '/instagram-private-viewer',
-      description: "See and save Instagram profile pics in full size. Works for public DPs. Private accounts—only when the DP is viewable.",
+      description: "See and save Instagram profile pics in full size. Works for public DPs. Private accounts-only when the DP is viewable.",
       tags: ['instagram dp downloader', 'download instagram profile picture', 'instagram profile pic', 'save instagram dp']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Private_Viewer_DP_Only_usclpt.webp'
@@ -1313,7 +1335,7 @@ export const tools: Tool[] = [
       name: 'Media Converter',
       title: 'Media Converter – Video, Audio, GIF & More | Toolspy',
       slug: '/media-converter',
-      description: "Convert video, audio, GIF or archives to another format. MP4, MP3, WebM, ZIP—pick what you need. Batch if you've got multiple files.",
+      description: "Convert video, audio, GIF or archives to another format. MP4, MP3, WebM, ZIP-pick what you need. Batch if you've got multiple files.",
       tags: ['media converter', 'video converter', 'audio converter', 'convert video', 'convert mp4', 'gif converter']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Media_Converter_wgmsmn.webp'
@@ -1373,7 +1395,7 @@ export const tools: Tool[] = [
       name: 'Instagram Engagement Calculator',
       title: 'Instagram Engagement Rate Calculator | Toolspy',
       slug: '/instagram-engagement-calculator',
-      description: "Plug in followers, likes and comments—we'll show your engagement rate. Compare with benchmarks. Useful for creators and brands.",
+      description: "Plug in followers, likes and comments-we'll show your engagement rate. Compare with benchmarks. Useful for creators and brands.",
       tags: ['instagram engagement calculator', 'engagement rate', 'instagram engagement rate', 'calculate engagement', 'instagram analytics']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
@@ -1433,7 +1455,7 @@ export const tools: Tool[] = [
       name: 'YouTube Engagement Calculator',
       title: 'YouTube Engagement Rate Calculator | Toolspy',
       slug: '/youtube-engagement-calculator',
-      description: "Subs, views, likes and comments in—engagement rate out. See how your channel performs. Good for creators and quick audits.",
+      description: "Subs, views, likes and comments in-engagement rate out. See how your channel performs. Good for creators and quick audits.",
       tags: ['youtube engagement calculator', 'youtube engagement rate', 'calculate youtube engagement', 'youtube analytics', 'video engagement']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Engagement_jv8cyi.webp'
@@ -1615,7 +1637,7 @@ export const tools: Tool[] = [
       name: 'Reverse GST Calculator',
       title: 'Reverse GST Calculator – Base Amount From Total | Toolspy',
       slug: '/reverse-gst-calculator',
-      description: "You've got a total with GST—we'll split it into base and tax. Handy for invoices and checking what the base was.",
+      description: "You've got a total with GST-we'll split it into base and tax. Handy for invoices and checking what the base was.",
       tags: ['reverse gst calculator', 'gst from total', 'gst breakdown', 'base amount from gst', 'reverse gst india']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Reverse_GST_Calculator_k4b3fw.webp'
@@ -1655,7 +1677,7 @@ export const tools: Tool[] = [
       name: 'CGST/SGST/IGST Splitter',
       title: 'CGST SGST IGST Splitter – Intra vs Inter State | Toolspy',
       slug: '/cgst-sgst-igst-splitter',
-      description: "Same state or different? We'll split GST into CGST+SGST or IGST. Enter amount and state—get the breakdown.",
+      description: "Same state or different? We'll split GST into CGST+SGST or IGST. Enter amount and state-get the breakdown.",
       tags: ['cgst sgst igst', 'gst splitter', 'intra state gst', 'inter state gst', 'cgst sgst calculator', 'igst calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CGSTSGSTIGST_Splitter_asvwyh.webp'
@@ -1755,7 +1777,7 @@ export const tools: Tool[] = [
       name: 'JEE Main Rank Predictor',
       title: 'JEE Main Rank Predictor – Rank & College Options | Toolspy',
       slug: '/jee-main-rank-predictor',
-      description: "Enter your JEE Main percentile and get a rough rank and college list. Ballpark only—use official counselling for final choices.",
+      description: "Enter your JEE Main percentile and get a rough rank and college list. Ballpark only-use official counselling for final choices.",
       tags: ['jee main rank predictor', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee main rank']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Main_Rank_Predictor_nzxxbe.webp'
@@ -1775,7 +1797,7 @@ export const tools: Tool[] = [
       name: 'NEET Rank Predictor',
       title: 'NEET Rank Predictor – Rank & Medical College | Toolspy',
       slug: '/neet-rank-predictor',
-      description: "Put in your NEET score and see a rough rank and college options. For planning only—check official counselling for final list.",
+      description: "Put in your NEET score and see a rough rank and college options. For planning only-check official counselling for final list.",
       tags: ['neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank', 'neet rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/NEET_Rank_Predictor_tffgq8.webp'
@@ -1795,7 +1817,7 @@ export const tools: Tool[] = [
       name: 'JEE Advanced Rank Predictor',
       title: 'JEE Advanced Rank Predictor – IIT Options | Toolspy',
       slug: '/jee-advanced-rank-predictor',
-      description: "Enter your JEE Advanced score and get a rough rank and IIT/branch options. Estimate only—official counselling has the final say.",
+      description: "Enter your JEE Advanced score and get a rough rank and IIT/branch options. Estimate only-official counselling has the final say.",
       tags: ['jee advanced rank predictor', 'jee advanced rank calculator', 'iit predictor', 'jee advanced rank', 'predict jee advanced']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/JEE_Advanced_Rank_Predictor_mkthwo.webp'
@@ -1815,7 +1837,7 @@ export const tools: Tool[] = [
       name: 'GATE Rank Predictor',
       title: 'GATE Rank Predictor – Rank & College Options | Toolspy',
       slug: '/gate-rank-predictor',
-      description: "Score and subject in—we'll show a rough GATE rank and college list. Use it to plan; check official counselling for final results.",
+      description: "Score and subject in-we'll show a rough GATE rank and college list. Use it to plan; check official counselling for final results.",
       tags: ['gate rank predictor', 'gate rank calculator', 'gate college predictor', 'predict gate rank', 'gate rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/GATE_Rank_Predictor_wh8ssa.webp'
@@ -1835,7 +1857,7 @@ export const tools: Tool[] = [
       name: 'CAT Percentile Predictor',
       title: 'CAT Percentile Predictor – MBA College Options | Toolspy',
       slug: '/cat-percentile-predictor',
-      description: "Enter your CAT sectional scores and get a rough percentile and MBA college list. Ballpark for planning—official results vary.",
+      description: "Enter your CAT sectional scores and get a rough percentile and MBA college list. Ballpark for planning-official results vary.",
       tags: ['cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile', 'cat rank predictor']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/CAT_Percentile_Predictor_rf9oba.webp'
@@ -1855,7 +1877,7 @@ export const tools: Tool[] = [
       name: 'UPSC Rank Predictor',
       title: 'UPSC Rank Predictor – Civil Service Options | Toolspy',
       slug: '/upsc-rank-predictor',
-      description: "Put in your UPSC marks and see a rough rank and service options. Estimate only—final allocation is from the official list.",
+      description: "Put in your UPSC marks and see a rough rank and service options. Estimate only-final allocation is from the official list.",
       tags: ['upsc rank predictor', 'upsc rank calculator', 'civil service predictor', 'predict upsc rank', 'upsc rank estimate']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/UPSC_Rank_Predictor_u1gsli.webp'
@@ -1875,7 +1897,7 @@ export const tools: Tool[] = [
       name: 'SSC CGL Rank Predictor',
       title: 'SSC CGL Rank Predictor – Govt Job Options | Toolspy',
       slug: '/ssc-cgl-rank-predictor',
-      description: "Enter your SSC CGL score and get a rough rank and post options. For planning—final posting is as per official merit list.",
+      description: "Enter your SSC CGL score and get a rough rank and post options. For planning-final posting is as per official merit list.",
       tags: ['ssc cgl rank predictor', 'ssc cgl rank calculator', 'ssc cgl post predictor', 'predict ssc cgl rank', 'government job predictor']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/SSC_CGL_Rank_Predictor_pk42ur.webp'
@@ -1895,7 +1917,7 @@ export const tools: Tool[] = [
       name: 'Bank PO Rank Predictor',
       title: 'Bank PO Rank Predictor – Banking Job Options | Toolspy',
       slug: '/bank-po-rank-predictor',
-      description: "Score in—we'll show a rough Bank PO rank and bank options. Estimate for planning; final allotment is from the exam body.",
+      description: "Score in-we'll show a rough Bank PO rank and bank options. Estimate for planning; final allotment is from the exam body.",
       tags: ['bank po rank predictor', 'bank po rank calculator', 'bank po predictor', 'predict bank po rank', 'banking exam rank']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Bank_PO_Rank_Predictor_hhbtek.webp'

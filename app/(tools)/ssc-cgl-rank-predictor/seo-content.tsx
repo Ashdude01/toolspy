@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function SSCCGLRankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate an SSC CGL rank band from your score assumptions and explore post options for
-            planning. Results vary by normalization, vacancies, and official rules — verify with SSC
+            planning. Results vary by normalization, vacancies, and official rules - verify with SSC
             notifications and merit lists.
           </p>
         </div>
@@ -119,7 +119,7 @@ export function SSCCGLRankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="SSC CGL rank predictor — estimate rank band and explore post options"
+                alt="SSC CGL rank predictor - estimate rank band and explore post options"
                 className="w-full h-auto"
                 loading="lazy"
               />

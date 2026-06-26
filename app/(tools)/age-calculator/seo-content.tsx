@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -45,7 +45,7 @@ export function AgeCalculatorSEOContent() {
     { title: "Know your exact age", body: "Down to the day, not just the year." },
     { title: "Plan an anniversary", body: "Days until the next milestone from a date." },
     { title: "Age eligibility check", body: "18+, retirement, scheme cutoffs." },
-    { title: "Days between two dates", body: "Between any two dates — not only birthdays." },
+    { title: "Days between two dates", body: "Between any two dates - not only birthdays." },
   ];
 
   const featureChecklist = [
@@ -61,7 +61,7 @@ export function AgeCalculatorSEOContent() {
   const pitfalls = [
     {
       title: "Wrong timezone",
-      body: "Birthdays are date-based, not instant-based. Crossing timezones shouldn’t flip the day — pick the locale of birth.",
+      body: "Birthdays are date-based, not instant-based. Crossing timezones shouldn’t flip the day - pick the locale of birth.",
     },
     {
       title: "Mixing ‘months’ and ‘4 weeks’",
@@ -89,7 +89,7 @@ export function AgeCalculatorSEOContent() {
             Age Calculator
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online age calculator. Find your exact age in years, months, and days — or
+            A fast online age calculator. Find your exact age in years, months, and days - or
             compute the days between any two dates. Runs in your browser, no signup.
           </p>
         </div>
@@ -114,7 +114,7 @@ export function AgeCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Age calculator — pick birth date and today, see exact age and next-birthday countdown"
+                alt="Age calculator - pick birth date and today, see exact age and next-birthday countdown"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -358,7 +358,7 @@ export function getAgeCalculatorFAQs() {
   return [
     {
       question: "Is the age calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How does it calculate exact age?",

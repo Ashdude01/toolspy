@@ -116,7 +116,7 @@ const ENHANCEMENT_PRESETS: PresetDefinition[] = [
   {
     id: "preset-smart-auto",
     name: "Smart Auto",
-    subtitle: "Neutral balance — best default for mixed shots",
+    subtitle: "Neutral balance - best default for mixed shots",
     settings: {
       enhancement: "auto",
       upscaleFactor: 1,
@@ -206,7 +206,7 @@ const ENHANCEMENT_PRESETS: PresetDefinition[] = [
   {
     id: "preset-super-4x",
     name: "Super resolution 4×",
-    subtitle: "Max enlargement — use on small sources only",
+    subtitle: "Max enlargement - use on small sources only",
     settings: {
       enhancement: "upscale",
       upscaleFactor: 4,
@@ -251,7 +251,7 @@ const ENHANCEMENT_PRESETS: PresetDefinition[] = [
   {
     id: "preset-document",
     name: "Document & text",
-    subtitle: "Screenshots, scans, receipts — crisp edges",
+    subtitle: "Screenshots, scans, receipts - crisp edges",
     settings: {
       enhancement: "unblur",
       upscaleFactor: 1,
@@ -335,7 +335,7 @@ function EnhancementSettingsForm({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="auto">Smart Auto — general purpose</SelectItem>
+            <SelectItem value="auto">Smart Auto - general purpose</SelectItem>
             <SelectItem value="upscale">Super resolution (upscale)</SelectItem>
             <SelectItem value="unblur">Sharpen &amp; deblur</SelectItem>
             <SelectItem value="restore">Old / faded photo restore</SelectItem>
@@ -480,7 +480,7 @@ function PostDownloadToolsCard() {
       <CardHeader>
         <CardTitle className="text-lg">Compress, convert &amp; resize</CardTitle>
         <CardDescription>
-          After you export, use these tools on your saved images — each opens a dedicated page on Toolspy.
+          After you export, use these tools on your saved images - each opens a dedicated page on Toolspy.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -505,7 +505,7 @@ function PostDownloadToolsCard() {
                 <ArrowRight size={14} className="ml-auto text-muted-foreground opacity-0 transition-opacity group-hover:opacity-100" />
               </div>
               <p className="text-xs text-muted-foreground leading-snug">
-                JPG, PNG, WebP, and more — change format in-browser.
+                JPG, PNG, WebP, and more - change format in-browser.
               </p>
             </div>
           </Link>
@@ -717,7 +717,7 @@ function AiImageEnhancerContent() {
         setUploadedImage(imageData);
         setComparePosition(50);
         setImageLoading(false);
-        showToast("Image uploaded. Adjust settings — preview updates live.", "success");
+        showToast("Image uploaded. Adjust settings - preview updates live.", "success");
       } catch (error) {
         setImageLoading(false);
         showToast("Failed to process image", "error");
@@ -749,7 +749,7 @@ function AiImageEnhancerContent() {
       setBatchEnhanced({});
       setBatchMode(true);
       showToast(
-        `${items.length} image(s) loaded. Adjust settings — all previews update together.`,
+        `${items.length} image(s) loaded. Adjust settings - all previews update together.`,
         "success"
       );
     } catch {
@@ -777,7 +777,7 @@ function AiImageEnhancerContent() {
       setBatchSources((prev) => [...prev, ...newItems]);
       setBatchSelectedIds((prev) => [...prev, ...newItems.map((x) => x.id)]);
       showToast(
-        `${newItems.length} added — same settings (and active preset) apply to all thumbnails.`,
+        `${newItems.length} added - same settings (and active preset) apply to all thumbnails.`,
         "success"
       );
     } catch {
@@ -973,11 +973,11 @@ function AiImageEnhancerContent() {
   };
 
   const enhancementModeHints: Record<EnhancementSettings["enhancement"], string> = {
-    auto: "One-click balance — good starting point for any image.",
+    auto: "One-click balance - good starting point for any image.",
     upscale: "Increase pixel dimensions (2× / 4×). Best for small or pixelated sources.",
-    unblur: "Boost clarity and local contrast — motion blur and soft focus.",
-    restore: "Lift faded scans and damaged prints — stronger contrast and brightness.",
-    colorize: "Push saturation — use with black & white or flat color.",
+    unblur: "Boost clarity and local contrast - motion blur and soft focus.",
+    restore: "Lift faded scans and damaged prints - stronger contrast and brightness.",
+    colorize: "Push saturation - use with black & white or flat color.",
     denoise: "Smooth grain in dark or high-ISO shots.",
   };
 
@@ -1159,7 +1159,7 @@ function AiImageEnhancerContent() {
                     Enhanced previews
                   </CardTitle>
                   <CardDescription className="mt-1.5">
-                    Thumbnails only — no comparison slider. Use checkboxes for ZIP selection.
+                    Thumbnails only - no comparison slider. Use checkboxes for ZIP selection.
                   </CardDescription>
                 </div>
                 <div className="flex flex-col gap-2 shrink-0">
@@ -1250,7 +1250,7 @@ function AiImageEnhancerContent() {
               Download exports (batch)
             </CardTitle>
             <CardDescription>
-              All options stay visible here — no scrolling past settings to find them.
+              All options stay visible here - no scrolling past settings to find them.
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col sm:flex-row flex-wrap gap-3">
@@ -1285,7 +1285,7 @@ function AiImageEnhancerContent() {
                 Enhancement settings
               </CardTitle>
               <CardDescription>
-                Changes apply instantly to the preview — no extra button needed.
+                Changes apply instantly to the preview - no extra button needed.
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 overflow-y-auto flex-1 min-h-0 pr-1">
@@ -1470,7 +1470,7 @@ function AiImageEnhancerContent() {
               </div>
             ) : (
               <p className="text-sm text-muted-foreground">
-                Preview is still loading — download buttons will appear here when ready.
+                Preview is still loading - download buttons will appear here when ready.
               </p>
             )}
           </CardContent>

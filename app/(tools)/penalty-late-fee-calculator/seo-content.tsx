@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function PenaltyLateFeeCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate late fees and interest when a GST return is filed after the due date. Use this
-            for planning and quick checks — always confirm with current official rules.
+            for planning and quick checks - always confirm with current official rules.
           </p>
         </div>
 
@@ -115,7 +115,7 @@ export function PenaltyLateFeeCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="GST late fee and penalty calculator — estimate impact of late filing"
+                alt="GST late fee and penalty calculator - estimate impact of late filing"
                 className="w-full h-auto"
                 loading="lazy"
               />

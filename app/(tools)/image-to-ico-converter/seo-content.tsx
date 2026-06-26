@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -42,7 +42,7 @@ export function ImageToICOConverterSEOContent() {
   ];
 
   const featureChecklist = [
-    { feature: "Convert PNG to ICO", value: "Yes", note: "Most common input — lossless source." },
+    { feature: "Convert PNG to ICO", value: "Yes", note: "Most common input - lossless source." },
     { feature: "Convert JPG to ICO", value: "Yes", note: "Good for photo-based icons." },
     { feature: "Multi-size ICO", value: "Yes", note: "Bundle 16 / 32 / 48 / 64 / 128 / 256 in one file." },
     { feature: "Pick individual sizes", value: "Yes", note: "Export only the sizes you need." },
@@ -66,7 +66,7 @@ export function ImageToICOConverterSEOContent() {
     },
     {
       title: "Confusing .ico with .png",
-      body: "Windows and browsers recognize .ico as a special multi-resolution format. Simply renaming a .png to .ico doesn’t work the same way — convert it properly.",
+      body: "Windows and browsers recognize .ico as a special multi-resolution format. Simply renaming a .png to .ico doesn’t work the same way - convert it properly.",
     },
   ];
 
@@ -83,7 +83,7 @@ export function ImageToICOConverterSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online image to ICO converter. Turn PNG or JPG into a proper .ico file for
-            Windows apps, installers, and website favicons — no signup, no install.
+            Windows apps, installers, and website favicons - no signup, no install.
           </p>
         </div>
 
@@ -98,7 +98,7 @@ export function ImageToICOConverterSEOContent() {
             <p>
               Transparency is preserved from PNG sources, batch conversion is supported, and you
               can pick only the sizes you need. Drop your image, click convert, and get a clean
-              ICO — ideal for desktop apps, Windows shortcuts, and classic favicons.
+              ICO - ideal for desktop apps, Windows shortcuts, and classic favicons.
             </p>
           </div>
 
@@ -108,7 +108,7 @@ export function ImageToICOConverterSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Image to ICO converter — upload a PNG or JPG and export a multi-size .ico file"
+                alt="Image to ICO converter - upload a PNG or JPG and export a multi-size .ico file"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -144,7 +144,7 @@ export function ImageToICOConverterSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Pick sizes</h3>
             <p className="text-sm text-muted-foreground">
-              Choose which sizes go into the ICO — or include all common ones.
+              Choose which sizes go into the ICO - or include all common ones.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -167,8 +167,8 @@ export function ImageToICOConverterSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             An <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.ico</code> file stores
-            multiple versions of the same icon at different resolutions — 16 × 16, 32 × 32,
-            48 × 48, and so on — in a single file. Windows and browsers pick whichever size fits
+            multiple versions of the same icon at different resolutions - 16 × 16, 32 × 32,
+            48 × 48, and so on - in a single file. Windows and browsers pick whichever size fits
             best for where the icon is being displayed.
           </p>
           <p>
@@ -223,7 +223,7 @@ export function ImageToICOConverterSEOContent() {
         <div className="space-y-3 text-muted-foreground">
           <p>
             Need ICO versions of a whole folder of icons? Drop multiple PNGs or JPGs in
-            together — each image becomes its own multi-size{" "}
+            together - each image becomes its own multi-size{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.ico</code> with the same
             chosen size bundle, and everything arrives as a ZIP.
           </p>
@@ -296,7 +296,7 @@ export function ImageToICOConverterSEOContent() {
           <p>
             Use the <strong className="text-foreground">image to ICO converter</strong> when you
             only need a single multi-size{" "}
-            <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.ico</code> file — for
+            <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.ico</code> file - for
             example a Windows app icon or a classic favicon.
           </p>
           <p>
@@ -389,12 +389,12 @@ export function getImageToICOConverterFAQs() {
   return [
     {
       question: "Is the image to ICO converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can I just rename a PNG to .ico?",
       answer:
-        "No. A real .ico file is a multi-resolution container — it stores several sizes of the same icon in one file. Renaming a PNG produces a file that many Windows apps and browsers will not treat as a proper icon.",
+        "No. A real .ico file is a multi-resolution container - it stores several sizes of the same icon in one file. Renaming a PNG produces a file that many Windows apps and browsers will not treat as a proper icon.",
     },
     {
       question: "Which sizes should the ICO include?",
@@ -404,7 +404,7 @@ export function getImageToICOConverterFAQs() {
     {
       question: "Does the converter keep transparency?",
       answer:
-        "Yes — when the source has an alpha channel (PNG). JPG sources don’t support transparency, so the background is kept as-is.",
+        "Yes - when the source has an alpha channel (PNG). JPG sources don’t support transparency, so the background is kept as-is.",
     },
     {
       question: "Can I convert many images to ICO at once?",

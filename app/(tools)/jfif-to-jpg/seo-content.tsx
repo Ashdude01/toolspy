@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -50,7 +50,7 @@ export function JFIFToJPGSEOContent() {
     },
     {
       title: "Assuming quality will improve",
-      body: "JFIF is already JPEG data, so converting doesn’t add detail — it only makes the file readable by more apps.",
+      body: "JFIF is already JPEG data, so converting doesn’t add detail - it only makes the file readable by more apps.",
     },
     {
       title: "Forgetting batch mode",
@@ -75,7 +75,7 @@ export function JFIFToJPGSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online JFIF to JPG converter and JFIF to JPEG converter. Turn .jfif files into
-            standard JPG images any app or device can open — no signup, no install.
+            standard JPG images any app or device can open - no signup, no install.
           </p>
         </div>
 
@@ -83,7 +83,7 @@ export function JFIFToJPGSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this JFIF converter to change .jfif to .jpg or .jpeg so photo editors, social
-              apps, and messaging tools will accept the file. Conversion runs in your browser —
+              apps, and messaging tools will accept the file. Conversion runs in your browser -
               image data is preserved, dimensions stay the same, and the extension is swapped to
               the format everything understands.
             </p>
@@ -100,7 +100,7 @@ export function JFIFToJPGSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="JFIF to JPG converter — drop a .jfif file, get a ready-to-use .jpg download"
+                alt="JFIF to JPG converter - drop a .jfif file, get a ready-to-use .jpg download"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -164,7 +164,7 @@ export function JFIFToJPGSEOContent() {
             extension instead of <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.jpg</code>.
           </p>
           <p>
-            Many apps — WhatsApp, older photo editors, printers, some websites — insist on{" "}
+            Many apps - WhatsApp, older photo editors, printers, some websites - insist on{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.jpg</code> or{" "}
             <code className="bg-muted rounded px-1.5 py-0.5 text-xs">.jpeg</code>. Converting
             the file avoids those rejections without touching the image quality.
@@ -176,7 +176,7 @@ export function JFIFToJPGSEOContent() {
       <section className="space-y-4" id="jpg-vs-jpeg">
         <SectionHeader
           icon={FileImage}
-          title="JPG vs JPEG — which extension should I pick?"
+          title="JPG vs JPEG - which extension should I pick?"
         />
         <div className="space-y-3 text-muted-foreground">
           <p>
@@ -187,7 +187,7 @@ export function JFIFToJPGSEOContent() {
           </p>
           <p>
             When in doubt, choose{" "}
-            <strong className="text-foreground">.jpg</strong> — it is the most common extension
+            <strong className="text-foreground">.jpg</strong> - it is the most common extension
             for photo files. Use <strong className="text-foreground">.jpeg</strong> only if a
             specific system explicitly asks for it.
           </p>
@@ -340,7 +340,7 @@ export function getJFIFToJPGFAQs() {
   return [
     {
       question: "Is the JFIF to JPG converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Is JFIF the same as JPEG?",
@@ -355,7 +355,7 @@ export function getJFIFToJPGFAQs() {
     {
       question: "Will I lose image quality?",
       answer:
-        "No — by default the tool preserves the original image data. If you also change the quality slider or format settings, the result depends on those choices.",
+        "No - by default the tool preserves the original image data. If you also change the quality slider or format settings, the result depends on those choices.",
     },
     {
       question: "Can I convert multiple JFIF files at once?",

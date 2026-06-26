@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -64,7 +64,7 @@ export function FaviconGeneratorSEOContent() {
     },
     {
       title: "Forgetting dark mode",
-      body: "Browsers render the favicon on both light and dark chrome. Test your icon on both — some colours disappear against dark tabs.",
+      body: "Browsers render the favicon on both light and dark chrome. Test your icon on both - some colours disappear against dark tabs.",
     },
     {
       title: "Not updating the cache-busting",
@@ -86,14 +86,14 @@ export function FaviconGeneratorSEOContent() {
           <p className="text-start md:text-center text-muted-foreground">
             A fast online favicon generator for browser tabs, bookmarks, and home-screen
             shortcuts. Create a favicon for your website in every size browsers and devices
-            expect — no signup, no install.
+            expect - no signup, no install.
           </p>
         </div>
 
         <div className="grid md:grid-cols-2 gap-5 items-center">
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              Use this favicon generator to turn a single image into a complete favicon pack —
+              Use this favicon generator to turn a single image into a complete favicon pack -
               classic <code className="bg-muted rounded px-1.5 py-0.5 text-xs">favicon.ico</code>,
               modern PNG sizes, Apple touch icon, and Android Chrome icons. The tool also
               generates the HTML snippet you paste into your{" "}
@@ -101,8 +101,8 @@ export function FaviconGeneratorSEOContent() {
             </p>
             <p>
               Upload a square PNG or JPG (512 × 512 or larger), download a ZIP, and drop the files
-              into the root of your site. Works with any framework — Next.js, Astro, plain HTML,
-              WordPress — and with any hosting setup.
+              into the root of your site. Works with any framework - Next.js, Astro, plain HTML,
+              WordPress - and with any hosting setup.
             </p>
           </div>
 
@@ -112,7 +112,7 @@ export function FaviconGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Favicon generator — upload a square image, download a full favicon pack"
+                alt="Favicon generator - upload a square image, download a full favicon pack"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -376,8 +376,8 @@ export function FaviconGeneratorSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to ship your favicon?</h2>
           <p className="text-muted-foreground">
-            Upload a square image and download a full favicon pack — including the{" "}
-            <code>&lt;head&gt;</code> snippet — in seconds.
+            Upload a square image and download a full favicon pack - including the{" "}
+            <code>&lt;head&gt;</code> snippet - in seconds.
           </p>
           <ScrollToTopButton>Start Generating →</ScrollToTopButton>
         </div>
@@ -391,7 +391,7 @@ export function getFaviconGeneratorFAQs() {
   return [
     {
       question: "Is the favicon generator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which favicon sizes do I actually need?",
@@ -401,7 +401,7 @@ export function getFaviconGeneratorFAQs() {
     {
       question: "What image should I upload?",
       answer:
-        "A square PNG or JPG at 512 × 512 or larger. Keep the design simple — at 16 × 16, only a few pixels carry the meaning.",
+        "A square PNG or JPG at 512 × 512 or larger. Keep the design simple - at 16 × 16, only a few pixels carry the meaning.",
     },
     {
       question: "Does the tool provide the HTML to paste in my <head>?",
@@ -409,7 +409,7 @@ export function getFaviconGeneratorFAQs() {
         "Yes. The download includes a ready-to-paste snippet with all the <link> tags for modern browsers and devices.",
     },
     {
-      question: "My favicon didn’t update in the browser — why?",
+      question: "My favicon didn’t update in the browser - why?",
       answer:
         "Browsers cache favicons aggressively. Hard-refresh the page (Ctrl+F5 or Cmd+Shift+R), change the filename, or add a version query (e.g. /favicon.ico?v=2) so the browser re-fetches.",
     },

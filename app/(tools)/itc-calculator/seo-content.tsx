@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function ITCCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate input tax credit by splitting amounts into claimable and blocked categories.
-            Useful for planning and internal checks — validate the final claim with GST rules and your
+            Useful for planning and internal checks - validate the final claim with GST rules and your
             accounting workflow.
           </p>
         </div>
@@ -117,7 +117,7 @@ export function ITCCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="ITC calculator — split claimable and blocked credits for planning"
+                alt="ITC calculator - split claimable and blocked credits for planning"
                 className="w-full h-auto"
                 loading="lazy"
               />

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -83,7 +83,7 @@ export function PdfConverterSEOContent() {
             PDF Converter
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online PDF converter for PDF to Word, PDF to JPG, PDF to Excel and more — and
+            A fast online PDF converter for PDF to Word, PDF to JPG, PDF to Excel and more - and
             back again from images to PDF. Runs in your browser, no signup.
           </p>
         </div>
@@ -93,7 +93,7 @@ export function PdfConverterSEOContent() {
             <p>
               Use this PDF converter to move between PDF and editable formats: convert PDF to
               Word, PDF to JPG, PDF to Excel, PDF to CSV, or combine images into a PDF. Drop a
-              single file or a batch — the tool returns each output ready to download.
+              single file or a batch - the tool returns each output ready to download.
             </p>
             <p>
               Layout and inline images are preserved where possible, and the converter accepts
@@ -109,7 +109,7 @@ export function PdfConverterSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF converter — upload a file, pick the target format, and download the result"
+                alt="PDF converter - upload a file, pick the target format, and download the result"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -151,7 +151,7 @@ export function PdfConverterSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">3. Configure</h3>
             <p className="text-sm text-muted-foreground">
-              Page range, image format, or merge order — as needed.
+              Page range, image format, or merge order - as needed.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -169,7 +169,7 @@ export function PdfConverterSEOContent() {
           eyebrow="Popular"
           icon={Repeat}
           title="Common PDF conversions"
-          lead="The most-searched PDF workflows — all handled here."
+          lead="The most-searched PDF workflows - all handled here."
         />
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {popularConversions.map((c) => (
@@ -360,7 +360,7 @@ export function getPdfConverterFAQs() {
   return [
     {
       question: "Is the PDF converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Which formats can I convert between?",
@@ -370,7 +370,7 @@ export function getPdfConverterFAQs() {
     {
       question: "Will the converted Word file look exactly like the PDF?",
       answer:
-        "For most text-based PDFs, yes. PDFs with complex layouts, multiple columns, or many inline images rarely round-trip perfectly — treat the output as an editable base.",
+        "For most text-based PDFs, yes. PDFs with complex layouts, multiple columns, or many inline images rarely round-trip perfectly - treat the output as an editable base.",
     },
     {
       question: "Can I extract tables from a PDF?",

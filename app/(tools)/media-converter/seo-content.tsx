@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -105,7 +105,7 @@ export function MediaConverterSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Media files aren’t always compatible across apps and devices. This converter helps you
-              switch formats quickly — useful for sharing, editing, and basic compatibility fixes.
+              switch formats quickly - useful for sharing, editing, and basic compatibility fixes.
             </p>
             <p>
               Converting an e-book instead? Try the{" "}
@@ -122,7 +122,7 @@ export function MediaConverterSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Media converter — convert video and audio formats"
+                alt="Media converter - convert video and audio formats"
                 className="w-full h-auto"
                 loading="lazy"
               />

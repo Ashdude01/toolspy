@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -72,7 +72,7 @@ export function Base64EncoderDecoderSEOContent() {
   ];
 
   const featureChecklist = [
-    { feature: "Encode text to Base64", value: "Yes", note: "UTF-8 safe — handles emoji and international characters." },
+    { feature: "Encode text to Base64", value: "Yes", note: "UTF-8 safe - handles emoji and international characters." },
     { feature: "Decode Base64 to text", value: "Yes", note: "Accepts standard and URL-safe variants." },
     { feature: "URL-safe Base64", value: "Yes", note: "Swap + / for - _ and drop padding when needed." },
     { feature: "Line wrapping control", value: "Yes", note: "Optional 76-column wrap for email / MIME outputs." },
@@ -88,7 +88,7 @@ export function Base64EncoderDecoderSEOContent() {
     },
     {
       title: "Forgetting UTF-8",
-      body: "Naive Base64 on unicode strings can mangle characters. This tool handles UTF-8, but some libraries don’t — pair with a proper encoder on the other side.",
+      body: "Naive Base64 on unicode strings can mangle characters. This tool handles UTF-8, but some libraries don’t - pair with a proper encoder on the other side.",
     },
     {
       title: "Copying strings with line breaks",
@@ -113,7 +113,7 @@ export function Base64EncoderDecoderSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online Base64 encoder and Base64 decoder. Convert text to Base64, decode
-            Base64 to text, with full UTF-8 and URL-safe support — in your browser, no signup.
+            Base64 to text, with full UTF-8 and URL-safe support - in your browser, no signup.
           </p>
         </div>
 
@@ -126,8 +126,8 @@ export function Base64EncoderDecoderSEOContent() {
             </p>
             <p>
               Ideal for debugging API headers, inspecting JWT payloads, encoding strings for
-              JSON transport, and preparing tokens for URLs. Paste any length — short phrase or
-              long payload — and copy the result with one click.
+              JSON transport, and preparing tokens for URLs. Paste any length - short phrase or
+              long payload - and copy the result with one click.
             </p>
           </div>
 
@@ -137,7 +137,7 @@ export function Base64EncoderDecoderSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Base64 encoder / decoder — paste text or Base64, toggle encode / decode, copy result"
+                alt="Base64 encoder / decoder - paste text or Base64, toggle encode / decode, copy result"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -405,7 +405,7 @@ export function getBase64EncoderDecoderFAQs() {
   return [
     {
       question: "Is the Base64 encoder / decoder free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Does it handle unicode and emoji?",
@@ -420,7 +420,7 @@ export function getBase64EncoderDecoderFAQs() {
     {
       question: "Is Base64 encryption?",
       answer:
-        "No. Base64 is an encoding — it can always be reversed without a key. Don’t use it to hide secrets or protect sensitive data.",
+        "No. Base64 is an encoding - it can always be reversed without a key. Don’t use it to hide secrets or protect sensitive data.",
     },
     {
       question: "Can I encode very long strings?",

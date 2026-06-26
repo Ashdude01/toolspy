@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -49,7 +49,7 @@ export function TaxCalculatorSEOContent() {
     },
     {
       title: "Fast and simple",
-      body: "No account required — type numbers and see results immediately.",
+      body: "No account required - type numbers and see results immediately.",
     },
   ];
 
@@ -92,7 +92,7 @@ export function TaxCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate income tax and take-home pay for a quick planning view. Enter your numbers,
-            compare scenarios, and treat the result as a ballpark — always verify with your local
+            compare scenarios, and treat the result as a ballpark - always verify with your local
             rules or a professional.
           </p>
         </div>
@@ -116,7 +116,7 @@ export function TaxCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Tax calculator — estimate tax and take-home pay from income"
+                alt="Tax calculator - estimate tax and take-home pay from income"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -352,7 +352,7 @@ export function getTaxCalculatorFAQs() {
   return [
     {
       question: "Is the tax calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "Is this an exact tax calculation?",

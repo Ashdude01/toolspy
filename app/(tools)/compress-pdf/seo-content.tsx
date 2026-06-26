@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -47,7 +47,7 @@ export function CompressPdfSEOContent() {
     {
       name: "Strong",
       useCase: "Attachments, forms",
-      description: "Smallest file size. Images are resampled — still legible, not print-quality.",
+      description: "Smallest file size. Images are resampled - still legible, not print-quality.",
     },
   ];
 
@@ -99,7 +99,7 @@ export function CompressPdfSEOContent() {
             PDF Compressor
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
-            A fast online PDF compressor to reduce PDF file size for email, uploads, and chat —
+            A fast online PDF compressor to reduce PDF file size for email, uploads, and chat -
             compress PDF in your browser, no signup.
           </p>
         </div>
@@ -108,7 +108,7 @@ export function CompressPdfSEOContent() {
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Use this PDF compressor to shrink PDF file size without losing readability. Choose
-              a compression level — Light, Balanced, or Strong — or set a target file size in MB
+              a compression level - Light, Balanced, or Strong - or set a target file size in MB
               and let the tool aim for it. Handles both text and image-heavy PDFs.
             </p>
             <p>
@@ -124,7 +124,7 @@ export function CompressPdfSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="PDF compressor — upload a PDF, pick a level or target size, and download the smaller file"
+                alt="PDF compressor - upload a PDF, pick a level or target size, and download the smaller file"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -160,7 +160,7 @@ export function CompressPdfSEOContent() {
           <Card className="p-4 bg-muted/40">
             <h3 className="font-semibold mb-1">2. Pick a level</h3>
             <p className="text-sm text-muted-foreground">
-              Light, Balanced, or Strong — pick based on where the file will live.
+              Light, Balanced, or Strong - pick based on where the file will live.
             </p>
           </Card>
           <Card className="p-4 bg-muted/40">
@@ -389,7 +389,7 @@ export function getCompressPdfFAQs() {
   return [
     {
       question: "Is the PDF compressor free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "How much can I shrink a PDF?",
@@ -409,7 +409,7 @@ export function getCompressPdfFAQs() {
     {
       question: "Is the compressed PDF still print-quality?",
       answer:
-        "Light keeps print quality. Balanced is fine for most uses. Strong resamples images more aggressively — great for screen, not recommended for professional printing.",
+        "Light keeps print quality. Balanced is fine for most uses. Strong resamples images more aggressively - great for screen, not recommended for professional printing.",
     },
     {
       question: "Does the tool upload my PDFs to a server?",

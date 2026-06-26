@@ -36,7 +36,7 @@ const QUICK_START = [
   },
   {
     title: "Download and move on",
-    body: "Get your result and keep working — ideal for quick tasks and checklists.",
+    body: "Get your result and keep working - ideal for quick tasks and checklists.",
   },
 ];
 
@@ -110,7 +110,7 @@ const PITFALLS = [
   },
   {
     title: "Treat estimates as estimates",
-    body: "Finance and engagement calculators are for planning and comparisons — not official results.",
+    body: "Finance and engagement calculators are for planning and comparisons - not official results.",
   },
 ];
 
@@ -133,7 +133,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
           <p className="text-start md:text-center text-muted-foreground">
             Toolspy is a collection of browser-based utilities for common tasks like compressing
             images, working with PDFs, formatting data, and running quick calculations. Pick a tool,
-            enter your inputs, and get the result — fast.
+            enter your inputs, and get the result - fast.
           </p>
         </div>
 
@@ -158,7 +158,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
               width={1600}
               height={900}
               src="/images/main.webp"
-              alt="Toolspy — browse tools by category and run utilities in the browser"
+              alt="Toolspy - browse tools by category and run utilities in the browser"
               className="w-full h-auto"
               loading="lazy"
             />
@@ -315,7 +315,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h3 className="text-2xl font-bold tracking-tight">Ready to find your tool?</h3>
           <p className="text-muted-foreground">
-            Browse categories or search — most tools take less than a minute.
+            Browse categories or search - most tools take less than a minute.
           </p>
           <ScrollToTopButton>Explore tools →</ScrollToTopButton>
         </div>

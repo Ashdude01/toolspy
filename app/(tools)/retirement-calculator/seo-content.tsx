@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -132,7 +132,7 @@ export function RetirementCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Retirement calculator — inputs for age, savings, contribution, return and inflation with projected results"
+                alt="Retirement calculator - inputs for age, savings, contribution, return and inflation with projected results"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -337,7 +337,7 @@ export function getRetirementCalculatorFAQs() {
   return [
     {
       question: "Is the retirement calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "What does the calculator estimate?",

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -102,9 +102,9 @@ export function ColorPaletteGeneratorSEOContent() {
         <div className="grid md:grid-cols-2 gap-5 items-center">
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              Use this AI color palette generator to turn a short prompt — &quot;warm cafe
+              Use this AI color palette generator to turn a short prompt - &quot;warm cafe
               brand&quot;, &quot;minimal SaaS dashboard&quot;, &quot;dark dev tool with a neon
-              accent&quot; — into a usable colour set. Lock the ones you like, re-generate the
+              accent&quot; - into a usable colour set. Lock the ones you like, re-generate the
               rest, and check contrast inline.
             </p>
             <p>
@@ -120,7 +120,7 @@ export function ColorPaletteGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="AI color palette generator — prompt input, generated palette, and accessibility flags"
+                alt="AI color palette generator - prompt input, generated palette, and accessibility flags"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -228,7 +228,7 @@ export function ColorPaletteGeneratorSEOContent() {
             accents.
           </p>
           <p>
-            Before shipping, test actual UI states too — default, hover, focus, disabled. A
+            Before shipping, test actual UI states too - default, hover, focus, disabled. A
             palette can pass on paper and still break on a button with reduced opacity.
           </p>
         </div>
@@ -366,7 +366,7 @@ export function ColorPaletteGeneratorSEOContent() {
         <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
           <h2 className="text-2xl font-bold tracking-tight">Ready to build a palette with AI?</h2>
           <p className="text-muted-foreground">
-            Describe the mood or drop a seed hex — lock favourites, tweak, and export.
+            Describe the mood or drop a seed hex - lock favourites, tweak, and export.
           </p>
           <ScrollToTopButton>Start Generating →</ScrollToTopButton>
         </div>
@@ -380,7 +380,7 @@ export function getAIColorPaletteGeneratorFAQs() {
   return [
     {
       question: "Is the AI color palette generator free to use?",
-      answer: "Yes. It’s free — no signup, no install.",
+      answer: "Yes. It’s free - no signup, no install.",
     },
     {
       question: "How does the AI decide on colours?",
@@ -405,7 +405,7 @@ export function getAIColorPaletteGeneratorFAQs() {
     {
       question: "What if the AI output isn’t quite right?",
       answer:
-        "Lock the colours you like and press Generate again. Or edit individual hex values by hand — the tool treats the output as a starting point, not the final answer.",
+        "Lock the colours you like and press Generate again. Or edit individual hex values by hand - the tool treats the output as a starting point, not the final answer.",
     },
   ];
 }

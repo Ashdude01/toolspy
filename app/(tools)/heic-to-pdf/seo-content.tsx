@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -53,7 +53,7 @@ export function HeicToPdfSEOContent() {
   const pitfalls = [
     {
       title: "Massive file sizes",
-      body: "HEIC photos are high resolution. A PDF with many photos can grow quickly — run it through the PDF compressor after building.",
+      body: "HEIC photos are high resolution. A PDF with many photos can grow quickly - run it through the PDF compressor after building.",
     },
     {
       title: "Out-of-order pages",
@@ -82,7 +82,7 @@ export function HeicToPdfSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online HEIC to PDF converter. Turn iPhone HEIC photos into a shareable PDF
-            document — one image or many — in your browser, no signup.
+            document - one image or many - in your browser, no signup.
           </p>
         </div>
 
@@ -95,7 +95,7 @@ export function HeicToPdfSEOContent() {
             </p>
             <p>
               Ideal when a form wants PDFs, an email client chokes on HEIC, or you need one
-              clean document for a batch of iPhone photos. Everything runs in your browser —
+              clean document for a batch of iPhone photos. Everything runs in your browser -
               your photos are not uploaded to any server.
             </p>
           </div>
@@ -106,7 +106,7 @@ export function HeicToPdfSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="HEIC to PDF — drop iPhone photos, reorder, and export a single PDF"
+                alt="HEIC to PDF - drop iPhone photos, reorder, and export a single PDF"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -353,7 +353,7 @@ export function getHeicToPdfFAQs() {
   return [
     {
       question: "Is the HEIC to PDF converter free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can I combine multiple HEIC photos into one PDF?",
@@ -368,12 +368,12 @@ export function getHeicToPdfFAQs() {
     {
       question: "Will the image quality drop?",
       answer:
-        "The tool embeds the original HEIC image without adding extra compression, so quality is preserved. PDFs can become large — use the PDF compressor if you need a smaller file.",
+        "The tool embeds the original HEIC image without adding extra compression, so quality is preserved. PDFs can become large - use the PDF compressor if you need a smaller file.",
     },
     {
       question: "Why not just convert HEIC to JPG first?",
       answer:
-        "You can — the image converter handles HEIC to JPG. Use HEIC to PDF when the end goal is a single document to share or upload, not individual photo files.",
+        "You can - the image converter handles HEIC to JPG. Use HEIC to PDF when the end goal is a single document to share or upload, not individual photo files.",
     },
     {
       question: "Does the tool upload my photos to a server?",

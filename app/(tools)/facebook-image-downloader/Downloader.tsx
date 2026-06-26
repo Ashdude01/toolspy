@@ -246,13 +246,13 @@ function DownloaderInner() {
                   </span>
                 ))}
               </div>
-              <button
+              {/* <button
                 type="button"
                 onClick={() => setUrl(SAMPLE_URL)}
                 className="text-left text-xs font-semibold text-[#1877F2] hover:underline sm:text-right dark:text-blue-400"
               >
                 Try a sample link →
-              </button>
+              </button> */}
             </div>
           </div>
 
@@ -320,7 +320,7 @@ function DownloaderInner() {
                 </div>
               </div>
 
-              {/* Primary download CTA — above the image preview */}
+              {/* Primary download CTA - above the image preview */}
               <div className="mb-3 flex gap-2">
                 <Button
                   size="sm"
@@ -375,7 +375,7 @@ function DownloaderInner() {
                 <div className="border-t border-border bg-card px-4 py-2.5">
                   <p className="text-xs text-muted-foreground">
                     {images.length > 1
-                      ? `Image ${selected + 1} of ${images.length} — highest quality available`
+                      ? `Image ${selected + 1} of ${images.length} - highest quality available`
                       : "Highest quality available"}
                   </p>
                 </div>

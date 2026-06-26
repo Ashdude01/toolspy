@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -110,7 +110,7 @@ export function InstagramEngagementCalculatorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Calculate Instagram engagement rate from followers and interactions. Useful for creators,
-            brands, and quick audits — but interpret the number in context (content type, reach, and
+            brands, and quick audits - but interpret the number in context (content type, reach, and
             sample size).
           </p>
         </div>
@@ -147,7 +147,7 @@ export function InstagramEngagementCalculatorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Instagram engagement rate calculator — inputs for followers, likes and comments"
+                alt="Instagram engagement rate calculator - inputs for followers, likes and comments"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -214,7 +214,7 @@ export function InstagramEngagementCalculatorSEOContent() {
           eyebrow="Math"
           icon={Percent}
           title="A common engagement rate formula"
-          lead="Different teams use different denominators — be consistent."
+          lead="Different teams use different denominators - be consistent."
         />
         <Card className="p-5">
           <div className="space-y-3 text-muted-foreground">
@@ -389,7 +389,7 @@ export function getInstagramEngagementCalculatorFAQs() {
   return [
     {
       question: "Is the Instagram engagement calculator free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup required.",
+      answer: "Yes. It’s free and runs in your browser - no signup required.",
     },
     {
       question: "What is a good engagement rate on Instagram?",
@@ -399,7 +399,7 @@ export function getInstagramEngagementCalculatorFAQs() {
     {
       question: "Should I use followers or reach as the denominator?",
       answer:
-        "If you have reach/impressions, using reach can be more representative. If not, followers-based rate is a common proxy — just be consistent.",
+        "If you have reach/impressions, using reach can be more representative. If not, followers-based rate is a common proxy - just be consistent.",
     },
     {
       question: "Does the tool store my metrics?",

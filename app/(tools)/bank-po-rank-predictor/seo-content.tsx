@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -90,7 +90,7 @@ export function BankPORankPredictorSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             Estimate a Bank PO rank band from your score assumptions and explore likely options for
-            planning. Outcomes depend on stage weights, vacancies, and official cutoffs — verify with
+            planning. Outcomes depend on stage weights, vacancies, and official cutoffs - verify with
             official lists.
           </p>
         </div>
@@ -120,7 +120,7 @@ export function BankPORankPredictorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Bank PO rank predictor — estimate rank band and explore options"
+                alt="Bank PO rank predictor - estimate rank band and explore options"
                 className="w-full h-auto"
                 loading="lazy"
               />

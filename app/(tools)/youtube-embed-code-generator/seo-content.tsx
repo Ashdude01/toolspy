@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -120,7 +120,7 @@ export function YouTubeEmbedCodeGeneratorSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="YouTube embed code generator — generate responsive iframe HTML"
+                alt="YouTube embed code generator - generate responsive iframe HTML"
                 className="w-full h-auto"
                 loading="lazy"
               />

@@ -1,6 +1,6 @@
 /**
  * Server-only SEO content for this tool page.
- * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
+ * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
 import {
   Card,
@@ -36,7 +36,7 @@ export function SplitPdfSEOContent() {
   const splitModes = [
     {
       name: "By page range",
-      description: "Extract specific pages or ranges — e.g. 1-3, 5, 8-10 — into one output PDF.",
+      description: "Extract specific pages or ranges - e.g. 1-3, 5, 8-10 - into one output PDF.",
     },
     {
       name: "By every N pages",
@@ -48,7 +48,7 @@ export function SplitPdfSEOContent() {
     },
     {
       name: "Split at bookmarks",
-      description: "Use the PDF’s bookmarks as split points — handy for chaptered documents.",
+      description: "Use the PDF’s bookmarks as split points - handy for chaptered documents.",
     },
   ];
 
@@ -73,7 +73,7 @@ export function SplitPdfSEOContent() {
     },
     {
       title: "Forgetting the single-page extract",
-      body: "If you only need page 7, there’s no need to split the whole PDF — use a single range like 7 and download that one page.",
+      body: "If you only need page 7, there’s no need to split the whole PDF - use a single range like 7 and download that one page.",
     },
     {
       title: "Losing bookmarks",
@@ -94,7 +94,7 @@ export function SplitPdfSEOContent() {
           </h1>
           <p className="text-start md:text-center text-muted-foreground">
             A fast online split PDF tool. Extract pages, divide a PDF into chunks, or separate
-            every page into its own file — all in the browser, no signup.
+            every page into its own file - all in the browser, no signup.
           </p>
         </div>
 
@@ -103,7 +103,7 @@ export function SplitPdfSEOContent() {
             <p>
               Use this split PDF tool to extract pages from a PDF, divide a large document into
               smaller parts, or turn each page into a standalone file. Pick a mode, preview your
-              selection, and download the outputs — either individually or as a single ZIP.
+              selection, and download the outputs - either individually or as a single ZIP.
             </p>
             <p>
               Useful when a form asks for a specific page, when a report needs to be chunked by
@@ -118,7 +118,7 @@ export function SplitPdfSEOContent() {
                 src={tool.posterImage}
                 width={1600}
                 height={900}
-                alt="Split PDF — preview pages, choose a split mode, and download the output files"
+                alt="Split PDF - preview pages, choose a split mode, and download the output files"
                 className="w-full h-auto"
                 loading="lazy"
               />
@@ -363,7 +363,7 @@ export function getSplitPdfFAQs() {
   return [
     {
       question: "Is the split PDF tool free to use?",
-      answer: "Yes. It’s free and runs in your browser — no signup, no install.",
+      answer: "Yes. It’s free and runs in your browser - no signup, no install.",
     },
     {
       question: "Can I extract just one page?",
