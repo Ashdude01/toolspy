@@ -1,9 +1,4 @@
-"use client";
-
-import { useState } from "react";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ChevronDown, ChevronUp, Info, HelpCircle } from "lucide-react";
+import { HelpCircle } from "lucide-react";
 
 export interface FAQItem {
   question: string;
@@ -18,116 +13,57 @@ interface FAQProps {
   variant?: "default" | "modern";
 }
 
-export function FAQ({ 
-  title = "Frequently Asked Questions", 
+/**
+ * FAQ list rendered with native <details>/<summary> elements.
+ *
+ * Every question AND answer is always present in the server-rendered HTML
+ * (answers are only visually collapsed, not removed from the DOM), so search
+ * engines can read the full content — good for SEO and rich results.
+ */
+export function FAQ({
+  title = "Frequently Asked Questions",
   description,
-  faqs, 
+  faqs,
   className = "",
-  variant = "modern"
+  variant = "modern",
 }: FAQProps) {
-  const [selectedFaq, setSelectedFaq] = useState<number | null>(null);
+  const showHeader = variant === "modern";
 
-
-
-  if (variant === "modern") {
-    return (
-      <div className={` bg-transparent ${className}`}>
-        <CardHeader className="text-center p-0 mb-5">
-          <CardTitle className="flex items-center justify-start gap-3 md:justify-center text-xl md:text-3xl">
-            <HelpCircle className="h-8 w-8 text-indigo-600" />
+  return (
+    <div className={`bg-transparent ${className}`}>
+      {showHeader && (
+        <div className="mb-5 text-center">
+          <div className="flex items-center justify-start gap-3 text-xl font-bold md:justify-center md:text-3xl">
+            <HelpCircle className="h-8 w-8 shrink-0 text-indigo-600" />
             <h2>{title}</h2>
-          </CardTitle>
+          </div>
           {description && (
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+            <p className="mx-auto mt-2 max-w-2xl text-lg text-muted-foreground">
               {description}
             </p>
           )}
-        </CardHeader>
-        <CardContent className="p-0">
-          <div className="space-y-4 max-w-4xl mx-auto">
-            {faqs.map((faq, index) => (
-              <div
-                key={index}
-                className="bg-white/80 cursor-pointer dark:bg-gray-900/80 backdrop-blur-sm rounded-xl border border-gray-200/50 dark:border-gray-800/50 hover:shadow-lg transition-all duration-300 overflow-hidden group"
-              >
-                <div
-                  className="w-full justify-between p-4 gap-3 flex flex-row h-auto font-medium text-left text-base hover:bg-gradient-to-r hover:from-indigo-50 hover:to-purple-50 dark:hover:from-indigo-950/20 dark:hover:to-purple-950/20 transition-all duration-300"
-                  onClick={() =>
-                    setSelectedFaq(selectedFaq === index ? null : index)
-                  }
-                >
-                  <span className="text-gray-800 dark:text-gray-200 group-hover:text-indigo-600 dark:group-hover:text-indigo-400">
-                    {faq.question}
-                  </span>
-                  <div className="flex items-center gap-2">
-                    {selectedFaq === index ? (
-                      <ChevronUp className="h-4 w-4 text-indigo-600" />
-                    ) : (
-                      <ChevronDown className="h-4 w-4 text-gray-400 group-hover:text-indigo-600" />
-                    )}
-                  </div>
-                </div>
-                {selectedFaq === index && (
-                  <div className="px-5 pb-5 border-t border-indigo-100 dark:border-indigo-800">
-                    <div className="pt-4">
-                      <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
-                        {faq.answer}
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
-        </CardContent>
-      </div>
-    );
-  }
-
-  // Default variant (simpler design)
-  return (
-    <Card className={className}>
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <Info className="h-5 w-5" />
-          {title}
-        </CardTitle>
-        {description && (
-          <p className="text-muted-foreground">{description}</p>
-        )}
-      </CardHeader>
-      <CardContent>
-        <div className="space-y-4">
-          {faqs.map((faq, index) => (
-            <Card key={index} className="hover:shadow-md transition-shadow">
-              <CardHeader
-                className="cursor-pointer hover:bg-muted/50 transition-colors"
-                onClick={() =>
-                  setSelectedFaq(selectedFaq === index ? null : index)
-                }
-              >
-                <div className="flex items-center justify-between">
-                  <CardTitle className="text-base">
-                    <h4>{faq.question}</h4>
-                  </CardTitle>
-                  {selectedFaq === index ? (
-                    <ChevronUp className="h-5 w-5" />
-                  ) : (
-                    <ChevronDown className="h-5 w-5" />
-                  )}
-                </div>
-              </CardHeader>
-              {selectedFaq === index && (
-                <CardContent>
-                  <p className="text-muted-foreground leading-relaxed">
-                    {faq.answer}
-                  </p>
-                </CardContent>
-              )}
-            </Card>
-          ))}
         </div>
-      </CardContent>
-    </Card>
+      )}
+
+      <div className="mx-auto max-w-4xl space-y-2">
+        {faqs.map((faq, index) => (
+          <details
+            key={index}
+            className="group rounded-xl border border-border bg-card shadow-sm"
+          >
+            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-foreground [&::-webkit-details-marker]:hidden">
+              <span>{faq.question}</span>
+              <span className="relative h-4 w-4 shrink-0 text-indigo-600 dark:text-indigo-400">
+                <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded bg-current" />
+                <span className="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 rounded bg-current transition-transform group-open:rotate-90" />
+              </span>
+            </summary>
+            <p className="px-5 pb-4 text-sm leading-relaxed text-muted-foreground">
+              {faq.answer}
+            </p>
+          </details>
+        ))}
+      </div>
+    </div>
   );
 }

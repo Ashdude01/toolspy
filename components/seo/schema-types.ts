@@ -60,7 +60,12 @@ export interface FAQPageSchema extends BaseSchema {
   '@type': 'FAQPage'
   mainEntity: Question[]
   url?: string
-  about?: Thing
+  about?: Thing | NodeReference
+}
+
+// A lightweight reference to another schema node defined elsewhere (by @id).
+export interface NodeReference {
+  '@id': string
 }
 
 export interface WebPageSchema extends BaseSchema {
@@ -72,7 +77,7 @@ export interface WebPageSchema extends BaseSchema {
   breadcrumb?: BreadcrumbList
   mainContentOfPage?: WebPageElement[]
   speakable?: SpeakableSpecification
-  about?: Thing[]
+  about?: Array<Thing | NodeReference>
   mentions?: Thing[]
 }
 
