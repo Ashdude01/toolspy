@@ -1,9 +1,17 @@
 import { siteConfig } from '@/lib/config'
 
 /**
- * Comprehensive Schema Component
- * Generates all required structured data schemas for SEO
- * Includes: Organization, LocalBusiness, WebSite, WebPage, FAQPage, Review/Rating
+ * Site-wide Schema Component
+ * Emits the two site-wide entities that belong on every page:
+ *   - Organization
+ *   - WebSite
+ *
+ * NOTE: LocalBusiness, self-authored Review and fabricated aggregateRating were
+ * intentionally removed. Google's structured-data policy treats self-serving
+ * reviews/ratings as a manual-action risk, and LocalBusiness misrepresents an
+ * online-only tool. Tool-specific schema (WebPage, SoftwareApplication, FAQ)
+ * is emitted per page by SchemaManager. Add Review/AggregateRating back ONLY
+ * when real, user-visible reviews exist (see lib/tool-reviews.ts).
  */
 export function ComprehensiveSchemas() {
   const baseUrl = siteConfig.url
@@ -37,52 +45,7 @@ export function ComprehensiveSchemas() {
     "address": {
       "@type": "PostalAddress",
       "addressCountry": "US"
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "4.8",
-      "reviewCount": "1250",
-      "bestRating": "5",
-      "worstRating": "1"
     }
-  }
-
-  // LocalBusiness Schema (for local SEO)
-  const localBusinessSchema = {
-    "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    "name": siteConfig.name,
-    "url": baseUrl,
-    "logo": `${baseUrl}/logo/black.webp`,
-    "description": siteConfig.description,
-    "priceRange": "Free",
-    "telephone": "+1-800-TOOLSPY",
-    "email": "support@toolspy.net",
-    "address": {
-      "@type": "PostalAddress",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": "37.7749",
-      "longitude": "-122.4194"
-    },
-    "openingHoursSpecification": {
-      "@type": "OpeningHoursSpecification",
-      "dayOfWeek": [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-        "Saturday",
-        "Sunday"
-      ],
-      "opens": "00:00",
-      "closes": "23:59"
-    },
-    "sameAs": organizationSchema.sameAs,
-    "aggregateRating": organizationSchema.aggregateRating
   }
 
   // WebSite Schema - Always included
@@ -113,63 +76,6 @@ export function ComprehensiveSchemas() {
     "inLanguage": "en-US"
   }
 
-  // Review Schema - Aggregate reviews
-  const reviewSchema = {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "WebApplication",
-      "name": siteConfig.name,
-      "url": baseUrl,
-      "applicationCategory": "UtilityApplication",
-      "operatingSystem": "Web Browser",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      }
-    },
-    "author": {
-      "@type": "Organization",
-      "name": siteConfig.name
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": "4.8",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "reviewBody": "Toolspy provides professional-grade online tools completely free. Excellent user experience, fast processing, and privacy-focused approach."
-  }
-
-  // SoftwareApplication Schema
-  const softwareApplicationSchema = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    "name": siteConfig.name,
-    "url": baseUrl,
-    "applicationCategory": "UtilityApplication",
-    "operatingSystem": "Web Browser",
-    "offers": {
-      "@type": "Offer",
-      "price": "0",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    },
-    "aggregateRating": organizationSchema.aggregateRating,
-    "description": siteConfig.description,
-    "screenshot": `${baseUrl}/main.webp`,
-    "featureList": [
-      "Image Compression",
-      "PDF Processing",
-      "Base64 Conversion",
-      "Calculator Tools",
-      "Privacy-First Processing",
-      "No Registration Required",
-      "Client-Side Processing"
-    ]
-  }
-
   return (
     <>
       {/* Organization Schema */}
@@ -180,35 +86,11 @@ export function ComprehensiveSchemas() {
         }}
       />
       
-      {/* LocalBusiness Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema, null, 0)
-        }}
-      />
-      
       {/* WebSite Schema */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{
           __html: JSON.stringify(websiteSchema, null, 0)
-        }}
-      />
-      
-      {/* Review Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(reviewSchema, null, 0)
-        }}
-      />
-      
-      {/* SoftwareApplication Schema */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(softwareApplicationSchema, null, 0)
         }}
       />
     </>

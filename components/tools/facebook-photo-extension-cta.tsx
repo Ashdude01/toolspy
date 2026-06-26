@@ -104,7 +104,7 @@ export function FacebookPhotoExtensionCta({
                 </p>
               </div>
             </div>
-            <Button asChild variant="secondary" className="w-fit px-4 py-2 mx-auto font-semibold bg-[#1877F2] text-white hover:bg-[#166FE5]">
+            <Button asChild variant="secondary" className="w-fit px-4 py-2 mx-auto sm:mx-0 font-semibold bg-[#1877F2] text-white hover:bg-[#166FE5]">
               <Link href={FACEBOOK_PHOTO_EXTENSION_PAGE}>Download extension</Link>
             </Button>
           </div>

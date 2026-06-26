@@ -1,7 +1,5 @@
 import { Tool, ToolCategory } from '@/lib/tools-data'
 import { PageType } from './schema-types'
-import { generateOrganizationSchema } from './schemas/organization-schema'
-import { generateWebsiteSchema } from './schemas/website-schema'
 import { generateWebPageSchema } from './schemas/webpage-schema'
 import { generateSoftwareSchema } from './schemas/software-schema'
 import { generateReviewsSchema } from './schemas/review-schema'
@@ -67,23 +65,12 @@ export function SchemaManager({
   includeReviews = false,
   includeFAQ = false
 }: SchemaManagerProps) {
-  // Always include organization and website schemas
-  const organizationSchema = generateOrganizationSchema()
-  const websiteSchema = generateWebsiteSchema()
-  
-  // Generate page-specific schemas
+  // Site-wide Organization + WebSite are emitted once globally by
+  // <ComprehensiveSchemas /> in app/layout.tsx, so we intentionally do NOT
+  // re-emit them here. This removes the duplicate Organization/WebSite
+  // structured data that previously appeared on every tool page.
   const schemas: any[] = []
-  
-  // Add organization schema (always first)
-  if (validateSchema(organizationSchema)) {
-    schemas.push(organizationSchema)
-  }
-  
-  // Add website schema
-  if (validateSchema(websiteSchema)) {
-    schemas.push(websiteSchema)
-  }
-  
+
   // Add webpage schema
   const webpageSchema = generateWebPageSchema(
     pageType as 'homepage' | 'tool' | 'category' | 'about' | 'contact' | 'help',

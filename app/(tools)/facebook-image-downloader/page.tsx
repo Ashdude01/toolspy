@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Downloader from "./Downloader";
 import { cn } from "@/lib/utils";
+import { getToolBySlug } from "@/lib/tools-data";
 
 const CONTAINER = "mx-auto w-full max-w-7xl px-4 sm:px-6";
 
@@ -225,15 +226,9 @@ const FAQS = [
 // second FAQPage here to avoid duplicate FAQPage structured data on the page.
 // Keep faq-loader.ts in sync with the FAQS list below (visible content).
 
-const appJsonLd = {
-  "@context": "https://schema.org",
-  "@type": "WebApplication",
-  name: "Facebook Image Downloader",
-  applicationCategory: "MultimediaApplication",
-  operatingSystem: "Any (web browser)",
-  offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
-  url: "https://toolspy.net/facebook-image-downloader",
-};
+// NOTE: The tool's app schema (SoftwareApplication, with offers/price) is
+// emitted once per tool by SchemaManager (via DynamicToolLayout). We do NOT
+// emit a second WebApplication here to avoid duplicate app structured data.
 
 const howToJsonLd = {
   "@context": "https://schema.org",
@@ -281,12 +276,13 @@ function FeatureIcon() {
 }
 
 export default function FacebookImageDownloaderPage() {
+  // Pull the poster image (and other meta) straight from tools-data so it stays
+  // in sync and is easy to change in one place in the future.
+  const tool = getToolBySlug("facebook-image-downloader");
+  const posterImage = tool?.posterImage;
+
   return (
     <div className="w-full bg-background text-foreground">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }}
-      />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }}
@@ -333,6 +329,81 @@ export default function FacebookImageDownloaderPage() {
           </div>
         </div>
       </section>
+
+      {/* Download from public posts - text left, image right (pulled dynamically from tools-data) */}
+      {posterImage && (
+        <section className="border-t border-border py-14 sm:py-16">
+          <div className={CONTAINER}>
+            <div className="mx-auto max-w-2xl text-center">
+              <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+                Download Facebook Images from Public Posts
+              </h2>
+              <p className="mt-3 text-muted-foreground">
+                Use this Facebook image downloader to extract photos from a public post URL. It also
+                works as a Facebook photo downloader for direct image links.
+              </p>
+            </div>
+
+            <div className="mt-10 grid items-center gap-8 lg:mt-12 lg:grid-cols-2 lg:gap-12">
+              {/* Left: copy */}
+              <div className="order-2 lg:order-1">
+                <ul className="space-y-3.5">
+                  {[
+                    "Paste a Facebook post URL and click Analyze.",
+                    "Works best for public posts you can open without logging in.",
+                    "Download each detected image at the highest size Facebook provides for that URL.",
+                  ].map((point) => (
+                    <li key={point} className="flex items-start gap-3 text-muted-foreground">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        aria-hidden="true"
+                        className="mt-0.5 h-5 w-5 shrink-0 text-[#1877F2] dark:text-blue-400"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+
+                <div className="mt-6 rounded-xl border border-border bg-card p-5 shadow-sm">
+                  <p className="font-bold text-foreground">Note</p>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">
+                    If a post is private or not accessible in your browser, this tool won&apos;t be
+                    able to extract its images.
+                  </p>
+                </div>
+              </div>
+
+              {/* Right: poster image */}
+              <figure className="relative order-1 lg:order-2">
+                <div
+                  aria-hidden="true"
+                  className="absolute -inset-3 -z-10 rounded-[2rem] bg-gradient-to-tr from-[#1877F2]/25 via-transparent to-[#1877F2]/10 blur-2xl"
+                />
+                <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-2xl ring-1 ring-black/5 dark:ring-white/10">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={posterImage}
+                    alt="Facebook Image Downloader - download HD photos, profile pictures (DP), and cover photos from public Facebook posts"
+                    width={1200}
+                    height={675}
+                    loading="lazy"
+                    decoding="async"
+                    className="h-auto w-full object-cover"
+                  />
+                </div>
+              </figure>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* How to download Facebook photos - featured snippet target */}
       <section className="border-t border-border py-14 sm:py-16">

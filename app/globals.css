@@ -66,7 +66,21 @@
   body {
     @apply bg-background text-foreground;
   }
-} 
+}
+
+/* Fonts: applied via next/font CSS variables (set on <html> in app/layout.tsx).
+   Kept in the static stylesheet (not an inline <style>) so the server and
+   client markup match exactly and there is no hydration mismatch. */
+body {
+  font-family: var(--font-body);
+}
+p, a, li, ul, ol, blockquote, cite, code, pre, small, strong, sub, sup,
+textarea, input, select, option, button, table, form {
+  font-family: var(--font-body) !important;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+}
 main .container, main .max-w-6xl{
   @apply !max-w-7xl
 }

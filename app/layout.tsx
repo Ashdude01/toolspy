@@ -14,8 +14,8 @@ import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
 
 // const inter = Inter({ subsets: ['latin'] })
-const headingFontFamily= headingFont({subsets: ['latin'] })
-const bodyFontFamily = bodyFont({ subsets: ['latin'] })
+const headingFontFamily = headingFont({ subsets: ['latin'], variable: '--font-heading' })
+const bodyFontFamily = bodyFont({ subsets: ['latin'], variable: '--font-body' })
 export const metadata: Metadata = {
   title: limitTitle(siteConfig.title),
   description: limitDescription(siteConfig.description),
@@ -92,7 +92,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className={`${bodyFontFamily.variable} ${headingFontFamily.variable}`}
+      suppressHydrationWarning
+    >
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover" />
         <meta name="theme-color" content="#3b82f6" />
@@ -110,19 +114,8 @@ export default function RootLayout({
         <GoogleTagManager />
         {/* Comprehensive Structured Data Schemas */}
         <ComprehensiveSchemas />
-        <style>{`
-          p, a, li, ul, ol, blockquote, cite, code, pre, small, strong, sub, sup,
-          textarea, input, select, option, button, table, form {
-            font-family: ${bodyFontFamily.style.fontFamily} !important;
-          }
-          h1, h2, h3, h4, h5, h6 {
-            font-family: ${headingFontFamily.style.fontFamily} !important;
-          }
-        `}</style>
       </head>
-      <body
-        className={`${bodyFontFamily.className} ${headingFontFamily.className} antialiased`}
-      >
+      <body className="antialiased">
         <GoogleTagManagerNoScript />
         <div className="min-h-screen bg-background dark:bg-slate-950">
           <HeaderWithTheme />
