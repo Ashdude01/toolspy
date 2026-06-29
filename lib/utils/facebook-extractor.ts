@@ -10,6 +10,13 @@ export interface FacebookImageInfo {
   error?: string;
 }
 
+/** Real milestones the UI can reflect in its loader (instead of fixed timers). */
+export type ExtractPhase = "fetching" | "reading" | "parsing" | "fallback";
+
+export interface ExtractOptions {
+  onProgress?: (phase: ExtractPhase) => void;
+}
+
 function decodeMetaContent(raw: string): string {
   return raw
     .replace(/&amp;/g, "&")
@@ -422,42 +429,113 @@ const CLIENT_HTML_PROXIES: Array<(u: string) => { url: string; json?: boolean }>
   (u) => ({ url: `https://api.allorigins.win/get?url=${encodeURIComponent(u)}`, json: true }),
 ];
 
+const CLIENT_PROXY_TIMEOUT = 9000;
+
+/** Fetch one variant through one proxy and parse it. Resolves null on any failure. */
+async function fetchVariantViaProxy(
+  variant: string,
+  makeProxy: (u: string) => { url: string; json?: boolean },
+  onReading?: () => void,
+): Promise<FacebookImageInfo | null> {
+  try {
+    const { url: proxyUrl, json } = makeProxy(variant);
+    const res = await fetch(proxyUrl, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(CLIENT_PROXY_TIMEOUT),
+    });
+    if (!res.ok) return null;
+
+    onReading?.(); // response arrived — we're now reading/parsing
+    const html = json ? ((await res.json())?.contents as string) : await res.text();
+    if (!html || typeof html !== "string") return null;
+
+    const images = parseAllImagesFromHtml(html);
+    if (images.length === 0) return null;
+
+    return {
+      images,
+      title: parseOgTitleFromHtml(html),
+      description: parseOgDescriptionFromHtml(html),
+    };
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Race several promises and resolve with the FIRST one that yields images.
+ * Ignores failures/empties; resolves null only when every promise is exhausted.
+ */
+function firstWithImages(
+  promises: Array<Promise<FacebookImageInfo | null>>,
+): Promise<FacebookImageInfo | null> {
+  return new Promise((resolve) => {
+    if (promises.length === 0) return resolve(null);
+    let remaining = promises.length;
+    let done = false;
+    for (const p of promises) {
+      p.then((result) => {
+        if (done) return;
+        if (result && result.images.length > 0) {
+          done = true;
+          resolve(result);
+        } else if (--remaining === 0) {
+          resolve(null);
+        }
+      }).catch(() => {
+        if (done) return;
+        if (--remaining === 0) resolve(null);
+      });
+    }
+  });
+}
+
 /**
  * Client-side extraction — runs entirely in the user's browser via public CORS
  * proxies. This is the primary path so our server stays idle in the common case.
+ *
+ * Proxies are raced in PARALLEL so total latency ≈ the fastest proxy, not the sum.
  */
-export async function extractViaClientProxies(url: string): Promise<FacebookImageInfo> {
+export async function extractViaClientProxies(
+  url: string,
+  opts?: ExtractOptions,
+): Promise<FacebookImageInfo> {
   if (typeof window === "undefined") return { images: [] };
 
-  // Cap variants so we don't fan out into many proxy requests.
-  const variants = facebookUrlVariants(url).slice(0, 3);
+  const variants = facebookUrlVariants(url);
+  const canonical = variants[0];
+  // A mbasic/photo.php variant is the best second try for albums / edge cases.
+  const secondary = variants.find((v) => v !== canonical && /mbasic|photo\.php/i.test(v));
 
-  for (const variant of variants) {
-    for (const makeProxy of CLIENT_HTML_PROXIES) {
-      try {
-        const { url: proxyUrl, json } = makeProxy(variant);
-        const res = await fetch(proxyUrl, {
-          cache: "no-store",
-          signal: AbortSignal.timeout(15000),
-        });
-        if (!res.ok) continue;
+  let readingSignalled = false;
+  const signalReading = () => {
+    if (!readingSignalled) {
+      readingSignalled = true;
+      opts?.onProgress?.("reading");
+    }
+  };
 
-        const html = json ? ((await res.json())?.contents as string) : await res.text();
-        if (!html || typeof html !== "string") continue;
+  // Stage 1: race all proxies on the canonical URL (covers ~90% of links fast).
+  opts?.onProgress?.("fetching");
+  const stage1 = await firstWithImages(
+    CLIENT_HTML_PROXIES.map((mp) => fetchVariantViaProxy(canonical, mp, signalReading)),
+  );
+  if (stage1) {
+    opts?.onProgress?.("parsing");
+    return stage1;
+  }
 
-        const images = parseAllImagesFromHtml(html);
-        if (images.length > 0) {
-          return {
-            images,
-            title: parseOgTitleFromHtml(html),
-            description: parseOgDescriptionFromHtml(html),
-          };
-        }
-      } catch {
-        continue;
-      }
+  // Stage 2: only if the canonical URL gave nothing, try the album/mbasic variant.
+  if (secondary) {
+    const stage2 = await firstWithImages(
+      CLIENT_HTML_PROXIES.map((mp) => fetchVariantViaProxy(secondary, mp, signalReading)),
+    );
+    if (stage2) {
+      opts?.onProgress?.("parsing");
+      return stage2;
     }
   }
+
   return { images: [] };
 }
 
@@ -495,12 +573,15 @@ export async function fetchFacebookImageBlob(imageUrl: string): Promise<Blob> {
 /**
  * Main extraction function - tries multiple methods
  */
-export async function extractFacebookImages(url: string): Promise<FacebookImageInfo> {
+export async function extractFacebookImages(
+  url: string,
+  opts?: ExtractOptions,
+): Promise<FacebookImageInfo> {
   // Validate URL
   if (!url.trim()) {
     return { images: [], error: 'URL is required' };
   }
-  
+
   // Check if it's a Facebook URL
   if (!url.includes('facebook.com') && !url.includes('fb.com') && !url.includes('fbcdn')) {
     // Might be a direct image URL
@@ -510,7 +591,7 @@ export async function extractFacebookImages(url: string): Promise<FacebookImageI
     }
     return { images: [], error: 'Invalid Facebook URL' };
   }
-  
+
   // Try direct image first (fastest, no network)
   const directResult = extractDirectImage(url);
   if (directResult && directResult.images.length > 0) {
@@ -518,7 +599,7 @@ export async function extractFacebookImages(url: string): Promise<FacebookImageI
   }
 
   // PRIMARY: client-side via public CORS proxies — keeps our server idle.
-  const clientResult = await extractViaClientProxies(url);
+  const clientResult = await extractViaClientProxies(url, opts);
   if (clientResult.images.length > 0) {
     return clientResult;
   }
@@ -532,6 +613,7 @@ export async function extractFacebookImages(url: string): Promise<FacebookImageI
   }
 
   // FALLBACK: same-origin server route (uses our server; only when proxies fail).
+  opts?.onProgress?.("fallback");
   const nextRouteResult = await extractViaNextRoute(url);
   if (nextRouteResult.images.length > 0) {
     return nextRouteResult;

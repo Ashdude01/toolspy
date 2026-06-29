@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import {
   AlertCircle,
@@ -15,6 +15,7 @@ import { useToast, ToastProvider } from "@/components/tools/shared/toast-provide
 import {
   extractFacebookImages,
   fetchFacebookImageBlob,
+  type ExtractPhase,
   type FacebookImageInfo,
 } from "@/lib/utils/facebook-extractor";
 import { FacebookPhotoExtensionCta } from "@/components/tools/facebook-photo-extension-cta";
@@ -33,11 +34,15 @@ const FB_BTN = cn(
   "h-12 shrink-0 bg-[#1877F2] px-8 font-semibold text-white hover:bg-[#166FE5] hover:text-white",
 );
 
-const LOADING_STEPS = [
-  "Fetching post from Facebook…",
-  "Parsing images from the page…",
-  "Almost done…",
-] as const;
+// Each real extraction phase maps to a step (for the 3 dots) and a message.
+// Driven by actual milestones from the extractor — not fixed timers.
+const PHASE_UI: Record<ExtractPhase, { step: number; label: string }> = {
+  fetching: { step: 0, label: "Connecting to the post…" },
+  reading: { step: 1, label: "Reading the page…" },
+  parsing: { step: 2, label: "Extracting images…" },
+  fallback: { step: 2, label: "Trying alternate sources…" },
+};
+const STEP_COUNT = 3;
 
 type Status = "idle" | "loading" | "done" | "error";
 
@@ -51,7 +56,7 @@ function DownloaderInner() {
   const [url, setUrl] = useState("");
   const [urlError, setUrlError] = useState(false);
   const [status, setStatus] = useState<Status>("idle");
-  const [loadingStep, setLoadingStep] = useState(0);
+  const [phase, setPhase] = useState<ExtractPhase>("fetching");
   const [imageInfo, setImageInfo] = useState<FacebookImageInfo | null>(null);
   const [selected, setSelected] = useState(0);
   const [downloadingIndex, setDownloadingIndex] = useState<number | null>(null);
@@ -62,21 +67,11 @@ function DownloaderInner() {
   const [selectedSet, setSelectedSet] = useState<Set<number>>(() => new Set());
   const [zipping, setZipping] = useState(false);
   const [zipProgress, setZipProgress] = useState({ done: 0, total: 0 });
-  const stepTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
     const u = params?.get("url");
     if (u) setUrl(u);
   }, [params]);
-
-  useEffect(() => {
-    return () => stepTimers.current.forEach(clearTimeout);
-  }, []);
-
-  function clearStepTimers() {
-    stepTimers.current.forEach(clearTimeout);
-    stepTimers.current = [];
-  }
 
   async function analyze(overrideUrl?: string) {
     const value = (overrideUrl ?? url).trim();
@@ -89,20 +84,17 @@ function DownloaderInner() {
 
     setUrlError(false);
     setStatus("loading");
-    setLoadingStep(0);
+    setPhase("fetching");
     setImageInfo(null);
     setSelected(0);
     setDownloaded({});
     setDownloadFailedIndices(new Set());
     setSelectedSet(new Set());
 
-    clearStepTimers();
-    stepTimers.current.push(setTimeout(() => setLoadingStep(1), 900));
-    stepTimers.current.push(setTimeout(() => setLoadingStep(2), 2200));
-
     try {
-      const result = await extractFacebookImages(value);
-      clearStepTimers();
+      const result = await extractFacebookImages(value, {
+        onProgress: (p) => setPhase(p),
+      });
       setImageInfo(result);
 
       if (result.images.length > 0) {
@@ -114,7 +106,6 @@ function DownloaderInner() {
         showToast(result.error || "No images found", "error");
       }
     } catch (error) {
-      clearStepTimers();
       const errorMessage = error instanceof Error ? error.message : "Failed to extract images";
       setImageInfo({ images: [], error: errorMessage });
       setStatus("error");
@@ -341,20 +332,20 @@ function DownloaderInner() {
             </div>
           </div>
 
-          {/* Loading state with step progress */}
+          {/* Loading state - synced to real extraction phases */}
           {status === "loading" && (
             <div className="mt-5 border-t border-border pt-5">
               <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin text-[#1877F2]" />
-                <span>{LOADING_STEPS[loadingStep]}</span>
+                <span>{PHASE_UI[phase].label}</span>
               </div>
               <div className="mt-3 flex gap-1.5">
-                {LOADING_STEPS.map((_, i) => (
+                {Array.from({ length: STEP_COUNT }).map((_, i) => (
                   <div
                     key={i}
                     className={cn(
                       "h-1 flex-1 rounded-full transition-all duration-500",
-                      i <= loadingStep ? "bg-[#1877F2]" : "bg-muted",
+                      i <= PHASE_UI[phase].step ? "bg-[#1877F2]" : "bg-muted",
                     )}
                   />
                 ))}
