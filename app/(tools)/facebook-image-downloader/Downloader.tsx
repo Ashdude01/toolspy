@@ -7,11 +7,16 @@ import {
   CheckCircle2,
   Download,
   ExternalLink,
+  FileArchive,
   Loader2,
   RotateCcw,
 } from "lucide-react";
 import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
-import { extractFacebookImages, type FacebookImageInfo } from "@/lib/utils/facebook-extractor";
+import {
+  extractFacebookImages,
+  fetchFacebookImageBlob,
+  type FacebookImageInfo,
+} from "@/lib/utils/facebook-extractor";
 import { FacebookPhotoExtensionCta } from "@/components/tools/facebook-photo-extension-cta";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -21,6 +26,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
 const SAMPLE_URL = "https://www.facebook.com/photo/?fbid=1234567890";
+const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || "toolspy.net";
+const FILE_STAMP = `by-${SITE_DOMAIN}`;
 const FB_BTN = cn(
   buttonVariants({ size: "lg" }),
   "h-12 shrink-0 bg-[#1877F2] px-8 font-semibold text-white hover:bg-[#166FE5] hover:text-white",
@@ -52,6 +59,9 @@ function DownloaderInner() {
   const [downloadFailedIndices, setDownloadFailedIndices] = useState<Set<number>>(
     () => new Set(),
   );
+  const [selectedSet, setSelectedSet] = useState<Set<number>>(() => new Set());
+  const [zipping, setZipping] = useState(false);
+  const [zipProgress, setZipProgress] = useState({ done: 0, total: 0 });
   const stepTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
@@ -72,8 +82,8 @@ function DownloaderInner() {
     const value = (overrideUrl ?? url).trim();
     if (!value) {
       setUrlError(true);
-      setStatus("error");
-      setImageInfo({ images: [], error: "Paste a Facebook post or photo link first." });
+      setStatus("idle");
+      setImageInfo(null);
       return;
     }
 
@@ -84,6 +94,7 @@ function DownloaderInner() {
     setSelected(0);
     setDownloaded({});
     setDownloadFailedIndices(new Set());
+    setSelectedSet(new Set());
 
     clearStepTimers();
     stepTimers.current.push(setTimeout(() => setLoadingStep(1), 900));
@@ -96,6 +107,7 @@ function DownloaderInner() {
 
       if (result.images.length > 0) {
         setStatus("done");
+        setSelectedSet(new Set(result.images.map((_, i) => i)));
         showToast(`Found ${result.images.length} image(s)`, "success");
       } else {
         setStatus("error");
@@ -117,27 +129,35 @@ function DownloaderInner() {
     }
   }
 
+  function extFromBlob(imgUrl: string, blob: Blob) {
+    const urlExtension = imgUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i)?.[1] || "jpg";
+    const blobExtension = blob.type.split("/")[1]?.split(";")[0];
+    return (blobExtension || urlExtension).toLowerCase();
+  }
+
+  // Watermarked filename, e.g. "facebook-image-3-by-toolspy.net.jpg"
+  function imageFilename(index: number, ext: string) {
+    return `facebook-image-${index + 1}-${FILE_STAMP}.${ext}`;
+  }
+
+  function saveBlob(blob: Blob, filename: string) {
+    const objectUrl = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = objectUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
+  }
+
   async function downloadImage(imgUrl: string, index: number) {
     setDownloadingIndex(index);
     try {
-      const proxyUrl = `/api/facebook-image-proxy?url=${encodeURIComponent(imgUrl)}`;
-      const response = await fetch(proxyUrl);
-      if (!response.ok) throw new Error("Failed to fetch image");
+      // Fetches via public CORS proxies first, server proxy only as fallback.
+      const blob = await fetchFacebookImageBlob(imgUrl);
+      saveBlob(blob, imageFilename(index, extFromBlob(imgUrl, blob)));
 
-      const blob = await response.blob();
-      const objectUrl = URL.createObjectURL(blob);
-      const urlExtension = imgUrl.match(/\.(jpg|jpeg|png|gif|webp|bmp)(\?|$)/i)?.[1] || "jpg";
-      const blobExtension = blob.type.split("/")[1]?.split(";")[0] || urlExtension;
-      const extension = blobExtension || urlExtension;
-
-      const a = document.createElement("a");
-      a.href = objectUrl;
-      a.download = `facebook-image-${Date.now()}.${extension}`;
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-
-      setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
       showToast("Image downloaded successfully!", "success");
       setDownloaded((d) => ({ ...d, [index]: true }));
       setDownloadFailedIndices((prev) => {
@@ -148,16 +168,76 @@ function DownloaderInner() {
       });
     } catch {
       setDownloadFailedIndices((prev) => new Set(prev).add(index));
-      showToast("Proxy download failed. Opening image in new tab…", "info");
+      showToast("Download failed. Opening image in new tab…", "info");
       window.open(imgUrl, "_blank");
     } finally {
       setDownloadingIndex(null);
     }
   }
 
-  function downloadAll() {
-    if (!imageInfo?.images.length) return;
-    imageInfo.images.forEach((img, i) => downloadImage(img, i));
+  // Selection helpers
+  function toggleSelected(index: number) {
+    setSelectedSet((prev) => {
+      const next = new Set(prev);
+      if (next.has(index)) next.delete(index);
+      else next.add(index);
+      return next;
+    });
+  }
+
+  function selectAll() {
+    setSelectedSet(new Set(images.map((_, i) => i)));
+  }
+
+  function clearSelection() {
+    setSelectedSet(new Set());
+  }
+
+  function downloadSelected() {
+    const indices = images.map((_, i) => i).filter((i) => selectedSet.has(i));
+    if (!indices.length) {
+      showToast("Select at least one image first", "info");
+      return;
+    }
+    indices.forEach((i) => downloadImage(images[i], i));
+  }
+
+  async function downloadZip(indices: number[]) {
+    if (!indices.length) {
+      showToast("Select at least one image first", "info");
+      return;
+    }
+    setZipping(true);
+    setZipProgress({ done: 0, total: indices.length });
+    try {
+      const JSZip = (await import("jszip")).default;
+      const zip = new JSZip();
+      let ok = 0;
+
+      // Sequential fetch keeps the public proxies from rate-limiting us.
+      for (const i of indices) {
+        try {
+          const blob = await fetchFacebookImageBlob(images[i]);
+          zip.file(imageFilename(i, extFromBlob(images[i], blob)), blob);
+          ok += 1;
+          setDownloaded((d) => ({ ...d, [i]: true }));
+        } catch {
+          setDownloadFailedIndices((prev) => new Set(prev).add(i));
+        }
+        setZipProgress((p) => ({ ...p, done: p.done + 1 }));
+      }
+
+      if (ok === 0) throw new Error("All images failed to download");
+
+      const content = await zip.generateAsync({ type: "blob" });
+      saveBlob(content, `facebook-images-${FILE_STAMP}.zip`);
+      showToast(`Downloaded ${ok} image(s) as ZIP`, "success");
+    } catch {
+      showToast("ZIP download failed. Try downloading images individually.", "error");
+    } finally {
+      setZipping(false);
+      setZipProgress({ done: 0, total: 0 });
+    }
   }
 
   function reset() {
@@ -168,10 +248,15 @@ function DownloaderInner() {
     setSelected(0);
     setDownloaded({});
     setDownloadFailedIndices(new Set());
+    setSelectedSet(new Set());
+    setZipping(false);
+    setZipProgress({ done: 0, total: 0 });
   }
 
   const images = imageInfo?.images ?? [];
   const active = images[selected];
+  const selectedCount = selectedSet.size;
+  const busy = downloadingIndex !== null || zipping;
   const errorMessage =
     status === "error"
       ? imageInfo?.error ||
@@ -288,36 +373,29 @@ function DownloaderInner() {
 
           {status === "done" && active && (
             <div className="mt-5 animate-in fade-in slide-in-from-bottom-2 border-t border-border pt-5 duration-300">
-              {/* Header row */}
-              <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                <div className="flex items-start gap-2">
+              {/* Header row - compact */}
+              <div className="mb-3 flex items-start justify-between gap-3">
+                <div className="flex min-w-0 items-start gap-2">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-600 dark:text-green-500" />
-                  <div>
+                  <div className="min-w-0">
                     <p className="font-semibold text-foreground">
                       {images.length} image{images.length !== 1 ? "s" : ""} found
                     </p>
                     {imageInfo?.title && (
-                      <p className="text-sm text-muted-foreground">{imageInfo.title}</p>
+                      <p className="truncate text-sm text-muted-foreground">{imageInfo.title}</p>
                     )}
                   </div>
                 </div>
-                <div className="flex flex-wrap gap-2">
-                  {images.length > 1 && (
-                    <Button
-                      size="sm"
-                      onClick={downloadAll}
-                      disabled={downloadingIndex !== null}
-                      className={cn(FB_BTN, "h-9 px-4")}
-                    >
-                      <Download className="h-4 w-4" />
-                      Download all ({images.length})
-                    </Button>
-                  )}
-                  <Button size="sm" variant="outline" onClick={reset}>
-                    <RotateCcw className="h-4 w-4" />
-                    Clear
-                  </Button>
-                </div>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  onClick={reset}
+                  disabled={zipping}
+                  aria-label="Clear results"
+                  className="h-8 w-8 shrink-0 text-muted-foreground"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </Button>
               </div>
 
               {/* Primary download CTA - above the image preview */}
@@ -381,6 +459,52 @@ function DownloaderInner() {
                 </div>
               </div>
 
+              {/* Bulk actions + selection - one compact bar */}
+              {images.length > 1 && (
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 rounded-lg border border-border bg-muted/40 px-3 py-2">
+                  <div className="flex items-center gap-2 text-xs">
+                    <span className="font-medium text-foreground">
+                      {selectedCount}/{images.length}
+                    </span>
+                    <span className="text-muted-foreground">selected</span>
+                    <button
+                      type="button"
+                      onClick={selectedCount === images.length ? clearSelection : selectAll}
+                      className="font-semibold text-[#1877F2] hover:underline dark:text-blue-400"
+                    >
+                      {selectedCount === images.length ? "Clear" : "Select all"}
+                    </button>
+                  </div>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      onClick={downloadSelected}
+                      disabled={busy || selectedCount === 0}
+                      aria-label={`Download ${selectedCount} selected image(s)`}
+                      className={cn(FB_BTN, "h-8 px-3 text-xs")}
+                    >
+                      <Download className="h-3.5 w-3.5" />
+                      Save {selectedCount}
+                    </Button>
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => downloadZip(images.map((_, i) => i).filter((i) => selectedSet.has(i)))}
+                      disabled={busy || selectedCount === 0}
+                      aria-label={`Download ${selectedCount} selected image(s) as ZIP`}
+                      className="h-8 px-3 text-xs"
+                    >
+                      {zipping ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <FileArchive className="h-3.5 w-3.5" />
+                      )}
+                      {zipping ? `${zipProgress.done}/${zipProgress.total}` : `ZIP ${selectedCount}`}
+                    </Button>
+                  </div>
+                </div>
+              )}
+
               {/* Thumbnail strip */}
               {images.length > 1 && (
                 <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
@@ -389,7 +513,7 @@ function DownloaderInner() {
                       key={img + i}
                       type="button"
                       onClick={() => setSelected(i)}
-                      aria-label={`Select image ${i + 1}`}
+                      aria-label={`Preview image ${i + 1}`}
                       className={cn(
                         "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition-all",
                         i === selected
@@ -399,8 +523,34 @@ function DownloaderInner() {
                     >
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={img} alt="" className="h-full w-full object-cover" />
+                      {/* selection checkbox */}
+                      <span
+                        role="checkbox"
+                        aria-checked={selectedSet.has(i)}
+                        aria-label={`Select image ${i + 1} for download`}
+                        tabIndex={0}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          toggleSelected(i);
+                        }}
+                        onKeyDown={(e) => {
+                          if (e.key === " " || e.key === "Enter") {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            toggleSelected(i);
+                          }
+                        }}
+                        className={cn(
+                          "absolute left-1 top-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded border-2 text-[11px] font-bold transition-colors",
+                          selectedSet.has(i)
+                            ? "border-[#1877F2] bg-[#1877F2] text-white"
+                            : "border-white/90 bg-black/40 text-transparent hover:bg-black/60",
+                        )}
+                      >
+                        ✓
+                      </span>
                       {downloaded[i] && (
-                        <span className="absolute right-1 top-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-600 text-[10px] font-bold text-white">
+                        <span className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-600 text-[10px] font-bold text-white">
                           ✓
                         </span>
                       )}
