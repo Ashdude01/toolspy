@@ -67,6 +67,7 @@ function DownloaderInner() {
   const [selectedSet, setSelectedSet] = useState<Set<number>>(() => new Set());
   const [zipping, setZipping] = useState(false);
   const [zipProgress, setZipProgress] = useState({ done: 0, total: 0 });
+  const [savingSelected, setSavingSelected] = useState(false);
 
   useEffect(() => {
     const u = params?.get("url");
@@ -142,8 +143,12 @@ function DownloaderInner() {
     setTimeout(() => URL.revokeObjectURL(objectUrl), 1000);
   }
 
-  async function downloadImage(imgUrl: string, index: number) {
-    setDownloadingIndex(index);
+  async function downloadImage(
+    imgUrl: string,
+    index: number,
+    options?: { bulk?: boolean },
+  ) {
+    if (!options?.bulk) setDownloadingIndex(index);
     try {
       // Fetches via public CORS proxies first, server proxy only as fallback.
       const blob = await fetchFacebookImageBlob(imgUrl);
@@ -162,7 +167,7 @@ function DownloaderInner() {
       showToast("Download failed. Opening image in new tab…", "info");
       window.open(imgUrl, "_blank");
     } finally {
-      setDownloadingIndex(null);
+      if (!options?.bulk) setDownloadingIndex(null);
     }
   }
 
@@ -184,13 +189,19 @@ function DownloaderInner() {
     setSelectedSet(new Set());
   }
 
-  function downloadSelected() {
+  async function downloadSelected() {
     const indices = images.map((_, i) => i).filter((i) => selectedSet.has(i));
     if (!indices.length) {
       showToast("Select at least one image first", "info");
       return;
     }
-    indices.forEach((i) => downloadImage(images[i], i));
+
+    setSavingSelected(true);
+    try {
+      await Promise.all(indices.map((i) => downloadImage(images[i], i, { bulk: true })));
+    } finally {
+      setSavingSelected(false);
+    }
   }
 
   async function downloadZip(indices: number[]) {
@@ -242,12 +253,13 @@ function DownloaderInner() {
     setSelectedSet(new Set());
     setZipping(false);
     setZipProgress({ done: 0, total: 0 });
+    setSavingSelected(false);
   }
 
   const images = imageInfo?.images ?? [];
   const active = images[selected];
   const selectedCount = selectedSet.size;
-  const busy = downloadingIndex !== null || zipping;
+  const busy = downloadingIndex !== null || zipping || savingSelected;
   const errorMessage =
     status === "error"
       ? imageInfo?.error ||
@@ -437,9 +449,6 @@ function DownloaderInner() {
                         'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect fill="%23ccc"/><text x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23999">Unavailable</text></svg>';
                     }}
                   />
-                  <Badge className="absolute left-3 top-3 border-0 bg-black/60 text-white hover:bg-black/60">
-                    Full size
-                  </Badge>
                 </div>
                 <div className="border-t border-border bg-card px-4 py-2.5">
                   <p className="text-xs text-muted-foreground">
@@ -474,8 +483,12 @@ function DownloaderInner() {
                       aria-label={`Download ${selectedCount} selected image(s)`}
                       className={cn(FB_BTN, "h-8 px-3 text-xs")}
                     >
-                      <Download className="h-3.5 w-3.5" />
-                      Save {selectedCount}
+                      {savingSelected ? (
+                        <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                      ) : (
+                        <Download className="h-3.5 w-3.5" />
+                      )}
+                      {savingSelected ? "Saving…" : `Save ${selectedCount}`}
                     </Button>
                     <Button
                       size="sm"

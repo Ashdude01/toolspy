@@ -121,21 +121,9 @@ const TABLE = [
 
 const RELATED_TOOLS = [
   {
-    href: "/instagram-reels-downloader",
-    title: "Instagram Reels Downloader",
-    desc: "Save Instagram Reels and videos in high quality. Paste a reel URL and download instantly.",
-    label: "Instagram",
-  },
-  {
     href: "/ai-image-enhancer",
     title: "AI Image Enhancer",
     desc: "Upscale, unblur, or restore downloaded Facebook photos with AI - get the best quality from any image.",
-    label: "AI Tool",
-  },
-  {
-    href: "/ai-background-remover",
-    title: "Background Remover",
-    desc: "Remove the background from a downloaded profile picture or any image with one click.",
     label: "AI Tool",
   },
   {
@@ -145,16 +133,28 @@ const RELATED_TOOLS = [
     label: "Image",
   },
   {
+    href: "/compress-pdf",
+    title: "PDF Compressor",
+    desc: "Reduce PDF file sizes while maintaining quality. Compress documents for faster sharing, storage optimization.",
+    label: "PDF",
+  },
+  {
+    href: "/color-palette-generator",
+    title: "Color Palette Generator",
+    desc: "A fast color palette builder and color combo generator for designers and developers.",
+    label: "Color",
+  },
+  {
+    href: "/ai-background-remover",
+    title: "Background Remover",
+    desc: "Remove the background from a downloaded profile picture or any image with one click.",
+    label: "AI Tool",
+  },
+  {
     href: "/image-resizer",
     title: "Image Resizer",
     desc: "Resize downloaded photos to exact dimensions - perfect for profile pictures, wallpapers, or web use.",
     label: "Image",
-  },
-  {
-    href: "/instagram-private-viewer",
-    title: "Instagram DP Viewer",
-    desc: "View and download public Instagram profile pictures at full size - no app or account needed.",
-    label: "Instagram",
   },
 ];
 
@@ -344,11 +344,43 @@ export default function FacebookImageDownloaderPage() {
         </div>
       </section>
 
+      {/* Related Tools */}
+      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
+        <div className={CONTAINER}>
+          <Kicker>Related tools</Kicker>
+          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
+            More free tools you might need
+          </h2>
+          <p className="mt-2 max-w-xl text-muted-foreground">
+            Download from other platforms, enhance your photos, or edit them - all free, no signup.
+          </p>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {RELATED_TOOLS.map((t) => (
+              <Link
+                key={t.href}
+                href={t.href}
+                className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
+              >
+                <div className="flex items-center justify-between gap-2">
+                  <h3 className="font-bold text-foreground group-hover:text-[#1877F2] dark:group-hover:text-blue-400">
+                    {t.title}
+                  </h3>
+                  <span className="shrink-0 rounded-full bg-[#1877F2]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#1877F2] dark:bg-blue-500/15 dark:text-blue-400">
+                    {t.label}
+                  </span>
+                </div>
+                <p className="text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Download from public posts - text left, image right (pulled dynamically from tools-data) */}
       {posterImage && (
         <section className="border-t border-border py-14 sm:py-16">
           <div className={CONTAINER}>
-            <div className="mx-auto max-w-2xl text-center">
+            <div className="max-w-2xl">
               <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
                 Download Facebook Images from Public Posts
               </h2>
@@ -418,6 +450,8 @@ export default function FacebookImageDownloaderPage() {
           </div>
         </section>
       )}
+
+       
 
       {/* How to download Facebook photos - featured snippet target */}
       <section className="border-t border-border py-14 sm:py-16">
@@ -652,37 +686,7 @@ export default function FacebookImageDownloaderPage() {
         </div>
       </section>
 
-      {/* Related Tools */}
-      <section className="border-t border-border bg-muted/40 py-14 dark:bg-muted/20 sm:py-16">
-        <div className={CONTAINER}>
-          <Kicker>Related tools</Kicker>
-          <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
-            More free tools you might need
-          </h2>
-          <p className="mt-2 max-w-xl text-muted-foreground">
-            Download from other platforms, enhance your photos, or edit them - all free, no signup.
-          </p>
-          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {RELATED_TOOLS.map((t) => (
-              <Link
-                key={t.href}
-                href={t.href}
-                className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
-              >
-                <div className="flex items-center justify-between gap-2">
-                  <h3 className="font-bold text-foreground group-hover:text-[#1877F2] dark:group-hover:text-blue-400">
-                    {t.title}
-                  </h3>
-                  <span className="shrink-0 rounded-full bg-[#1877F2]/10 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-wide text-[#1877F2] dark:bg-blue-500/15 dark:text-blue-400">
-                    {t.label}
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
       {/* CTA */}
       <section className="bg-gradient-to-br from-[#1877F2] to-[#0d56c4] py-14 text-center sm:py-16">
