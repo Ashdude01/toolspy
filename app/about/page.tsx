@@ -337,18 +337,25 @@ export default function AboutPage() {
                 <Users className="h-6 w-6 text-primary" />
                 Built by Developers, for Everyone
               </CardTitle>
-              <CardDescription className="text-lg">Meet the team behind Toolspy</CardDescription>
+              <CardDescription className="text-lg">The team behind Toolspy</CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 text-lg leading-relaxed">
               <p>
-                Toolspy is built and maintained by a passionate team of developers who understand the frustrations 
-                of dealing with unreliable online tools. We're committed to creating utilities that we ourselves 
-                would want to use - and that means no compromises on quality, security, or accessibility.
+                Toolspy is built and operated by <strong>Biztalbox</strong>, a small web-focused team that got
+                tired of online tools that were slow, plastered with ads, or quietly uploading files to a server.
+                We build the kind of utilities we wanted for our own work - fast, free, and private by default.
               </p>
               <p>
-                Our team combines expertise in web development, image processing, cryptography, and user experience 
-                design to create tools that are both powerful and easy to use. We're constantly working to add new 
-                features, improve performance, and ensure compatibility across all devices and browsers.
+                Between us we work across web development, image processing, and everyday document handling, and we
+                keep the tools running and up to date. Most features run right in your browser, so your files stay
+                on your device instead of being sent anywhere.
+              </p>
+              <p>
+                Have a question, a bug to report, or an idea for a tool? Email us at{" "}
+                <a href="mailto:staff@biztalbox.com" className="text-primary underline underline-offset-4">
+                  staff@biztalbox.com
+                </a>{" "}
+                and a real person will read it.
               </p>
             </CardContent>
           </Card>
