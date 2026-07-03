@@ -182,6 +182,62 @@ export function SSCCGLRankPredictorSEOContent() {
         </div>
       </section>
 
+      <section className="space-y-6" id="marks-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="SSC CGL marks vs rank - indicative bands"
+          lead="Historical, indicative bands to sanity-check your estimate. Actual ranks depend on normalization, vacancies, and that cycle's merit list."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative normalized score to rank bands (UR)</CardTitle>
+            <CardDescription>
+              Compiled from publicly discussed results of recent SSC CGL cycles. Use for planning
+              only - always verify with official SSC publications.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Normalized Score Band (Tier 2)</th>
+                    <th className="text-left p-3 font-medium">Indicative Rank Band</th>
+                    <th className="text-left p-3 font-medium">Post Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["370+", "Top 500", "AAO, ASO (MEA/CSS) realistic"],
+                    ["350–370", "500 – 3,000", "ASO, Inspector (CBIC/CBDT) possible"],
+                    ["330–350", "3,000 – 10,000", "Auditor, Accountant, Inspector (lower preference)"],
+                    ["310–330", "10,000 – 25,000", "UDC / Tax Assistant band"],
+                    ["Below 310", "25,000+", "Depends heavily on category and vacancies"],
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Want the full explanation of normalization and category cutoff trends? Read our{" "}
+              <Link
+                href="/blog/ssc-cgl-marks-vs-rank-analysis/"
+                className="underline underline-offset-4 text-foreground"
+              >
+                SSC CGL marks vs rank analysis
+              </Link>
+              .
+            </p>
+          </CardContent>
+        </Card>
+      </section>
+
       <section className="space-y-6" id="pitfalls">
         <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

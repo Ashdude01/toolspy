@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { tools, toolCategories, ToolCategory } from '@/lib/tools-data';
+import { blogPosts } from '@/lib/blog-data';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://toolspy.net';
@@ -41,6 +42,36 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
       changeFrequency: 'monthly' as const,
       priority: 0.7,
+    },
+    {
+      url: `${baseUrl}/disclaimer`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/dmca`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/cookie-policy`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/gdpr-ccpa`,
+      lastModified: new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.5,
+    },
+    {
+      url: `${baseUrl}/blog`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.9,
     },
     {
       url: `${baseUrl}/help`,
@@ -108,11 +139,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  // Blog post pages
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+    url: `${baseUrl}/blog/${post.slug}`,
+    lastModified: new Date(post.updatedAt || post.publishedAt),
+    changeFrequency: 'monthly' as const,
+    priority: 0.8,
+  }));
+
   const all: MetadataRoute.Sitemap = [
     ...staticPages,
     ...categoryPages,
     ...toolPages,
     ...extensionPages,
+    ...blogPages,
   ];
 
   // De-dupe by URL (e.g. /image-to-pdf is both a registered tool and may be listed explicitly elsewhere)

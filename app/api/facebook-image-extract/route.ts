@@ -73,11 +73,11 @@ async function fetchHtml(pageUrl: string, mobile = false): Promise<string | null
 }
 
 /**
- * Strategy 1 — direct fetch across host variants (www / m / mbasic).
+ * Strategy 1 - direct fetch across host variants (www / m / mbasic).
  * mbasic + mobile UA is the most reliable for public photos.
  */
 async function tryDirect(rawUrl: string): Promise<PageResult | null> {
-  // Cap variants to keep serverless execution time (and cost) low — this route
+  // Cap variants to keep serverless execution time (and cost) low - this route
   // is only a fallback for when the client-side proxies fail.
   const variants = facebookUrlVariants(rawUrl).slice(0, 4);
   let blockedFallback: PageResult | null = null;
@@ -91,7 +91,7 @@ async function tryDirect(rawUrl: string): Promise<PageResult | null> {
     if (parsed.images.length > 0) {
       // If the page wasn't a block wall, this is a confident hit.
       if (!looksLikeFacebookBlockPage(html)) return parsed;
-      // og:image present but page looks like a wall — keep as a last resort.
+      // og:image present but page looks like a wall - keep as a last resort.
       if (!blockedFallback) blockedFallback = parsed;
     }
   }
@@ -99,7 +99,7 @@ async function tryDirect(rawUrl: string): Promise<PageResult | null> {
 }
 
 /**
- * Strategy 2 — reader proxies. These fetch Facebook from non-datacenter IPs,
+ * Strategy 2 - reader proxies. These fetch Facebook from non-datacenter IPs,
  * which sidesteps the login wall that Facebook serves to Vercel's IP ranges.
  */
 async function tryReaderProxies(rawUrl: string): Promise<PageResult | null> {
@@ -176,7 +176,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       images: [],
       error:
-        "Couldn't find any public images for this link. The post may be private, age-restricted, deleted, or Facebook is currently blocking automated access — try the browser extension for logged-in content.",
+        "Couldn't find any public images for this link. The post may be private, age-restricted, deleted, or Facebook is currently blocking automated access - try the browser extension for logged-in content.",
     });
   } catch {
     return NextResponse.json({ error: "Server error" }, { status: 500 });

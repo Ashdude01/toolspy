@@ -18,7 +18,7 @@ interface FAQProps {
  *
  * Every question AND answer is always present in the server-rendered HTML
  * (answers are only visually collapsed, not removed from the DOM), so search
- * engines can read the full content — good for SEO and rich results.
+ * engines can read the full content - good for SEO and rich results.
  */
 export function FAQ({
   title = "Frequently Asked Questions",

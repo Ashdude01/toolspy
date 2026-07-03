@@ -35,7 +35,7 @@ const FB_BTN = cn(
 );
 
 // Each real extraction phase maps to a step (for the 3 dots) and a message.
-// Driven by actual milestones from the extractor — not fixed timers.
+// Driven by actual milestones from the extractor - not fixed timers.
 const PHASE_UI: Record<ExtractPhase, { step: number; label: string }> = {
   fetching: { step: 0, label: "Connecting to the post…" },
   reading: { step: 1, label: "Reading the page…" },

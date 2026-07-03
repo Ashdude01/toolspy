@@ -138,10 +138,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Image Compressor',
-      title: 'Compress JPG, PNG & GIF Online – Shrink Photos Free | Toolspy',
+      title: 'Compress Image to 20KB, 50KB, 100KB – JPG, PNG Free | Toolspy',
       slug: '/image-compressor',
-      description: "Shrink image size without wrecking quality. Works in your browser-no signup. Drop your JPG, PNG or GIF and get a smaller file in seconds.",
-      tags: ['compress image', 'reduce image size', 'jpg compressor', 'png compressor', 'compress photo online', 'shrink image', 'image size reducer']
+      description: "Compress images to an exact KB size (20KB, 50KB, 100KB) for forms and uploads. Works in your browser-no signup. JPG, PNG, GIF, WebP.",
+      tags: ['compress image', 'compress image to 20kb', 'compress image to 50kb', 'compress image to 100kb', 'reduce image size', 'jpg compressor', 'png compressor', 'compress photo online', 'shrink image', 'image size reducer']
     }),
     posterImage: '/images/tools/image-compressor.webp'
   },
@@ -439,10 +439,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF Compressor',
-      title: 'Compress PDF – Shrink PDF Size Free Online | Toolspy',
+      title: 'Compress PDF to 100KB, 200KB Free – No Upload | Toolspy',
       slug: '/compress-pdf',
-      description: "PDF too big for email or upload? Shrink it here. You pick how much-light squeeze or max compression. Stays readable.",
-      tags: ['compress pdf', 'reduce pdf size', 'pdf compressor', 'shrink pdf', 'make pdf smaller']
+      description: "PDF too big for email, bank or visa uploads? Compress it to 100KB or 200KB right in your browser-your file never leaves your device.",
+      tags: ['compress pdf', 'compress pdf to 100kb', 'compress pdf to 200kb', 'reduce pdf size', 'pdf compressor', 'shrink pdf', 'make pdf smaller', 'compress pdf without upload']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/v1756527237/compress-pdf_cjhuif.webp'
   },
@@ -524,10 +524,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'PDF Password Remover',
-      title: 'Remove PDF Password – Unlock PDF Free | Toolspy',
+      title: 'Remove PDF Password – Unlock PDF Free, 100% Private | Toolspy',
       slug: '/pdf-password-remover',
-      description: "Know the PDF password? Enter it and we'll strip it so you can open the file without typing it again. Runs in browser.",
-      tags: ['remove pdf password', 'unlock pdf', 'pdf password remover', 'decrypt pdf', 'unlock password protected pdf']
+      description: "Know the PDF password? Enter it and we'll strip it so you can open the file without typing it again. Runs in your browser-nothing is uploaded.",
+      tags: ['remove pdf password', 'unlock pdf', 'pdf password remover', 'pdf password remover without upload', 'decrypt pdf', 'unlock password protected pdf']
     }),
     posterImage: "https://res.cloudinary.com/drby9raee/image/upload/remove-pdf-password_pmlhby.webp"
   },
@@ -1263,21 +1263,23 @@ export const tools: Tool[] = [
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Reels_Downloader_twbraa.webp'
   },
   {
-    id: 'instagram-private-viewer',
-    name: 'Instagram Private Viewer (DP Only)',
-    slug: 'instagram-private-viewer',
-    description: 'View and download public profile pictures. For private accounts, only profile DP is supported (when accessible).',
+    // Renamed from "instagram-private-viewer" - "private viewer" wording/URL is an
+    // AdSense + platform-policy red flag. 301 redirect added in next.config.js.
+    id: 'instagram-dp-viewer',
+    name: 'Instagram DP Viewer',
+    slug: 'instagram-dp-viewer',
+    description: 'View and download public Instagram profile pictures in full size. Works with publicly viewable DPs only.',
     category: 'conversion-tools',
-    icon: '🔒',
+    icon: '🖼️',
     tags: ['instagram', 'profile', 'dp', 'avatar', 'download'],
-    path: '/instagram-private-viewer',
+    path: '/instagram-dp-viewer',
     status: 'active',
     seo: generateSEO({
-      name: 'Instagram Private Viewer (DP Only)',
-      title: 'Instagram DP Downloader – View & Save Profile Pic | Toolspy',
-      slug: '/instagram-private-viewer',
-      description: "See and save Instagram profile pics in full size. Works for public DPs. Private accounts-only when the DP is viewable.",
-      tags: ['instagram dp downloader', 'download instagram profile picture', 'instagram profile pic', 'save instagram dp']
+      name: 'Instagram DP Viewer',
+      title: 'Instagram DP Viewer – View & Save Profile Pic Full Size | Toolspy',
+      slug: '/instagram-dp-viewer',
+      description: "See and save Instagram profile pics in full size. Works for publicly viewable DPs only. Free, no login required.",
+      tags: ['instagram dp viewer', 'instagram dp download', 'download instagram profile picture', 'instagram profile pic full size', 'save instagram dp']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Instagram_Private_Viewer_DP_Only_usclpt.webp'
   },
@@ -1615,7 +1617,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'GST Calculator',
-      title: 'GST Calculator – India GST Rates 0% to 28% | Toolspy',
+      title: 'GST Calculator Online – CGST, SGST, IGST + Reverse GST | Toolspy',
       slug: '/gst-calculator',
       description: "Add or remove GST. Pick inclusive or exclusive. All India rates (0%, 5%, 12%, 18%, 28%). Quick for invoices and quotes.",
       tags: ['gst calculator', 'gst calculator india', 'calculate gst', 'gst inclusive', 'gst exclusive', 'india gst']
@@ -1655,7 +1657,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'HSN/SAC Code Finder',
-      title: 'HSN / SAC Code Finder – GST Rates India | Toolspy',
+      title: 'HSN Code Finder 2026 – HSN/SAC Codes with GST Rates | Toolspy',
       slug: '/hsn-sac-finder',
       description: "Look up HSN or SAC codes and see the GST rate. Type a keyword and get the code. Handy for invoices and returns.",
       tags: ['hsn code finder', 'sac code finder', 'hsn code list', 'sac code gst', 'gst hsn code', 'india gst code']
@@ -1775,7 +1777,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'JEE Main Rank Predictor',
-      title: 'JEE Main Rank Predictor – Rank & College Options | Toolspy',
+      title: 'JEE Main Rank Predictor 2027 – Percentile to Rank | Toolspy',
       slug: '/jee-main-rank-predictor',
       description: "Enter your JEE Main percentile and get a rough rank and college list. Ballpark only-use official counselling for final choices.",
       tags: ['jee main rank predictor', 'jee rank predictor', 'jee main rank calculator', 'jee college predictor', 'predict jee main rank']
@@ -1795,7 +1797,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'NEET Rank Predictor',
-      title: 'NEET Rank Predictor – Rank & Medical College | Toolspy',
+      title: 'NEET Rank Predictor 2027 – Marks vs Rank & Colleges | Toolspy',
       slug: '/neet-rank-predictor',
       description: "Put in your NEET score and see a rough rank and college options. For planning only-check official counselling for final list.",
       tags: ['neet rank predictor', 'neet rank calculator', 'neet college predictor', 'predict neet rank', 'neet rank estimate']
@@ -1855,7 +1857,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'CAT Percentile Predictor',
-      title: 'CAT Percentile Predictor – MBA College Options | Toolspy',
+      title: 'CAT Percentile Predictor 2026 – Score to Percentile | Toolspy',
       slug: '/cat-percentile-predictor',
       description: "Enter your CAT sectional scores and get a rough percentile and MBA college list. Ballpark for planning-official results vary.",
       tags: ['cat percentile predictor', 'cat percentile calculator', 'mba college predictor', 'predict cat percentile', 'cat rank predictor']
@@ -1895,7 +1897,7 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'SSC CGL Rank Predictor',
-      title: 'SSC CGL Rank Predictor – Govt Job Options | Toolspy',
+      title: 'SSC CGL Rank Predictor 2026 – Marks to Rank & Posts | Toolspy',
       slug: '/ssc-cgl-rank-predictor',
       description: "Enter your SSC CGL score and get a rough rank and post options. For planning-final posting is as per official merit list.",
       tags: ['ssc cgl rank predictor', 'ssc cgl rank calculator', 'ssc cgl post predictor', 'predict ssc cgl rank', 'government job predictor']

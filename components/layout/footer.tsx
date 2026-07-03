@@ -18,9 +18,7 @@ import {
   Mail,
   ArrowUp,
   X,
-  Facebook,
-  RedoDotIcon,
-  Instagram
+  Facebook
 } from "lucide-react"
 import Link from "next/link"
 import { CookieConsentModal } from "@/components/consent/cookie-consent-modal"
@@ -62,13 +60,23 @@ export function Footer() {
       title: "Company",
       links: [
         { href: "/about", label: "About Us" },
+        { href: "/blog", label: "Blog" },
         { href: "/digital-marketing", label: "Digital Marketing" },
         { href: "/contact", label: "Contact" },
-        { href: "/privacy", label: "Privacy Policy" },
-        { href: "/terms", label: "Terms of Service" },
         { href: "/help", label: "Help Center" },
         { href: "/feedback", label: "Feedback" },
         { label: "Manage Cookies", onClick: handleManageCookies, isButton: true }
+      ]
+    },
+    {
+      title: "Legal",
+      links: [
+        { href: "/privacy", label: "Privacy Policy" },
+        { href: "/terms", label: "Terms of Service" },
+        { href: "/disclaimer", label: "Disclaimer" },
+        { href: "/dmca", label: "DMCA Policy" },
+        { href: "/cookie-policy", label: "Cookie Policy" },
+        { href: "/gdpr-ccpa", label: "GDPR & CCPA" }
       ]
     },
 {
@@ -97,8 +105,7 @@ export function Footer() {
   const socialLinks = [
     { href: "https://x.com/ToolSpy170613", icon: <X className="h-5 w-5" />, label: "X" },
     { href: "https://www.facebook.com/profile.php?id=61581409970991", icon: <Facebook className="h-5 w-5" />, label: "Facebook" },
-    { href: "https://www.linkedin.com/company/109004927", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" },
-    { href: "#", icon: <Instagram className="h-5 w-5" />, label: "Instagram" }
+    { href: "https://www.linkedin.com/company/109004927", icon: <Linkedin className="h-5 w-5" />, label: "LinkedIn" }
   ]
 
   return (
@@ -111,7 +118,7 @@ export function Footer() {
 
       <div className="container mx-auto px-0">
         {/* Main Footer Content */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 mb-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-8 mb-12">
           {/* Brand Section */}
           <div className="lg:col-span-2 flex flex-col">
           <Link

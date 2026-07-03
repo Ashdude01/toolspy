@@ -3,7 +3,7 @@ const nextConfig = {
   env: {
     NEXT_PUBLIC_SITE_NAME: 'Toolspy',
     NEXT_PUBLIC_SITE_TITLE: 'Toolspy – Free Online Calculators, Converters & File Tools',
-    NEXT_PUBLIC_SITE_DESCRIPTION: 'Toolspy: Fast, free and secure web‑based tools including converters, calculators, image compression, QR code generator & more — zero install, local browser processing',
+    NEXT_PUBLIC_SITE_DESCRIPTION: 'Toolspy: Fast, free and secure web‑based tools including converters, calculators, image compression, QR code generator & more - zero install, local browser processing',
     NEXT_PUBLIC_SITE_URL: 'https://toolspy.net',
     NEXT_PUBLIC_SITE_DOMAIN: 'toolspy.net',
     NEXT_PUBLIC_BRAND_COLOR: '#3b82f6',
@@ -24,9 +24,26 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  // SSR: server har request pe full HTML (body + text) bhejta hai — View Source / crawlers ko content milta hai.
-  // Prerender (Puppeteer) use mat karo — SSR se hi styling/animations sahi rehte hain aur source mein HTML bhi milta hai.
+  // SSR: server har request pe full HTML (body + text) bhejta hai - View Source / crawlers ko content milta hai.
+  // Prerender (Puppeteer) use mat karo - SSR se hi styling/animations sahi rehte hain aur source mein HTML bhi milta hai.
   trailingSlash: true,
+
+  // 301 redirects - policy-safe slugs. "private-viewer" URL AdSense/platform-policy
+  // ke liye risky tha, isliye tool ab /instagram-dp-viewer/ par hai.
+  async redirects() {
+    return [
+      {
+        source: '/instagram-private-viewer',
+        destination: '/instagram-dp-viewer/',
+        permanent: true,
+      },
+      {
+        source: '/instagram-private-viewer/',
+        destination: '/instagram-dp-viewer/',
+        permanent: true,
+      },
+    ];
+  },
 
   images: {
     unoptimized: false,

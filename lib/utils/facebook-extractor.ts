@@ -118,7 +118,7 @@ function resolutionScore(u: string): number {
 
 /** The stable identity of a photo, used to dedupe size variants of the same image. */
 function photoIdentity(u: string): string {
-  // FB CDN filenames look like 123456_789012_345678_n.jpg — the middle id is stable.
+  // FB CDN filenames look like 123456_789012_345678_n.jpg - the middle id is stable.
   const fileMatch = u.match(/\/(\d+_\d+_\d+)_[a-z]\.(?:jpe?g|png|webp)/i);
   if (fileMatch) return fileMatch[1];
   const fbid = u.match(/[?&]fbid=(\d+)/i);
@@ -445,7 +445,7 @@ async function fetchVariantViaProxy(
     });
     if (!res.ok) return null;
 
-    onReading?.(); // response arrived — we're now reading/parsing
+    onReading?.(); // response arrived - we're now reading/parsing
     const html = json ? ((await res.json())?.contents as string) : await res.text();
     if (!html || typeof html !== "string") return null;
 
@@ -491,7 +491,7 @@ function firstWithImages(
 }
 
 /**
- * Client-side extraction — runs entirely in the user's browser via public CORS
+ * Client-side extraction - runs entirely in the user's browser via public CORS
  * proxies. This is the primary path so our server stays idle in the common case.
  *
  * Proxies are raced in PARALLEL so total latency ≈ the fastest proxy, not the sum.
@@ -598,7 +598,7 @@ export async function extractFacebookImages(
     return directResult;
   }
 
-  // PRIMARY: client-side via public CORS proxies — keeps our server idle.
+  // PRIMARY: client-side via public CORS proxies - keeps our server idle.
   const clientResult = await extractViaClientProxies(url, opts);
   if (clientResult.images.length > 0) {
     return clientResult;
@@ -623,7 +623,7 @@ export async function extractFacebookImages(
   return {
     images: [],
     error:
-      "Couldn't extract images. The post may be private, age-restricted, or temporarily blocking automated access — try the browser extension for logged-in content.",
+      "Couldn't extract images. The post may be private, age-restricted, or temporarily blocking automated access - try the browser extension for logged-in content.",
   };
 }
 

@@ -200,17 +200,26 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
             </Badge>
 
             <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-10 lg:flex-row text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out px-2">
-              <span className="text-center">Expert Tools for </span>
+              {/* Complete, crawlable H1 text (screen-reader + SEO). The animated
+                  typewriter below is decorative only (aria-hidden), so crawlers
+                  and assistive tech always get the full heading. */}
+              <span className="sr-only">
+                Expert Tools for Images, PDFs, Calculators, GST &amp; Exam
+                Predictors - Free Online
+              </span>
+              <span aria-hidden="true" className="text-center">Expert Tools for </span>
               {/* <span className="text-3xl sm:text-4xl lg:t/ext-5xl">Your </span> */}
-              <TypewriterText
-                staticText=""
-                words={typewriterWords}
-                typingSpeed={20}
-                deletingSpeed={20}
-                pauseTime={2500}
-                // className="inline-block !text-inherit !leading-snug lg:min-w-96 text-start"
-                className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text leading-normal text-transparent animate-gradient lg:min-w-96 text-center lg:text-left max-w-full"
-              />
+              <span aria-hidden="true" className="contents">
+                <TypewriterText
+                  staticText=""
+                  words={typewriterWords}
+                  typingSpeed={20}
+                  deletingSpeed={20}
+                  pauseTime={2500}
+                  // className="inline-block !text-inherit !leading-snug lg:min-w-96 text-start"
+                  className="inline-block bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text leading-normal text-transparent animate-gradient lg:min-w-96 text-center lg:text-left max-w-full"
+                />
+              </span>
               {/* <span className="text-3xl sm:text-4xl lg:text-5xl"> Instantly</span> */}
             </h1>
 

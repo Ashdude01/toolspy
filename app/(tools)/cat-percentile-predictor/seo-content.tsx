@@ -183,6 +183,61 @@ export function CATPercentilePredictorSEOContent() {
         </div>
       </section>
 
+      <section className="space-y-6" id="score-vs-percentile">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="CAT score vs percentile - indicative bands"
+          lead="Historical, indicative mapping from raw score to overall percentile. Slot normalization and candidate pool shift these bands every year."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative raw score to overall percentile</CardTitle>
+            <CardDescription>
+              Compiled from publicly discussed score-vs-percentile data of recent CAT cycles.
+              Use for planning only - official scaled scores vary by slot.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Approx. Raw Score (out of 198)</th>
+                    <th className="text-left p-3 font-medium">Indicative Overall Percentile</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["100+", "99.5+"],
+                    ["84–90", "99"],
+                    ["66–72", "95"],
+                    ["54–60", "90"],
+                    ["42–48", "80"],
+                    ["30–36", "70"],
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Want the full formula and sectional-cutoff explanation? Read our guide on{" "}
+              <Link
+                href="/blog/cat-percentile-calculation-explained/"
+                className="underline underline-offset-4 text-foreground"
+              >
+                how CAT percentile is calculated
+              </Link>
+              .
+            </p>
+          </CardContent>
+        </Card>
+      </section>
+
       <section className="space-y-6" id="pitfalls">
         <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">

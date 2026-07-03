@@ -241,24 +241,28 @@ export function Header({ onSearch }: HeaderProps) {
                             {category.icon} {category.name}
                           </Link>
                           <div className="ml-4 space-y-1">
-                            {toolsByCategory[categoryKey]?.map((tool) => (
-                              <Link
-                                key={tool.id}
-                                href={tool.status === "active" ? tool.path : "#"}
-                                className={`block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors ${
-                                  tool.status === "coming-soon"
-                                    ? "text-muted-foreground/60 cursor-not-allowed"
-                                    : "text-foreground hover:text-foreground"
-                                }`}
-                                onClick={
-                                  tool.status === "coming-soon"
-                                    ? (e) => e.preventDefault()
-                                    : closeDesktopDropdown
-                                }
-                              >
-                                {tool.icon} {tool.name}
-                              </Link>
-                            ))}
+                            {toolsByCategory[categoryKey]?.map((tool) =>
+                              tool.status === "coming-soon" ? (
+                                // No href="#" for coming-soon tools - dead links hurt
+                                // crawl budget and UX. Render a plain span instead.
+                                <span
+                                  key={tool.id}
+                                  className="block px-3 py-1 text-xs rounded-md text-muted-foreground/60 cursor-not-allowed"
+                                  title="Coming soon"
+                                >
+                                  {tool.icon} {tool.name}
+                                </span>
+                              ) : (
+                                <Link
+                                  key={tool.id}
+                                  href={tool.path}
+                                  className="block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors text-foreground hover:text-foreground"
+                                  onClick={closeDesktopDropdown}
+                                >
+                                  {tool.icon} {tool.name}
+                                </Link>
+                              )
+                            )}
                           </div>
                         </div>
                       ))}
@@ -268,6 +272,13 @@ export function Header({ onSearch }: HeaderProps) {
               </div>
 
              
+
+              <Link
+                href="/blog"
+                className="text-sm font-medium transition-colors hover:text-primary"
+              >
+                Blog
+              </Link>
 
               <Link
                 href="/careers"
@@ -439,32 +450,34 @@ export function Header({ onSearch }: HeaderProps) {
                         {/* Category Tools */}
                         {expandedCategories.has(categoryKey) && (
                           <div className="ml-6 space-y-1 border-l border-border pl-1 mt-1">
-                            {toolsByCategory[categoryKey]?.map((tool) => (
-                              <Link
-                                key={tool.id}
-                                href={
-                                  tool.status === "active" ? tool.path : "#"
-                                }
-                                className={`block px-3 py-2 text-sm rounded-md transition-colors ${
-                                  tool.status === "coming-soon"
-                                    ? "text-muted-foreground/60 cursor-not-allowed"
-                                    : "text-muted-foreground hover:text-foreground hover:bg-accent"
-                                }`}
-                                onClick={
-                                  tool.status === "coming-soon"
-                                    ? (e) => e.preventDefault()
-                                    : closeMenu
-                                }
-                              >
-                                <span className="mr-2">{tool.icon}</span>
-                                {tool.name}
-                                {tool.status === "beta" && (
-                                  <span className="ml-2 text-xs text-blue-500">
-                                    (Beta)
-                                  </span>
-                                )}
-                              </Link>
-                            ))}
+                            {toolsByCategory[categoryKey]?.map((tool) =>
+                              tool.status === "coming-soon" ? (
+                                // No href="#" for coming-soon tools - render a span.
+                                <span
+                                  key={tool.id}
+                                  className="block px-3 py-2 text-sm rounded-md text-muted-foreground/60 cursor-not-allowed"
+                                  title="Coming soon"
+                                >
+                                  <span className="mr-2">{tool.icon}</span>
+                                  {tool.name}
+                                </span>
+                              ) : (
+                                <Link
+                                  key={tool.id}
+                                  href={tool.path}
+                                  className="block px-3 py-2 text-sm rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
+                                  onClick={closeMenu}
+                                >
+                                  <span className="mr-2">{tool.icon}</span>
+                                  {tool.name}
+                                  {tool.status === "beta" && (
+                                    <span className="ml-2 text-xs text-blue-500">
+                                      (Beta)
+                                    </span>
+                                  )}
+                                </Link>
+                              )
+                            )}
                           </div>
                         )}
                       </div>
@@ -502,6 +515,14 @@ export function Header({ onSearch }: HeaderProps) {
                   </Link>
                 </div>
               </div>
+
+              <Link
+                href="/blog"
+                className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
+                onClick={closeMenu}
+              >
+                Blog
+              </Link>
 
               <Link
                 href="/digital-marketing"
