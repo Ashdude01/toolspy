@@ -1,3 +1,9 @@
+/**
+ * Pillar SEO content for the PDF Tools category page (/tools/pdf-tools/).
+ * Server-rendered so crawlers get the full guide in HTML.
+ * Written per Google helpful-content guidelines: factual, user-first,
+ * no competitor comparisons or unverifiable claims.
+ */
 import {
   Card,
   CardContent,
@@ -5,613 +11,121 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  FileText,
-  Copy,
-  Download,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Sparkles,
-  Palette,
-  Smartphone,
-  BookOpen,
-  Edit3,
-  Maximize,
-  RotateCcw,
-  Filter,
-  Upload,
-  Merge,
-  Split,
-  Lock,
-  Unlock,
-} from "lucide-react";
 import { getToolsByCategory } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
+import { ToolCard } from "@/components/tools/tool-card";
 import NextImage from "next/image";
 import Link from "next/link";
 
+const categoryFaqs = () => [
+  {
+    question: "Are my PDFs uploaded anywhere?",
+    answer:
+      "No. Merging, splitting, compressing, and password removal run entirely in your browser - your documents never reach a server.",
+  },
+  {
+    question: "Can I compress a PDF to exactly 100KB?",
+    answer:
+      "The compressor targets common portal limits like 100KB and 200KB. Very image-heavy scans may need a stronger preset or fewer pages to hit tight targets.",
+  },
+  {
+    question: "Can you unlock a PDF without the password?",
+    answer:
+      "No. The password remover decrypts using the correct password you provide. Cracking unknown passwords is not supported.",
+  },
+  {
+    question: "Will merging or compressing add a watermark?",
+    answer:
+      "No. Output files are clean, with no watermark and no branding.",
+  },
+  {
+    question: "Does PDF to Excel work on scanned documents?",
+    answer:
+      "Table extraction works best on digitally created PDFs. For scans, run OCR first with the OCR Text Extractor, then export.",
+  },
+];
+
 export function PDFToolsSEOContent() {
-  const pdfTools = getToolsByCategory()['pdf-tools'];
+  const tools = getToolsByCategory()["pdf-tools"] || [];
+  // Poster image dynamically fetched from tools-data (flagship tool of this category)
+  const posterImage =
+    tools.find((t) => t.slug === "compress-pdf")?.posterImage ||
+    tools.find((t) => t.posterImage)?.posterImage;
 
-  const comparisonData = [
-    {
-      feature: "PDF Quality",
-      toolspy: "✅ Professional quality",
-      adobe: "⚠️ Expensive subscription",
-      ilovepdf: "❌ Limited free features",
-      smallpdf: "⚠️ Watermarked free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant processing",
-      adobe: "⚠️ Software dependent",
-      ilovepdf: "❌ Server delays",
-      smallpdf: "⚠️ Queue system",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      adobe: "❌ Local files",
-      ilovepdf: "⚠️ Server-based",
-      smallpdf: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      adobe: "❌ Subscription required",
-      ilovepdf: "⚠️ Limited free",
-      smallpdf: "⚠️ Limited free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      adobe: "❌ Desktop only",
-      ilovepdf: "⚠️ Basic mobile",
-      smallpdf: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Format Support",
-      toolspy: "✅ All major formats",
-      adobe: "✅ All formats",
-      ilovepdf: "⚠️ Limited formats",
-      smallpdf: "⚠️ Limited formats",
-      toolspyStatus: "excellent",
-    },
-  ];
-
-  const pdfToolTypes = [
-    {
-      type: "PDF Compression",
-      description: "Reduce PDF file sizes while maintaining quality",
-      useCase: "Email attachments, storage optimization, faster sharing",
-      precision: "High-quality compression",
-      example: "Compress large PDFs for email sharing",
-    },
-    {
-      type: "PDF Conversion",
-      description: "Convert PDFs to and from various formats",
-      useCase: "Document editing, format compatibility, workflow integration",
-      precision: "Lossless conversion",
-      example: "Convert PDF to Word or Excel",
-    },
-    {
-      type: "PDF Merging",
-      description: "Combine multiple PDFs into one document",
-      useCase: "Document consolidation, report creation, file organization",
-      precision: "Perfect page order",
-      example: "Merge multiple reports into one PDF",
-    },
-    {
-      type: "PDF Splitting",
-      description: "Split PDFs into separate pages or sections",
-      useCase: "Page extraction, document separation, selective sharing",
-      precision: "Precise page selection",
-      example: "Extract specific pages from a large PDF",
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description: "All PDF processing happens in your browser - your documents never leave your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast Processing",
-      description: "Process PDFs instantly with no uploads, downloads, or server delays.",
-    },
-    {
-      icon: <FileText className="h-6 w-6" />,
-      title: "Professional Quality",
-      description: "Maintain high document quality with advanced algorithms and optimization.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description: "Comprehensive PDF tools with professional-grade capabilities.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional PDF processing with complete privacy protection",
-    "⚡ Instant processing with no server delays or uploads",
-    "🔒 Complete privacy protection - documents never leave your device",
-    "📊 Multiple PDF tools: compression, conversion, merging, splitting",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete processing history and document tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade PDF processing capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tools requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise PDF processing and quality control",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive PDF analysis and optimization tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. Adobe Acrobat",
-      advantages: [
-        "Better Cost: Free forever vs. expensive subscription",
-        "Better Privacy: Client-side vs. local file processing",
-        "Better Speed: Instant vs. software loading time",
-        "No Installation: Browser-based vs. software installation",
-        "Mobile Friendly: Responsive vs. desktop only",
-        "Ease of Use: Simple interface vs. complex learning curve",
-      ],
-    },
-    {
-      title: "Toolspy vs. iLovePDF",
-      advantages: [
-        "Better Privacy: Client-side vs. server-based processing",
-        "Better Speed: Instant vs. server delays",
-        "Better Quality: Professional vs. limited free features",
-        "No Registration: Free forever vs. limited free tier",
-        "Format Support: All major formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. basic mobile",
-      ],
-    },
-    {
-      title: "Toolspy vs. SmallPDF",
-      advantages: [
-        "Better Privacy: Client-side vs. server-based processing",
-        "Better Speed: Instant vs. queue system",
-        "Better Quality: Professional vs. watermarked free",
-        "No Registration: Free forever vs. limited free tier",
-        "Format Support: All major formats vs. limited formats",
-        "Mobile Experience: Responsive design vs. limited mobile",
-      ],
-    },
-  ];
-
-  // Register FAQs for SEO
-  registerToolFAQ("pdf-tools", () => [
-    {
-      question: "What are the best free PDF tools available online?",
-      answer: "Toolspy offers the best free PDF tools including PDF compressor, PDF converter, PDF merger, and PDF splitter. All tools provide professional quality with complete privacy protection and no registration required."
-    },
-    {
-      question: "How do I compress PDF files without losing quality?",
-      answer: "Use Toolspy's PDF compressor which uses advanced algorithms to reduce file size while maintaining document quality. The tool processes PDFs in your browser, ensuring complete privacy and instant results."
-    },
-    {
-      question: "Can I convert PDFs to other formats?",
-      answer: "Yes! Toolspy's PDF converter supports conversion to and from Word, Excel, PowerPoint, images, and more. Convert between formats with high quality and instant processing."
-    },
-    {
-      question: "Is it safe to use online PDF tools?",
-      answer: "Toolspy's PDF tools are completely safe as all processing happens in your browser. Your documents never leave your device, ensuring complete privacy and security."
-    },
-    {
-      question: "Do I need to register to use PDF tools?",
-      answer: "No registration required! All Toolspy PDF tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-    },
-    {
-      question: "Can I merge multiple PDFs into one?",
-      answer: "Absolutely! Use Toolspy's PDF merger to combine multiple PDF documents into one file with perfect page order and quality preservation."
-    },
-    {
-      question: "How do I split a PDF into separate pages?",
-      answer: "Use Toolspy's PDF splitter to extract specific pages or split PDFs into individual pages. Select pages by range or individual page numbers for precise control."
-    },
-    {
-      question: "Are these PDF tools mobile-friendly?",
-      answer: "Yes! All Toolspy PDF tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-    }
-  ]);
+  registerToolFAQ("pdf-tools", categoryFaqs);
 
   return (
-        <div className="space-y-12 mt-16 container max-w-7xl mx-auto px-4 py-4">
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="pdf-tools"
-        title="Professional PDF Tools"
-        description="Discover our comprehensive suite of PDF processing tools designed for professionals and everyday users."
-      />
-
-      {/* Introduction Section */}
+    <article className="mx-auto max-w-7xl space-y-14 mt-16 mb-20 px-4 text-base sm:text-[17px] leading-relaxed">
+      {/* Intro */}
       <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-            Professional PDF Tools – Fast & Private
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Complete suite of professional PDF processing tools with complete privacy protection, 
-            high-quality processing, and instant results. Perfect for professionals, 
-            students, and anyone needing professional PDF manipulation.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      professional PDF tools
-                    </strong>{" "}
-                    provide the ultimate{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      PDF processing online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      PDF compression
-                    </strong>
-                    ,{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      PDF conversion
-                    </strong>
-                    ,{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      PDF merging
-                    </strong>
-                    , and{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      PDF splitting
-                    </strong>{" "}
-                    with professional quality.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      PDF tools suite
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      advanced processing technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      instant processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      process PDFs free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/20 dark:to-red-900/20 rounded-xl border border-red-200 dark:border-red-800">
-                    <div className="text-2xl font-bold text-red-600">{pdfTools.length}</div>
-                    <div className="text-sm text-red-700 dark:text-red-300">
-                      Tools
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-green-50 to-green-100 dark:from-green-950/20 dark:to-green-900/20 rounded-xl border border-green-200 dark:border-green-800">
-                    <div className="text-2xl font-bold text-green-600">100%</div>
-                    <div className="text-sm text-green-700 dark:text-green-300">
-                      Free
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">∞</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Unlimited
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/20 dark:to-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
-                    <div className="text-2xl font-bold text-orange-600">0ms</div>
-                    <div className="text-sm text-orange-700 dark:text-orange-300">
-                      Upload
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-              <NextImage
-                  width={1200}
-                  height={680}
-                  src="https://res.cloudinary.com/drby9raee/image/upload/PDF_Tools_tbb15r.png"
-                  alt="PDF Tools"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-red-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Professional
-                </div>
-              </div>
-            </div>
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+          Free PDF Tools - Merge, Split, Compress & Convert Without Uploading
+        </h2>
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              PDFs are where important documents live - bank statements, contracts, certificates, application forms. Toolspy&apos;s {tools.length} PDF tools cover the everyday operations: merge multiple files into one, split by page ranges, compress to portal-friendly sizes like 100KB or 200KB, convert images to PDF and back, extract tables to Excel or CSV, and remove a known password.
+            </p>
+            <p>
+              The privacy model is the point: processing happens in your browser, so a bank statement or signed contract is never transmitted to a server. Free, no signup, no watermarks on output.
+            </p>
           </div>
+          {posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={posterImage}
+                width={1600}
+                height={900}
+                alt="Free PDF tools - merge, split, compress to 100KB, remove password, convert PDF privately"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
         </div>
       </section>
 
-      {/* How to Use */}
+      {/* Tools grid (global card design) */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-            How to Use Our PDF Tools
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Simple steps to process your PDFs with professional quality
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-red-300 dark:hover:border-red-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-red-100 dark:bg-red-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Upload className="h-6 w-6 text-red-600 dark:text-red-400" />
-              </div>
-              <CardTitle className="text-lg">1. Upload PDF</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Select or drag and drop your PDF file. Supports all PDF formats.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-orange-300 dark:hover:border-orange-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-orange-100 dark:bg-orange-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Settings className="h-6 w-6 text-orange-600 dark:text-orange-400" />
-              </div>
-              <CardTitle className="text-lg">2. Configure</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Adjust settings like compression level, page range, or format.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-300 dark:hover:border-yellow-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Zap className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
-              </div>
-              <CardTitle className="text-lg">3. Process</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Click process and watch your PDF transform instantly.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-green-300 dark:hover:border-green-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-green-100 dark:bg-green-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Download className="h-6 w-6 text-green-600 dark:text-green-400" />
-              </div>
-              <CardTitle className="text-lg">4. Download</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Download your processed PDF or copy to clipboard.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* PDF Tool Types */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Professional PDF Tool Types
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Comprehensive PDF processing capabilities for every need
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {pdfToolTypes.map((tool, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-red-300 dark:hover:border-red-600">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-red-100 dark:bg-red-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                    <FileText className="h-5 w-5 text-red-600 dark:text-red-400" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{tool.type}</CardTitle>
-                    <CardDescription>{tool.description}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Use Case:</h4>
-                  <p className="text-sm">{tool.useCase}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Precision:</h4>
-                  <p className="text-sm">{tool.precision}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Example:</h4>
-                  <p className="text-sm">{tool.example}</p>
-                </div>
-              </CardContent>
-            </Card>
+        <h3 className="text-2xl font-semibold tracking-tight">Tools in this category</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tools.map((tool) => (
+            <ToolCard key={tool.id} tool={tool} showCategoryBadge={false} />
           ))}
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-            Why Choose Our PDF Tools?
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Professional PDF processing with unmatched benefits
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-green-300 dark:hover:border-green-600">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-green-100 dark:bg-green-900/30 rounded-full w-fit group-hover:scale-110 transition-transform mb-4">
-                  {benefit.icon}
-                </div>
-                <CardTitle className="text-lg">{benefit.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground text-center">
-                  {benefit.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits List */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-            Complete Feature Set
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Everything you need for professional PDF processing
-          </p>
-        </div>
-
-        <Card className="border-2 border-orange-200 dark:border-orange-800">
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {keyBenefits.map((benefit, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* Competitor Comparison */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
-            Toolspy vs. Competitors
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            See how we compare to other PDF processing solutions
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="border-2 border-red-200 dark:border-red-800">
-              <CardHeader>
-                <CardTitle className="text-xl text-center">{competitor.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {competitor.advantages.map((advantage, advIndex) => (
-                    <div key={advIndex} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{advantage}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Feature Comparison
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Detailed comparison with popular PDF processing tools
-          </p>
-        </div>
-
-        <Card className="border-2 border-indigo-200 dark:border-indigo-800">
-          <CardContent className="p-0">
+        <h3 className="text-2xl font-semibold tracking-tight">Common PDF tasks - quick reference</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Which tool for which job</CardTitle>
+            <CardDescription>Match the task to the right tool before you start.</CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Feature</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-red-600 dark:text-red-400">Toolspy</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">Adobe</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">iLovePDF</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">SmallPDF</th>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Task</th>
+                    <th className="text-left p-3 font-medium">Tool</th>
+                    <th className="text-left p-3 font-medium">Good To Know</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {row.feature}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          row.toolspyStatus === 'excellent' 
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        }`}>
-                          {row.toolspy}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.adobe}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.ilovepdf}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.smallpdf}
-                      </td>
+                <tbody>
+                  {[
+                    ["Combine documents into one file", "Merge PDF", "Order is preserved; no page limit for typical files"],
+                    ["Send only certain pages", "Split PDF", "Extract by page ranges into separate files"],
+                    ["Meet a portal size limit", "Compress PDF", "Target ~100KB/200KB; text stays readable"],
+                    ["Convert photos/scans to PDF", "Image to PDF / JFIF to PDF / HEIC to PDF", "One page per image, clean output"],
+                    ["Get tables out of a PDF", "PDF to Excel / PDF to CSV", "Works best on digital (non-scanned) tables"],
+                    ["Stop typing a password every time", "PDF Password Remover", "Requires the correct existing password"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -621,81 +135,79 @@ export function PDFToolsSEOContent() {
         </Card>
       </section>
 
-      {/* FAQ Section */}
+      {/* Use cases */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            Frequently Asked Questions
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Common questions about our professional PDF tools
-          </p>
-        </div>
-
-        <FAQ
-          faqs={[
-            {
-              question: "What are the best free PDF tools available online?",
-              answer: "Toolspy offers the best free PDF tools including PDF compressor, PDF converter, PDF merger, and PDF splitter. All tools provide professional quality with complete privacy protection and no registration required."
-            },
-            {
-              question: "How do I compress PDF files without losing quality?",
-              answer: "Use Toolspy's PDF compressor which uses advanced algorithms to reduce file size while maintaining document quality. The tool processes PDFs in your browser, ensuring complete privacy and instant results."
-            },
-            {
-              question: "Can I convert PDFs to other formats?",
-              answer: "Yes! Toolspy's PDF converter supports conversion to and from Word, Excel, PowerPoint, images, and more. Convert between formats with high quality and instant processing."
-            },
-            {
-              question: "Is it safe to use online PDF tools?",
-              answer: "Toolspy's PDF tools are completely safe as all processing happens in your browser. Your documents never leave your device, ensuring complete privacy and security."
-            },
-            {
-              question: "Do I need to register to use PDF tools?",
-              answer: "No registration required! All Toolspy PDF tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-            },
-            {
-              question: "Can I merge multiple PDFs into one?",
-              answer: "Absolutely! Use Toolspy's PDF merger to combine multiple PDF documents into one file with perfect page order and quality preservation."
-            },
-            {
-              question: "How do I split a PDF into separate pages?",
-              answer: "Use Toolspy's PDF splitter to extract specific pages or split PDFs into individual pages. Select pages by range or individual page numbers for precise control."
-            },
-            {
-              question: "Are these PDF tools mobile-friendly?",
-              answer: "Yes! All Toolspy PDF tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-            }
-          ]}
-        />
-      </section>
-
-      {/* Call to Action */}
-      <section className="text-center space-y-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-4xl font-bold mb-6 bg-gradient-to-r from-red-600 via-orange-600 to-yellow-600 bg-clip-text text-transparent">
-            Ready to Process Your PDFs?
-          </h3>
-          <p className="text-xl text-muted-foreground mb-8">
-            Start using our professional PDF tools today. No registration required, 
-            completely free, and your documents never leave your device.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/pdf-compressor">
-              <Button size="lg" className="bg-gradient-to-r from-red-600 to-orange-600 hover:from-red-700 hover:to-orange-700 text-white px-8 py-3">
-                <FileText className="mr-2 h-5 w-5" />
-                Start Compressing PDFs
-              </Button>
-            </Link>
-            <Link href="/pdf-converter">
-              <Button size="lg" variant="outline" className="px-8 py-3">
-                <Settings className="mr-2 h-5 w-5" />
-                Convert PDFs
-              </Button>
-            </Link>
-          </div>
+        <h3 className="text-2xl font-semibold tracking-tight">Where these tools save the most time</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Visa, bank & government portals</h4>
+              <p className="text-sm text-muted-foreground">Portals commonly cap documents at 100KB-500KB. Compress the PDF to the target, or merge multiple certificates into a single file when the form allows only one upload.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Financial documents</h4>
+              <p className="text-sm text-muted-foreground">Bank statements and salary slips arrive password-protected. Enter the password once, strip it, and archive the readable copy - all inside your browser.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Reports & data extraction</h4>
+              <p className="text-sm text-muted-foreground">Pull tabular data out of PDF reports into Excel or CSV instead of retyping it.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Scans and photos as documents</h4>
+              <p className="text-sm text-muted-foreground">Turn phone photos of certificates (including iPhone HEIC files) into clean single-page PDFs for submissions.</p>
+            </Card>
         </div>
       </section>
-    </div>
+
+      {/* How to */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">How to prepare a document for a strict portal (3 steps)</h3>
+        <div className="grid gap-4 sm:grid-cols-3">
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">1. Assemble</h4>
+              <p className="text-sm text-muted-foreground">Merge the required pages into one PDF, or split out only the pages the portal asks for.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">2. Compress to target</h4>
+              <p className="text-sm text-muted-foreground">Use the compressor&apos;s size target that matches the portal limit (e.g., 200KB), then check the text is still crisp.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">3. Verify before upload</h4>
+              <p className="text-sm text-muted-foreground">Open the final file, confirm page order and readability, and check the file size in your file manager.</p>
+            </Card>
+        </div>
+      </section>
+
+      <section className="space-y-4">
+        <h3 className="text-2xl font-semibold tracking-tight">Deep-dive guides</h3>
+        <ul className="space-y-3 text-muted-foreground list-disc pl-6">
+          <li>
+            <Link href="/blog/remove-pdf-password-when-is-it-legal/" className="underline underline-offset-4 text-foreground">
+              Removing a PDF password: how it works and when it is legal
+            </Link>{" "}
+            - owner vs user passwords and the client-side privacy angle.
+          </li>
+        </ul>
+      </section>
+
+      {/* FAQ */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h3>
+        <FAQ faqs={categoryFaqs()} />
+      </section>
+
+      {/* Note */}
+      <section className="text-sm text-muted-foreground border rounded-lg p-4">
+        <p>
+          All PDF processing happens locally in your browser. Only remove passwords from documents you own or are authorized to access.{" "}
+          <Link href="/privacy/" className="underline underline-offset-4">
+            Privacy Policy
+          </Link>{" "}
+          ·{" "}
+          <Link href="/disclaimer/" className="underline underline-offset-4">
+            Disclaimer
+          </Link>
+        </p>
+      </section>
+    </article>
   );
 }

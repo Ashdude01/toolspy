@@ -81,7 +81,7 @@ export function NEETRankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -178,6 +178,52 @@ export function NEETRankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="marks-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="NEET marks vs rank - indicative bands"
+          lead="Approximate AIR bands from recent NEET cycles (~20+ lakh candidates). Paper difficulty and candidate pool shift these bands every year."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative NEET marks to All India Rank</CardTitle>
+            <CardDescription>
+              Estimates for planning only - verify with official NTA results and counselling data.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Marks (out of 720)</th>
+                    <th className="text-left p-3 font-medium">Indicative AIR Band</th>
+                    <th className="text-left p-3 font-medium">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["700+", "Top ~150", "Top government MBBS anywhere"],
+                    ["680 – 700", "~150 – 2,000", "Top government colleges realistic"],
+                    ["650 – 680", "~2,000 – 12,000", "Government MBBS strong chance (UR)"],
+                    ["600 – 650", "~12,000 – 50,000", "Government MBBS via state quota / category"],
+                    ["550 – 600", "~50,000 – 1.2 lakh", "State quota, deemed universities, BDS"],
+                    ["500 – 550", "~1.2 – 2 lakh", "Category seats, private colleges, AYUSH options"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

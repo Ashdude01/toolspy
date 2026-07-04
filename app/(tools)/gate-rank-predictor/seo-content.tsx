@@ -80,7 +80,7 @@ export function GATERankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -177,6 +177,51 @@ export function GATERankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="score-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="GATE marks vs rank - indicative picture"
+          lead="GATE ranks vary sharply by paper (CS, ME, EE, CE each have different candidate pools and difficulty). The example below shows recent Computer Science (CS) trends as a reference."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative GATE CS raw marks to rank</CardTitle>
+            <CardDescription>
+              CS example only - other papers differ significantly. Normalized scores and multi-session papers shift bands.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Raw Marks (of 100, CS)</th>
+                    <th className="text-left p-3 font-medium">Indicative Rank Band</th>
+                    <th className="text-left p-3 font-medium">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["75+", "Top ~50", "IISc / top IIT MTech + PSU shortlists"],
+                    ["65 – 75", "~50 – 500", "Old IIT MTech CS realistic"],
+                    ["55 – 65", "~500 – 2,500", "IITs (newer) / top NITs; PSU calls vary"],
+                    ["45 – 55", "~2,500 – 8,000", "NIT MTech, IIIT options"],
+                    ["35 – 45", "~8,000 – 20,000", "State universities; qualifying-score focused"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

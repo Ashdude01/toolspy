@@ -123,7 +123,7 @@ const CHECKLIST = [
 
 export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
   return (
-    <article className="mx-auto max-w-5xl space-y-14 my-16 px-4 text-base sm:text-[17px] leading-relaxed">
+    <article className="mx-auto space-y-14 my-16 px-4 text-base sm:text-[17px] leading-relaxed">
       {/* Intro */}
       <section id="intro" className="space-y-8">
         <div className="space-y-3">

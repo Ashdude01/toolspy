@@ -81,7 +81,7 @@ export function JEEAdvancedRankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -180,6 +180,51 @@ export function JEEAdvancedRankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="marks-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="JEE Advanced marks vs rank - indicative bands"
+          lead="Approximate CRL bands from recent JEE Advanced cycles. Total marks and difficulty change every year, so treat bands as relative guides."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative JEE Advanced marks to rank (CRL)</CardTitle>
+            <CardDescription>
+              Estimates for planning only - official ranks come from IIT JAM/JoSAA counselling data.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Approx. Marks (of ~360)</th>
+                    <th className="text-left p-3 font-medium">Indicative Rank Band</th>
+                    <th className="text-left p-3 font-medium">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["300+", "Top ~100", "Old IIT CSE anywhere"],
+                    ["250 – 300", "~100 – 1,000", "Top 5 IITs, good branches"],
+                    ["200 – 250", "~1,000 – 4,000", "Old IITs, core branches"],
+                    ["150 – 200", "~4,000 – 12,000", "Newer IITs; older IITs lower-preference branches"],
+                    ["100 – 150", "~12,000 – 25,000", "Newer IITs via later rounds; category seats"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

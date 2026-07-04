@@ -1,119 +1,185 @@
 "use client"
+/**
+ * Global tool card - the single card design used everywhere:
+ * homepage grid, /tools listing, and category pages.
+ * Design: gradient icon square (top-left) + category badge (top-right)
+ * + bold tool name + description. Matches the homepage card layout.
+ */
 import Link from 'next/link';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { ExternalLink, Clock, CheckCircle } from 'lucide-react';
-import { Tool } from '@/lib/tools-data';
+import {
+  FileImage,
+  FileText,
+  Calculator,
+  Code,
+  Wrench,
+  GraduationCap,
+  DollarSign,
+  RefreshCw,
+  Terminal,
+  Bot,
+  FileJson,
+  Clock,
+} from 'lucide-react';
+import { Tool, ToolCategory, toolCategories } from '@/lib/tools-data';
+
+export function getCategoryIcon(category: string, className = 'h-6 w-6') {
+  switch (category) {
+    case 'image-tools':
+      return <FileImage className={className} />;
+    case 'pdf-tools':
+      return <FileText className={className} />;
+    case 'calculators':
+      return <Calculator className={className} />;
+    case 'base64-tools':
+      return <Code className={className} />;
+    case 'misc-tools':
+      return <Wrench className={className} />;
+    case 'json-tools':
+      return <FileJson className={className} />;
+    case 'ai-tools':
+      return <Bot className={className} />;
+    case 'code-tools':
+      return <Terminal className={className} />;
+    case 'conversion-tools':
+      return <RefreshCw className={className} />;
+    case 'gst-tools':
+      return <DollarSign className={className} />;
+    case 'exam-tools':
+      return <GraduationCap className={className} />;
+    default:
+      return <Wrench className={className} />;
+  }
+}
+
+export function getCategoryColor(category: ToolCategory | string) {
+  switch (category) {
+    case 'image-tools':
+      return 'from-green-500 to-emerald-500';
+    case 'pdf-tools':
+      return 'from-red-500 to-pink-500';
+    case 'calculators':
+      return 'from-blue-500 to-cyan-500';
+    case 'base64-tools':
+      return 'from-purple-500 to-violet-500';
+    case 'misc-tools':
+      return 'from-orange-500 to-amber-500';
+    case 'json-tools':
+      return 'from-indigo-500 to-blue-500';
+    case 'ai-tools':
+      return 'from-pink-500 to-rose-500';
+    case 'code-tools':
+      return 'from-slate-500 to-gray-500';
+    case 'conversion-tools':
+      return 'from-teal-500 to-cyan-500';
+    case 'gst-tools':
+      return 'from-yellow-500 to-orange-500';
+    case 'exam-tools':
+      return 'from-violet-500 to-purple-500';
+    default:
+      return 'from-gray-500 to-slate-500';
+  }
+}
 
 interface ToolCardProps {
   tool: Tool;
   className?: string;
+  /** Trim long descriptions (used in dense grids). Default: full description. */
+  truncateDescription?: number;
+  /** Hide the category badge (e.g., on category pages where it is redundant). */
+  showCategoryBadge?: boolean;
 }
 
-export function ToolCard({ tool, className }: ToolCardProps) {
-  const getStatusBadge = () => {
-
-    if(typeof window !== 'undefined' && window.innerWidth < 768) return null;
-    switch (tool.status) {
-      case 'active':
-        return (
-          <Badge variant="secondary" className="text-xs">
-            <CheckCircle className="w-3 h-3 mr-1" />
-            Live
-          </Badge>
-        );
-      case 'beta':
-        return (
-          <Badge variant="outline" className="text-xs">
-            Beta
-          </Badge>
-        );
-      case 'coming-soon':
-        return (
-          <Badge variant="outline" className="text-xs">
-            <Clock className="w-3 h-3 mr-1" />
-            Coming Soon
-          </Badge>
-        );
-      default:
-        return null;
-    }
-  };
-
+export function ToolCard({
+  tool,
+  className,
+  truncateDescription,
+  showCategoryBadge = true,
+}: ToolCardProps) {
   const isClickable = tool.status === 'active';
+  const description =
+    truncateDescription && tool.description.length > truncateDescription
+      ? `${tool.description.slice(0, truncateDescription)}...`
+      : tool.description;
 
-  const CardWrapper = ({ children }: { children: React.ReactNode }) => {
-    if (isClickable) {
-      return (
-        <Link href={tool.path} className={className}>
-          {children}
-        </Link>
-      );
-    }
-    return <div className={className}>{children}</div>;
-  };
+  const cardInner = (
+    <div
+      className={`relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 transition-shadow duration-200 p-6 ${
+        isClickable
+          ? 'hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg'
+          : 'opacity-75'
+      }`}
+    >
+      <div className="relative">
+        {/* Header: gradient icon square + category badge */}
+        <div className="flex items-start justify-between mb-4">
+          <div
+            className={`p-1.5 bg-gradient-to-br ${getCategoryColor(
+              tool.category
+            )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
+          >
+            {getCategoryIcon(tool.category)}
+          </div>
+          {tool.status === 'coming-soon' ? (
+            <Badge variant="outline" className="text-xs">
+              <span className="inline-flex items-center">
+                <Clock className="w-3 h-3 mr-1" />
+                Coming Soon
+              </span>
+            </Badge>
+          ) : showCategoryBadge ? (
+            <Badge variant="outline" className="text-xs">
+              {toolCategories[tool.category]?.name}
+            </Badge>
+          ) : null}
+        </div>
+
+        {/* Content */}
+        <div>
+          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+            {tool.name}
+          </h3>
+          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+            {description}
+          </p>
+        </div>
+      </div>
+
+      {/* Decorative hover elements */}
+      <div
+        className="absolute top-4 right-4 w-16 h-16
+          bg-gradient-to-br
+          from-red-600/10 to-yellow-400/10
+          dark:from-yellow-400/10 dark:to-zinc-300/10
+          rounded-full
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-500
+          pointer-events-none"
+      ></div>
+      <div
+        className="absolute bottom-4 left-4 w-12 h-12
+          bg-gradient-to-br
+          from-purple-600/10 to-cyan-500/10
+          dark:from-zinc-400/10 dark:to-red-300/10
+          rounded-full
+          opacity-0 group-hover:opacity-100
+          transition-opacity duration-500 delay-100
+          pointer-events-none"
+      ></div>
+    </div>
+  );
+
+  if (!isClickable) {
+    return (
+      <div className={`group block h-full cursor-not-allowed ${className || ''}`} title="Coming soon">
+        {cardInner}
+      </div>
+    );
+  }
 
   return (
-    <CardWrapper>
-      <Card className={`h-full transition-all duration-200 ${
-        isClickable 
-          ? 'hover:shadow-lg hover:bg-gray-200 dark:hover:bg-gray-900 cursor-pointer' 
-          : 'opacity-75 cursor-not-allowed'
-      } ring-1 ring-white/5`}>
-        <CardHeader className="pb-3">
-          <div className="flex items-start justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="text-2xl">{tool.icon}</div>
-              <div>
-                <CardTitle className="text-base md:text-lg leading-tight">{tool.name}</CardTitle>
-                {tool.featured && (
-                  <Badge variant="secondary" className="text-xs mt-1">
-                    Featured
-                  </Badge>
-                )}
-              </div>
-            </div>
-            {getStatusBadge()}
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <CardDescription className="text-sm mb-4">
-            {tool.description}
-          </CardDescription>
-          
-          <div className="flex flex-wrap gap-1 mb-4">
-            {tool.tags.slice(0, 3).map((tag) => (
-              <Badge key={tag} variant="outline" className="text-xs">
-                {tag}
-              </Badge>
-            ))}
-            {tool.tags.length > 3 && (
-              <Badge variant="outline" className="text-xs">
-                +{tool.tags.length - 3}
-              </Badge>
-            )}
-          </div>
-
-          <div className="flex justify-between items-center pointer-events-none">
-            <span
-              className={`inline-flex w-full items-center justify-center rounded-md border px-3 py-2 text-sm font-medium ${
-                isClickable
-                  ? "border-gray-300 bg-background text-foreground"
-                  : "border-transparent text-muted-foreground"
-              }`}
-            >
-              {isClickable ? (
-                <>
-                  Use Tool
-                  <ExternalLink className="w-4 h-4 ml-2 shrink-0" aria-hidden />
-                </>
-              ) : (
-                "Coming Soon"
-              )}
-            </span>
-          </div>
-        </CardContent>
-      </Card>
-    </CardWrapper>
+    <Link href={tool.path} className={`group block h-full ${className || ''}`}>
+      {cardInner}
+    </Link>
   );
-} 
+}

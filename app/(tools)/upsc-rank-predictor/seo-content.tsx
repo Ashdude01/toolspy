@@ -80,7 +80,7 @@ export function UPSCRankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -178,6 +178,51 @@ export function UPSCRankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="marks-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="UPSC CSE final marks vs rank - indicative bands"
+          lead="Final merit = Mains (written) + Interview. Bands below reflect recent cycles' publicly discussed final-score patterns (out of 2025 marks)."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative UPSC final score to rank</CardTitle>
+            <CardDescription>
+              Estimates for planning only - cutoffs move with vacancies and paper difficulty each year.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Final Score (of 2025)</th>
+                    <th className="text-left p-3 font-medium">Indicative Rank Band</th>
+                    <th className="text-left p-3 font-medium">Service Outlook (UR)</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["1,050+", "Top ~50", "IAS/IFS strong chance"],
+                    ["1,010 – 1,050", "~50 – 250", "IAS possible; IPS realistic"],
+                    ["980 – 1,010", "~250 – 600", "IPS/IRS band"],
+                    ["950 – 980", "~600 – 900", "IRS and allied services"],
+                    ["Near cutoff (~940–950)", "~900 – 1,000+", "Allotment depends on vacancies & category"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

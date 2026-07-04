@@ -16,7 +16,7 @@ export function ImageToPdfSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed text-foreground"
+      className="mx-auto space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed text-foreground"
       aria-label="Guide and SEO content"
     >
 

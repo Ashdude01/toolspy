@@ -80,7 +80,7 @@ export function JEEMainRankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -180,6 +180,62 @@ export function JEEMainRankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="percentile-vs-rank">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="JEE Main percentile vs rank - indicative bands"
+          lead="Approximate CRL bands from NTA percentile, based on recent candidate volumes (~12–14 lakh unique candidates). Tie-breaking and the best-of-two-attempts rule shift exact ranks."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative NTA percentile to rank (CRL)</CardTitle>
+            <CardDescription>
+              Estimates for planning only - actual ranks depend on that cycle&apos;s candidate count and tie-breaking rules.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">NTA Percentile</th>
+                    <th className="text-left p-3 font-medium">Indicative Rank Band (CRL)</th>
+                    <th className="text-left p-3 font-medium">Outlook</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["99.9+", "Top ~1,300", "Top NITs (all branches); JEE Advanced comfortable"],
+                    ["99.5", "~6,000 – 7,000", "Top NIT CSE possible via later rounds"],
+                    ["99.0", "~12,000 – 14,000", "Good NIT branches; IIIT CSE realistic"],
+                    ["98.0", "~25,000 – 28,000", "Mid NITs / top state colleges"],
+                    ["95.0", "~62,000 – 70,000", "Newer NITs, GFTIs, strong state options"],
+                    ["90.0", "~1.2 – 1.4 lakh", "State counselling focus; category quotas matter"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <p className="text-xs text-muted-foreground mt-3">
+              Deep-dive guide:{" "}
+              <Link
+                href="/blog/jee-main-percentile-vs-rank-explained/"
+                className="underline underline-offset-4 text-foreground"
+              >
+                JEE Main percentile vs rank explained
+              </Link>
+              .
+            </p>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

@@ -42,6 +42,7 @@ import {
 import React from "react";
 import Link from "next/link";
 import { TypewriterText } from "@/components/ui/typewriter-text";
+import { ToolCard } from "@/components/tools/tool-card";
 
 interface ToolsGridProps {
   searchQuery: string;
@@ -359,68 +360,8 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
         {/* Popular Tools Grid */}
         {!hasFilters && (
           <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 mb-12 px-2">
-            {popularTools.map((tool, index) => (
-              <Link
-                key={tool.id}
-                href={`/${tool.slug}`}
-                className="group block"
-              >
-                <div className="relative transform-gpu h-full">
-                  {/* Main card */}
-                  <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
-                    <div className="relative">
-                      {/* Header with icon and badge */}
-                      <div className="flex items-start justify-between mb-4">
-                        <div className="relative">
-                          <div
-                            className={`p-1.5 bg-gradient-to-br ${getCategoryColor(
-                              tool.category
-                            )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
-                          >
-                            {getCategoryIcon(tool.category)}
-                          </div>
-                        </div>
-                        <Badge variant="outline" className="text-xs">
-                          {toolCategories[tool.category]?.name}
-                        </Badge>
-
-                      </div>
-
-                      {/* Content */}
-                      <div>
-                        <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                          {tool.name}
-                        </h3>
-                        <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                          {tool.description}
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Decorative elements - adaptive for light/dark mode */}
-                    <div
-                      className="absolute top-4 right-4 w-16 h-16 
-                        bg-gradient-to-br 
-                        from-red-600/10 to-yellow-400/10
-                        dark:from-yellow-400/10 dark:to-zinc-300/10
-                        rounded-full
-                        opacity-0 group-hover:opacity-100
-                        transition-opacity duration-500
-                        pointer-events-none"
-                    ></div>
-                    <div
-                      className="absolute bottom-4 left-4 w-12 h-12 
-                        bg-gradient-to-br 
-                        from-purple-600/10 to-cyan-500/10
-                        dark:from-zinc-400/10 dark:to-red-300/10
-                        rounded-full
-                        opacity-0 group-hover:opacity-100
-                        transition-opacity duration-500 delay-100
-                        pointer-events-none"
-                    ></div>
-                  </div>
-                </div>
-              </Link>
+            {popularTools.map((tool) => (
+              <ToolCard key={tool.id} tool={tool} />
             ))}
           </div>
         )}
@@ -456,69 +397,8 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
             {filteredTools.length > 0 ? (
               <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
-                {filteredTools.map((tool, index) => (
-                  <Link
-                    key={tool.id}
-                    href={`/${tool.slug}`}
-                    className="group block transform-gpu h-full"
-                  >
-                    {/* Main card */}
-                    <div className="relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg transition-shadow duration-200 p-6">
-                      <div className="relative">
-                        {/* Header with icon and badge */}
-                        <div className="flex items-start gap-4 mb-4">
-                          <div className="relative">
-                            <div
-                              className={`p-1.5 bg-gradient-to-br ${getCategoryColor(
-                                tool.category
-                              )} rounded-lg flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
-                            >
-                              {getCategoryIcon(tool.category)}
-                            </div>
-                          </div>
-                          {/* <Badge
-                            variant="outline"
-                            className="text-xs hidden md:block"
-                          > 
-                            {toolCategories[tool.category]?.name}
-                          </Badge> */}
-                          <h3 className="text-lg leading-normal font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                            {tool.name}
-                          </h3>
-                        </div>
-
-                        {/* Content */}
-                        <div>
-                          
-                          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                            {tool.description.slice(0, 60)}...
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Decorative elements */}
-                      <div
-                        className="absolute top-4 right-4 w-16 h-16 
-                        bg-gradient-to-br 
-                        from-red-600/10 to-yellow-400/10
-                        dark:from-yellow-400/10 dark:to-zinc-300/10
-                        rounded-full
-                        opacity-0 group-hover:opacity-100
-                        transition-opacity duration-500
-                        pointer-events-none"
-                      ></div>
-                      <div
-                        className="absolute bottom-4 left-4 w-12 h-12 
-                        bg-gradient-to-br 
-                        from-purple-600/10 to-cyan-500/10
-                        dark:from-zinc-400/10 dark:to-red-300/10
-                        rounded-full
-                        opacity-0 group-hover:opacity-100
-                        transition-opacity duration-500 delay-100
-                        pointer-events-none"
-                      ></div>
-                    </div>
-                  </Link>
+                {filteredTools.map((tool) => (
+                  <ToolCard key={tool.id} tool={tool} truncateDescription={60} />
                 ))}
               </div>
             ) : (

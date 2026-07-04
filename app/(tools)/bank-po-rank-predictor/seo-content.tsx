@@ -80,7 +80,7 @@ export function BankPORankPredictorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       <section id="intro" className="space-y-8">
@@ -181,6 +181,51 @@ export function BankPORankPredictorSEOContent() {
             </Card>
           ))}
         </div>
+      </section>
+
+      <section className="space-y-6" id="score-vs-outcome">
+        <SectionHeader
+          eyebrow="Data"
+          icon={Sigma}
+          title="Bank PO mains score vs outcome - indicative picture"
+          lead="IBPS PO final selection = Mains (80% weight) + Interview (20%). Bands below reflect recent publicly discussed IBPS PO trends; SBI PO patterns differ."
+        />
+        <Card>
+          <CardHeader>
+            <CardTitle>Indicative IBPS PO final composite score to outcome</CardTitle>
+            <CardDescription>
+              Estimates for planning only - cutoffs move with vacancies, difficulty, and category each year.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Final Composite (of 100)</th>
+                    <th className="text-left p-3 font-medium">Indicative Outcome (UR)</th>
+                    <th className="text-left p-3 font-medium">Notes</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {[
+                    ["55+", "Selection highly likely", "Comfortable margin over recent cutoffs"],
+                    ["50 – 55", "Competitive zone", "Recent UR cutoffs often fall in/near this band"],
+                    ["45 – 50", "Borderline", "Depends on vacancies; category candidates stronger here"],
+                    ["40 – 45", "Reserve list possibility", "Category-dependent; keep parallel exams active"],
+                    ["Below 40", "Unlikely (UR)", "Focus on next attempt / other exams"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </section>
 
       <section className="space-y-6" id="pitfalls">

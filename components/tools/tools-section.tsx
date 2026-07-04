@@ -96,7 +96,7 @@ export function ToolsSection({
     return (
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
             {[...Array(6)].map((_, i) => (
               <div key={i} className="h-64 bg-muted animate-pulse rounded-lg" />
             ))}
@@ -200,7 +200,7 @@ export function ToolsSection({
             </div>
 
             {filteredTools.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                 {filteredTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} />
                 ))}
@@ -245,7 +245,7 @@ export function ToolsSection({
                       </Badge> */}
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
                       {categoryTools.map((tool) => (
                         <ToolCard key={tool.id} tool={tool} />
                       ))}

@@ -1,3 +1,9 @@
+/**
+ * Pillar SEO content for the JSON Tools category page (/tools/json-tools/).
+ * Server-rendered so crawlers get the full guide in HTML.
+ * Written per Google helpful-content guidelines: factual, user-first,
+ * no competitor comparisons or unverifiable claims.
+ */
 import {
   Card,
   CardContent,
@@ -5,615 +11,120 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  FileText,
-  Copy,
-  Download,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Sparkles,
-  Palette,
-  Smartphone,
-  Code,
-  Edit3,
-  Maximize,
-  RotateCcw,
-  Filter,
-  Upload,
-  Lock,
-  Unlock,
-  Hash,
-  Type,
-  TrendingUp,
-  DollarSign,
-} from "lucide-react";
 import { getToolsByCategory } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
+import { ToolCard } from "@/components/tools/tool-card";
 import NextImage from "next/image";
 import Link from "next/link";
 
+const categoryFaqs = () => [
+  {
+    question: "Is pasted JSON sent to a server?",
+    answer:
+      "No - parsing, formatting, and conversion all run in your browser. Internal API data stays on your machine.",
+  },
+  {
+    question: "How large a JSON file can it handle?",
+    answer:
+      "Typical API responses and configs (up to several MB) work smoothly. Extremely large files depend on your browser's memory.",
+  },
+  {
+    question: "What JSON shape converts best to a table?",
+    answer:
+      "An array of flat objects maps directly to rows and columns. Nested objects are flattened with dotted column names where possible.",
+  },
+  {
+    question: "Does the validator support JSON with comments?",
+    answer:
+      "Standard JSON does not allow comments, so files with comments (JSONC) will flag errors at the comment positions - strip comments first.",
+  },
+  {
+    question: "Can I convert Excel back to JSON?",
+    answer:
+      "Yes - the table converter works both directions: JSON to CSV/Excel and tabular data back to a JSON array.",
+  },
+];
+
 export function JSONToolsSEOContent() {
-  const jsonTools = getToolsByCategory()['json-tools'];
+  const tools = getToolsByCategory()["json-tools"] || [];
+  // Poster image dynamically fetched from tools-data (flagship tool of this category)
+  const posterImage =
+    tools.find((t) => t.slug === "json-formatter")?.posterImage ||
+    tools.find((t) => t.posterImage)?.posterImage;
 
-  const comparisonData = [
-    {
-      feature: "JSON Processing",
-      toolspy: "✅ Perfect accuracy",
-      jsonlint: "⚠️ Basic validation",
-      jsonformatter: "❌ Limited features",
-      onlinejson: "⚠️ Ad-heavy interface",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant processing",
-      jsonlint: "⚠️ Server dependent",
-      jsonformatter: "❌ Slow processing",
-      onlinejson: "⚠️ Queue system",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      jsonlint: "⚠️ Server-based",
-      jsonformatter: "⚠️ Server-based",
-      onlinejson: "⚠️ Server-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      jsonlint: "✅ Free",
-      jsonformatter: "✅ Free",
-      onlinejson: "⚠️ Limited free",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      jsonlint: "⚠️ Basic mobile",
-      jsonformatter: "❌ Poor mobile",
-      onlinejson: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Advanced Features",
-      toolspy: "✅ Professional tools",
-      jsonlint: "❌ Basic validation",
-      jsonformatter: "⚠️ Limited formatting",
-      onlinejson: "⚠️ Limited features",
-      toolspyStatus: "excellent",
-    },
-  ];
-
-  const jsonToolTypes = [
-    {
-      type: "JSON Formatter",
-      description: "Format and beautify JSON data with proper indentation",
-      useCase: "Code readability, debugging, data presentation",
-      precision: "Perfect formatting",
-      example: "Format minified JSON for better readability",
-    },
-    {
-      type: "JSON Validator",
-      description: "Validate JSON syntax and structure",
-      useCase: "Error detection, data validation, API testing",
-      precision: "Accurate validation",
-      example: "Validate JSON before processing or storage",
-    },
-    {
-      type: "JSON Minifier",
-      description: "Minify JSON by removing unnecessary whitespace",
-      useCase: "File size reduction, API optimization, storage efficiency",
-      precision: "Lossless minification",
-      example: "Minify JSON for faster API responses",
-    },
-    {
-      type: "JSON Converter",
-      description: "Convert between JSON and other data formats",
-      useCase: "Data transformation, format compatibility, integration",
-      precision: "Accurate conversion",
-      example: "Convert CSV to JSON or XML to JSON",
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description: "All JSON processing happens in your browser - your data never leaves your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast Processing",
-      description: "Process JSON data instantly with no uploads, downloads, or server delays.",
-    },
-    {
-      icon: <Code className="h-6 w-6" />,
-      title: "Perfect Accuracy",
-      description: "Maintain perfect JSON integrity with advanced processing algorithms.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description: "Comprehensive JSON tools with professional-grade capabilities.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional JSON processing with complete privacy protection",
-    "⚡ Instant processing with no server delays or uploads",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple JSON tools: formatter, validator, minifier, converter",
-    "🔧 Real-time processing and instant results",
-    "📊 Complete processing history and data tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade JSON processing capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tools requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise JSON processing and data integrity",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive JSON analysis and optimization tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. JSONLint",
-      advantages: [
-        "Better Features: Professional tools vs. basic validation",
-        "Better Speed: Instant vs. server-dependent processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Advanced Features: Multiple tools vs. basic validation",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Professional Tools: Comprehensive suite vs. single function",
-      ],
-    },
-    {
-      title: "Toolspy vs. JSONFormatter",
-      advantages: [
-        "Better Quality: Perfect accuracy vs. limited features",
-        "Better Speed: Instant vs. slow processing",
-        "Better Privacy: Client-side vs. server-based",
-        "Advanced Features: Multiple tools vs. limited formatting",
-        "Mobile Experience: Responsive design vs. poor mobile",
-        "Professional Tools: Comprehensive suite vs. basic formatter",
-      ],
-    },
-    {
-      title: "Toolspy vs. OnlineJSON",
-      advantages: [
-        "Better Quality: Perfect accuracy vs. limited features",
-        "Better Speed: Instant vs. queue system",
-        "Better Privacy: Client-side vs. server-based",
-        "No Ads: Clean interface vs. ad-heavy interface",
-        "Advanced Features: Multiple tools vs. limited features",
-        "Mobile Experience: Responsive design vs. limited mobile",
-      ],
-    },
-  ];
-
-  // Register FAQs for SEO
-  registerToolFAQ("json-tools", () => [
-    {
-      question: "What are the best free JSON tools available online?",
-      answer: "Toolspy offers the best free JSON tools including JSON formatter, JSON validator, JSON minifier, and JSON converter. All tools provide perfect accuracy with complete privacy protection and no registration required."
-    },
-    {
-      question: "How do I format JSON data properly?",
-      answer: "Use Toolspy's JSON formatter to beautify and format JSON data with proper indentation and structure. The tool processes data in your browser, ensuring complete privacy and instant results."
-    },
-    {
-      question: "Can I validate JSON syntax and structure?",
-      answer: "Yes! Toolspy's JSON validator can check JSON syntax, validate structure, and identify errors with perfect accuracy and detailed error reporting."
-    },
-    {
-      question: "Is it safe to use online JSON tools?",
-      answer: "Toolspy's JSON tools are completely safe as all processing happens in your browser. Your data never leaves your device, ensuring complete privacy and security."
-    },
-    {
-      question: "Do I need to register to use JSON tools?",
-      answer: "No registration required! All Toolspy JSON tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-    },
-    {
-      question: "Can I minify JSON for smaller file sizes?",
-      answer: "Absolutely! Use Toolspy's JSON minifier to remove unnecessary whitespace and reduce file size while maintaining perfect data integrity."
-    },
-    {
-      question: "How do I convert between JSON and other formats?",
-      answer: "Use Toolspy's JSON converter to transform data between JSON, CSV, XML, and other formats with accurate conversion and data preservation."
-    },
-    {
-      question: "Are these JSON tools mobile-friendly?",
-      answer: "Yes! All Toolspy JSON tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-    }
-  ]);
+  registerToolFAQ("json-tools", categoryFaqs);
 
   return (
-        <div className="space-y-12 mt-16 container max-w-7xl mx-auto px-4 py-4">
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="json-tools"
-        title="Professional JSON Tools"
-        description="Discover our comprehensive suite of JSON processing tools designed for developers and professionals."
-      />
-
-      {/* Introduction Section */}
+    <article className="mx-auto max-w-7xl space-y-14 mt-16 mb-20 px-4 text-base sm:text-[17px] leading-relaxed">
+      {/* Intro */}
       <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-            Professional JSON Tools – Fast & Private
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Complete suite of professional JSON processing tools with complete privacy protection, 
-            perfect accuracy, and instant results. Perfect for developers, 
-            data analysts, and anyone working with JSON data.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      professional JSON tools
-                    </strong>{" "}
-                    provide the ultimate{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      JSON processing online
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      JSON formatting
-                    </strong>
-                    ,{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      JSON validation
-                    </strong>
-                    ,{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      JSON minification
-                    </strong>
-                    , and{" "}
-                    <strong className="text-blue-600 dark:text-blue-400">
-                      JSON conversion
-                    </strong>{" "}
-                    with perfect accuracy.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      JSON tools suite
-                    </strong>{" "}
-                    is designed for both developers and data professionals. With{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      advanced processing technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      instant processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      process JSON free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-yellow-100 dark:from-yellow-950/20 dark:to-yellow-900/20 rounded-xl border border-yellow-200 dark:border-yellow-800">
-                    <div className="text-2xl font-bold text-yellow-600">{jsonTools.length}</div>
-                    <div className="text-sm text-yellow-700 dark:text-yellow-300">
-                      Tools
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/20 dark:to-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
-                    <div className="text-2xl font-bold text-orange-600">100%</div>
-                    <div className="text-sm text-orange-700 dark:text-orange-300">
-                      Accurate
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/20 dark:to-red-900/20 rounded-xl border border-red-200 dark:border-red-800">
-                    <div className="text-2xl font-bold text-red-600">∞</div>
-                    <div className="text-sm text-red-700 dark:text-red-300">
-                      Unlimited
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">0ms</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Processing
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-              <NextImage
-                  width={1200}
-                  height={680}
-                  src="https://res.cloudinary.com/drby9raee/image/upload/JSON_Tools_ffxnlv.png"
-                  alt="JSON Tools seo"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-yellow-500 to-orange-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Professional
-                </div>
-              </div>
-            </div>
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+          JSON Tools - Format, Validate & Convert JSON to Tables
+        </h2>
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              Minified JSON from an API response is unreadable; a missing comma breaks a config silently; a stakeholder wants the data in Excel, not braces. Toolspy&apos;s {tools.length} JSON tools solve exactly these: a formatter/validator with tree view, minify/beautify, and a converter that turns JSON arrays into CSV or Excel tables (and back).
+            </p>
+            <p>
+              Paste with confidence - parsing happens in your browser, so API responses containing internal data never leave your machine.
+            </p>
           </div>
+          {posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={posterImage}
+                width={1600}
+                height={900}
+                alt="JSON formatter and validator with tree view, plus JSON to CSV and Excel conversion"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
         </div>
       </section>
 
-      {/* How to Use */}
+      {/* Tools grid (global card design) */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-            How to Use Our JSON Tools
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Simple steps to process JSON data with professional quality
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-300 dark:hover:border-yellow-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-yellow-100 dark:bg-yellow-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Type className="h-6 w-6 text-yellow-600 dark:text-yellow-400" />
-              </div>
-              <CardTitle className="text-lg">1. Input JSON</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Paste or upload your JSON data for processing.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-orange-300 dark:hover:border-orange-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-orange-100 dark:bg-orange-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Settings className="h-6 w-6 text-orange-600 dark:text-orange-400" />
-              </div>
-              <CardTitle className="text-lg">2. Configure</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Set formatting options, validation rules, or conversion settings.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-red-300 dark:hover:border-red-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-red-100 dark:bg-red-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Zap className="h-6 w-6 text-red-600 dark:text-red-400" />
-              </div>
-              <CardTitle className="text-lg">3. Process</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Click process and get instant, accurate results.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-pink-300 dark:hover:border-pink-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-pink-100 dark:bg-pink-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Copy className="h-6 w-6 text-pink-600 dark:text-pink-400" />
-              </div>
-              <CardTitle className="text-lg">4. Copy/Download</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Copy the result or download the processed JSON.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* JSON Tool Types */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Professional JSON Tool Types
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Comprehensive JSON processing capabilities for every need
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {jsonToolTypes.map((tool, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-yellow-300 dark:hover:border-yellow-600">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-yellow-100 dark:bg-yellow-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                    <Code className="h-5 w-5 text-yellow-600 dark:text-yellow-400" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{tool.type}</CardTitle>
-                    <CardDescription>{tool.description}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Use Case:</h4>
-                  <p className="text-sm">{tool.useCase}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Precision:</h4>
-                  <p className="text-sm">{tool.precision}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Example:</h4>
-                  <p className="text-sm">{tool.example}</p>
-                </div>
-              </CardContent>
-            </Card>
+        <h3 className="text-2xl font-semibold tracking-tight">Tools in this category</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tools.map((tool) => (
+            <ToolCard key={tool.id} tool={tool} showCategoryBadge={false} />
           ))}
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-            Why Choose Our JSON Tools?
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Professional JSON processing with unmatched benefits
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-green-300 dark:hover:border-green-600">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-green-100 dark:bg-green-900/30 rounded-full w-fit group-hover:scale-110 transition-transform mb-4">
-                  {benefit.icon}
-                </div>
-                <CardTitle className="text-lg">{benefit.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground text-center">
-                  {benefit.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits List */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-            Complete Feature Set
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Everything you need for professional JSON processing
-          </p>
-        </div>
-
-        <Card className="border-2 border-orange-200 dark:border-orange-800">
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {keyBenefits.map((benefit, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* Competitor Comparison */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
-            Toolspy vs. Competitors
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            See how we compare to other JSON processing solutions
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="border-2 border-red-200 dark:border-red-800">
-              <CardHeader>
-                <CardTitle className="text-xl text-center">{competitor.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {competitor.advantages.map((advantage, advIndex) => (
-                    <div key={advIndex} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{advantage}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Feature Comparison
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Detailed comparison with popular JSON processing tools
-          </p>
-        </div>
-
-        <Card className="border-2 border-indigo-200 dark:border-indigo-800">
-          <CardContent className="p-0">
+        <h3 className="text-2xl font-semibold tracking-tight">JSON tasks - quick reference</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">From problem to tool</CardTitle>
+            <CardDescription>The three JSON situations these tools handle.</CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Feature</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-yellow-600 dark:text-yellow-400">Toolspy</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">JSONLint</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">JSONFormatter</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">OnlineJSON</th>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Situation</th>
+                    <th className="text-left p-3 font-medium">Tool</th>
+                    <th className="text-left p-3 font-medium">Output</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {row.feature}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          row.toolspyStatus === 'excellent' 
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        }`}>
-                          {row.toolspy}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.jsonlint}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.jsonformatter}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.onlinejson}
-                      </td>
+                <tbody>
+                  {[
+                    ["Unreadable minified API response", "JSON Formatter", "Indented, collapsible tree view"],
+                    ["Config fails and you cannot see why", "JSON Validator", "Exact error location (line/character)"],
+                    ["Ship compact JSON to production", "Minify", "Whitespace stripped, bytes saved"],
+                    ["Stakeholder wants a spreadsheet", "JSON to Table Converter", "CSV or Excel from a JSON array"],
+                    ["Spreadsheet needs to become an API payload", "Table to JSON", "Clean JSON array from rows"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -623,81 +134,67 @@ export function JSONToolsSEOContent() {
         </Card>
       </section>
 
-      {/* FAQ Section */}
+      {/* Use cases */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            Frequently Asked Questions
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Common questions about our professional JSON tools
-          </p>
-        </div>
-
-        <FAQ
-          faqs={[
-            {
-              question: "What are the best free JSON tools available online?",
-              answer: "Toolspy offers the best free JSON tools including JSON formatter, JSON validator, JSON minifier, and JSON converter. All tools provide perfect accuracy with complete privacy protection and no registration required."
-            },
-            {
-              question: "How do I format JSON data properly?",
-              answer: "Use Toolspy's JSON formatter to beautify and format JSON data with proper indentation and structure. The tool processes data in your browser, ensuring complete privacy and instant results."
-            },
-            {
-              question: "Can I validate JSON syntax and structure?",
-              answer: "Yes! Toolspy's JSON validator can check JSON syntax, validate structure, and identify errors with perfect accuracy and detailed error reporting."
-            },
-            {
-              question: "Is it safe to use online JSON tools?",
-              answer: "Toolspy's JSON tools are completely safe as all processing happens in your browser. Your data never leaves your device, ensuring complete privacy and security."
-            },
-            {
-              question: "Do I need to register to use JSON tools?",
-              answer: "No registration required! All Toolspy JSON tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-            },
-            {
-              question: "Can I minify JSON for smaller file sizes?",
-              answer: "Absolutely! Use Toolspy's JSON minifier to remove unnecessary whitespace and reduce file size while maintaining perfect data integrity."
-            },
-            {
-              question: "How do I convert between JSON and other formats?",
-              answer: "Use Toolspy's JSON converter to transform data between JSON, CSV, XML, and other formats with accurate conversion and data preservation."
-            },
-            {
-              question: "Are these JSON tools mobile-friendly?",
-              answer: "Yes! All Toolspy JSON tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-            }
-          ]}
-        />
-      </section>
-
-      {/* Call to Action */}
-      <section className="text-center space-y-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-4xl font-bold mb-6 bg-gradient-to-r from-yellow-600 via-orange-600 to-red-600 bg-clip-text text-transparent">
-            Ready to Process Your JSON Data?
-          </h3>
-          <p className="text-xl text-muted-foreground mb-8">
-            Start using our professional JSON tools today. No registration required, 
-            completely free, and your data never leaves your device.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/json-formatter">
-              <Button size="lg" className="bg-gradient-to-r from-yellow-600 to-orange-600 hover:from-yellow-700 hover:to-orange-700 text-white px-8 py-3">
-                <Code className="mr-2 h-5 w-5" />
-                Start Formatting JSON
-              </Button>
-            </Link>
-            <Link href="/json-validator">
-              <Button size="lg" variant="outline" className="px-8 py-3">
-                <CheckCircle className="mr-2 h-5 w-5" />
-                Validate JSON
-              </Button>
-            </Link>
-          </div>
+        <h3 className="text-2xl font-semibold tracking-tight">Who reaches for these</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">API debugging</h4>
+              <p className="text-sm text-muted-foreground">Paste a raw response, format it, and walk the tree to find the field you need - faster than console.log gymnastics.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Config troubleshooting</h4>
+              <p className="text-sm text-muted-foreground">package.json, tsconfig, CI configs - the validator points to the exact character where parsing fails.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Data handoffs</h4>
+              <p className="text-sm text-muted-foreground">Convert a JSON export into Excel for analysts, or a client&apos;s spreadsheet into JSON for your seed script.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Payload optimization</h4>
+              <p className="text-sm text-muted-foreground">Minify large JSON blobs before embedding or shipping where every kilobyte counts.</p>
+            </Card>
         </div>
       </section>
-    </div>
+
+      {/* How to */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">How to use (3 steps)</h3>
+        <div className="grid gap-4 sm:grid-cols-3">
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">1. Paste your JSON</h4>
+              <p className="text-sm text-muted-foreground">Direct from the network tab, a log, a file, or an API client.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">2. Format, validate, or convert</h4>
+              <p className="text-sm text-muted-foreground">Errors surface with line numbers; valid JSON renders as a collapsible tree.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">3. Copy or export</h4>
+              <p className="text-sm text-muted-foreground">Copy the cleaned JSON, or download CSV/Excel from the table converter.</p>
+            </Card>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h3>
+        <FAQ faqs={categoryFaqs()} />
+      </section>
+
+      {/* Note */}
+      <section className="text-sm text-muted-foreground border rounded-lg p-4">
+        <p>
+          All JSON processing happens locally in your browser.{" "}
+          <Link href="/privacy/" className="underline underline-offset-4">
+            Privacy Policy
+          </Link>{" "}
+          ·{" "}
+          <Link href="/disclaimer/" className="underline underline-offset-4">
+            Disclaimer
+          </Link>
+        </p>
+      </section>
+    </article>
   );
 }

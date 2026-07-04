@@ -1,3 +1,9 @@
+/**
+ * Pillar SEO content for the Calculators category page (/tools/calculators/).
+ * Server-rendered so crawlers get the full guide in HTML.
+ * Written per Google helpful-content guidelines: factual, user-first,
+ * no competitor comparisons or unverifiable claims.
+ */
 import {
   Card,
   CardContent,
@@ -5,616 +11,120 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import {
-  CheckCircle,
-  Star,
-  Target,
-  Zap,
-  Shield,
-  Settings,
-  Calculator,
-  Copy,
-  Download,
-  FileText,
-  File,
-  ArrowRight,
-  FileDown,
-  BarChart3,
-  Sparkles,
-  Palette,
-  Smartphone,
-  Percent,
-  Edit3,
-  Maximize,
-  RotateCcw,
-  Filter,
-  Upload,
-  Lock,
-  Unlock,
-  Hash,
-  Type,
-  TrendingUp,
-  DollarSign,
-} from "lucide-react";
 import { getToolsByCategory } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
+import { ToolCard } from "@/components/tools/tool-card";
 import NextImage from "next/image";
 import Link from "next/link";
 
+const categoryFaqs = () => [
+  {
+    question: "Are these calculators free?",
+    answer:
+      "Yes - every calculator is free, with no registration and no usage limits.",
+  },
+  {
+    question: "How is EMI calculated?",
+    answer:
+      "EMI = P x r x (1+r)^n / ((1+r)^n - 1), where P is principal, r the monthly interest rate, and n the number of months. The loan calculator applies this and shows the interest split.",
+  },
+  {
+    question: "What is a good engagement rate?",
+    answer:
+      "It varies by platform and follower size - smaller accounts naturally have higher rates. As a broad reference, 1-3% is common on Instagram for mid-size accounts; our calculators show benchmarks alongside your result.",
+  },
+  {
+    question: "Is my financial data stored?",
+    answer:
+      "No. Calculations run in your browser; the amounts you enter are never transmitted or stored.",
+  },
+  {
+    question: "Can I rely on these for financial decisions?",
+    answer:
+      "Use them for planning and comparison. Final loan terms, tax liability, and returns depend on your institution and applicable law - confirm with a professional.",
+  },
+];
+
 export function CalculatorsSEOContent() {
-  const calculators = getToolsByCategory()['calculators'];
+  const tools = getToolsByCategory()["calculators"] || [];
+  // Poster image dynamically fetched from tools-data (flagship tool of this category)
+  const posterImage =
+    tools.find((t) => t.slug === "loan-calculator")?.posterImage ||
+    tools.find((t) => t.posterImage)?.posterImage;
 
-  const comparisonData = [
-    {
-      feature: "Calculation Accuracy",
-      toolspy: "✅ Perfect precision",
-      calculator: "⚠️ Basic functions",
-      excel: "❌ Complex setup",
-      google: "⚠️ Limited features",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Processing Speed",
-      toolspy: "✅ Instant results",
-      calculator: "⚠️ Manual input",
-      excel: "❌ Software dependent",
-      google: "⚠️ Internet required",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Privacy Protection",
-      toolspy: "✅ Client-side processing",
-      calculator: "❌ Local device",
-      excel: "❌ Local files",
-      google: "⚠️ Cloud-based",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "No Registration",
-      toolspy: "✅ Free forever",
-      calculator: "✅ Free",
-      excel: "❌ Paid software",
-      google: "⚠️ Account required",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Mobile Friendly",
-      toolspy: "✅ Responsive design",
-      calculator: "⚠️ Basic mobile",
-      excel: "❌ Desktop only",
-      google: "⚠️ Limited mobile",
-      toolspyStatus: "excellent",
-    },
-    {
-      feature: "Advanced Features",
-      toolspy: "✅ Professional tools",
-      calculator: "❌ Basic functions",
-      excel: "✅ Advanced features",
-      google: "⚠️ Limited features",
-      toolspyStatus: "excellent",
-    },
-  ];
-
-  const calculatorTypes = [
-    {
-      type: "Percentage Calculator",
-      description: "Calculate percentages, discounts, and markup values",
-      useCase: "Business calculations, financial analysis, pricing",
-      precision: "High-precision calculations",
-      example: "Calculate 20% discount on $100 item",
-    },
-    {
-      type: "Tip Calculator",
-      description: "Calculate tips and split bills accurately",
-      useCase: "Restaurant bills, service tips, group payments",
-      precision: "Exact tip calculations",
-      example: "Calculate 18% tip for $75 dinner bill",
-    },
-    {
-      type: "Loan Calculator",
-      description: "Calculate loan payments, interest, and amortization",
-      useCase: "Mortgage planning, car loans, personal loans",
-      precision: "Accurate financial calculations",
-      example: "Calculate monthly payment for $200,000 mortgage",
-    },
-    {
-      type: "Investment Calculator",
-      description: "Calculate investment returns and compound interest",
-      useCase: "Retirement planning, investment analysis, savings goals",
-      precision: "Professional financial modeling",
-      example: "Calculate compound interest on $10,000 investment",
-    },
-  ];
-
-  const benefits = [
-    {
-      icon: <Shield className="h-6 w-6" />,
-      title: "Complete Privacy Protection",
-      description: "All calculations happen in your browser - your data never leaves your device.",
-    },
-    {
-      icon: <Zap className="h-6 w-6" />,
-      title: "Lightning Fast Calculations",
-      description: "Get instant results with no server delays or processing time.",
-    },
-    {
-      icon: <Calculator className="h-6 w-6" />,
-      title: "Perfect Accuracy",
-      description: "Professional-grade calculations with precise mathematical accuracy.",
-    },
-    {
-      icon: <Settings className="h-6 w-6" />,
-      title: "Advanced Features",
-      description: "Comprehensive calculator tools with professional-grade capabilities.",
-    },
-  ];
-
-  const keyBenefits = [
-    "💰 Professional calculator tools with complete privacy protection",
-    "⚡ Instant calculations with no server delays or processing time",
-    "🔒 Complete privacy protection - data never leaves your device",
-    "📊 Multiple calculator types: percentage, tip, loan, investment",
-    "🔧 Real-time calculations and instant results",
-    "📊 Complete calculation history and result tracking",
-    "📋 Multiple export formats and copy options",
-    "🎯 Professional-grade calculation capabilities",
-    "📱 Mobile-friendly responsive design",
-    "💻 Browser-based tools requiring no software installation",
-    "💯 Completely free with no watermarks or limitations",
-    "🚀 Advanced features typically found in paid software",
-    "🔍 Precise calculations and mathematical accuracy",
-    "🌐 Works offline after initial page load",
-    "🎨 Clean, professional interface without distractions",
-    "📈 Comprehensive financial and mathematical tools",
-  ];
-
-  const competitorAdvantages = [
-    {
-      title: "Toolspy vs. Basic Calculator",
-      advantages: [
-        "Better Features: Professional tools vs. basic functions",
-        "Better Accuracy: Perfect precision vs. manual calculations",
-        "Better Privacy: Client-side vs. local device storage",
-        "Advanced Features: Multiple calculators vs. basic arithmetic",
-        "Mobile Experience: Responsive design vs. basic mobile",
-        "Professional Tools: Specialized calculators vs. general purpose",
-      ],
-    },
-    {
-      title: "Toolspy vs. Excel",
-      advantages: [
-        "Better Accessibility: Browser-based vs. software installation",
-        "Better Speed: Instant vs. software loading time",
-        "Better Privacy: Client-side vs. local file processing",
-        "No Cost: Free forever vs. paid software license",
-        "Mobile Friendly: Responsive vs. desktop only",
-        "Ease of Use: Simple interface vs. complex spreadsheet setup",
-      ],
-    },
-    {
-      title: "Toolspy vs. Google Calculator",
-      advantages: [
-        "Better Privacy: Client-side vs. cloud-based processing",
-        "Better Features: Professional tools vs. limited functions",
-        "Better Accuracy: Perfect precision vs. basic calculations",
-        "No Registration: Free forever vs. account required",
-        "Advanced Features: Specialized calculators vs. basic math",
-        "Mobile Experience: Responsive design vs. limited mobile",
-      ],
-    },
-  ];
-
-  // Register FAQs for SEO
-  registerToolFAQ("calculators", () => [
-    {
-      question: "What are the best free calculator tools available online?",
-      answer: "Toolspy offers the best free calculator tools including percentage calculator, tip calculator, loan calculator, and investment calculator. All tools provide perfect accuracy with complete privacy protection and no registration required."
-    },
-    {
-      question: "How do I calculate percentages accurately?",
-      answer: "Use Toolspy's percentage calculator to calculate percentages, discounts, markup values, and percentage changes. The tool provides instant, accurate results with complete privacy protection."
-    },
-    {
-      question: "Can I calculate tips and split bills?",
-      answer: "Yes! Toolspy's tip calculator can calculate tips, split bills among multiple people, and handle complex tip scenarios with perfect accuracy and instant results."
-    },
-    {
-      question: "Is it safe to use online calculator tools?",
-      answer: "Toolspy's calculator tools are completely safe as all calculations happen in your browser. Your data never leaves your device, ensuring complete privacy and security."
-    },
-    {
-      question: "Do I need to register to use calculator tools?",
-      answer: "No registration required! All Toolspy calculator tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-    },
-    {
-      question: "Can I calculate loan payments and interest?",
-      answer: "Absolutely! Use Toolspy's loan calculator to calculate monthly payments, total interest, amortization schedules, and loan comparisons with professional accuracy."
-    },
-    {
-      question: "How do I calculate investment returns?",
-      answer: "Use Toolspy's investment calculator to calculate compound interest, investment returns, retirement savings, and financial planning with precise mathematical accuracy."
-    },
-    {
-      question: "Are these calculator tools mobile-friendly?",
-      answer: "Yes! All Toolspy calculator tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-    }
-  ]);
+  registerToolFAQ("calculators", categoryFaqs);
 
   return (
-        <div className="space-y-12 mt-16 container max-w-7xl mx-auto px-4 py-4">
-      {/* Related Tools */}
-      <RelatedTools
-        currentToolSlug="calculators"
-        title="Professional Calculator Tools"
-        description="Discover our comprehensive suite of calculator tools designed for professionals, students, and everyday users."
-      />
-
-      {/* Introduction Section */}
+    <article className="mx-auto max-w-7xl space-y-14 mt-16 mb-20 px-4 text-base sm:text-[17px] leading-relaxed">
+      {/* Intro */}
       <section className="space-y-8">
-        <div className="text-center">
-          <h2 className="text-5xl font-bold leading-normal mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
-            Professional Calculator Tools – Fast & Private
-          </h2>
-          <p className="text-xl text-muted-foreground mb-8">
-            Complete suite of professional calculator tools with complete privacy protection, 
-            perfect accuracy, and instant results. Perfect for professionals, 
-            students, and anyone needing accurate calculations.
-          </p>
-          <div className="max-w-6xl mx-auto space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-              <div className="space-y-6 text-left">
-                <div className="space-y-4">
-                  <p className="text-xl text-muted-foreground leading-relaxed">
-                    Our{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      professional calculator tools
-                    </strong>{" "}
-                    provide the ultimate{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      online calculator
-                    </strong>{" "}
-                    for{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      percentage calculations
-                    </strong>
-                    ,{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      tip calculations
-                    </strong>
-                    ,{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      loan calculations
-                    </strong>
-                    , and{" "}
-                    <strong className="text-green-600 dark:text-green-400">
-                      investment calculations
-                    </strong>{" "}
-                    with perfect accuracy.
-                  </p>
-                  <p className="text-lg text-muted-foreground leading-relaxed">
-                    The{" "}
-                    <strong className="text-purple-600 dark:text-purple-400">
-                      calculator tools suite
-                    </strong>{" "}
-                    is designed for both professionals and everyday users. With{" "}
-                    <strong className="text-pink-600 dark:text-pink-400">
-                      advanced calculation technology
-                    </strong>
-                    ,{" "}
-                    <strong className="text-red-600 dark:text-red-400">
-                      complete privacy protection
-                    </strong>
-                    , and{" "}
-                    <strong className="text-orange-600 dark:text-orange-400">
-                      instant processing
-                    </strong>
-                    , you can{" "}
-                    <strong className="text-yellow-600 dark:text-yellow-400">
-                      calculate free
-                    </strong>{" "}
-                    without any software installation or registration required.
-                  </p>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 pt-4">
-                  <div className="text-center p-4 bg-gradient-to-br from-purple-50 to-purple-100 dark:from-purple-950/20 dark:to-purple-900/20 rounded-xl border border-purple-200 dark:border-purple-800">
-                    <div className="text-2xl font-bold text-purple-600">{calculators.length}</div>
-                    <div className="text-sm text-purple-700 dark:text-purple-300">
-                      Tools
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-pink-50 to-pink-100 dark:from-pink-950/20 dark:to-pink-900/20 rounded-xl border border-pink-200 dark:border-pink-800">
-                    <div className="text-2xl font-bold text-pink-600">100%</div>
-                    <div className="text-sm text-pink-700 dark:text-pink-300">
-                      Accurate
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-red-50 to-red-100 dark:from-red-950/20 dark:to-red-900/20 rounded-xl border border-red-200 dark:border-red-800">
-                    <div className="text-2xl font-bold text-red-600">∞</div>
-                    <div className="text-sm text-red-700 dark:text-red-300">
-                      Unlimited
-                    </div>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-orange-50 to-orange-100 dark:from-orange-950/20 dark:to-orange-900/20 rounded-xl border border-orange-200 dark:border-orange-800">
-                    <div className="text-2xl font-bold text-orange-600">0ms</div>
-                    <div className="text-sm text-orange-700 dark:text-orange-300">
-                      Processing
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div className="relative">
-              <NextImage
-                  width={1200}
-                  height={680}
-                  src="https://res.cloudinary.com/drby9raee/image/upload/Calculator_Tools_jsrnov.png"
-                  alt="Calculators Tools"
-                  className="w-full rounded-2xl shadow-2xl border-4 border-white dark:border-gray-800 hover:scale-105 transition-transform duration-300 h-full"
-                  loading="lazy"
-                />
-                <div className="absolute -bottom-4 -right-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white px-4 py-2 rounded-full text-sm font-semibold shadow-lg">
-                  ✨ Professional
-                </div>
-              </div>
-            </div>
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center">
+          Free Online Calculators - Finance, Health & Social Media
+        </h2>
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+            <p>
+              A good calculator answers a decision, not just a sum: Can I afford this EMI? What does this salary mean per month? Is this creator&apos;s engagement real? Toolspy&apos;s {tools.length} calculators cover personal finance (loan/EMI, mortgage, investment, retirement, tax, salary), everyday math (percentage, age, BMI), and social media analytics (engagement rates for Instagram, YouTube, Facebook and X).
+            </p>
+            <p>
+              Every calculator runs locally in your browser, shows its inputs clearly, and is free with no signup - built for quick, repeatable checks.
+            </p>
           </div>
+          {posterImage && (
+            <figure className="rounded-2xl overflow-hidden border bg-muted/30">
+              <NextImage
+                src={posterImage}
+                width={1600}
+                height={900}
+                alt="Free online calculators - EMI, loan, mortgage, BMI, age, percentage and engagement calculators"
+                className="w-full h-auto"
+                loading="lazy"
+              />
+            </figure>
+          )}
         </div>
       </section>
 
-      {/* How to Use */}
+      {/* Tools grid (global card design) */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
-            How to Use Our Calculator Tools
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Simple steps to perform accurate calculations with professional quality
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-purple-300 dark:hover:border-purple-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-purple-100 dark:bg-purple-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Type className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-              </div>
-              <CardTitle className="text-lg">1. Input Values</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Enter your numbers, percentages, or financial values.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-pink-300 dark:hover:border-pink-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-pink-100 dark:bg-pink-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Settings className="h-6 w-6 text-pink-600 dark:text-pink-400" />
-              </div>
-              <CardTitle className="text-lg">2. Configure</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Set calculation parameters, rates, or time periods.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-red-300 dark:hover:border-red-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-red-100 dark:bg-red-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Zap className="h-6 w-6 text-red-600 dark:text-red-400" />
-              </div>
-              <CardTitle className="text-lg">3. Calculate</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Click calculate and get instant, accurate results.
-              </p>
-            </CardContent>
-          </Card>
-
-          <Card className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-orange-300 dark:hover:border-orange-600">
-            <CardHeader className="text-center">
-              <div className="mx-auto p-3 bg-orange-100 dark:bg-orange-900/30 rounded-full w-fit group-hover:scale-110 transition-transform">
-                <Copy className="h-6 w-6 text-orange-600 dark:text-orange-400" />
-              </div>
-              <CardTitle className="text-lg">4. Copy Results</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-sm text-muted-foreground text-center">
-                Copy results or export calculations for your records.
-              </p>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Calculator Types */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Professional Calculator Types
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Comprehensive calculation capabilities for every need
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {calculatorTypes.map((tool, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-purple-300 dark:hover:border-purple-600">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-purple-100 dark:bg-purple-900/30 rounded-lg group-hover:scale-110 transition-transform">
-                    <Calculator className="h-5 w-5 text-purple-600 dark:text-purple-400" />
-                  </div>
-                  <div>
-                    <CardTitle className="text-lg">{tool.type}</CardTitle>
-                    <CardDescription>{tool.description}</CardDescription>
-                  </div>
-                </div>
-              </CardHeader>
-              <CardContent className="space-y-3">
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Use Case:</h4>
-                  <p className="text-sm">{tool.useCase}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Precision:</h4>
-                  <p className="text-sm">{tool.precision}</p>
-                </div>
-                <div>
-                  <h4 className="font-semibold text-sm text-muted-foreground mb-1">Example:</h4>
-                  <p className="text-sm">{tool.example}</p>
-                </div>
-              </CardContent>
-            </Card>
+        <h3 className="text-2xl font-semibold tracking-tight">Tools in this category</h3>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {tools.map((tool) => (
+            <ToolCard key={tool.id} tool={tool} showCategoryBadge={false} />
           ))}
         </div>
       </section>
 
-      {/* Benefits Section */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
-            Why Choose Our Calculator Tools?
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Professional calculation tools with unmatched benefits
-          </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {benefits.map((benefit, index) => (
-            <Card key={index} className="group hover:shadow-lg transition-all duration-300 border-2 hover:border-green-300 dark:hover:border-green-600">
-              <CardHeader className="text-center">
-                <div className="mx-auto p-3 bg-green-100 dark:bg-green-900/30 rounded-full w-fit group-hover:scale-110 transition-transform mb-4">
-                  {benefit.icon}
-                </div>
-                <CardTitle className="text-lg">{benefit.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-muted-foreground text-center">
-                  {benefit.description}
-                </p>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Key Benefits List */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-            Complete Feature Set
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Everything you need for professional calculations
-          </p>
-        </div>
-
-        <Card className="border-2 border-orange-200 dark:border-orange-800">
-          <CardContent className="p-6">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              {keyBenefits.map((benefit, index) => (
-                <div key={index} className="flex items-start space-x-3">
-                  <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                  <span className="text-sm text-muted-foreground">{benefit}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
-      </section>
-
-      {/* Competitor Comparison */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">
-            Toolspy vs. Competitors
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            See how we compare to other calculation solutions
-          </p>
-        </div>
-
-        <div className="space-y-6">
-          {competitorAdvantages.map((competitor, index) => (
-            <Card key={index} className="border-2 border-red-200 dark:border-red-800">
-              <CardHeader>
-                <CardTitle className="text-xl text-center">{competitor.title}</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  {competitor.advantages.map((advantage, advIndex) => (
-                    <div key={advIndex} className="flex items-start space-x-3">
-                      <CheckCircle className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
-                      <span className="text-sm text-muted-foreground">{advantage}</span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-      </section>
-
-      {/* Comparison Table */}
-      <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Feature Comparison
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Detailed comparison with popular calculation tools
-          </p>
-        </div>
-
-        <Card className="border-2 border-indigo-200 dark:border-indigo-800">
-          <CardContent className="p-0">
+        <h3 className="text-2xl font-semibold tracking-tight">Calculator groups at a glance</h3>
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">What each group answers</CardTitle>
+            <CardDescription>Pick by the decision you are making.</CardDescription>
+          </CardHeader>
+          <CardContent>
             <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-indigo-950/20 dark:to-purple-950/20">
-                  <tr>
-                    <th className="px-6 py-4 text-left text-sm font-semibold text-gray-900 dark:text-gray-100">Feature</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-purple-600 dark:text-purple-400">Toolspy</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">Calculator</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">Excel</th>
-                    <th className="px-6 py-4 text-center text-sm font-semibold text-gray-600 dark:text-gray-400">Google</th>
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b">
+                    <th className="text-left p-3 font-medium">Group</th>
+                    <th className="text-left p-3 font-medium">Calculators</th>
+                    <th className="text-left p-3 font-medium">The Question They Answer</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {comparisonData.map((row, index) => (
-                    <tr key={index} className="hover:bg-gray-50 dark:hover:bg-gray-800/50">
-                      <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-gray-100">
-                        {row.feature}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm">
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          row.toolspyStatus === 'excellent' 
-                            ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400'
-                            : 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        }`}>
-                          {row.toolspy}
-                        </span>
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.calculator}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.excel}
-                      </td>
-                      <td className="px-6 py-4 text-center text-sm text-muted-foreground">
-                        {row.google}
-                      </td>
+                <tbody>
+                  {[
+                    ["Loans & property", "Loan/EMI, Mortgage", "What will this borrowing actually cost per month and overall?"],
+                    ["Wealth building", "Investment, Retirement", "What does compounding do to my savings over N years?"],
+                    ["Income", "Salary, Tax", "What is my real take-home across hourly/monthly/yearly?"],
+                    ["Everyday math", "Percentage, Age, BMI, Love", "Quick answers for forms, health checks, and fun"],
+                    ["Social media", "Instagram/YouTube/Facebook/X engagement", "Is this account's engagement healthy for its follower size?"]
+                  ].map((row, i) => (
+                    <tr key={i} className="border-b last:border-0 hover:bg-muted/50">
+                      <td className="p-3 font-medium">{row[0]}</td>
+                      <td className="p-3">{row[1]}</td>
+                      <td className="p-3 text-muted-foreground">{row[2]}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -624,81 +134,67 @@ export function CalculatorsSEOContent() {
         </Card>
       </section>
 
-      {/* FAQ Section */}
+      {/* Use cases */}
       <section className="space-y-6">
-        <div className="text-center">
-          <h3 className="text-3xl font-bold mb-4 bg-gradient-to-r from-teal-600 to-cyan-600 bg-clip-text text-transparent">
-            Frequently Asked Questions
-          </h3>
-          <p className="text-lg text-muted-foreground">
-            Common questions about our professional calculator tools
-          </p>
-        </div>
-
-        <FAQ
-          faqs={[
-            {
-              question: "What are the best free calculator tools available online?",
-              answer: "Toolspy offers the best free calculator tools including percentage calculator, tip calculator, loan calculator, and investment calculator. All tools provide perfect accuracy with complete privacy protection and no registration required."
-            },
-            {
-              question: "How do I calculate percentages accurately?",
-              answer: "Use Toolspy's percentage calculator to calculate percentages, discounts, markup values, and percentage changes. The tool provides instant, accurate results with complete privacy protection."
-            },
-            {
-              question: "Can I calculate tips and split bills?",
-              answer: "Yes! Toolspy's tip calculator can calculate tips, split bills among multiple people, and handle complex tip scenarios with perfect accuracy and instant results."
-            },
-            {
-              question: "Is it safe to use online calculator tools?",
-              answer: "Toolspy's calculator tools are completely safe as all calculations happen in your browser. Your data never leaves your device, ensuring complete privacy and security."
-            },
-            {
-              question: "Do I need to register to use calculator tools?",
-              answer: "No registration required! All Toolspy calculator tools are completely free to use forever with no watermarks, limitations, or account creation needed."
-            },
-            {
-              question: "Can I calculate loan payments and interest?",
-              answer: "Absolutely! Use Toolspy's loan calculator to calculate monthly payments, total interest, amortization schedules, and loan comparisons with professional accuracy."
-            },
-            {
-              question: "How do I calculate investment returns?",
-              answer: "Use Toolspy's investment calculator to calculate compound interest, investment returns, retirement savings, and financial planning with precise mathematical accuracy."
-            },
-            {
-              question: "Are these calculator tools mobile-friendly?",
-              answer: "Yes! All Toolspy calculator tools are fully responsive and work perfectly on mobile devices, tablets, and desktops without requiring any app downloads."
-            }
-          ]}
-        />
-      </section>
-
-      {/* Call to Action */}
-      <section className="text-center space-y-6 py-12">
-        <div className="max-w-4xl mx-auto">
-          <h3 className="text-4xl font-bold mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent">
-            Ready to Calculate with Precision?
-          </h3>
-          <p className="text-xl text-muted-foreground mb-8">
-            Start using our professional calculator tools today. No registration required, 
-            completely free, and your data never leaves your device.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link href="/percentage-calculator">
-              <Button size="lg" className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-3">
-                <Calculator className="mr-2 h-5 w-5" />
-                Start Calculating
-              </Button>
-            </Link>
-            <Link href="/tip-calculator">
-              <Button size="lg" variant="outline" className="px-8 py-3">
-                <DollarSign className="mr-2 h-5 w-5" />
-                Calculate Tips
-              </Button>
-            </Link>
-          </div>
+        <h3 className="text-2xl font-semibold tracking-tight">Real decisions these calculators support</h3>
+        <div className="grid gap-4 sm:grid-cols-2">
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Before taking a loan</h4>
+              <p className="text-sm text-muted-foreground">Compare EMI at different tenures and rates, and see total interest paid - a longer tenure lowers the EMI but can double the interest outgo.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Planning investments</h4>
+              <p className="text-sm text-muted-foreground">Model how monthly contributions compound over 10-30 years and what changing the rate or duration does to the end corpus.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Vetting influencers</h4>
+              <p className="text-sm text-muted-foreground">Brands use engagement-rate calculators to check whether an account&apos;s likes and comments are proportionate to its followers before paying for a collaboration.</p>
+            </Card>
+            <Card className="p-5">
+              <h4 className="font-semibold mb-1">Everyday paperwork</h4>
+              <p className="text-sm text-muted-foreground">Exact age for application forms, percentage changes for reports, BMI as a quick health reference point.</p>
+            </Card>
         </div>
       </section>
-    </div>
+
+      {/* How to */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">Getting trustworthy numbers (3 steps)</h3>
+        <div className="grid gap-4 sm:grid-cols-3">
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">1. Use real inputs</h4>
+              <p className="text-sm text-muted-foreground">Actual rates, actual amounts. Approximate inputs give approximate answers.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">2. Compare scenarios</h4>
+              <p className="text-sm text-muted-foreground">Run 2-3 variations (different tenure, rate, contribution) - the comparison teaches more than a single result.</p>
+            </Card>
+            <Card className="p-5 bg-muted/40">
+              <h4 className="font-semibold mb-1">3. Treat results as estimates</h4>
+              <p className="text-sm text-muted-foreground">Banks and platforms apply their own rounding, fees, and rules - confirm final figures with the institution.</p>
+            </Card>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="space-y-6">
+        <h3 className="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h3>
+        <FAQ faqs={categoryFaqs()} />
+      </section>
+
+      {/* Note */}
+      <section className="text-sm text-muted-foreground border rounded-lg p-4">
+        <p>
+          Calculator outputs are estimates for planning. They are not financial, tax, or medical advice - verify final figures with your bank, CA, or doctor.{" "}
+          <Link href="/privacy/" className="underline underline-offset-4">
+            Privacy Policy
+          </Link>{" "}
+          ·{" "}
+          <Link href="/disclaimer/" className="underline underline-offset-4">
+            Disclaimer
+          </Link>
+        </p>
+      </section>
+    </article>
   );
 }

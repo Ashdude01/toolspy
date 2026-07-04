@@ -97,7 +97,7 @@ export function ColorPaletteGeneratorSEOContent() {
 
   return (
     <article
-      className="mx-auto max-w-5xl space-y-14 text-base sm:text-[17px] leading-relaxed"
+      className="mx-auto space-y-14 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
       {/* Sample palettes - unique, visual, clickable */}

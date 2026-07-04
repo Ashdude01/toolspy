@@ -43,7 +43,7 @@ export default function CategoryNotFound() {
       </div>
 
       <div className="relative container mx-auto px-4 py-12">
-        <div className="max-w-5xl mx-auto">
+        <div className="mx-auto">
           <Card className="text-center border-0 shadow-2xl bg-background/80 backdrop-blur-sm">
             <CardHeader className="pb-8">
               <div className="flex justify-center mb-6">

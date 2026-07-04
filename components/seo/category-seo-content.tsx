@@ -8,6 +8,8 @@ import { JSONToolsSEOContent } from "./category-content/json-tools-seo";
 import { AIToolsSEOContent } from "./category-content/ai-tools-seo";
 import { CodeToolsSEOContent } from "./category-content/code-tools-seo";
 import { ConversionToolsSEOContent } from "./category-content/conversion-tools-seo";
+import { GSTToolsSEOContent } from "./category-content/gst-tools-seo";
+import { ExamToolsSEOContent } from "./category-content/exam-tools-seo";
 
 interface CategorySEOContentProps {
   category: ToolCategory;
@@ -33,6 +35,10 @@ export function CategorySEOContent({ category }: CategorySEOContentProps) {
       return <CodeToolsSEOContent />;
     case 'conversion-tools':
       return <ConversionToolsSEOContent />;
+    case 'gst-tools':
+      return <GSTToolsSEOContent />;
+    case 'exam-tools':
+      return <ExamToolsSEOContent />;
     default:
       return null;
   }
