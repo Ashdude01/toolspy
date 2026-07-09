@@ -15,7 +15,7 @@
     --secondary: 220 14.3% 95.9%;
     --secondary-foreground: 220.9 39.3% 11%;
     --muted: 220 14.3% 95.9%;
-    --muted-foreground: 220 8.9% 46.1%;
+    --muted-foreground: #313131;
     --accent: 220 14.3% 95.9%;
     --accent-foreground: 220.9 39.3% 11%;
     --destructive: 0 84.2% 60.2%;
@@ -43,7 +43,7 @@
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
     --muted: 215 27.9% 16.9%;
-    --muted-foreground: 217.9 10.6% 64.9%;
+    --muted-foreground: #292929;
     --accent: 215 27.9% 16.9%;
     --accent-foreground: 210 20% 98%;
     --destructive: 0 62.8% 30.6%;
@@ -71,7 +71,10 @@
 /* Fonts: applied via next/font CSS variables (set on <html> in app/layout.tsx).
    Kept in the static stylesheet (not an inline <style>) so the server and
    client markup match exactly and there is no hydration mismatch. */
-body {
+   *{
+    scroll-behavior: smooth;
+  }
+   body {
   font-family: var(--font-body);
 }
 p, a, li, ul, ol, blockquote, cite, code, pre, small, strong, sub, sup,
@@ -183,4 +186,39 @@ h1{
     opacity: 0.9 !important;
     filter: blur(0.5px);
   }
+}
+
+/* prose styling for tool SEO articles (ToC + long-form layout) */
+.article h2 {
+  @apply text-2xl md:text-3xl font-bold mt-12 mb-4 scroll-mt-28 text-foreground;
+}
+.article h3 {
+  @apply text-xl font-semibold mt-8 mb-3 scroll-mt-28 text-foreground;
+}
+.article p {
+  @apply text-[15px] leading-7 text-muted-foreground mb-4;
+}
+.article ul {
+  @apply list-disc pl-6 mb-4 space-y-2 text-[15px] leading-7 text-muted-foreground;
+}
+.article ol {
+  @apply list-decimal pl-6 mb-4 space-y-2 text-[15px] leading-7 text-muted-foreground;
+}
+.article strong {
+  @apply text-foreground font-semibold;
+}
+.article a {
+  @apply text-foreground underline underline-offset-4 hover:opacity-80;
+}
+.article table {
+  @apply w-full text-sm border-collapse mb-6;
+}
+.article th {
+  @apply text-left font-semibold border-b-2 border-border px-3 py-2 text-foreground;
+}
+.article td {
+  @apply border-b border-border px-3 py-2 text-muted-foreground;
+}
+.formula {
+  @apply block rounded-lg border border-border bg-muted px-4 py-3 font-mono text-sm text-foreground overflow-x-auto mb-4;
 }

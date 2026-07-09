@@ -743,6 +743,24 @@ export const tools: Tool[] = [
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Investment-calculator_dsq6hr.webp'
   },
   {
+    id: 'coast-fire-calculator',
+    name: 'Coast FIRE Calculator',
+    slug: 'coast-fire-calculator',
+    description: 'Find when compound growth alone can fund your retirement',
+    category: 'calculators',
+    icon: '🌅',
+    tags: ['coast fire', 'fire calculator', 'retirement', 'financial independence', 'compound interest'],
+    path: '/coast-fire-calculator',
+    status: 'active',
+    seo: generateSEO({
+      name: 'Coast FIRE Calculator',
+      title: 'Coast FIRE Calculator – When Can You Stop Saving? | Toolspy',
+      slug: '/coast-fire-calculator',
+      description: "See the amount you need invested today so compound growth alone funds your retirement. Interactive chart, coast-age detection and shareable results.",
+      tags: ['coast fire calculator', 'coast fire', 'fire calculator', 'financial independence calculator', 'retirement coast number']
+    })
+  },
+  {
     id: 'tax-calculator',
     name: 'Tax Calculator',
     slug: 'tax-calculator',
