@@ -6,7 +6,6 @@ import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { Toc, type TocItem } from "./toc";
-import Image from "next/image";
 
 const TOC: TocItem[] = [
   { id: "calculator", label: "Calculator" },
@@ -43,13 +42,13 @@ export function CoastFireCalculatorSEOContent() {
         />
       </nav>
 
-      <div className="lg:mt-20 grid lg:gap-10 lg:grid-cols-[280px_minmax(0,1fr)]">
-        <aside>
+      <div className="grid min-w-0 lg:mt-20 lg:grid-cols-2 lg:gap-10">
+        <aside className="min-w-0 lg:max-w-72">
           <Toc items={TOC} />
         </aside>
 
-        <div className="">
-          <article className="article">
+        <div className="min-w-0 max-w-full">
+          <article className="article min-w-0 max-w-full overflow-x-hidden">
             <h2 id="introduction">Introduction</h2>
             <p>
               Imagine a time in your career when you don&apos;t have to save any more money for retirement,
@@ -93,7 +92,7 @@ export function CoastFireCalculatorSEOContent() {
           <img 
               src="https://res.cloudinary.com/drby9raee/image/upload/Benefits_of_Coast_FIRE_tu6zko.webp"
               alt="Benefits of Coast FIRE"
-              className="my-6 w-full rounded-lg border border-border"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
             />
 
             <h3>1. Reduced Financial Stress</h3>
@@ -171,7 +170,7 @@ export function CoastFireCalculatorSEOContent() {
             <img
               src="https://res.cloudinary.com/drby9raee/image/upload/understanding_coast_fire_calculation_xtq3ru.webp"
               alt="Coast FIRE number formula"
-              className="my-6 w-full rounded-lg border border-border"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
             />
             <code className="formula">
               Coast FIRE Number = Future Retirement Goal ÷ (1 + Rate of Return)^Years Until Retirement
@@ -199,7 +198,7 @@ export function CoastFireCalculatorSEOContent() {
             </ol>
 
             <h3>Example: How to Calculate Coast Fire Number</h3>
-            <div className="overflow-x-auto">
+            <div className="max-w-full overflow-x-auto">
               <table>
                 <thead>
                   <tr>
@@ -271,7 +270,7 @@ export function CoastFireCalculatorSEOContent() {
             </p>
 
             <h3>Full Worked Example Using Real Return</h3>
-            <div className="overflow-x-auto">
+            <div className="max-w-full overflow-x-auto">
               <table>
                 <thead>
                   <tr>
@@ -398,7 +397,7 @@ export function CoastFireCalculatorSEOContent() {
             <img
               src="https://res.cloudinary.com/drby9raee/image/upload/How_to_Use_a_Coast_Fire_Calculator_Step-by-Step_c2a3de.webp"
               alt="How to use a Coast Fire calculator step by step"
-              className="my-6 w-full rounded-lg border border-border"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
             />
             <ol>
               <li>
@@ -460,7 +459,7 @@ export function CoastFireCalculatorSEOContent() {
             </ul>
 
             <h2 id="key-factors">Key Factors That Affect Your Coast Fire Number</h2>
-            <div className="overflow-x-auto">
+            <div className="max-w-full overflow-x-auto">
               <table>
                 <thead>
                   <tr>
@@ -661,9 +660,9 @@ export function CoastFireCalculatorSEOContent() {
             <img
               src="https://res.cloudinary.com/drby9raee/image/upload/Coast_FIRE_vs._Other_FIRE_Strategies_oc9vp9.webp"
               alt="Coast FIRE vs other FIRE strategies"
-              className="my-6 w-full rounded-lg border border-border"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
             />
-            <div className="overflow-x-auto">
+            <div className="max-w-full overflow-x-auto">
               <table>
                 <thead>
                   <tr>
@@ -729,7 +728,7 @@ export function CoastFireCalculatorSEOContent() {
               starting ages, assuming a <strong>$1,500,000 retirement goal</strong>, retirement at <strong>65</strong>,
               and a <strong>7% average annual return</strong>.
             </p>
-            <div className="overflow-x-auto">
+            <div className="max-w-full overflow-x-auto">
               <table>
                 <thead>
                   <tr>
@@ -785,7 +784,7 @@ export function CoastFireCalculatorSEOContent() {
             <img
               src="https://res.cloudinary.com/drby9raee/image/upload/Building_Your_Coast_Fire_Action_Plan_h7ymrl.webp"
               alt="Building your Coast FIRE action plan"
-              className="my-6 w-full rounded-lg border border-border"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
             />
             <ol>
               <li>

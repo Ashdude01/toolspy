@@ -29,7 +29,7 @@ export default function CoastFireCalculatorLayout({
       <Suspense fallback={<CoastFireCalculatorPageFallback />}>
         {children}
       </Suspense>
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+      <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
         <CoastFireCalculatorSEOContent />
       </div>
     </DynamicToolLayout>
