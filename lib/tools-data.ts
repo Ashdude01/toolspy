@@ -754,11 +754,12 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Coast FIRE Calculator',
-      title: 'Coast FIRE Calculator – When Can You Stop Saving? | Toolspy',
+      title: 'Coast FIRE Calculator – Find Your Number | Toolspy',
       slug: '/coast-fire-calculator',
-      description: "See the amount you need invested today so compound growth alone funds your retirement. Interactive chart, coast-age detection and shareable results.",
-      tags: ['coast fire calculator', 'coast fire', 'fire calculator', 'financial independence calculator', 'retirement coast number']
-    })
+      description: "Use Toolspy's free coast fire calculator to find your Coast FIRE number, see real-return growth projections, and plan your path to FI. Try it now.",
+      tags: ['coast fire calculator', 'coast fire', 'coast fire retirement calculator', 'coast fire calculator for couples', 'coastFI', 'financial independence calculator']
+    }),
+    posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/Coast_FIRE_Calculator_fik9uz.webp'
   },
   {
     id: 'tax-calculator',

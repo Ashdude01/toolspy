@@ -607,8 +607,8 @@ export default function CoastFireCalculatorPage() {
           Coast FIRE Calculator
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-5xl mx-auto">
-          Find the number that makes saving for retirement <em>optional</em> — when compound growth alone will finish
-          the job. Interactive chart, year-by-year table, today&apos;s-money math, and a shareable link for every
+          Find the number that makes saving for retirement <em>optional</em> - when compound growth alone will finish
+          the job. Interactive chart, year-by-year table, today&apos;s-money math, and multi-share options for every
           scenario.
         </p>
       </div>

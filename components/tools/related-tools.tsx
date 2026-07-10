@@ -82,12 +82,15 @@ export function RelatedTools({
                   ></iframe>
                 </div>
               </div> */}
+              <div className="flex flex-col gap-2">
+
       <h3 className="text-2xl font-bold text-center">
         {title}
       </h3>
       <p className="text-center text-muted-foreground max-w-3xl mx-auto">
         {description}
       </p>
+              </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {relatedTools.map((tool, index) => (
           <Link

@@ -68,7 +68,7 @@ export function Toc({ items }: { items: TocItem[] }) {
       </details>
 
       {/* desktop: sticky sidebar */}
-      <nav aria-label="On this page" className="sticky top-24 hidden max-h-[calc(100vh-8rem)] overflow-auto lg:block">
+      <nav aria-label="On this page" className="sticky top-24 hidden max-h-[calc(100vh-8rem)] overflow-auto lg:block scrollbar-thin scrollbar-thumb-muted-foreground">
         <h3 className="mb-3 font-semibold">Table of Contents</h3>
         <ul className="space-y-0.5 border-l-2 border-border">
           {items.map((it) => (
@@ -78,7 +78,7 @@ export function Toc({ items }: { items: TocItem[] }) {
                 className={cn(
                   "-ml-0.5 block border-l-2 py-1.5 pl-4 pr-2 text-[13px] leading-snug transition-colors",
                   active === it.id
-                    ? "border-primary font-semibold text-foreground"
+                    ? "border-primary font-bold text-foreground"
                     : "border-transparent text-muted-foreground hover:border-border hover:text-foreground"
                 )}
               >
