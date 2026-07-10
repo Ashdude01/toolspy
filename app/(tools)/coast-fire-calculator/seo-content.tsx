@@ -42,8 +42,8 @@ export function CoastFireCalculatorSEOContent() {
         />
       </nav>
 
-      <div className="grid min-w-0 lg:mt-20 lg:grid-cols-2 lg:gap-10">
-        <aside className="min-w-0 lg:max-w-72">
+      <div className="lg:mt-20 grid gap-10 lg:gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
+        <aside>
           <Toc items={TOC} />
         </aside>
 
