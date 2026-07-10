@@ -87,6 +87,9 @@ h1, h2, h3, h4, h5, h6 {
 main .container, main .max-w-6xl{
   @apply !max-w-7xl
 }
+.container{
+  @apply px-4 md:px-6
+}
 h2.text-5xl{
   @apply text-3xl md:text-4xl;
   font-size: 2rem;
