@@ -640,10 +640,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'Love Calculator',
-      title: 'Love Calculator – Compatibility % by Names | Toolspy',
+      title: 'Love Calculator: Free Love Compatibility Test by Name & Age | Toolspy',
       slug: '/love-calculator',
-      description: "Just for fun: type two names and get a compatibility score. Silly but popular. Share the result with your crush.",
-      tags: ['love calculator', 'love compatibility', 'name compatibility', 'love percentage', 'relationship calculator']
+      description: "Use our free Love Calculator to check love compatibility by name, age, and zodiac sign. Get your instant love percentage and discover your perfect match today!",
+      tags: ['love calculator', 'love compatibility', 'love percentage calculator', 'love calculator by name', 'love test calculator', 'zodiac love calculator', 'love compatibility calculator']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/love-calculator_kzzs73.webp'
   },

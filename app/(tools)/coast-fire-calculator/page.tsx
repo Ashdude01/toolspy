@@ -6,8 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
-import { Link2, ImageDown, FileDown, Share2, Check, Info, PartyPopper, TrendingUp, Target, ChevronDown } from "lucide-react";
+import { Info, PartyPopper, TrendingUp, Target, ChevronDown } from "lucide-react";
 import { ProjectionChart } from "./chart";
+import { ShareMenu } from "@/components/tools/shared/share-menu";
 import {
   CoastInputs,
   Region,
@@ -17,7 +18,7 @@ import {
   inputsToQuery,
   queryToInputs
 } from "./coastfire";
-import { buildShareCardSVG, svgToPngDataUrl, downloadDataUrl, pngToPdf } from "./share-card";
+import { buildShareCardSVG, CARD_W, CARD_H } from "./share-card";
 
 const UK_PENSION_AGE = 57;
 
@@ -136,11 +137,6 @@ function CoastCalculator() {
   const [region, setRegion] = React.useState<Region>("us");
   const [inp, setInp] = React.useState<CoastInputs>(DEFAULTS.us);
   const [showTable, setShowTable] = React.useState(false);
-  const [copied, setCopied] = React.useState(false);
-  const [menuOpen, setMenuOpen] = React.useState(false);
-  const [busy, setBusy] = React.useState<null | "img" | "pdf">(null);
-  const [canNativeShare, setCanNativeShare] = React.useState(false);
-  const menuRef = React.useRef<HTMLDivElement>(null);
 
   // hydrate from share URL (client-only, avoids Suspense requirements)
   React.useEffect(() => {
@@ -149,28 +145,6 @@ function CoastCalculator() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // feature-detect the native share sheet (mobile) on the client
-  React.useEffect(() => {
-    setCanNativeShare(typeof navigator !== "undefined" && typeof navigator.share === "function");
-  }, []);
-
-  // close the share menu on outside click / Escape
-  React.useEffect(() => {
-    if (!menuOpen) return;
-    const onDown = (e: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(e.target as Node)) setMenuOpen(false);
-    };
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setMenuOpen(false);
-    };
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("keydown", onKey);
-    return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("keydown", onKey);
-    };
-  }, [menuOpen]);
 
   const set = (k: keyof CoastInputs) => (v: number) => setInp((p) => ({ ...p, [k]: v }));
 
@@ -189,62 +163,11 @@ function CoastCalculator() {
   const shareUrl = () => `${window.location.origin}${window.location.pathname}?${inputsToQuery(inp)}`;
   const fileBase = () => `coast-fire-${region}-${new Date().toISOString().slice(0, 10)}`;
 
-  const copyLink = async () => {
-    const url = shareUrl();
-    try {
-      await navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    } catch {
-      window.prompt("Copy your share link:", url);
-    }
-    setMenuOpen(false);
-  };
-
-  const nativeShare = async () => {
-    setMenuOpen(false);
-    try {
-      await navigator.share({
-        title: "My Coast FIRE result",
-        text: `My Coast FIRE number is ${fmtMoney(res.coastNumberToday, region)} — I'm ${Math.round(res.progress * 100)}% there.`,
-        url: shareUrl()
-      });
-    } catch {
-      /* user dismissed the share sheet — no-op */
-    }
-  };
-
-  const downloadImage = async () => {
-    setBusy("img");
-    try {
-      const png = await svgToPngDataUrl(buildShareCardSVG(safe, res, region), 2);
-      downloadDataUrl(png, `${fileBase()}.png`);
-    } catch {
-      window.alert("Sorry — the image could not be generated.");
-    } finally {
-      setBusy(null);
-      setMenuOpen(false);
-    }
-  };
-
-  const downloadPdf = async () => {
-    setBusy("pdf");
-    try {
-      const png = await svgToPngDataUrl(buildShareCardSVG(safe, res, region), 2);
-      await pngToPdf(png, `${fileBase()}.pdf`);
-    } catch {
-      window.alert("Sorry — the PDF could not be generated.");
-    } finally {
-      setBusy(null);
-      setMenuOpen(false);
-    }
-  };
-
   const progressPct = Math.min(res.progress * 100, 100);
   const ukBridge = region === "uk" && safe.retireAge < UK_PENSION_AGE;
   const pct = Math.round(res.progress * 100);
 
-  // Plain-English verdict — the headline answer, in three states.
+  // Plain-English verdict - the headline answer, in three states.
   const verdict = (() => {
     if (res.coastAchieved) {
       return {
@@ -255,7 +178,7 @@ function CoastCalculator() {
           res.fireNumber,
           region,
           true
-        )} retirement target on its own by age ${safe.retireAge} — with no further saving. You only need to earn enough to cover today's living costs.`
+        )} retirement target on its own by age ${safe.retireAge} - with no further saving. You only need to earn enough to cover today's living costs.`
       };
     }
     if (res.coastAge !== null) {
@@ -263,7 +186,7 @@ function CoastCalculator() {
       return {
         tone: "progress" as const,
         Icon: TrendingUp,
-        title: `On track — you'll coast at age ${res.coastAge}`,
+        title: `On track - you'll coast at age ${res.coastAge}`,
         body: `Keep investing ${fmtMoney(safe.monthlyContribution, region)}/mo and in ${yrs} year${yrs === 1 ? "" : "s"
           } (age ${res.coastAge}) your portfolio can carry itself to retirement. You're ${pct}% of the way to coasting today.`
       };
@@ -271,7 +194,7 @@ function CoastCalculator() {
     return {
       tone: "warn" as const,
       Icon: Target,
-      title: `Not coasting yet — you're ${pct}% of the way there`,
+      title: `Not coasting yet - you're ${pct}% of the way there`,
       body: `You'd need about ${fmtMoney(
         res.shortfallToday,
         region
@@ -330,70 +253,16 @@ function CoastCalculator() {
             <Button variant="outline" size="sm" onClick={() => setInp(DEFAULTS[region])}>
               Reset
             </Button>
-            <div className="relative" ref={menuRef}>
-              <Button
-                size="sm"
-                onClick={() => setMenuOpen((o) => !o)}
-                aria-haspopup="menu"
-                aria-expanded={menuOpen}
-              >
-                {copied ? (
-                  <>
-                    <Check className="mr-1.5 h-4 w-4" /> Link copied
-                  </>
-                ) : (
-                  <>
-                    <Share2 className="mr-1.5 h-3 w-3" /> Share
-                    <span className="ml-1 opacity-70">▾</span>
-                  </>
-                )}
-              </Button>
-              {menuOpen && (
-                <div
-                  role="menu"
-                  className="absolute left-0 -translate-x-1/2 md:translate-x-0 z-30 mt-2 w-60 max-w-[calc(100vw-2rem)] overflow-hidden rounded-lg border border-border bg-card shadow-lg sm:left-auto sm:right-0"
-                >
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={copyLink}
-                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted"
-                  >
-                    <Link2 className="h-4 w-4 text-muted-foreground" /> Copy shareable link
-                  </button>
-                  {canNativeShare && (
-                    <button
-                      type="button"
-                      role="menuitem"
-                      onClick={nativeShare}
-                      className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted"
-                    >
-                      <Share2 className="h-4 w-4 text-muted-foreground" /> Share via…
-                    </button>
-                  )}
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={downloadImage}
-                    disabled={busy !== null}
-                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted disabled:opacity-60"
-                  >
-                    <ImageDown className="h-4 w-4 text-muted-foreground" />
-                    {busy === "img" ? "Generating image…" : "Download as image (PNG)"}
-                  </button>
-                  <button
-                    type="button"
-                    role="menuitem"
-                    onClick={downloadPdf}
-                    disabled={busy !== null}
-                    className="flex w-full items-center gap-2.5 px-4 py-2.5 text-left text-sm text-foreground transition-colors hover:bg-muted disabled:opacity-60"
-                  >
-                    <FileDown className="h-4 w-4 text-muted-foreground" />
-                    {busy === "pdf" ? "Generating PDF…" : "Download as PDF"}
-                  </button>
-                </div>
-              )}
-            </div>
+            <ShareMenu
+              getShareUrl={shareUrl}
+              buildSvg={() => buildShareCardSVG(safe, res, region)}
+              size={{ width: CARD_W, height: CARD_H }}
+              fileBase={fileBase}
+              shareTitle="My Coast FIRE result"
+              shareText={() =>
+                `My Coast FIRE number is ${fmtMoney(res.coastNumberToday, region)} - I'm ${Math.round(res.progress * 100)}% there.`
+              }
+            />
           </div>
         </div>
       </CardHeader>
@@ -410,7 +279,7 @@ function CoastCalculator() {
             </div>
             <Field
               label="Invested so far"
-              hint="Total you already have invested for retirement today — 401(k), IRA, ISA, index funds, etc. Leave out cash you'll spend soon."
+              hint="Total you already have invested for retirement today - 401(k), IRA, ISA, index funds, etc. Leave out cash you'll spend soon."
               value={inp.currentInvested}
               onChange={set("currentInvested")}
               min={0}
@@ -442,7 +311,7 @@ function CoastCalculator() {
               region={region}
             />
 
-            {/* Advanced assumptions — collapsible, sensible defaults pre-filled */}
+            {/* Advanced assumptions - collapsible, sensible defaults pre-filled */}
             <details open className="group rounded-lg border border-border bg-muted/30">
               <summary className="flex cursor-pointer list-none items-center justify-between gap-2 px-4 py-3 [&::-webkit-details-marker]:hidden">
                 <span className="text-sm font-semibold text-foreground">Advanced assumptions</span>
@@ -455,13 +324,13 @@ function CoastCalculator() {
               </summary>
               <div className="border-t border-border p-4">
                 <p className="mb-4 text-xs leading-relaxed text-muted-foreground">
-                  Sensible defaults are pre-filled — only change these if you have a specific view. Every result stays
+                  Sensible defaults are pre-filled - only change these if you have a specific view. Every result stays
                   in today&apos;s money.
                 </p>
                 <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
                   <Field label="Growth" hint="Expected average yearly investment return, before inflation. ~7% is a common long-run stock-market assumption." suffix="%" value={inp.nominalReturn} onChange={set("nominalReturn")} min={1} max={12} step={0.5} compact region={region} />
                   <Field label="Inflation" hint="Average yearly rise in prices. Used to keep every result comparable to today's money." suffix="%" value={inp.inflation} onChange={set("inflation")} min={0} max={8} step={0.5} compact region={region} />
-                  <Field label="Withdrawal" hint="Safe withdrawal rate — the % of your portfolio you draw each year in retirement. 4% is the classic rule; 3–3.5% is more cautious." suffix="%" value={inp.swr} onChange={set("swr")} min={2} max={6} step={0.25} compact region={region} />
+                  <Field label="Withdrawal" hint="Safe withdrawal rate - the % of your portfolio you draw each year in retirement. 4% is the classic rule; 3–3.5% is more cautious." suffix="%" value={inp.swr} onChange={set("swr")} min={2} max={6} step={0.25} compact region={region} />
                 </div>
               </div>
             </details>
@@ -493,7 +362,7 @@ function CoastCalculator() {
                     Coast FIRE reached 🎉
                   </span>
                 ) : (
-                  <span className="ml-1">— {fmtMoney(res.shortfallToday, region)} to go.</span>
+                  <span className="ml-1">- {fmtMoney(res.shortfallToday, region)} to go.</span>
                 )}
               </div>
             </div>
@@ -513,7 +382,7 @@ function CoastCalculator() {
               <Stat
                 label={`At ${safe.retireAge} if you stop saving today`}
                 value={fmtMoney(res.valueAtRetirementCoastNow, region)}
-                sub={res.coastAchieved ? "already enough — that's Coast FIRE" : "not enough yet on its own"}
+                sub={res.coastAchieved ? "already enough - that's Coast FIRE" : "not enough yet on its own"}
                 tone={res.coastAchieved ? "good" : undefined}
               />
               <Stat
@@ -532,7 +401,7 @@ function CoastCalculator() {
               </div>
             )}
 
-             {/* Plain-English verdict — the headline answer */}
+             {/* Plain-English verdict - the headline answer */}
           <div className={`mb-6 flex items-start gap-3 rounded-xl border-2 p-4 sm:p-5 ${verdictClass}`}>
             <verdict.Icon className={`mt-0.5 h-6 w-6 shrink-0 ${verdictIconClass}`} aria-hidden />
             <div>
@@ -588,7 +457,7 @@ function CoastCalculator() {
 
         <p className="mt-5 text-xs leading-relaxed text-muted-foreground">
           Assumes contributions and growth are steady, in today&apos;s money (real return ≈{" "}
-          {(res.realReturn * 100).toFixed(1)}%/yr). This is an educational estimate, not financial advice — markets are
+          {(res.realReturn * 100).toFixed(1)}%/yr). This is an educational estimate, not financial advice - markets are
           not steady, and taxes{region === "uk" ? ", pension access rules" : " and retirement account rules"} affect
           real outcomes.
         </p>

@@ -5,7 +5,7 @@
 import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
-import { Toc, type TocItem } from "./toc";
+import { Toc, type TocItem } from "@/components/ui/toc";
 
 const TOC: TocItem[] = [
   { id: "calculator", label: "Calculator" },
@@ -67,7 +67,7 @@ export function CoastFireCalculatorSEOContent() {
             <h2 id="what-is-coast-fire">What Is Coast FIRE?</h2>
             <p>
               Coast FIRE is a type of financial independent strategy that lets you make savings and invest heavily
-              as you begin your career, until you have reached a certain dollar value — the Coast FIRE amount. Once
+              as you begin your career, until you have reached a certain dollar value - the Coast FIRE amount. Once
               you&apos;ve reached that number that is reached, compound interest will do the heavy lifting and you do
               not need to put more money into retirement.
             </p>
@@ -86,7 +86,7 @@ export function CoastFireCalculatorSEOContent() {
 
             <h2 id="benefits-of-coast-fire">Benefits of Coast FIRE</h2>
             <p>
-              Coast FIRE isn&apos;t just a savings milestone — it&apos;s a shift in how you relate to work and money.
+              Coast FIRE isn&apos;t just a savings milestone - it&apos;s a shift in how you relate to work and money.
               Here&apos;s why so many professionals are working toward it.
             </p>
           <img 
@@ -114,7 +114,7 @@ export function CoastFireCalculatorSEOContent() {
             <h3>3. Freedom to Cover Only Current Expenses</h3>
             <p>
               After hitting your number, every dollar you earn only needs to cover <strong>today&apos;s</strong> cost
-              of living — housing, food, insurance, discretionary spending — since retirement is already funded by
+              of living - housing, food, insurance, discretionary spending - since retirement is already funded by
               compounding growth. This alone can meaningfully lower the income you need to feel secure.
             </p>
 
@@ -134,7 +134,7 @@ export function CoastFireCalculatorSEOContent() {
             <h3>6. A Clear, Motivating Milestone</h3>
             <p>
               Traditional retirement planning can feel abstract and decades away. Coast FIRE breaks the journey into a
-              concrete, calculable number you can track and celebrate — a psychological win that keeps you motivated
+              concrete, calculable number you can track and celebrate - a psychological win that keeps you motivated
               to keep investing early.
             </p>
 
@@ -164,7 +164,7 @@ export function CoastFireCalculatorSEOContent() {
 
             <h2 id="how-to-calculate-coast-fire-number">How to Calculate Coast FIRE Number</h2>
             <p>
-              Understanding <strong>how to calculate coast fire</strong> manually helps you trust — and double-check —
+              Understanding <strong>how to calculate coast fire</strong> manually helps you trust - and double-check -
               any calculator&apos;s output. Here&apos;s the formula used behind the scenes:
             </p>
             <img
@@ -239,7 +239,7 @@ export function CoastFireCalculatorSEOContent() {
             </p>
             <p>
               This means that once this person has <strong>$138,300</strong> invested, they don&apos;t technically
-              need to add another dollar to reach $1.5 million by age 65 — assuming a steady 7% average annual return.
+              need to add another dollar to reach $1.5 million by age 65 - assuming a steady 7% average annual return.
             </p>
 
             <h3>Nominal Return vs. Real (Inflation-Adjusted) Return</h3>
@@ -249,7 +249,7 @@ export function CoastFireCalculatorSEOContent() {
             </p>
             <ul>
               <li>
-                <strong>Nominal return</strong> is the raw, unadjusted average market return — historically around 10%
+                <strong>Nominal return</strong> is the raw, unadjusted average market return - historically around 10%
                 for the S&amp;P 500.
               </li>
               <li>
@@ -264,7 +264,7 @@ export function CoastFireCalculatorSEOContent() {
             </p>
             <p>
               Using the real return instead of the nominal return keeps your entire calculation in &ldquo;today&apos;s
-              dollars&rdquo; — so your $60,000 annual spending target doesn&apos;t need a separate inflation
+              dollars&rdquo; - so your $60,000 annual spending target doesn&apos;t need a separate inflation
               adjustment later. This is the same approach used by most reputable coast fire calculators, and it&apos;s
               the single most important adjustment that separates an accurate projection from an overly optimistic one.
             </p>
@@ -322,7 +322,7 @@ export function CoastFireCalculatorSEOContent() {
               <strong>Coast FIRE Number = $1,500,000 ÷ (1.068)^30 ≈ $228,900</strong>
             </p>
             <p>
-              At 35, having <strong>$228,900</strong> already invested — with no further contributions — would be
+              At 35, having <strong>$228,900</strong> already invested - with no further contributions - would be
               projected to grow into a $1.5 million retirement portfolio (in today&apos;s dollars) by age 65.
             </p>
 
@@ -343,14 +343,14 @@ export function CoastFireCalculatorSEOContent() {
             </p>
             <p>
               The term itself is widely credited to a <strong>2016 ChooseFI podcast episode</strong> featuring Sam
-              Dogen (founder of Financial Samurai), though its exact origin isn&apos;t definitively documented — most
+              Dogen (founder of Financial Samurai), though its exact origin isn&apos;t definitively documented - most
               sources describe it as the term appearing to come from that episode rather than confirming it as the
               first recorded use. What is clear is that usage of &ldquo;Coast FIRE&rdquo; (and &ldquo;coastFI&rdquo;)
               has grown substantially since then, particularly as more calculators and content were built around it
               starting in the late 2010s.
             </p>
             <p>
-              You may also see the term written as <strong>&ldquo;coastFI&rdquo;</strong> — the two are used
+              You may also see the term written as <strong>&ldquo;coastFI&rdquo;</strong> - the two are used
               interchangeably. &ldquo;FI&rdquo; refers to Financial Independence broadly, while &ldquo;FIRE&rdquo; adds
               the &ldquo;Retire Early&rdquo; component. Since Coast FIRE isn&apos;t about retiring early in the
               traditional sense (you keep working, just without saving pressure), some purists consider &ldquo;coastFI&rdquo;
@@ -384,8 +384,8 @@ export function CoastFireCalculatorSEOContent() {
                 work can affect your timeline.
               </li>
               <li>
-                <strong>Recalculate annually.</strong> Life changes — salary increases, new expenses, market
-                performance — should be revisited each year.
+                <strong>Recalculate annually.</strong> Life changes - salary increases, new expenses, market
+                performance - should be revisited each year.
               </li>
             </ul>
 
@@ -407,7 +407,7 @@ export function CoastFireCalculatorSEOContent() {
                 <strong>Input your current invested savings</strong> (retirement + brokerage accounts).
               </li>
               <li>
-                <strong>Add your expected annual return</strong> — 6–7% is a widely used, realistic estimate for a
+                <strong>Add your expected annual return</strong> - 6–7% is a widely used, realistic estimate for a
                 diversified portfolio.
               </li>
               <li>
@@ -527,7 +527,7 @@ export function CoastFireCalculatorSEOContent() {
             <ul>
               <li>
                 <strong>Front-loaded sacrifice.</strong> Reaching your Coast FIRE number requires saving aggressively in
-                your 20s and 30s — often while peers are spending more freely on lifestyle upgrades.
+                your 20s and 30s - often while peers are spending more freely on lifestyle upgrades.
               </li>
               <li>
                 <strong>Market underperformance.</strong> Coast FIRE math relies on historical average returns. A
@@ -545,7 +545,7 @@ export function CoastFireCalculatorSEOContent() {
               <li>
                 <strong>What to do if the market dips after you coast:</strong> most planners recommend temporarily
                 resuming contributions, pushing your target retirement age back slightly, or trimming planned
-                retirement spending — rather than panic-selling investments.
+                retirement spending - rather than panic-selling investments.
               </li>
             </ul>
 
@@ -553,7 +553,7 @@ export function CoastFireCalculatorSEOContent() {
             <p>
               Consider a hypothetical 32-year-old software engineer who spent seven aggressive saving years building a
               $400,000 investment portfolio. Based on her Coast FIRE calculation, that amount was projected to grow to
-              roughly $2 million by age 60 with no further contributions — enough to fully fund her retirement target.
+              roughly $2 million by age 60 with no further contributions - enough to fully fund her retirement target.
               Reaching that milestone let her step down to a four-day workweek and shift into a role she found more
               meaningful, without changing her long-term retirement outlook. Cases like this illustrate the core appeal
               of Coast FIRE: the hard savings work happens early, so flexibility comes later.
@@ -561,7 +561,7 @@ export function CoastFireCalculatorSEOContent() {
 
             <h2 id="social-security-pension">Should You Include Social Security or a Pension?</h2>
             <p>
-              Most Coast FIRE calculators — including the simplified version in this guide — deliberately{" "}
+              Most Coast FIRE calculators - including the simplified version in this guide - deliberately{" "}
               <strong>exclude Social Security and pension income</strong> from the core calculation. Here&apos;s why
               that&apos;s usually the safer default, and when to adjust it.
             </p>
@@ -579,7 +579,7 @@ export function CoastFireCalculatorSEOContent() {
               <li>
                 <strong>When to include it anyway.</strong> If you have a stable, near-guaranteed pension (common in
                 some government or union jobs), it&apos;s reasonable to subtract your expected annual pension income
-                from your annual retirement expenses before calculating your Coast FIRE number — some dedicated
+                from your annual retirement expenses before calculating your Coast FIRE number - some dedicated
                 calculators offer this as a built-in toggle.
               </li>
               <li>
@@ -597,7 +597,7 @@ export function CoastFireCalculatorSEOContent() {
             <ul>
               <li>
                 <strong>Does it use real (inflation-adjusted) returns?</strong> Look for a calculator that either lets
-                you input inflation separately or clearly states it&apos;s using a real return rate — otherwise your
+                you input inflation separately or clearly states it&apos;s using a real return rate - otherwise your
                 number may be overstated.
               </li>
               <li>
@@ -614,7 +614,7 @@ export function CoastFireCalculatorSEOContent() {
               </li>
               <li>
                 <strong>Does it account for ongoing contributions?</strong> Some calculators only answer &ldquo;have I
-                already hit Coast FIRE,&rdquo; while others project forward with continued monthly contributions — useful
+                already hit Coast FIRE,&rdquo; while others project forward with continued monthly contributions - useful
                 if you&apos;re not there yet.
               </li>
               <li>
@@ -625,7 +625,7 @@ export function CoastFireCalculatorSEOContent() {
             <p>
               If you want a tool that checks all of these boxes without the guesswork, the{" "}
               <a href="/coast-fire-calculator">Coast FIRE Calculator by Toolspy</a> is built specifically around this
-              checklist — it uses inflation-adjusted real returns, lets you toggle between individual and couples inputs,
+              checklist - it uses inflation-adjusted real returns, lets you toggle between individual and couples inputs,
               visualizes your growth trajectory against your target, and shows its underlying formula so you&apos;re never
               left guessing how your number was calculated.
             </p>
@@ -640,7 +640,7 @@ export function CoastFireCalculatorSEOContent() {
                 It <strong>reduces financial anxiety</strong> without requiring extreme frugality.
               </li>
               <li>
-                It allows <strong>career flexibility</strong> — switching to lower-stress roles once your number is hit.
+                It allows <strong>career flexibility</strong> - switching to lower-stress roles once your number is hit.
               </li>
               <li>
                 It supports <strong>family planning</strong>, since one partner can scale back work once the household
@@ -694,7 +694,7 @@ export function CoastFireCalculatorSEOContent() {
                       <strong>Lean FIRE</strong>
                     </td>
                     <td>No</td>
-                    <td>N/A — fully retired</td>
+                    <td>N/A - fully retired</td>
                     <td>Minimalists comfortable with a lower spending retirement</td>
                   </tr>
                   <tr>
@@ -702,7 +702,7 @@ export function CoastFireCalculatorSEOContent() {
                       <strong>Fat FIRE</strong>
                     </td>
                     <td>No</td>
-                    <td>N/A — fully retired</td>
+                    <td>N/A - fully retired</td>
                     <td>Those wanting a retirement with a larger, more flexible budget</td>
                   </tr>
                   <tr>
@@ -710,7 +710,7 @@ export function CoastFireCalculatorSEOContent() {
                       <strong>Full FIRE</strong>
                     </td>
                     <td>No</td>
-                    <td>N/A — fully retired</td>
+                    <td>N/A - fully retired</td>
                     <td>Standard early retirement at a moderate, sustainable spending level</td>
                   </tr>
                 </tbody>
@@ -778,7 +778,7 @@ export function CoastFireCalculatorSEOContent() {
 
             <h2 id="action-plan">Building Your Coast Fire Action Plan</h2>
             <p>
-              A calculator gives you a number — but turning that number into reality takes a plan. Here&apos;s a
+              A calculator gives you a number - but turning that number into reality takes a plan. Here&apos;s a
               practical framework to follow.
             </p>
             <img
@@ -809,12 +809,12 @@ export function CoastFireCalculatorSEOContent() {
               </li>
               <li>
                 <strong>Plan your &ldquo;coast trigger.&rdquo;</strong> Decide in advance what you&apos;ll do once you
-                hit your number — reduce hours, switch careers, or simply enjoy less financial pressure at your current
+                hit your number - reduce hours, switch careers, or simply enjoy less financial pressure at your current
                 job.
               </li>
               <li>
                 <strong>Keep an emergency fund separate.</strong> Your Coast FIRE number should reflect{" "}
-                <em>invested</em> retirement assets only — not your emergency savings or short-term cash reserves.
+                <em>invested</em> retirement assets only - not your emergency savings or short-term cash reserves.
               </li>
             </ol>
 
@@ -876,7 +876,7 @@ export function getCoastFireCalculatorFAQs() {
     {
       question: "Which is better: Coast FIRE or full FIRE?",
       answer:
-        "Neither is universally \"better\" — it depends on your goals. Full FIRE means retiring completely early, while Coast FIRE offers more flexibility, letting you reduce work stress or income while still reaching financial independence by traditional retirement age.",
+        "Neither is universally \"better\" - it depends on your goals. Full FIRE means retiring completely early, while Coast FIRE offers more flexibility, letting you reduce work stress or income while still reaching financial independence by traditional retirement age.",
     },
     {
       question: "Should I include Social Security in my coast fire calculator inputs?",

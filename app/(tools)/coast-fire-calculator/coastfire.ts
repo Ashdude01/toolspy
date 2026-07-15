@@ -1,4 +1,4 @@
-// Coast FIRE math engine — all values in today's (real) money.
+// Coast FIRE math engine - all values in today's (real) money.
 
 export type Region = "us" | "uk";
 

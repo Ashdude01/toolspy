@@ -1,7 +1,7 @@
-// Self-contained share-card generator for Coast FIRE results.
-// Builds a standalone SVG (no external CSS/fonts), rasterizes it to PNG via
-// <canvas>, and can wrap that PNG into a PDF using jsPDF (already a dependency).
-// The card is always light-themed — that's the expected look for a shared image.
+// Builds the Coast FIRE "share card" as a standalone SVG (no external
+// CSS/fonts) - always light-themed, the expected look for a shared image.
+// Rasterizing to PNG / PDF and downloading is handled generically by the
+// shared <ShareMenu> component and lib/share-export.
 
 import type { CoastInputs, CoastResult, Region } from "./coastfire";
 import { fmtMoney } from "./coastfire";
@@ -103,7 +103,7 @@ export function buildShareCardSVG(inp: CoastInputs, res: CoastResult, region: Re
 
   <!-- header -->
   <text x="56" y="70" font-size="30" font-weight="800" fill="${INK}">Coast FIRE Calculator</text>
-  <text x="56" y="98" font-size="16" fill="${SUB}">Results in today's money — inflation already accounted for.</text>
+  <text x="56" y="98" font-size="16" fill="${SUB}">Results in today's money - inflation already accounted for.</text>
   <g transform="translate(${CARD_W - 56}, 56)">
     <rect x="-118" y="-24" width="118" height="34" rx="17" fill="${PANEL}" stroke="${BORDER}" />
     <text x="-59" y="-2" text-anchor="middle" font-size="16" font-weight="700" fill="${INK}">${esc(cur)}</text>
@@ -117,7 +117,7 @@ export function buildShareCardSVG(inp: CoastInputs, res: CoastResult, region: Re
   <rect x="56" y="250" width="${barW}" height="14" rx="7" fill="${PANEL}" stroke="${BORDER}" />
   <rect x="56" y="250" width="${((barW * progressPct) / 100).toFixed(1)}" height="14" rx="7" fill="${GREEN}" />
   <text x="56" y="292" font-size="17" fill="${SUB}">You're <tspan font-weight="700" fill="${INK}">${pct}%</tspan> of the way there${
-    res.coastAchieved ? " — Coast FIRE reached." : ` — ${esc(fmtMoney(res.shortfallToday, region))} to go.`
+    res.coastAchieved ? " - Coast FIRE reached." : ` - ${esc(fmtMoney(res.shortfallToday, region))} to go.`
   }</text>
 
   <!-- stat tiles (left column) -->
@@ -135,53 +135,4 @@ export function buildShareCardSVG(inp: CoastInputs, res: CoastResult, region: Re
   <text x="56" y="636" font-size="16" font-weight="700" fill="${INK}">toolspy.net/coast-fire-calculator</text>
   <text x="${CARD_W - 56}" y="636" text-anchor="end" font-size="15" fill="${SUB}">Generated ${esc(dateStr)} · educational estimate, not financial advice</text>
 </svg>`;
-}
-
-/** Rasterize an SVG string to a PNG data URL using an offscreen canvas. */
-export function svgToPngDataUrl(svg: string, scale = 2): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const blob = new Blob([svg], { type: "image/svg+xml;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const img = new Image();
-    img.onload = () => {
-      try {
-        const canvas = document.createElement("canvas");
-        canvas.width = CARD_W * scale;
-        canvas.height = CARD_H * scale;
-        const ctx = canvas.getContext("2d");
-        if (!ctx) throw new Error("Canvas 2D context unavailable");
-        ctx.fillStyle = "#ffffff";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-        resolve(canvas.toDataURL("image/png"));
-      } catch (e) {
-        reject(e);
-      } finally {
-        URL.revokeObjectURL(url);
-      }
-    };
-    img.onerror = () => {
-      URL.revokeObjectURL(url);
-      reject(new Error("Failed to render share image"));
-    };
-    img.src = url;
-  });
-}
-
-/** Trigger a browser download for a data URL. */
-export function downloadDataUrl(dataUrl: string, filename: string): void {
-  const a = document.createElement("a");
-  a.href = dataUrl;
-  a.download = filename;
-  document.body.appendChild(a);
-  a.click();
-  a.remove();
-}
-
-/** Build a single-page PDF (landscape, card-sized) from a PNG data URL via jsPDF. */
-export async function pngToPdf(pngDataUrl: string, filename: string): Promise<void> {
-  const { jsPDF } = await import("jspdf");
-  const doc = new jsPDF({ orientation: "landscape", unit: "px", format: [CARD_W, CARD_H] });
-  doc.addImage(pngDataUrl, "PNG", 0, 0, CARD_W, CARD_H);
-  doc.save(filename);
 }

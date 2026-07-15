@@ -11,7 +11,7 @@ export interface TocItem {
 /** Sticky table of contents: left sidebar on desktop, collapsible accordion on phone/tablet. */
 export function Toc({ items }: { items: TocItem[] }) {
   const [active, setActive] = React.useState<string>(items[0]?.id ?? "");
-  const [open, setOpen] = React.useState(false); // phone/tablet accordion — closed by default
+  const [open, setOpen] = React.useState(false);
 
   React.useEffect(() => {
     const observer = new IntersectionObserver(
@@ -40,7 +40,7 @@ export function Toc({ items }: { items: TocItem[] }) {
       >
         <summary className="flex cursor-pointer list-none bg-muted items-center justify-between gap-4 px-4 py-3 [&::-webkit-details-marker]:hidden">
           <h3 className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-          Table of Contents
+            Table of Contents
           </h3>
           <span className="relative h-4 w-4 shrink-0 text-primary" aria-hidden>
             <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded bg-current" />

@@ -4,7 +4,7 @@ import * as React from "react";
 import type { Region, YearPoint } from "./coastfire";
 import { fmtMoney } from "./coastfire";
 
-// dataviz palette — saturated line colors that read on both light and dark themes.
+// dataviz palette - saturated line colors that read on both light and dark themes.
 const C = {
   contrib: "#2563eb", // blue-600
   coast: "#16a34a",   // green-600

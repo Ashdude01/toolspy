@@ -3,13 +3,8 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { LoveCalculatorSEOContent } from './seo-content'
 
-// Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('love-calculator')
 
-/**
- * Force static generation so this route is pre-rendered at build time.
- * That way the full HTML (including SEO content) is in the initial document and view-source.
- */
 export const dynamic = 'force-static'
 
 function LoveCalculatorPageFallback() {
@@ -25,14 +20,10 @@ export default function LoveCalculatorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="love-calculator">
-      {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
-
       <Suspense fallback={<LoveCalculatorPageFallback />}>
-
         {children}
-
       </Suspense>
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+      <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
         <LoveCalculatorSEOContent />
       </div>
     </DynamicToolLayout>
