@@ -3,8 +3,8 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { AIImageEnhancerSEOContent } from './seo-content'
 
-// Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('ai-image-enhancer')
+
 /** Force static generation so this route is pre-rendered at build time. */
 export const dynamic = 'force-static'
 
@@ -21,14 +21,10 @@ export default function AiImageEnhancerLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="ai-image-enhancer">
-      {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
-
       <Suspense fallback={<AiImageEnhancerPageFallback />}>
-
         {children}
-
       </Suspense>
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+      <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
         <AIImageEnhancerSEOContent />
       </div>
     </DynamicToolLayout>

@@ -70,7 +70,7 @@ function Content() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-4xl">
+    <div id="tool" className="container mx-auto scroll-mt-24 px-4 py-8 max-w-4xl">
       <div className="text-center mb-8 space-y-3">
         <Badge variant="outline">Free • No watermark</Badge>
         <h2 className="text-3xl font-bold">YouTube Thumbnail Downloader</h2>

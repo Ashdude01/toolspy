@@ -4,6 +4,7 @@ import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dyn
 import { YouTubeThumbnailDownloaderSEOContent } from './seo-content'
 
 export const metadata: Metadata = generateToolMetadata('youtube-thumbnail-downloader')
+
 /** Force static generation so this route is pre-rendered at build time. */
 export const dynamic = 'force-static'
 
@@ -13,21 +14,19 @@ function YouTubeThumbnailDownloaderPageFallback() {
   )
 }
 
-export default function YouTubeThumbnailDownloaderLayout({ children }: { children: React.ReactNode }) {
+export default function YouTubeThumbnailDownloaderLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <DynamicToolLayout toolSlug="youtube-thumbnail-downloader">
-      {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
-
       <Suspense fallback={<YouTubeThumbnailDownloaderPageFallback />}>
-
         {children}
-
       </Suspense>
-      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+      <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
         <YouTubeThumbnailDownloaderSEOContent />
       </div>
     </DynamicToolLayout>
   )
 }
-
-

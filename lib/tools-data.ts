@@ -1173,10 +1173,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'AI Image Enhancer',
-      title: 'AI Image Enhancer – Upscale, Unblur & Restore Photos | Toolspy',
+      title: 'Free AI Image Enhancer - Upscale & Sharpen Photos | Toolspy',
       slug: '/ai-image-enhancer',
-      description: "Upscale a blurry or low-res photo. Unblur, restore old pics, or colorize black and white. AI does the work. Try it and see.",
-      tags: ['ai image enhancer', 'upscale image', 'unblur photo', 'restore old photo', 'colorize photo', 'image upscaler']
+      description: "Enhance any image with AI in one click using Toolspy. Free online tool to upscale, sharpen, and fix photos - no signup. Start enhancing today",
+      tags: ['ai image enhancer', 'ai image enhancer free', 'upscale image', 'sharpen photo', 'image enhancer ai', 'online ai image enhancer', 'ai enhance image free']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/ai-image-enhancer_yv5fc9.png'
   },
@@ -1255,10 +1255,10 @@ export const tools: Tool[] = [
     status: 'active',
     seo: generateSEO({
       name: 'YouTube Thumbnail Downloader',
-      title: 'YouTube Thumbnail Downloader – Get Thumbnails in HD | Toolspy',
+      title: 'Free YouTube Thumbnail Downloader HD & 4K | Toolspy',
       slug: '/youtube-thumbnail-downloader',
-      description: "Paste a YouTube link and get the thumbnail in max res (or HD/SD). Good for thumbnails, previews or saving the image.",
-      tags: ['youtube thumbnail downloader', 'download youtube thumbnail', 'get youtube thumbnail', 'youtube thumbnail max resolution']
+      description: "Toolspy's free YouTube Thumbnail Downloader saves any thumbnail in HD & 4K. Paste the link and download in seconds no signup, no watermark. Try now.",
+      tags: ['youtube thumbnail downloader', 'youtube thumbnail downloader hd', 'download youtube thumbnail', 'youtube video thumbnail downloader', 'thumbnail downloader youtube', 'free youtube thumbnail download']
     }),
     posterImage: 'https://res.cloudinary.com/drby9raee/image/upload/YouTube_Thumbnail_Downloader_awcnhy.webp'
   },
