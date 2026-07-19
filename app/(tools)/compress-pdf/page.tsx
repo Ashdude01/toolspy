@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { Loader2 } from "lucide-react";

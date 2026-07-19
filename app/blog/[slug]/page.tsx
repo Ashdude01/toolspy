@@ -8,9 +8,9 @@ import { blogPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-data';
 import { limitTitle, limitDescription } from '@/lib/utils/seo';
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateStaticParams() {
@@ -20,7 +20,8 @@ export async function generateStaticParams() {
 export const dynamicParams = false;
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
-  const post = getBlogPostBySlug(params.slug);
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
   if (!post) {
     return {
       title: 'Post Not Found | Toolspy',
@@ -58,8 +59,9 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogPostPage({ params }: BlogPostPageProps) {
-  const post = getBlogPostBySlug(params.slug);
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getBlogPostBySlug(slug);
   if (!post) notFound();
 
   const url = `https://toolspy.net/blog/${post.slug}/`;

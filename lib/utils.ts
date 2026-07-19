@@ -11,7 +11,7 @@ export function cn(...inputs: ClassValue[]) {
  * @param headerOffset - Offset for sticky header (default: 80px)
  */
 export function scrollToElement(
-  element: HTMLElement | React.RefObject<HTMLElement>, 
+  element: HTMLElement | React.RefObject<HTMLElement | null>, 
   headerOffset: number = 80
 ) {
   // Check if we're on the client side

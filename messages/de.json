@@ -1,0 +1,49 @@
+{
+  "common": {
+    "home": "Startseite",
+    "tools": "Tools",
+    "allTools": "Alle Tools",
+    "blog": "Blog",
+    "about": "Über uns",
+    "contact": "Kontakt",
+    "search": "Suchen",
+    "language": "Sprache",
+    "categories": "Kategorien",
+    "help": "Hilfe",
+    "privacy": "Datenschutz",
+    "terms": "Nutzungsbedingungen"
+  },
+  "toolPage": {
+    "howToUse": "Anleitung",
+    "faq": "Häufig gestellte Fragen",
+    "features": "Funktionen",
+    "relatedTools": "Ähnliche Tools",
+    "free": "Kostenlos",
+    "noSignup": "Keine Anmeldung erforderlich",
+    "privacyNote": "Ihre Dateien werden in Ihrem Browser verarbeitet und niemals auf unsere Server hochgeladen.",
+    "similarTools": "Ähnliche Tools, die Ihnen gefallen könnten",
+    "tableOfContents": "Inhaltsverzeichnis",
+    "disclaimer": "Haftungsausschluss"
+  },
+  "actions": {
+    "download": "Herunterladen",
+    "downloadAll": "Alle herunterladen",
+    "upload": "Hochladen",
+    "convert": "Konvertieren",
+    "compress": "Komprimieren",
+    "copy": "Kopieren",
+    "copied": "Kopiert!",
+    "reset": "Zurücksetzen",
+    "calculate": "Berechnen",
+    "generate": "Generieren",
+    "share": "Teilen",
+    "selectFile": "Datei auswählen",
+    "dragDrop": "Dateien hierher ziehen oder klicken",
+    "processing": "Wird verarbeitet…",
+    "done": "Fertig",
+    "tryAgain": "Erneut versuchen",
+    "remove": "Entfernen",
+    "preview": "Vorschau",
+    "settings": "Einstellungen"
+  }
+}

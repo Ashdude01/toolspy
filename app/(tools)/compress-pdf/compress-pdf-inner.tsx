@@ -214,6 +214,7 @@ function CompressPdfContent() {
 
             if (context) {
               await page.render({
+                canvas,
                 canvasContext: context,
                 viewport: viewport,
               }).promise;
@@ -256,7 +257,8 @@ function CompressPdfContent() {
 
           if (context) {
             await page.render({
-              canvasContext: context,
+              canvas,
+                canvasContext: context,
               viewport: viewport,
             }).promise;
 

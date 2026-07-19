@@ -166,6 +166,7 @@ function PdfToImageContent() {
             // Render page
             if (context) {
               await page.render({
+                canvas,
                 canvasContext: context,
                 viewport: viewport,
               }).promise;

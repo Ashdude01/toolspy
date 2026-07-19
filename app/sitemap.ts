@@ -1,6 +1,7 @@
 import { MetadataRoute } from 'next';
 import { tools, toolCategories, ToolCategory } from '@/lib/tools-data';
 import { blogPosts } from '@/lib/blog-data';
+import { PUBLISHED_LOCALES } from '@/lib/i18n/locales';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://toolspy.net';
@@ -147,10 +148,30 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
+  // Localized pages — sirf PUBLISHED locales ke liye (lib/i18n/locales.ts).
+  // Jab tak koi locale publish nahi hai, sitemap bilkul pehle jaisa rehta hai.
+  const localizedPages: MetadataRoute.Sitemap = PUBLISHED_LOCALES.flatMap((locale) => [
+    {
+      url: `${baseUrl}/${locale}`,
+      lastModified: new Date(),
+      changeFrequency: 'daily' as const,
+      priority: 0.9,
+    },
+    ...tools
+      .filter((tool) => tool.status === 'active')
+      .map((tool) => ({
+        url: `${baseUrl}/${locale}${tool.path}`,
+        lastModified: new Date(),
+        changeFrequency: 'weekly' as const,
+        priority: 0.85,
+      })),
+  ]);
+
   const all: MetadataRoute.Sitemap = [
     ...staticPages,
     ...categoryPages,
     ...toolPages,
+    ...localizedPages,
     ...extensionPages,
     ...blogPages,
   ];

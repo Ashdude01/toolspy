@@ -1,5 +1,8 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+/* ESM me convert kiya — package.json me "type": "module" hai (Payload requirement) */
+import tailwindcssAnimate from 'tailwindcss-animate'
+
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
@@ -87,5 +90,5 @@ module.exports = {
   		}
   	}
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [tailwindcssAnimate],
 } 

@@ -11,6 +11,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
+import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import {
   toolCategories,
   getToolsByCategory,
@@ -297,6 +298,8 @@ export function Header({ onSearch }: HeaderProps) {
 
             {/* Right Side Actions */}
             <div className="flex items-center space-x-2">
+              {/* Language Switcher — tab dikhta hai jab pehla locale PUBLISHED ho */}
+              <LanguageSwitcher />
               {/* Theme Toggle */}
               <Button
                 variant="ghost"

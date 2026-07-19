@@ -3,6 +3,7 @@ import { getToolBySlug } from '@/lib/tools-data'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ToolSchemas } from '../seo/schema-manager'
 import { createFullUrl } from '@/lib/utils/metadata'
+import { ALL_LOCALES, PUBLISHED_LOCALES } from '@/lib/i18n/locales'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
@@ -57,6 +58,23 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     },
     alternates: {
       canonical: tool.seo.canonicalUrl,
+      // hreflang — sirf jab locales publish hon (dono taraf ka pairing zaroori hai)
+      ...(PUBLISHED_LOCALES.length > 0
+        ? {
+            languages: {
+              'x-default': tool.seo.canonicalUrl,
+              en: tool.seo.canonicalUrl,
+              ...Object.fromEntries(
+                PUBLISHED_LOCALES.flatMap((code) => {
+                  const info = ALL_LOCALES[code]
+                  return info
+                    ? [[info.hreflang, `https://toolspy.net/${code}${tool.slug}/`]]
+                    : []
+                })
+              ),
+            },
+          }
+        : {}),
     },
   }
 }
