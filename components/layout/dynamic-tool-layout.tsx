@@ -67,8 +67,11 @@ export function generateToolMetadata(toolSlug: string): Metadata {
               ...Object.fromEntries(
                 PUBLISHED_LOCALES.flatMap((code) => {
                   const info = ALL_LOCALES[code]
+                  // tool.slug me kabhi leading slash hota hai kabhi nahi —
+                  // normalize karke hamesha /de/<slug>/ banao
+                  const cleanSlug = tool.slug.replace(/^\/+/, '')
                   return info
-                    ? [[info.hreflang, `https://toolspy.net/${code}${tool.slug}/`]]
+                    ? [[info.hreflang, `https://toolspy.net/${code}/${cleanSlug}/`]]
                     : []
                 })
               ),
