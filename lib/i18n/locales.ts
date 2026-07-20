@@ -55,18 +55,39 @@ export const ALL_LOCALES: Record<string, LocaleInfo> = {
 }
 
 /**
- * Jin locales ke pages build hote hain (English ke alawa).
- * Abhi sirf 'de' — pilot/testing ke liye. Content ready hone par aur add karo.
+ * Jin locales ke pages BUILD hote hain (English ke alawa).
+ * Ye locales header ke language switcher me bhi dikhte hain (iLovePDF-style).
+ *
+ * Ye pages noindex rehte hain jab tak locale PUBLISHED_LOCALES me na aaye —
+ * isliye inhe yahan add karna 100% SEO-safe hai (Google inhe rank nahi karta).
+ * Content jaise-jaise Payload me bharta jaye, locale ko PUBLISHED me move karo.
  */
-export const ROUTABLE_LOCALES: string[] = ['de']
+export const ROUTABLE_LOCALES: string[] = [
+  'de', // German
+  'ru', // Russian
+  'id', // Indonesian
+  'ja', // Japanese
+  'es', // Spanish
+  'nl', // Dutch
+  'ar', // Arabic (RTL)
+]
 
 /**
  * Jin locales ke pages LIVE/indexable hain — sitemap, hreflang aur robots-index
  * sirf inke liye on hota hai. Jab tak locale yahan nahi hai, uske pages
  * noindex rehte hain (duplicate-content ka zero risk).
- * German content ready + reviewed hone par: ['de']
+ *
+ * Launch karne ka tarika: content ready + reviewed → locale ko yahan add karo.
+ * Abhi khali = kuchh bhi indexable nahi, sirf build hota hai.
  */
 export const PUBLISHED_LOCALES: string[] = []
+
+/**
+ * Header ke language switcher me kaunse locales dikhein.
+ * Default (English) + saare routable locales — taaki user har bhasha par
+ * ja sake (iLovePDF jaisa). Sirf isme se locale hatana ho to yahan se hatao.
+ */
+export const SWITCHER_LOCALES: string[] = [DEFAULT_LOCALE, ...ROUTABLE_LOCALES]
 
 export function isRoutableLocale(locale: string): boolean {
   return ROUTABLE_LOCALES.includes(locale)
