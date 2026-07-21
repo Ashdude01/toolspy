@@ -3,7 +3,8 @@ import { getToolBySlug } from '@/lib/tools-data'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ToolSchemas } from '../seo/schema-manager'
 import { createFullUrl } from '@/lib/utils/metadata'
-import { ALL_LOCALES, PUBLISHED_LOCALES } from '@/lib/i18n/locales'
+import { ALL_LOCALES, PUBLISHED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
+import { getToolContent } from '@/lib/payload/get-tool-content'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
@@ -82,24 +83,20 @@ export function generateToolMetadata(toolSlug: string): Metadata {
   }
 }
 
-// Dynamic tool layout component with enhanced schema support
-export function DynamicToolLayout({ 
-  toolSlug, 
+// Dynamic tool layout component with enhanced schema support.
+// ASYNC (server component): CMS me customSchema hai to WAHI render hota hai,
+// warna existing automatic ToolSchemas chalta hai. DB down/khali → automatic
+// (getToolContent gracefully null return karta hai). English pages ke liye
+// locale default 'en'; localized pages apna locale pass karte hain.
+export async function DynamicToolLayout({
+  toolSlug,
   children,
-  faqs,
-  reviews
-}: { 
+  locale = DEFAULT_LOCALE,
+}: {
   toolSlug: string
-  children: React.ReactNode 
-  faqs?: Array<{
-    question: string
-    answer: string
-  }>
-  reviews?: Array<{
-    author: string
-    rating: number
-    text: string
-  }>
+  children: React.ReactNode
+  locale?: string
+  // (faqs/reviews props hataye — unused the; ToolSchemas tool-data se khud leta hai)
 }) {
   const tool = getToolBySlug(toolSlug)
 
@@ -107,17 +104,39 @@ export function DynamicToolLayout({
     return children
   }
 
+  // CMS custom schema check (cached — koi extra runtime cost nahi)
+  let customSchema: unknown = null
+  try {
+    const doc = await getToolContent(toolSlug, locale)
+    if (doc?.customSchema && isNonEmptySchema(doc.customSchema)) {
+      customSchema = doc.customSchema
+    }
+  } catch {
+    // ignore — automatic schema fallback
+  }
+
   return (
     <>
-      {/* Enhanced Schema Markup */}
-      <ToolSchemas 
-        tool={tool}
-        includeReviews={true}
-        includeFAQ={true}
-      />
+      {customSchema ? (
+        // CMS ka custom JSON-LD — automatic band
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(customSchema) }}
+        />
+      ) : (
+        // Default: automatic schema generation (jaisa abhi chal raha hai)
+        <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
+      )}
       {children}
     </>
   )
+}
+
+// customSchema tabhi valid maano jab wo non-empty object ya array ho
+function isNonEmptySchema(v: unknown): boolean {
+  if (Array.isArray(v)) return v.length > 0
+  if (v && typeof v === 'object') return Object.keys(v as object).length > 0
+  return false
 }
 
 // Component is already exported above 

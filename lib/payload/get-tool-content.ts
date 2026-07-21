@@ -24,6 +24,8 @@ export interface ToolContentDoc {
   faqs?: Array<{ question: string; answer: string }> | null
   disclaimer?: string | null
   keywords?: string | null
+  /** Custom JSON-LD override (object ya array). Present ho to automatic schema replace karta hai. */
+  customSchema?: unknown
 }
 
 export function getToolContent(

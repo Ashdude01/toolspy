@@ -133,6 +133,20 @@ export const ToolContent: CollectionConfig = {
       localized: true,
       admin: { description: 'Comma-separated meta keywords (optional)' },
     },
+    {
+      name: 'customSchema',
+      type: 'json',
+      admin: {
+        description:
+          'ADVANCED (optional): Custom JSON-LD schema. Agar yahan valid JSON daala, to is tool page par YEHI schema render hoga (automatic wala band ho jayega). Khali chhoda to website khud schema generate karti rahegi (default). Ek object ya objects ka array — dono chalega.',
+      },
+      // Basic validation: valid JSON-LD (object/array) hi allow karo
+      validate: (value: unknown) => {
+        if (value === null || value === undefined || value === '') return true
+        if (typeof value === 'object') return true
+        return 'customSchema ek JSON object ya array hona chahiye (ya khali).'
+      },
+    },
   ],
   hooks: {
     afterChange: [
