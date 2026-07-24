@@ -13,21 +13,24 @@ import { toolSlugs } from '../lib/i18n/tool-slugs'
  *
  * SAFETY: contentSource default 'code' hai — jab tak aap khud 'cms' na karo,
  * page par existing seo-content.tsx hi render hota hai, CMS entry ignore hoti hai.
- * (facebook-image-downloader hamesha 'code' par rahega jab tak aap na badlo.)
  */
 export const ToolContent: CollectionConfig = {
   slug: 'tool-content',
+  labels: {
+    singular: 'Tool Content',
+    plural: 'Tool Content',
+  },
   admin: {
     useAsTitle: 'toolSlug',
     defaultColumns: ['toolSlug', 'contentSource', 'updatedAt'],
-    description:
-      'Tool pages ka SEO content (har language me). contentSource "code" = website par existing hardcoded content dikhta hai; "cms" = yahan ka content dikhta hai.',
+    description: 'SEO content for tool pages.',
+    listSearchableFields: ['toolSlug'],
   },
   versions: {
     drafts: true,
   },
   access: {
-    read: () => true, // published content public hai (frontend build isse padhta hai)
+    read: () => true,
     create: ({ req: { user } }) => Boolean(user),
     update: ({ req: { user } }) => Boolean(user),
     delete: ({ req: { user } }) => Boolean(user),
@@ -35,19 +38,13 @@ export const ToolContent: CollectionConfig = {
   fields: [
     {
       name: 'toolSlug',
-      type: 'text',
+      type: 'select',
       required: true,
       unique: true,
       index: true,
-      validate: (value: unknown) => {
-        if (typeof value !== 'string' || !(toolSlugs as readonly string[]).includes(value)) {
-          return `Unknown tool slug. Valid slugs: lib/i18n/tool-slugs.ts me dekho.`
-        }
-        return true
-      },
+      options: toolSlugs.map((slug) => ({ label: slug, value: slug })),
       admin: {
-        description:
-          'Tool ka URL slug (e.g. "image-compressor"). Sirf registered tools allowed — galat slug save hi nahi hoga.',
+        description: 'Tool URL slug.',
       },
     },
     {
@@ -56,102 +53,132 @@ export const ToolContent: CollectionConfig = {
       required: true,
       defaultValue: 'code',
       options: [
-        { label: 'Code (existing seo-content.tsx) — website par koi change nahi', value: 'code' },
-        { label: 'CMS — neeche ka content website par dikhega', value: 'cms' },
+        { label: 'Code — use file content', value: 'code' },
+        { label: 'CMS — use this editor', value: 'cms' },
       ],
       admin: {
         position: 'sidebar',
-        description:
-          'DHYAN SE: "cms" karne par is tool ke localized pages par yahan ka content render hoga.',
+        description: 'Where the page content comes from.',
       },
     },
-
-    // ---------- LOCALIZED CONTENT (har field har language me alag) ----------
     {
-      name: 'metaTitle',
-      type: 'text',
-      localized: true,
-      admin: { description: 'Page ka <title> (max ~65 chars)' },
-    },
-    {
-      name: 'metaDescription',
-      type: 'textarea',
-      localized: true,
-      admin: { description: 'Meta description (max ~160 chars)' },
-    },
-    {
-      name: 'sections',
-      type: 'array',
-      localized: true,
-      labels: { singular: 'Section', plural: 'Sections' },
-      admin: {
-        description:
-          'Har section = ek h2 heading + body. TOC (left sidebar) in headings se automatic banta hai — coast-fire-calculator jaisa layout.',
-      },
-      fields: [
+      type: 'tabs',
+      tabs: [
         {
-          name: 'anchorId',
-          type: 'text',
-          required: true,
-          admin: { description: 'URL anchor, e.g. "what-is-coast-fire" (lowercase, hyphens)' },
+          label: 'Meta SEO',
+          description: 'Page title, description aur keywords (har language alag)',
+          fields: [
+            {
+              name: 'metaTitle',
+              type: 'text',
+              localized: true,
+              admin: { description: 'Page ka <title> (max ~65 chars)' },
+            },
+            {
+              name: 'metaDescription',
+              type: 'textarea',
+              localized: true,
+              admin: { description: 'Meta description (max ~160 chars)' },
+            },
+            {
+              name: 'keywords',
+              type: 'text',
+              localized: true,
+              admin: { description: 'Comma-separated meta keywords (optional)' },
+            },
+          ],
         },
         {
-          name: 'heading',
-          type: 'text',
-          required: true,
-          admin: { description: 'h2 heading — TOC me bhi yahi dikhega' },
+          label: 'Sections',
+          description:
+            'Har section = ek h2 heading + body. TOC (left sidebar) in headings se automatic banta hai.',
+          fields: [
+            {
+              name: 'sections',
+              type: 'array',
+              localized: true,
+              labels: { singular: 'Section', plural: 'Sections' },
+              admin: {
+                initCollapsed: false,
+              },
+              fields: [
+                {
+                  name: 'anchorId',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'URL anchor, e.g. "what-is-coast-fire" (lowercase, hyphens)',
+                  },
+                },
+                {
+                  name: 'heading',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'h2 heading — TOC me bhi yahi dikhega',
+                  },
+                },
+                {
+                  name: 'body',
+                  type: 'richText',
+                  admin: {
+                    description:
+                      'Paragraphs, h3 sub-headings, lists, bold etc. Images ke liye Cloudinary URL paste karo.',
+                  },
+                },
+              ],
+            },
+          ],
         },
         {
-          name: 'body',
-          type: 'richText',
-          admin: { description: 'Paragraphs, h3 sub-headings, lists, images (Cloudinary URL), bold etc.' },
+          label: 'FAQs',
+          description: 'Page par FAQ section + Google FAQ schema (JSON-LD) dono me jaate hain.',
+          fields: [
+            {
+              name: 'faqs',
+              type: 'array',
+              localized: true,
+              labels: { singular: 'FAQ', plural: 'FAQs' },
+              fields: [
+                { name: 'question', type: 'text', required: true },
+                { name: 'answer', type: 'textarea', required: true },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Extras',
+          description: 'Disclaimer aur advanced schema override',
+          fields: [
+            {
+              name: 'disclaimer',
+              type: 'textarea',
+              localized: true,
+              admin: {
+                description: 'Optional — article ke end me chhota disclaimer box (coast-fire jaisa)',
+              },
+            },
+            {
+              name: 'customSchema',
+              type: 'json',
+              admin: {
+                description:
+                  'ADVANCED (optional): Custom JSON-LD. Valid JSON daalne par automatic schema band ho jayega. Khali chhodo to website khud schema generate karti rahegi.',
+              },
+              validate: (value: unknown) => {
+                if (value === null || value === undefined || value === '') return true
+                if (typeof value === 'object') return true
+                return 'customSchema ek JSON object ya array hona chahiye (ya khali).'
+              },
+            },
+          ],
         },
       ],
-    },
-    {
-      name: 'faqs',
-      type: 'array',
-      localized: true,
-      labels: { singular: 'FAQ', plural: 'FAQs' },
-      admin: {
-        description: 'Page par FAQ section + Google FAQ schema (JSON-LD) dono me jaate hain.',
-      },
-      fields: [
-        { name: 'question', type: 'text', required: true },
-        { name: 'answer', type: 'textarea', required: true },
-      ],
-    },
-    {
-      name: 'disclaimer',
-      type: 'textarea',
-      localized: true,
-      admin: { description: 'Optional — article ke end me chhota disclaimer box (coast-fire jaisa)' },
-    },
-    {
-      name: 'keywords',
-      type: 'text',
-      localized: true,
-      admin: { description: 'Comma-separated meta keywords (optional)' },
-    },
-    {
-      name: 'customSchema',
-      type: 'json',
-      admin: {
-        description:
-          'ADVANCED (optional): Custom JSON-LD schema. Agar yahan valid JSON daala, to is tool page par YEHI schema render hoga (automatic wala band ho jayega). Khali chhoda to website khud schema generate karti rahegi (default). Ek object ya objects ka array — dono chalega.',
-      },
-      // Basic validation: valid JSON-LD (object/array) hi allow karo
-      validate: (value: unknown) => {
-        if (value === null || value === undefined || value === '') return true
-        if (typeof value === 'object') return true
-        return 'customSchema ek JSON object ya array hona chahiye (ya khali).'
-      },
     },
   ],
   hooks: {
     afterChange: [
       async ({ doc }) => {
-        // On-demand ISR: is tool ke saare cached locale pages invalidate
         try {
           const { revalidateTag } = await import('next/cache')
           revalidateTag(`tool-content:${doc.toolSlug}`)

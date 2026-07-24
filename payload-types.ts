@@ -153,7 +153,7 @@ export interface User {
   collection: 'users';
 }
 /**
- * Tool pages ka SEO content (har language me). contentSource "code" = website par existing hardcoded content dikhta hai; "cms" = yahan ka content dikhta hai.
+ * SEO content for tool pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tool-content".
@@ -161,11 +161,101 @@ export interface User {
 export interface ToolContent {
   id: number;
   /**
-   * Tool ka URL slug (e.g. "image-compressor"). Sirf registered tools allowed — galat slug save hi nahi hoga.
+   * Tool URL slug.
    */
-  toolSlug: string;
+  toolSlug:
+    | 'age-calculator'
+    | 'ai-background-remover'
+    | 'ai-color-palette-generator'
+    | 'ai-image-enhancer'
+    | 'ai-resume-builder'
+    | 'ai-writing-tools'
+    | 'app-icon-generator'
+    | 'area-converter'
+    | 'bank-po-rank-predictor'
+    | 'base64-encoder-decoder'
+    | 'base64-to-image'
+    | 'bmi-calculator'
+    | 'cat-percentile-predictor'
+    | 'cgst-sgst-igst-splitter'
+    | 'coast-fire-calculator'
+    | 'code-beautifier'
+    | 'color-palette-generator'
+    | 'color-picker'
+    | 'composition-regular-scheme-estimator'
+    | 'compress-pdf'
+    | 'currency-converter'
+    | 'domain-whois-lookup'
+    | 'e-invoice-qr-validator'
+    | 'ebook-converter'
+    | 'expired-domain-finder'
+    | 'facebook-engagement-calculator'
+    | 'facebook-image-downloader'
+    | 'favicon-generator'
+    | 'file-protector'
+    | 'font-converter'
+    | 'gate-rank-predictor'
+    | 'google-indexing-api'
+    | 'gst-calculator'
+    | 'heic-to-pdf'
+    | 'hsn-sac-finder'
+    | 'image-compressor'
+    | 'image-converter'
+    | 'image-optimizer'
+    | 'image-resizer'
+    | 'image-to-base64'
+    | 'image-to-ico-converter'
+    | 'image-to-pdf'
+    | 'instagram-dp-viewer'
+    | 'instagram-engagement-calculator'
+    | 'instagram-reels-downloader'
+    | 'investment-calculator'
+    | 'itc-calculator'
+    | 'jee-advanced-rank-predictor'
+    | 'jee-main-rank-predictor'
+    | 'jfif-to-jpg'
+    | 'jfif-to-pdf'
+    | 'json-formatter'
+    | 'json-table-converter'
+    | 'length-converter'
+    | 'loan-calculator'
+    | 'love-calculator'
+    | 'markdown-to-docs-converter'
+    | 'media-converter'
+    | 'meme-generator'
+    | 'merge-pdf'
+    | 'mortgage-calculator'
+    | 'neet-rank-predictor'
+    | 'ocr-text-extractor'
+    | 'online-image-cropper'
+    | 'pdf-converter'
+    | 'pdf-password-remover'
+    | 'pdf-to-csv'
+    | 'pdf-to-excel'
+    | 'pdf-to-image'
+    | 'pdf-to-word'
+    | 'penalty-late-fee-calculator'
+    | 'percentage-calculator'
+    | 'pwa-icon-generator'
+    | 'qr-code-generator'
+    | 'retirement-calculator'
+    | 'reverse-gst-calculator'
+    | 'salary-calculator'
+    | 'split-pdf'
+    | 'ssc-cgl-rank-predictor'
+    | 'tax-calculator'
+    | 'temperature-converter'
+    | 'twitter-engagement-calculator'
+    | 'unit-converter'
+    | 'upsc-rank-predictor'
+    | 'volume-converter'
+    | 'website-screenshot'
+    | 'weight-converter'
+    | 'youtube-embed-code-generator'
+    | 'youtube-engagement-calculator'
+    | 'youtube-thumbnail-downloader';
   /**
-   * DHYAN SE: "cms" karne par is tool ke localized pages par yahan ka content render hoga.
+   * Where the page content comes from.
    */
   contentSource: 'code' | 'cms';
   /**
@@ -177,8 +267,9 @@ export interface ToolContent {
    */
   metaDescription?: string | null;
   /**
-   * Har section = ek h2 heading + body. TOC (left sidebar) in headings se automatic banta hai — coast-fire-calculator jaisa layout.
+   * Comma-separated meta keywords (optional)
    */
+  keywords?: string | null;
   sections?:
     | {
         /**
@@ -190,7 +281,7 @@ export interface ToolContent {
          */
         heading: string;
         /**
-         * Paragraphs, h3 sub-headings, lists, images (Cloudinary URL), bold etc.
+         * Paragraphs, h3 sub-headings, lists, bold etc. Images ke liye Cloudinary URL paste karo.
          */
         body?: {
           root: {
@@ -210,9 +301,6 @@ export interface ToolContent {
         id?: string | null;
       }[]
     | null;
-  /**
-   * Page par FAQ section + Google FAQ schema (JSON-LD) dono me jaate hain.
-   */
   faqs?:
     | {
         question: string;
@@ -225,9 +313,17 @@ export interface ToolContent {
    */
   disclaimer?: string | null;
   /**
-   * Comma-separated meta keywords (optional)
+   * ADVANCED (optional): Custom JSON-LD. Valid JSON daalne par automatic schema band ho jayega. Khali chhodo to website khud schema generate karti rahegi.
    */
-  keywords?: string | null;
+  customSchema?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -410,6 +506,7 @@ export interface ToolContentSelect<T extends boolean = true> {
   contentSource?: T;
   metaTitle?: T;
   metaDescription?: T;
+  keywords?: T;
   sections?:
     | T
     | {
@@ -426,7 +523,7 @@ export interface ToolContentSelect<T extends boolean = true> {
         id?: T;
       };
   disclaimer?: T;
-  keywords?: T;
+  customSchema?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

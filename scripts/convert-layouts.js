@@ -32,7 +32,7 @@ function toPascalCase(str) {
 
 // Get all tool directories
 function getToolDirectories() {
-  const toolsDir = path.join(__dirname, '../app/(tools)');
+  const toolsDir = path.join(__dirname, '../app/(frontend)/(tools)');
   const entries = fs.readdirSync(toolsDir, { withFileTypes: true });
   
   return entries
@@ -42,7 +42,7 @@ function getToolDirectories() {
 
 // Convert a single layout file
 function convertLayout(toolSlug) {
-  const layoutPath = path.join(__dirname, `../app/(tools)/${toolSlug}/layout.tsx`);
+  const layoutPath = path.join(__dirname, `../app/(frontend)/(tools)/${toolSlug}/layout.tsx`);
   
   if (fs.existsSync(layoutPath)) {
     const newContent = layoutTemplate(toolSlug);

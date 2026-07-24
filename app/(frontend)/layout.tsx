@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { Inter as headingFont } from 'next/font/google'
 import { Plus_Jakarta_Sans as bodyFont } from 'next/font/google'
-import './globals.css'
+import './../globals.css'
 import { HeaderWithTheme } from '@/components/layout/header-with-theme'
 import { Footer } from '@/components/layout/footer'
 import { PWAWrapper } from '@/components/pwa-wrapper'

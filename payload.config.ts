@@ -31,7 +31,12 @@ export default buildConfig({
     },
   },
   collections: [Users, ToolContent, Posts, Pages],
-  editor: lexicalEditor(),
+  // No Media collection — Upload/Relationship features hatao warna admin richText blank/broken dikh sakta hai.
+  // Images Cloudinary URL se richText me paste karo (current pattern).
+  editor: lexicalEditor({
+    features: ({ defaultFeatures }) =>
+      defaultFeatures.filter((feature) => feature.key !== 'upload' && feature.key !== 'relationship'),
+  }),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),

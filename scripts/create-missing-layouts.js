@@ -30,7 +30,7 @@ function kebabToPascal(str) {
 }
 
 // Get all tool directories
-const toolsDir = path.join(__dirname, '../app/(tools)');
+const toolsDir = path.join(__dirname, '../app/(frontend)/(tools)');
 const toolDirs = fs.readdirSync(toolsDir).filter(dir => {
   const fullPath = path.join(toolsDir, dir);
   return fs.statSync(fullPath).isDirectory() && dir !== 'layout.tsx';
