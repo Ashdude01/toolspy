@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import HomePage from '@/app/page'
+import HomePage from '@/app/(frontend)/page'
 import {
   ALL_LOCALES,
   DEFAULT_LOCALE,
