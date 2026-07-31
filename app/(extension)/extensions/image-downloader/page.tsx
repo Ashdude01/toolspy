@@ -3,11 +3,15 @@ import { FAQSchema, WebPageSchema } from "@/components/seo/comprehensive-schemas
 import { siteConfig } from "@/lib/config";
 import { extensions } from "@/lib/extensions-data";
 import { notFound } from "next/navigation";
+import {
+  getImageDownloaderExtensionFAQs,
+  ImageDownloaderExtensionSEOContent,
+} from "./seo-content";
 
 export const metadata = {
-  title: `Image Downloader Extension | ${siteConfig.name}`,
+  title: `Best Image Downloader Extension — Save Photos Fast & Free | ${siteConfig.name}`,
   description:
-    "Download images from any website. Scan the page, select thumbnails, download selected or as a ZIP, or open selected URLs in Toolspy to compress or convert.",
+    "Download full-resolution images from any page with Toolspy's free image downloader extension. Bulk select, ZIP download, Instagram & Pinterest friendly — no screenshots needed.",
   alternates: {
     canonical: `${siteConfig.url}/extensions/image-downloader`,
   },
@@ -16,6 +20,8 @@ export const metadata = {
 export default function Page() {
   const data = extensions.find((e) => e.slug === "image-downloader");
   if (!data) notFound();
+
+  const faqs = getImageDownloaderExtensionFAQs();
 
   return (
     <>
@@ -29,9 +35,11 @@ export default function Page() {
           { name: "Image Downloader", url: `${siteConfig.url}/extensions/image-downloader` },
         ]}
       />
-      <FAQSchema faqs={data.faqs} />
-      <ExtensionLanding data={data} />
+      <FAQSchema faqs={faqs} />
+      <ExtensionLanding
+        data={data}
+        seoContent={<ImageDownloaderExtensionSEOContent data={data} />}
+      />
     </>
   );
 }
-

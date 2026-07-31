@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import {
@@ -61,14 +62,21 @@ function Stars({ value }: { value: number }) {
   );
 }
 
-export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
+export function ExtensionLanding({
+  data,
+  seoContent,
+}: {
+  data: ExtensionLandingData;
+  /** When set, replaces features/benefits/install/use/about/faq with this block (hero, downloads, reviews stay). */
+  seoContent?: ReactNode;
+}) {
   const avgRating =
     data.reviews.length > 0
       ? data.reviews.reduce((a, r) => a + r.rating, 0) / data.reviews.length
       : null;
 
   return (
-    <article className="mx-auto max-w-6xl px-4 py-10 sm:py-14 space-y-16 sm:space-y-20">
+    <div className={`mx-auto px-4 py-10 sm:py-14 space-y-16 sm:space-y-20 ${seoContent ? "max-w-7xl" : "max-w-6xl"}`}>
       {/* Hero */}
       <section className="grid gap-6 lg:grid-cols-2 items-center">
         <div className="space-y-4">
@@ -188,6 +196,10 @@ export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
         }))}
       />
 
+      {seoContent ? (
+        seoContent
+      ) : (
+        <>
       {/* Features */}
       <section className="space-y-8" id="features">
         <SectionHeader icon={Sparkles} title="Key features" />
@@ -322,6 +334,8 @@ export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
           faqs={data.faqs}
         />
       </section>
+        </>
+      )}
 
       {/* CTA */}
       <section className="pt-4">
@@ -344,7 +358,7 @@ export function ExtensionLanding({ data }: { data: ExtensionLandingData }) {
           </div>
         </div>
       </section>
-    </article>
+    </div>
   );
 }
 

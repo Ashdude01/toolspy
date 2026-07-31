@@ -226,24 +226,64 @@ export const extensions: ExtensionLandingData[] = [
     ],
     faqs: [
       {
-        question: "Does the extension work on every website?",
+        question: "How do I use an image compressor extension?",
         answer:
-          "It works on most pages that expose images normally. Some sites may restrict access or load images in unusual ways.",
+          "Install it from your browser's store, pin it to your toolbar, then either right-click an image to compress it or drag files straight into the extension's popup. Most tools finish the job in a few seconds with nothing else to set up.",
       },
       {
-        question: "Can I compress multiple images at once?",
+        question: "Is an image compressor extension safe?",
         answer:
-          "Yes. You can select images individually or choose all, then compress in a batch.",
+          "Generally, yes, as long as it comes from a reputable source. Check whether it processes images locally or sends them to a server, glance at the permissions it's asking for, and stick to extensions listed on official browser stores with a clear privacy policy.",
       },
       {
-        question: "Does it keep image quality?",
+        question: "Can you compress images without losing quality?",
         answer:
-          "Compression is a trade-off. You can tune quality/settings depending on whether you prioritize size or clarity.",
+          "Yes. Lossless compression reduces file size with zero visible loss, and even moderate lossy compression is usually imperceptible to the eye, especially for anything headed to the web rather than a printer.",
       },
       {
-        question: "Is it free?",
+        question: "What is the best free image compressor extension?",
         answer:
-          "Yes. The extension is designed for a lightweight, quick workflow without requiring an account.",
+          "It depends a bit on your browser and how you work, but look for one with batch support, broad format compatibility, and no hidden daily cap. Toolspy checks those boxes without asking for a credit card.",
+      },
+      {
+        question: "How do I compress multiple images at once?",
+        answer:
+          "Pick an extension with batch or bulk support, then select or drag in several files together. It applies your chosen settings to the whole group at once instead of making you repeat the process file by file.",
+      },
+      {
+        question: "Why should I compress images before uploading?",
+        answer:
+          "Smaller files upload faster, load quicker for anyone viewing your site or email, use less storage, and are less likely to get rejected by platforms with strict size limits.",
+      },
+      {
+        question: "Should I use an image compressor extension or an online tool?",
+        answer:
+          "An extension is quicker for regular use since it's already built into your browser. An online tool is fine for the occasional one-off, but you're manually visiting a site and uploading a file every single time, which adds up.",
+      },
+      {
+        question: "How do I compress images to a specific file size?",
+        answer:
+          "Look for an extension that lets you enter a target size, like 20KB, directly. It handles the adjustment automatically instead of you guessing at compression percentages.",
+      },
+      {
+        question: "Does an image compressor extension slow down my browser?",
+        answer:
+          "A well-built, lightweight one shouldn't. If you notice real lag after installing an extension, that's usually a sign it's poorly optimized rather than something inherent to compression itself.",
+      },
+      {
+        question: "What image formats can I compress with an extension?",
+        answer:
+          "Most extensions handle JPEG, PNG, and WebP at minimum, and some cover GIF as well. It's worth checking the listing before assuming a specific format is supported.",
+      },
+      {
+        question: "How should I compress images for my website?",
+        answer:
+          "Compress before uploading rather than after, lean on WebP where your platform supports it, and pick a moderate compression setting that balances file size against visual quality.",
+      },
+      {
+        question: "Should I use a free or paid image compressor extension?",
+        answer:
+          "Free versions handle most everyday needs just fine, including basic batch compression. Paid tiers only really make sense if you need unlimited bulk processing, priority speed, or dedicated support at scale.",
       },
     ],
   },
@@ -630,24 +670,79 @@ export const extensions: ExtensionLandingData[] = [
     ],
     faqs: [
       {
-        question: "Does it work on every website?",
+        question: "How do I download images with a Chrome extension?",
         answer:
-          "It works on most pages, but some sites restrict access or load images in ways that are hard to detect.",
+          "Install the extension from the Chrome Web Store, pin it to your toolbar, then click it on any page to see all available images. Select the ones you want and download them individually or as a batch, whichever the situation calls for.",
       },
       {
-        question: "Can I download images as a ZIP?",
+        question: "What is the best image downloader extension?",
         answer:
-          "Yes. Select multiple images and use Download ZIP.",
+          "The best option depends on your needs, but look for full-resolution downloads, real bulk support, and broad format compatibility. Toolspy covers all three without a paywall, which makes it a strong default choice for most people.",
       },
       {
-        question: "Can I compress images after downloading?",
+        question: "Is there a completely free image downloader extension?",
         answer:
-          "Yes. You can open selected image URLs in Toolspy to compress or convert as a next step.",
+          "Yes — several extensions offer full functionality at no cost, without limiting you to a handful of downloads before asking for payment or an upgrade.",
       },
       {
-        question: "Does the tool store my browsing data?",
+        question: "How do I download multiple images at once?",
         answer:
-          "No. It scans the current page for images for the purpose of download and selection, and does not require an account.",
+          "Look for an extension with bulk or batch selection. Most let you check the images you want from a gallery view and download them all together, often as a single zipped file for convenience.",
+      },
+      {
+        question: "Can I bulk download images from a website?",
+        answer:
+          "Yes, as long as the extension supports bulk or batch downloading. It will typically scan the entire page, list every image found, and let you select and save several at once instead of one by one.",
+      },
+      {
+        question: "Is an image downloader extension safe to use?",
+        answer:
+          "Generally yes, provided it's from an official browser store and only requests permissions relevant to viewing and saving images. Avoid anything asking for broader access than that, and check reviews before installing.",
+      },
+      {
+        question: "Which is the fastest image downloader extension?",
+        answer:
+          "Speed usually comes down to how efficiently an extension handles bulk selections rather than downloading one file at a time in sequence. Lightweight, well-optimized extensions noticeably outperform bloated ones on this front.",
+      },
+      {
+        question: "How do I download full resolution or HD images?",
+        answer:
+          "Use an extension that pulls the original source file rather than a page thumbnail. Good tools will show you the actual image dimensions before you download, confirming you're getting the full-size version and not a compressed copy.",
+      },
+      {
+        question: "Can I download images from Instagram with an extension?",
+        answer:
+          "Yes, with an extension built to handle Instagram's dynamic loading. It needs to detect new images as you scroll rather than only scanning what's visible when the page first loads.",
+      },
+      {
+        question: "Can I download images from Pinterest with an extension?",
+        answer:
+          "Yes — a good extension will pull the full original image a pin links to, rather than the smaller preview shown in Pinterest's grid layout, which is usually much lower resolution.",
+      },
+      {
+        question: "Does an image downloader extension slow down my browser?",
+        answer:
+          "A well-built, lightweight one shouldn't. If you do notice lag after installing one, that usually points to poor optimization rather than something inherent to the task itself.",
+      },
+      {
+        question: "How do I use an image downloader extension easily?",
+        answer:
+          "Install it, pin it to your toolbar, and click it on any page with images you want. Most tools are designed to work with no configuration needed beyond that first click.",
+      },
+      {
+        question: "What image formats does an image downloader support?",
+        answer:
+          "Most support JPG, PNG, and WebP at minimum, with some also handling GIF. Check the extension's store listing if you need a specific, less common format before relying on it.",
+      },
+      {
+        question: "Image downloader extension vs. online tool — which is better?",
+        answer:
+          "An extension is generally faster for regular use since it works directly on the page you're viewing. An online tool is fine occasionally, but requires copying a link and switching tabs every single time.",
+      },
+      {
+        question: "Can I download images from any website with an extension?",
+        answer:
+          "Most standard websites work fine. Some platforms with dynamic loading, like social media sites, need an extension specifically built to handle that behavior reliably.",
       },
     ],
   },
