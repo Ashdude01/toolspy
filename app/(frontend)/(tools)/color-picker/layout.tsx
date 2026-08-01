@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ColorPickerSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('color-picker')
@@ -33,7 +34,7 @@ export default function ColorPickerLayout({
 
       </Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ColorPickerSEOContent />
+        <ToolContentSwitch slug="color-picker" codeFallback={<ColorPickerSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

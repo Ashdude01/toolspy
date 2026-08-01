@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { AIWritingToolsSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('ai-writing-tools')
@@ -29,7 +30,7 @@ export default function AiWritingToolsLayout({
 
       </Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <AIWritingToolsSEOContent />
+        <ToolContentSwitch slug="ai-writing-tools" codeFallback={<AIWritingToolsSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

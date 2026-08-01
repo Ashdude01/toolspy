@@ -58,7 +58,8 @@ export const ToolContent: CollectionConfig = {
       ],
       admin: {
         position: 'sidebar',
-        description: 'Where the page content comes from.',
+        description:
+          'REQUIRED to go live: set to "CMS" and Publish. Publish alone is not enough — while this stays "Code", the site keeps hardcoded seo-content.',
       },
     },
     {
@@ -123,7 +124,7 @@ export const ToolContent: CollectionConfig = {
                   type: 'richText',
                   admin: {
                     description:
-                      'Paragraphs, h3 sub-headings, lists, bold etc. Images ke liye Cloudinary URL paste karo.',
+                      'Paragraphs, h3 sub-headings, lists, bold, images, tables, video. Upload images via the toolbar.',
                   },
                 },
               ],
@@ -180,10 +181,21 @@ export const ToolContent: CollectionConfig = {
     afterChange: [
       async ({ doc }) => {
         try {
-          const { revalidateTag } = await import('next/cache')
-          revalidateTag(`tool-content:${doc.toolSlug}`)
-        } catch {
+          const { revalidateTag, revalidatePath } = await import('next/cache')
+          const slug = doc.toolSlug as string
+          // Data cache (unstable_cache in getToolContent)
+          revalidateTag(`tool-content:${slug}`)
+          // Full Route Cache — English layouts use force-static; tag alone is not enough
+          revalidatePath(`/${slug}/`)
+          // Localized tool pages (/de/... etc.) — keep in sync with ROUTABLE_LOCALES
+          const { ROUTABLE_LOCALES, DEFAULT_LOCALE } = await import('../lib/i18n/locales')
+          for (const locale of ROUTABLE_LOCALES) {
+            if (locale === DEFAULT_LOCALE) continue
+            revalidatePath(`/${locale}/${slug}/`)
+          }
+        } catch (err) {
           // payload CLI/seed script context me next/cache available nahi hota — safe ignore
+          console.warn(`[tool-content] revalidate failed for ${doc.toolSlug}:`, err)
         }
         return doc
       },

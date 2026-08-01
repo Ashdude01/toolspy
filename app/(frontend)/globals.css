@@ -1,0 +1,227 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 224 71.4% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 224 71.4% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 224 71.4% 4.1%;
+    --primary: 220.9 39.3% 11%;
+    --primary-foreground: 210 20% 98%;
+    --secondary: 220 14.3% 95.9%;
+    --secondary-foreground: 220.9 39.3% 11%;
+    --muted: 220 14.3% 95.9%;
+    --muted-foreground: #313131;
+    --accent: 220 14.3% 95.9%;
+    --accent-foreground: 220.9 39.3% 11%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 224 71.4% 4.1%;
+    --radius: 0.5rem;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+  }
+
+  .dark {
+    --background: 228.57, 84%, 4.9%;
+    --foreground: 210 20% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    --primary: 210 20% 98%;
+    --primary-foreground: 220.9 39.3% 11%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: #292929;
+    --accent: 215 27.9% 16.9%;
+    --accent-foreground: 210 20% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 20% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 216 12.2% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Fonts: applied via next/font CSS variables (set on <html> in app/layout.tsx).
+   Kept in the static stylesheet (not an inline <style>) so the server and
+   client markup match exactly and there is no hydration mismatch. */
+   *{
+    scroll-behavior: smooth;
+  }
+   body {
+  font-family: var(--font-body);
+}
+p, a, li, ul, ol, blockquote, cite, code, pre, small, strong, sub, sup,
+textarea, input, select, option, button, table, form {
+  font-family: var(--font-body) !important;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading) !important;
+}
+main .container, main .max-w-6xl{
+  @apply !max-w-7xl
+}
+.container{
+  @apply px-4 md:px-6
+}
+h2.text-5xl{
+  @apply text-3xl md:text-4xl;
+  font-size: 2rem;
+  line-height: 1.3;
+}
+
+@media (min-width: 1024px) {
+  h2.text-5xl {
+    font-size: 3rem;
+    line-height: 1.5;
+  }
+}
+
+main img {
+  @apply hover:!scale-100;
+}
+main .max-w-4xl{
+  @apply max-w-full;
+}
+
+.a_ads_container{
+  @apply container max-w-7xl mx-auto bg-transparent px-0;
+}
+
+input{
+  @apply border border-gray-300;
+}
+
+Card{
+  @apply bg-slate-50 dark:bg-slate-900;
+}
+
+h1{
+  @apply !text-4xl md:!text-5xl lg:!text-6xl md:!pb-3;
+}
+
+/* Related tools cards only – do not use .group here to avoid affecting homepage etc. */
+.related-tool-card::before,
+.related-tool-card::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  border-radius: 0.85rem;
+  inset: 0;
+  z-index: 2;
+  transition:
+    opacity 0.44s cubic-bezier(.5,0,.2,1),
+    box-shadow 0.44s cubic-bezier(.4,0,.2,1),
+    border-color 0.3s cubic-bezier(.6,0,.3,1),
+    transform 0.44s cubic-bezier(.4,0,.2,1);
+}
+.related-tool-card::before {
+  border: 2.8px solid transparent;
+  opacity: 0;
+  box-shadow: 0 0 0px 0 #c7d2fe44, 0 5px 22px -6px #a7f3d068;
+  transform: scale(1.01);
+}
+.related-tool-card:hover::before,
+.related-tool-card:focus-visible::before {
+  opacity: 1;
+  box-shadow: 0 3px 40px -9px #a5b4fc44, 0 20px 52px -18px #bae6fd33;
+  border: 2.2px solid #a5b4fc;
+  transform: scale(1.033);
+}
+.related-tool-card::after {
+  border-radius: 0.85rem;
+  opacity: 0;
+  mix-blend-mode: lighten;
+
+  box-shadow: none;
+}
+.related-tool-card:hover::after,
+.related-tool-card:focus-visible::after {
+  opacity: 1;
+  box-shadow: 0 0 30px 4px #bae6fd11;
+}
+.related-tool-card:hover,
+.related-tool-card:focus-visible {
+  transform: translateY(-2px) scale(1.015);
+}
+@media (hover: none) {
+  .related-tool-card:focus-visible {
+    /* no light bg */
+  }
+}
+.related-tool-card .tool-sparkles {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(.65,.01,.22,1);
+}
+.related-tool-card:hover .tool-sparkles,
+.related-tool-card:focus-visible .tool-sparkles {
+  opacity: 0.33;
+}
+@media (prefers-color-scheme: light) {
+  .related-tool-card .tool-sparkles circle {
+    fill: #222 !important;
+    opacity: 0.9 !important;
+    filter: blur(0.5px);
+  }
+}
+
+/* prose styling for tool SEO articles (ToC + long-form layout) */
+.article h2 {
+  @apply text-2xl md:text-3xl font-bold mt-12 mb-4 scroll-mt-28 text-foreground;
+}
+.article h3 {
+  @apply text-xl font-semibold mt-8 mb-3 scroll-mt-28 text-foreground;
+}
+.article p {
+  @apply text-[15px] leading-7 text-muted-foreground mb-4;
+}
+.article ul {
+  @apply list-disc pl-6 mb-4 space-y-2 text-[15px] leading-7 text-muted-foreground;
+}
+.article ol {
+  @apply list-decimal pl-6 mb-4 space-y-2 text-[15px] leading-7 text-muted-foreground;
+}
+.article strong {
+  @apply text-foreground font-semibold;
+}
+.article a {
+  @apply text-foreground underline underline-offset-4 hover:opacity-80;
+}
+.article table {
+  @apply w-full text-sm border-collapse mb-6;
+}
+.article th {
+  @apply text-left font-semibold border-b-2 border-border px-3 py-2 text-foreground;
+}
+.article td {
+  @apply border-b border-border px-3 py-2 text-muted-foreground;
+}
+.formula {
+  @apply block rounded-lg border border-border bg-muted px-4 py-3 font-mono text-sm text-foreground overflow-x-auto mb-4;
+}

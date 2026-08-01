@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { YouTubeThumbnailDownloaderSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 export const metadata: Metadata = generateToolMetadata('youtube-thumbnail-downloader')
 
@@ -25,7 +26,7 @@ export default function YouTubeThumbnailDownloaderLayout({
         {children}
       </Suspense>
       <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
-        <YouTubeThumbnailDownloaderSEOContent />
+        <ToolContentSwitch slug="youtube-thumbnail-downloader" codeFallback={<YouTubeThumbnailDownloaderSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

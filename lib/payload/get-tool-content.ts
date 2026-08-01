@@ -45,7 +45,9 @@ export function getToolContent(
           fallbackLocale: 'en' as any,
           limit: 1,
           draft: false,
-          depth: 0,
+          // depth >= 1 required so Lexical upload nodes get full media docs (url/alt),
+          // not bare IDs — otherwise CMS images render as empty on the frontend.
+          depth: 2,
         })
         return (res.docs[0] as unknown as ToolContentDoc) ?? null
       } catch (err) {
@@ -54,7 +56,7 @@ export function getToolContent(
         return null
       }
     },
-    [`tool-content-${slug}-${locale}`],
+    [`tool-content-${slug}-${locale}-d2`],
     { tags: [`tool-content:${slug}`] }
   )()
 }

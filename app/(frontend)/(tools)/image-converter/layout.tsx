@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ImageConverterSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 // Import seo-content to ensure FAQ registration happens at module load time
 // The module-level registration code executes even though it's a client component
 import './seo-content'
@@ -36,7 +37,7 @@ export default function ImageConverterLayout({
 
       </Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ImageConverterSEOContent />
+        <ToolContentSwitch slug="image-converter" codeFallback={<ImageConverterSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

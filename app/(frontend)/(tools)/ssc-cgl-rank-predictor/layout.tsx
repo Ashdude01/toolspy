@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { SSCCGLRankPredictorSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 export const metadata: Metadata = generateToolMetadata('ssc-cgl-rank-predictor')
 /** Force static generation so this route is pre-rendered at build time. */
@@ -28,7 +29,7 @@ export default function SSCCGLRankPredictorLayout({
 
       </Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <SSCCGLRankPredictorSEOContent />
+        <ToolContentSwitch slug="ssc-cgl-rank-predictor" codeFallback={<SSCCGLRankPredictorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

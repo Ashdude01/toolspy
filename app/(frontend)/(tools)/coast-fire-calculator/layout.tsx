@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { CoastFireCalculatorSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('coast-fire-calculator')
@@ -30,7 +31,7 @@ export default function CoastFireCalculatorLayout({
         {children}
       </Suspense>
       <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
-        <CoastFireCalculatorSEOContent />
+        <ToolContentSwitch slug="coast-fire-calculator" codeFallback={<CoastFireCalculatorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

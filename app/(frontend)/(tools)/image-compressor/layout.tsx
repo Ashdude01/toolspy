@@ -4,6 +4,7 @@ import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dyn
 // Import FAQ loader to ensure FAQ registration happens at module load time (server-side)
 import './faq-loader'
 import { ImageCompressorSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('image-compressor')
@@ -33,7 +34,7 @@ export default function ImageCompressorLayout({
         {children}
       </Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ImageCompressorSEOContent />
+        <ToolContentSwitch slug="image-compressor" codeFallback={<ImageCompressorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

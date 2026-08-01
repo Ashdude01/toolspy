@@ -3,11 +3,15 @@ import { FAQSchema, WebPageSchema } from "@/components/seo/comprehensive-schemas
 import { siteConfig } from "@/lib/config";
 import { extensions } from "@/lib/extensions-data";
 import { notFound } from "next/navigation";
+import {
+  getImageCompressorExtensionFAQs,
+  ImageCompressorExtensionSEOContent,
+} from "./seo-content";
 
 export const metadata = {
-  title: `Image Compressor Extension | ${siteConfig.name}`,
+  title: `Best Image Compressor Extension — Fast, Free Photo Compression | ${siteConfig.name}`,
   description:
-    "Detect images on the current page, select what you need, and compress with presets and advanced options (quality, format, resize, EXIF removal).",
+    "Compress JPEG, PNG, and WebP from your browser with Toolspy's free image compressor extension. One-click, quality-preserving, batch-ready — no upload required.",
   alternates: {
     canonical: `${siteConfig.url}/extensions/image-compressor`,
   },
@@ -16,6 +20,8 @@ export const metadata = {
 export default function Page() {
   const data = extensions.find((e) => e.slug === "image-compressor");
   if (!data) notFound();
+
+  const faqs = getImageCompressorExtensionFAQs();
 
   return (
     <>
@@ -29,9 +35,11 @@ export default function Page() {
           { name: "Image Compressor", url: `${siteConfig.url}/extensions/image-compressor` },
         ]}
       />
-      <FAQSchema faqs={data.faqs} />
-      <ExtensionLanding data={data} />
+      <FAQSchema faqs={faqs} />
+      <ExtensionLanding
+        data={data}
+        seoContent={<ImageCompressorExtensionSEOContent data={data} />}
+      />
     </>
   );
 }
-

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { AIImageEnhancerSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 
 export const metadata: Metadata = generateToolMetadata('ai-image-enhancer')
 
@@ -25,7 +26,7 @@ export default function AiImageEnhancerLayout({
         {children}
       </Suspense>
       <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
-        <AIImageEnhancerSEOContent />
+        <ToolContentSwitch slug="ai-image-enhancer" codeFallback={<AIImageEnhancerSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

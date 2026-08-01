@@ -1,19 +1,19 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import { getToolBySlug } from '@/lib/tools-data'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ToolSchemas } from '../seo/schema-manager'
-import { createFullUrl } from '@/lib/utils/metadata'
 import { ALL_LOCALES, PUBLISHED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
 import { getToolContent } from '@/lib/payload/get-tool-content'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
   const tool = getToolBySlug(toolSlug)
-  
+
   if (!tool) {
     return {
       title: limitTitle('Tool Not Found | Toolspy'),
-      description: limitDescription('The requested tool could not be found.')
+      description: limitDescription('The requested tool could not be found.'),
     }
   }
 
@@ -59,7 +59,6 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     },
     alternates: {
       canonical: tool.seo.canonicalUrl,
-      // hreflang — sirf jab locales publish hon (dono taraf ka pairing zaroori hai)
       ...(PUBLISHED_LOCALES.length > 0
         ? {
             languages: {
@@ -68,8 +67,6 @@ export function generateToolMetadata(toolSlug: string): Metadata {
               ...Object.fromEntries(
                 PUBLISHED_LOCALES.flatMap((code) => {
                   const info = ALL_LOCALES[code]
-                  // tool.slug me kabhi leading slash hota hai kabhi nahi —
-                  // normalize karke hamesha /de/<slug>/ banao
                   const cleanSlug = tool.slug.replace(/^\/+/, '')
                   return info
                     ? [[info.hreflang, `https://toolspy.net/${code}/${cleanSlug}/`]]
@@ -83,12 +80,15 @@ export function generateToolMetadata(toolSlug: string): Metadata {
   }
 }
 
-// Dynamic tool layout component with enhanced schema support.
-// ASYNC (server component): CMS me customSchema hai to WAHI render hota hai,
-// warna existing automatic ToolSchemas chalta hai. DB down/khali → automatic
-// (getToolContent gracefully null return karta hai). English pages ke liye
-// locale default 'en'; localized pages apna locale pass karte hain.
-export async function DynamicToolLayout({
+/**
+ * SYNC layout shell — CMS/Payload await yahan NAHI hota.
+ * Pehle await karne se root layout (header/footer) stream ho jata tha aur
+ * <main> seconds tak khali rehta tha (layout shift).
+ *
+ * children + SEO turant render; customSchema alag Suspense me (JSON-LD only).
+ * Pages ISR/force-static rehte hain — ye SSR shift nahi hai.
+ */
+export function DynamicToolLayout({
   toolSlug,
   children,
   locale = DEFAULT_LOCALE,
@@ -96,7 +96,6 @@ export async function DynamicToolLayout({
   toolSlug: string
   children: React.ReactNode
   locale?: string
-  // (faqs/reviews props hataye — unused the; ToolSchemas tool-data se khud leta hai)
 }) {
   const tool = getToolBySlug(toolSlug)
 
@@ -104,39 +103,43 @@ export async function DynamicToolLayout({
     return children
   }
 
-  // CMS custom schema check (cached — koi extra runtime cost nahi)
-  let customSchema: unknown = null
-  try {
-    const doc = await getToolContent(toolSlug, locale)
-    if (doc?.customSchema && isNonEmptySchema(doc.customSchema)) {
-      customSchema = doc.customSchema
-    }
-  } catch {
-    // ignore — automatic schema fallback
-  }
-
   return (
     <>
-      {customSchema ? (
-        // CMS ka custom JSON-LD — automatic band
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(customSchema) }}
-        />
-      ) : (
-        // Default: automatic schema generation (jaisa abhi chal raha hai)
-        <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
-      )}
+      <Suspense fallback={<ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />}>
+        <CmsSchemaOrDefault tool={tool} toolSlug={toolSlug} locale={locale} />
+      </Suspense>
       {children}
     </>
   )
 }
 
-// customSchema tabhi valid maano jab wo non-empty object ya array ho
+async function CmsSchemaOrDefault({
+  tool,
+  toolSlug,
+  locale,
+}: {
+  tool: NonNullable<ReturnType<typeof getToolBySlug>>
+  toolSlug: string
+  locale: string
+}) {
+  try {
+    const doc = await getToolContent(toolSlug, locale)
+    if (doc?.customSchema && isNonEmptySchema(doc.customSchema)) {
+      return (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(doc.customSchema) }}
+        />
+      )
+    }
+  } catch {
+    // automatic schema fallback
+  }
+  return <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
+}
+
 function isNonEmptySchema(v: unknown): boolean {
   if (Array.isArray(v)) return v.length > 0
   if (v && typeof v === 'object') return Object.keys(v as object).length > 0
   return false
 }
-
-// Component is already exported above 

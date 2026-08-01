@@ -226,24 +226,64 @@ export const extensions: ExtensionLandingData[] = [
     ],
     faqs: [
       {
-        question: "Does the extension work on every website?",
+        question: "How do I use an image compressor extension?",
         answer:
-          "It works on most pages that expose images normally. Some sites may restrict access or load images in unusual ways.",
+          "Install it from your browser's store, pin it to your toolbar, then either right-click an image to compress it or drag files straight into the extension's popup. Most tools finish the job in a few seconds with nothing else to set up.",
       },
       {
-        question: "Can I compress multiple images at once?",
+        question: "Is an image compressor extension safe?",
         answer:
-          "Yes. You can select images individually or choose all, then compress in a batch.",
+          "Generally, yes, as long as it comes from a reputable source. Check whether it processes images locally or sends them to a server, glance at the permissions it's asking for, and stick to extensions listed on official browser stores with a clear privacy policy.",
       },
       {
-        question: "Does it keep image quality?",
+        question: "Can you compress images without losing quality?",
         answer:
-          "Compression is a trade-off. You can tune quality/settings depending on whether you prioritize size or clarity.",
+          "Yes. Lossless compression reduces file size with zero visible loss, and even moderate lossy compression is usually imperceptible to the eye, especially for anything headed to the web rather than a printer.",
       },
       {
-        question: "Is it free?",
+        question: "What is the best free image compressor extension?",
         answer:
-          "Yes. The extension is designed for a lightweight, quick workflow without requiring an account.",
+          "It depends a bit on your browser and how you work, but look for one with batch support, broad format compatibility, and no hidden daily cap. Toolspy checks those boxes without asking for a credit card.",
+      },
+      {
+        question: "How do I compress multiple images at once?",
+        answer:
+          "Pick an extension with batch or bulk support, then select or drag in several files together. It applies your chosen settings to the whole group at once instead of making you repeat the process file by file.",
+      },
+      {
+        question: "Why should I compress images before uploading?",
+        answer:
+          "Smaller files upload faster, load quicker for anyone viewing your site or email, use less storage, and are less likely to get rejected by platforms with strict size limits.",
+      },
+      {
+        question: "Should I use an image compressor extension or an online tool?",
+        answer:
+          "An extension is quicker for regular use since it's already built into your browser. An online tool is fine for the occasional one-off, but you're manually visiting a site and uploading a file every single time, which adds up.",
+      },
+      {
+        question: "How do I compress images to a specific file size?",
+        answer:
+          "Look for an extension that lets you enter a target size, like 20KB, directly. It handles the adjustment automatically instead of you guessing at compression percentages.",
+      },
+      {
+        question: "Does an image compressor extension slow down my browser?",
+        answer:
+          "A well-built, lightweight one shouldn't. If you notice real lag after installing an extension, that's usually a sign it's poorly optimized rather than something inherent to compression itself.",
+      },
+      {
+        question: "What image formats can I compress with an extension?",
+        answer:
+          "Most extensions handle JPEG, PNG, and WebP at minimum, and some cover GIF as well. It's worth checking the listing before assuming a specific format is supported.",
+      },
+      {
+        question: "How should I compress images for my website?",
+        answer:
+          "Compress before uploading rather than after, lean on WebP where your platform supports it, and pick a moderate compression setting that balances file size against visual quality.",
+      },
+      {
+        question: "Should I use a free or paid image compressor extension?",
+        answer:
+          "Free versions handle most everyday needs just fine, including basic batch compression. Paid tiers only really make sense if you need unlimited bulk processing, priority speed, or dedicated support at scale.",
       },
     ],
   },

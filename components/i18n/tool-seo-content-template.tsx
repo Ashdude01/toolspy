@@ -18,7 +18,7 @@ import { RelatedTools } from '@/components/tools/related-tools'
 import { FAQ } from '@/components/ui/faq'
 import { Toc, type TocItem } from '@/components/ui/toc'
 import { FAQSchema } from '@/components/seo/comprehensive-schemas'
-import { RichText } from '@payloadcms/richtext-lexical/react'
+import { RenderRichText } from '@/components/richtext/render-rich-text'
 import type { ToolContentDoc } from '@/lib/payload/get-tool-content'
 
 export function ToolSeoContentTemplate({
@@ -56,7 +56,7 @@ export function ToolSeoContentTemplate({
               <section key={s.anchorId}>
                 <h2 id={s.anchorId}>{s.heading}</h2>
                 {/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
-                {s.body ? <RichText data={s.body as any} /> : null}
+                {s.body ? <RenderRichText data={s.body} /> : null}
               </section>
             ))}
 

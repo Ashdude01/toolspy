@@ -5,7 +5,8 @@ import {
   DynamicToolLayout,
 } from "@/components/layout/dynamic-tool-layout";
 import "./faq-loader";
-import { ImageToPdfSEOContent } from "./seo-content";
+import { ImageToPdfSEOContent } from "./seo-content"
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch';
 
 export const metadata: Metadata = generateToolMetadata("image-to-pdf");
 
@@ -29,7 +30,7 @@ export default function ImageToPdfLayout({
     <DynamicToolLayout toolSlug="image-to-pdf">
       <Suspense fallback={<ImageToPdfPageFallback />}>{children}</Suspense>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ImageToPdfSEOContent />
+        <ToolContentSwitch slug="image-to-pdf" codeFallback={<ImageToPdfSEOContent />} />
       </div>
     </DynamicToolLayout>
   );
