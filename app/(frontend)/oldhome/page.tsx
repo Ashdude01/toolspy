@@ -1,27 +1,30 @@
-"use client"
-import { Metadata } from 'next'
-import { useSearchParams } from 'next/navigation'
-import { ToolsSection } from '@/components/tools/tools-section'
-import { siteConfig } from '@/lib/config'
-import { HomeSeoContent } from '@/components/sections/home-seo-content'
-import { homeFaqData } from '@/lib/home-faq-data'
-import StaticPageSchema from '@/components/seo/StaticPageSchema'
-import { limitTitle, limitDescription } from '@/lib/utils/seo'
+import { Suspense } from "react";
+import { ToolsSection } from "@/components/tools/tools-section";
+import { HomeSeoContent } from "@/components/sections/home-seo-content";
+import { homeFaqData } from "@/lib/home-faq-data";
+import StaticPageSchema from "@/components/seo/StaticPageSchema";
 
-export default function HomePage() {
-  // client component wrapper to capture search params
-  return <HomePageClient />
+function ToolsSectionFallback() {
+  return (
+    <div className="container mx-auto px-4 py-8" aria-hidden="true">
+      <div className="mb-8 h-24 animate-pulse rounded-lg bg-muted" />
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
+        {Array.from({ length: 8 }).map((_, i) => (
+          <div key={i} className="h-64 animate-pulse rounded-lg bg-muted" />
+        ))}
+      </div>
+    </div>
+  );
 }
 
-function HomePageClient() {
-  const params = useSearchParams();
-  const search = params?.get('search') || '';
+export default function HomePage() {
   return (
     <>
       <StaticPageSchema pageType="homepage" />
-      <ToolsSection searchQuery={search} />
-      
+      <Suspense fallback={<ToolsSectionFallback />}>
+        <ToolsSection searchQuery="" />
+      </Suspense>
       <HomeSeoContent faqData={[...homeFaqData]} />
     </>
-  )
+  );
 }
