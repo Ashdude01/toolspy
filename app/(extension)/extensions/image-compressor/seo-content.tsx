@@ -2,9 +2,12 @@
  * Server-rendered SEO content for the Image Compressor extension landing page.
  * Layout mirrors coast-fire-calculator: sticky TOC (left) + .article (right).
  */
+import Link from "next/link";
 import { FAQ } from "@/components/ui/faq";
 import { Toc, type TocItem } from "@/components/ui/toc";
 import type { ExtensionLandingData } from "@/lib/extensions-data";
+
+const linkClass = "underline underline-offset-4 text-foreground";
 
 const TOC: TocItem[] = [
   { id: "introduction", label: "Introduction" },
@@ -119,11 +122,14 @@ export function ImageCompressorExtensionSEOContent({
             nothing, and doesn&apos;t wreck the photo in the process.
           </p>
           <p>
-            That&apos;s really the whole appeal of a good image compressor extension free enough to
-            install without a second thought and simple enough that you don&apos;t need a manual to
-            figure it out. Tools like <strong>Toolspy</strong> exist for exactly that reason. They
-            take something that used to mean opening software, uploading files to a website, and
-            waiting around, and turn it into a single click.
+            That&apos;s really the whole appeal of a good{" "}
+            <Link href="/image-compressor/" className={linkClass}>
+              image compressor
+            </Link>{" "}
+            extension free enough to install without a second thought and simple enough that you
+            don&apos;t need a manual to figure it out. Tools like <strong>Toolspy</strong> exist for
+            exactly that reason. They take something that used to mean opening software, uploading
+            files to a website, and waiting around, and turn it into a single click.
           </p>
           <p>
             This guide walks through what an image compressor extension actually does, how the
@@ -159,10 +165,13 @@ export function ImageCompressorExtensionSEOContent({
             photo. It gets you the smallest possible file, which is why it&apos;s the default for
             most JPEGs on the web. Lossless compression takes a different approach: it shrinks the
             file without throwing anything away. The result is usually a bit larger than a lossy
-            file, but the image comes out pixel-for-pixel identical. A proper lossless image
-            compressor extension gives you the choice between the two instead of forcing one method
-            on every file, which matters a lot if image compressor extension quality is the thing
-            you&apos;re actually optimizing for, not just size.
+            file, but the image comes out pixel-for-pixel identical. A proper lossless{" "}
+            <Link href="/image-compressor/" className={linkClass}>
+              image compressor
+            </Link>{" "}
+            extension gives you the choice between the two instead of forcing one method on every
+            file, which matters a lot if image compressor extension quality is the thing you&apos;re
+            actually optimizing for, not just size.
           </p>
 
           <h3>Local Processing vs. Cloud Processing</h3>
@@ -184,19 +193,29 @@ export function ImageCompressorExtensionSEOContent({
 
           <h3>Image Compressor Chrome Extension</h3>
           <p>
-            Chrome has the biggest extension library by a wide margin, and an image compressor Chrome
-            extension usually installs straight from the Chrome Web Store in a few clicks. Since
-            Chrome runs on Windows, Mac, and Chromebooks alike, it&apos;s generally the safest
-            starting point if you&apos;re not sure which browser you&apos;ll be compressing images
-            in most.
+            Chrome has the biggest extension library by a wide margin, and an{" "}
+            <Link href="/extensions/image-compressor/" className={linkClass}>
+              image compressor Chrome extension
+            </Link>{" "}
+            usually installs straight from the Chrome Web Store in a few clicks. Since Chrome runs on
+            Windows, Mac, and Chromebooks alike, it&apos;s generally the safest starting point if
+            you&apos;re not sure which browser you&apos;ll be compressing images in most.
           </p>
 
           <h3>Image Compressor Firefox Extension</h3>
           <p>
-            Firefox runs its own separate marketplace, so an image compressor Firefox extension has
-            to be built specifically for Firefox&apos;s system rather than ported over from Chrome.
-            Firefox users also tend to care more about privacy than average, so it&apos;s worth
-            checking whether an extension processes files locally before installing it.
+            Firefox runs its own separate marketplace, so an{" "}
+            <a
+              href="https://addons.mozilla.org/en-US/firefox/addon/toolspy-image-compressor/"
+              className={linkClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              image compressor Firefox extension
+            </a>{" "}
+            has to be built specifically for Firefox&apos;s system rather than ported over from
+            Chrome. Firefox users also tend to care more about privacy than average, so it&apos;s
+            worth checking whether an extension processes files locally before installing it.
           </p>
 
           <h3>Image Compressor Safari Extension</h3>
@@ -209,7 +228,15 @@ export function ImageCompressorExtensionSEOContent({
 
           <h3>Image Compressor Edge Extension</h3>
           <p>
-            Edge runs on the same Chromium engine as Chrome, so an image compressor Edge extension
+            Edge runs on the same Chromium engine as Chrome, so an{" "}
+            <a
+              href="https://microsoftedge.microsoft.com/addons/detail/toolspy-image-compressor/jobmkodfjbikokkbifeddbnmdmbifcgp"
+              className={linkClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              image compressor Edge extension
+            </a>{" "}
             can usually be installed from the Edge Add-ons store — and in a lot of cases, directly
             from the Chrome Web Store too. That gives Edge users nearly the same selection Chrome
             users get.
@@ -218,9 +245,17 @@ export function ImageCompressorExtensionSEOContent({
           <h3>Image Compressor Opera Extension</h3>
           <p>
             Opera is also Chromium-based under the hood, and most Chrome extensions run there with
-            little to no adjustment. An image compressor Opera extension typically installs through
-            Opera&apos;s own marketplace, though some users just add Chrome Web Store extensions
-            manually with a small compatibility add-on.
+            little to no adjustment. An{" "}
+            <a
+              href="https://addons.opera.com/en/extensions/details/toolspy-image-compressor/"
+              className={linkClass}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              image compressor Opera extension
+            </a>{" "}
+            typically installs through Opera&apos;s own marketplace, though some users just add Chrome
+            Web Store extensions manually with a small compatibility add-on.
           </p>
           <p>
             Whichever browser you land on, setup on both an image compressor extension windows
@@ -229,6 +264,11 @@ export function ImageCompressorExtensionSEOContent({
           </p>
 
           <h2 id="key-features">Key Features to Look For in the Best Image Compressor Extension</h2>
+          <img
+              src="https://res.cloudinary.com/drby9raee/image/upload/Key_Features_to_Look_For_in_the_Best_Image_Compressor_ExtensionKey_Features_to_Look_For_in_the_Best_Image_Compressor_Extension_i3rwit.webp"
+              alt="Key features of the best image compressor extension"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
+            />
           <p>
             Not every extension is built the same, and it&apos;s worth checking a few things before
             you commit to one. Here&apos;s what actually matters in day-to-day use:
@@ -310,8 +350,12 @@ export function ImageCompressorExtensionSEOContent({
           <p>
             Sometimes &ldquo;smaller&rdquo; isn&apos;t precise enough — you need a file under an
             exact limit. This is common with web forms, ID photo uploads, and ad platforms that
-            enforce strict specs, which is exactly why &ldquo;image compressor to 20kb&rdquo; is such
-            a frequently searched phrase. A good extension lets you type in a target size directly,
+            enforce strict specs, which is exactly why{" "}
+            <Link href="/image-compressor/" className={linkClass}>
+              &ldquo;image compressor to 20kb&rdquo;
+            </Link>{" "}
+            is such a frequently searched phrase. A good extension lets you type in a target size
+            directly,
             and it adjusts the compression automatically until the file fits, instead of you
             re-compressing the same image five times trying to guess the right percentage.
           </p>
@@ -352,15 +396,18 @@ export function ImageCompressorExtensionSEOContent({
 
           <h2 id="why-toolspy">Why Toolspy Is a Top Image Compressor Extension Choice</h2>
           <p>
-            Among the options out there, <strong>Toolspy</strong> stands out for solving the exact
-            problems covered in this guide — quality retention, speed, and not making you think too
-            hard about settings. It handles one-click compression without a learning curve, supports
-            the formats web teams actually use day to day, and works just as well on a single hero
-            image as it does on an entire folder of product photos. For anyone who&apos;s been burned
-            by an extension that quietly wrecked image quality or made their browser feel sluggish,
-            it&apos;s a strong, low-effort default — and a genuinely solid answer if you&apos;ve been
-            searching for the best free image compressor extension rather than one hiding behind a
-            paywall.
+            Among the options out there,{" "}
+            <Link href="/tools/" className={linkClass}>
+              <strong>Toolspy</strong>
+            </Link>{" "}
+            stands out for solving the exact problems covered in this guide — quality retention,
+            speed, and not making you think too hard about settings. It handles one-click compression
+            without a learning curve, supports the formats web teams actually use day to day, and
+            works just as well on a single hero image as it does on an entire folder of product
+            photos. For anyone who&apos;s been burned by an extension that quietly wrecked image
+            quality or made their browser feel sluggish, it&apos;s a strong, low-effort default — and
+            a genuinely solid answer if you&apos;ve been searching for the best free image compressor
+            extension rather than one hiding behind a paywall.
           </p>
 
           <h2 id="how-to-install">How to Install</h2>
@@ -425,13 +472,17 @@ export function ImageCompressorExtensionSEOContent({
           <h2 id="conclusion">Conclusion</h2>
           <p>
             Shrinking images doesn&apos;t have to mean extra software, manual uploads, or a hit to
-            quality. A good image compressor extension handles all of it — lossless or lossy, one
-            file or an entire batch — right inside your browser, in a matter of seconds. Whether
-            you&apos;re speeding up a website, prepping product photos, or just trying to squeeze
-            under an upload limit, the right extension turns a repetitive chore into something you
-            barely think about. If you&apos;re not sure where to start, <strong>Toolspy</strong>{" "}
-            covers the essentials most people actually need: fast, free, quality-preserving
-            compression that fits into whatever browser you&apos;re already using.
+            quality. A good{" "}
+            <Link href="/image-compressor/" className={linkClass}>
+              image compressor
+            </Link>{" "}
+            extension handles all of it — lossless or lossy, one file or an entire batch — right
+            inside your browser, in a matter of seconds. Whether you&apos;re speeding up a website,
+            prepping product photos, or just trying to squeeze under an upload limit, the right
+            extension turns a repetitive chore into something you barely think about. If you&apos;re
+            not sure where to start, <strong>Toolspy</strong> covers the essentials most people
+            actually need: fast, free, quality-preserving compression that fits into whatever browser
+            you&apos;re already using.
           </p>
         </article>
       </div>

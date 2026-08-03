@@ -2,9 +2,12 @@
  * Server-rendered SEO content for the Image Downloader extension landing page.
  * Layout mirrors coast-fire-calculator / image-compressor extension: sticky TOC + .article.
  */
+import Link from "next/link";
 import { FAQ } from "@/components/ui/faq";
 import { Toc, type TocItem } from "@/components/ui/toc";
 import type { ExtensionLandingData } from "@/lib/extensions-data";
+
+const linkClass = "underline underline-offset-4 text-foreground";
 
 const TOC: TocItem[] = [
   { id: "introduction", label: "Introduction" },
@@ -138,8 +141,11 @@ export function ImageDownloaderExtensionSEOContent({
             until you go a day without it and remember how tedious saving images used to be. Whether
             you need a single high-res photo or a way to download images with extension support across
             an entire page at once, the right tool turns a repetitive task into something that takes
-            seconds. A genuinely free image downloader extension, like <strong>Toolspy</strong>, is
-            often all it takes to stop relying on screenshots for good.
+            seconds. A genuinely free image downloader extension, like{" "}
+            <Link href="/tools/" className={linkClass}>
+              <strong>Toolspy</strong>
+            </Link>
+            , is often all it takes to stop relying on screenshots for good.
           </p>
           <p>
             If you&apos;re comparing options, it&apos;s worth spending a few minutes checking whether
@@ -156,11 +162,14 @@ export function ImageDownloaderExtensionSEOContent({
 
           <h2 id="what-is-image-downloader-extension">What Is an Image Downloader Extension?</h2>
           <p>
-            An image downloader extension is a small browser add-on that lets you save one or more
-            images from any webpage directly to your device, without manually right-clicking and
-            choosing &ldquo;Save As&rdquo; for each one. It typically adds a button or menu option that
-            detects every image on a page and lets you select and download them in a single action,
-            preserving original quality.
+            An{" "}
+            <Link href="/extensions/image-downloader/" className={linkClass}>
+              image downloader extension
+            </Link>{" "}
+            is a small browser add-on that lets you save one or more images from any webpage directly
+            to your device, without manually right-clicking and choosing &ldquo;Save As&rdquo; for
+            each one. It typically adds a button or menu option that detects every image on a page and
+            lets you select and download them in a single action, preserving original quality.
           </p>
           <p>
             Some people look for this specifically as a photo downloader extension, others just want
@@ -220,8 +229,11 @@ export function ImageDownloaderExtensionSEOContent({
 
           <h3>Image Downloader Chrome Extension</h3>
           <p>
-            Chrome has the largest extension library, so an image downloader chrome extension is
-            usually the easiest to find and the most frequently updated. Because Chrome runs across
+            Chrome has the largest extension library, so an{" "}
+            <Link href="/extensions/image-downloader/" className={linkClass}>
+              image downloader chrome extension
+            </Link>{" "}
+            is usually the easiest to find and the most frequently updated. Because Chrome runs across
             Windows, Mac, and Chromebooks, this tends to be the safest first choice if you&apos;re not
             sure which browser you&apos;ll be using most. Searching &ldquo;image downloader extension
             chrome&rdquo; will turn up the widest range of options by far, which is both a benefit and
@@ -271,6 +283,11 @@ export function ImageDownloaderExtensionSEOContent({
             worth caring about — plenty of tools pad their store listing with features nobody actually
             uses. Here&apos;s what matters day to day:
           </p>
+          <img
+              src="https://res.cloudinary.com/drby9raee/image/upload/Key_Features_to_Look_For_in_the_Best_Image_Downloader_Extension_wcnbbd.webp"
+              alt="Key features of an AI image enhancer"
+              className="my-6 h-auto w-full max-w-full rounded-lg border border-border"
+            />
           <ul>
             <li>
               Support for the <strong>best image downloader extension</strong> basics: JPG, PNG, and
@@ -300,12 +317,16 @@ export function ImageDownloaderExtensionSEOContent({
             </li>
           </ul>
           <p>
-            Extensions like <strong>Toolspy</strong> are built around this exact checklist, which is a
-            big part of why they&apos;re a common recommendation for people who just want something
-            dependable without comparing five different tools first. It&apos;s easy to get distracted
-            by extras like built-in editing or cloud storage syncing, but for most people, the core
-            download experience is what actually determines whether an extension earns a permanent
-            spot in the toolbar or gets uninstalled within a week.
+            Extensions like{" "}
+            <Link href="/tools/" className={linkClass}>
+              <strong>Toolspy</strong>
+            </Link>{" "}
+            are built around this exact checklist, which is a big part of why they&apos;re a common
+            recommendation for people who just want something dependable without comparing five
+            different tools first. It&apos;s easy to get distracted by extras like built-in editing or
+            cloud storage syncing, but for most people, the core download experience is what actually
+            determines whether an extension earns a permanent spot in the toolbar or gets uninstalled
+            within a week.
           </p>
 
           <h2 id="extension-vs-online">Image Downloader Extension vs. Online Tools</h2>
@@ -341,9 +362,12 @@ export function ImageDownloaderExtensionSEOContent({
             full resolution image downloader will show you the original file dimensions before you
             download, so you&apos;re not left guessing whether you actually got the high-res version
             or just a slightly larger version of the same compressed preview.{" "}
-            <strong>Toolspy</strong> handles this by pulling the source file directly rather than
-            compressing or resizing anything along the way, which matters most for anyone working with
-            images professionally rather than just casually saving something for later.
+            <Link href="/tools/" className={linkClass}>
+              <strong>Toolspy</strong>
+            </Link>{" "}
+            handles this by pulling the source file directly rather than compressing or resizing
+            anything along the way, which matters most for anyone working with images professionally
+            rather than just casually saving something for later.
           </p>
 
           <h2 id="bulk-batch-downloading">Bulk and Batch Image Downloading</h2>
@@ -517,9 +541,12 @@ export function ImageDownloaderExtensionSEOContent({
             files and full batches alike, pulls the real full-resolution version instead of a
             thumbnail, and works whether you&apos;re on a blog, a product page, or a platform like
             Instagram or Pinterest. If you&apos;re deciding where to start,{" "}
-            <strong>Toolspy</strong> covers the essentials most people actually need — fast, free,
-            full-quality downloads that work right inside whatever browser you&apos;re already using,
-            without the usual trade-offs that come with the cheaper alternatives.
+            <Link href="/" className={linkClass}>
+              <strong>Toolspy</strong>
+            </Link>{" "}
+            covers the essentials most people actually need — fast, free, full-quality downloads that
+            work right inside whatever browser you&apos;re already using, without the usual trade-offs
+            that come with the cheaper alternatives.
           </p>
         </article>
       </div>
