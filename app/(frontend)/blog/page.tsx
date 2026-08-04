@@ -2,8 +2,8 @@ import { Metadata } from 'next';
 import Link from 'next/link';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { blogPosts } from '@/lib/blog-data';
 import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
+import { getPublishedBlogPosts } from '@/lib/payload/get-posts';
 
 export const metadata: Metadata = {
   title: 'Blog – Guides for Exams, GST & Online Tools | Toolspy',
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
   },
 };
 
-/** Pre-rendered at build time. */
+/** Pre-rendered at build time; CMS updates revalidate via posts afterChange. */
 export const dynamic = 'force-static';
 
 function formatDate(iso: string) {
@@ -39,7 +39,9 @@ function formatDate(iso: string) {
   });
 }
 
-export default function BlogIndexPage() {
+export default async function BlogIndexPage() {
+  const posts = await getPublishedBlogPosts();
+
   return (
     <>
       <WebPageSchema
@@ -61,7 +63,7 @@ export default function BlogIndexPage() {
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {blogPosts.map((post) => (
+          {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}/`} className="group block h-full">
               <Card className="h-full transition-shadow duration-200 hover:shadow-lg">
                 <CardHeader>
@@ -79,9 +81,7 @@ export default function BlogIndexPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                    {post.description}
-                  </p>
+                  <p className="text-sm text-muted-foreground line-clamp-3">{post.description}</p>
                 </CardContent>
               </Card>
             </Link>

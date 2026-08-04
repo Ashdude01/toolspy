@@ -47,9 +47,15 @@ import { ToolCard } from "@/components/tools/tool-card";
 interface ToolsGridProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  /** CMS-ordered popular tools; falls back to featured if omitted/empty */
+  popularTools?: Tool[];
 }
 
-export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
+export function ToolsGrid({
+  searchQuery,
+  onSearchChange,
+  popularTools: popularToolsProp,
+}: ToolsGridProps) {
   const [selectedCategory, setSelectedCategory] = useState<
     ToolCategory | "all"
   >("all");
@@ -61,7 +67,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  const popularTools = tools.filter((tool) => tool.featured);
+  const popularTools =
+    popularToolsProp && popularToolsProp.length > 0
+      ? popularToolsProp
+      : tools.filter((tool) => tool.featured);
 
   // Filter tools based on search and category
   const filterTools = () => {

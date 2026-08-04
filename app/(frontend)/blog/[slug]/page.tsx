@@ -4,7 +4,11 @@ import { notFound } from 'next/navigation';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowRight } from 'lucide-react';
-import { blogPosts, getBlogPostBySlug, getRelatedPosts } from '@/lib/blog-data';
+import { blogPosts } from '@/lib/blog-data';
+import {
+  getPublishedBlogPostBySlug,
+  getPublishedBlogPosts,
+} from '@/lib/payload/get-posts';
 import { limitTitle, limitDescription } from '@/lib/utils/seo';
 
 interface BlogPostPageProps {
@@ -14,6 +18,12 @@ interface BlogPostPageProps {
 }
 
 export async function generateStaticParams() {
+  try {
+    const posts = await getPublishedBlogPosts();
+    if (posts.length > 0) return posts.map((post) => ({ slug: post.slug }));
+  } catch {
+    // build without DB
+  }
   return blogPosts.map((post) => ({ slug: post.slug }));
 }
 
@@ -21,7 +31,7 @@ export const dynamicParams = false;
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getPublishedBlogPostBySlug(slug);
   if (!post) {
     return {
       title: 'Post Not Found | Toolspy',
@@ -61,11 +71,18 @@ function formatDate(iso: string) {
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const { slug } = await params;
-  const post = getBlogPostBySlug(slug);
+  const post = await getPublishedBlogPostBySlug(slug);
   if (!post) notFound();
 
   const url = `https://toolspy.net/blog/${post.slug}/`;
-  const related = getRelatedPosts(post.slug);
+  const allPosts = await getPublishedBlogPosts();
+  const sameCategory = allPosts.filter(
+    (p) => p.slug !== slug && p.category === post.category
+  );
+  const others = allPosts.filter(
+    (p) => p.slug !== slug && p.category !== post.category
+  );
+  const related = [...sameCategory, ...others].slice(0, 3);
 
   const articleSchema = {
     '@context': 'https://schema.org',

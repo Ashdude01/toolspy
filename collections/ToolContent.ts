@@ -1,15 +1,11 @@
 import type { CollectionConfig } from 'payload'
-import { toolSlugs } from '../lib/i18n/tool-slugs'
+import { toolSearchKey } from '../lib/i18n/tool-labels'
 
 /**
  * tool-content — HYBRID MODEL ka CMS side.
  *
  * Code decide karta hai tool KYA karta hai (app/(tools)/<slug>/page.tsx),
  * ye collection decide karti hai tool ke page par KYA LIKHA hai. Join key = toolSlug.
- *
- * Structure EXACTLY existing seo-content pattern follow karta hai
- * (reference: coast-fire-calculator — left TOC + right article):
- *   sections[] = h2(anchorId) + richText body → TOC in se AUTO-generate hota hai
  *
  * SAFETY: contentSource default 'code' hai — jab tak aap khud 'cms' na karo,
  * page par existing seo-content.tsx hi render hota hai, CMS entry ignore hoti hai.
@@ -24,7 +20,19 @@ export const ToolContent: CollectionConfig = {
     useAsTitle: 'toolSlug',
     defaultColumns: ['toolSlug', 'contentSource', 'updatedAt'],
     description: 'SEO content for tool pages.',
-    listSearchableFields: ['toolSlug'],
+    // toolSlug is text (searchable); searchKey adds name/tags
+    listSearchableFields: ['searchKey', 'toolSlug'],
+    components: {
+      edit: {
+        beforeDocumentControls: ['@/components/payload/ViewLiveButton#ViewLiveButton'],
+      },
+    },
+    preview: ({ doc }) => {
+      const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.net').replace(/\/$/, '')
+      const data = doc as { toolSlug?: unknown } | null | undefined
+      const slug = typeof data?.toolSlug === 'string' ? data.toolSlug : null
+      return slug ? `${base}/${slug}/` : null
+    },
   },
   versions: {
     drafts: true,
@@ -38,13 +46,39 @@ export const ToolContent: CollectionConfig = {
   fields: [
     {
       name: 'toolSlug',
-      type: 'select',
+      type: 'text',
       required: true,
       unique: true,
       index: true,
-      options: toolSlugs.map((slug) => ({ label: slug, value: slug })),
       admin: {
-        description: 'Tool URL slug.',
+        description:
+          'Tool URL slug (content join key). Editable when tool page paths change. Must be unique — duplicates are blocked.',
+      },
+      validate: (value: unknown) => {
+        if (value == null || value === '') return 'Slug is required'
+        if (typeof value !== 'string') return 'Slug must be text'
+        const slug = value.trim().toLowerCase()
+        if (!slug) return 'Slug is required'
+        if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+          return 'Use lowercase letters, numbers, and hyphens only (e.g. image-compressor)'
+        }
+        if (slug.length > 120) return 'Slug is too long (max 120 characters)'
+        return true
+      },
+      hooks: {
+        beforeChange: [
+          ({ value }) =>
+            typeof value === 'string' ? value.trim().toLowerCase() : value,
+        ],
+      },
+    },
+    {
+      name: 'searchKey',
+      type: 'text',
+      index: true,
+      admin: {
+        hidden: true,
+        readOnly: true,
       },
     },
     {
@@ -178,23 +212,41 @@ export const ToolContent: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeChange: [
+      ({ data, originalDoc }) => {
+        const slug = (data?.toolSlug ?? originalDoc?.toolSlug) as string | undefined
+        if (slug) {
+          data.searchKey = toolSearchKey(slug)
+        }
+        return data
+      },
+    ],
     afterChange: [
-      async ({ doc }) => {
+      async ({ doc, previousDoc }) => {
         try {
           const { revalidateTag, revalidatePath } = await import('next/cache')
-          const slug = doc.toolSlug as string
-          // Data cache (unstable_cache in getToolContent)
-          revalidateTag(`tool-content:${slug}`)
-          // Full Route Cache — English layouts use force-static; tag alone is not enough
-          revalidatePath(`/${slug}/`)
-          // Localized tool pages (/de/... etc.) — keep in sync with ROUTABLE_LOCALES
           const { ROUTABLE_LOCALES, DEFAULT_LOCALE } = await import('../lib/i18n/locales')
-          for (const locale of ROUTABLE_LOCALES) {
-            if (locale === DEFAULT_LOCALE) continue
-            revalidatePath(`/${locale}/${slug}/`)
+
+          const slugs = new Set<string>()
+          if (typeof doc.toolSlug === 'string') slugs.add(doc.toolSlug)
+          // Slug rename: purana page bhi invalidate
+          if (
+            previousDoc &&
+            typeof previousDoc.toolSlug === 'string' &&
+            previousDoc.toolSlug !== doc.toolSlug
+          ) {
+            slugs.add(previousDoc.toolSlug)
+          }
+
+          for (const slug of slugs) {
+            revalidateTag(`tool-content:${slug}`)
+            revalidatePath(`/${slug}/`)
+            for (const locale of ROUTABLE_LOCALES) {
+              if (locale === DEFAULT_LOCALE) continue
+              revalidatePath(`/${locale}/${slug}/`)
+            }
           }
         } catch (err) {
-          // payload CLI/seed script context me next/cache available nahi hota — safe ignore
           console.warn(`[tool-content] revalidate failed for ${doc.toolSlug}:`, err)
         }
         return doc

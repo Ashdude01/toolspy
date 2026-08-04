@@ -4,6 +4,7 @@ import { WebPageSchema, FAQSchema } from "@/components/seo/comprehensive-schemas
 import { siteConfig } from "@/lib/config"
 import { HomePageClient } from "@/components/home2/home-page-client"
 import { homeFaqData } from "@/lib/home-faq-data"
+import { getHomepagePopularTools } from "@/lib/payload/get-homepage"
 import type { Metadata } from "next"
 import { ALL_LOCALES, PUBLISHED_LOCALES } from "@/lib/i18n/locales"
 
@@ -21,7 +22,8 @@ export function generateMetadata(): Metadata {
   return { alternates: { canonical: `${siteConfig.url}/`, languages } }
 }
 
-export default function HomePage() {
+export default async function HomePage() {
+  const popularTools = await getHomepagePopularTools()
 
   return (
     <>
@@ -35,11 +37,10 @@ export default function HomePage() {
       />
       <FAQSchema faqs={[...homeFaqData]} />
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden w-full">
-        <HomePageClient />
+        <HomePageClient popularTools={popularTools} />
         <HomeSeoContent faqData={[...homeFaqData]} />
         <TestimonialsSection />
       </div>
     </>
   )
 }
-

@@ -98,8 +98,12 @@ export interface Config {
     | null
     | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi')
     | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi')[];
-  globals: {};
-  globalsSelect: {};
+  globals: {
+    homepage: Homepage;
+  };
+  globalsSelect: {
+    homepage: HomepageSelect<false> | HomepageSelect<true>;
+  };
   locale: 'en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi';
   widgets: {
     collections: CollectionsWidget;
@@ -212,99 +216,10 @@ export interface Media {
 export interface ToolContent {
   id: number;
   /**
-   * Tool URL slug.
+   * Tool URL slug (content join key). Editable when tool page paths change. Must be unique — duplicates are blocked.
    */
-  toolSlug:
-    | 'age-calculator'
-    | 'ai-background-remover'
-    | 'ai-color-palette-generator'
-    | 'ai-image-enhancer'
-    | 'ai-resume-builder'
-    | 'ai-writing-tools'
-    | 'app-icon-generator'
-    | 'area-converter'
-    | 'bank-po-rank-predictor'
-    | 'base64-encoder-decoder'
-    | 'base64-to-image'
-    | 'bmi-calculator'
-    | 'cat-percentile-predictor'
-    | 'cgst-sgst-igst-splitter'
-    | 'coast-fire-calculator'
-    | 'code-beautifier'
-    | 'color-palette-generator'
-    | 'color-picker'
-    | 'composition-regular-scheme-estimator'
-    | 'compress-pdf'
-    | 'currency-converter'
-    | 'domain-whois-lookup'
-    | 'e-invoice-qr-validator'
-    | 'ebook-converter'
-    | 'expired-domain-finder'
-    | 'facebook-engagement-calculator'
-    | 'facebook-image-downloader'
-    | 'favicon-generator'
-    | 'file-protector'
-    | 'font-converter'
-    | 'gate-rank-predictor'
-    | 'google-indexing-api'
-    | 'gst-calculator'
-    | 'heic-to-pdf'
-    | 'hsn-sac-finder'
-    | 'image-compressor'
-    | 'image-converter'
-    | 'image-optimizer'
-    | 'image-resizer'
-    | 'image-to-base64'
-    | 'image-to-ico-converter'
-    | 'image-to-pdf'
-    | 'instagram-dp-viewer'
-    | 'instagram-engagement-calculator'
-    | 'instagram-reels-downloader'
-    | 'investment-calculator'
-    | 'itc-calculator'
-    | 'jee-advanced-rank-predictor'
-    | 'jee-main-rank-predictor'
-    | 'jfif-to-jpg'
-    | 'jfif-to-pdf'
-    | 'json-formatter'
-    | 'json-table-converter'
-    | 'length-converter'
-    | 'loan-calculator'
-    | 'love-calculator'
-    | 'markdown-to-docs-converter'
-    | 'media-converter'
-    | 'meme-generator'
-    | 'merge-pdf'
-    | 'mortgage-calculator'
-    | 'neet-rank-predictor'
-    | 'ocr-text-extractor'
-    | 'online-image-cropper'
-    | 'pdf-converter'
-    | 'pdf-password-remover'
-    | 'pdf-to-csv'
-    | 'pdf-to-excel'
-    | 'pdf-to-image'
-    | 'pdf-to-word'
-    | 'penalty-late-fee-calculator'
-    | 'percentage-calculator'
-    | 'pwa-icon-generator'
-    | 'qr-code-generator'
-    | 'retirement-calculator'
-    | 'reverse-gst-calculator'
-    | 'salary-calculator'
-    | 'split-pdf'
-    | 'ssc-cgl-rank-predictor'
-    | 'tax-calculator'
-    | 'temperature-converter'
-    | 'twitter-engagement-calculator'
-    | 'unit-converter'
-    | 'upsc-rank-predictor'
-    | 'volume-converter'
-    | 'website-screenshot'
-    | 'weight-converter'
-    | 'youtube-embed-code-generator'
-    | 'youtube-engagement-calculator'
-    | 'youtube-thumbnail-downloader';
+  toolSlug: string;
+  searchKey?: string | null;
   /**
    * REQUIRED to go live: set to "CMS" and Publish. Publish alone is not enough — while this stays "Code", the site keeps hardcoded seo-content.
    */
@@ -385,9 +300,60 @@ export interface ToolContent {
  */
 export interface Post {
   id: number;
+  /**
+   * URL slug under /blog/<slug>/
+   */
   slug: string;
   title: string;
+  /**
+   * Short description / meta
+   */
   excerpt?: string | null;
+  category: 'Exams' | 'GST & Finance' | 'Tools & Guides';
+  /**
+   * Estimated reading time
+   */
+  readingTimeMinutes?: number | null;
+  /**
+   * Comma-separated keywords
+   */
+  keywords?: string | null;
+  relatedTool?: {
+    name?: string | null;
+    /**
+     * e.g. /ssc-cgl-rank-predictor/
+     */
+    path?: string | null;
+    cta?: string | null;
+  };
+  sections?:
+    | {
+        heading?: string | null;
+        /**
+         * Separate paragraphs with a blank line
+         */
+        paragraphs?: string | null;
+        /**
+         * One list item per line
+         */
+        listItems?: string | null;
+        /**
+         * Optional table as JSON: {"caption":"...","headers":["A"],"rows":[["1"]]}
+         */
+        tableJson?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional freeform rich text (extra)
+   */
   content?: {
     root: {
       type: string;
@@ -406,7 +372,7 @@ export interface Post {
   metaTitle?: string | null;
   metaDescription?: string | null;
   /**
-   * Cloudinary URL
+   * Cloudinary / CDN URL
    */
   coverImageUrl?: string | null;
   publishedAt?: string | null;
@@ -611,6 +577,7 @@ export interface MediaSelect<T extends boolean = true> {
  */
 export interface ToolContentSelect<T extends boolean = true> {
   toolSlug?: T;
+  searchKey?: T;
   contentSource?: T;
   metaTitle?: T;
   metaDescription?: T;
@@ -644,6 +611,32 @@ export interface PostsSelect<T extends boolean = true> {
   slug?: T;
   title?: T;
   excerpt?: T;
+  category?: T;
+  readingTimeMinutes?: T;
+  keywords?: T;
+  relatedTool?:
+    | T
+    | {
+        name?: T;
+        path?: T;
+        cta?: T;
+      };
+  sections?:
+    | T
+    | {
+        heading?: T;
+        paragraphs?: T;
+        listItems?: T;
+        tableJson?: T;
+        id?: T;
+      };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
   content?: T;
   metaTitle?: T;
   metaDescription?: T;
@@ -706,6 +699,135 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * Homepage sections — Popular tools cards order & selection.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage".
+ */
+export interface Homepage {
+  id: number;
+  /**
+   * Homepage Popular Tools cards. Drag to reorder. Type in the dropdown to search by tool name or slug. Empty list = site uses code featured tools.
+   */
+  popularTools?:
+    | {
+        /**
+         * Search by typing the tool name or slug.
+         */
+        toolSlug:
+          | 'image-compressor'
+          | 'online-image-cropper'
+          | 'image-converter'
+          | 'image-resizer'
+          | 'image-optimizer'
+          | 'jfif-to-jpg'
+          | 'base64-to-image'
+          | 'image-to-base64'
+          | 'base64-encoder-decoder'
+          | 'pdf-converter'
+          | 'pdf-to-word'
+          | 'pdf-to-jpg'
+          | 'jfif-to-pdf'
+          | 'merge-pdf'
+          | 'pdf-to-image'
+          | 'compress-pdf'
+          | 'heic-to-pdf'
+          | 'image-to-pdf'
+          | 'split-pdf'
+          | 'pdf-password-remover'
+          | 'pdf-to-excel'
+          | 'pdf-to-csv'
+          | 'file-protector'
+          | 'percentage-calculator'
+          | 'age-calculator'
+          | 'love-calculator'
+          | 'bmi-calculator'
+          | 'loan-calculator'
+          | 'mortgage-calculator'
+          | 'retirement-calculator'
+          | 'investment-calculator'
+          | 'coast-fire-calculator'
+          | 'tax-calculator'
+          | 'salary-calculator'
+          | 'unit-converter'
+          | 'currency-converter'
+          | 'temperature-converter'
+          | 'length-converter'
+          | 'weight-converter'
+          | 'volume-converter'
+          | 'area-converter'
+          | 'qr-code-generator'
+          | 'color-picker'
+          | 'color-palette-generator'
+          | 'google-indexing-api'
+          | 'json-formatter'
+          | 'json-table-converter'
+          | 'code-beautifier'
+          | 'ai-color-palette-generator'
+          | 'ai-background-remover'
+          | 'meme-generator'
+          | 'ai-writing-tools'
+          | 'ai-image-enhancer'
+          | 'ai-resume-builder'
+          | 'facebook-image-downloader'
+          | 'youtube-thumbnail-downloader'
+          | 'instagram-reels-downloader'
+          | 'instagram-dp-viewer'
+          | 'youtube-embed-code-generator'
+          | 'ocr-text-extractor'
+          | 'media-converter'
+          | 'ebook-converter'
+          | 'font-converter'
+          | 'instagram-engagement-calculator'
+          | 'facebook-engagement-calculator'
+          | 'twitter-engagement-calculator'
+          | 'youtube-engagement-calculator'
+          | 'domain-whois-lookup'
+          | 'expired-domain-finder'
+          | 'app-icon-generator'
+          | 'pwa-icon-generator'
+          | 'favicon-generator'
+          | 'image-to-ico-converter'
+          | 'markdown-to-docs-converter'
+          | 'gst-calculator'
+          | 'reverse-gst-calculator'
+          | 'hsn-sac-finder'
+          | 'cgst-sgst-igst-splitter'
+          | 'itc-calculator'
+          | 'e-invoice-qr-validator'
+          | 'composition-regular-scheme-estimator'
+          | 'penalty-late-fee-calculator'
+          | 'jee-main-rank-predictor'
+          | 'neet-rank-predictor'
+          | 'jee-advanced-rank-predictor'
+          | 'gate-rank-predictor'
+          | 'cat-percentile-predictor'
+          | 'upsc-rank-predictor'
+          | 'ssc-cgl-rank-predictor'
+          | 'bank-po-rank-predictor'
+          | 'website-screenshot';
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "homepage_select".
+ */
+export interface HomepageSelect<T extends boolean = true> {
+  popularTools?:
+    | T
+    | {
+        toolSlug?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
