@@ -63,6 +63,19 @@ const nextConfig = {
   },
   compress: true,
 
+  // Sharp is a native module — keep it external and force Vercel NFT to include
+  // libvips binaries (sharp 0.34/0.35 fail on Vercel without this + pinned version).
+  serverExternalPackages: ['sharp', 'payload', '@payloadcms/db-postgres'],
+  outputFileTracingIncludes: {
+    '/*': [
+      './node_modules/sharp/**/*',
+      './node_modules/@img/sharp-linux-x64/**/*',
+      './node_modules/@img/sharp-libvips-linux-x64/**/*',
+      './node_modules/@img/sharp-linuxmusl-x64/**/*',
+      './node_modules/@img/sharp-libvips-linuxmusl-x64/**/*',
+    ],
+  },
+
   // Payload requirement — .js imports ko .ts par bhi resolve karo
   webpack: (webpackConfig) => {
     webpackConfig.resolve.extensionAlias = {
