@@ -34,7 +34,28 @@ const dirname = path.dirname(filename)
  *   VIDEO embed block, horizontal rule, alignment, fixed toolbar.
  */
 export default buildConfig({
-  serverURL: process.env.NEXT_PUBLIC_SERVER_URL || process.env.NEXT_PUBLIC_SITE_URL || '',
+  // serverURL: dev me localhost se infer ho (empty), sirf production me absolute URL.
+  //
+  // WARNING: isko production site URL (https://toolspy.net) par hardcode karne se
+  // LOCAL DEV toot jata tha — Payload ka CSRF check request origin (localhost:3000)
+  // ko serverURL (toolspy.net) se match karta hai. Mismatch par authenticated
+  // POST/server-actions (buildFormState, preferences) "401 Unauthorized" ho jate the,
+  // jisse admin me array fields (sections/FAQs) hamesha shimmer par atak jate the.
+  //
+  // Ab: dev → '' (Payload request se localhost infer karta hai) → auth sahi.
+  //     prod → NEXT_PUBLIC_SITE_URL (ya NEXT_PUBLIC_SERVER_URL agar set ho).
+  serverURL:
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    (process.env.NODE_ENV === 'production'
+      ? process.env.NEXT_PUBLIC_SITE_URL || ''
+      : ''),
+  // CSRF allowlist — in origins se authenticated requests allow. Dev + prod dono cover.
+  csrf: [
+    'http://localhost:3000',
+    'https://toolspy.net',
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.NEXT_PUBLIC_SERVER_URL,
+  ].filter((v): v is string => Boolean(v)),
   sharp,
   admin: {
     user: Users.slug,

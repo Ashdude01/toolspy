@@ -1,19 +1,17 @@
 import type { Metadata } from 'next'
-import { Suspense } from 'react'
 import { getToolBySlug } from '@/lib/tools-data'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ToolSchemas } from '../seo/schema-manager'
-import { ALL_LOCALES, PUBLISHED_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
-import { getToolContent } from '@/lib/payload/get-tool-content'
+import { ALL_LOCALES, PUBLISHED_LOCALES } from '@/lib/i18n/locales'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
   const tool = getToolBySlug(toolSlug)
-
+  
   if (!tool) {
     return {
       title: limitTitle('Tool Not Found | Toolspy'),
-      description: limitDescription('The requested tool could not be found.'),
+      description: limitDescription('The requested tool could not be found.')
     }
   }
 
@@ -59,6 +57,7 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     },
     alternates: {
       canonical: tool.seo.canonicalUrl,
+      // hreflang — sirf jab locales publish hon (dono taraf ka pairing zaroori hai)
       ...(PUBLISHED_LOCALES.length > 0
         ? {
             languages: {
@@ -67,6 +66,8 @@ export function generateToolMetadata(toolSlug: string): Metadata {
               ...Object.fromEntries(
                 PUBLISHED_LOCALES.flatMap((code) => {
                   const info = ALL_LOCALES[code]
+                  // tool.slug me kabhi leading slash hota hai kabhi nahi —
+                  // normalize karke hamesha /de/<slug>/ banao
                   const cleanSlug = tool.slug.replace(/^\/+/, '')
                   return info
                     ? [[info.hreflang, `https://toolspy.net/${code}/${cleanSlug}/`]]
@@ -80,66 +81,34 @@ export function generateToolMetadata(toolSlug: string): Metadata {
   }
 }
 
-/**
- * SYNC layout shell — CMS/Payload await yahan NAHI hota.
- * Pehle await karne se root layout (header/footer) stream ho jata tha aur
- * <main> seconds tak khali rehta tha (layout shift).
- *
- * children + SEO turant render; customSchema alag Suspense me (JSON-LD only).
- * Pages ISR/force-static rehte hain — ye SSR shift nahi hai.
- */
+// Dynamic tool layout component with automatic schema support.
+//
+// IMPORTANT (client-safety): ye component 84 tool `page.tsx` files (jo "use client"
+// hain) me `ToolPageWrapper` ke through render hota hai. Isliye ye SYNC + client-safe
+// hona ZAROORI hai — yahan Payload/DB (getToolContent) import karte hi poora Payload
+// node SDK client bundle me chala jata tha aur `Can't resolve 'fs'` (webpack
+// "Cannot read properties of undefined (reading 'call')") se saara client JS toot
+// jata tha (search dead, admin lexical skeleton).
+//
+// CMS ka custom JSON-LD ab SERVER-ONLY path se aata hai (ToolCustomSchema, jo sirf
+// server layouts/pages me use hota hai) — yahan sirf automatic schema.
 export function DynamicToolLayout({
   toolSlug,
   children,
-  locale = DEFAULT_LOCALE,
 }: {
   toolSlug: string
   children: React.ReactNode
-  locale?: string
 }) {
   const tool = getToolBySlug(toolSlug)
 
   if (!tool) {
-    return children
+    return <>{children}</>
   }
 
   return (
     <>
-      <Suspense fallback={<ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />}>
-        <CmsSchemaOrDefault tool={tool} toolSlug={toolSlug} locale={locale} />
-      </Suspense>
+      <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
       {children}
     </>
   )
-}
-
-async function CmsSchemaOrDefault({
-  tool,
-  toolSlug,
-  locale,
-}: {
-  tool: NonNullable<ReturnType<typeof getToolBySlug>>
-  toolSlug: string
-  locale: string
-}) {
-  try {
-    const doc = await getToolContent(toolSlug, locale)
-    if (doc?.customSchema && isNonEmptySchema(doc.customSchema)) {
-      return (
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(doc.customSchema) }}
-        />
-      )
-    }
-  } catch {
-    // automatic schema fallback
-  }
-  return <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
-}
-
-function isNonEmptySchema(v: unknown): boolean {
-  if (Array.isArray(v)) return v.length > 0
-  if (v && typeof v === 'object') return Object.keys(v as object).length > 0
-  return false
 }

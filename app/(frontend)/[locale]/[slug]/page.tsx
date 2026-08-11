@@ -14,6 +14,7 @@ import { siteConfig } from '@/lib/config'
 import { getToolContent } from '@/lib/payload/get-tool-content'
 import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
 import { DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
+import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 /**
@@ -132,6 +133,8 @@ export default async function LocalizedToolPage({ params }: { params: Params }) 
     // CMS MODE: tool logic + localized CMS content (coast-fire layout template)
     return (
       <DynamicToolLayout toolSlug={slug}>
+        {/* CMS custom JSON-LD (server-only) */}
+        <ToolCustomSchema slug={slug} locale={locale} />
         <Suspense fallback={<ToolPageFallback />}>
           <ToolPage />
         </Suspense>

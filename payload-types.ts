@@ -301,7 +301,7 @@ export interface ToolContent {
 export interface Post {
   id: number;
   /**
-   * URL slug under /blog/<slug>/
+   * URL slug under /blog/<slug>/. Locked after create.
    */
   slug: string;
   title: string;
@@ -386,6 +386,9 @@ export interface Post {
  */
 export interface Page {
   id: number;
+  /**
+   * URL slug. Locked after create (cannot change on edit).
+   */
   slug: string;
   title: string;
   content?: {
