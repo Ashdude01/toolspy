@@ -23,6 +23,41 @@ import { ALL_LOCALES, DEFAULT_LOCALE } from './lib/i18n/locales'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+/** Strip trailing slash so Origin header match fail na ho. */
+function originURL(url?: string | null): string | undefined {
+  if (!url) return undefined
+  const trimmed = url.trim().replace(/\/+$/, '')
+  return trimmed || undefined
+}
+
+/**
+ * Admin auth origins — Payload cookie auth yahan se allow karta hai.
+ *
+ * IMPORTANT: next.config.mjs `NEXT_PUBLIC_SITE_URL` hardcode = toolspy.net,
+ * lekin live admin kabhi `https://dev.toolspy.net` pe bhi hota hai.
+ * Agar csrf me sirf toolspy.net ho to Origin mismatch →
+ *   POST /api/payload-preferences/* → 401
+ *   logout → fail / cookie clear nahi
+ */
+const PAYLOAD_ORIGINS = [
+  'http://localhost:3000',
+  'http://127.0.0.1:3000',
+  'https://toolspy.net',
+  'https://www.toolspy.net',
+  'https://dev.toolspy.net',
+  originURL(process.env.NEXT_PUBLIC_SITE_URL),
+  originURL(process.env.NEXT_PUBLIC_SERVER_URL),
+  // Vercel deployment hostname (preview + *.vercel.app)
+  process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : undefined,
+  process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : undefined,
+]
+  .map((u) => originURL(u))
+  .filter((v): v is string => Boolean(v))
+
+const uniqueOrigins = [...new Set(PAYLOAD_ORIGINS)]
+
 /**
  * Toolspy v2 — Payload CMS config
  *
@@ -34,28 +69,15 @@ const dirname = path.dirname(filename)
  *   VIDEO embed block, horizontal rule, alignment, fixed toolbar.
  */
 export default buildConfig({
-  // serverURL: dev me localhost se infer ho (empty), sirf production me absolute URL.
-  //
-  // WARNING: isko production site URL (https://toolspy.net) par hardcode karne se
-  // LOCAL DEV toot jata tha — Payload ka CSRF check request origin (localhost:3000)
-  // ko serverURL (toolspy.net) se match karta hai. Mismatch par authenticated
-  // POST/server-actions (buildFormState, preferences) "401 Unauthorized" ho jate the,
-  // jisse admin me array fields (sections/FAQs) hamesha shimmer par atak jate the.
-  //
-  // Ab: dev → '' (Payload request se localhost infer karta hai) → auth sahi.
-  //     prod → NEXT_PUBLIC_SITE_URL (ya NEXT_PUBLIC_SERVER_URL agar set ho).
-  serverURL:
-    process.env.NEXT_PUBLIC_SERVER_URL ||
-    (process.env.NODE_ENV === 'production'
-      ? process.env.NEXT_PUBLIC_SITE_URL || ''
-      : ''),
-  // CSRF allowlist — in origins se authenticated requests allow. Dev + prod dono cover.
-  csrf: [
-    'http://localhost:3000',
-    'https://toolspy.net',
-    process.env.NEXT_PUBLIC_SITE_URL,
-    process.env.NEXT_PUBLIC_SERVER_URL,
-  ].filter((v): v is string => Boolean(v)),
+  // serverURL:
+  // - Hardcoding toolspy.net broke admin on dev.toolspy.net (Origin ≠ serverURL → 401).
+  // - Hardcoding anything also broke local when SITE_URL pointed at prod.
+  // - Prefer explicit NEXT_PUBLIC_SERVER_URL per deploy (Vercel env);
+  //   otherwise leave empty so Payload uses the request host.
+  serverURL: originURL(process.env.NEXT_PUBLIC_SERVER_URL) || '',
+  // CSRF + CORS — same-host cookie auth ke liye saare admin/public hosts whitelist
+  csrf: uniqueOrigins,
+  cors: uniqueOrigins,
   sharp,
   admin: {
     user: Users.slug,

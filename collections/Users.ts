@@ -6,7 +6,14 @@ export const Users: CollectionConfig = {
   admin: {
     useAsTitle: 'email',
   },
-  auth: true,
+  // Host-only cookies (no Domain=) so toolspy.net vs dev.toolspy.net dono sahi chal sakte hain.
+  // secure: HTTPS prod; Lax: same-site admin POSTs (preferences / logout) ok.
+  auth: {
+    cookies: {
+      sameSite: 'Lax',
+      secure: process.env.NODE_ENV === 'production',
+    },
+  },
   access: {
     // Sirf logged-in users hi users collection dekh/badal sakte hain
     read: ({ req: { user } }) => Boolean(user),
