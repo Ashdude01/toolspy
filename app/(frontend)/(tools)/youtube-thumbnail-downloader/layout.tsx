@@ -10,9 +10,7 @@ export const metadata: Metadata = generateToolMetadata('youtube-thumbnail-downlo
 export const dynamic = 'force-static'
 
 function YouTubeThumbnailDownloaderPageFallback() {
-  return (
-    <div className="container mx-auto px-4 py-6 min-h-[200px] animate-pulse bg-muted/30 rounded-lg" aria-hidden="true" />
-  )
+  return null
 }
 
 export default function YouTubeThumbnailDownloaderLayout({

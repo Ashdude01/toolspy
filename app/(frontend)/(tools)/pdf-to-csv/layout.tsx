@@ -14,9 +14,7 @@ export const metadata: Metadata = generateToolMetadata('pdf-to-csv')
 export const dynamic = 'force-static'
 
 function PdfToCsvPageFallback() {
-  return (
-    <div className="container mx-auto px-4 py-6 min-h-[200px] animate-pulse bg-muted/30 rounded-lg" aria-hidden="true" />
-  )
+  return null
 }
 
 export default function PdfToCsvLayout({

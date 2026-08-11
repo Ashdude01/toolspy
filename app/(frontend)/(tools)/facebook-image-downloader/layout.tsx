@@ -7,9 +7,7 @@ export const metadata: Metadata = generateToolMetadata("facebook-image-downloade
 export const dynamic = "force-static";
 
 function FacebookImageDownloaderPageFallback() {
-  return (
-    <div className="min-h-[320px] animate-pulse bg-muted/30" aria-hidden="true" />
-  );
+  return null
 }
 
 export default function FacebookImageDownloaderLayout({

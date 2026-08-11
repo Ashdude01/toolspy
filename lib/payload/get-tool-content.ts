@@ -6,10 +6,9 @@ import config from '@payload-config'
  * Tool ka CMS content — cached + tagged.
  *
  * - Tag: `tool-content:<slug>` → Payload ke afterChange hook se invalidate hota hai
- *   (on-demand ISR: content save karo → sirf usi tool ke pages refresh)
- * - fallbackLocale 'en' → jo field translate nahi hui usme English aata hai
- * - DB down / Payload not ready → null (frontend code-content par fallback karta hai;
- *   page KABHI nahi tootta)
+ * - revalidate: ISR window (production pe stale-while-revalidate, cold Neon hang kam)
+ * - fetch timeout: Vercel pe stuck waiting avoid
+ * - DB down → null → code-content fallback
  */
 export interface ToolContentDoc {
   toolSlug: string
@@ -19,13 +18,30 @@ export interface ToolContentDoc {
   sections?: Array<{
     anchorId: string
     heading: string
-    body?: unknown // lexical richText state
+    body?: unknown
   }> | null
   faqs?: Array<{ question: string; answer: string }> | null
   disclaimer?: string | null
   keywords?: string | null
-  /** Custom JSON-LD override (object ya array). Present ho to automatic schema replace karta hai. */
   customSchema?: unknown
+}
+
+const FETCH_TIMEOUT_MS = 4000
+
+function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
+  return new Promise<T>((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error(`[tool-content] timeout ${ms}ms: ${label}`)), ms)
+    promise.then(
+      (v) => {
+        clearTimeout(t)
+        resolve(v)
+      },
+      (e) => {
+        clearTimeout(t)
+        reject(e)
+      }
+    )
+  })
 }
 
 export function getToolContent(
@@ -35,28 +51,37 @@ export function getToolContent(
   return unstable_cache(
     async () => {
       try {
-        const payload = await getPayload({ config })
-        const res = await payload.find({
-          collection: 'tool-content',
-          where: { toolSlug: { equals: slug } },
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          locale: locale as any,
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          fallbackLocale: 'en' as any,
-          limit: 1,
-          draft: false,
-          // depth >= 1 required so Lexical upload nodes get full media docs (url/alt),
-          // not bare IDs — otherwise CMS images render as empty on the frontend.
-          depth: 2,
-        })
+        const payload = await withTimeout(
+          getPayload({ config }),
+          FETCH_TIMEOUT_MS,
+          `getPayload ${slug}/${locale}`
+        )
+        const res = await withTimeout(
+          payload.find({
+            collection: 'tool-content',
+            where: { toolSlug: { equals: slug } },
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            locale: locale as any,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            fallbackLocale: 'en' as any,
+            limit: 1,
+            draft: false,
+            depth: 2,
+          }),
+          FETCH_TIMEOUT_MS,
+          `find ${slug}/${locale}`
+        )
         return (res.docs[0] as unknown as ToolContentDoc) ?? null
       } catch (err) {
-        // DB unreachable (e.g. build without DATABASE_URL) → code-content fallback
         console.warn(`[tool-content] fetch failed for ${slug}/${locale}:`, err)
         return null
       }
     },
     [`tool-content-${slug}-${locale}-d2`],
-    { tags: [`tool-content:${slug}`] }
+    {
+      tags: [`tool-content:${slug}`],
+      // Production ISR cache — pehli hit ke baad 1h tak fast static serve
+      revalidate: 3600,
+    }
   )()
 }

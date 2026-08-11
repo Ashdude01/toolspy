@@ -1,3 +1,4 @@
+import { Suspense } from 'react'
 import { getToolContent } from '@/lib/payload/get-tool-content'
 import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
 import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
@@ -5,15 +6,31 @@ import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 /**
  * ToolContentSwitch — English (main) tool pages ko CMS-aware banata hai.
  *
- * contentSource === 'cms' (aur sections bhare hain) → CMS content render
- *   (coast-fire layout, ToolSeoContentTemplate).
- * warna → codeFallback (existing hardcoded <XSEOContent />) — jaisa abhi.
- *
- * getToolContent cached hai (tag: tool-content:<slug>). Admin me save karte hi
- * afterChange hook revalidateTag call karta hai → agli request par updated content.
- * DB down/khali → null → codeFallback (page kabhi nahi tootta).
+ * Outer Suspense: production / Vercel pe Payload+Neon cold-start layout ko block
+ * nahi karta — pehle hardcoded codeFallback dikhta hai, phir CMS jab ready ho.
+ * Force-static build me dono resolve ho kar full HTML me bake ho jate hain.
  */
-export async function ToolContentSwitch({
+export function ToolContentSwitch({
+  slug,
+  locale = 'en',
+  codeFallback,
+}: {
+  slug: string
+  locale?: string
+  codeFallback: React.ReactNode
+}) {
+  return (
+    <Suspense fallback={codeFallback}>
+      <ToolContentSwitchInner
+        slug={slug}
+        locale={locale}
+        codeFallback={codeFallback}
+      />
+    </Suspense>
+  )
+}
+
+async function ToolContentSwitchInner({
   slug,
   locale = 'en',
   codeFallback,
@@ -26,7 +43,6 @@ export async function ToolContentSwitch({
   const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0
   return (
     <>
-      {/* CMS custom JSON-LD (agar hai) — server-only, cached fetch (dedup) */}
       <ToolCustomSchema slug={slug} locale={locale} />
       {cmsActive && doc ? (
         <ToolSeoContentTemplate slug={slug} doc={doc} />

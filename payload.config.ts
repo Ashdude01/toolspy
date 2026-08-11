@@ -87,6 +87,10 @@ export default buildConfig({
   db: postgresAdapter({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
+      // Vercel/serverless: Neon cold-start pe infinite hang mat karo
+      connectionTimeoutMillis: 4000,
+      idleTimeoutMillis: 10000,
+      max: 5,
     },
   }),
   localization: {

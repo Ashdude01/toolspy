@@ -10,9 +10,7 @@ export const metadata: Metadata = generateToolMetadata('color-palette-generator'
 export const dynamic = 'force-static'
 
 function ColorPaletteGeneratorPageFallback() {
-  return (
-    <div className="container mx-auto px-4 py-6 min-h-[200px] animate-pulse bg-muted/30 rounded-lg" aria-hidden="true" />
-  )
+  return null
 }
 
 export default function ColorPaletteGeneratorLayout({

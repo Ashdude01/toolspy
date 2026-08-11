@@ -11,11 +11,21 @@ export function getHomepagePopularTools(): Promise<Tool[]> {
   return unstable_cache(
     async () => {
       try {
-        const payload = await getPayload({ config })
-        const doc = await payload.findGlobal({
-          slug: 'homepage',
-          depth: 0,
-        })
+        const payload = await Promise.race([
+          getPayload({ config }),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('[homepage] getPayload timeout')), 4000)
+          ),
+        ])
+        const doc = await Promise.race([
+          payload.findGlobal({
+            slug: 'homepage',
+            depth: 0,
+          }),
+          new Promise<never>((_, reject) =>
+            setTimeout(() => reject(new Error('[homepage] findGlobal timeout')), 4000)
+          ),
+        ])
         const rows = (doc as { popularTools?: Array<{ toolSlug?: string }> } | null)
           ?.popularTools
         if (!rows?.length) return getFeaturedTools()
@@ -30,6 +40,6 @@ export function getHomepagePopularTools(): Promise<Tool[]> {
       }
     },
     ['homepage-popular-tools'],
-    { tags: ['homepage'] }
+    { tags: ['homepage'], revalidate: 3600 }
   )()
 }

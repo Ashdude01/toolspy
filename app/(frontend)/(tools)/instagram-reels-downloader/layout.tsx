@@ -9,9 +9,7 @@ export const metadata: Metadata = generateToolMetadata('instagram-reels-download
 export const dynamic = 'force-static'
 
 function InstagramReelsDownloaderPageFallback() {
-  return (
-    <div className="container mx-auto px-4 py-6 min-h-[200px] animate-pulse bg-muted/30 rounded-lg" aria-hidden="true" />
-  )
+  return null
 }
 
 export default function InstagramReelsDownloaderLayout({ children }: { children: React.ReactNode }) {
