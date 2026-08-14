@@ -1,9 +1,12 @@
 import { MetadataRoute } from 'next';
-import { tools, toolCategories, ToolCategory } from '@/lib/tools-data';
+import { tools, toolCategories } from '@/lib/tools-data';
 import { blogPosts } from '@/lib/blog-data';
+import { defaultBlogAuthor, defaultBlogReviewer } from '@/lib/blog/defaults';
+import { getPublishedBlogPosts } from '@/lib/payload/get-posts';
+import { getPublishedAuthors } from '@/lib/payload/get-authors';
 import { PUBLISHED_LOCALES } from '@/lib/i18n/locales';
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const baseUrl = 'https://toolspy.net';
   
   // Static pages
@@ -75,6 +78,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      url: `${baseUrl}/blog/author`,
+      lastModified: new Date(),
+      changeFrequency: 'weekly' as const,
+      priority: 0.7,
+    },
+    {
       url: `${baseUrl}/help`,
       lastModified: new Date(),
       changeFrequency: 'weekly' as const,
@@ -140,12 +149,33 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
-  // Blog post pages
-  const blogPages: MetadataRoute.Sitemap = blogPosts.map((post) => ({
+  let posts = blogPosts;
+  try {
+    posts = await getPublishedBlogPosts();
+  } catch {
+    // build / DB unavailable — code fallback
+  }
+
+  let authors = [defaultBlogAuthor, defaultBlogReviewer];
+  try {
+    const cmsAuthors = await getPublishedAuthors();
+    if (cmsAuthors.length > 0) authors = cmsAuthors;
+  } catch {
+    // fallback defaults
+  }
+
+  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,
     lastModified: new Date(post.updatedAt || post.publishedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.8,
+  }));
+
+  const authorPages: MetadataRoute.Sitemap = authors.map((author) => ({
+    url: `${baseUrl}/blog/author/${author.slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'monthly' as const,
+    priority: 0.6,
   }));
 
   // Localized pages — sirf PUBLISHED locales ke liye (lib/i18n/locales.ts).
@@ -174,6 +204,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...localizedPages,
     ...extensionPages,
     ...blogPages,
+    ...authorPages,
   ];
 
   // De-dupe by URL (e.g. /image-to-pdf is both a registered tool and may be listed explicitly elsewhere)

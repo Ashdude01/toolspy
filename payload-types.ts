@@ -69,6 +69,7 @@ export interface Config {
   collections: {
     users: User;
     media: Media;
+    authors: Author;
     'tool-content': ToolContent;
     posts: Post;
     pages: Page;
@@ -81,6 +82,7 @@ export interface Config {
   collectionsSelect: {
     users: UsersSelect<false> | UsersSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
+    authors: AuthorsSelect<false> | AuthorsSelect<true>;
     'tool-content': ToolContentSelect<false> | ToolContentSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     pages: PagesSelect<false> | PagesSelect<true>;
@@ -208,6 +210,34 @@ export interface Media {
   };
 }
 /**
+ * Public author profiles for blog posts (name, bio, photo).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors".
+ */
+export interface Author {
+  id: number;
+  /**
+   * URL slug under /blog/author/<slug>/.
+   */
+  slug: string;
+  name: string;
+  /**
+   * e.g. Editor, Reviewer, GST Specialist
+   */
+  role?: string | null;
+  /**
+   * Short author bio shown on profile + byline.
+   */
+  bio?: string | null;
+  /**
+   * Square profile photo (optional).
+   */
+  photo?: (number | null) | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * SEO content for tool pages.
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -306,7 +336,7 @@ export interface Post {
   slug: string;
   title: string;
   /**
-   * Short description / meta
+   * Short description / meta excerpt
    */
   excerpt?: string | null;
   category: 'Exams' | 'GST & Finance' | 'Tools & Guides';
@@ -314,6 +344,28 @@ export interface Post {
    * Estimated reading time
    */
   readingTimeMinutes?: number | null;
+  /**
+   * Main / featured image (listing + article header).
+   */
+  featuredImage?: (number | null) | Media;
+  /**
+   * Main article body. Use H1–H3, bold, italic, lists (bullets + numbered), links, tables, and images.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Comma-separated keywords
    */
@@ -326,6 +378,59 @@ export interface Post {
     path?: string | null;
     cta?: string | null;
   };
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  metaTitle?: string | null;
+  metaDescription?: string | null;
+  /**
+   * Open Graph title. Empty = post title.
+   */
+  ogTitle?: string | null;
+  /**
+   * Open Graph description. Empty = excerpt.
+   */
+  ogDescription?: string | null;
+  /**
+   * OG / Twitter / social sharing image (1200×630). Empty = featured image.
+   */
+  ogImage?: (number | null) | Media;
+  /**
+   * Twitter/X title. Empty = OG title.
+   */
+  twitterTitle?: string | null;
+  /**
+   * Twitter/X description. Empty = OG description.
+   */
+  twitterDescription?: string | null;
+  /**
+   * Byline author (public profile).
+   */
+  author?: (number | null) | Author;
+  publishedAt?: string | null;
+  /**
+   * Editorial / fact reviewer (optional).
+   */
+  reviewedBy?: (number | null) | Author;
+  /**
+   * When editorial review was completed.
+   */
+  reviewedAt?: string | null;
+  /**
+   * Shown on the article (e.g. sources checked, indicative exam figures).
+   */
+  editorialNote?: string | null;
+  /**
+   * Legacy CDN URL. Prefer Featured image upload.
+   */
+  coverImageUrl?: string | null;
+  /**
+   * Legacy plain-text sections. New posts should use the rich text Content tab. Kept as fallback.
+   */
   sections?:
     | {
         heading?: string | null;
@@ -344,38 +449,6 @@ export interface Post {
         id?: string | null;
       }[]
     | null;
-  faqs?:
-    | {
-        question: string;
-        answer: string;
-        id?: string | null;
-      }[]
-    | null;
-  /**
-   * Optional freeform rich text (extra)
-   */
-  content?: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  } | null;
-  metaTitle?: string | null;
-  metaDescription?: string | null;
-  /**
-   * Cloudinary / CDN URL
-   */
-  coverImageUrl?: string | null;
-  publishedAt?: string | null;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -443,6 +516,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'media';
         value: number | Media;
+      } | null)
+    | ({
+        relationTo: 'authors';
+        value: number | Author;
       } | null)
     | ({
         relationTo: 'tool-content';
@@ -576,6 +653,19 @@ export interface MediaSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "authors_select".
+ */
+export interface AuthorsSelect<T extends boolean = true> {
+  slug?: T;
+  name?: T;
+  role?: T;
+  bio?: T;
+  photo?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "tool-content_select".
  */
 export interface ToolContentSelect<T extends boolean = true> {
@@ -616,6 +706,8 @@ export interface PostsSelect<T extends boolean = true> {
   excerpt?: T;
   category?: T;
   readingTimeMinutes?: T;
+  featuredImage?: T;
+  content?: T;
   keywords?: T;
   relatedTool?:
     | T
@@ -624,6 +716,26 @@ export interface PostsSelect<T extends boolean = true> {
         path?: T;
         cta?: T;
       };
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  metaTitle?: T;
+  metaDescription?: T;
+  ogTitle?: T;
+  ogDescription?: T;
+  ogImage?: T;
+  twitterTitle?: T;
+  twitterDescription?: T;
+  author?: T;
+  publishedAt?: T;
+  reviewedBy?: T;
+  reviewedAt?: T;
+  editorialNote?: T;
+  coverImageUrl?: T;
   sections?:
     | T
     | {
@@ -633,18 +745,6 @@ export interface PostsSelect<T extends boolean = true> {
         tableJson?: T;
         id?: T;
       };
-  faqs?:
-    | T
-    | {
-        question?: T;
-        answer?: T;
-        id?: T;
-      };
-  content?: T;
-  metaTitle?: T;
-  metaDescription?: T;
-  coverImageUrl?: T;
-  publishedAt?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;

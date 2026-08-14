@@ -16,6 +16,9 @@ export function ViewLiveButton() {
   if (collectionSlug === 'posts') {
     const slug = typeof savedDocumentData.slug === 'string' ? savedDocumentData.slug : null
     if (slug) href = `${base}/blog/${slug}/`
+  } else if (collectionSlug === 'authors') {
+    const slug = typeof savedDocumentData.slug === 'string' ? savedDocumentData.slug : null
+    if (slug) href = `${base}/blog/author/${slug}/`
   } else if (collectionSlug === 'pages') {
     const slug = typeof savedDocumentData.slug === 'string' ? savedDocumentData.slug : null
     if (!slug) href = null

@@ -1,13 +1,16 @@
 /**
- * Seed all hardcoded blog posts from lib/blog-data.ts into Payload `posts`.
+ * Seed default authors + hardcoded blog posts (lib/blog-data.ts) into Payload.
  *
  *   yarn payload run ./scripts/seed-posts.ts
  *
  * Idempotent: existing slug → update; missing → create as published.
+ * Legacy sections are converted into Lexical rich text (`content`).
  */
 import { getPayload } from 'payload'
 import config from '../payload.config'
 import { blogPosts, type BlogPost, type BlogSection } from '../lib/blog-data'
+import { defaultBlogAuthor, defaultBlogReviewer, defaultEditorialNote } from '../lib/blog/defaults'
+import { sectionsToLexical } from '../lib/blog/lexical-from-sections'
 
 function sectionToCms(section: BlogSection) {
   return {
@@ -18,7 +21,11 @@ function sectionToCms(section: BlogSection) {
   }
 }
 
-function postToData(post: BlogPost) {
+function postToData(
+  post: BlogPost,
+  authorId: number | string,
+  reviewerId: number | string
+) {
   return {
     slug: post.slug,
     title: post.title,
@@ -31,21 +38,69 @@ function postToData(post: BlogPost) {
       path: post.relatedTool.path,
       cta: post.relatedTool.cta,
     },
+    content: sectionsToLexical(post.sections),
     sections: post.sections.map(sectionToCms),
     faqs: post.faqs.map((f) => ({ question: f.question, answer: f.answer })),
     metaTitle: post.title,
     metaDescription: post.description,
+    ogTitle: post.title,
+    ogDescription: post.description,
+    twitterTitle: post.title,
+    twitterDescription: post.description,
     publishedAt: post.publishedAt,
+    author: authorId,
+    reviewedBy: reviewerId,
+    reviewedAt: post.updatedAt || post.publishedAt,
+    editorialNote: defaultEditorialNote(post.category),
     _status: 'published' as const,
   }
+}
+
+async function upsertAuthor(
+  payload: Awaited<ReturnType<typeof getPayload>>,
+  author: { slug: string; name: string; role?: string; bio?: string }
+) {
+  const existing = await payload.find({
+    collection: 'authors',
+    where: { slug: { equals: author.slug } },
+    limit: 1,
+    overrideAccess: true,
+  })
+  const data = {
+    slug: author.slug,
+    name: author.name,
+    role: author.role,
+    bio: author.bio,
+  }
+  if (existing.docs[0]) {
+    const updated = await payload.update({
+      collection: 'authors',
+      id: existing.docs[0].id,
+      data: data as never,
+      overrideAccess: true,
+    })
+    console.log(`  author updated: ${author.slug}`)
+    return updated.id
+  }
+  const created = await payload.create({
+    collection: 'authors',
+    data: data as never,
+    overrideAccess: true,
+  })
+  console.log(`  author created: ${author.slug}`)
+  return created.id
 }
 
 console.log(`[seed-posts] starting — ${blogPosts.length} posts`)
 
 const payload = await getPayload({ config })
 
+console.log('[seed-posts] authors…')
+const authorId = await upsertAuthor(payload, defaultBlogAuthor)
+const reviewerId = await upsertAuthor(payload, defaultBlogReviewer)
+
 for (const post of blogPosts) {
-  const data = postToData(post)
+  const data = postToData(post, authorId, reviewerId)
   const existing = await payload.find({
     collection: 'posts',
     where: { slug: { equals: post.slug } },
@@ -73,27 +128,6 @@ for (const post of blogPosts) {
     console.log(`  created: ${post.slug}`)
   }
 }
-
-// Backfill tool-content searchKey for list search
-console.log('[seed-posts] backfilling tool-content searchKey…')
-const { toolSearchKey } = await import('../lib/i18n/tool-labels')
-const tools = await payload.find({
-  collection: 'tool-content',
-  limit: 500,
-  depth: 0,
-  overrideAccess: true,
-})
-for (const doc of tools.docs) {
-  const slug = doc.toolSlug as string
-  await payload.update({
-    collection: 'tool-content',
-    id: doc.id,
-    data: { searchKey: toolSearchKey(slug) } as never,
-    draft: false,
-    overrideAccess: true,
-  })
-}
-console.log(`  searchKey updated for ${tools.docs.length} tool-content docs`)
 
 console.log('[seed-posts] done')
 process.exit(0)

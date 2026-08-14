@@ -14,6 +14,7 @@ import {
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
 import { ToolContent } from './collections/ToolContent'
+import { Authors } from './collections/Authors'
 import { Posts } from './collections/Posts'
 import { Pages } from './collections/Pages'
 import { Homepage } from './globals/Homepage'
@@ -85,7 +86,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, ToolContent, Posts, Pages],
+  collections: [Users, Media, Authors, ToolContent, Posts, Pages],
   globals: [Homepage],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [

@@ -4,6 +4,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 import { getPublishedBlogPosts } from '@/lib/payload/get-posts';
+import { formatBlogDate } from '@/components/blog/blog-meta';
+import { siteConfig } from '@/lib/config';
 
 export const metadata: Metadata = {
   title: 'Blog – Guides for Exams, GST & Online Tools | Toolspy',
@@ -17,27 +19,20 @@ export const metadata: Metadata = {
     'pdf tools guide',
   ],
   alternates: {
-    canonical: 'https://toolspy.net/blog',
+    canonical: `${siteConfig.url}/blog/`,
   },
   openGraph: {
     title: 'Blog – Guides for Exams, GST & Online Tools | Toolspy',
     description:
       'Practical guides: exam rank & percentile analysis, GST rules with tables, and image/PDF how-tos.',
-    url: 'https://toolspy.net/blog',
+    url: `${siteConfig.url}/blog/`,
     type: 'website',
   },
 };
 
 /** Pre-rendered at build time; CMS updates revalidate via posts afterChange. */
 export const dynamic = 'force-static';
-
-function formatDate(iso: string) {
-  return new Date(iso).toLocaleDateString('en-IN', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-}
+export const revalidate = 3600;
 
 export default async function BlogIndexPage() {
   const posts = await getPublishedBlogPosts();
@@ -47,10 +42,10 @@ export default async function BlogIndexPage() {
       <WebPageSchema
         title="Blog – Guides for Exams, GST & Online Tools | Toolspy"
         description="Practical guides from Toolspy: exam rank analysis, GST rules, and tool how-tos."
-        url="https://toolspy.net/blog"
+        url={`${siteConfig.url}/blog/`}
         breadcrumbs={[
-          { name: 'Home', url: 'https://toolspy.net' },
-          { name: 'Blog', url: 'https://toolspy.net/blog' },
+          { name: 'Home', url: siteConfig.url },
+          { name: 'Blog', url: `${siteConfig.url}/blog/` },
         ]}
       />
       <div className="container mx-auto px-4 py-12 max-w-6xl space-y-10">
@@ -60,12 +55,26 @@ export default async function BlogIndexPage() {
             Practical, data-backed guides for exams, GST, and everyday file tasks - each one
             paired with a free tool that does the work for you.
           </p>
+          <p className="text-sm text-muted-foreground">
+            Written by the{' '}
+            <Link href="/blog/author/" className="underline underline-offset-4 hover:text-foreground">
+              Toolspy editorial team
+            </Link>
+          </p>
         </section>
 
         <section className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
             <Link key={post.slug} href={`/blog/${post.slug}/`} className="group block h-full">
-              <Card className="h-full transition-shadow duration-200 hover:shadow-lg">
+              <Card className="h-full transition-shadow duration-200 hover:shadow-lg overflow-hidden">
+                {post.featuredImageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={post.featuredImageUrl}
+                    alt={post.featuredImageAlt || post.title}
+                    className="w-full h-40 object-cover border-b"
+                  />
+                ) : null}
                 <CardHeader>
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <Badge variant="outline">{post.category}</Badge>
@@ -77,7 +86,8 @@ export default async function BlogIndexPage() {
                     {post.title}
                   </CardTitle>
                   <CardDescription className="text-xs">
-                    {formatDate(post.updatedAt || post.publishedAt)}
+                    {formatBlogDate(post.updatedAt || post.publishedAt)}
+                    {post.author ? ` · ${post.author.name}` : ''}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
