@@ -103,7 +103,7 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <div className="container mx-auto px-4 py-12 max-w-4xl space-y-10">
+      <div className="container mx-auto px-4 py-12 max-w-6xl space-y-10">
         <nav aria-label="breadcrumb" className="text-sm text-muted-foreground">
           <ol className="flex flex-wrap items-center gap-1.5">
             <li>
@@ -166,21 +166,32 @@ export default async function BlogAuthorPage({ params }: AuthorPageProps) {
           {posts.length === 0 ? (
             <p className="text-muted-foreground">No published articles for this author yet.</p>
           ) : (
-            <div className="grid gap-4">
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
               {posts.map((post) => (
-                <Link key={post.slug} href={`/blog/${post.slug}/`} className="group block">
-                  <Card className="hover:shadow-md transition-shadow">
-                    <CardHeader>
-                      <div className="flex items-center gap-2 mb-1">
+                <Link key={post.slug} href={`/blog/${post.slug}/`} className="group block h-full">
+                  <Card className="flex h-full flex-col overflow-hidden pt-0 transition-shadow hover:shadow-md">
+                    {post.featuredImageUrl ? (
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={post.featuredImageUrl}
+                        alt={post.featuredImageAlt || post.title}
+                        width={800}
+                        height={450}
+                        className="aspect-[16/9] w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex aspect-[16/9] w-full items-center justify-center bg-muted text-sm text-muted-foreground">
+                        {post.category}
+                      </div>
+                    )}
+                    <CardHeader className="flex-1">
+                      <div className="mb-1 flex flex-wrap items-center gap-2">
                         <Badge variant="outline">{post.category}</Badge>
                         <span className="text-xs text-muted-foreground">
                           {formatBlogDate(post.publishedAt)}
-                          {post.updatedAt && post.updatedAt !== post.publishedAt
-                            ? ` · Updated ${formatBlogDate(post.updatedAt)}`
-                            : ''}
                         </span>
                       </div>
-                      <CardTitle className="text-lg group-hover:text-primary transition-colors">
+                      <CardTitle className="text-base leading-snug group-hover:text-primary transition-colors">
                         {post.title}
                       </CardTitle>
                       <CardDescription className="line-clamp-2">{post.description}</CardDescription>

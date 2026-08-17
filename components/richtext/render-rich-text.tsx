@@ -2,6 +2,8 @@ import {
   RichText as PayloadRichText,
   type JSXConvertersFunction,
 } from '@payloadcms/richtext-lexical/react'
+import type { ElementType } from 'react'
+import { slugifyHeading, lexicalNodeText } from '@/lib/blog/toc'
 
 /**
  * Frontend rich-text renderer.
@@ -59,6 +61,21 @@ function resolveMediaUrl(doc: MediaDoc): string | null {
 
 const converters: JSXConvertersFunction = ({ defaultConverters }) => ({
   ...defaultConverters,
+  // Headings get a slug id so the sidebar table of contents can deep-link to them.
+  // The id algorithm MUST stay in sync with lib/blog/toc.ts.
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  heading: ({ node, nodesToJSX }: any) => {
+    const tag: string = node?.tag || 'h2'
+    const text = lexicalNodeText(node)
+    const id = slugifyHeading(text)
+    const children = nodesToJSX({ nodes: node?.children ?? [] })
+    const Tag = tag as ElementType
+    return (
+      <Tag id={id} className="scroll-mt-24">
+        {children}
+      </Tag>
+    )
+  },
   // Override upload so CMS images always render when media is populated.
   // Plain <img> — avoids next/image custom-loader issues with /api/media/... URLs.
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

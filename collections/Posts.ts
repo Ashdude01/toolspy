@@ -198,48 +198,29 @@ export const Posts: CollectionConfig = {
             },
           ],
         },
-        {
-          label: 'Legacy sections',
-          fields: [
-            {
-              name: 'coverImageUrl',
-              type: 'text',
-              admin: { description: 'Legacy CDN URL. Prefer Featured image upload.' },
-            },
-            {
-              name: 'sections',
-              type: 'array',
-              localized: true,
-              labels: { singular: 'Section', plural: 'Sections' },
-              admin: {
-                initCollapsed: true,
-                description:
-                  'Legacy plain-text sections. New posts should use the rich text Content tab. Kept as fallback.',
-              },
-              fields: [
-                { name: 'heading', type: 'text' },
-                {
-                  name: 'paragraphs',
-                  type: 'textarea',
-                  admin: { description: 'Separate paragraphs with a blank line' },
-                },
-                {
-                  name: 'listItems',
-                  type: 'textarea',
-                  admin: { description: 'One list item per line' },
-                },
-                {
-                  name: 'tableJson',
-                  type: 'textarea',
-                  admin: {
-                    description:
-                      'Optional table as JSON: {"caption":"...","headers":["A"],"rows":[["1"]]}',
-                  },
-                },
-              ],
-            },
-          ],
-        },
+      ],
+    },
+    /**
+     * Legacy fields — hidden from the admin editor (the "Legacy sections" tab was
+     * removed) but kept in the schema/DB so the frontend fallback renderer still
+     * works for any older post that has no rich-text Content. Do not re-expose.
+     */
+    {
+      name: 'coverImageUrl',
+      type: 'text',
+      admin: { hidden: true },
+    },
+    {
+      name: 'sections',
+      type: 'array',
+      localized: true,
+      labels: { singular: 'Section', plural: 'Sections' },
+      admin: { hidden: true },
+      fields: [
+        { name: 'heading', type: 'text' },
+        { name: 'paragraphs', type: 'textarea' },
+        { name: 'listItems', type: 'textarea' },
+        { name: 'tableJson', type: 'textarea' },
       ],
     },
   ],

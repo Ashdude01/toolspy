@@ -10,6 +10,8 @@ import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
+import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
+import { cloudinaryAdapter, isCloudinaryEnabled } from './lib/storage/cloudinary'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -60,6 +62,25 @@ const PAYLOAD_ORIGINS = [
 const uniqueOrigins = [...new Set(PAYLOAD_ORIGINS)]
 
 /**
+ * Media storage: Cloudinary (free-forever CDN) when CLOUDINARY_* env vars are set,
+ * otherwise fall back to local disk (public/media) for local dev. This keeps `next build`
+ * and `payload` CLI working even without credentials.
+ */
+const cloudinaryOn = isCloudinaryEnabled()
+const storagePlugins = cloudinaryOn
+  ? [
+      cloudStoragePlugin({
+        collections: {
+          media: {
+            adapter: cloudinaryAdapter(),
+            disableLocalStorage: true,
+          },
+        },
+      }),
+    ]
+  : []
+
+/**
  * Toolspy v2 — Payload CMS config
  *
  * - Localization: saare locales (lib/i18n/locales.ts se — single source of truth)
@@ -88,6 +109,7 @@ export default buildConfig({
   },
   collections: [Users, Media, Authors, ToolContent, Posts, Pages],
   globals: [Homepage],
+  plugins: [...storagePlugins],
   editor: lexicalEditor({
     features: ({ defaultFeatures }) => [
       ...defaultFeatures,

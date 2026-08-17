@@ -424,27 +424,12 @@ export interface Post {
    * Shown on the article (e.g. sources checked, indicative exam figures).
    */
   editorialNote?: string | null;
-  /**
-   * Legacy CDN URL. Prefer Featured image upload.
-   */
   coverImageUrl?: string | null;
-  /**
-   * Legacy plain-text sections. New posts should use the rich text Content tab. Kept as fallback.
-   */
   sections?:
     | {
         heading?: string | null;
-        /**
-         * Separate paragraphs with a blank line
-         */
         paragraphs?: string | null;
-        /**
-         * One list item per line
-         */
         listItems?: string | null;
-        /**
-         * Optional table as JSON: {"caption":"...","headers":["A"],"rows":[["1"]]}
-         */
         tableJson?: string | null;
         id?: string | null;
       }[]

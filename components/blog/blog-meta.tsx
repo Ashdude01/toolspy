@@ -45,16 +45,16 @@ export function AuthorByline({
             <Link href={`/blog/author/${author.slug}/`} className="hover:text-primary transition-colors">
               {author.name}
             </Link>
-            {author.role ? (
+            {/* {author.role ? (
               <span className="text-muted-foreground font-normal"> · {author.role}</span>
-            ) : null}
+            ) : null} */}
           </p>
         ) : (
-          <p className="font-medium text-foreground">Toolspy Editorial Team</p>
+          <p className="font-medium text-foreground">Team Toolspy</p>
         )}
         <p className="text-muted-foreground">
           Published {formatBlogDate(publishedAt)}
-          {updatedAt && updatedAt !== publishedAt ? ` · Updated ${formatBlogDate(updatedAt)}` : ''}
+          {updatedAt && updatedAt !== publishedAt ? ` Updated ${formatBlogDate(updatedAt)}` : ''}
           {typeof readingTimeMinutes === 'number' ? ` · ${readingTimeMinutes} min read` : ''}
         </p>
       </div>
