@@ -4,7 +4,7 @@ import type { BlogAuthor, BlogPost } from '@/lib/blog-data'
 export function formatBlogDate(iso: string) {
   return new Date(iso).toLocaleDateString('en-IN', {
     year: 'numeric',
-    month: 'long',
+    month: 'numeric',
     day: 'numeric',
   })
 }
@@ -53,8 +53,8 @@ export function AuthorByline({
           <p className="font-medium text-foreground">Team Toolspy</p>
         )}
         <p className="text-muted-foreground">
-          Published {formatBlogDate(publishedAt)}
-          {updatedAt && updatedAt !== publishedAt ? ` Updated ${formatBlogDate(updatedAt)}` : ''}
+         🕒 {formatBlogDate(publishedAt)}
+          {updatedAt && updatedAt !== publishedAt ? ` Updated on ${formatBlogDate(updatedAt)}` : ''}
           {typeof readingTimeMinutes === 'number' ? ` · ${readingTimeMinutes} min read` : ''}
         </p>
       </div>

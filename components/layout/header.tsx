@@ -272,15 +272,6 @@ export function Header({ onSearch }: HeaderProps) {
                 </div>
               </div>
 
-             
-
-              <Link
-                href="/blog"
-                className="text-sm font-medium transition-colors hover:text-primary"
-              >
-                Blog
-              </Link>
-
               <Link
                 href="/careers"
                 className="text-sm font-medium transition-colors hover:text-primary"

@@ -22,7 +22,7 @@ export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
       ) : null}
 
       {recentPosts.length > 0 ? (
-        <div className="rounded-xl bg-card p-5">
+        <div className="rounded-xl p-5">
           <h3 className="mb-3.5 text-base font-semibold text-muted-foreground">
             Recent articles
           </h3>
@@ -55,7 +55,7 @@ export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
       ) : null}
 
       {featuredTools.length > 0 ? (
-        <div className="rounded-xl bg-card p-5">
+        <div className="rounded-xl p-5">
           <h3 className="mb-3.5 text-base font-semibold text-muted-foreground">
             Featured tools
           </h3>

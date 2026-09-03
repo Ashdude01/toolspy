@@ -11,7 +11,7 @@ import {
   EXPERIMENTAL_TableFeature,
 } from '@payloadcms/richtext-lexical'
 import { cloudStoragePlugin } from '@payloadcms/plugin-cloud-storage'
-import { cloudinaryAdapter, isCloudinaryEnabled } from './lib/storage/cloudinary'
+import { cloudinaryAdapter, cloudinaryDeliveryUrl, isCloudinaryEnabled } from './lib/storage/cloudinary'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
@@ -67,18 +67,23 @@ const uniqueOrigins = [...new Set(PAYLOAD_ORIGINS)]
  * and `payload` CLI working even without credentials.
  */
 const cloudinaryOn = isCloudinaryEnabled()
-const storagePlugins = cloudinaryOn
-  ? [
-      cloudStoragePlugin({
-        collections: {
-          media: {
-            adapter: cloudinaryAdapter(),
-            disableLocalStorage: true,
-          },
+const storagePlugins = [
+  cloudStoragePlugin({
+    enabled: cloudinaryOn,
+    collections: {
+      media: {
+        adapter: cloudinaryAdapter(),
+        disableLocalStorage: true,
+        // Use Cloudinary CDN URLs in admin + API (not /api/media/file/...).
+        disablePayloadAccessControl: true,
+        generateFileURL: ({ filename, collection }) => {
+          if (!filename) return ''
+          return cloudinaryDeliveryUrl(collection.slug, filename)
         },
-      }),
-    ]
-  : []
+      },
+    },
+  }),
+]
 
 /**
  * Toolspy v2 — Payload CMS config

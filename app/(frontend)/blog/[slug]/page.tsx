@@ -244,12 +244,28 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </figure>
               ) : null}
 
-              <EditorialBox post={post} />
-
               {toc.length > 0 ? (
                 <div className="lg:hidden">
                   <TableOfContents items={toc} variant="mobile" />
                 </div>
+              ) : null}
+
+              {post.relatedTool?.name ? (
+                <Card className="border-primary/30 bg-primary/5">
+                  <CardHeader>
+                    <CardTitle className="text-lg">{post.relatedTool.name}</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <p className="text-muted-foreground leading-relaxed">{post.relatedTool.cta}</p>
+                    <Link
+                      href={post.relatedTool.path}
+                      className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
+                    >
+                      Open {post.relatedTool.name}
+                      <ArrowRight className="h-4 w-4" />
+                    </Link>
+                  </CardContent>
+                </Card>
               ) : null}
 
               {useRichText ? (
@@ -316,23 +332,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 ))
               )}
 
-              {post.relatedTool?.name ? (
-                <Card className="border-primary/30 bg-primary/5">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Try it yourself: {post.relatedTool.name}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <p className="text-muted-foreground leading-relaxed">{post.relatedTool.cta}</p>
-                    <Link
-                      href={post.relatedTool.path}
-                      className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
-                    >
-                      Open {post.relatedTool.name}
-                      <ArrowRight className="h-4 w-4" />
-                    </Link>
-                  </CardContent>
-                </Card>
-              ) : null}
+
 
               {post.faqs.length > 0 ? (
                 <section className="space-y-4">
@@ -348,9 +348,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
                 </section>
               ) : null}
 
+              <EditorialBox post={post} />
+
               <div className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">
-                  About{' '}
+                  About {' '}
                   <Link href="/about/" className="underline underline-offset-4 hover:text-foreground">
                     Toolspy
                   </Link>{' '}

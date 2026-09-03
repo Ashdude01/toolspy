@@ -65,7 +65,13 @@ const nextConfig = {
 
   // Sharp is a native module — keep it external and force Vercel NFT to include
   // libvips binaries (sharp 0.34/0.35 fail on Vercel without this + pinned version).
-  serverExternalPackages: ['sharp', 'payload', '@payloadcms/db-postgres'],
+  serverExternalPackages: [
+    'sharp',
+    'payload',
+    '@payloadcms/db-postgres',
+    'cloudinary',
+    '@payloadcms/plugin-cloud-storage',
+  ],
   outputFileTracingIncludes: {
     '/*': [
       './node_modules/sharp/**/*',
