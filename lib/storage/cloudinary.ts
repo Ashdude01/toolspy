@@ -130,7 +130,7 @@ export function cloudinaryAdapter(): Adapter {
 
         // Only attach CDN url on the original file — size variants would overwrite it.
         const isOriginal = !data?.filename || data.filename === file.filename
-        if (!isOriginal) return
+        if (!isOriginal) return {}
 
         return {
           url: result.secure_url,
