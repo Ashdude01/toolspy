@@ -1,23 +1,18 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import HomePage from '@/app/(frontend)/page'
 import {
-  ALL_LOCALES,
   DEFAULT_LOCALE,
   ROUTABLE_LOCALES,
-  PUBLISHED_LOCALES,
   isPublishedLocale,
   isRoutableLocale,
 } from '@/lib/i18n/locales'
-import { siteConfig } from '@/lib/config'
-import { limitTitle, limitDescription } from '@/lib/utils/seo'
+import { HomePageView, buildHomepageMetadata } from '@/components/home2/home-page-view'
 
 /**
- * Localized homepage — /de/, /fr/, ... (Next 15: async params)
- * Phase 2: existing English homepage reuse. Phase 3: Payload 'pages' se
- * localized hero/sections aayenge.
+ * Localized homepage — /de/, /es/, ...
+ * HomePageView(locale): layout code se; SEO content block CMS/code toggle se
+ * (per-language). Jab tak locale PUBLISHED na ho → noindex.
  */
-
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string }>
@@ -26,41 +21,18 @@ export function generateStaticParams() {
   return ROUTABLE_LOCALES.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }))
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Params
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
   const { locale } = await params
-  const info = ALL_LOCALES[locale]
-  if (!info) return {}
-
-  const published = isPublishedLocale(locale)
-  const canonical = `${siteConfig.url}/${locale}/`
-
-  const languages: Record<string, string> = {
-    'x-default': `${siteConfig.url}/`,
-    en: `${siteConfig.url}/`,
-  }
-  for (const pub of PUBLISHED_LOCALES) {
-    const pubInfo = ALL_LOCALES[pub]
-    if (pubInfo) languages[pubInfo.hreflang] = `${siteConfig.url}/${pub}/`
-  }
-
+  if (!isRoutableLocale(locale) || locale === DEFAULT_LOCALE) return {}
+  const base = await buildHomepageMetadata(locale)
   return {
-    title: limitTitle(siteConfig.title),
-    description: limitDescription(siteConfig.description),
-    alternates: {
-      canonical,
-      ...(published ? { languages } : {}),
-    },
-    ...(published ? {} : { robots: { index: false, follow: true } }),
+    ...base,
+    ...(isPublishedLocale(locale) ? {} : { robots: { index: false, follow: true } }),
   }
 }
 
 export default async function LocalizedHomePage({ params }: { params: Params }) {
   const { locale } = await params
   if (locale === DEFAULT_LOCALE || !isRoutableLocale(locale)) notFound()
-
-  return <HomePage />
+  return <HomePageView locale={locale} />
 }

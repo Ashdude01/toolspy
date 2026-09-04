@@ -58,13 +58,23 @@ export function ToolsSection({
     }
   }, [initialSearchQuery]);
 
-  // If no prop provided, hydrate search from URL (?search=)
+  // If no prop provided, hydrate search from URL (?search=) — mount + client nav.
   useEffect(() => {
     if (initialSearchQuery === undefined && params) {
       const urlQuery = params.get("search") || "";
       setSearchQuery(urlQuery);
     }
   }, [params, initialSearchQuery]);
+
+  // URL me `?search=` update karo — SIRF user input/clear par (effect se nahi,
+  // taaki incoming ?search wipe na ho). replaceState = no full navigation → no loop.
+  const syncSearchUrl = (value: string) => {
+    if (initialSearchQuery !== undefined || typeof window === "undefined") return;
+    const url = new URL(window.location.href);
+    if (value.trim()) url.searchParams.set("search", value);
+    else url.searchParams.delete("search");
+    window.history.replaceState(null, "", url.pathname + url.search);
+  };
 
   const filterTools = () => {
     let filtered = toolsData;
@@ -152,7 +162,10 @@ export function ToolsSection({
               placeholder="Search tools..."
               className="pl-10 focus:pl-12 transition-all duration-300 md:focus:scale-105"
               value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                syncSearchUrl(e.target.value);
+              }}
             />
           </div>
 
@@ -193,6 +206,7 @@ export function ToolsSection({
                 onClick={() => {
                   setSearchQuery("");
                   setSelectedCategory("all");
+                  syncSearchUrl("");
                 }}
               >
                 Clear Filters

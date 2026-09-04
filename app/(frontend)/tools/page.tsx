@@ -39,8 +39,6 @@ function ToolsPageSkeleton() {
 export const dynamic = 'force-static';
 
 export default function ToolsPage() {
-  // Page is static; ToolsSection reads client-side ?search param and also accepts prop from other pages
-  const initialSearch = '';
   return (
     <div className="min-h-screen">
       {/* Breadcrumb Navigation */}
@@ -60,10 +58,15 @@ export default function ToolsPage() {
         </div>
       </div>
 
-      {/* Tools Section */}
+      {/*
+        Tools Section — NO searchQuery prop pass karo.
+        Prop pass karne se (khali string bhi) ToolsSection ka `?search` URL-read
+        effect skip ho jata tha. Prop chhodne par wo URL se `?search` padhega →
+        /tools/?search=pdf par sirf related tools dikhenge (client-side filter).
+      */}
       <Suspense fallback={<ToolsPageSkeleton />}>
-        <ToolsSection searchQuery={initialSearch} />
+        <ToolsSection />
       </Suspense>
     </div>
   );
-} 
+}

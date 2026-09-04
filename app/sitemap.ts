@@ -6,64 +6,123 @@ import { getPublishedBlogPosts } from '@/lib/payload/get-posts';
 import { getPublishedAuthors } from '@/lib/payload/get-authors';
 import { PUBLISHED_LOCALES, ALL_LOCALES } from '@/lib/i18n/locales';
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://toolspy.net';
+const baseUrl = 'https://toolspy.net';
 
-  /**
-   * hreflang cluster ek path ke liye — sirf jab koi locale PUBLISHED ho.
-   * Google ko sitemap me hi language alternates mil jate hain (page metadata ke
-   * alawa belt-and-suspenders). PUBLISHED_LOCALES khali → undefined (koi change nahi).
-   *
-   * path examples: '' (home), '/image-compressor' (tool). English canonical = baseUrl+path.
-   */
-  function languagesFor(path: string): Record<string, string> | undefined {
-    if (PUBLISHED_LOCALES.length === 0) return undefined;
-    const langs: Record<string, string> = {
-      'x-default': `${baseUrl}${path}`,
-      en: `${baseUrl}${path}`,
-    };
+/**
+ * SITEMAP — industry-standard, multilingual, dynamic.
+ *
+ * `generateSitemaps()` se ye ek SITEMAP INDEX banata hai:
+ *   /sitemap.xml            → index (child sitemaps ko point karta hai)
+ *   /sitemap/pages.xml      → homepage + static/listing pages
+ *   /sitemap/tools.xml      → 90+ tool pages (+ localized, jab publish ho)
+ *   /sitemap/blog.xml       → blog posts (CMS se DYNAMIC — naya post auto-add) + authors
+ *
+ * Har URL par hreflang `<xhtml:link>` alternates (sirf PUBLISHED_LOCALES ke liye).
+ * PUBLISHED_LOCALES khali → English-only (koi change nahi). Isse ek hi giant
+ * sitemap ki clutter bhi hat jati hai aur locale scale karne par bhi clean rehta hai.
+ */
+export async function generateSitemaps(): Promise<{ id: string }[]> {
+  return [{ id: 'pages' }, { id: 'tools' }, { id: 'blog' }];
+}
+
+// hreflang cluster ek path ke liye — sirf jab koi locale PUBLISHED ho
+function languagesFor(path: string): Record<string, string> | undefined {
+  if (PUBLISHED_LOCALES.length === 0) return undefined;
+  const langs: Record<string, string> = {
+    'x-default': `${baseUrl}${path}`,
+    en: `${baseUrl}${path}`,
+  };
+  for (const loc of PUBLISHED_LOCALES) {
+    const info = ALL_LOCALES[loc];
+    if (info) langs[info.hreflang] = `${baseUrl}/${loc}${path}`;
+  }
+  return langs;
+}
+
+type Entry = MetadataRoute.Sitemap[number];
+
+// English canonical entry + (published) localized entries — sab par hreflang cluster.
+// `localize=false` → sirf English (static/legal pages jo translate nahi hote).
+function withLocales(
+  path: string,
+  opts: { changeFrequency: Entry['changeFrequency']; priority: number; lastModified?: Date; localize?: boolean }
+): MetadataRoute.Sitemap {
+  const { changeFrequency, priority, lastModified = new Date(), localize = true } = opts;
+  const languages = localize ? languagesFor(path) : undefined;
+  const alt = languages ? { alternates: { languages } } : {};
+  const entries: MetadataRoute.Sitemap = [
+    { url: `${baseUrl}${path}`, lastModified, changeFrequency, priority, ...alt },
+  ];
+  if (localize) {
     for (const loc of PUBLISHED_LOCALES) {
-      const info = ALL_LOCALES[loc];
-      if (info) langs[info.hreflang] = `${baseUrl}/${loc}${path}`;
+      entries.push({
+        url: `${baseUrl}/${loc}${path}`,
+        lastModified,
+        changeFrequency,
+        priority: Math.max(0.1, priority - 0.05),
+        ...alt,
+      });
     }
-    return langs;
   }
+  return entries;
+}
 
-  function withAlternates(
-    entry: MetadataRoute.Sitemap[number],
-    path: string
-  ): MetadataRoute.Sitemap[number] {
-    const languages = languagesFor(path);
-    return languages ? { ...entry, alternates: { languages } } : entry;
-  }
+function dedupe(entries: MetadataRoute.Sitemap): MetadataRoute.Sitemap {
+  const seen = new Set<string>();
+  return entries.filter((e) => (seen.has(e.url) ? false : (seen.add(e.url), true)));
+}
 
-  // Static pages
-  const staticPages: MetadataRoute.Sitemap = [
-    withAlternates(
-      { url: baseUrl, lastModified: new Date(), changeFrequency: 'daily', priority: 1 },
-      ''
-    ),
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.8 },
-    { url: `${baseUrl}/digital-marketing`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.85 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/disclaimer`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/dmca`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/cookie-policy`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/gdpr-ccpa`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.5 },
-    { url: `${baseUrl}/blog`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.9 },
-    { url: `${baseUrl}/blog/author`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.7 },
-    { url: `${baseUrl}/help`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/feedback`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    { url: `${baseUrl}/bug-report`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.6 },
-    withAlternates(
-      { url: `${baseUrl}/tools`, lastModified: new Date(), changeFrequency: 'daily', priority: 0.9 },
-      '/tools'
-    ),
+// ---------------- pages.xml ----------------
+function pagesSitemap(): MetadataRoute.Sitemap {
+  const localized = [
+    ...withLocales('', { changeFrequency: 'daily', priority: 1 }), // homepage (translatable)
+    ...withLocales('/tools', { changeFrequency: 'daily', priority: 0.9 }),
   ];
 
-  // Tool category pages
+  // English-only pages (translate nahi hote → localize:false, no hreflang)
+  const englishOnly: Array<[string, number, Entry['changeFrequency']]> = [
+    ['/about', 0.8, 'monthly'],
+    ['/contact', 0.8, 'monthly'],
+    ['/digital-marketing', 0.85, 'monthly'],
+    ['/help', 0.8, 'weekly'],
+    ['/feedback', 0.6, 'monthly'],
+    ['/bug-report', 0.6, 'monthly'],
+    ['/blog', 0.9, 'weekly'],
+    ['/blog/author', 0.7, 'weekly'],
+    ['/privacy', 0.7, 'monthly'],
+    ['/terms', 0.7, 'monthly'],
+    ['/disclaimer', 0.5, 'monthly'],
+    ['/dmca', 0.5, 'monthly'],
+    ['/cookie-policy', 0.5, 'monthly'],
+    ['/gdpr-ccpa', 0.5, 'monthly'],
+  ];
+  const staticPages = englishOnly.flatMap(([p, priority, changeFrequency]) =>
+    withLocales(p, { changeFrequency, priority, localize: false })
+  );
+
+  // extension landing pages
+  const extensionPages: MetadataRoute.Sitemap = [
+    'image-compressor',
+    'image-downloader',
+    'facebook-photo-downloader',
+  ].map((slug) => ({
+    url: `${baseUrl}/extensions/${slug}`,
+    lastModified: new Date(),
+    changeFrequency: 'weekly',
+    priority: 0.75,
+  }));
+
+  return dedupe([...localized, ...staticPages, ...extensionPages]);
+}
+
+// ---------------- tools.xml ----------------
+function toolsSitemap(): MetadataRoute.Sitemap {
+  const toolPages = tools
+    .filter((tool) => tool.status === 'active')
+    .flatMap((tool) =>
+      withLocales(tool.path, { changeFrequency: 'weekly', priority: 0.9 })
+    );
+
   const categoryPages: MetadataRoute.Sitemap = Object.keys(toolCategories).map((category) => ({
     url: `${baseUrl}/tools/${category}`,
     lastModified: new Date(),
@@ -71,28 +130,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  // Tool pages (only active tools) — hreflang cluster attached
-  const toolPages: MetadataRoute.Sitemap = tools
-    .filter((tool) => tool.status === 'active')
-    .map((tool) =>
-      withAlternates(
-        {
-          url: `${baseUrl}${tool.path}`,
-          lastModified: new Date(),
-          changeFrequency: 'weekly',
-          priority: 0.9,
-        },
-        tool.path
-      )
-    );
+  return dedupe([...toolPages, ...categoryPages]);
+}
 
-  // Browser extension landing pages (app/(extension)/extensions/*)
-  const extensionPages: MetadataRoute.Sitemap = [
-    { url: `${baseUrl}/extensions/image-compressor`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
-    { url: `${baseUrl}/extensions/image-downloader`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
-    { url: `${baseUrl}/extensions/facebook-photo-downloader`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.75 },
-  ];
-
+// ---------------- blog.xml (DYNAMIC) ----------------
+async function blogSitemap(): Promise<MetadataRoute.Sitemap> {
   let posts = blogPosts;
   try {
     posts = await getPublishedBlogPosts();
@@ -108,12 +150,13 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // fallback defaults
   }
 
-  const blogPages: MetadataRoute.Sitemap = posts.map((post) => ({
-    url: `${baseUrl}/blog/${post.slug}`,
-    lastModified: new Date(post.updatedAt || post.publishedAt),
-    changeFrequency: 'monthly',
-    priority: 0.8,
-  }));
+  const blogPages = posts.flatMap((post) =>
+    withLocales(`/blog/${post.slug}`, {
+      changeFrequency: 'monthly',
+      priority: 0.8,
+      lastModified: new Date(post.updatedAt || post.publishedAt),
+    })
+  );
 
   const authorPages: MetadataRoute.Sitemap = authors.map((author) => ({
     url: `${baseUrl}/blog/author/${author.slug}`,
@@ -122,48 +165,16 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.6,
   }));
 
-  // Localized pages — sirf PUBLISHED locales (lib/i18n/locales.ts). Har entry par
-  // wahi hreflang cluster (reciprocal). PUBLISHED khali → ye array khali.
-  const localizedPages: MetadataRoute.Sitemap = PUBLISHED_LOCALES.flatMap((locale) => [
-    withAlternates(
-      {
-        url: `${baseUrl}/${locale}`,
-        lastModified: new Date(),
-        changeFrequency: 'daily',
-        priority: 0.9,
-      },
-      ''
-    ),
-    ...tools
-      .filter((tool) => tool.status === 'active')
-      .map((tool) =>
-        withAlternates(
-          {
-            url: `${baseUrl}/${locale}${tool.path}`,
-            lastModified: new Date(),
-            changeFrequency: 'weekly',
-            priority: 0.85,
-          },
-          tool.path
-        )
-      ),
-  ]);
+  return dedupe([...blogPages, ...authorPages]);
+}
 
-  const all: MetadataRoute.Sitemap = [
-    ...staticPages,
-    ...categoryPages,
-    ...toolPages,
-    ...localizedPages,
-    ...extensionPages,
-    ...blogPages,
-    ...authorPages,
-  ];
-
-  // De-dupe by URL
-  const seen = new Set<string>();
-  return all.filter((entry) => {
-    if (seen.has(entry.url)) return false;
-    seen.add(entry.url);
-    return true;
-  });
+export default async function sitemap({
+  id,
+}: {
+  id: string | number;
+}): Promise<MetadataRoute.Sitemap> {
+  const key = String(id);
+  if (key === 'tools') return toolsSitemap();
+  if (key === 'blog') return blogSitemap();
+  return pagesSitemap();
 }
