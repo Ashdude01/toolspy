@@ -18,6 +18,7 @@ import { hasLexicalContent } from '@/lib/blog/lexical-from-sections'
 import { mediaAlt, mediaSrc } from '@/lib/blog/media-url'
 
 const FETCH_TIMEOUT_MS = 4000
+const DEFAULT_POST_LOCALE = 'en'
 
 function withTimeout<T>(promise: Promise<T>, ms: number, label: string): Promise<T> {
   return new Promise<T>((resolve, reject) => {
@@ -174,7 +175,7 @@ function mergePosts(cms: BlogPost[]): BlogPost[] {
   return [...bySlug.values()].sort((a, b) => b.publishedAt.localeCompare(a.publishedAt))
 }
 
-async function fetchPublishedPosts(): Promise<BlogPost[]> {
+async function fetchPublishedPosts(locale: string): Promise<BlogPost[]> {
   try {
     const payload = await withTimeout(getPayload({ config }), FETCH_TIMEOUT_MS, 'getPayload list')
     const res = await withTimeout(
@@ -185,8 +186,11 @@ async function fetchPublishedPosts(): Promise<BlogPost[]> {
         limit: 100,
         draft: false,
         depth: 2,
+        // localized fetch — jo field translate nahi, usme English aata hai
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        locale: 'en' as any,
+        locale: locale as any,
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        fallbackLocale: DEFAULT_POST_LOCALE as any,
       }),
       FETCH_TIMEOUT_MS,
       'find posts'
@@ -199,14 +203,17 @@ async function fetchPublishedPosts(): Promise<BlogPost[]> {
   }
 }
 
-export function getPublishedBlogPosts(): Promise<BlogPost[]> {
-  return unstable_cache(fetchPublishedPosts, ['posts-all-en-v2'], {
+export function getPublishedBlogPosts(locale: string = DEFAULT_POST_LOCALE): Promise<BlogPost[]> {
+  return unstable_cache(() => fetchPublishedPosts(locale), [`posts-all-${locale}-v3`], {
     tags: ['posts'],
     revalidate: 3600,
   })()
 }
 
-export function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost | null> {
+export function getPublishedBlogPostBySlug(
+  slug: string,
+  locale: string = DEFAULT_POST_LOCALE
+): Promise<BlogPost | null> {
   return unstable_cache(
     async () => {
       try {
@@ -225,7 +232,9 @@ export function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost | nul
             draft: false,
             depth: 2,
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
-            locale: 'en' as any,
+            locale: locale as any,
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            fallbackLocale: DEFAULT_POST_LOCALE as any,
           }),
           FETCH_TIMEOUT_MS,
           `find ${slug}`
@@ -238,13 +247,16 @@ export function getPublishedBlogPostBySlug(slug: string): Promise<BlogPost | nul
       const fromCode = blogPosts.find((p) => p.slug === slug)
       return fromCode ? enrichCodePost(fromCode) : null
     },
-    [`post-${slug}-v2`],
+    [`post-${slug}-${locale}-v3`],
     { tags: ['posts', `post:${slug}`], revalidate: 3600 }
   )()
 }
 
-export function getPostsByAuthorSlug(authorSlug: string): Promise<BlogPost[]> {
-  return getPublishedBlogPosts().then((posts) =>
+export function getPostsByAuthorSlug(
+  authorSlug: string,
+  locale: string = DEFAULT_POST_LOCALE
+): Promise<BlogPost[]> {
+  return getPublishedBlogPosts(locale).then((posts) =>
     posts.filter((p) => p.author?.slug === authorSlug || p.reviewedBy?.slug === authorSlug)
   )
 }

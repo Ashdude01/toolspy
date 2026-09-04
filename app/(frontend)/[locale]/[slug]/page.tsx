@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import type { ComponentType } from 'react'
 import { Suspense } from 'react'
 import { notFound } from 'next/navigation'
 import { toolRegistry, localizedToolSlugs } from '@/lib/i18n/tool-registry'
@@ -18,45 +19,88 @@ import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 /**
- * Localized tool pages — /de/image-compressor/, /fr/gst-calculator/, ...
+ * Localized single-segment pages — /de/image-compressor/, /de/about/, /de/tools/ ...
  *
- * HYBRID MODEL (Phase 2 — CMS wired):
- *   - Tool LOGIC: existing app/(tools)/<slug>/page.tsx (untouched)
- *   - CONTENT:
- *       contentSource 'cms'  → Payload ka localized content, coast-fire layout
- *                              template me (ToolSeoContentTemplate)
- *       contentSource 'code' → existing English layout + seo-content as-is
- *       CMS entry hi nahi / DB down → same code fallback (page kabhi nahi tootta)
+ * DO cheezein handle karta hai (dispatcher):
+ *   1. TOOLS (toolRegistry me) — hybrid CMS/code content (jaisa pehle tha, untouched).
+ *   2. STATIC PAGES (about, contact, tools-listing, legal…) — existing English
+ *      component render + NOINDEX. Ye pages abhi translate NAHI hote (SEO ROI ~0),
+ *      bas locale switch par 404 nahi aata. Jab tak translation nahi → noindex,
+ *      no hreflang (honest — Google ko duplicate/English content advertise nahi karte).
  *
- * SSG + on-demand ISR: pages build par generate hote hain; Payload me content
- * save karte hi afterChange hook `tool-content:<slug>` tag revalidate karta hai.
+ * Baaki sab → notFound() (site-layout 404).
  */
 
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string; slug: string }>
 
-export function generateStaticParams() {
-  return ROUTABLE_LOCALES.filter((l) => l !== DEFAULT_LOCALE).flatMap((locale) =>
-    localizedToolSlugs.map((slug) => ({ locale, slug }))
-  )
+/** Static pages jinke localized routes chahiye (English content + noindex). */
+const STATIC_PAGES: Record<string, () => Promise<{ default: ComponentType }>> = {
+  tools: () => import('@/app/(frontend)/tools/page'),
+  about: () => import('@/app/(frontend)/about/page'),
+  contact: () => import('@/app/(frontend)/contact/page'),
+  careers: () => import('@/app/(frontend)/careers/page'),
+  help: () => import('@/app/(frontend)/help/page'),
+  feedback: () => import('@/app/(frontend)/feedback/page'),
+  'bug-report': () => import('@/app/(frontend)/bug-report/page'),
+  'digital-marketing': () => import('@/app/(frontend)/digital-marketing/page'),
+  privacy: () => import('@/app/(frontend)/privacy/page'),
+  terms: () => import('@/app/(frontend)/terms/page'),
+  disclaimer: () => import('@/app/(frontend)/disclaimer/page'),
+  dmca: () => import('@/app/(frontend)/dmca/page'),
+  'cookie-policy': () => import('@/app/(frontend)/cookie-policy/page'),
+  'gdpr-ccpa': () => import('@/app/(frontend)/gdpr-ccpa/page'),
+}
+const STATIC_PAGE_SLUGS = Object.keys(STATIC_PAGES)
+
+const NICE_TITLES: Record<string, string> = {
+  tools: 'All Tools',
+  about: 'About Us',
+  contact: 'Contact',
+  careers: 'Careers',
+  help: 'Help Center',
+  feedback: 'Feedback',
+  'bug-report': 'Report a Bug',
+  'digital-marketing': 'Digital Marketing',
+  privacy: 'Privacy Policy',
+  terms: 'Terms of Service',
+  disclaimer: 'Disclaimer',
+  dmca: 'DMCA',
+  'cookie-policy': 'Cookie Policy',
+  'gdpr-ccpa': 'GDPR & CCPA',
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Params
-}): Promise<Metadata> {
-  const { locale, slug } = await params
-  const entry = toolRegistry[slug]
-  const info = ALL_LOCALES[locale]
-  if (!entry || !info) return {}
+export function generateStaticParams() {
+  const locales = ROUTABLE_LOCALES.filter((l) => l !== DEFAULT_LOCALE)
+  return locales.flatMap((locale) => [
+    ...localizedToolSlugs.map((slug) => ({ locale, slug })),
+    ...STATIC_PAGE_SLUGS.map((slug) => ({ locale, slug })),
+  ])
+}
 
-  // Base: existing English layout ki metadata
+export async function generateMetadata({ params }: { params: Params }): Promise<Metadata> {
+  const { locale, slug } = await params
+  const info = ALL_LOCALES[locale]
+  if (!info) return {}
+
+  const entry = toolRegistry[slug]
+
+  // ---- STATIC PAGE (untranslated) — noindex, self-canonical, no hreflang ----
+  if (!entry && STATIC_PAGES[slug]) {
+    return {
+      title: `${NICE_TITLES[slug] ?? slug} | ${siteConfig.name}`,
+      alternates: { canonical: `${siteConfig.url}/${locale}/${slug}/` },
+      robots: { index: false, follow: true },
+    }
+  }
+
+  if (!entry) return {}
+
+  // ---- TOOL (hybrid CMS/code) ----
   const layoutMod = await entry.layout()
   const base: Metadata = layoutMod?.metadata ?? {}
 
-  // CMS content (agar hai) — localized metaTitle/metaDescription override
   const doc = await getToolContent(slug, locale)
   const cmsActive = doc?.contentSource === 'cms'
 
@@ -74,12 +118,8 @@ export async function generateMetadata({
 
   return {
     ...base,
-    ...(cmsActive && doc?.metaTitle
-      ? { title: limitTitle(doc.metaTitle) }
-      : {}),
-    ...(cmsActive && doc?.metaDescription
-      ? { description: limitDescription(doc.metaDescription) }
-      : {}),
+    ...(cmsActive && doc?.metaTitle ? { title: limitTitle(doc.metaTitle) } : {}),
+    ...(cmsActive && doc?.metaDescription ? { description: limitDescription(doc.metaDescription) } : {}),
     ...(cmsActive && doc?.keywords ? { keywords: doc.keywords } : {}),
     alternates: {
       canonical,
@@ -91,9 +131,7 @@ export async function generateMetadata({
           url: canonical,
           locale: info.ogLocale,
           ...(cmsActive && doc?.metaTitle ? { title: limitTitle(doc.metaTitle) } : {}),
-          ...(cmsActive && doc?.metaDescription
-            ? { description: limitDescription(doc.metaDescription) }
-            : {}),
+          ...(cmsActive && doc?.metaDescription ? { description: limitDescription(doc.metaDescription) } : {}),
         }
       : undefined,
     // SAFETY: jab tak locale PUBLISHED_LOCALES me nahi — noindex
@@ -101,7 +139,7 @@ export async function generateMetadata({
   }
 }
 
-function ToolPageFallback() {
+function PageFallback() {
   return (
     <div
       className="container mx-auto px-4 py-6 min-h-[200px] animate-pulse bg-muted/30 rounded-lg"
@@ -110,14 +148,28 @@ function ToolPageFallback() {
   )
 }
 
-export default async function LocalizedToolPage({ params }: { params: Params }) {
+export default async function LocalizedPage({ params }: { params: Params }) {
   const { locale, slug } = await params
 
   if (locale === DEFAULT_LOCALE || !isRoutableLocale(locale)) notFound()
 
   const entry = toolRegistry[slug]
-  if (!entry) notFound()
 
+  // ---- STATIC PAGE: existing English component render (English + noindex) ----
+  if (!entry) {
+    const loader = STATIC_PAGES[slug]
+    if (!loader) notFound()
+    const Mod = await loader()
+    const StaticPage = Mod.default
+    if (!StaticPage) notFound()
+    return (
+      <Suspense fallback={<PageFallback />}>
+        <StaticPage />
+      </Suspense>
+    )
+  }
+
+  // ---- TOOL (hybrid CMS/code) ----
   const [layoutMod, pageMod, doc] = await Promise.all([
     entry.layout(),
     entry.page(),
@@ -130,12 +182,10 @@ export default async function LocalizedToolPage({ params }: { params: Params }) 
   const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0
 
   if (cmsActive && doc) {
-    // CMS MODE: tool logic + localized CMS content (coast-fire layout template)
     return (
       <DynamicToolLayout toolSlug={slug}>
-        {/* CMS custom JSON-LD (server-only) */}
         <ToolCustomSchema slug={slug} locale={locale} />
-        <Suspense fallback={<ToolPageFallback />}>
+        <Suspense fallback={<PageFallback />}>
           <ToolPage />
         </Suspense>
         <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
@@ -145,9 +195,6 @@ export default async function LocalizedToolPage({ params }: { params: Params }) 
     )
   }
 
-  // CODE MODE (default / fallback): existing English layout + content as-is.
-  // contentSource 'code' wale tools (e.g. facebook-image-downloader) hamesha
-  // yahin se render honge — zero change guarantee.
   return (
     <ToolLayout>
       <ToolPage />
