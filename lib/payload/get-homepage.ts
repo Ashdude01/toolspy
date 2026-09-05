@@ -76,12 +76,15 @@ export function getHomepageContent(locale: string = 'en'): Promise<HomepageConte
         )
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const d = doc as any
-        return {
-          contentSource: d?.contentSource === 'cms' ? 'cms' : 'code',
+        const contentSource: HomepageContent['contentSource'] =
+          d?.contentSource === 'cms' ? 'cms' : 'code'
+        const result: HomepageContent = {
+          contentSource,
           content: d?.content ?? null,
           metaTitle: d?.metaTitle ?? null,
           metaDescription: d?.metaDescription ?? null,
         }
+        return result
       } catch (err) {
         console.warn(`[homepage] content fetch failed (${locale}):`, err)
         return null
