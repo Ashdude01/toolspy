@@ -731,13 +731,43 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   createdAt?: T;
 }
 /**
- * Homepage sections — Popular tools cards order & selection.
+ * Homepage — Popular tools cards + per-language SEO content (Code/CMS).
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "homepage".
  */
 export interface Homepage {
   id: number;
+  /**
+   * Is language ke liye: "CMS" karo aur neeche content likho → us language ke homepage par wahi dikhega. "Code" = built-in content (default).
+   */
+  contentSource?: ('code' | 'cms') | null;
+  /**
+   * Homepage SEO content (hero ke neeche). Sirf tab render hota hai jab is language ka Content Source = CMS ho. Full editor: headings, lists, tables, images, video.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * Homepage <title> (optional, per language). Khali = default.
+   */
+  metaTitle?: string | null;
+  /**
+   * Homepage meta description (optional, per language).
+   */
+  metaDescription?: string | null;
   /**
    * Homepage Popular Tools cards. Drag to reorder. Type in the dropdown to search by tool name or slug. Empty list = site uses code featured tools.
    */
@@ -849,6 +879,10 @@ export interface Homepage {
  * via the `definition` "homepage_select".
  */
 export interface HomepageSelect<T extends boolean = true> {
+  contentSource?: T;
+  content?: T;
+  metaTitle?: T;
+  metaDescription?: T;
   popularTools?:
     | T
     | {

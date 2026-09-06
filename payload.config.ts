@@ -135,6 +135,9 @@ export default buildConfig({
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
   db: postgresAdapter({
+    // Shared Neon = prod DB. Auto-push hangs on interactive "drop column?" prompts
+    // (e.g. media.sizes_* after Cloudinary). Opt in only: PAYLOAD_PUSH=true
+    push: process.env.PAYLOAD_PUSH === 'true',
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       // Vercel/serverless: Neon cold-start pe infinite hang mat karo
