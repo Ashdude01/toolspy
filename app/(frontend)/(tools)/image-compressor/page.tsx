@@ -41,6 +41,7 @@ import {
   ChevronDown,
   ChevronUp,
   Shield,
+  ImageIcon,
 } from "lucide-react";
 import {
   COMPRESSION_PRESETS,
@@ -621,24 +622,22 @@ function ImageCompressorContent() {
   ];
 
   return (
-    <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+    <div className="container mx-auto max-w-7xl px-4 py-6 sm:py-8">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="mb-6 text-center sm:mb-8">
         <Badge
           variant="outline"
-          className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
+          className="pointer-events-none bg-green-100 font-bold text-green-800 dark:bg-green-900 dark:text-green-200"
         >
-          <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          <Shield className="mr-2 h-4 w-4" aria-hidden />
+          Privacy-first · Compresses in your browser
         </Badge>
 
-        {/* Main Heading */}
-        <h2 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
+        <h2 className="mb-3 mt-4 bg-gradient-to-r from-red-500 to-blue-700 bg-clip-text pb-1 text-2xl font-bold text-transparent dark:from-red-600 dark:to-blue-500 sm:text-3xl lg:text-4xl">
           Image Compressor
         </h2>
-        <p className="text-sm  sm:text-base text-muted-foreground max-w-2xl mx-auto">
-          Compress images while maintaining quality with Toolspy's advanced
-          compression engine. Reduce file size and optimize images.
+        <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
+          Upload images → pick a preset → compress. Runs locally — files never leave your device.
         </p>
       </div>
 
@@ -650,44 +649,43 @@ function ImageCompressorContent() {
         maxFiles={100}
         autoCollapse={true}
         showBrandedModal={true}
-        modalDuration={2000}
+        modalDuration={700}
         importInProgress={linkImportLoading}
         importModalMessage="Importing images"
-        importModalSubMessage="Fetching your images-almost there…"
-        onModalClose={() => {
-          // Optional: Add any logic when modal closes
-        }}
+        importModalSubMessage="Fetching your images — almost there…"
       />
 
       {/* Selected Files */}
       {selectedFiles.length > 0 && (
-        <div ref={afterUploadRef} className="animate-in fade-in slide-in-from-top-4 duration-500">
-          <div className="grid grid-cols-1 md:grid-cols-6 gap-5">
+        <div
+          ref={afterUploadRef}
+          className="animate-in fade-in slide-in-from-top-4 pb-24 duration-500 md:pb-0"
+        >
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-6">
             {/* Selected Files Preview */}
-            <Card className="mb-6 sm:mb-8 md:col-span-3 lg:col-span-4">
+            <Card className="mb-4 md:col-span-3 md:mb-6 lg:col-span-4">
               <CardHeader>
-                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                   <div>
-                    <CardTitle>
-                      Selected Files ({selectedFiles.length})
+                    <CardTitle className="flex items-center gap-2">
+                      <ImageIcon className="h-5 w-5 text-primary" aria-hidden />
+                      Selected ({selectedFiles.length})
                     </CardTitle>
-                    <CardDescription>
-                      Files ready for compression
-                    </CardDescription>
+                    <CardDescription>Ready to compress — pick a preset, then tap Compress</CardDescription>
                   </div>
-                  <Button 
-                    variant="outline" 
-                    onClick={clearAllFiles} 
+                  <Button
+                    variant="outline"
+                    onClick={clearAllFiles}
                     size="sm"
                     aria-label="Clear all selected images"
                   >
-                    <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
+                    <Trash2 className="mr-2 h-4 w-4" aria-hidden />
                     Clear All
                   </Button>
                 </div>
               </CardHeader>
-              <CardContent className="md:max-h-64 overflow-y-auto">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+              <CardContent className="max-h-64 overflow-y-auto md:max-h-64">
+                <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
                   {selectedFiles.map((file, index) => (
                     <CompactImagePreview
                       key={`${file.name}-${index}`}
@@ -701,97 +699,98 @@ function ImageCompressorContent() {
             </Card>
 
             {/* Compression Presets */}
-            <Card className="mb-6 sm:mb-8 md:col-span-3 lg:col-span-2">
+            <Card className="mb-4 md:col-span-3 md:mb-6 lg:col-span-2">
               <CardHeader>
-                <CardTitle>Compression Preset</CardTitle>
-                <CardDescription>
-                  Choose a preset or customize settings below
-                </CardDescription>
+                <CardTitle>Quick preset</CardTitle>
+                <CardDescription>Most people use Web Optimized</CardDescription>
               </CardHeader>
               <CardContent>
-                {/* Compression Presets */}
-                <div className="grid grid-cols-2 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-2 gap-3">
                   {presetCards.map(({ key, icon, title, description }) => (
-                    <Card
+                    <button
                       key={key}
-                      className={`cursor-pointer transition-all duration-200 ${
+                      type="button"
+                      className={`rounded-lg border p-3 text-left transition-all duration-200 ${
                         currentPreset === key
-                          ? "ring-1 ring-primary bg-gray-300/50 dark:bg-gray-500/50"
-                          : "hover:shadow-md hover:ring-1 hover:ring-primary"
+                          ? "border-primary bg-primary/10 ring-1 ring-primary"
+                          : "border-border hover:border-primary/50 hover:bg-muted/40"
                       }`}
                       onClick={() => applyPreset(key)}
-                      role="button"
-                      tabIndex={0}
                       aria-label={`Select ${title} compression preset: ${description}`}
                       aria-pressed={currentPreset === key}
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter' || e.key === ' ') {
-                          e.preventDefault();
-                          applyPreset(key);
-                        }
-                      }}
                     >
-                      <CardContent className="p-3">
-                        <div className="flex items-center space-x-2 mb-2">
-                          <span aria-hidden="true">{icon}</span>
-                          <span className="font-semibold text-sm sm:text-base">
-                            {title}
-                          </span>
-                        </div>
-                        <p className="text-xs sm:text-sm text-muted-foreground">
-                          {description}
-                        </p>
-                      </CardContent>
-                    </Card>
+                      <div className="mb-1.5 flex items-center gap-2">
+                        <span aria-hidden="true">{icon}</span>
+                        <span className="text-sm font-semibold sm:text-base">{title}</span>
+                      </div>
+                      <p className="text-xs text-muted-foreground sm:text-sm">{description}</p>
+                    </button>
                   ))}
                 </div>
               </CardContent>
             </Card>
           </div>
 
+          {/* Primary compress — above settings so users don't bounce before finding it */}
+          <div className="mb-4 hidden md:block">
+            <Button
+              onClick={handleCompress}
+              disabled={selectedFiles.length === 0 || isCompressing}
+              size="lg"
+              className="h-12 w-full text-base font-semibold"
+              aria-label={
+                isCompressing
+                  ? "Compressing images, please wait"
+                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`
+              }
+            >
+              {isCompressing
+                ? "Compressing…"
+                : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
+            </Button>
+            <p className="mt-2 text-center text-xs text-muted-foreground">
+              Optional: open Advanced settings below to tweak quality or format
+            </p>
+          </div>
+
           {/* Compression Settings Card */}
           <Card ref={compressionSettingsRef} className="mb-6 sm:mb-8">
             <CardHeader>
-              <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <CardTitle>Compression Settings</CardTitle>
+                  <CardTitle>Settings (optional)</CardTitle>
                   <CardDescription>
-                    Fine-tune compression parameters
+                    Defaults are fine for most photos — change only if you need to
                   </CardDescription>
                 </div>
                 <Button
                   variant="secondary"
                   onClick={() => setShowAdvanced(!showAdvanced)}
                   size="sm"
-                  className="hidden md:flex gap-1"
+                  className="hidden gap-1 md:flex"
                   aria-label={showAdvanced ? "Hide advanced settings" : "Show advanced settings"}
                   aria-expanded={showAdvanced}
                 >
-                  <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
-                  <span className="hidden xl:inline">
-                    {showAdvanced ? "Hide" : "Advanced"}
-                  </span>
-                  <span className="xl:hidden">
-                    {showAdvanced ? "Hide" : "More"}
-                  </span>
+                  <Settings className="mr-2 h-4 w-4" aria-hidden />
+                  <span>{showAdvanced ? "Hide" : "Advanced"}</span>
                   {showAdvanced ? (
-                    <ChevronUp className="h-4 w-4 ml-2" aria-hidden="true" />
+                    <ChevronUp className="ml-2 h-4 w-4" aria-hidden />
                   ) : (
-                    <ChevronDown className="h-4 w-4 ml-2" aria-hidden="true" />
+                    <ChevronDown className="ml-2 h-4 w-4" aria-hidden />
                   )}
                 </Button>
               </div>
             </CardHeader>
             <CardContent className="space-y-5">
               {/* Top Row: Quality, Output Format, Target Size */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
                 {/* Quality Slider */}
                 <div className="sm:col-span-2 lg:col-span-1">
-                  <Label htmlFor="quality-slider" className="text-sm font-medium">Quality</Label>
+                  <Label htmlFor="quality-slider" className="text-sm font-medium">
+                    Quality
+                  </Label>
                   <div className="space-y-2">
-                    <div className="text-right text-sm font-medium">
-                      {quality[0]}%
-                    </div>
+                    <div className="text-right text-sm font-medium">{quality[0]}%</div>
                     <Slider
                       id="quality-slider"
                       value={quality}
@@ -826,7 +825,9 @@ function ImageCompressorContent() {
 
                 {/* Output Format */}
                 <div className="space-y-2">
-                  <Label htmlFor="output-format-select" className="text-sm font-medium">Output Format</Label>
+                  <Label htmlFor="output-format-select" className="text-sm font-medium">
+                    Output Format
+                  </Label>
                   <Select value={outputFormat} onValueChange={setOutputFormat}>
                     <SelectTrigger id="output-format-select" aria-label="Select output image format">
                       <SelectValue />
@@ -847,18 +848,16 @@ function ImageCompressorContent() {
                 variant="outline"
                 onClick={() => setShowAdvanced(!showAdvanced)}
                 size="sm"
-                className="md:hidden w-full"
+                className="w-full md:hidden"
                 aria-label={showAdvanced ? "Hide advanced settings" : "Show advanced settings"}
                 aria-expanded={showAdvanced}
               >
-                <Settings className="h-4 w-4 mr-2" aria-hidden="true" />
-                <span className="inline">
-                  {showAdvanced ? "Hide" : "Advanced"}
-                </span>
+                <Settings className="mr-2 h-4 w-4" aria-hidden />
+                <span className="inline">{showAdvanced ? "Hide" : "Advanced"}</span>
                 {showAdvanced ? (
-                  <ChevronUp className="h-4 w-4 ml-2" aria-hidden="true" />
+                  <ChevronUp className="ml-2 h-4 w-4" aria-hidden />
                 ) : (
-                  <ChevronDown className="h-4 w-4 ml-2" aria-hidden="true" />
+                  <ChevronDown className="ml-2 h-4 w-4" aria-hidden />
                 )}
               </Button>
 
@@ -994,22 +993,40 @@ function ImageCompressorContent() {
                 </div>
               )}
 
-              {/* Compress Button */}
+              {/* Desktop secondary compress kept near settings for long-scroll users */}
               <Button
                 onClick={handleCompress}
                 disabled={selectedFiles.length === 0 || isCompressing}
                 size="lg"
-                className="w-full"
-                aria-label={isCompressing 
-                  ? "Compressing images, please wait" 
-                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? 's' : ''}`}
+                className="hidden w-full md:inline-flex"
+                variant="outline"
+                aria-label={
+                  isCompressing
+                    ? "Compressing images, please wait"
+                    : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`
+                }
               >
                 {isCompressing
-                  ? "Compressing..."
-                  : `Compress ${selectedFiles.length} Images`}
+                  ? "Compressing…"
+                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
               </Button>
             </CardContent>
           </Card>
+        </div>
+      )}
+
+      {/* Mobile sticky compress — always visible after upload (cuts drop-off from buried CTA) */}
+      {selectedFiles.length > 0 && !isCompressing && (
+        <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-background/95 p-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-[0_-8px_24px_rgba(0,0,0,0.12)] backdrop-blur md:hidden">
+          <Button
+            onClick={handleCompress}
+            disabled={selectedFiles.length === 0 || isCompressing}
+            size="lg"
+            className="h-12 w-full text-base font-semibold"
+            aria-label={`Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
+          >
+            Compress {selectedFiles.length} image{selectedFiles.length !== 1 ? "s" : ""}
+          </Button>
         </div>
       )}
 

@@ -291,34 +291,34 @@ export function FileUpload({
             </div>
           </div>
 
-          {/* Main Text */}
-          <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-            Drag and drop your image{multiple ? 's' : ''} here
+          <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+            Drop images here to compress
           </h3>
+          <p className="mb-5 text-sm text-muted-foreground">
+            Or choose a clear action below — files stay on your device
+          </p>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-center gap-2 mb-6">
+          {/* Action Buttons — stopPropagation so nested controls aren't dead-click traps */}
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
             <Button 
-              variant="secondary" 
-              className="h-auto text-blue-600 hover:text-blue-700 text-xs sm:text-sm"
+              className="h-11 min-w-[140px] text-sm font-semibold sm:text-base"
               onClick={(e) => {
                 e.stopPropagation();
                 document.getElementById('file-input')?.click();
               }}
             >
-              Browse Files
+              Choose images
             </Button>
-            <span className="text-muted-foreground">•</span>
             <Button 
-              variant="secondary" 
-              className="h-auto text-purple-600 hover:text-purple-700 text-xs sm:text-sm"
+              variant="outline" 
+              className="h-11 text-sm sm:text-base"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePaste();
               }}
               disabled={isLoading}
             >
-              {isLoading ? 'Pasting...' : 'Paste from Clipboard'}
+              {isLoading ? 'Pasting…' : 'Paste image'}
             </Button>
           </div>
 

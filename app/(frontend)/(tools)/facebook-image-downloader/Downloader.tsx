@@ -5,11 +5,13 @@ import { useSearchParams } from "next/navigation";
 import {
   AlertCircle,
   CheckCircle2,
+  ClipboardPaste,
   Download,
   ExternalLink,
   FileArchive,
   Loader2,
   RotateCcw,
+  Smartphone,
 } from "lucide-react";
 import { useToast, ToastProvider } from "@/components/tools/shared/toast-provider";
 import {
@@ -22,11 +24,9 @@ import { FacebookPhotoExtensionCta } from "@/components/tools/facebook-photo-ext
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 
-const SAMPLE_URL = "https://www.facebook.com/photo/?fbid=1234567890";
 const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || "toolspy.net";
 const FILE_STAMP = `by-${SITE_DOMAIN}`;
 const FB_BTN = cn(
@@ -118,6 +118,27 @@ function DownloaderInner() {
     const pasted = e.clipboardData.getData("text").trim();
     if (isFacebookUrl(pasted) && status !== "loading") {
       setTimeout(() => analyze(pasted), 150);
+    }
+  }
+
+  async function pasteFromClipboard() {
+    if (status === "loading") return;
+    try {
+      const text = (await navigator.clipboard.readText()).trim();
+      if (!text) {
+        showToast("Clipboard is empty — copy a Facebook link first", "info");
+        return;
+      }
+      setUrl(text);
+      setUrlError(false);
+      if (isFacebookUrl(text)) {
+        await analyze(text);
+      } else {
+        showToast("Paste a facebook.com or fb.com link", "info");
+      }
+    } catch {
+      showToast("Couldn’t read clipboard — paste into the box manually", "info");
+      document.getElementById("fb-url")?.focus();
     }
   }
 
@@ -273,17 +294,35 @@ function DownloaderInner() {
       <Card className="w-full border-border/80 shadow-lg">
         <CardContent className="p-5 sm:p-6">
           <div className="space-y-3">
-            <Label
-              htmlFor="fb-url"
-              className="text-xs font-semibold uppercase tracking-wider text-muted-foreground"
-            >
-              Facebook URL
-            </Label>
+            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+              <Label
+                htmlFor="fb-url"
+                className="text-base font-bold  text-muted-foreground"
+              >
+                Paste Facebook link
+              </Label>
+              <p className="pointer-events-none text-left text-xs text-muted-foreground sm:text-right hidden sm:block">
+                Public posts &amp; photos only — private / login-required links won&apos;t work here
+              </p>
+            </div>
+
+            {/* Mobile-first tip — reduces bounce when users don't know how to copy links */}
+            <div className="flex items-start gap-2 text-left text-xs text-foreground sm:hidden">
+              <Smartphone className="mt-0.5 h-4 w-4 shrink-0 text-[#1877F2]" aria-hidden />
+              <p>
+                <span className="font-semibold">On phone:</span> open the post → Share →{" "}
+                <span className="font-semibold">Copy link</span> → tap Paste below.
+              </p>
+            </div>
+
             <div className="flex flex-col gap-2 sm:flex-row">
               <Input
                 id="fb-url"
                 type="url"
                 inputMode="url"
+                autoComplete="off"
+                autoCapitalize="off"
+                spellCheck={false}
                 placeholder="https://www.facebook.com/photo/?fbid=…"
                 value={url}
                 onChange={(e) => {
@@ -294,26 +333,38 @@ function DownloaderInner() {
                 onPaste={handlePaste}
                 disabled={status === "loading"}
                 className={cn(
-                  "h-12 flex-1 border-border bg-background font-mono text-sm dark:border-border",
+                  "py-3 sm:py-0 sm:h-12 flex-1 border-1 border-slate-600 font-mono text-sm dark:border-border",
                   urlError &&
                     "border-destructive ring-1 ring-destructive focus-visible:ring-destructive",
                 )}
               />
-              <button
-                type="button"
-                onClick={() => analyze()}
-                disabled={status === "loading"}
-                className="inline-flex h-12 w-full shrink-0 items-center justify-center gap-2 rounded-md bg-[#1877F2] px-8 text-sm font-semibold text-white transition-colors hover:bg-[#166FE5] disabled:pointer-events-none disabled:opacity-50 sm:w-auto"
-              >
-                {status === "loading" ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Analyzing…
-                  </>
-                ) : (
-                  "Analyze"
-                )}
-              </button>
+              <div className="flex gap-2">
+                <button
+                  type="button"
+                  onClick={pasteFromClipboard}
+                  disabled={status === "loading"}
+                  aria-label="Paste link from clipboard"
+                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-border bg-slate-100 px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50 sm:flex-none sm:px-5"
+                >
+                  <ClipboardPaste className="h-4 w-4" aria-hidden />
+                  Paste
+                </button>
+                <button
+                  type="button"
+                  onClick={() => analyze()}
+                  disabled={status === "loading"}
+                  className="inline-flex h-12 flex-[1.4] items-center justify-center gap-2 rounded-md bg-[#1877F2] px-5 text-sm font-semibold text-white transition-colors hover:bg-[#166FE5] disabled:pointer-events-none disabled:opacity-50 sm:min-w-[9.5rem] sm:flex-none sm:px-8"
+                >
+                  {status === "loading" ? (
+                    <>
+                      <Loader2 className="h-4 w-4 animate-spin" />
+                      Finding…
+                    </>
+                  ) : (
+                    "Find images"
+                  )}
+                </button>
+              </div>
             </div>
 
             {urlError && (
@@ -323,30 +374,16 @@ function DownloaderInner() {
               </p>
             )}
 
-            <div className="flex flex-col gap-2 pt-1 sm:flex-row sm:items-center sm:justify-between">
-              <div className="flex flex-wrap gap-2">
-                {["Public posts", "Photo pages", "Direct links"].map((label) => (
-                  <span
-                    key={label}
-                    className="select-none rounded-full bg-muted px-2.5 py-1 text-xs text-muted-foreground"
-                  >
-                    {label}
-                  </span>
-                ))}
-              </div>
-              {/* <button
-                type="button"
-                onClick={() => setUrl(SAMPLE_URL)}
-                className="text-left text-xs font-semibold text-[#1877F2] hover:underline sm:text-right dark:text-blue-400"
-              >
-                Try a sample link →
-              </button> */}
-            </div>
+            {/* Plain text — not pill “buttons” that attract dead clicks */}
+            <p className="pointer-events-none text-left text-xs leading-relaxed text-muted-foreground">
+              Works with: public posts · photo pages (<span className="font-mono">fbid</span>) ·
+              direct image URLs
+            </p>
           </div>
 
           {/* Loading state - synced to real extraction phases */}
           {status === "loading" && (
-            <div className="mt-5 border-t border-border pt-5">
+            <div className="mt-5 border-t border-border pt-5" aria-live="polite">
               <div className="flex items-center gap-3 text-sm font-medium text-muted-foreground">
                 <Loader2 className="h-5 w-5 animate-spin text-[#1877F2]" />
                 <span>{PHASE_UI[phase].label}</span>
@@ -362,15 +399,47 @@ function DownloaderInner() {
                   />
                 ))}
               </div>
+              <p className="mt-3 text-left text-xs text-muted-foreground">
+                Usually takes a few seconds. Keep this tab open.
+              </p>
             </div>
           )}
 
           {errorMessage && (
-            <div className="mt-5 border-t border-border pt-5">
-              <p className="flex items-start gap-2 text-sm text-destructive">
-                <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
-                <span>{errorMessage}</span>
-              </p>
+            <div className="mt-5 space-y-4 border-t border-border pt-5 text-left">
+              <div className="rounded-lg border border-destructive/30 bg-destructive/5 p-4">
+                <p className="flex items-start gap-2 text-sm font-medium text-destructive">
+                  <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" />
+                  <span>{errorMessage}</span>
+                </p>
+                <ul className="mt-3 list-disc space-y-1.5 pl-6 text-xs text-muted-foreground">
+                  <li>Use a public post — private / friends-only links can&apos;t be read.</li>
+                  <li>Copy the full post URL (not a shortened share preview).</li>
+                  <li>On mobile: Share → Copy link, then Paste here.</li>
+                </ul>
+                <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setStatus("idle");
+                      setImageInfo(null);
+                      document.getElementById("fb-url")?.focus();
+                    }}
+                    className="inline-flex h-11 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-semibold hover:bg-muted"
+                  >
+                    Try another link
+                  </button>
+                  <button
+                    type="button"
+                    onClick={pasteFromClipboard}
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-semibold hover:bg-muted"
+                  >
+                    <ClipboardPaste className="h-4 w-4" aria-hidden />
+                    Paste new link
+                  </button>
+                </div>
+              </div>
+              <FacebookPhotoExtensionCta variant="recovery" />
             </div>
           )}
 
@@ -407,7 +476,7 @@ function DownloaderInner() {
                   size="sm"
                   onClick={() => downloadImage(active, selected)}
                   disabled={downloadingIndex === selected}
-                  className={cn(FB_BTN, "h-10 flex-1 sm:flex-none sm:px-6")}
+                  className={cn(FB_BTN, "h-11 flex-1 sm:flex-none sm:px-6")}
                 >
                   {downloadingIndex === selected ? (
                     <Loader2 className="h-4 w-4 animate-spin" />
@@ -419,24 +488,35 @@ function DownloaderInner() {
                   {downloadingIndex === selected
                     ? "Saving…"
                     : downloaded[selected]
-                      ? "Saved"
+                      ? "Saved — download again"
                       : images.length > 1
-                        ? `Download Image ${selected + 1} of ${images.length}`
-                        : "Download Image"}
+                        ? `Download image ${selected + 1} of ${images.length}`
+                        : "Download image"}
                 </Button>
                 <Button
                   size="sm"
                   variant="outline"
                   onClick={() => window.open(active, "_blank")}
-                  className="h-10"
+                  className="h-11"
+                  aria-label="Open image in new tab"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  Open
+                  <span className="hidden sm:inline">Open</span>
                 </Button>
               </div>
 
-              {/* Image preview */}
-              <div className="overflow-hidden rounded-xl border border-border bg-muted/30">
+              {/* Image preview — click downloads (avoids dead clicks on the hero image) */}
+              <button
+                type="button"
+                onClick={() => downloadImage(active, selected)}
+                disabled={downloadingIndex === selected}
+                className="group w-full overflow-hidden rounded-xl border border-border bg-muted/30 text-left transition-opacity disabled:opacity-70"
+                aria-label={
+                  downloaded[selected]
+                    ? "Download this image again"
+                    : "Download this image"
+                }
+              >
                 <div className="relative aspect-[16/10] w-full bg-muted sm:aspect-[16/9]">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -449,15 +529,19 @@ function DownloaderInner() {
                         'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400"><rect fill="%23ccc"/><text x="50%25" y="50%25" text-anchor="middle" dy=".3em" fill="%23999">Unavailable</text></svg>';
                     }}
                   />
+                  <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-4 text-sm font-semibold text-white opacity-100 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
+                    <Download className="h-4 w-4" aria-hidden />
+                    Tap to download
+                  </span>
                 </div>
                 <div className="border-t border-border bg-card px-4 py-2.5">
                   <p className="text-xs text-muted-foreground">
                     {images.length > 1
-                      ? `Image ${selected + 1} of ${images.length} - highest quality available`
-                      : "Highest quality available"}
+                      ? `Image ${selected + 1} of ${images.length} — tap image to save`
+                      : "Highest quality available — tap image to save"}
                   </p>
                 </div>
-              </div>
+              </button>
 
               {/* Bulk actions + selection - one compact bar */}
               {images.length > 1 && (
@@ -509,56 +593,56 @@ function DownloaderInner() {
                 </div>
               )}
 
-              {/* Thumbnail strip */}
+              {/* Thumbnail strip — select vs download are separate hit targets */}
               {images.length > 1 && (
                 <div className="mt-3 flex gap-2 overflow-x-auto pb-1">
                   {images.map((img, i) => (
-                    <button
+                    <div
                       key={img + i}
-                      type="button"
-                      onClick={() => setSelected(i)}
-                      aria-label={`Preview image ${i + 1}`}
                       className={cn(
-                        "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2 transition-all",
+                        "relative h-16 w-24 shrink-0 overflow-hidden rounded-lg border-2",
                         i === selected
                           ? "border-[#1877F2] ring-2 ring-[#1877F2]/30"
-                          : "border-border opacity-80 hover:opacity-100",
+                          : "border-border",
                       )}
                     >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={img} alt="" className="h-full w-full object-cover" />
-                      {/* selection checkbox */}
-                      <span
-                        role="checkbox"
-                        aria-checked={selectedSet.has(i)}
-                        aria-label={`Select image ${i + 1} for download`}
-                        tabIndex={0}
+                      <button
+                        type="button"
+                        onClick={() => setSelected(i)}
+                        aria-label={`Preview image ${i + 1}`}
+                        aria-pressed={i === selected}
+                        className="h-full w-full"
+                      >
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={img} alt="" className="h-full w-full object-cover" />
+                      </button>
+                      <button
+                        type="button"
                         onClick={(e) => {
                           e.stopPropagation();
                           toggleSelected(i);
                         }}
-                        onKeyDown={(e) => {
-                          if (e.key === " " || e.key === "Enter") {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            toggleSelected(i);
-                          }
-                        }}
+                        aria-pressed={selectedSet.has(i)}
+                        aria-label={
+                          selectedSet.has(i)
+                            ? `Deselect image ${i + 1}`
+                            : `Select image ${i + 1} for download`
+                        }
                         className={cn(
-                          "absolute left-1 top-1 flex h-5 w-5 cursor-pointer items-center justify-center rounded border-2 text-[11px] font-bold transition-colors",
+                          "absolute left-1 top-1 flex h-6 w-6 items-center justify-center rounded border-2 text-[11px] font-bold transition-colors",
                           selectedSet.has(i)
                             ? "border-[#1877F2] bg-[#1877F2] text-white"
-                            : "border-white/90 bg-black/40 text-transparent hover:bg-black/60",
+                            : "border-white/90 bg-black/50 text-transparent hover:bg-black/70",
                         )}
                       >
                         ✓
-                      </span>
+                      </button>
                       {downloaded[i] && (
-                        <span className="absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-600 text-[10px] font-bold text-white">
+                        <span className="pointer-events-none absolute bottom-1 right-1 flex h-5 w-5 items-center justify-center rounded-full bg-green-600 text-[10px] font-bold text-white">
                           ✓
                         </span>
                       )}
-                    </button>
+                    </div>
                   ))}
                 </div>
               )}

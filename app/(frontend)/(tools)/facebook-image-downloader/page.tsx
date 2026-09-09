@@ -316,9 +316,8 @@ export default function FacebookImageDownloaderPage() {
             Facebook Image Downloader
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Download full-size photos, profile pictures, and cover photos from public Facebook posts
-            in HD. Paste a link - no app to install, no account needed, no watermarks, and everything
-            runs privately in your browser.
+            Paste a public Facebook post or photo link below to download full-size images.
+            Private posts won&apos;t work — for those, use our free browser extension.
           </p>
 
           <div className="mt-8 w-full">
@@ -334,9 +333,9 @@ export default function FacebookImageDownloaderPage() {
             ].map((item) => (
               <span
                 key={item}
-                className="flex items-center gap-2 text-sm font-medium text-muted-foreground"
+                className="pointer-events-none flex items-center gap-2 text-sm font-medium text-muted-foreground"
               >
-                <span className="h-1.5 w-1.5 rounded-full bg-green-500" />
+                <span className="h-1.5 w-1.5 rounded-full bg-green-500" aria-hidden />
                 {item}
               </span>
             ))}
