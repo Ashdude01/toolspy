@@ -45,7 +45,7 @@ async function ToolContentSwitchInner({
     <>
       <ToolCustomSchema slug={slug} locale={locale} />
       {cmsActive && doc ? (
-        <ToolSeoContentTemplate slug={slug} doc={doc} />
+        <ToolSeoContentTemplate slug={slug} doc={doc} locale={locale} />
       ) : (
         codeFallback
       )}

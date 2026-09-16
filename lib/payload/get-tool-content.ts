@@ -13,6 +13,8 @@ import config from '@payload-config'
 export interface ToolContentDoc {
   toolSlug: string
   contentSource: 'code' | 'cms'
+  heroHeading?: string | null
+  heroDescription?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
   sections?: Array<{

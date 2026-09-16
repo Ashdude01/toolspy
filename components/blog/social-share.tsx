@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Facebook, Linkedin, Link2, Check, Mail } from 'lucide-react'
+import { useT } from '@/lib/i18n/use-t'
 
 /** X (Twitter) glyph — lucide dropped the branded bird, so inline the current logo. */
 function XIcon({ className }: { className?: string }) {
@@ -20,6 +21,7 @@ interface SocialShareProps {
 
 export function SocialShare({ url, title, className = '' }: SocialShareProps) {
   const [copied, setCopied] = useState(false)
+  const t = useT()
 
   const encodedUrl = encodeURIComponent(url)
   const encodedTitle = encodeURIComponent(title)
@@ -59,7 +61,7 @@ export function SocialShare({ url, title, className = '' }: SocialShareProps) {
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>
-      <span className="text-sm font-medium text-muted-foreground mr-1">Share</span>
+      <span className="text-sm font-medium text-muted-foreground mr-1">{t('blog.share')}</span>
       {links.map((link) => (
         <a
           key={link.name}
@@ -76,8 +78,8 @@ export function SocialShare({ url, title, className = '' }: SocialShareProps) {
       <button
         type="button"
         onClick={copyLink}
-        aria-label="Copy link"
-        title={copied ? 'Copied!' : 'Copy link'}
+        aria-label={t('blog.copyLink')}
+        title={copied ? t('blog.copied') : t('blog.copyLink')}
         className="inline-flex h-9 w-9 items-center justify-center rounded-full border bg-muted text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
       >
         {copied ? <Check className="h-4 w-4 text-green-600" /> : <Link2 className="h-4 w-4" />}

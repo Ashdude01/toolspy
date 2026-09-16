@@ -231,6 +231,14 @@ export interface ToolContent {
    */
   contentSource: 'code' | 'cms';
   /**
+   * Page ka visible <h1> (tool ke content block ke top par). Har language alag. Khali chhodo → tool ka default naam use hoga. CMS-active pages ka SEO H1 yahi hai.
+   */
+  heroHeading?: string | null;
+  /**
+   * H1 ke neeche 1-line intro. Khali → meta description use hogi. Har language alag.
+   */
+  heroDescription?: string | null;
+  /**
    * Page ka <title> (max ~65 chars)
    */
   metaTitle?: string | null;
@@ -599,6 +607,8 @@ export interface ToolContentSelect<T extends boolean = true> {
   toolSlug?: T;
   searchKey?: T;
   contentSource?: T;
+  heroHeading?: T;
+  heroDescription?: T;
   metaTitle?: T;
   metaDescription?: T;
   keywords?: T;

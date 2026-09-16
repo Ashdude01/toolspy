@@ -15,6 +15,7 @@ import { SocialShare } from '@/components/blog/social-share'
 import { getTocFromLexical, getTocFromSections, slugifyHeading } from '@/lib/blog/toc'
 import { siteConfig } from '@/lib/config'
 import { TableOfContents } from '@/components/blog/table-of-contents'
+import { getT } from '@/lib/i18n/messages'
 
 /**
  * BlogPostView — single blog post ka render (locale-aware VIEW component).
@@ -78,6 +79,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
   const post = await getPublishedBlogPostBySlug(slug, locale)
   if (!post) notFound()
 
+  const t = getT(locale)
   const base = basePath(locale)
   const url = `${siteConfig.url}${base}/blog/${post.slug}/`
   const allPosts = await getPublishedBlogPosts(locale)
@@ -180,13 +182,13 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
               <ol className="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
                 <li>
                   <Link href={`${base}/`} className="hover:text-foreground transition-colors">
-                    Home
+                    {t('blog.home')}
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
                 <li>
                   <Link href={`${base}/blog/`} className="hover:text-foreground transition-colors">
-                    Blog
+                    {t('nav.blog')}
                   </Link>
                 </li>
                 <li aria-hidden="true">/</li>
@@ -243,7 +245,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
                       href={post.relatedTool.path}
                       className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors"
                     >
-                      Open {post.relatedTool.name}
+                      {t('blog.open', { name: post.relatedTool.name })}
                       <ArrowRight className="h-4 w-4" />
                     </Link>
                   </CardContent>
@@ -316,7 +318,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
 
               {post.faqs.length > 0 ? (
                 <section className="space-y-4">
-                  <h2 className="text-2xl font-semibold tracking-tight">Frequently Asked Questions</h2>
+                  <h2 className="text-2xl font-semibold tracking-tight">{t('blog.faqHeading')}</h2>
                   <div className="space-y-4">
                     {post.faqs.map((faq, i) => (
                       <div key={i} className="rounded-lg border p-4 space-y-2">
@@ -332,13 +334,13 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
 
               <div className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">
-                  About{' '}
+                  {t('blog.aboutPrefix')}{' '}
                   <Link href={`${base}/about/`} className="underline underline-offset-4 hover:text-foreground">
                     Toolspy
                   </Link>{' '}
                   ·{' '}
                   <Link href={`${base}/contact/`} className="underline underline-offset-4 hover:text-foreground">
-                    Contact
+                    {t('nav.contact')}
                   </Link>
                 </p>
                 <SocialShare url={url} title={post.title} />
@@ -348,7 +350,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
 
               {related.length > 0 && (
                 <section className="space-y-4">
-                  <h2 className="text-2xl font-semibold tracking-tight">Related Reads</h2>
+                  <h2 className="text-2xl font-semibold tracking-tight">{t('blog.relatedReads')}</h2>
                   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                     {related.map((r) => (
                       <Link key={r.slug} href={`${base}/blog/${r.slug}/`} className="group block h-full">
@@ -367,7 +369,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
               )}
             </article>
           </section>
-          <BlogSidebar toc={toc} recentPosts={recentPosts} />
+          <BlogSidebar toc={toc} recentPosts={recentPosts} locale={locale} />
         </div>
       </div>
     </>

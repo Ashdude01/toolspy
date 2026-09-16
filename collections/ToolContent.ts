@@ -104,6 +104,24 @@ export const ToolContent: CollectionConfig = {
           description: 'Page title, description aur keywords (har language alag)',
           fields: [
             {
+              name: 'heroHeading',
+              type: 'text',
+              localized: true,
+              admin: {
+                description:
+                  'Page ka visible <h1> (tool ke content block ke top par). Har language alag. Khali chhodo → tool ka default naam use hoga. CMS-active pages ka SEO H1 yahi hai.',
+              },
+            },
+            {
+              name: 'heroDescription',
+              type: 'textarea',
+              localized: true,
+              admin: {
+                description:
+                  'H1 ke neeche 1-line intro. Khali → meta description use hogi. Har language alag.',
+              },
+            },
+            {
               name: 'metaTitle',
               type: 'text',
               localized: true,

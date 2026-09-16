@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n/use-t";
 
 export interface TocItem {
   id: string;
@@ -87,6 +88,7 @@ export function Toc({
 }) {
   const [active, setActive] = React.useState<string>(items[0]?.id ?? "");
   const [open, setOpen] = React.useState(false);
+  const t = useT();
 
   React.useEffect(() => {
     if (items.length === 0) return;
@@ -124,7 +126,7 @@ export function Toc({
         >
           <summary className="flex cursor-pointer list-none items-center justify-between gap-4 bg-muted px-4 py-3 [&::-webkit-details-marker]:hidden">
             <h3 className="text-[11px] font-semibold uppercase tracking-widest text-muted-foreground">
-              Table of Contents
+              {t('blog.tableOfContents')}
             </h3>
             <span className="relative h-4 w-4 shrink-0 text-primary" aria-hidden>
               <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded bg-current" />
@@ -145,7 +147,7 @@ export function Toc({
             variant === "full" && "hidden lg:block"
           )}
         >
-          <h3 className="mb-3 font-semibold">Table of Contents</h3>
+          <h3 className="mb-3 font-semibold">{t('blog.tableOfContents')}</h3>
           <TocDesktopLinks items={items} active={active} />
         </nav>
       ) : null}

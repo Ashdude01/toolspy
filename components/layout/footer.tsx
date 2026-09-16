@@ -23,10 +23,15 @@ import {
 import Link from "next/link"
 import { CookieConsentModal } from "@/components/consent/cookie-consent-modal"
 import { getConsentState } from "@/lib/utils/consent"
+import { useT, useLocale } from "@/lib/i18n/use-t"
+import { localizeHref } from "@/lib/i18n/localize-href"
 import Image from "next/image"
 
 export function Footer() {
   const [showConsentModal, setShowConsentModal] = useState(false)
+  const t = useT()
+  const locale = useLocale()
+  const L = (href: string) => localizeHref(locale, href)
 
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' })
@@ -46,7 +51,10 @@ export function Footer() {
     }>;
   }> = [
     {
-      title: "Popular Tools",
+      // Section titles + generic Company/Legal labels translate hote hain.
+      // Specific tool/product NAMES (Image Compressor, PDF Converter…) English
+      // rehte hain — brand/product names har bhasha me English standard hai.
+      title: t("footer.sections.popularTools"),
       links: [
         { href: "/image-compressor", label: "Image Compressor" },
         { href: "/pdf-converter", label: "PDF Converter" },
@@ -57,30 +65,30 @@ export function Footer() {
       ]
     },
     {
-      title: "Company",
+      title: t("footer.sections.company"),
       links: [
-        { href: "/about", label: "About Us" },
-        { href: "/blog", label: "Blog" },
-        { href: "/digital-marketing", label: "Digital Marketing" },
-        { href: "/contact", label: "Contact" },
-        { href: "/help", label: "Help Center" },
-        { href: "/feedback", label: "Feedback" },
-        { label: "Manage Cookies", onClick: handleManageCookies, isButton: true }
+        { href: "/about", label: t("footer.links.aboutUs") },
+        { href: "/blog", label: t("footer.links.blog") },
+        { href: "/digital-marketing", label: t("footer.links.digitalMarketing") },
+        { href: "/contact", label: t("footer.links.contact") },
+        { href: "/help", label: t("footer.links.help") },
+        { href: "/feedback", label: t("footer.links.feedback") },
+        { label: t("footer.links.manageCookies"), onClick: handleManageCookies, isButton: true }
       ]
     },
     {
-      title: "Legal",
+      title: t("footer.sections.legal"),
       links: [
-        { href: "/privacy", label: "Privacy Policy" },
-        { href: "/terms", label: "Terms of Service" },
-        { href: "/disclaimer", label: "Disclaimer" },
-        { href: "/dmca", label: "DMCA Policy" },
-        { href: "/cookie-policy", label: "Cookie Policy" },
-        { href: "/gdpr-ccpa", label: "GDPR & CCPA" }
+        { href: "/privacy", label: t("footer.links.privacy") },
+        { href: "/terms", label: t("footer.links.terms") },
+        { href: "/disclaimer", label: t("footer.links.disclaimer") },
+        { href: "/dmca", label: t("footer.links.dmca") },
+        { href: "/cookie-policy", label: t("footer.links.cookiePolicy") },
+        { href: "/gdpr-ccpa", label: t("footer.links.gdpr") }
       ]
     },
 {
-  title: "Tool Categories",
+  title: t("footer.sections.toolCategories"),
   links: [
     { href: "/tools/image-tools", label: "Image Tools" },
     { href: "/tools/pdf-tools", label: "PDF Tools" },
@@ -91,7 +99,7 @@ export function Footer() {
   ]
 },
 {
-  title: "More Categories",
+  title: t("footer.sections.moreCategories"),
   links: [
     { href: "/tools/code-tools", label: "Code Tools" },
     { href: "/tools/conversion-tools", label: "Conversion Tools" },
@@ -122,7 +130,7 @@ export function Footer() {
           {/* Brand Section */}
           <div className="lg:col-span-2 flex flex-col">
           <Link
-              href="/"
+              href={L("/")}
               className="h-20 -mt-10"
             >
                 <Image
@@ -134,8 +142,7 @@ export function Footer() {
                 />
             </Link>
             <p className="text-slate-400 mb-6 leading-relaxed">
-              Professional online tools for all your digital needs. Free, secure, and privacy-focused. 
-              Trusted by millions of users worldwide.
+              {t("footer.tagline")}
             </p>
             
             {/* Social Links */}
@@ -156,15 +163,15 @@ export function Footer() {
             <div className="flex flex-wrap gap-2">
               <Badge variant="outline" className="border-slate-600 text-slate-300">
                 <Shield className="w-3 h-3 mr-1" />
-                Privacy First
+                {t("footer.badges.privacyFirst")}
               </Badge>
               <Badge variant="outline" className="border-slate-600 text-slate-300">
                 <Zap className="w-3 h-3 mr-1" />
-                Lightning Fast
+                {t("footer.badges.lightningFast")}
               </Badge>
               <Badge variant="outline" className="border-slate-600 text-slate-300">
                 <Globe className="w-3 h-3 mr-1" />
-                Universal Access
+                {t("footer.badges.universalAccess")}
               </Badge>
             </div>
           </div>
@@ -185,8 +192,8 @@ export function Footer() {
                         {link.label}
                       </button>
                     ) : (
-                      <Link 
-                        href={link.href || "#"} 
+                      <Link
+                        href={L(link.href || "#")}
                         className="text-slate-400 hover:text-white transition-colors duration-200 text-sm"
                       >
                         {link.label}
@@ -205,24 +212,24 @@ export function Footer() {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="flex flex-col md:flex-row items-center space-y-4 md:space-y-0 md:space-x-6">
             <p className="text-slate-400 text-sm">
-              © {new Date().getFullYear()} Toolspy. All rights reserved.
+              © {new Date().getFullYear()} Toolspy. {t("footer.copyright")}
             </p>
           </div>
           
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <div className="flex items-center space-x-2 text-sm text-slate-400">
               <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-              <span>All systems operational</span>
+              <span>{t("footer.systemsOperational")}</span>
             </div>
             <Button
               variant="outline"
               size="sm"
               onClick={scrollToTop}
               className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
-              aria-label="Scroll to top"
+              aria-label={t("footer.scrollToTop")}
             >
               <ArrowUp className="h-4 w-4" />
-              <span className="sr-only">Scroll to top</span>
+              <span className="sr-only">{t("footer.scrollToTop")}</span>
             </Button>
           </div>
         </div>

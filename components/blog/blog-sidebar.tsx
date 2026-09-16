@@ -3,15 +3,18 @@ import { ArrowRight } from 'lucide-react'
 import type { BlogPost } from '@/lib/blog-data'
 import type { TocItem } from '@/lib/blog/toc'
 import { getFeaturedTools } from '@/lib/tools-data'
+import { getT } from '@/lib/i18n/messages'
 import { TableOfContents } from './table-of-contents'
 
 interface BlogSidebarProps {
   toc: TocItem[]
   recentPosts: BlogPost[]
+  locale?: string
 }
 
-export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
+export function BlogSidebar({ toc, recentPosts, locale = 'en' }: BlogSidebarProps) {
   const featuredTools = getFeaturedTools().slice(0, 5)
+  const t = getT(locale)
 
   return (
     <aside className="space-y-8 lg:sticky lg:top-24 lg:self-start">
@@ -24,7 +27,7 @@ export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
       {recentPosts.length > 0 ? (
         <div className="rounded-xl p-5">
           <h3 className="mb-3.5 text-base font-semibold text-muted-foreground">
-            Recent articles
+            {t('blog.recentArticles')}
           </h3>
           <ul className="space-y-4">
             {recentPosts.map((post) => (
@@ -57,7 +60,7 @@ export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
       {featuredTools.length > 0 ? (
         <div className="rounded-xl p-5">
           <h3 className="mb-3.5 text-base font-semibold text-muted-foreground">
-            Featured tools
+            {t('blog.featuredTools')}
           </h3>
           <ul className="space-y-1">
             {featuredTools.map((tool) => (
@@ -81,7 +84,7 @@ export function BlogSidebar({ toc, recentPosts }: BlogSidebarProps) {
             href="/tools/"
             className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-primary hover:underline"
           >
-            Browse all tools
+            {t('blog.browseAllTools')}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

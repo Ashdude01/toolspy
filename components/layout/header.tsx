@@ -12,6 +12,8 @@ import {
 import { Button } from "@/components/ui/button";
 import { useTheme } from "next-themes";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { localizeHref } from "@/lib/i18n/localize-href";
 import {
   toolCategories,
   getToolsByCategory,
@@ -34,6 +36,11 @@ export function Header({ onSearch }: HeaderProps) {
   const [isToolsExpanded, setIsToolsExpanded] = useState(true);
   const { theme, setTheme, resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
+  const t = useT();
+  const locale = useLocale();
+  // Locale-aware internal link: /de/ pe routable links ko /de/<slug> banata hai,
+  // baaki English hi rehte hain (localizeHref 404 kabhi nahi banata).
+  const L = (href: string) => localizeHref(locale, href);
 
   // Ensure we're mounted on the client
   useEffect(() => {
@@ -47,8 +54,8 @@ export function Header({ onSearch }: HeaderProps) {
 
 
   const getThemeLabel = () => {
-    if (!mounted) return "Toggle theme";
-    return resolvedTheme === "dark" ? "Switch to Light Mode" : "Switch to Dark Mode";
+    if (!mounted) return t("header.toggleTheme");
+    return resolvedTheme === "dark" ? t("header.switchToLight") : t("header.switchToDark");
   };
 
   // Get tools by category
@@ -124,7 +131,7 @@ export function Header({ onSearch }: HeaderProps) {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link
-              href="/"
+              href={L("/")}
               className="flex items-center space-x-2"
               onClick={closeMenu}
             >
@@ -147,10 +154,10 @@ export function Header({ onSearch }: HeaderProps) {
             {/* Desktop Navigation */}
             <nav className="hidden lg:flex items-center space-x-6">
               <Link
-                href="/about"
+                href={L("/about")}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                About
+                {t("nav.about")}
               </Link>
 
                {/* Desktop Extensions Dropdown */}
@@ -165,7 +172,7 @@ export function Header({ onSearch }: HeaderProps) {
                   aria-haspopup="true"
                   aria-label="Extensions menu"
                 >
-                  Extensions
+                  {t("nav.extensions")}
                   <ChevronDown className="h-3 w-3" />
                 </button>
 
@@ -214,7 +221,7 @@ export function Header({ onSearch }: HeaderProps) {
                   aria-haspopup="true"
                   aria-label="Tools menu"
                 >
-                  Tools
+                  {t("nav.tools")}
                   <ChevronDown className="h-3 w-3" />
                 </button>
 
@@ -235,7 +242,7 @@ export function Header({ onSearch }: HeaderProps) {
                       ).map(([categoryKey, category]) => (
                         <div key={categoryKey} className="space-y-2">
                           <Link
-                            href={`/tools/${categoryKey}`}
+                            href={L(`/tools/${categoryKey}`)}
                             className="block px-3 py-2 text-sm font-medium text-primary hover:bg-accent rounded-md"
                             onClick={closeDesktopDropdown}
                           >
@@ -249,14 +256,14 @@ export function Header({ onSearch }: HeaderProps) {
                                 <span
                                   key={tool.id}
                                   className="block px-3 py-1 text-xs rounded-md text-muted-foreground/60 cursor-not-allowed"
-                                  title="Coming soon"
+                                  title={t("common.comingSoon")}
                                 >
                                   {tool.icon} {tool.name}
                                 </span>
                               ) : (
                                 <Link
                                   key={tool.id}
-                                  href={tool.path}
+                                  href={L(tool.path)}
                                   className="block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors text-foreground hover:text-foreground"
                                   onClick={closeDesktopDropdown}
                                 >
@@ -273,17 +280,17 @@ export function Header({ onSearch }: HeaderProps) {
               </div>
 
               <Link
-                href="/careers"
+                href={L("/careers")}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                Careers
+                {t("nav.careers")}
               </Link>
 
               <Link
-                href="/contact"
+                href={L("/contact")}
                 className="text-sm font-medium transition-colors hover:text-primary"
               >
-                Contact
+                {t("nav.contact")}
               </Link>
             </nav>
 
@@ -311,7 +318,7 @@ export function Header({ onSearch }: HeaderProps) {
                 size="icon"
                 className="lg:hidden"
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                aria-label={isMenuOpen ? t("header.closeMenu") : t("header.openMenu")}
                 aria-expanded={isMenuOpen}
                 aria-controls="mobile-menu"
               >
@@ -332,7 +339,7 @@ export function Header({ onSearch }: HeaderProps) {
                     }`}
                   />
                 </div>
-                <span className="sr-only">{isMenuOpen ? "Close menu" : "Open menu"}</span>
+                <span className="sr-only">{isMenuOpen ? t("header.closeMenu") : t("header.openMenu")}</span>
               </Button>
             </div>
           </div>
@@ -359,15 +366,15 @@ export function Header({ onSearch }: HeaderProps) {
       >
         {/* Menu Header */}
         <div className="flex items-center justify-between p-4 border-b">
-          <h2 id="mobile-menu-title" className="text-lg font-semibold">Menu</h2>
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <h2 id="mobile-menu-title" className="text-lg font-semibold">{t("header.menu")}</h2>
+          <Button
+            variant="ghost"
+            size="icon"
             onClick={closeMenu}
-            aria-label="Close menu"
+            aria-label={t("header.closeMenu")}
           >
             <X className="h-5 w-5" />
-            <span className="sr-only">Close menu</span>
+            <span className="sr-only">{t("header.closeMenu")}</span>
           </Button>
         </div>
 
@@ -377,11 +384,11 @@ export function Header({ onSearch }: HeaderProps) {
             <div className="space-y-2">
               {/* About Link */}
               <Link
-                href="/about"
+                href={L("/about")}
                 className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
                 onClick={closeMenu}
               >
-                About
+                {t("nav.about")}
               </Link>
               
 
@@ -393,7 +400,7 @@ export function Header({ onSearch }: HeaderProps) {
                   aria-expanded={isToolsExpanded}
                   aria-controls="mobile-tools-list"
                 >
-                  <span>Tools</span>
+                  <span>{t("nav.tools")}</span>
                   <ChevronRight
                     className={`h-4 w-4 transition-transform duration-200 ${
                       isToolsExpanded ? "rotate-90" : ""
@@ -415,7 +422,7 @@ export function Header({ onSearch }: HeaderProps) {
                         {/* Category Header */}
                         <div className="flex items-center justify-between">
                           <Link
-                            href={`/tools/${categoryKey}`}
+                            href={L(`/tools/${categoryKey}`)}
                             className="flex-1 px-4 py-2 text-sm font-medium text-primary hover:bg-accent rounded-lg"
                             onClick={closeMenu}
                           >
@@ -450,7 +457,7 @@ export function Header({ onSearch }: HeaderProps) {
                                 <span
                                   key={tool.id}
                                   className="block px-3 py-2 text-sm rounded-md text-muted-foreground/60 cursor-not-allowed"
-                                  title="Coming soon"
+                                  title={t("common.comingSoon")}
                                 >
                                   <span className="mr-2">{tool.icon}</span>
                                   {tool.name}
@@ -458,7 +465,7 @@ export function Header({ onSearch }: HeaderProps) {
                               ) : (
                                 <Link
                                   key={tool.id}
-                                  href={tool.path}
+                                  href={L(tool.path)}
                                   className="block px-3 py-2 text-sm rounded-md transition-colors text-muted-foreground hover:text-foreground hover:bg-accent"
                                   onClick={closeMenu}
                                 >
@@ -466,7 +473,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   {tool.name}
                                   {tool.status === "beta" && (
                                     <span className="ml-2 text-xs text-blue-500">
-                                      (Beta)
+                                      ({t("common.beta")})
                                     </span>
                                   )}
                                 </Link>
@@ -483,7 +490,7 @@ export function Header({ onSearch }: HeaderProps) {
               {/* Extensions Links */}
               <div className="space-y-1">
                 <div className="block px-4 py-3 text-base font-medium rounded-lg">
-                  Extensions
+                  {t("nav.extensions")}
                 </div>
                 <div className="ml-6 space-y-1 border-l border-border pl-1 -mt-1">
                   <Link
@@ -511,37 +518,37 @@ export function Header({ onSearch }: HeaderProps) {
               </div>
 
               <Link
-                href="/blog"
+                href={L("/blog")}
                 className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
                 onClick={closeMenu}
               >
-                Blog
+                {t("nav.blog")}
               </Link>
 
               <Link
-                href="/digital-marketing"
+                href={L("/digital-marketing")}
                 className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
                 onClick={closeMenu}
               >
-                Digital Marketing
+                {t("nav.digitalMarketing")}
               </Link>
-              
+
               {/* Careers Link */}
               <Link
-                href="/careers"
+                href={L("/careers")}
                 className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
                 onClick={closeMenu}
               >
-                Careers
+                {t("nav.careers")}
               </Link>
 
               {/* Contact Link */}
               <Link
-                href="/contact"
+                href={L("/contact")}
                 className="block px-4 py-3 text-base font-medium transition-colors hover:text-primary hover:bg-accent rounded-lg"
                 onClick={closeMenu}
               >
-                Contact
+                {t("nav.contact")}
               </Link>
             </div>
           </nav>

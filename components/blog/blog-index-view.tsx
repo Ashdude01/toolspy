@@ -5,6 +5,7 @@ import { WebPageSchema } from '@/components/seo/comprehensive-schemas'
 import { getPublishedBlogPosts } from '@/lib/payload/get-posts'
 import { formatBlogDate } from '@/components/blog/blog-meta'
 import { siteConfig } from '@/lib/config'
+import { getT } from '@/lib/i18n/messages'
 
 /**
  * BlogIndexView — blog index ka actual render (locale-aware).
@@ -21,6 +22,7 @@ export async function BlogIndexView({ locale = 'en' }: { locale?: string }) {
   const posts = await getPublishedBlogPosts(locale)
   const isLocalized = locale !== 'en'
   const base = isLocalized ? `/${locale}` : ''
+  const t = getT(locale)
 
   return (
     <>
@@ -35,18 +37,17 @@ export async function BlogIndexView({ locale = 'en' }: { locale?: string }) {
       />
       <div className="container mx-auto px-4 py-12 max-w-6xl space-y-10">
         <section className="text-center space-y-4">
-          <h1 className="text-4xl font-bold tracking-tight">Latest Articles</h1>
+          <h1 className="text-4xl font-bold tracking-tight">{t('blog.latestArticles')}</h1>
           <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
-            Practical, data-backed guides for exams, GST, and everyday file tasks - each one
-            paired with a free tool that does the work for you.
+            {t('blog.latestArticlesSubtitle')}
           </p>
           <p className="text-sm text-muted-foreground">
-            Written by the{' '}
+            {t('blog.writtenByPrefix')}{' '}
             <Link
               href={`${base}/blog/author/`}
               className="underline underline-offset-4 hover:text-foreground"
             >
-              Toolspy editorial team
+              {t('blog.editorialTeam')}
             </Link>
           </p>
         </section>

@@ -1,9 +1,13 @@
 import { tools, getToolBySlug } from "@/lib/tools-data";
+import { getT } from "@/lib/i18n/messages";
 import Link from "next/link";
 
 interface RelatedToolsProps {
   currentToolSlug: string;
   maxTools?: number;
+  /** Locale (server component — prop se aata hai). Heading/description iske hisaab se translate. */
+  locale?: string;
+  /** Optional explicit overrides; na do to dictionary se locale-aware strings aati hain. */
   title?: string;
   description?: string;
 }
@@ -11,9 +15,15 @@ interface RelatedToolsProps {
 export function RelatedTools({
   currentToolSlug,
   maxTools = 8,
-  title = "More Helpful Tools You Might Like",
-  description = "Check out our other tools that work great together."
+  locale = "en",
+  title,
+  description,
 }: RelatedToolsProps) {
+  const t = getT(locale);
+  // Heading + description ab locale-aware. Card ke tool NAMES content hain
+  // (tools-data se) — wo abhi English hi rehte hain (Phase B scope).
+  const headingText = title ?? t("relatedTools.heading");
+  const descriptionText = description ?? t("relatedTools.description");
   const currentTool = getToolBySlug(currentToolSlug);
 
   if (!currentTool) {
@@ -85,10 +95,10 @@ export function RelatedTools({
               <div className="flex flex-col gap-2">
 
       <h3 className="text-2xl font-bold text-center">
-        {title}
+        {headingText}
       </h3>
       <p className="text-center text-muted-foreground max-w-3xl mx-auto">
-        {description}
+        {descriptionText}
       </p>
               </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
