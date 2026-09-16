@@ -28,8 +28,10 @@ import {
   Upload,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 function Base64EncoderDecoderContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputText, setInputText] = useState('');
   const [outputText, setOutputText] = useState('');
@@ -106,26 +108,26 @@ function Base64EncoderDecoderContent() {
       if (mode === 'encode') {
         const result = encodeToBase64(inputText);
         setOutputText(result);
-        showToast("Text encoded to Base64", "success");
+        showToast(t("tools.base64EncoderDecoder.encodedSuccess"), "success");
       } else {
         if (!isValidBase64(inputText)) {
           throw new Error('Invalid Base64 format');
         }
         const result = decodeFromBase64(inputText);
         setOutputText(result);
-        showToast("Base64 decoded successfully", "success");
+        showToast(t("tools.base64EncoderDecoder.decodedSuccess"), "success");
       }
     } catch (error) {
-      showToast(error instanceof Error ? error.message : "Processing failed", "error");
+      showToast(error instanceof Error ? (error.message === "Invalid Base64 format" ? t("tools.base64EncoderDecoder.invalidBase64Format") : error.message) : t("tools.base64EncoderDecoder.processingFailed"), "error");
     }
   };
 
   const handleCopy = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.base64EncoderDecoder.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.base64EncoderDecoder.copyFailed"), "error");
     }
   };
 
@@ -137,7 +139,7 @@ function Base64EncoderDecoderContent() {
     setInputText(outputText);
     setOutputText(inputText);
     
-    showToast(`Switched to ${newMode} mode`, "success");
+    showToast(t("tools.base64EncoderDecoder.switchedMode", { mode: newMode }), "success");
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -148,14 +150,14 @@ function Base64EncoderDecoderContent() {
     reader.onload = (e) => {
       const content = e.target?.result as string;
       setInputText(content);
-      showToast("File content loaded", "success");
+      showToast(t("tools.base64EncoderDecoder.fileLoaded"), "success");
     };
     reader.readAsText(file);
   };
 
   const downloadOutput = () => {
     if (!outputText) {
-      showToast("No output to download", "error");
+      showToast(t("tools.base64EncoderDecoder.noOutputToDownload"), "error");
       return;
     }
 
@@ -169,13 +171,13 @@ function Base64EncoderDecoderContent() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
     
-    showToast("Output downloaded", "success");
+    showToast(t("tools.base64EncoderDecoder.outputDownloaded"), "success");
   };
 
   const clearAll = () => {
     setInputText('');
     setOutputText('');
-    showToast("All fields cleared", "success");
+    showToast(t("tools.base64EncoderDecoder.allFieldsCleared"), "success");
   };
 
   const getCharacterCount = (text: string) => {
@@ -189,21 +191,20 @@ function Base64EncoderDecoderContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          {t("tools.base64EncoderDecoder.privacyBadge")}
         </Badge>
 
         <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-600 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          Base64 Encoder/Decoder
+          {t("tools.base64EncoderDecoder.title")}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Encode and decode text to/from Base64 format. Perfect for data transmission,
-          storage, and embedding text in various applications.
+          {t("tools.base64EncoderDecoder.subtitle")}
         </p>
       </div>
 
@@ -212,7 +213,7 @@ function Base64EncoderDecoderContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <ArrowUpDown className="h-5 w-5" />
-            Mode Selection
+            {t("tools.base64EncoderDecoder.modeTitle")}
           </CardTitle>
         </CardHeader>
         <CardContent>
@@ -224,8 +225,8 @@ function Base64EncoderDecoderContent() {
               size="sm"
             >
               <Code className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Encode Text</span>
-              <span className="sm:hidden">Encode</span>
+              <span className="hidden sm:inline">{t("tools.base64EncoderDecoder.encodeText")}</span>
+              <span className="sm:hidden">{t("tools.base64EncoderDecoder.encodeShort")}</span>
             </Button>
             <Button
               variant="outline"
@@ -243,14 +244,14 @@ function Base64EncoderDecoderContent() {
               size="sm"
             >
               <FileText className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
-              <span className="hidden sm:inline">Decode Base64</span>
-              <span className="sm:hidden">Decode</span>
+              <span className="hidden sm:inline">{t("tools.base64EncoderDecoder.decodeBase64")}</span>
+              <span className="sm:hidden">{t("tools.base64EncoderDecoder.decodeShort")}</span>
             </Button>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="text-encoding-select">Text Encoding</Label>
+              <Label htmlFor="text-encoding-select">{t("tools.base64EncoderDecoder.textEncodingLabel")}</Label>
               <Select value={encoding} onValueChange={setEncoding}>
                 <SelectTrigger id="text-encoding-select" aria-label="Select text encoding">
                   <SelectValue />
@@ -271,7 +272,7 @@ function Base64EncoderDecoderContent() {
                 onChange={(e) => setLineBreaks(e.target.checked)}
                 className="h-4 w-4"
               />
-              <Label htmlFor="lineBreaks">Add line breaks (64 chars)</Label>
+              <Label htmlFor="lineBreaks">{t("tools.base64EncoderDecoder.lineBreaksLabel")}</Label>
             </div>
             
             <div className="flex items-center space-x-2">
@@ -282,7 +283,7 @@ function Base64EncoderDecoderContent() {
                 onChange={(e) => setUrlSafe(e.target.checked)}
                 className="h-4 w-4"
               />
-              <Label htmlFor="urlSafe">URL-safe encoding</Label>
+              <Label htmlFor="urlSafe">{t("tools.base64EncoderDecoder.urlSafeLabel")}</Label>
             </div>
           </div>
         </CardContent>
@@ -293,12 +294,12 @@ function Base64EncoderDecoderContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Upload className="h-5 w-5" />
-            Input {mode === 'encode' ? 'Text' : 'Base64'}
+            {mode === 'encode' ? t("tools.base64EncoderDecoder.inputTitleEncode") : t("tools.base64EncoderDecoder.inputTitleDecode")}
           </CardTitle>
           <CardDescription>
             {mode === 'encode' 
-              ? 'Enter the text you want to encode to Base64'
-              : 'Enter the Base64 string you want to decode'
+              ? t("tools.base64EncoderDecoder.inputDescEncode")
+              : t("tools.base64EncoderDecoder.inputDescDecode")
             }
           </CardDescription>
         </CardHeader>
@@ -320,7 +321,7 @@ function Base64EncoderDecoderContent() {
                 aria-label="Load text from file"
               >
                 <Upload className="h-4 w-4 mr-2" aria-hidden="true" />
-                Load from File
+                {t("tools.base64EncoderDecoder.loadFromFile")}
               </Button>
               <Button
                 variant="outline"
@@ -330,7 +331,7 @@ function Base64EncoderDecoderContent() {
                 aria-label="Copy input text to clipboard"
               >
                 <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
-                Copy Input
+                {t("tools.base64EncoderDecoder.copyInput")}
               </Button>
             </div>
             
@@ -340,8 +341,8 @@ function Base64EncoderDecoderContent() {
             <Textarea
               id="input-textarea"
               placeholder={mode === 'encode' 
-                ? 'Enter text to encode...'
-                : 'Enter Base64 string to decode...'
+                ? t("tools.base64EncoderDecoder.inputPlaceholderEncode")
+                : t("tools.base64EncoderDecoder.inputPlaceholderDecode")
               }
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
@@ -350,17 +351,17 @@ function Base64EncoderDecoderContent() {
             />
             <div id="input-description" className="sr-only">
               {mode === 'encode' 
-                ? 'Enter the text you want to encode to Base64'
-                : 'Enter the Base64 string you want to decode'
+                ? t("tools.base64EncoderDecoder.inputDescEncode")
+                : t("tools.base64EncoderDecoder.inputDescDecode")
               }
             </div>
             
             <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
-              <span>Characters: {getCharacterCount(inputText)}</span>
-              <span>Bytes: {getByteSize(inputText)}</span>
+              <span>{t("tools.base64EncoderDecoder.charactersLabel")} {getCharacterCount(inputText)}</span>
+              <span>{t("tools.base64EncoderDecoder.bytesLabel")} {getByteSize(inputText)}</span>
               {mode === 'decode' && inputText && (
                 <span className={`text-xs sm:text-sm ${isValidBase64(inputText) ? 'text-green-600' : 'text-red-600'}`}>
-                  {isValidBase64(inputText) ? '✓ Valid Base64' : '✗ Invalid Base64'}
+                  {isValidBase64(inputText) ? t("tools.base64EncoderDecoder.validBase64") : t("tools.base64EncoderDecoder.invalidBase64")}
                 </span>
               )}
             </div>
@@ -381,12 +382,12 @@ function Base64EncoderDecoderContent() {
               {mode === 'encode' ? (
                 <>
                   <Code className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Encode to Base64
+                  {t("tools.base64EncoderDecoder.encodeButton")}
                 </>
               ) : (
                 <>
                   <FileText className="h-4 w-4 mr-2" aria-hidden="true" />
-                  Decode from Base64
+                  {t("tools.base64EncoderDecoder.decodeButton")}
                 </>
               )}
             </Button>
@@ -398,7 +399,7 @@ function Base64EncoderDecoderContent() {
               aria-label="Clear all input and output"
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
-              Clear All
+              {t("toolCommon.clearAll")}
             </Button>
           </div>
         </CardContent>
@@ -409,12 +410,12 @@ function Base64EncoderDecoderContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Download className="h-5 w-5" />
-            Output {mode === 'encode' ? 'Base64' : 'Text'}
+            {mode === 'encode' ? t("tools.base64EncoderDecoder.outputTitleEncode") : t("tools.base64EncoderDecoder.outputTitleDecode")}
           </CardTitle>
           <CardDescription>
             {mode === 'encode' 
-              ? 'Base64 encoded result'
-              : 'Decoded text result'
+              ? t("tools.base64EncoderDecoder.outputDescEncode")
+              : t("tools.base64EncoderDecoder.outputDescDecode")
             }
           </CardDescription>
         </CardHeader>
@@ -429,7 +430,7 @@ function Base64EncoderDecoderContent() {
                 aria-label="Copy output to clipboard"
               >
                 <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
-                Copy Output
+                {t("tools.base64EncoderDecoder.copyOutput")}
               </Button>
               <Button
                 variant="outline"
@@ -439,7 +440,7 @@ function Base64EncoderDecoderContent() {
                 aria-label="Download output as file"
               >
                 <Download className="h-4 w-4 mr-2" aria-hidden="true" />
-                Download
+                {t("toolCommon.download")}
               </Button>
             </div>
             
@@ -449,8 +450,8 @@ function Base64EncoderDecoderContent() {
             <Textarea
               id="output-textarea"
               placeholder={mode === 'encode' 
-                ? 'Base64 encoded result will appear here...'
-                : 'Decoded text will appear here...'
+                ? t("tools.base64EncoderDecoder.outputPlaceholderEncode")
+                : t("tools.base64EncoderDecoder.outputPlaceholderDecode")
               }
               value={outputText}
               readOnly
@@ -460,17 +461,17 @@ function Base64EncoderDecoderContent() {
             />
             <div id="output-description" className="sr-only">
               {mode === 'encode' 
-                ? 'Base64 encoded result'
-                : 'Decoded text result'
+                ? t("tools.base64EncoderDecoder.outputDescEncode")
+                : t("tools.base64EncoderDecoder.outputDescDecode")
               }
             </div>
             
             <div className="flex items-center flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm text-muted-foreground">
-              <span>Characters: {getCharacterCount(outputText)}</span>
-              <span>Bytes: {getByteSize(outputText)}</span>
+              <span>{t("tools.base64EncoderDecoder.charactersLabel")} {getCharacterCount(outputText)}</span>
+              <span>{t("tools.base64EncoderDecoder.bytesLabel")} {getByteSize(outputText)}</span>
               {mode === 'encode' && outputText && (
                 <span className="text-green-600 text-xs sm:text-sm">
-                  Size change: {((getByteSize(outputText) - getByteSize(inputText)) / getByteSize(inputText) * 100).toFixed(1)}%
+                  {t("tools.base64EncoderDecoder.sizeChangeLabel")} {((getByteSize(outputText) - getByteSize(inputText)) / getByteSize(inputText) * 100).toFixed(1)}%
                 </span>
               )}
             </div>

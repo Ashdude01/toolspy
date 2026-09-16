@@ -34,8 +34,10 @@ import {
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 function ImageToBase64Content() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [base64Result, setBase64Result] = useState<string>("");
@@ -54,7 +56,7 @@ function ImageToBase64Content() {
 
   const handleConvert = async () => {
     if (!selectedFile) {
-      showToast("Please select an image first", "error");
+      showToast(t("tools.imageToBase64.selectImageFirst"), "error");
       return;
     }
 
@@ -70,18 +72,18 @@ function ImageToBase64Content() {
       const sizeReduction =
         ((base64String.length - selectedFile.size) / selectedFile.size) * 100;
 
-      showToast("Image converted to Base64 successfully!", "success");
+      showToast(t("tools.imageToBase64.convertSuccess"), "success");
 
       if (sizeReduction > 33) {
         showToast(
-          "Note: Base64 encoding increases size by ~33%. Consider compression for web use.",
+          t("tools.imageToBase64.sizeIncreaseNote"),
           "info",
           4000
         );
       }
     } catch (error) {
       console.error("Conversion error:", error);
-      showToast("Error converting image to Base64", "error");
+      showToast(t("tools.imageToBase64.convertError"), "error");
     } finally {
       setIsConverting(false);
     }
@@ -89,21 +91,21 @@ function ImageToBase64Content() {
 
   const handleCopyBase64 = async () => {
     if (!base64Result) {
-      showToast("No Base64 data to copy", "error");
+      showToast(t("tools.imageToBase64.noDataToCopy"), "error");
       return;
     }
 
     try {
       await copyToClipboard(base64Result);
-      showToast("Base64 data copied to clipboard!", "success");
+      showToast(t("tools.imageToBase64.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.imageToBase64.copyFailed"), "error");
     }
   };
 
   const handleDownloadTxt = () => {
     if (!base64Result) {
-      showToast("No Base64 data to download", "error");
+      showToast(t("tools.imageToBase64.noDataToDownload"), "error");
       return;
     }
 
@@ -113,16 +115,16 @@ function ImageToBase64Content() {
       const blob = new Blob([base64Result], { type: "text/plain" });
 
       downloadFile(blob, filename);
-      showToast("Base64 file downloaded successfully!", "success");
+      showToast(t("tools.imageToBase64.downloadSuccess"), "success");
     } catch (error) {
-      showToast("Failed to download Base64 file", "error");
+      showToast(t("tools.imageToBase64.downloadFailed"), "error");
     }
   };
 
   const handleClear = () => {
     setSelectedFile(null);
     setBase64Result("");
-    showToast("All data cleared successfully!", "success");
+    showToast(t("tools.imageToBase64.cleared"), "success");
   };
 
   const base64Size = base64Result ? new Blob([base64Result]).size : 0;
@@ -136,11 +138,10 @@ function ImageToBase64Content() {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">Image to Base64 Encoder</h2>
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
+        <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold">{t("tools.imageToBase64.title")}</h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-          Convert images to Base64 format with Toolspy's professional encoder.
-          Perfect for embedding in HTML, CSS, or data URLs.
+          {t("tools.imageToBase64.subtitle")}
         </p>
       </div>
 
@@ -160,10 +161,10 @@ function ImageToBase64Content() {
               <div>
                 <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
                   <ImageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span>Image Preview</span>
+                  <span>{t("tools.imageToBase64.previewTitle")}</span>
                 </CardTitle>
                 <CardDescription className="text-xs sm:text-sm">
-                  Preview of your selected image
+                  {t("tools.imageToBase64.previewDescription")}
                 </CardDescription>
               </div>
               <div className="flex items-center space-x-2 flex-wrap gap-2">
@@ -174,18 +175,18 @@ function ImageToBase64Content() {
                   size="sm"
                 >
                   {isConverting ? (
-                    <>Converting...</>
+                    <>{t("tools.imageToBase64.converting")}</>
                   ) : (
                     <>
-                      <span className="hidden sm:inline">Convert to Base64</span>
-                      <span className="sm:hidden">Convert</span>
+                      <span className="hidden sm:inline">{t("tools.imageToBase64.convert")}</span>
+                      <span className="sm:hidden">{t("tools.imageToBase64.convertShort")}</span>
                       <ArrowRight className="h-4 w-4 ml-2" />
                     </>
                   )}
                 </Button>
                 <Button variant="outline" onClick={handleClear} size="sm">
                   <RotateCcw className="h-4 w-4 mr-2" />
-                  <span className="hidden sm:inline">Clear</span>
+                  <span className="hidden sm:inline">{t("toolCommon.clear")}</span>
                 </Button>
               </div>
             </div>
@@ -203,9 +204,9 @@ function ImageToBase64Content() {
             <div className="text-center space-y-4">
               <div className="animate-spin rounded-full h-10 w-10 sm:h-12 sm:w-12 border-b-2 border-primary mx-auto"></div>
               <div className="space-y-2">
-                <h3 className="text-base sm:text-lg font-medium">Converting to Base64...</h3>
+                <h3 className="text-base sm:text-lg font-medium">{t("tools.imageToBase64.convertingTitle")}</h3>
                 <p className="text-sm sm:text-base text-muted-foreground px-4">
-                  This may take a moment for large images
+                  {t("tools.imageToBase64.convertingHint")}
                 </p>
               </div>
             </div>
@@ -221,21 +222,21 @@ function ImageToBase64Content() {
               <div>
                 <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
                   <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span>Base64 Result</span>
+                  <span>{t("tools.imageToBase64.resultTitle")}</span>
                 </CardTitle>
                 <CardDescription className="text-xs sm:text-sm">
-                  Your image has been converted to Base64 format
+                  {t("tools.imageToBase64.resultDescription")}
                 </CardDescription>
               </div>
               <div className="flex items-center space-x-2 flex-wrap gap-2">
                 <Button variant="outline" onClick={handleCopyBase64} size="sm" className="flex-1 sm:flex-initial">
                   <Copy className="h-4 w-4 mr-2" />
-                  Copy
+                  {t("toolCommon.copy")}
                 </Button>
                 <Button onClick={handleDownloadTxt} size="sm" className="flex-1 sm:flex-initial">
                   <Download className="h-4 w-4 mr-2" />
-                  <span className="hidden sm:inline">Download TXT</span>
-                  <span className="sm:hidden">Download</span>
+                  <span className="hidden sm:inline">{t("tools.imageToBase64.downloadTxt")}</span>
+                  <span className="sm:hidden">{t("toolCommon.download")}</span>
                 </Button>
               </div>
             </div>
@@ -244,7 +245,7 @@ function ImageToBase64Content() {
             {/* Base64 Output */}
             <div className="space-y-2">
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-                <span className="text-sm font-medium">Base64 String:</span>
+                <span className="text-sm font-medium">{t("tools.imageToBase64.base64StringLabel")}</span>
                 <div className="flex items-center flex-wrap gap-2 text-xs sm:text-sm text-muted-foreground">
                   <span>{base64Result.length.toLocaleString()} characters</span>
                   <span className="hidden sm:inline">•</span>
@@ -253,7 +254,7 @@ function ImageToBase64Content() {
                     <>
                       <span className="hidden sm:inline">•</span>
                       <Badge variant="outline" className="text-xs">
-                        +{compressionRatio}% size increase
+                        {t("tools.imageToBase64.sizeIncreaseBadge", { ratio: compressionRatio })}
                       </Badge>
                     </>
                   )}
@@ -263,19 +264,19 @@ function ImageToBase64Content() {
                 value={base64Result}
                 readOnly
                 className="min-h-32 font-mono text-xs sm:text-sm resize-none"
-                placeholder="Base64 output will appear here..."
+                placeholder={t("tools.imageToBase64.outputPlaceholder")}
                 rows={6}
               />
             </div>
 
             {/* Usage Examples */}
             <div className="space-y-4">
-              <h4 className="font-medium text-sm sm:text-base">Usage Examples:</h4>
+              <h4 className="font-medium text-sm sm:text-base">{t("tools.imageToBase64.usageExamples")}</h4>
 
               <div className="space-y-3">
                 <div className="p-2 sm:p-3 bg-muted rounded-lg">
                   <div className="text-xs sm:text-sm font-medium mb-1">
-                    HTML Image Tag:
+                    {t("tools.imageToBase64.htmlImg")}
                   </div>
                   <code className="text-[10px] sm:text-xs break-all block overflow-x-auto">
                     &lt;img src="{base64Result.substring(0, 50)}..." alt="Image"
@@ -285,7 +286,7 @@ function ImageToBase64Content() {
 
                 <div className="p-2 sm:p-3 bg-muted rounded-lg">
                   <div className="text-xs sm:text-sm font-medium mb-1">
-                    CSS Background:
+                    {t("tools.imageToBase64.cssBackground")}
                   </div>
                   <code className="text-[10px] sm:text-xs break-all block overflow-x-auto">
                     background-image: url('{base64Result.substring(0, 50)}...');
@@ -293,7 +294,7 @@ function ImageToBase64Content() {
                 </div>
 
                 <div className="p-2 sm:p-3 bg-muted rounded-lg">
-                  <div className="text-xs sm:text-sm font-medium mb-1">JSON Data:</div>
+                  <div className="text-xs sm:text-sm font-medium mb-1">{t("tools.imageToBase64.jsonData")}</div>
                   <code className="text-[10px] sm:text-xs break-all block overflow-x-auto">
                     "image": "{base64Result.substring(0, 50)}..."
                   </code>
@@ -304,23 +305,23 @@ function ImageToBase64Content() {
             {/* Statistics */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm border-t pt-4">
               <div>
-                <span className="text-muted-foreground block mb-1">Original Size:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.imageToBase64.originalSize")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {formatFileSize(selectedFile?.size || 0)}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Base64 Size:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.imageToBase64.base64Size")}</span>
                 <div className="font-medium text-sm sm:text-base">{formatFileSize(base64Size)}</div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Characters:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.imageToBase64.characters")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {base64Result.length.toLocaleString()}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Format:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.imageToBase64.format")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {selectedFile
                     ? selectedFile.type.split("/")[1]?.toUpperCase() ||
@@ -334,7 +335,7 @@ function ImageToBase64Content() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Button onClick={handleCopyBase64} className="flex-1">
                 <Copy className="h-4 w-4 mr-2" />
-                Copy Base64 String
+                {t("tools.imageToBase64.copyBase64String")}
               </Button>
               <Button
                 variant="outline"
@@ -342,11 +343,11 @@ function ImageToBase64Content() {
                 className="flex-1"
               >
                 <Download className="h-4 w-4 mr-2" />
-                Download as TXT File
+                {t("tools.imageToBase64.downloadAsTxt")}
               </Button>
               <Button variant="outline" onClick={handleClear}>
                 <RotateCcw className="h-4 w-4 mr-2" />
-                Clear All
+                {t("toolCommon.clearAll")}
               </Button>
             </div>
           </CardContent>

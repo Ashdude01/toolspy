@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { PenaltyLateFeeCalculatorSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('penalty-late-fee-calculator')
@@ -20,15 +21,18 @@ export default function PenaltyLateFeeCalculatorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="penalty-late-fee-calculator">
+      <CmsToolHero slug="penalty-late-fee-calculator" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<PenaltyLateFeeCalculatorPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<PenaltyLateFeeCalculatorPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="penalty-late-fee-calculator" codeFallback={<PenaltyLateFeeCalculatorSEOContent />} />
+        <ToolContentSwitch slug="penalty-late-fee-calculator" locale="en" codeFallback={<PenaltyLateFeeCalculatorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

@@ -31,6 +31,7 @@ import {
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ConversionResult {
   id: string;
@@ -44,6 +45,7 @@ interface ConversionResult {
 }
 
 function PdfConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<ConversionResult[]>([]);
   const [isConverting, setIsConverting] = useState(false);
@@ -71,13 +73,13 @@ function PdfConverterContent() {
     const pdfFiles = files.filter((file) => file.type === "application/pdf");
 
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t('tools.pdfConverter.pdfOnly'), "error");
       return;
     }
 
     if (pdfFiles.length !== files.length) {
       showToast(
-        `${files.length - pdfFiles.length} non-PDF files were filtered out`,
+        t('tools.pdfConverter.filesFiltered', { count: files.length - pdfFiles.length }),
         "warning"
       );
     }
@@ -90,7 +92,7 @@ function PdfConverterContent() {
     }));
 
     setSelectedFiles((prev) => [...prev, ...newFiles]);
-    showToast(`${pdfFiles.length} PDF file(s) added`, "success");
+    showToast(t('tools.pdfConverter.filesAdded', { count: pdfFiles.length }), "success");
   };
 
   const handleError = (error: string) => {
@@ -114,12 +116,12 @@ function PdfConverterContent() {
       }
     });
     setSelectedFiles([]);
-    showToast("All files cleared", "info");
+    showToast(t('tools.pdfConverter.allFilesCleared'), "info");
   };
 
   const convertPdfs = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to convert", "error");
+      showToast(t('tools.pdfConverter.selectFilesFirst'), "error");
       return;
     }
 
@@ -255,18 +257,20 @@ function PdfConverterContent() {
       
       const successCount = updatedFiles.filter(f => f.status === 'completed').length;
       if (successCount > 0) {
-        showToast(`Successfully converted ${successCount} PDF file(s)`, "success");
+        showToast(t('tools.pdfConverter.convertSuccess', { count: successCount }), "success");
       }
       
       const errorCount = updatedFiles.filter(f => f.status === 'error').length;
       if (errorCount > 0) {
-        showToast(`Failed to convert ${errorCount} file(s)`, "error");
+        showToast(t('tools.pdfConverter.convertFailedCount', { count: errorCount }), "error");
       }
       
     } catch (error) {
       console.error('Conversion error:', error);
       showToast(
-        "Conversion failed: " + (error instanceof Error ? error.message : "Unknown error"),
+        t('tools.pdfConverter.convertFailed', {
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
         "error"
       );
     } finally {
@@ -281,14 +285,14 @@ function PdfConverterContent() {
       new Blob([file.convertedFile], { type: file.convertedFile.type }),
       file.convertedFile.name
     );
-    showToast("File downloaded", "success");
+    showToast(t('tools.pdfConverter.fileDownloaded'), "success");
   };
 
   const downloadAll = () => {
     const completedFiles = selectedFiles.filter(f => f.status === 'completed' && f.convertedFile);
     
     if (completedFiles.length === 0) {
-      showToast("No converted files to download", "error");
+      showToast(t('tools.pdfConverter.noConvertedFiles'), "error");
       return;
     }
 
@@ -301,7 +305,7 @@ function PdfConverterContent() {
       }
     });
     
-    showToast(`Downloaded ${completedFiles.length} file(s)`, "success");
+    showToast(t('tools.pdfConverter.downloadedCount', { count: completedFiles.length }), "success");
   };
 
   const downloadAllAsZip = async () => {
@@ -309,7 +313,7 @@ function PdfConverterContent() {
       const completedFiles = selectedFiles.filter(f => f.status === 'completed' && f.convertedFile);
       
       if (completedFiles.length === 0) {
-        showToast("No converted files available for download", "error");
+        showToast(t('tools.pdfConverter.noFilesForZip'), "error");
         return;
       }
 
@@ -320,10 +324,10 @@ function PdfConverterContent() {
       const zipBlob = await createZipFromFiles(filesToZip, zipFilename);
       downloadZip(zipBlob, zipFilename);
       
-      showToast(`Downloaded ${filesToZip.length} file(s) as ${zipFilename}`, "success");
+      showToast(t('tools.pdfConverter.zipDownloaded', { count: filesToZip.length, filename: zipFilename }), "success");
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : "Failed to create ZIP file";
-      showToast(`ZIP Error: ${errorMessage}`, "error");
+      showToast(t('tools.pdfConverter.zipError', { message: errorMessage }), "error");
     } finally {
       setIsCreatingZip(false);
     }
@@ -334,21 +338,20 @@ function PdfConverterContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          {t('tools.pdfConverter.privacyBadge')}
         </Badge>
 
         <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-600 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          PDF Converter
+          {t('tools.pdfConverter.title')}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Convert PDF files to various formats including images, text, and more. 
-          High-quality conversion with customizable settings for professional results.
+          {t('tools.pdfConverter.subtitle')}
         </p>
       </div>
 
@@ -372,10 +375,10 @@ function PdfConverterContent() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <FileText className="h-5 w-5" />
-                      Selected PDF Files ({selectedFiles.length})
+                      {t('tools.pdfConverter.selectedFilesTitle', { count: selectedFiles.length })}
                     </CardTitle>
                     <CardDescription>
-                      Files ready for conversion
+                      {t('tools.pdfConverter.selectedFilesDescription')}
                     </CardDescription>
                   </div>
                   <Button 
@@ -385,7 +388,7 @@ function PdfConverterContent() {
                     aria-label="Clear all selected PDF files"
                   >
                     <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
-                    Clear All
+                    {t('toolCommon.clearAll')}
                   </Button>
                 </div>
               </CardHeader>
@@ -429,16 +432,16 @@ function PdfConverterContent() {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Settings className="h-5 w-5" />
-                  Output Format
+                  {t('tools.pdfConverter.outputFormatTitle')}
                 </CardTitle>
                 <CardDescription>
-                  Choose conversion format
+                  {t('tools.pdfConverter.outputFormatDescription')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label htmlFor="output-format-select">Format</Label>
+                    <Label htmlFor="output-format-select">{t('tools.pdfConverter.formatLabel')}</Label>
                     <Select value={outputFormat} onValueChange={setOutputFormat}>
                       <SelectTrigger id="output-format-select" aria-label="Select output format">
                         <SelectValue />
@@ -447,19 +450,19 @@ function PdfConverterContent() {
                         <SelectItem value="png">
                           <div className="flex items-center gap-2">
                             <FileImage className="h-4 w-4" />
-                            PNG Images
+                            {t('tools.pdfConverter.formatPngImages')}
                           </div>
                         </SelectItem>
                         <SelectItem value="jpg">
                           <div className="flex items-center gap-2">
                             <FileImage className="h-4 w-4" />
-                            JPG Images
+                            {t('tools.pdfConverter.formatJpgImages')}
                           </div>
                         </SelectItem>
                         <SelectItem value="txt">
                           <div className="flex items-center gap-2">
                             <FileText className="h-4 w-4" />
-                            Text File
+                            {t('tools.pdfConverter.formatTextFile')}
                           </div>
                         </SelectItem>
                       </SelectContent>
@@ -470,7 +473,7 @@ function PdfConverterContent() {
                     <>
                       <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
                         <Label htmlFor="quality-slider" className="text-sm font-medium">
-                          Quality: {quality[0]}%
+                          {t('tools.pdfConverter.qualityLabel', { value: quality[0] })}
                         </Label>
                         <Slider
                           id="quality-slider"
@@ -486,13 +489,13 @@ function PdfConverterContent() {
                           aria-valuenow={quality[0]}
                         />
                         <p className="text-xs text-muted-foreground">
-                          Lower = smaller files, Higher = better quality
+                          {t('tools.pdfConverter.qualityHint')}
                         </p>
                       </div>
 
                       <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
                         <Label htmlFor="dpi-slider" className="text-sm font-medium">
-                          DPI: {dpi[0]}
+                          {t('tools.pdfConverter.dpiLabel', { value: dpi[0] })}
                         </Label>
                         <Slider
                           id="dpi-slider"
@@ -508,7 +511,7 @@ function PdfConverterContent() {
                           aria-valuenow={dpi[0]}
                         />
                         <p className="text-xs text-muted-foreground">
-                          Higher DPI = better quality, larger files
+                          {t('tools.pdfConverter.dpiHint')}
                         </p>
                       </div>
                     </>
@@ -524,8 +527,8 @@ function PdfConverterContent() {
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Conversion Settings</CardTitle>
-            <CardDescription>Fine-tune conversion parameters</CardDescription>
+            <CardTitle>{t('tools.pdfConverter.settingsTitle')}</CardTitle>
+            <CardDescription>{t('tools.pdfConverter.settingsDescription')}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -539,8 +542,11 @@ function PdfConverterContent() {
             >
               <ArrowUpDown className="h-5 w-5 mr-2" aria-hidden="true" />
               {isConverting
-                ? "Converting..."
-                : `Convert ${selectedFiles.length} PDF File(s) to ${outputFormat.toUpperCase()}`}
+                ? t('tools.pdfConverter.converting')
+                : t('tools.pdfConverter.convertButton', {
+                    count: selectedFiles.length,
+                    format: outputFormat.toUpperCase(),
+                  })}
             </Button>
           </CardContent>
         </Card>
@@ -554,17 +560,17 @@ function PdfConverterContent() {
               <div>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5" />
-                  Conversion Results
+                  {t('tools.pdfConverter.resultsTitle')}
                 </CardTitle>
                 <CardDescription>
-                  {completedCount} PDF(s) converted successfully
+                  {t('tools.pdfConverter.resultsDescription', { count: completedCount })}
                 </CardDescription>
               </div>
               {completedCount > 0 && (
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Button onClick={downloadAll} size="sm" variant="outline">
                     <Download className="h-4 w-4 mr-2" />
-                    Download All
+                    {t('toolCommon.downloadAll')}
                   </Button>
                   <Button 
                     onClick={downloadAllAsZip} 
@@ -572,7 +578,7 @@ function PdfConverterContent() {
                     disabled={isCreatingZip}
                   >
                     <Package className="h-4 w-4 mr-2" />
-                    {isCreatingZip ? "Creating ZIP..." : "Download as ZIP"}
+                    {isCreatingZip ? t('tools.pdfConverter.creatingZip') : t('tools.pdfConverter.downloadAsZip')}
                   </Button>
                 </div>
               )}
@@ -622,7 +628,7 @@ function PdfConverterContent() {
                           onClick={() => downloadSingle(file)}
                         >
                           <Download className="h-3 w-3 mr-1" />
-                          Download
+                          {t('toolCommon.download')}
                         </Button>
                       )}
                     </div>
@@ -637,11 +643,11 @@ function PdfConverterContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isConverting}
-        title="Converting PDF Files"
+        title={t('tools.pdfConverter.progressTitle')}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.file}
-        description="Please wait while we convert your PDF files..."
+        description={t('tools.pdfConverter.progressDescription')}
       />
 </div>
   );

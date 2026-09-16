@@ -28,6 +28,7 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 interface PercentageResult {
   calculation: string;
@@ -37,6 +38,7 @@ interface PercentageResult {
 }
 
 function PercentageCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [calculationType, setCalculationType] = useState("basic");
   const [value1, setValue1] = useState("");
@@ -50,7 +52,7 @@ function PercentageCalculatorContent() {
     const num3 = parseFloat(value3);
 
     if (isNaN(num1) || isNaN(num2)) {
-      showToast("Please enter valid numbers", "error");
+      showToast(t("tools.percentageCalculator.invalidNumbers"), "error");
       return;
     }
 
@@ -126,7 +128,7 @@ function PercentageCalculatorContent() {
       
       case "compound": // Compound percentage (requires 3 values)
         if (isNaN(num3)) {
-          showToast("Please enter the number of periods for compound calculation", "error");
+          showToast(t("tools.percentageCalculator.enterPeriods"), "error");
           return;
         }
         resultValue = num2 * Math.pow(1 + (num1 / 100), num3);
@@ -140,7 +142,7 @@ function PercentageCalculatorContent() {
         break;
       
       default:
-        showToast("Please select a calculation type", "error");
+        showToast(t("tools.percentageCalculator.selectType"), "error");
         return;
     }
 
@@ -151,7 +153,7 @@ function PercentageCalculatorContent() {
       steps
     });
 
-    showToast("Calculation completed!", "success");
+    showToast(t("tools.percentageCalculator.calculationComplete"), "success");
   };
 
   const clearAll = () => {
@@ -159,27 +161,27 @@ function PercentageCalculatorContent() {
     setValue2("");
     setValue3("");
     setResult(null);
-    showToast("Values cleared", "info");
+    showToast(t("tools.percentageCalculator.valuesCleared"), "info");
   };
 
   const getInputLabels = () => {
     switch (calculationType) {
       case "basic":
-        return { label1: "Percentage (%)", label2: "Of Value", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelPercentage"), label2: t("tools.percentageCalculator.labelOfValue"), label3: "" };
       case "percentage":
-        return { label1: "Part Value", label2: "Whole Value", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelPartValue"), label2: t("tools.percentageCalculator.labelWholeValue"), label3: "" };
       case "increase":
-        return { label1: "Original Value", label2: "New Value", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelOriginalValue"), label2: t("tools.percentageCalculator.labelNewValue"), label3: "" };
       case "decrease":
-        return { label1: "Original Value", label2: "New Value", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelOriginalValue"), label2: t("tools.percentageCalculator.labelNewValue"), label3: "" };
       case "discount":
-        return { label1: "Discount (%)", label2: "Original Price", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelDiscount"), label2: t("tools.percentageCalculator.labelOriginalPrice"), label3: "" };
       case "tip":
-        return { label1: "Tip (%)", label2: "Bill Amount", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelTip"), label2: t("tools.percentageCalculator.labelBillAmount"), label3: "" };
       case "compound":
-        return { label1: "Growth Rate (%)", label2: "Initial Value", label3: "Periods" };
+        return { label1: t("tools.percentageCalculator.labelGrowthRate"), label2: t("tools.percentageCalculator.labelInitialValue"), label3: t("tools.percentageCalculator.labelPeriods") };
       default:
-        return { label1: "Value 1", label2: "Value 2", label3: "" };
+        return { label1: t("tools.percentageCalculator.labelValue1"), label2: t("tools.percentageCalculator.labelValue2"), label3: "" };
     }
   };
 
@@ -188,21 +190,20 @@ function PercentageCalculatorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          {t("tools.percentageCalculator.privacyBadge")}
         </Badge>
 
         <h2 className="bg-gradient-to-r from-green-500 dark:from-green-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          Professional Percentage Calculator
+          {t("tools.percentageCalculator.title")}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Calculate percentages, percentage increases, decreases, discounts, and compound growth. 
-          Get step-by-step explanations for better understanding.
+          {t("tools.percentageCalculator.subtitle")}
         </p>
       </div>
 
@@ -212,28 +213,28 @@ function PercentageCalculatorContent() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Calculator className="h-5 w-5" />
-              Percentage Calculator
+              {t("tools.percentageCalculator.calculatorTitle")}
             </CardTitle>
             <CardDescription>
-              Select calculation type and enter your values
+              {t("tools.percentageCalculator.calculatorDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-6">
             {/* Calculation Type */}
             <div className="space-y-2">
-              <Label htmlFor="calc-type">Calculation Type</Label>
+              <Label htmlFor="calc-type">{t("tools.percentageCalculator.calcTypeLabel")}</Label>
               <Select value={calculationType} onValueChange={setCalculationType}>
-                <SelectTrigger id="calc-type" aria-label="Select calculation type">
-                  <SelectValue placeholder="Select calculation type" />
+                <SelectTrigger id="calc-type" aria-label={t("tools.percentageCalculator.calcTypePlaceholder")}>
+                  <SelectValue placeholder={t("tools.percentageCalculator.calcTypePlaceholder")} />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="basic">Basic: X% of Y</SelectItem>
-                  <SelectItem value="percentage">X is what % of Y</SelectItem>
-                  <SelectItem value="increase">Percentage Increase</SelectItem>
-                  <SelectItem value="decrease">Percentage Decrease</SelectItem>
-                  <SelectItem value="discount">Discount Calculator</SelectItem>
-                  <SelectItem value="tip">Tip Calculator</SelectItem>
-                  <SelectItem value="compound">Compound Growth</SelectItem>
+                  <SelectItem value="basic">{t("tools.percentageCalculator.typeBasic")}</SelectItem>
+                  <SelectItem value="percentage">{t("tools.percentageCalculator.typePercentage")}</SelectItem>
+                  <SelectItem value="increase">{t("tools.percentageCalculator.typeIncrease")}</SelectItem>
+                  <SelectItem value="decrease">{t("tools.percentageCalculator.typeDecrease")}</SelectItem>
+                  <SelectItem value="discount">{t("tools.percentageCalculator.typeDiscount")}</SelectItem>
+                  <SelectItem value="tip">{t("tools.percentageCalculator.typeTip")}</SelectItem>
+                  <SelectItem value="compound">{t("tools.percentageCalculator.typeCompound")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -291,7 +292,7 @@ function PercentageCalculatorContent() {
                 aria-label="Calculate percentage based on entered values"
               >
                 <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
-                Calculate
+                {t("toolCommon.calculate")}
               </Button>
               <Button 
                 variant="outline" 
@@ -299,7 +300,7 @@ function PercentageCalculatorContent() {
                 aria-label="Clear all input values and results"
               >
                 <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
-                Clear
+                {t("toolCommon.clear")}
               </Button>
             </div>
           </CardContent>
@@ -311,7 +312,7 @@ function PercentageCalculatorContent() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Equal className="h-5 w-5" />
-                Calculation Result
+                {t("tools.percentageCalculator.resultTitle")}
               </CardTitle>
               <CardDescription>
                 {result.explanation}
@@ -332,7 +333,7 @@ function PercentageCalculatorContent() {
               <div className="space-y-3">
                 <h4 className="font-semibold flex items-center gap-2">
                   <ArrowRight className="h-4 w-4" />
-                  Step-by-step Solution
+                  {t("tools.percentageCalculator.stepByStepTitle")}
                 </h4>
                 <div className="space-y-2">
                   {result.steps.map((step, index) => (

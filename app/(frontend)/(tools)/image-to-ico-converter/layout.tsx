@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ImageToICOConverterSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('image-to-ico-converter')
@@ -20,15 +21,18 @@ export default function ImageToICOConverterLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="image-to-ico-converter">
+      <CmsToolHero slug="image-to-ico-converter" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<ImageToICOConverterPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<ImageToICOConverterPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="image-to-ico-converter" codeFallback={<ImageToICOConverterSEOContent />} />
+        <ToolContentSwitch slug="image-to-ico-converter" locale="en" codeFallback={<ImageToICOConverterSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

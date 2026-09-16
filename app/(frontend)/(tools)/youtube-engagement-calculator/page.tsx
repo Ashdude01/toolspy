@@ -195,7 +195,7 @@ function YouTubeEngagementCalculatorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-red-800 dark:text-red-200 bg-red-100 dark:bg-red-900"

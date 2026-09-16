@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { InvestmentCalculatorSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('investment-calculator')
@@ -24,15 +25,18 @@ export default function InvestmentCalculatorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="investment-calculator">
+      <CmsToolHero slug="investment-calculator" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<InvestmentCalculatorPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<InvestmentCalculatorPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="investment-calculator" codeFallback={<InvestmentCalculatorSEOContent />} />
+        <ToolContentSwitch slug="investment-calculator" locale="en" codeFallback={<InvestmentCalculatorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

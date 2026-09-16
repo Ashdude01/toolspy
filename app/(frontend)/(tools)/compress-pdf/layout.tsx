@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { CompressPdfSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('compress-pdf')
@@ -24,15 +25,18 @@ export default function CompressPdfLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="compress-pdf">
+      <CmsToolHero slug="compress-pdf" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<CompressPdfPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<CompressPdfPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="compress-pdf" codeFallback={<CompressPdfSEOContent />} />
+        <ToolContentSwitch slug="compress-pdf" locale="en" codeFallback={<CompressPdfSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

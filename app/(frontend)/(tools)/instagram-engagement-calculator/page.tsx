@@ -172,7 +172,7 @@ function InstagramEngagementCalculatorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-purple-800 dark:text-purple-200 bg-purple-100 dark:bg-purple-900"

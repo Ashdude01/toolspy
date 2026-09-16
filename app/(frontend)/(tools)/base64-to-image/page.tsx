@@ -41,8 +41,10 @@ import {
   addWatermarkToFilename,
 } from "@/lib/utils/file-utils";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 function Base64ToImageContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [base64Input, setBase64Input] = useState("");
   const [decodedImage, setDecodedImage] = useState<{
@@ -59,7 +61,7 @@ function Base64ToImageContent() {
 
     if (value.trim() && isValidBase64(value) === false) {
         showToast(
-          "Invalid Base64 string",
+          t("tools.base64ToImage.invalidBase64"),
           "error",
           1500
         );
@@ -73,11 +75,11 @@ function Base64ToImageContent() {
         setBase64Input(text);
         handleInputChange(text);
       } else {
-        showToast("No text found in clipboard", "error");
+        showToast(t("tools.base64ToImage.noClipboardText"), "error");
       }
     } catch (error) {
       showToast(
-        "Failed to paste from clipboard. Please allow clipboard permissions.",
+        t("tools.base64ToImage.pasteFailed"),
         "error"
       );
     }
@@ -90,13 +92,13 @@ function Base64ToImageContent() {
 
   const handleDecode = async () => {
     if (!base64Input.trim()) {
-      showToast("Please enter a valid Base64 string", "error");
+      showToast(t("tools.base64ToImage.enterValidBase64"), "error");
       return;
     }
 
     const validation = validateBase64Image(base64Input);
     if (!validation.valid) {
-      showToast(validation.error || "Invalid Base64 string", "error");
+      showToast(validation.error || t("tools.base64ToImage.invalidBase64"), "error");
       return;
     }
 
@@ -123,18 +125,18 @@ function Base64ToImageContent() {
         size,
       });
 
-      showToast("Base64 decoded successfully!", "success");
+      showToast(t("tools.base64ToImage.decodeSuccess"), "success");
 
       // Show format-specific warnings
       if (format === "AVIF") {
         showToast(
-          "AVIF format detected. Ensure browser compatibility.",
+          t("tools.base64ToImage.avifWarning"),
           "warning",
           4000
         );
       } else if (["HEIC", "HEIF"].includes(format)) {
         showToast(
-          "HEIC/HEIF format detected. Mainly supported on Apple devices.",
+          t("tools.base64ToImage.heicWarning"),
           "warning",
           4000
         );
@@ -142,7 +144,7 @@ function Base64ToImageContent() {
     } catch (error) {
       console.error("Decode error:", error);
       showToast(
-        "Failed to decode Base64 string. Please check the format.",
+        t("tools.base64ToImage.decodeFailed"),
         "error"
       );
     } finally {
@@ -152,7 +154,7 @@ function Base64ToImageContent() {
 
   const handleDownload = () => {
     if (!decodedImage) {
-      showToast("No image to download", "error");
+      showToast(t("tools.base64ToImage.noImageToDownload"), "error");
       return;
     }
 
@@ -166,13 +168,13 @@ function Base64ToImageContent() {
 
   const handleCopyImage = async () => {
     if (!decodedImage) {
-      showToast("No image to copy", "error");
+      showToast(t("tools.base64ToImage.noImageToCopy"), "error");
       return;
     }
 
     try {
       await copyImageToClipboard(decodedImage.blob);
-      showToast("Image copied to clipboard!", "success");
+      showToast(t("tools.base64ToImage.imageCopied"), "success");
     } catch (error) {
       // Fallback: try to copy as canvas
       try {
@@ -188,10 +190,10 @@ function Base64ToImageContent() {
           if (blob) {
             try {
               await copyImageToClipboard(blob);
-              showToast("Image copied to clipboard!", "success");
+              showToast(t("tools.base64ToImage.imageCopied"), "success");
             } catch {
               showToast(
-                'Copy failed. Try right-clicking the image and selecting "Copy Image".',
+                t("tools.base64ToImage.copyFailedHint"),
                 "error"
               );
             }
@@ -199,7 +201,7 @@ function Base64ToImageContent() {
         }, "image/png");
       } catch {
         showToast(
-          'Copy failed. Try right-clicking the image and selecting "Copy Image".',
+          t("tools.base64ToImage.copyFailedHint"),
           "error"
         );
       }
@@ -208,7 +210,7 @@ function Base64ToImageContent() {
 
   const handleShare = async () => {
     if (!decodedImage || !navigator.share) {
-      showToast("Sharing not supported on this browser", "error");
+      showToast(t("tools.base64ToImage.sharingNotSupported"), "error");
       return;
     }
 
@@ -221,7 +223,7 @@ function Base64ToImageContent() {
       });
     } catch (error) {
       if ((error as Error).name !== "AbortError") {
-        showToast("Failed to share image", "error");
+        showToast(t("tools.base64ToImage.shareFailed"), "error");
       }
     }
   };
@@ -232,7 +234,7 @@ function Base64ToImageContent() {
     if (decodedImage) {
       URL.revokeObjectURL(decodedImage.url);
     }
-    showToast("Ready for new conversion", "info");
+    showToast(t("tools.base64ToImage.readyForNew"), "info");
   };
 
   const inputLength = base64Input.length;
@@ -241,14 +243,12 @@ function Base64ToImageContent() {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-3 sm:mb-4">
-          Base64 to Image Converter
+          {t("tools.base64ToImage.title")}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto px-2">
-          Convert Base64 encoded strings back to image files with Toolspy's
-          secure converter. Supports all major image formats with instant
-          processing.
+          {t("tools.base64ToImage.subtitle")}
         </p>
       </div>
 
@@ -259,10 +259,10 @@ function Base64ToImageContent() {
             <div>
               <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
                 <FileText className="h-4 w-4 sm:h-5 sm:w-5" />
-                <span>Base64 Input</span>
+                <span>{t("tools.base64ToImage.inputTitle")}</span>
               </CardTitle>
               <CardDescription className="text-xs sm:text-sm">
-                Paste your Base64 string (with or without data URL prefix)
+                {t("tools.base64ToImage.inputDescription")}
               </CardDescription>
             </div>
             <div className="flex items-center space-x-2 flex-wrap gap-2">
@@ -273,18 +273,18 @@ function Base64ToImageContent() {
                 className="flex-1 sm:flex-initial"
               >
                 <Clipboard className="h-4 w-4 mr-2" />
-                Paste
+                {t("toolCommon.paste")}
               </Button>
               <Button variant="outline" size="sm" onClick={handleClearInput} className="flex-1 sm:flex-initial">
                 <RotateCcw className="h-4 w-4 mr-2" />
-                Clear
+                {t("toolCommon.clear")}
               </Button>
             </div>
           </div>
         </CardHeader>
         <CardContent className="space-y-4">
           <Textarea
-            placeholder="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAA... or just the Base64 string"
+            placeholder={t("tools.base64ToImage.inputPlaceholder")}
             value={base64Input}
             onChange={(e) => handleInputChange(e.target.value)}
             className="min-h-32 font-mono text-xs sm:text-sm"
@@ -299,7 +299,7 @@ function Base64ToImageContent() {
               )}
               {isValidInput && (
                 <Badge variant="secondary" className="text-xs">
-                  {getBase64ImageFormat(base64Input)} format detected
+                  {t("tools.base64ToImage.formatDetected", { format: getBase64ImageFormat(base64Input) })}
                 </Badge>
               )}
             </div>
@@ -309,7 +309,7 @@ function Base64ToImageContent() {
               className="px-4 sm:px-6 text-sm sm:text-base w-full sm:w-auto"
               size="sm"
             >
-              {isDecoding ? "Decoding..." : "Decode to Image"}
+              {isDecoding ? t("tools.base64ToImage.decoding") : t("tools.base64ToImage.decodeToImage")}
             </Button>
           </div>
         </CardContent>
@@ -323,24 +323,24 @@ function Base64ToImageContent() {
               <div>
                 <CardTitle className="flex items-center space-x-2 text-lg sm:text-xl">
                   <ImageIcon className="h-4 w-4 sm:h-5 sm:w-5" />
-                  <span>Decoded Image</span>
+                  <span>{t("tools.base64ToImage.resultTitle")}</span>
                 </CardTitle>
                 <CardDescription className="text-xs sm:text-sm">
-                  Successfully decoded {decodedImage.format} image
+                  {t("tools.base64ToImage.resultDescription", { format: decodedImage.format })}
                 </CardDescription>
               </div>
               <div className="flex items-center space-x-2 flex-wrap gap-2">
                 <Button variant="outline" size="sm" onClick={handleShare} className="flex-1 sm:flex-initial">
                   <Share2 className="h-4 w-4 mr-2" />
-                  Share
+                  {t("tools.base64ToImage.share")}
                 </Button>
                 <Button variant="outline" size="sm" onClick={handleCopyImage} className="flex-1 sm:flex-initial">
                   <Copy className="h-4 w-4 mr-2" />
-                  Copy
+                  {t("toolCommon.copy")}
                 </Button>
                 <Button size="sm" onClick={handleDownload} className="flex-1 sm:flex-initial">
                   <Download className="h-4 w-4 mr-2" />
-                  Download
+                  {t("toolCommon.download")}
                 </Button>
               </div>
             </div>
@@ -368,24 +368,24 @@ function Base64ToImageContent() {
             {/* Image Information */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-xs sm:text-sm">
               <div>
-                <span className="text-muted-foreground block mb-1">Format:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.base64ToImage.format")}</span>
                 <div className="font-medium text-sm sm:text-base">{decodedImage.format}</div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Dimensions:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.base64ToImage.dimensions")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {decodedImage.dimensions.width} ×{" "}
                   {decodedImage.dimensions.height}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">File Size:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.base64ToImage.fileSize")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {formatFileSize(decodedImage.size)}
                 </div>
               </div>
               <div>
-                <span className="text-muted-foreground block mb-1">Input Length:</span>
+                <span className="text-muted-foreground block mb-1">{t("tools.base64ToImage.inputLength")}</span>
                 <div className="font-medium text-sm sm:text-base">
                   {inputLength.toLocaleString()} chars
                 </div>
@@ -396,7 +396,7 @@ function Base64ToImageContent() {
             <div className="flex flex-col sm:flex-row gap-3">
               <Button onClick={handleDownload} className="flex-1">
                 <Download className="h-4 w-4 mr-2" />
-                Download Image
+                {t("tools.base64ToImage.downloadImage")}
               </Button>
               <Button
                 variant="outline"
@@ -404,11 +404,11 @@ function Base64ToImageContent() {
                 className="flex-1"
               >
                 <Copy className="h-4 w-4 mr-2" />
-                Copy to Clipboard
+                {t("tools.base64ToImage.copyToClipboard")}
               </Button>
               <Button variant="outline" onClick={handleStartNew}>
                 <RotateCcw className="h-4 w-4 mr-2" />
-                New Conversion
+                {t("tools.base64ToImage.newConversion")}
               </Button>
             </div>
           </CardContent>

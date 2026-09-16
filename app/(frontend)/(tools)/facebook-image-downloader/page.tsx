@@ -306,19 +306,18 @@ export default function FacebookImageDownloaderPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
       />
 
-      {/* Hero */}
+      {/* Hero — title/description from CmsToolHero in layout; widget stays here */}
       <section className="border-b border-border bg-gradient-to-b from-muted/60 to-background">
         <div className={cn(CONTAINER, "py-12 text-center sm:py-16")}>
-          {/* <span className="inline-flex items-center rounded-full border border-[#1877F2]/20 bg-[#1877F2]/10 px-3.5 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:border-blue-500/30 dark:bg-blue-500/10 dark:text-blue-400">
-            Free • No Signup • Works in Browser
-          </span> */}
-          <h1 className="mx-auto mt-5 max-w-3xl !pb-0 !text-[2rem] font-extrabold leading-tight tracking-tight sm:!text-4xl lg:!text-5xl">
-            Facebook Image Downloader
-          </h1>
-          <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
-            Paste a public Facebook post or photo link below to download full-size images.
-            Private posts won&apos;t work — for those, use our free browser extension.
-          </p>
+          <div className="tool-legacy-hero">
+            <h1 className="mx-auto mt-5 max-w-3xl !pb-0 !text-[2rem] font-extrabold leading-tight tracking-tight sm:!text-4xl lg:!text-5xl">
+              Facebook Image Downloader
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-base text-muted-foreground sm:text-lg">
+              Paste a public Facebook post or photo link below to download full-size images.
+              Private posts won&apos;t work — for those, use our free browser extension.
+            </p>
+          </div>
 
           <div className="mt-8 w-full">
             <Downloader />

@@ -14,6 +14,8 @@ import {
 import { siteConfig } from '@/lib/config'
 import { getToolContent } from '@/lib/payload/get-tool-content'
 import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
 import { DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
@@ -170,34 +172,29 @@ export default async function LocalizedPage({ params }: { params: Params }) {
   }
 
   // ---- TOOL (hybrid CMS/code) ----
-  const [layoutMod, pageMod, doc] = await Promise.all([
-    entry.layout(),
-    entry.page(),
-    getToolContent(slug, locale),
-  ])
-  const ToolLayout = layoutMod.default
+  const [pageMod, doc] = await Promise.all([entry.page(), getToolContent(slug, locale)])
   const ToolPage = pageMod.default
-  if (!ToolLayout || !ToolPage) notFound()
+  if (!ToolPage) notFound()
 
   const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0
 
-  if (cmsActive && doc) {
-    return (
-      <DynamicToolLayout toolSlug={slug}>
-        <ToolCustomSchema slug={slug} locale={locale} />
+  // Locale-aware hero + hide English page hero. SEO: CMS template or switch.
+  return (
+    <DynamicToolLayout toolSlug={slug}>
+      <CmsToolHero slug={slug} locale={locale} />
+      <ToolCustomSchema slug={slug} locale={locale} />
+      <div className="contents [&_.tool-legacy-hero]:hidden">
         <Suspense fallback={<PageFallback />}>
           <ToolPage />
         </Suspense>
-        <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+      </div>
+      <div className="container mx-auto max-w-7xl px-4 py-6 sm:py-8">
+        {cmsActive && doc ? (
           <ToolSeoContentTemplate slug={slug} doc={doc} locale={locale} />
-        </div>
-      </DynamicToolLayout>
-    )
-  }
-
-  return (
-    <ToolLayout>
-      <ToolPage />
-    </ToolLayout>
+        ) : (
+          <ToolContentSwitch slug={slug} locale={locale} codeFallback={null} />
+        )}
+      </div>
+    </DynamicToolLayout>
   )
 }

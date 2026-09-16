@@ -14,6 +14,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { FileUpload } from "@/components/tools/shared/file-upload";
 import { ToastProvider, useToast } from "@/components/tools/shared/toast-provider";
+import { useT } from "@/lib/i18n/use-t";
 import { copyImageToClipboard, formatFileSize, downloadFile } from "@/lib/utils/file-utils";
 import { ContinueWithImage } from "@/components/tools/continue-with-image";
 import {
@@ -66,6 +67,7 @@ function polygonPath(ctx: CanvasRenderingContext2D, sides: number, w: number, h:
 }
 
 function OnlineImageCropperContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [file, setFile] = useState<File | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -162,7 +164,7 @@ function OnlineImageCropperContent() {
     const f = files[0];
     if (!f) return;
     if (!f.type.startsWith("image/")) {
-      showToast("Please select an image file", "error");
+      showToast(t("tools.onlineImageCropper.selectImageFile"), "error");
       return;
     }
     if (imageUrl) URL.revokeObjectURL(imageUrl);
@@ -386,15 +388,15 @@ function OnlineImageCropperContent() {
 
   const exportCrop = async () => {
     if (!file || !imgRef.current || !stageRef.current) {
-      showToast("Please upload an image first", "error");
+      showToast(t("tools.onlineImageCropper.uploadFirst"), "error");
       return;
     }
     if (!crop) {
-      showToast("Select an area to crop (drag on the image)", "error");
+      showToast(t("tools.onlineImageCropper.selectCropArea"), "error");
       return;
     }
     if (shape === "custom" && customPoints.length < 3) {
-      showToast("Add at least 3 points for a custom shape", "error");
+      showToast(t("tools.onlineImageCropper.minThreePoints"), "error");
       return;
     }
 
@@ -406,7 +408,7 @@ function OnlineImageCropperContent() {
 
     const rendered = getRenderedImageRect();
     if (!rendered) {
-      showToast("Image is not ready yet. Please try again.", "error");
+      showToast(t("tools.onlineImageCropper.imageNotReady"), "error");
       return;
     }
 
@@ -441,7 +443,7 @@ function OnlineImageCropperContent() {
     temp.height = srcH;
     const tctx = temp.getContext("2d");
     if (!tctx) {
-      showToast("Canvas not supported in this browser", "error");
+      showToast(t("tools.onlineImageCropper.canvasNotSupported"), "error");
       return;
     }
     tctx.drawImage(img, srcX, srcY, srcW, srcH, 0, 0, srcW, srcH);
@@ -453,7 +455,7 @@ function OnlineImageCropperContent() {
       masked.height = srcH;
       const mctx = masked.getContext("2d");
       if (!mctx) {
-        showToast("Canvas not supported in this browser", "error");
+        showToast(t("tools.onlineImageCropper.canvasNotSupported"), "error");
         return;
       }
 
@@ -498,14 +500,14 @@ function OnlineImageCropperContent() {
     );
 
     if (!blob) {
-      showToast("Failed to export cropped image", "error");
+      showToast(t("tools.onlineImageCropper.exportFailed"), "error");
       return;
     }
 
     if (resultUrl) URL.revokeObjectURL(resultUrl);
     setResultBlob(blob);
     setResultUrl(URL.createObjectURL(blob));
-    showToast("Crop ready. You can download it below.", "success");
+    showToast(t("tools.onlineImageCropper.cropReady"), "success");
   };
 
   const downloadResult = () => {
@@ -514,16 +516,16 @@ function OnlineImageCropperContent() {
       resultBlob.type === "image/jpeg" ? "jpg" : resultBlob.type === "image/webp" ? "webp" : "png";
     const name = file?.name?.replace(/\.[^/.]+$/, "") || "cropped";
     downloadFile(resultBlob, `${name}-cropped.${ext}`);
-    showToast("Downloaded", "success");
+    showToast(t("tools.onlineImageCropper.downloaded"), "success");
   };
 
   const copyResultLink = async () => {
     try {
       if (!resultUrl) return;
       await navigator.clipboard.writeText(resultUrl);
-      showToast("Result preview link copied", "success");
+      showToast(t("tools.onlineImageCropper.linkCopied"), "success");
     } catch {
-      showToast("Could not copy link on this browser", "error");
+      showToast(t("tools.onlineImageCropper.copyLinkFailed"), "error");
     }
   };
 
@@ -561,28 +563,27 @@ function OnlineImageCropperContent() {
     if (!resultBlob) return;
     try {
       await copyImageToClipboard(resultBlob);
-      showToast("Image copied to clipboard", "success");
+      showToast(t("tools.onlineImageCropper.imageCopied"), "success");
     } catch {
-      showToast("Copy failed on this browser. Try download instead.", "error");
+      showToast(t("tools.onlineImageCropper.copyFailed"), "error");
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • Runs in your browser
+          {t("tools.onlineImageCropper.privacyBadge")}
         </Badge>
         <h2 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          Online Image Cropper
+          {t("tools.onlineImageCropper.title")}
         </h2>
         <p className="text-sm sm:text-base text-muted-foreground max-w-2xl mx-auto">
-          Crop by free selection, fixed aspect ratio, or shapes like circle and polygons. No uploads,
-          no account-just crop and download.
+          {t("tools.onlineImageCropper.subtitle")}
         </p>
       </div>
 
@@ -603,12 +604,12 @@ function OnlineImageCropperContent() {
               <div className="flex items-center justify-between gap-3">
                 <div>
                   <CardTitle className="flex items-center gap-2">
-                    <Crop className="h-4 w-4" /> Crop area
+                    <Crop className="h-4 w-4" /> {t("tools.onlineImageCropper.cropAreaTitle")}
                   </CardTitle>
-                  <CardDescription>Drag to create a crop. Drag inside to move.</CardDescription>
+                  <CardDescription>{t("tools.onlineImageCropper.cropAreaDescription")}</CardDescription>
                 </div>
                 <Button variant="outline" size="sm" onClick={clearAll}>
-                  <Trash2 className="h-4 w-4 mr-2" /> Clear
+                  <Trash2 className="h-4 w-4 mr-2" /> {t("toolCommon.clear")}
                 </Button>
               </div>
             </CardHeader>
@@ -696,7 +697,7 @@ function OnlineImageCropperContent() {
                                     strokeWidth: 1.5,
                                   }}
                                 >
-                                  Click to add points
+                                  {t("tools.onlineImageCropper.clickToAddPoints")}
                                 </text>
                               </>
                             ) : (
@@ -742,36 +743,36 @@ function OnlineImageCropperContent() {
                 )}
               </div>
               <p className="text-xs text-muted-foreground mt-3">
-                Tip: For circle/polygon crops, the tool exports with a transparent background (PNG/WebP).
+                {t("tools.onlineImageCropper.shapeTip")}
               </p>
             </CardContent>
           </Card>
 
           <Card className="lg:col-span-2">
             <CardHeader>
-              <CardTitle>Crop settings</CardTitle>
-              <CardDescription>Pick a crop mode and export format.</CardDescription>
+              <CardTitle>{t("tools.onlineImageCropper.settingsTitle")}</CardTitle>
+              <CardDescription>{t("tools.onlineImageCropper.settingsDescription")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
               <div className="space-y-2">
-                <Label>Crop shape</Label>
+                <Label>{t("tools.onlineImageCropper.cropShapeLabel")}</Label>
                 <Select value={shape} onValueChange={(v) => setShape(v as Shape)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select shape" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="rectangle">Rectangle</SelectItem>
-                    <SelectItem value="square">Square</SelectItem>
-                    <SelectItem value="circle">Circle</SelectItem>
-                    <SelectItem value="pentagon">Pentagon</SelectItem>
-                    <SelectItem value="hexagon">Hexagon</SelectItem>
-                    <SelectItem value="custom">Custom shape (draw)</SelectItem>
+                    <SelectItem value="rectangle">{t("tools.onlineImageCropper.shapeRectangle")}</SelectItem>
+                    <SelectItem value="square">{t("tools.onlineImageCropper.shapeSquare")}</SelectItem>
+                    <SelectItem value="circle">{t("tools.onlineImageCropper.shapeCircle")}</SelectItem>
+                    <SelectItem value="pentagon">{t("tools.onlineImageCropper.shapePentagon")}</SelectItem>
+                    <SelectItem value="hexagon">{t("tools.onlineImageCropper.shapeHexagon")}</SelectItem>
+                    <SelectItem value="custom">{t("tools.onlineImageCropper.shapeCustom")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label>Aspect ratio</Label>
+                <Label>{t("tools.onlineImageCropper.aspectRatioLabel")}</Label>
                 <Select
                   value={effectiveAspect}
                   onValueChange={(v) => setAspect(v as Aspect)}
@@ -781,8 +782,8 @@ function OnlineImageCropperContent() {
                     <SelectValue placeholder="Select aspect ratio" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="free">Free</SelectItem>
-                    <SelectItem value="1:1">1:1 (Square)</SelectItem>
+                    <SelectItem value="free">{t("tools.onlineImageCropper.aspectFree")}</SelectItem>
+                    <SelectItem value="1:1">{t("tools.onlineImageCropper.aspectSquare")}</SelectItem>
                     <SelectItem value="4:3">4:3</SelectItem>
                     <SelectItem value="3:2">3:2</SelectItem>
                     <SelectItem value="16:9">16:9</SelectItem>
@@ -791,18 +792,17 @@ function OnlineImageCropperContent() {
                 </Select>
                 {shape !== "rectangle" && (
                   <p className="text-xs text-muted-foreground">
-                    Aspect ratio is fixed to 1:1 for this shape.
+                    {t("tools.onlineImageCropper.aspectFixedHint")}
                   </p>
                 )}
               </div>
 
               {shape === "custom" && (
                 <div className="space-y-2">
-                  <Label>Custom shape</Label>
+                  <Label>{t("tools.onlineImageCropper.customShapeLabel")}</Label>
                   <div className="rounded-lg border bg-muted/30 p-3 space-y-2">
                     <p className="text-xs text-muted-foreground leading-relaxed">
-                      Turn Drawing on to add points inside the crop. Drag the round handles anytime to
-                      adjust points. You need at least 3 points to export.
+                      {t("tools.onlineImageCropper.customShapeHint")}
                     </p>
                     <div className="flex flex-wrap gap-2">
                       <Button
@@ -811,7 +811,9 @@ function OnlineImageCropperContent() {
                         size="sm"
                         onClick={() => setCustomDrawMode((v) => !v)}
                       >
-                        {customDrawMode ? "Drawing: ON" : "Drawing: OFF"}
+                        {customDrawMode
+                          ? t("tools.onlineImageCropper.drawingOn")
+                          : t("tools.onlineImageCropper.drawingOff")}
                       </Button>
                       <Button
                         type="button"
@@ -819,18 +821,18 @@ function OnlineImageCropperContent() {
                         size="sm"
                         onClick={() => setCustomPoints([])}
                       >
-                        Clear points
+                        {t("tools.onlineImageCropper.clearPoints")}
                       </Button>
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      Points: <span className="font-medium text-foreground">{customPoints.length}</span>
+                      {t("tools.onlineImageCropper.pointsLabel")} <span className="font-medium text-foreground">{customPoints.length}</span>
                     </div>
                   </div>
                 </div>
               )}
 
               <div className="space-y-2">
-                <Label>Output format</Label>
+                <Label>{t("tools.onlineImageCropper.outputFormatLabel")}</Label>
                 <Select value={outputFormat} onValueChange={(v) => setOutputFormat(v as any)}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select format" />
@@ -847,7 +849,7 @@ function OnlineImageCropperContent() {
 
               <div className="flex flex-col gap-3">
                 <Button onClick={exportCrop} className="w-full gap-2">
-                  Create cropped image <Crop className="h-4 w-4" />
+                  {t("tools.onlineImageCropper.createCroppedImage")} <Crop className="h-4 w-4" />
                 </Button>
                 <Button
                   variant="outline"
@@ -855,13 +857,13 @@ function OnlineImageCropperContent() {
                   disabled={!resultBlob}
                   className="w-full gap-2"
                 >
-                  Download <Download className="h-4 w-4" />
+                  {t("toolCommon.download")} <Download className="h-4 w-4" />
                 </Button>
               </div>
 
               {resultBlob && (
                 <div className="text-sm text-muted-foreground">
-                  Output size: <span className="font-medium text-foreground">{formatFileSize(resultBlob.size)}</span>
+                  {t("tools.onlineImageCropper.outputSizeLabel")} <span className="font-medium text-foreground">{formatFileSize(resultBlob.size)}</span>
                 </div>
               )}
             </CardContent>
@@ -870,8 +872,8 @@ function OnlineImageCropperContent() {
           {resultUrl && resultBlob && (
             <Card className="lg:col-span-5">
               <CardHeader>
-                <CardTitle>Result</CardTitle>
-                <CardDescription>Preview and export options.</CardDescription>
+                <CardTitle>{t("tools.onlineImageCropper.resultTitle")}</CardTitle>
+                <CardDescription>{t("tools.onlineImageCropper.resultDescription")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-5 gap-4 items-start">
@@ -907,16 +909,16 @@ function OnlineImageCropperContent() {
                   <div className="md:col-span-3 space-y-3">
                     <div className="flex flex-col sm:flex-row gap-3">
                       <Button onClick={downloadResult} className="gap-2">
-                        Download <Download className="h-4 w-4" />
+                        {t("toolCommon.download")} <Download className="h-4 w-4" />
                       </Button>
                       <Button variant="outline" onClick={shareResult} className="gap-2">
-                        Share <Share2 className="h-4 w-4" />
+                        {t("tools.onlineImageCropper.share")} <Share2 className="h-4 w-4" />
                       </Button>
                       <Button variant="outline" onClick={copyResultLink} className="gap-2">
-                        Copy link <Link2 className="h-4 w-4" />
+                        {t("tools.onlineImageCropper.copyLink")} <Link2 className="h-4 w-4" />
                       </Button>
                       <Button variant="outline" onClick={copyResultImage} className="gap-2">
-                        Copy image
+                        {t("tools.onlineImageCropper.copyImage")}
                       </Button>
                     </div>
 
@@ -932,24 +934,24 @@ function OnlineImageCropperContent() {
                         return `cropped-${Date.now()}.${ext}`;
                       }}
                       onMissingBlob={() =>
-                        showToast("Create a cropped image first, then continue.", "error")
+                        showToast(t("tools.onlineImageCropper.continueMissingCrop"), "error")
                       }
                       items={[
                         {
-                          label: "Compress",
-                          description: "Shrink file size in the compressor",
+                          label: t("tools.onlineImageCropper.continueCompress"),
+                          description: t("tools.onlineImageCropper.continueCompressDesc"),
                           href: "/image-compressor",
                           icon: Zap,
                         },
                         {
-                          label: "Resize",
-                          description: "Set width & height in the resizer",
+                          label: t("tools.onlineImageCropper.continueResize"),
+                          description: t("tools.onlineImageCropper.continueResizeDesc"),
                           href: "/image-resizer",
                           icon: Maximize2,
                         },
                         {
-                          label: "Convert format",
-                          description: "PNG, WebP, JPEG, and more",
+                          label: t("tools.onlineImageCropper.continueConvert"),
+                          description: t("tools.onlineImageCropper.continueConvertDesc"),
                           href: "/image-converter",
                           icon: ImageIcon,
                         },

@@ -52,6 +52,7 @@ import {
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { scrollToElement } from "@/lib/utils";
 import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ProcessedFile {
   id: string;
@@ -103,6 +104,7 @@ function StepCircle({ children }: { children: ReactNode }) {
 }
 
 function ImageResizerContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [files, setFiles] = useState<ProcessedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -151,7 +153,7 @@ function ImageResizerContent() {
 
           if (newFiles.length === selectedFiles.length) {
             setFiles((prev) => [...prev, ...newFiles]);
-              showToast(`${selectedFiles.length} image(s) added successfully! âœ¨`, "success");
+              showToast(t("tools.imageResizer.imagesAdded", { count: selectedFiles.length }), "success");
               scrollToElement(settingsRef, 50)
           }
         };
@@ -163,7 +165,7 @@ function ImageResizerContent() {
 
   useToolImageHandoffImport((selectedFiles) => {
     handleFileSelect(selectedFiles);
-    showToast("Image loaded from another Toolspy tool", "success");
+    showToast(t("tools.imageResizer.handoffLoaded"), "success");
   });
 
   const handleFileUploadError = (error: string) => {
@@ -172,7 +174,7 @@ function ImageResizerContent() {
 
   const removeFile = (id: string) => {
     setFiles((prev) => prev.filter((file) => file.id !== id));
-    showToast("File removed", "success");
+    showToast(t("tools.imageResizer.fileRemoved"), "success");
   };
 
   const clearAllFiles = () => {
@@ -183,7 +185,7 @@ function ImageResizerContent() {
       URL.revokeObjectURL(file.previewUrl);
     });
     setFiles([]);
-    showToast("All files cleared", "success");
+    showToast(t("tools.imageResizer.allFilesCleared"), "success");
   };
 
   const updateDimensions = (fileId: string, width: number, height: number) => {
@@ -231,7 +233,7 @@ function ImageResizerContent() {
         newHeight: Math.round(file.originalHeight * newPercentage),
       }))
     );
-    showToast(`Applied ${percentage[0]}% scaling to all images`, "success");
+    showToast(t("tools.imageResizer.appliedPercent", { percent: percentage[0] }), "success");
   };
 
   const applyPresetToAll = (presetKey: string) => {
@@ -259,13 +261,13 @@ function ImageResizerContent() {
           return { ...file, newWidth, newHeight };
         })
       );
-      showToast(`Applied ${preset} preset to all images`, "success");
+      showToast(t("tools.imageResizer.appliedPreset", { preset }), "success");
     }
   };
 
   const resizeImages = async () => {
     if (files.length === 0) {
-      showToast("Please select images first", "error");
+      showToast(t("tools.imageResizer.selectImagesFirst"), "error");
       return;
     }
 
@@ -347,10 +349,10 @@ function ImageResizerContent() {
         setFiles([...updatedFiles]);
       }
 
-      showToast("ðŸŽ‰ Images resized successfully!", "success");
+      showToast(t("tools.imageResizer.resizeSuccess"), "success");
     } catch (error) {
       console.error("Resize error:", error);
-      showToast("Resize failed. Please try again.", "error");
+      showToast(t("tools.imageResizer.resizeFailed"), "error");
     } finally {
       setIsProcessing(false);
     }
@@ -373,7 +375,7 @@ function ImageResizerContent() {
     link.click();
     document.body.removeChild(link);
 
-    showToast(`${file.name} downloaded successfully! ðŸ“`, "success");
+    showToast(t("toolCommon.successSaved"), "success");
   };
 
   const downloadAllFiles = () => {
@@ -382,7 +384,7 @@ function ImageResizerContent() {
     );
 
     if (completedFiles.length === 0) {
-      showToast("No resized images to download", "error");
+      showToast(t("tools.imageResizer.noResizedToDownload"), "error");
       return;
     }
 
@@ -405,7 +407,7 @@ function ImageResizerContent() {
     const w = typeof customWidth === "number" ? customWidth : 0;
     const h = typeof customHeight === "number" ? customHeight : 0;
     if (w < 1 || h < 1) {
-      showToast("Enter both max width and max height (pixels) before applying.", "error");
+      showToast(t("tools.imageResizer.enterMaxDimensions"), "error");
       return;
     }
     setFiles((prev) =>
@@ -425,7 +427,7 @@ function ImageResizerContent() {
         return { ...file, newWidth: newW, newHeight: newH };
       })
     );
-    showToast(`Fitted all images within ${w}x${h}px`, "success");
+    showToast(t("tools.imageResizer.fittedWithin", { width: w, height: h }), "success");
   };
 
   const getStatusIcon = (status: string) => {
@@ -455,21 +457,21 @@ function ImageResizerContent() {
             className="border-emerald-200 bg-emerald-50 font-medium text-emerald-900 dark:border-emerald-800 dark:bg-emerald-950/40 dark:text-emerald-100"
           >
             <Shield className="mr-1.5 h-3.5 w-3.5" />
-            Private - processed in your browser
+            {t("tools.imageResizer.privacyBadge")}
           </Badge>
           <Badge
             variant="outline"
             className="hidden font-medium sm:inline-flex border-sky-200 bg-sky-50 text-sky-900 dark:border-sky-800 dark:bg-sky-950/40 dark:text-sky-100"
           >
             <Zap className="mr-1.5 h-3.5 w-3.5" />
-            Batch up to {maxFiles} files
+            {t("tools.imageResizer.batchBadge", { max: maxFiles })}
           </Badge>
         </div>
         <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
-          Image resizer
+          {t("tools.imageResizer.title")}
         </h1>
         <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
-          Scale by percent, set exact pixel sizes, or pick a social / print preset - then choose format and quality. Left: settings. Right: queue and downloads.
+          {t("tools.imageResizer.subtitle")}
         </p>
       </header>
 
@@ -482,11 +484,11 @@ function ImageResizerContent() {
                 <StepCircle>1</StepCircle>
                 <div className="min-w-0 space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Upload
+                    {t("tools.imageResizer.stepUpload")}
                   </p>
-                  <CardTitle className="text-xl">Add images</CardTitle>
+                  <CardTitle className="text-xl">{t("tools.imageResizer.addImagesTitle")}</CardTitle>
                   <CardDescription>
-                    Drag and drop or browse. Images stay on your device until you download.
+                    {t("tools.imageResizer.addImagesDescription")}
                   </CardDescription>
                 </div>
               </div>
@@ -508,11 +510,11 @@ function ImageResizerContent() {
                 <StepCircle>2</StepCircle>
                 <div className="min-w-0 space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Resize
+                    {t("tools.imageResizer.stepResize")}
                   </p>
-                  <CardTitle className="text-xl">How to resize</CardTitle>
+                  <CardTitle className="text-xl">{t("tools.imageResizer.howToResizeTitle")}</CardTitle>
                   <CardDescription>
-                    Choose one method. Use &quot;Apply to all&quot; where shown so every image matches.
+                    {t("tools.imageResizer.howToResizeDescription")}
                   </CardDescription>
                 </div>
               </div>
@@ -530,28 +532,28 @@ function ImageResizerContent() {
                     className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
                     <Target className="h-3.5 w-3.5 opacity-70" />
-                    By %
+                    {t("tools.imageResizer.tabByPercent")}
                   </TabsTrigger>
                   <TabsTrigger
                     value="pixels"
                     className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
                     <Square className="h-3.5 w-3.5 opacity-70" />
-                    Pixels
+                    {t("tools.imageResizer.tabPixels")}
                   </TabsTrigger>
                   <TabsTrigger
                     value="preset"
                     className="gap-1.5 py-2.5 text-xs sm:text-sm"
                   >
                     <Sparkles className="h-3.5 w-3.5 opacity-70" />
-                    Presets
+                    {t("tools.imageResizer.tabPresets")}
                   </TabsTrigger>
                 </TabsList>
 
                 <TabsContent value="percentage" className="mt-6 space-y-4 outline-none">
                   <div className="space-y-3">
                     <div className="flex items-center justify-between gap-2">
-                      <Label className="text-base">Scale</Label>
+                      <Label className="text-base">{t("tools.imageResizer.scaleLabel")}</Label>
                       <Badge variant="secondary">{percentage[0]}%</Badge>
                     </div>
                     <Slider
@@ -583,18 +585,18 @@ function ImageResizerContent() {
                       disabled={files.length === 0}
                     >
                       <ArrowRight className="mr-2 h-4 w-4" />
-                      Apply {percentage[0]}% to all images
+                      {t("tools.imageResizer.applyPercentToAll", { percent: percentage[0] })}
                     </Button>
                   </div>
                 </TabsContent>
 
                 <TabsContent value="pixels" className="mt-6 space-y-4 outline-none">
                   <p className="text-sm text-muted-foreground">
-                    Enter a <strong>maximum width and height</strong>. With aspect ratio on, each image fits inside this box without stretching.
+                    {t("tools.imageResizer.pixelsHint")}
                   </p>
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="max-w">Max width (px)</Label>
+                      <Label htmlFor="max-w">{t("tools.imageResizer.maxWidthLabel")}</Label>
                       <Input
                         id="max-w"
                         type="number"
@@ -605,11 +607,11 @@ function ImageResizerContent() {
                             e.target.value ? parseInt(e.target.value, 10) : ""
                           )
                         }
-                        placeholder="e.g. 1920"
+                        placeholder={t("tools.imageResizer.maxWidthPlaceholder")}
                       />
                     </div>
                     <div className="space-y-2">
-                      <Label htmlFor="max-h">Max height (px)</Label>
+                      <Label htmlFor="max-h">{t("tools.imageResizer.maxHeightLabel")}</Label>
                       <Input
                         id="max-h"
                         type="number"
@@ -620,7 +622,7 @@ function ImageResizerContent() {
                             e.target.value ? parseInt(e.target.value, 10) : ""
                           )
                         }
-                        placeholder="e.g. 1080"
+                        placeholder={t("tools.imageResizer.maxHeightPlaceholder")}
                       />
                     </div>
                   </div>
@@ -631,10 +633,10 @@ function ImageResizerContent() {
                     onClick={applyCustomPixelsToAll}
                     disabled={files.length === 0}
                   >
-                    Apply box to all images
+                    {t("tools.imageResizer.applyBoxToAll")}
                   </Button>
                   <p className="text-xs text-muted-foreground">
-                    Need different sizes per image? Use width/height under each thumbnail in the queue (right).
+                    {t("tools.imageResizer.perFileHint")}
                   </p>
                 </TabsContent>
 
@@ -643,7 +645,7 @@ function ImageResizerContent() {
                   className="mt-6 max-h-[min(360px,50vh)] space-y-4 overflow-y-auto pr-1 outline-none"
                 >
                   <p className="text-sm text-muted-foreground">
-                    Social and print targets. Images are fitted inside each preset without cropping.
+                    {t("tools.imageResizer.presetsHint")}
                   </p>
                   <div className="space-y-6">
                     {Object.entries(PRESET_DIMENSIONS).map(([category, presets]) => (
@@ -685,34 +687,34 @@ function ImageResizerContent() {
                 <StepCircle>3</StepCircle>
                 <div className="min-w-0 space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Output
+                    {t("tools.imageResizer.stepOutput")}
                   </p>
-                  <CardTitle className="text-xl">Format &amp; quality</CardTitle>
+                  <CardTitle className="text-xl">{t("tools.imageResizer.formatQualityTitle")}</CardTitle>
                   <CardDescription>
-                    Same options as most desktop apps: file type, compression, and aspect lock.
+                    {t("tools.imageResizer.formatQualityDescription")}
                   </CardDescription>
                 </div>
               </div>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="space-y-2">
-                <Label>Output format</Label>
+                <Label>{t("tools.imageResizer.outputFormatLabel")}</Label>
                 <Select value={format} onValueChange={setFormat}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="original">Keep original type</SelectItem>
-                    <SelectItem value="jpeg">JPEG - photos, smaller files</SelectItem>
-                    <SelectItem value="png">PNG - graphics, transparency</SelectItem>
-                    <SelectItem value="webp">WebP - modern web</SelectItem>
+                    <SelectItem value="original">{t("tools.imageResizer.formatKeepOriginal")}</SelectItem>
+                    <SelectItem value="jpeg">{t("tools.imageResizer.formatJpeg")}</SelectItem>
+                    <SelectItem value="png">{t("tools.imageResizer.formatPng")}</SelectItem>
+                    <SelectItem value="webp">{t("tools.imageResizer.formatWebp")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-3">
                 <div className="flex items-center justify-between gap-2">
-                  <Label>Quality</Label>
+                  <Label>{t("toolCommon.quality")}</Label>
                   <Badge variant="secondary">{quality}%</Badge>
                 </div>
                 <Slider
@@ -762,10 +764,10 @@ function ImageResizerContent() {
                 />
                 <div className="space-y-1">
                   <Label htmlFor="aspectRatio" className="text-base">
-                    Lock aspect ratio
+                    {t("tools.imageResizer.lockAspectRatio")}
                   </Label>
                   <p className="text-xs text-muted-foreground leading-relaxed">
-                    Keeps proportions when you change width or height (recommended). Turn off only if you need a non-uniform stretch.
+                    {t("tools.imageResizer.lockAspectRatioHint")}
                   </p>
                 </div>
               </div>
@@ -773,7 +775,7 @@ function ImageResizerContent() {
               <div className="flex gap-2 rounded-md bg-muted/50 p-3 text-xs text-muted-foreground">
                 <Info className="mt-0.5 h-4 w-4 shrink-0 text-sky-600" />
                 <span>
-                  JPEG is best for photos; PNG for logos and transparency; WebP often gives the smallest size for the web.
+                  {t("tools.imageResizer.formatTip")}
                 </span>
               </div>
             </CardContent>
@@ -781,9 +783,9 @@ function ImageResizerContent() {
 
           <Card className="border-primary/25 shadow-sm">
             <CardHeader className="pb-2">
-              <CardTitle className="text-lg">Resize &amp; download</CardTitle>
+              <CardTitle className="text-lg">{t("tools.imageResizer.resizeDownloadTitle")}</CardTitle>
               <CardDescription>
-                Process the queue, then grab files from the right or here.
+                {t("tools.imageResizer.resizeDownloadDescription")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
@@ -796,8 +798,10 @@ function ImageResizerContent() {
               >
                 <Maximize2 className="mr-2 h-5 w-5" />
                 {isProcessing
-                  ? "Resizing…"
-                  : `Resize images${files.length > 1 ? ` (${files.length})` : ""}`}
+                  ? t("tools.imageResizer.resizing")
+                  : files.length > 1
+                    ? t("tools.imageResizer.resizeImagesCount", { count: files.length })
+                    : t("tools.imageResizer.resizeImages")}
               </Button>
               <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
                 <Button
@@ -807,7 +811,7 @@ function ImageResizerContent() {
                   disabled={isProcessing || completedCount === 0}
                 >
                   <FileDown className="mr-2 h-4 w-4" />
-                  Download all ({completedCount})
+                  {t("tools.imageResizer.downloadAll", { count: completedCount })}
                 </Button>
                 <Button
                   type="button"
@@ -816,7 +820,7 @@ function ImageResizerContent() {
                   disabled={isProcessing}
                 >
                   <RefreshCw className="mr-2 h-4 w-4" />
-                  Reset all
+                  {t("tools.imageResizer.resetAll")}
                 </Button>
               </div>
             </CardContent>
@@ -831,20 +835,20 @@ function ImageResizerContent() {
                 <StepCircle>4</StepCircle>
                 <div className="min-w-0 space-y-1">
                   <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-                    Queue
+                    {t("tools.imageResizer.stepQueue")}
                   </p>
-                  <CardTitle className="text-xl">Preview &amp; files</CardTitle>
+                  <CardTitle className="text-xl">{t("tools.imageResizer.queueTitle")}</CardTitle>
                   <CardDescription>
                     {files.length === 0
-                      ? "Nothing uploaded yet."
-                      : `${files.length} file(s) Â· ${formatFileSize(totalOriginalSize)}`}
+                      ? t("tools.imageResizer.queueEmpty")
+                      : `${files.length} · ${formatFileSize(totalOriginalSize)}`}
                   </CardDescription>
                 </div>
               </div>
               {files.length > 0 && (
                 <Button variant="outline" size="sm" onClick={clearAllFiles}>
                   <Trash2 className="mr-2 h-4 w-4" />
-                  Clear all
+                  {t("toolCommon.clearAll")}
                 </Button>
               )}
             </CardHeader>
@@ -853,9 +857,9 @@ function ImageResizerContent() {
                 <div className="flex min-h-[220px] flex-col items-center justify-center gap-3 rounded-lg border border-dashed p-8 text-center">
                   <FileImage className="h-12 w-12 text-muted-foreground/40" />
                   <div className="space-y-1">
-                    <p className="font-medium text-foreground">No images in queue</p>
+                    <p className="font-medium text-foreground">{t("tools.imageResizer.noImagesInQueue")}</p>
                     <p className="max-w-xs text-sm text-muted-foreground">
-                      Complete step 1 on the left. Thumbnails and per-file controls appear here.
+                      {t("tools.imageResizer.queueEmptyHint")}
                     </p>
                   </div>
                 </div>
@@ -1087,8 +1091,8 @@ function ImageResizerContent() {
         isOpen={isProcessing}
         current={currentFile}
         total={files.length}
-        title="Resizing images"
-        description="Processing your images…"
+        title={t("tools.imageResizer.progressTitle")}
+        description={t("tools.imageResizer.progressDescription")}
         currentFile={files[currentFile]?.name}
       />
     </div>

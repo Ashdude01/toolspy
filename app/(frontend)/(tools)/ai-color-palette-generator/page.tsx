@@ -436,7 +436,7 @@ function ColorPaletteGeneratorContent() {
       <canvas ref={canvasRef} className="hidden" />
       
       {/* Header */}
-      <div className="text-center space-y-4">
+      <div className="tool-legacy-hero text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <div className="p-3 bg-gradient-to-br from-pink-500 to-orange-600 rounded-xl text-white">
             <Palette size={24} />

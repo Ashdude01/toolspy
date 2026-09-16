@@ -35,6 +35,7 @@ import {
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
 import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ConversionResult {
   file: File;
@@ -50,6 +51,7 @@ interface ConversionResult {
 const CONVERTER_OUTPUT_FORMATS = ["png", "jpeg", "webp", "gif", "bmp", "tiff"] as const;
 
 function ImageConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const searchParams = useSearchParams();
   const selectedSectionRef = useRef<HTMLDivElement>(null);
@@ -211,7 +213,7 @@ function ImageConverterContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t('toolCommon.clearAll'), "info");
   };
 
   const convertImages = async () => {
@@ -262,11 +264,11 @@ function ImageConverterContent() {
 
     if (successCount > 0) {
       showToast(
-        `${successCount} image(s) converted successfully${failCount > 0 ? `, ${failCount} failed` : ''}`,
+        t('tools.imageConverter.convertedSuccess', { count: successCount }),
         failCount > 0 ? "warning" : "success"
       );
     } else {
-      showToast("All conversions failed", "error");
+      showToast(t('tools.imageConverter.allFailed'), "error");
     }
   };
 
@@ -384,7 +386,7 @@ function ImageConverterContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
@@ -441,14 +443,14 @@ function ImageConverterContent() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings className="h-5 w-5" />
-              Conversion Settings
+              {t('toolCommon.settings')}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               {/* Output Format */}
               <div className="space-y-3">
-                <Label htmlFor="output-format-select">Output Format</Label>
+                <Label htmlFor="output-format-select">{t('tools.imageConverter.outputFormat')}</Label>
                 <Select value={outputFormat} onValueChange={setOutputFormat}>
                   <SelectTrigger id="output-format-select" aria-label="Select output image format">
                     <SelectValue />
@@ -469,7 +471,7 @@ function ImageConverterContent() {
               {/* Quality */}
               {(outputFormat === 'jpeg' || outputFormat === 'webp') && (
                 <div className="space-y-3">
-                  <Label htmlFor="quality-slider">Quality: {quality[0]}%</Label>
+                  <Label htmlFor="quality-slider">{t('tools.imageConverter.quality')}: {quality[0]}%</Label>
                   <Slider
                     id="quality-slider"
                     value={quality}
@@ -498,7 +500,7 @@ function ImageConverterContent() {
                 aria-label={`Convert ${selectedFiles.length} image${selectedFiles.length !== 1 ? 's' : ''} to ${outputFormat.toUpperCase()} format`}
               >
                 <Image className="h-4 w-4 mr-2" aria-hidden="true" />
-                Convert {selectedFiles.length} Image{selectedFiles.length !== 1 ? 's' : ''} to {outputFormat.toUpperCase()}
+                {t('tools.imageConverter.convertImages')} ({selectedFiles.length}) → {outputFormat.toUpperCase()}
               </Button>
               <Button 
                 variant="outline" 
@@ -506,7 +508,7 @@ function ImageConverterContent() {
                 aria-label="Clear all selected images"
               >
                 <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
-                Clear All
+                {t('toolCommon.clearAll')}
               </Button>
             </div>
           </CardContent>
@@ -528,7 +530,7 @@ function ImageConverterContent() {
                     aria-label={`Download all ${convertedResults.filter(r => r.success).length} converted images`}
                   >
                     <Archive className="h-4 w-4 mr-2" aria-hidden="true" />
-                    Download Zip ({convertedResults.filter(r => r.success).length})
+                    {t('toolCommon.downloadAll')} ({convertedResults.filter(r => r.success).length})
                   </Button>
                 )}
               </div>
@@ -578,7 +580,7 @@ function ImageConverterContent() {
                         aria-label={`Download ${result.file.name}`}
                       >
                         <Download className="h-4 w-4 mr-1" aria-hidden="true" />
-                        Download
+                        {t('toolCommon.download')}
                       </Button>
                     </div>
                   )}
@@ -595,7 +597,7 @@ function ImageConverterContent() {
         currentFile={conversionProgress.file}
         current={conversionProgress.current}
         total={conversionProgress.total}
-        title="Converting Images"
+        title={t('tools.imageConverter.converting')}
         description="Please wait while we convert your images..."
       />
 

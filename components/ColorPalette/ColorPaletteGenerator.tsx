@@ -10,8 +10,10 @@ import { ExportDialog } from './ExportDialog';
 import { useToast } from '@/components/tools/shared/toast-provider';
 import { Keyboard } from 'lucide-react';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { useT } from '@/lib/i18n/use-t';
 
 export const ColorPaletteGenerator = () => {
+  const t = useT();
   const isMobile = useIsMobile();
   const { showToast } = useToast();
   
@@ -59,7 +61,7 @@ export const ColorPaletteGenerator = () => {
   const handleShare = async () => {
     const url = `${window.location.origin}${window.location.pathname}?colors=${colors.map(c => c.hex.replace('#', '')).join('-')}`;
     await navigator.clipboard.writeText(url);
-    showToast('Palette URL copied to clipboard!', 'success');
+    showToast(t('tools.colorPaletteGenerator.paletteUrlCopied'), 'success');
   };
 
   useEffect(() => {

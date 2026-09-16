@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { PWAIconGeneratorSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('pwa-icon-generator')
@@ -20,15 +21,18 @@ export default function PWAIconGeneratorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="pwa-icon-generator">
+      <CmsToolHero slug="pwa-icon-generator" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<PWAIconGeneratorPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<PWAIconGeneratorPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="pwa-icon-generator" codeFallback={<PWAIconGeneratorSEOContent />} />
+        <ToolContentSwitch slug="pwa-icon-generator" locale="en" codeFallback={<PWAIconGeneratorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { HeicToPdfSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('heic-to-pdf')
@@ -24,15 +25,18 @@ export default function HeicToPdfLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="heic-to-pdf">
+      <CmsToolHero slug="heic-to-pdf" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<HeicToPdfPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<HeicToPdfPageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="heic-to-pdf" codeFallback={<HeicToPdfSEOContent />} />
+        <ToolContentSwitch slug="heic-to-pdf" locale="en" codeFallback={<HeicToPdfSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

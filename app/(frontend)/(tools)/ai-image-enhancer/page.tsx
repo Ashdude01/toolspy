@@ -991,7 +991,7 @@ function AiImageEnhancerContent() {
   return (
     <div id="tool" className="max-w-7xl mx-auto scroll-mt-24 p-6 space-y-6">
       {/* Header */}
-      <div className="text-center space-y-4">
+      <div className="tool-legacy-hero text-center space-y-4">
         <h2 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
           AI Image Enhancer
         </h2>

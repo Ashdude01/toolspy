@@ -455,7 +455,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="text-center space-y-4">
+      <div className="tool-legacy-hero text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <div className="p-3 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-xl text-white">
             <FileText size={24} />

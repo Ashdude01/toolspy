@@ -129,7 +129,7 @@ function Content() {
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-5xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8 space-y-3">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8 space-y-3">
         <Badge variant="outline" className="text-xs sm:text-sm">
           Fast • Free • Secure
         </Badge>

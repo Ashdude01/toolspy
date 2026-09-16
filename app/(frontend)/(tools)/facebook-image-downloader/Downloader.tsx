@@ -26,6 +26,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n/use-t";
 
 const SITE_DOMAIN = process.env.NEXT_PUBLIC_SITE_DOMAIN || "toolspy.net";
 const FILE_STAMP = `by-${SITE_DOMAIN}`;
@@ -34,14 +35,6 @@ const FB_BTN = cn(
   "h-12 shrink-0 bg-[#1877F2] px-8 font-semibold text-white hover:bg-[#166FE5] hover:text-white",
 );
 
-// Each real extraction phase maps to a step (for the 3 dots) and a message.
-// Driven by actual milestones from the extractor - not fixed timers.
-const PHASE_UI: Record<ExtractPhase, { step: number; label: string }> = {
-  fetching: { step: 0, label: "Connecting to the post…" },
-  reading: { step: 1, label: "Reading the page…" },
-  parsing: { step: 2, label: "Extracting images…" },
-  fallback: { step: 2, label: "Trying alternate sources…" },
-};
 const STEP_COUNT = 3;
 
 type Status = "idle" | "loading" | "done" | "error";
@@ -51,6 +44,7 @@ function isFacebookUrl(val: string) {
 }
 
 function DownloaderInner() {
+  const t = useT();
   const { showToast } = useToast();
   const params = useSearchParams();
   const [url, setUrl] = useState("");
@@ -68,6 +62,15 @@ function DownloaderInner() {
   const [zipping, setZipping] = useState(false);
   const [zipProgress, setZipProgress] = useState({ done: 0, total: 0 });
   const [savingSelected, setSavingSelected] = useState(false);
+
+  // Each real extraction phase maps to a step (for the 3 dots) and a message.
+  // Driven by actual milestones from the extractor - not fixed timers.
+  const PHASE_UI: Record<ExtractPhase, { step: number; label: string }> = {
+    fetching: { step: 0, label: t('tools.facebookDownloader.connecting') },
+    reading: { step: 1, label: t('tools.facebookDownloader.reading') },
+    parsing: { step: 2, label: t('tools.facebookDownloader.extracting') },
+    fallback: { step: 2, label: t('tools.facebookDownloader.alternate') },
+  };
 
   useEffect(() => {
     const u = params?.get("url");
@@ -101,7 +104,7 @@ function DownloaderInner() {
       if (result.images.length > 0) {
         setStatus("done");
         setSelectedSet(new Set(result.images.map((_, i) => i)));
-        showToast(`Found ${result.images.length} image(s)`, "success");
+        showToast(t('tools.facebookDownloader.foundN', { count: result.images.length }), "success");
       } else {
         setStatus("error");
         showToast(result.error || "No images found", "error");
@@ -126,7 +129,7 @@ function DownloaderInner() {
     try {
       const text = (await navigator.clipboard.readText()).trim();
       if (!text) {
-        showToast("Clipboard is empty — copy a Facebook link first", "info");
+        showToast(t('tools.facebookDownloader.clipboardEmpty'), "info");
         return;
       }
       setUrl(text);
@@ -134,10 +137,10 @@ function DownloaderInner() {
       if (isFacebookUrl(text)) {
         await analyze(text);
       } else {
-        showToast("Paste a facebook.com or fb.com link", "info");
+        showToast(t('tools.facebookDownloader.pasteFbLink'), "info");
       }
     } catch {
-      showToast("Couldn’t read clipboard — paste into the box manually", "info");
+      showToast(t('tools.facebookDownloader.clipboardBlocked'), "info");
       document.getElementById("fb-url")?.focus();
     }
   }
@@ -299,10 +302,10 @@ function DownloaderInner() {
                 htmlFor="fb-url"
                 className="text-base font-bold  text-muted-foreground"
               >
-                Paste Facebook link
+                {t('tools.facebookDownloader.pasteLink')}
               </Label>
               <p className="pointer-events-none text-left text-xs text-muted-foreground sm:text-right hidden sm:block">
-                Public posts &amp; photos only — private / login-required links won&apos;t work here
+                {t('tools.facebookDownloader.publicOnlyHint')}
               </p>
             </div>
 
@@ -310,8 +313,7 @@ function DownloaderInner() {
             <div className="flex items-start gap-2 text-left text-xs text-foreground sm:hidden">
               <Smartphone className="mt-0.5 h-4 w-4 shrink-0 text-[#1877F2]" aria-hidden />
               <p>
-                <span className="font-semibold">On phone:</span> open the post → Share →{" "}
-                <span className="font-semibold">Copy link</span> → tap Paste below.
+                {t('tools.facebookDownloader.mobileTip')}
               </p>
             </div>
 
@@ -347,7 +349,7 @@ function DownloaderInner() {
                   className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-border bg-slate-100 px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50 sm:flex-none sm:px-5"
                 >
                   <ClipboardPaste className="h-4 w-4" aria-hidden />
-                  Paste
+                  {t('toolCommon.paste')}
                 </button>
                 <button
                   type="button"
@@ -358,10 +360,10 @@ function DownloaderInner() {
                   {status === "loading" ? (
                     <>
                       <Loader2 className="h-4 w-4 animate-spin" />
-                      Finding…
+                      {t('toolCommon.finding')}
                     </>
                   ) : (
-                    "Find images"
+                    t('toolCommon.analyze')
                   )}
                 </button>
               </div>
@@ -370,14 +372,13 @@ function DownloaderInner() {
             {urlError && (
               <p className="flex items-center gap-1.5 text-xs font-medium text-destructive">
                 <AlertCircle className="h-3.5 w-3.5 shrink-0" />
-                Paste a Facebook post or photo link first.
+                {t('tools.facebookDownloader.pasteFbFirst')}
               </p>
             )}
 
             {/* Plain text — not pill “buttons” that attract dead clicks */}
             <p className="pointer-events-none text-left text-xs leading-relaxed text-muted-foreground">
-              Works with: public posts · photo pages (<span className="font-mono">fbid</span>) ·
-              direct image URLs
+              {t('tools.facebookDownloader.worksWith')}
             </p>
           </div>
 
@@ -400,7 +401,7 @@ function DownloaderInner() {
                 ))}
               </div>
               <p className="mt-3 text-left text-xs text-muted-foreground">
-                Usually takes a few seconds. Keep this tab open.
+                {t('tools.facebookDownloader.keepOpen')}
               </p>
             </div>
           )}
@@ -427,7 +428,7 @@ function DownloaderInner() {
                     }}
                     className="inline-flex h-11 items-center justify-center rounded-md border border-border bg-background px-4 text-sm font-semibold hover:bg-muted"
                   >
-                    Try another link
+                    {t('toolCommon.tryAnotherLink')}
                   </button>
                   <button
                     type="button"
@@ -435,7 +436,7 @@ function DownloaderInner() {
                     className="inline-flex h-11 items-center justify-center gap-2 rounded-md border border-border bg-background px-4 text-sm font-semibold hover:bg-muted"
                   >
                     <ClipboardPaste className="h-4 w-4" aria-hidden />
-                    Paste new link
+                    {t('toolCommon.pasteNewLink')}
                   </button>
                 </div>
               </div>
@@ -451,7 +452,7 @@ function DownloaderInner() {
                   <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-green-600 dark:text-green-500" />
                   <div className="min-w-0">
                     <p className="font-semibold text-foreground">
-                      {images.length} image{images.length !== 1 ? "s" : ""} found
+                      {t('tools.facebookDownloader.foundN', { count: images.length })}
                     </p>
                     {imageInfo?.title && (
                       <p className="truncate text-sm text-muted-foreground">{imageInfo.title}</p>
@@ -486,12 +487,12 @@ function DownloaderInner() {
                     <Download className="h-4 w-4" />
                   )}
                   {downloadingIndex === selected
-                    ? "Saving…"
+                    ? t('toolCommon.loading')
                     : downloaded[selected]
-                      ? "Saved — download again"
+                      ? t('tools.facebookDownloader.savedAgain')
                       : images.length > 1
-                        ? `Download image ${selected + 1} of ${images.length}`
-                        : "Download image"}
+                        ? t('tools.facebookDownloader.downloadImageN', { n: selected + 1, total: images.length })
+                        : t('tools.facebookDownloader.downloadImage')}
                 </Button>
                 <Button
                   size="sm"
@@ -501,7 +502,7 @@ function DownloaderInner() {
                   aria-label="Open image in new tab"
                 >
                   <ExternalLink className="h-4 w-4" />
-                  <span className="hidden sm:inline">Open</span>
+                  <span className="hidden sm:inline">{t('tools.facebookDownloader.open')}</span>
                 </Button>
               </div>
 
@@ -531,7 +532,7 @@ function DownloaderInner() {
                   />
                   <span className="pointer-events-none absolute inset-x-0 bottom-0 flex items-center justify-center gap-2 bg-gradient-to-t from-black/70 to-transparent px-3 py-4 text-sm font-semibold text-white opacity-100 sm:opacity-0 sm:transition-opacity sm:group-hover:opacity-100">
                     <Download className="h-4 w-4" aria-hidden />
-                    Tap to download
+                    {t('tools.facebookDownloader.tapToDownload')}
                   </span>
                 </div>
                 <div className="border-t border-border bg-card px-4 py-2.5">
@@ -556,7 +557,7 @@ function DownloaderInner() {
                       onClick={selectedCount === images.length ? clearSelection : selectAll}
                       className="font-semibold text-[#1877F2] hover:underline dark:text-blue-400"
                     >
-                      {selectedCount === images.length ? "Clear" : "Select all"}
+                      {selectedCount === images.length ? t('tools.facebookDownloader.clearSelection') : t('tools.facebookDownloader.selectAll')}
                     </button>
                   </div>
                   <div className="flex gap-2">
@@ -572,7 +573,7 @@ function DownloaderInner() {
                       ) : (
                         <Download className="h-3.5 w-3.5" />
                       )}
-                      {savingSelected ? "Saving…" : `Save ${selectedCount}`}
+                      {savingSelected ? t('toolCommon.loading') : t('tools.facebookDownloader.saveN', { count: selectedCount })}
                     </Button>
                     <Button
                       size="sm"
@@ -587,7 +588,7 @@ function DownloaderInner() {
                       ) : (
                         <FileArchive className="h-3.5 w-3.5" />
                       )}
-                      {zipping ? `${zipProgress.done}/${zipProgress.total}` : `ZIP ${selectedCount}`}
+                      {zipping ? `${zipProgress.done}/${zipProgress.total}` : t('tools.facebookDownloader.zipN', { count: selectedCount })}
                     </Button>
                   </div>
                 </div>

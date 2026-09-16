@@ -5,6 +5,7 @@ import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dyn
 import './faq-loader'
 import { ImageCompressorSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('image-compressor')
@@ -26,13 +27,16 @@ export default function ImageCompressorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="image-compressor">
+      <CmsToolHero slug="image-compressor" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route.
           Without this, production build sends only RSC/JS and SEO content is missing from view-source. */}
-      <Suspense fallback={<ImageCompressorPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<ImageCompressorPageFallback />}>
         {children}
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="image-compressor" codeFallback={<ImageCompressorSEOContent />} />
+        <ToolContentSwitch slug="image-compressor" locale="en" codeFallback={<ImageCompressorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

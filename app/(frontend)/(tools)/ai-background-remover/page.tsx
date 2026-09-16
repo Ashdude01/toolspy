@@ -47,6 +47,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ProcessingResult {
   original: string;
@@ -68,6 +69,7 @@ interface BrushStroke {
 }
 
 function AiBackgroundRemoverContent() {
+  const t = useT();
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [result, setResult] = useState<ProcessingResult | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -164,7 +166,7 @@ function AiBackgroundRemoverContent() {
       });
 
     } catch (error) {
-      showToast("Processing failed. Please try again.", "error");
+      showToast(t("tools.aiBackgroundRemover.processingFailed"), "error");
       throw error;
     } finally {
       setIsProcessing(false);
@@ -176,12 +178,12 @@ function AiBackgroundRemoverContent() {
     const file = files[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      showToast("Please upload an image file", "error");
+      showToast(t("tools.aiBackgroundRemover.uploadImageOnly"), "error");
       return;
     }
 
     if (file.size > 50 * 1024 * 1024) { // 50MB limit
-      showToast("File size too large. Please upload an image under 50MB.", "error");
+      showToast(t("tools.aiBackgroundRemover.fileTooLarge"), "error");
       return;
     }
 
@@ -198,7 +200,7 @@ function AiBackgroundRemoverContent() {
       try {
         const processed = await processImage(imageData);
         setResult(processed);
-        showToast("Background removed successfully!", "success");
+        showToast(t("tools.aiBackgroundRemover.removeSuccess"), "success");
       } catch (error) {
         // Error already handled in processImage
       }
@@ -208,14 +210,14 @@ function AiBackgroundRemoverContent() {
 
   const handleManualProcess = async () => {
     if (!uploadedImage) {
-      showToast("Please upload an image first", "error");
+      showToast(t("tools.aiBackgroundRemover.uploadFirst"), "error");
       return;
     }
 
     try {
       const processed = await processImage(uploadedImage);
       setResult(processed);
-      showToast("Background removed successfully!", "success");
+      showToast(t("tools.aiBackgroundRemover.removeSuccess"), "success");
     } catch (error) {
       // Error already handled in processImage
     }
@@ -223,7 +225,7 @@ function AiBackgroundRemoverContent() {
 
   const downloadResult = (includeTransparency = true) => {
     if (!result) {
-      showToast("No processed image to download", "error");
+      showToast(t("tools.aiBackgroundRemover.noProcessedToDownload"), "error");
       return;
     }
 
@@ -234,7 +236,7 @@ function AiBackgroundRemoverContent() {
     link.click();
     document.body.removeChild(link);
     
-    showToast("Image downloaded successfully!", "success");
+    showToast(t("tools.aiBackgroundRemover.downloadSuccess"), "success");
   };
 
   const downloadWithBackground = () => {
@@ -279,7 +281,7 @@ function AiBackgroundRemoverContent() {
         link.click();
         document.body.removeChild(link);
         
-        showToast("Image with background downloaded!", "success");
+        showToast(t("tools.aiBackgroundRemover.downloadWithBgSuccess"), "success");
       }
     };
     img.src = result.processed;
@@ -288,7 +290,7 @@ function AiBackgroundRemoverContent() {
   const toggleEditing = () => {
     setIsEditing(!isEditing);
     if (!isEditing) {
-      showToast("Magic brush activated! Click and drag to edit.", "info");
+      showToast(t("tools.aiBackgroundRemover.brushActivated"), "info");
     }
   };
 
@@ -317,7 +319,7 @@ function AiBackgroundRemoverContent() {
     setUndoStack([]);
     setRedoStack([]);
     setIsEditing(false);
-    showToast("All data cleared", "info");
+    showToast(t("tools.aiBackgroundRemover.allCleared"), "info");
   };
 
   const examples = [
@@ -330,18 +332,17 @@ function AiBackgroundRemoverContent() {
   return (
     <div className="max-w-7xl mx-auto p-6 space-y-6">
       {/* Header */}
-      <div className="text-center space-y-4">
+      <div className="tool-legacy-hero text-center space-y-4">
         <div className="flex items-center justify-center gap-3">
           <div className="p-3 bg-gradient-to-br from-blue-500 to-purple-600 rounded-xl text-white">
             <Scissors size={24} />
           </div>
           <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            AI Background Remover
+            {t("tools.aiBackgroundRemover.title")}
           </h2>
         </div>
         <p className="text-gray-600 max-w-2xl mx-auto">
-          Remove backgrounds from images instantly with AI. 
-          Features magic brush for touch-ups, batch processing, and professional export options.
+          {t("tools.aiBackgroundRemover.subtitle")}
         </p>
       </div>
 
@@ -351,10 +352,10 @@ function AiBackgroundRemoverContent() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Upload size={20} />
-              Upload Image
+              {t("tools.aiBackgroundRemover.uploadTitle")}
             </CardTitle>
             <CardDescription>
-              Upload JPG, PNG, or WebP images up to 50MB. Processing is completely private and happens in your browser.
+              {t("tools.aiBackgroundRemover.uploadDescription")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -385,14 +386,14 @@ function AiBackgroundRemoverContent() {
                 className="hidden"
               />
               <Upload size={48} className="mx-auto text-gray-400 mb-4" />
-              <h3 className="text-lg font-semibold mb-2">Drop your image here</h3>
-              <p className="text-gray-600 mb-4">or click to browse files</p>
-              <Button>Choose Image</Button>
+              <h3 className="text-lg font-semibold mb-2">{t("tools.aiBackgroundRemover.dropTitle")}</h3>
+              <p className="text-gray-600 mb-4">{t("tools.aiBackgroundRemover.dropHint")}</p>
+              <Button>{t("tools.aiBackgroundRemover.chooseImage")}</Button>
             </div>
             
             {/* Examples */}
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-3 block">Perfect for:</Label>
+              <Label className="text-sm font-medium mb-3 block">{t("tools.aiBackgroundRemover.perfectFor")}</Label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {examples.map((example, index) => (
                   <div key={index} className="text-center p-3 border rounded-lg">
@@ -413,7 +414,7 @@ function AiBackgroundRemoverContent() {
             <div className="space-y-4">
               <div className="flex items-center gap-3">
                 <RefreshCw size={20} className="animate-spin text-blue-600" />
-                <span className="font-medium">Processing image with AI...</span>
+                <span className="font-medium">{t("tools.aiBackgroundRemover.processing")}</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-3">
                 <div 
@@ -422,7 +423,7 @@ function AiBackgroundRemoverContent() {
                 />
               </div>
               <div className="text-sm text-gray-600 text-center">
-                {processingProgress}% complete
+                {t("tools.aiBackgroundRemover.percentComplete", { percent: processingProgress })}
               </div>
             </div>
           </CardContent>
@@ -435,29 +436,29 @@ function AiBackgroundRemoverContent() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Settings size={20} />
-              Processing Options
+              {t("tools.aiBackgroundRemover.optionsTitle")}
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <Label htmlFor="background-type">Background Type</Label>
+                <Label htmlFor="background-type">{t("tools.aiBackgroundRemover.backgroundTypeLabel")}</Label>
                 <Select value={backgroundType} onValueChange={(value: any) => setBackgroundType(value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="transparent">Transparent</SelectItem>
-                    <SelectItem value="color">Solid Color</SelectItem>
-                    <SelectItem value="gradient">Gradient</SelectItem>
-                    <SelectItem value="blur">Blurred Original</SelectItem>
+                    <SelectItem value="transparent">{t("tools.aiBackgroundRemover.bgTransparent")}</SelectItem>
+                    <SelectItem value="color">{t("tools.aiBackgroundRemover.bgSolidColor")}</SelectItem>
+                    <SelectItem value="gradient">{t("tools.aiBackgroundRemover.bgGradient")}</SelectItem>
+                    <SelectItem value="blur">{t("tools.aiBackgroundRemover.bgBlurredOriginal")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
               
               {(backgroundType === 'color' || backgroundType === 'gradient') && (
                 <div>
-                  <Label htmlFor="bg-color">Background Color</Label>
+                  <Label htmlFor="bg-color">{t("tools.aiBackgroundRemover.backgroundColorLabel")}</Label>
                   <div className="flex gap-2">
                     <Input
                       type="color"
@@ -476,7 +477,7 @@ function AiBackgroundRemoverContent() {
               )}
               
               <div>
-                <Label htmlFor="edge-smoothing">Edge Smoothing: {edgeSmoothing[0]}%</Label>
+                <Label htmlFor="edge-smoothing">{t("tools.aiBackgroundRemover.edgeSmoothingLabel", { value: edgeSmoothing[0] })}</Label>
                 <Slider
                   value={edgeSmoothing}
                   onValueChange={setEdgeSmoothing}
@@ -488,7 +489,7 @@ function AiBackgroundRemoverContent() {
               </div>
               
               <div>
-                <Label htmlFor="feather">Feather Amount: {featherAmount[0]}px</Label>
+                <Label htmlFor="feather">{t("tools.aiBackgroundRemover.featherLabel", { value: featherAmount[0] })}</Label>
                 <Slider
                   value={featherAmount}
                   onValueChange={setFeatherAmount}
@@ -503,10 +504,10 @@ function AiBackgroundRemoverContent() {
             {/* Brush Controls */}
             {result && (
               <div className="border-t pt-4">
-                <Label className="text-sm font-medium mb-3 block">Magic Brush (Touch-up Tools)</Label>
+                <Label className="text-sm font-medium mb-3 block">{t("tools.aiBackgroundRemover.magicBrushTitle")}</Label>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="brush-size">Brush Size: {brushSize[0]}px</Label>
+                    <Label htmlFor="brush-size">{t("tools.aiBackgroundRemover.brushSizeLabel", { value: brushSize[0] })}</Label>
                     <Slider
                       value={brushSize}
                       onValueChange={setBrushSize}
@@ -518,14 +519,14 @@ function AiBackgroundRemoverContent() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="brush-mode">Brush Mode</Label>
+                    <Label htmlFor="brush-mode">{t("tools.aiBackgroundRemover.brushModeLabel")}</Label>
                     <Select value={brushMode} onValueChange={(value: any) => setBrushMode(value)}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="erase">Erase</SelectItem>
-                        <SelectItem value="restore">Restore</SelectItem>
+                        <SelectItem value="erase">{t("tools.aiBackgroundRemover.brushErase")}</SelectItem>
+                        <SelectItem value="restore">{t("tools.aiBackgroundRemover.brushRestore")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -533,11 +534,11 @@ function AiBackgroundRemoverContent() {
                   <div className="flex items-end gap-2">
                     <Button onClick={handleUndo} variant="outline" size="sm" disabled={undoStack.length === 0}>
                       <Undo size={16} className="mr-1" />
-                      Undo
+                      {t("tools.aiBackgroundRemover.undo")}
                     </Button>
                     <Button onClick={handleRedo} variant="outline" size="sm" disabled={redoStack.length === 0}>
                       <Redo size={16} className="mr-1" />
-                      Redo
+                      {t("tools.aiBackgroundRemover.redo")}
                     </Button>
                   </div>
                 </div>
@@ -548,7 +549,7 @@ function AiBackgroundRemoverContent() {
               {!result && (
                 <Button onClick={handleManualProcess}>
                   <Zap size={16} className="mr-2" />
-                  Remove Background
+                  {t("tools.aiBackgroundRemover.removeBackground")}
                 </Button>
               )}
               
@@ -556,19 +557,22 @@ function AiBackgroundRemoverContent() {
                 <>
                   <Button onClick={toggleEditing} variant={isEditing ? "default" : "outline"}>
                     <Brush size={16} className="mr-2" />
-                    {isEditing ? "Exit" : "Magic"} Brush
+                    {isEditing ? t("tools.aiBackgroundRemover.magicBrushOn") : t("tools.aiBackgroundRemover.magicBrushOff")}
                   </Button>
                   
                   <Button onClick={() => setShowComparison(!showComparison)} variant="outline">
                     {showComparison ? <EyeOff size={16} /> : <Eye size={16} />}
-                    <span className="ml-2">{showComparison ? "Hide" : "Show"} Comparison</span>
+                    <span className="ml-2">
+                      {showComparison ? t("tools.aiBackgroundRemover.hideComparison") : t("tools.aiBackgroundRemover.showComparison")}{" "}
+                      {t("tools.aiBackgroundRemover.comparisonLabel")}
+                    </span>
                   </Button>
                 </>
               )}
               
               <Button onClick={clearAll} variant="outline">
                 <Trash2 size={16} className="mr-2" />
-                Clear All
+                {t("toolCommon.clearAll")}
               </Button>
             </div>
           </CardContent>
@@ -582,16 +586,16 @@ function AiBackgroundRemoverContent() {
             <CardTitle className="flex items-center justify-between">
               <span className="flex items-center gap-2">
                 <Sparkles size={20} />
-                Result
+                {t("tools.aiBackgroundRemover.resultTitle")}
               </span>
               <div className="flex gap-2">
                 <Button onClick={() => downloadResult(true)} variant="outline">
                   <Download size={16} className="mr-2" />
-                  PNG (Transparent)
+                  {t("tools.aiBackgroundRemover.downloadTransparent")}
                 </Button>
                 <Button onClick={downloadWithBackground} variant="outline">
                   <Download size={16} className="mr-2" />
-                  With Background
+                  {t("tools.aiBackgroundRemover.downloadWithBackground")}
                 </Button>
               </div>
             </CardTitle>
@@ -604,7 +608,7 @@ function AiBackgroundRemoverContent() {
                 <span>Original Size: {(result.fileSize.original / 1024).toFixed(1)}KB</span>
                 <span>Processed Size: {(result.fileSize.processed / 1024).toFixed(1)}KB</span>
                 <span className="text-green-600 font-medium">
-                  Background: {result.transparency ? 'Removed' : 'Modified'}
+                  {result.transparency ? t("tools.aiBackgroundRemover.backgroundRemoved") : t("tools.aiBackgroundRemover.backgroundModified")}
                 </span>
               </div>
             </div>
@@ -613,7 +617,7 @@ function AiBackgroundRemoverContent() {
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {showComparison && (
                 <div>
-                  <Label className="text-sm font-medium mb-2 block">Original</Label>
+                  <Label className="text-sm font-medium mb-2 block">{t("tools.aiBackgroundRemover.originalLabel")}</Label>
                   <div className="relative border rounded-lg overflow-hidden bg-gray-100">
                     <img 
                       src={result.original} 
@@ -626,11 +630,11 @@ function AiBackgroundRemoverContent() {
               
               <div className={showComparison ? '' : 'lg:col-span-2'}>
                 <Label className="text-sm font-medium mb-2 block">
-                  Processed
+                  {t("tools.aiBackgroundRemover.processedLabel")}
                   {isEditing && (
                     <Badge variant="secondary" className="ml-2">
                       <Brush size={12} className="mr-1" />
-                      Editing Mode
+                      {t("tools.aiBackgroundRemover.editingMode")}
                     </Badge>
                   )}
                 </Label>
@@ -653,23 +657,23 @@ function AiBackgroundRemoverContent() {
 
             {/* Download Options */}
             <div className="mt-6 pt-4 border-t">
-              <Label className="text-sm font-medium mb-3 block">Download Options:</Label>
+              <Label className="text-sm font-medium mb-3 block">{t("tools.aiBackgroundRemover.downloadOptions")}</Label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <Button variant="outline" onClick={() => downloadResult(true)} className="justify-start">
                   <Layers size={16} className="mr-2" />
-                  PNG (Transparent)
+                  {t("tools.aiBackgroundRemover.downloadTransparent")}
                 </Button>
                 <Button variant="outline" onClick={downloadWithBackground} className="justify-start">
                   <Palette size={16} className="mr-2" />
-                  With Background
+                  {t("tools.aiBackgroundRemover.downloadWithBackground")}
                 </Button>
                 <Button variant="outline" onClick={() => downloadResult(false)} className="justify-start">
                   <Target size={16} className="mr-2" />
-                  JPG (Flattened)
+                  {t("tools.aiBackgroundRemover.downloadFlattened")}
                 </Button>
                 <Button variant="outline" disabled className="justify-start">
                   <Sparkles size={16} className="mr-2" />
-                  Batch (Pro)
+                  {t("tools.aiBackgroundRemover.batchPro")}
                 </Button>
               </div>
             </div>

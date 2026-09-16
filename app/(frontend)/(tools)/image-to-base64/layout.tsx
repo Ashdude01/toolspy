@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ImageToBase64SEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('image-to-base64')
@@ -24,15 +25,18 @@ export default function ImageToBase64Layout({
 }) {
   return (
     <DynamicToolLayout toolSlug="image-to-base64">
+      <CmsToolHero slug="image-to-base64" locale="en" />
       {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
 
-      <Suspense fallback={<ImageToBase64PageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<ImageToBase64PageFallback />}>
 
         {children}
 
       </Suspense>
+      </div>
       <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
-        <ToolContentSwitch slug="image-to-base64" codeFallback={<ImageToBase64SEOContent />} />
+        <ToolContentSwitch slug="image-to-base64" locale="en" codeFallback={<ImageToBase64SEOContent />} />
       </div>
     </DynamicToolLayout>
   )

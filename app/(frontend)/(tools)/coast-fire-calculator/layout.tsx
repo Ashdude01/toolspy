@@ -3,6 +3,7 @@ import { Suspense } from 'react'
 import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { CoastFireCalculatorSEOContent } from './seo-content'
 import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 
 // Generate metadata dynamically for this tool
 export const metadata: Metadata = generateToolMetadata('coast-fire-calculator')
@@ -24,12 +25,15 @@ export default function CoastFireCalculatorLayout({
 }) {
   return (
     <DynamicToolLayout toolSlug="coast-fire-calculator">
+      <CmsToolHero slug="coast-fire-calculator" locale="en" />
       {/* Wrap page in Suspense so client-only hydration does not deopt the whole route. */}
-      <Suspense fallback={<CoastFireCalculatorPageFallback />}>
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<CoastFireCalculatorPageFallback />}>
         {children}
       </Suspense>
+      </div>
       <div className="container mx-auto max-w-7xl overflow-x-clip py-6 sm:py-8">
-        <ToolContentSwitch slug="coast-fire-calculator" codeFallback={<CoastFireCalculatorSEOContent />} />
+        <ToolContentSwitch slug="coast-fire-calculator" locale="en" codeFallback={<CoastFireCalculatorSEOContent />} />
       </div>
     </DynamicToolLayout>
   )

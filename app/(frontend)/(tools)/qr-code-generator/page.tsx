@@ -32,6 +32,7 @@ import {
   MessageSquare,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 interface QRCodeData {
   id: string;
@@ -44,6 +45,7 @@ interface QRCodeData {
 }
 
 function QrCodeGeneratorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [qrCodes, setQrCodes] = useState<QRCodeData[]>([]);
   const [inputText, setInputText] = useState('');
@@ -56,19 +58,18 @@ function QrCodeGeneratorContent() {
   const [isGenerating, setIsGenerating] = useState(false);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  // QR Code presets for different types
   const qrTypePresets = {
-    text: { placeholder: 'Enter any text...', icon: MessageSquare },
-    url: { placeholder: 'https://example.com', icon: Globe },
-    email: { placeholder: 'user@example.com', icon: Mail },
-    phone: { placeholder: '+1234567890', icon: Phone },
-    sms: { placeholder: '+1234567890:Your message here', icon: MessageSquare },
-    wifi: { placeholder: 'WIFI:T:WPA;S:NetworkName;P:Password;;', icon: Smartphone },
+    text: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderText'), icon: MessageSquare },
+    url: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderUrl'), icon: Globe },
+    email: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderEmail'), icon: Mail },
+    phone: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderPhone'), icon: Phone },
+    sms: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderSms'), icon: MessageSquare },
+    wifi: { placeholder: t('tools.qrCodeGenerator.contentPlaceholderWifi'), icon: Smartphone },
   };
 
   const generateQRCode = async () => {
     if (!inputText.trim()) {
-      showToast("Please enter content for the QR code", "error");
+      showToast(t('tools.qrCodeGenerator.enterContent'), "error");
       return;
     }
 
@@ -126,11 +127,11 @@ function QrCodeGeneratorContent() {
       };
 
       setQrCodes(prev => [newQRCode, ...prev]);
-      showToast("QR code generated successfully!", "success");
+      showToast(t('tools.qrCodeGenerator.generateSuccess'), "success");
 
     } catch (error) {
       console.error('QR code generation error:', error);
-      showToast("Failed to generate QR code. Please try again.", "error");
+      showToast(t('tools.qrCodeGenerator.generateFailed'), "error");
     } finally {
       setIsGenerating(false);
     }
@@ -146,7 +147,7 @@ function QrCodeGeneratorContent() {
     link.click();
     document.body.removeChild(link);
 
-    showToast("QR code downloaded", "success");
+    showToast(t('tools.qrCodeGenerator.downloaded'), "success");
   };
 
   const copyToClipboard = async (qrCode: QRCodeData) => {
@@ -161,27 +162,27 @@ function QrCodeGeneratorContent() {
         new ClipboardItem({ 'image/png': blob })
       ]);
       
-      showToast("QR code copied to clipboard", "success");
+      showToast(t('tools.qrCodeGenerator.copiedToClipboard'), "success");
     } catch (error) {
       // Fallback: copy the data URL
       try {
         await navigator.clipboard.writeText(qrCode.qrCodeUrl);
-        showToast("QR code data URL copied to clipboard", "success");
+        showToast(t('tools.qrCodeGenerator.copiedDataUrl'), "success");
       } catch (err) {
-        showToast("Failed to copy to clipboard", "error");
+        showToast(t('tools.qrCodeGenerator.copyFailed'), "error");
       }
     }
   };
 
   const removeQRCode = (id: string) => {
     setQrCodes(prev => prev.filter(qr => qr.id !== id));
-    showToast("QR code removed", "success");
+    showToast(t('tools.qrCodeGenerator.removed'), "success");
   };
 
   const clearAll = () => {
     setQrCodes([]);
     setInputText('');
-    showToast("All QR codes cleared", "success");
+    showToast(t('tools.qrCodeGenerator.allCleared'), "success");
   };
 
   const fillTemplate = (template: string) => {
@@ -212,21 +213,20 @@ function QrCodeGeneratorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-6xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          {t('tools.qrCodeGenerator.privacyBadge')}
         </Badge>
 
         <h2 className="bg-gradient-to-r from-blue-500 dark:from-blue-600 to-purple-600 dark:to-purple-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          QR Code Generator
+          {t('tools.qrCodeGenerator.title')}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Generate high-quality QR codes for text, URLs, emails, phone numbers, and more. 
-          Customize colors, size, and error correction for professional results.
+          {t('tools.qrCodeGenerator.subtitle')}
         </p>
       </div>
 
@@ -235,10 +235,10 @@ function QrCodeGeneratorContent() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <QrCode className="h-5 w-5" />
-            QR Code Generator
+            {t('tools.qrCodeGenerator.title')}
           </CardTitle>
           <CardDescription>
-            Create custom QR codes with various content types and styling options
+            {t('tools.qrCodeGenerator.formDescription')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -261,7 +261,7 @@ function QrCodeGeneratorContent() {
 
           {/* Content Input */}
           <div className="space-y-2">
-            <Label htmlFor="qr-content-input">Content <span className="text-red-500" aria-label="required">*</span></Label>
+            <Label htmlFor="qr-content-input">{t('tools.qrCodeGenerator.contentLabel')} <span className="text-red-500" aria-label="required">*</span></Label>
             <Textarea
               id="qr-content-input"
               placeholder={qrTypePresets[qrType as keyof typeof qrTypePresets]?.placeholder}
@@ -277,7 +277,7 @@ function QrCodeGeneratorContent() {
           {/* Templates for specific types */}
           {qrTypeTemplates[qrType as keyof typeof qrTypeTemplates] && (
             <div className="space-y-2">
-              <Label>Quick Templates</Label>
+              <Label>{t('tools.qrCodeGenerator.quickTemplates')}</Label>
               <div className="flex flex-wrap gap-2">
                 {qrTypeTemplates[qrType as keyof typeof qrTypeTemplates].map((template, index) => (
                   <Button
@@ -297,7 +297,7 @@ function QrCodeGeneratorContent() {
           {/* Settings */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="size-slider">Size: {size}px</Label>
+              <Label htmlFor="size-slider">{t('tools.qrCodeGenerator.sizeLabel', { size })}</Label>
               <input
                 id="size-slider"
                 type="range"
@@ -314,7 +314,7 @@ function QrCodeGeneratorContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="quality-slider">Quality: {quality}%</Label>
+              <Label htmlFor="quality-slider">{t('tools.qrCodeGenerator.qualityLabel', { quality })}</Label>
               <input
                 id="quality-slider"
                 type="range"
@@ -331,22 +331,22 @@ function QrCodeGeneratorContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="error-correction-select">Error Correction</Label>
+              <Label htmlFor="error-correction-select">{t('tools.qrCodeGenerator.errorCorrectionLabel')}</Label>
               <Select value={errorCorrection} onValueChange={setErrorCorrection}>
                 <SelectTrigger id="error-correction-select" aria-label="Select error correction level">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="L">Low (~7%)</SelectItem>
-                  <SelectItem value="M">Medium (~15%)</SelectItem>
-                  <SelectItem value="Q">Quartile (~25%)</SelectItem>
-                  <SelectItem value="H">High (~30%)</SelectItem>
+                  <SelectItem value="L">{t('tools.qrCodeGenerator.errorLow')}</SelectItem>
+                  <SelectItem value="M">{t('tools.qrCodeGenerator.errorMedium')}</SelectItem>
+                  <SelectItem value="Q">{t('tools.qrCodeGenerator.errorQuartile')}</SelectItem>
+                  <SelectItem value="H">{t('tools.qrCodeGenerator.errorHigh')}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label>Colors</Label>
+              <Label>{t('tools.qrCodeGenerator.colorsLabel')}</Label>
               <div className="flex gap-2">
                 <div className="flex-1">
                   <Label htmlFor="foreground-color" className="sr-only">Foreground Color</Label>
@@ -385,7 +385,7 @@ function QrCodeGeneratorContent() {
             aria-label={isGenerating ? "Generating QR code, please wait" : "Generate QR code"}
           >
             <QrCode className="h-4 w-4 mr-2" aria-hidden="true" />
-            {isGenerating ? 'Generating...' : 'Generate QR Code'}
+            {isGenerating ? t('tools.qrCodeGenerator.generating') : t('tools.qrCodeGenerator.generate')}
           </Button>
         </CardContent>
       </Card>
@@ -394,9 +394,9 @@ function QrCodeGeneratorContent() {
       {qrCodes.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Generated QR Codes</CardTitle>
+            <CardTitle>{t('tools.qrCodeGenerator.generatedTitle')}</CardTitle>
             <CardDescription>
-              {qrCodes.length} QR code(s) generated
+              {t('tools.qrCodeGenerator.generatedCount', { count: qrCodes.length })}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -445,7 +445,7 @@ function QrCodeGeneratorContent() {
                       aria-label={`Download QR code for ${qrCode.type}`}
                     >
                       <Download className="h-4 w-4 mr-1" aria-hidden="true" />
-                      Download
+                      {t('toolCommon.download')}
                     </Button>
                     <Button
                       variant="outline"
@@ -455,7 +455,7 @@ function QrCodeGeneratorContent() {
                       aria-label={`Copy QR code for ${qrCode.type} to clipboard`}
                     >
                       <Copy className="h-4 w-4 mr-1" aria-hidden="true" />
-                      Copy
+                      {t('toolCommon.copy')}
                     </Button>
                   </div>
                 </div>
@@ -469,7 +469,7 @@ function QrCodeGeneratorContent() {
                 aria-label="Clear all generated QR codes"
               >
                 <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
-                Clear All
+                {t('toolCommon.clearAll')}
               </Button>
             </div>
           </CardContent>

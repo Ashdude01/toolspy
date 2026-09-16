@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { UploadCloud, Link, ChevronDown, ChevronUp } from 'lucide-react';
 import { validateImageFile, loadImageFromUrl, pasteImageFromClipboard, isValidUrl } from '@/lib/utils/file-utils';
+import { useT } from '@/lib/i18n/use-t';
 import { BrandedUploadModal } from './branded-upload-modal';
 
 interface FileUploadProps {
@@ -54,6 +55,7 @@ export function FileUpload({
   adSlotLeft,
   adSlotRight
 }: FileUploadProps) {
+  const t = useT();
   const [isDragOver, setIsDragOver] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -250,8 +252,8 @@ export function FileUpload({
                 <UploadCloud className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold">Add More Images</h3>
-                <p className="text-xs text-muted-foreground">Click to upload or drag and drop</p>
+                <h3 className="text-sm font-semibold">{t('toolCommon.addMoreImages')}</h3>
+                <p className="text-xs text-muted-foreground">{t('toolCommon.clickOrDrag')}</p>
               </div>
             </div>
             {(onToggleCollapse || (autoCollapse && externalCollapsed === undefined)) && (
@@ -292,10 +294,10 @@ export function FileUpload({
           </div>
 
           <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
-            Drop images here to compress
+            {t('toolCommon.dropImagesHere')}
           </h3>
           <p className="mb-5 text-sm text-muted-foreground">
-            Or choose a clear action below — files stay on your device
+            {t('toolCommon.filesStayLocal')}
           </p>
 
           {/* Action Buttons — stopPropagation so nested controls aren't dead-click traps */}
@@ -307,7 +309,7 @@ export function FileUpload({
                 document.getElementById('file-input')?.click();
               }}
             >
-              Choose images
+              {t('toolCommon.chooseImages')}
             </Button>
             <Button 
               variant="outline" 
@@ -318,18 +320,19 @@ export function FileUpload({
               }}
               disabled={isLoading}
             >
-              {isLoading ? 'Pasting…' : 'Paste image'}
+              {isLoading ? t('toolCommon.pasting') : t('toolCommon.pasteImage')}
             </Button>
           </div>
 
           {/* Supported Formats */}
           <p className="text-sm text-muted-foreground">
-            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • JFIF{multiple ? ` • Up to ${maxFiles} files` : ''}
+            {t('toolCommon.supportsFormats')}
+            {multiple ? ` • ${t('toolCommon.upToFiles', { count: maxFiles })}` : ''}
           </p>
 
           {/* Keyboard Shortcut Hint */}
           <p className="text-xs text-muted-foreground mt-2">
-            Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Ctrl</kbd> + <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">V</kbd> to paste image
+            {t('toolCommon.pasteShortcut')}
           </p>
           
           {/* URL Import */}
@@ -338,7 +341,7 @@ export function FileUpload({
           <div className="flex items-center space-x-2">
             <Link className="h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Enter image URL..."
+              placeholder={t('toolCommon.enterImageUrl')}
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
@@ -349,7 +352,7 @@ export function FileUpload({
               disabled={!urlInput.trim() || isLoading}
               size="sm"
             >
-              {isLoading ? 'Loading...' : 'Import'}
+              {isLoading ? t('toolCommon.loading') : t('toolCommon.import')}
             </Button>
           </div>
           {/* <div className="text-xs text-muted-foreground">

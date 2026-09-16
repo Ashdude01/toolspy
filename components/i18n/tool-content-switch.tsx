@@ -17,10 +17,10 @@ export function ToolContentSwitch({
 }: {
   slug: string
   locale?: string
-  codeFallback: React.ReactNode
+  codeFallback?: React.ReactNode
 }) {
   return (
-    <Suspense fallback={codeFallback}>
+    <Suspense fallback={codeFallback ?? null}>
       <ToolContentSwitchInner
         slug={slug}
         locale={locale}
@@ -37,7 +37,7 @@ async function ToolContentSwitchInner({
 }: {
   slug: string
   locale?: string
-  codeFallback: React.ReactNode
+  codeFallback?: React.ReactNode
 }) {
   const doc = await getToolContent(slug, locale)
   const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0

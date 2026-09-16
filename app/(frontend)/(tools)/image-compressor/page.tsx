@@ -59,10 +59,12 @@ import {
 } from "@/lib/utils/file-utils";
 import { scrollToElement } from "@/lib/utils";
 import { useToolImageHandoffImport } from "@/hooks/use-tool-image-handoff";
+import { useT } from "@/lib/i18n/use-t";
 
 import { CompactImagePreview } from "@/components/tools/shared/compact-image-preview";
 
 function ImageCompressorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [compressedResults, setCompressedResults] = useState<
@@ -456,7 +458,7 @@ function ImageCompressorContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setCompressedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t('toolCommon.clearAll'), "info");
   };
 
   const applyPreset = (preset: CompressionPreset) => {
@@ -468,7 +470,7 @@ function ImageCompressorContent() {
 
   const handleCompress = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select files to compress", "error");
+      showToast(t('tools.imageCompressor.pleaseSelect'), "error");
       return;
     }
 
@@ -524,19 +526,21 @@ function ImageCompressorContent() {
         0
       );
       showToast(
-        `Compressed ${results.length} image(s), saved ${formatFileSize(
-          totalSaved
-        )}`,
+        t('tools.imageCompressor.compressedSaved', {
+          count: results.length,
+          size: formatFileSize(totalSaved),
+        }),
         "success"
       );
       scrollToElement(resultsRef);
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") {
-        showToast("Compression cancelled", "info");
+        showToast(t('tools.imageCompressor.cancelled'), "info");
         return;
       }
       showToast(
-        "Compression failed: " +
+        t('tools.imageCompressor.compressFailed') +
+          ": " +
           (error instanceof Error ? error.message : "Unknown error"),
         "error"
       );
@@ -599,27 +603,32 @@ function ImageCompressorContent() {
       key: "balanced" as CompressionPreset,
       icon: <Target className="h-5 w-5" />,
       title: "Balanced",
-      description: "Good quality + reasonable file size",
+      description: t('tools.imageCompressor.balancedDesc'),
     },
     {
       key: "high-quality" as CompressionPreset,
       icon: <Zap className="h-5 w-5" />,
       title: "High Quality",
-      description: "Best quality, larger file size",
+      description: t('tools.imageCompressor.highQualityDesc'),
     },
     {
       key: "max-compression" as CompressionPreset,
       icon: <Gauge className="h-5 w-5" />,
       title: "Max Compress",
-      description: "Smallest file size, lower quality",
+      description: t('tools.imageCompressor.maxCompressDesc'),
     },
     {
       key: "web-optimized" as CompressionPreset,
       icon: <Globe className="h-5 w-5" />,
       title: "Web Optimized",
-      description: "Perfect for websites and web apps",
+      description: t('tools.imageCompressor.webOptimizedDesc'),
     },
   ];
+
+  const compressLabel =
+    selectedFiles.length === 1
+      ? t('toolCommon.compressN', { count: selectedFiles.length })
+      : t('toolCommon.compressNPlural', { count: selectedFiles.length });
 
   return (
     <div className="container mx-auto max-w-7xl px-4 py-6 sm:py-8">
@@ -630,7 +639,7 @@ function ImageCompressorContent() {
           className="pointer-events-none bg-green-100 font-bold text-green-800 dark:bg-green-900 dark:text-green-200"
         >
           <Shield className="mr-2 h-4 w-4" aria-hidden />
-          Privacy-first · Compresses in your browser
+          {t('toolCommon.privacyFirst')}
         </Badge>
 
         <h2 className="mb-3 mt-4 bg-gradient-to-r from-red-500 to-blue-700 bg-clip-text pb-1 text-2xl font-bold text-transparent dark:from-red-600 dark:to-blue-500 sm:text-3xl lg:text-4xl">
@@ -669,9 +678,9 @@ function ImageCompressorContent() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <ImageIcon className="h-5 w-5 text-primary" aria-hidden />
-                      Selected ({selectedFiles.length})
+                      {t('toolCommon.selected', { count: selectedFiles.length })}
                     </CardTitle>
-                    <CardDescription>Ready to compress — pick a preset, then tap Compress</CardDescription>
+                    <CardDescription>{t('toolCommon.readyToCompress')}</CardDescription>
                   </div>
                   <Button
                     variant="outline"
@@ -680,7 +689,7 @@ function ImageCompressorContent() {
                     aria-label="Clear all selected images"
                   >
                     <Trash2 className="mr-2 h-4 w-4" aria-hidden />
-                    Clear All
+                    {t('toolCommon.clearAll')}
                   </Button>
                 </div>
               </CardHeader>
@@ -701,8 +710,8 @@ function ImageCompressorContent() {
             {/* Compression Presets */}
             <Card className="mb-4 md:col-span-3 md:mb-6 lg:col-span-2">
               <CardHeader>
-                <CardTitle>Quick preset</CardTitle>
-                <CardDescription>Most people use Web Optimized</CardDescription>
+                <CardTitle>{t('toolCommon.quickPreset')}</CardTitle>
+                <CardDescription>{t('toolCommon.mostUseWeb')}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-3">
@@ -740,13 +749,13 @@ function ImageCompressorContent() {
               className="h-12 w-full text-base font-semibold"
               aria-label={
                 isCompressing
-                  ? "Compressing images, please wait"
-                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`
+                  ? t('toolCommon.compressing')
+                  : compressLabel
               }
             >
               {isCompressing
-                ? "Compressing…"
-                : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
+                ? t('toolCommon.compressing')
+                : compressLabel}
             </Button>
             <p className="mt-2 text-center text-xs text-muted-foreground">
               Optional: open Advanced settings below to tweak quality or format
@@ -758,9 +767,9 @@ function ImageCompressorContent() {
             <CardHeader>
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <div>
-                  <CardTitle>Settings (optional)</CardTitle>
+                  <CardTitle>{t('toolCommon.settingsOptional')}</CardTitle>
                   <CardDescription>
-                    Defaults are fine for most photos — change only if you need to
+                    {t('toolCommon.defaultsFine')}
                   </CardDescription>
                 </div>
                 <Button
@@ -772,7 +781,7 @@ function ImageCompressorContent() {
                   aria-expanded={showAdvanced}
                 >
                   <Settings className="mr-2 h-4 w-4" aria-hidden />
-                  <span>{showAdvanced ? "Hide" : "Advanced"}</span>
+                  <span>{showAdvanced ? "Hide" : t('toolCommon.advanced')}</span>
                   {showAdvanced ? (
                     <ChevronUp className="ml-2 h-4 w-4" aria-hidden />
                   ) : (
@@ -787,7 +796,7 @@ function ImageCompressorContent() {
                 {/* Quality Slider */}
                 <div className="sm:col-span-2 lg:col-span-1">
                   <Label htmlFor="quality-slider" className="text-sm font-medium">
-                    Quality
+                    {t('toolCommon.quality')}
                   </Label>
                   <div className="space-y-2">
                     <div className="text-right text-sm font-medium">{quality[0]}%</div>
@@ -810,7 +819,7 @@ function ImageCompressorContent() {
                 {/* Target File Size */}
                 <div className="space-y-2">
                   <Label htmlFor="target-size-input" className="text-sm font-medium">
-                    Target Size (KB)
+                    {t('tools.imageCompressor.targetSizeKb')}
                   </Label>
                   <Input
                     id="target-size-input"
@@ -826,14 +835,14 @@ function ImageCompressorContent() {
                 {/* Output Format */}
                 <div className="space-y-2">
                   <Label htmlFor="output-format-select" className="text-sm font-medium">
-                    Output Format
+                    {t('toolCommon.outputFormat')}
                   </Label>
                   <Select value={outputFormat} onValueChange={setOutputFormat}>
                     <SelectTrigger id="output-format-select" aria-label="Select output image format">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="original">Keep Original</SelectItem>
+                      <SelectItem value="original">{t('tools.imageCompressor.keepOriginal')}</SelectItem>
                       <SelectItem value="jpeg">JPEG</SelectItem>
                       <SelectItem value="png">PNG</SelectItem>
                       <SelectItem value="webp">WebP</SelectItem>
@@ -853,7 +862,7 @@ function ImageCompressorContent() {
                 aria-expanded={showAdvanced}
               >
                 <Settings className="mr-2 h-4 w-4" aria-hidden />
-                <span className="inline">{showAdvanced ? "Hide" : "Advanced"}</span>
+                <span className="inline">{showAdvanced ? "Hide" : t('toolCommon.advanced')}</span>
                 {showAdvanced ? (
                   <ChevronUp className="ml-2 h-4 w-4" aria-hidden />
                 ) : (
@@ -1002,13 +1011,13 @@ function ImageCompressorContent() {
                 variant="outline"
                 aria-label={
                   isCompressing
-                    ? "Compressing images, please wait"
-                    : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`
+                    ? t('toolCommon.compressing')
+                    : compressLabel
                 }
               >
                 {isCompressing
-                  ? "Compressing…"
-                  : `Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
+                  ? t('toolCommon.compressing')
+                  : compressLabel}
               </Button>
             </CardContent>
           </Card>
@@ -1023,9 +1032,9 @@ function ImageCompressorContent() {
             disabled={selectedFiles.length === 0 || isCompressing}
             size="lg"
             className="h-12 w-full text-base font-semibold"
-            aria-label={`Compress ${selectedFiles.length} image${selectedFiles.length !== 1 ? "s" : ""}`}
+            aria-label={compressLabel}
           >
-            Compress {selectedFiles.length} image{selectedFiles.length !== 1 ? "s" : ""}
+            {compressLabel}
           </Button>
         </div>
       )}
@@ -1049,7 +1058,7 @@ function ImageCompressorContent() {
                   aria-label={`Download all ${compressedResults.length} compressed images individually`}
                 >
                   <Download className="h-4 w-4 mr-2" aria-hidden="true" />
-                  <span className="hidden sm:inline">Download All</span>
+                  <span className="hidden sm:inline">{t('toolCommon.downloadAll')}</span>
                   <span className="sm:hidden">All</span>
                 </Button>
                 <Button 
@@ -1149,7 +1158,7 @@ function ImageCompressorContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isCompressing}
-        title="Compressing Images"
+        title={t('toolCommon.compressing')}
         current={compressionProgress.current}
         total={compressionProgress.total}
         currentFile={compressionProgress.file}

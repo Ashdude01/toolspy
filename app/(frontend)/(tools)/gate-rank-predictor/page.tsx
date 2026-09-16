@@ -254,7 +254,7 @@ Actual ranks may vary based on various factors.`;
   return (
     <div className="container mx-auto px-4 sm:px-6 py-6 sm:py-8 max-w-7xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8 space-y-4">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8 space-y-4">
         <Badge
           variant="outline"
           className="font-bold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/30 border-blue-200 dark:border-blue-800 mb-2"

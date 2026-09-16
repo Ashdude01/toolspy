@@ -38,6 +38,7 @@ import {
   Package,
 } from "lucide-react";
 import { formatFileSize, downloadFile, createZipFromFiles, downloadZip } from "@/lib/utils/file-utils";
+import { useT } from "@/lib/i18n/use-t";
 
 interface CompressionResult {
   file: File;
@@ -50,6 +51,7 @@ interface CompressionResult {
 }
 
 function CompressPdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [compressedResults, setCompressedResults] = useState<
@@ -84,13 +86,13 @@ function CompressPdfContent() {
     const pdfFiles = files.filter((file) => file.type === "application/pdf");
 
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t('tools.compressPdf.pdfOnly'), "error");
       return;
     }
 
     if (pdfFiles.length !== files.length) {
       showToast(
-        `${files.length - pdfFiles.length} non-PDF files were filtered out`,
+        t('tools.compressPdf.filesFiltered', { count: files.length - pdfFiles.length }),
         "warning"
       );
     }
@@ -109,7 +111,7 @@ function CompressPdfContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setCompressedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t('tools.compressPdf.allFilesCleared'), "info");
   };
 
   // Helper function to compress image using canvas
@@ -324,14 +326,14 @@ function CompressPdfContent() {
 
   const compressPdfs = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to compress", "error");
+      showToast(t('tools.compressPdf.selectFilesFirst'), "error");
       return;
     }
 
     // Validate target size if enabled
     if (targetSizeEnabled) {
       if (!targetSizeValue || Number(targetSizeValue) <= 0) {
-        showToast("Please enter a valid target size", "error");
+        showToast(t('tools.compressPdf.invalidTargetSize'), "error");
         return;
       }
     }
@@ -720,26 +722,29 @@ function CompressPdfContent() {
 
         if (totalSaved > 0) {
           showToast(
-            `Compressed ${successCount} PDF(s), saved ${formatFileSize(
-              totalSaved
-            )} (avg ${Math.round(avgCompression)}% reduction)`,
+            t('tools.compressPdf.compressSuccess', {
+              count: successCount,
+              size: formatFileSize(totalSaved),
+              ratio: Math.round(avgCompression),
+            }),
             "success"
           );
         } else {
           showToast(
-            `Processed ${successCount} PDF(s) - files are already optimized`,
+            t('tools.compressPdf.alreadyOptimized', { count: successCount }),
             "info"
           );
         }
       }
       const errorCount = results.filter((r) => !r.success).length;
       if (errorCount > 0) {
-        showToast(`Failed to compress ${errorCount} file(s)`, "error");
+        showToast(t('tools.compressPdf.compressFailedCount', { count: errorCount }), "error");
       }
     } catch (error) {
       showToast(
-        "Compression failed: " +
-          (error instanceof Error ? error.message : "Unknown error"),
+        t('tools.compressPdf.compressFailed', {
+          error: error instanceof Error ? error.message : "Unknown error",
+        }),
         "error"
       );
     } finally {
@@ -750,7 +755,7 @@ function CompressPdfContent() {
   const downloadSingle = (result: CompressionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("Compressed PDF downloaded", "success");
+      showToast(t('tools.compressPdf.downloadSuccess'), "success");
     }
   };
 
@@ -760,7 +765,7 @@ function CompressPdfContent() {
       downloadFile(result.file, result.file.name);
     });
     showToast(
-      `Downloaded ${successResults.length} compressed PDF files`,
+      t('tools.compressPdf.downloadAllSuccess', { count: successResults.length }),
       "success"
     );
   };
@@ -770,7 +775,7 @@ function CompressPdfContent() {
       const successResults = compressedResults.filter((r) => r.success);
       
       if (successResults.length === 0) {
-        showToast("No compressed PDFs available for download", "error");
+        showToast(t('tools.compressPdf.noPdfsForZip'), "error");
         return;
       }
 
@@ -782,13 +787,13 @@ function CompressPdfContent() {
       downloadZip(zipBlob, "compressed_by_toolspy.net.zip");
       
       showToast(
-        `ZIP file downloaded with ${successResults.length} PDF(s)`,
+        t('tools.compressPdf.zipSuccess', { count: successResults.length }),
         "success"
       );
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to create ZIP file";
-      showToast(`ZIP Error: ${errorMessage}`, "error");
+      showToast(t('tools.compressPdf.zipError', { message: errorMessage }), "error");
     } finally {
       setIsCreatingZip(false);
     }
@@ -798,22 +803,22 @@ function CompressPdfContent() {
     {
       key: "light",
       icon: <Zap className="h-5 w-5" />,
-      title: "Light Compression",
-      description: "Minimal compression, keeps original quality",
+      title: t('tools.compressPdf.presetLightTitle'),
+      description: t('tools.compressPdf.presetLightDescription'),
       savings: "10-20%",
     },
     {
       key: "balanced",
       icon: <Target className="h-5 w-5" />,
-      title: "Balanced",
-      description: "Good balance of quality and file size",
+      title: t('tools.compressPdf.presetBalancedTitle'),
+      description: t('tools.compressPdf.presetBalancedDescription'),
       savings: "20-40%",
     },
     {
       key: "maximum",
       icon: <Gauge className="h-5 w-5" />,
-      title: "Maximum Compression",
-      description: "Smallest file size, some quality loss",
+      title: t('tools.compressPdf.presetMaximumTitle'),
+      description: t('tools.compressPdf.presetMaximumDescription'),
       savings: "40-60%",
     },
   ];
@@ -827,15 +832,14 @@ function CompressPdfContent() {
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
         >
           <Shield className="w-4 h-4 mr-2" />
-          Privacy-First • No Data Collection
+          {t('tools.compressPdf.privacyBadge')}
         </Badge>
 
         <h2 className="bg-gradient-to-r from-red-500 dark:from-red-600 to-blue-700 dark:to-blue-500 bg-clip-text pb-1 text-transparent text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          PDF Compressor
+          {t('tools.compressPdf.title')}
         </h2>
         <p className="text-base sm:text-lg lg:text-xl text-muted-foreground max-w-2xl mx-auto">
-          Reduce PDF file sizes while maintaining quality. Compress documents
-          for faster sharing, storage efficiency, and web optimization.
+          {t('tools.compressPdf.subtitle')}
         </p>
       </div>
 
@@ -859,15 +863,15 @@ function CompressPdfContent() {
                   <div>
                     <CardTitle className="flex items-center gap-2">
                       <FileText className="h-5 w-5" />
-                      Selected PDF Files ({selectedFiles.length})
+                      {t('tools.compressPdf.selectedFilesTitle', { count: selectedFiles.length })}
                     </CardTitle>
                     <CardDescription>
-                      Files ready for compression
+                      {t('tools.compressPdf.selectedFilesDescription')}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm">
                     <Trash2 className="h-4 w-4 mr-2" />
-                    Clear All
+                    {t('toolCommon.clearAll')}
                   </Button>
                 </div>
               </CardHeader>
@@ -906,9 +910,9 @@ function CompressPdfContent() {
             {/* Compression Presets */}
             <Card className="mb-6 sm:mb-8 md:col-span-2">
               <CardHeader>
-                <CardTitle>Compression Presets</CardTitle>
+                <CardTitle>{t('tools.compressPdf.presetsTitle')}</CardTitle>
                 <CardDescription>
-                  Choose a compression level that best fits your needs
+                  {t('tools.compressPdf.presetsDescription')}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -958,8 +962,8 @@ function CompressPdfContent() {
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Advanced Settings</CardTitle>
-            <CardDescription>Fine-tune compression parameters</CardDescription>
+            <CardTitle>{t('tools.compressPdf.advancedSettingsTitle')}</CardTitle>
+            <CardDescription>{t('tools.compressPdf.advancedSettingsDescription')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             {/* Image Quality and Target Size Side by Side */}
@@ -967,7 +971,7 @@ function CompressPdfContent() {
               {/* Image Quality */}
               <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
                 <Label className="text-sm font-medium">
-                  Image Quality: {imageQuality[0]}%
+                  {t('tools.compressPdf.imageQualityLabel', { value: imageQuality[0] })}
                 </Label>
                 <Slider
                   value={imageQuality}
@@ -980,8 +984,8 @@ function CompressPdfContent() {
                 />
                 <p className="text-xs text-muted-foreground">
                   {targetSizeEnabled
-                    ? "Disabled when target size is set"
-                    : "Lower = smaller files, Higher = better quality"}
+                    ? t('tools.compressPdf.qualityDisabledHint')
+                    : t('tools.compressPdf.qualityHint')}
                 </p>
               </div>
 
@@ -989,7 +993,7 @@ function CompressPdfContent() {
               <div className="space-y-2 p-4 rounded-xl border bg-gray-100 dark:bg-gray-800">
                 <div className="flex items-center justify-between">
                   <Label className="text-sm font-medium">
-                    Target File Size
+                    {t('tools.compressPdf.targetSizeLabel')}
                   </Label>
                   <div className="flex items-center space-x-2">
                     <input
@@ -1008,7 +1012,7 @@ function CompressPdfContent() {
                       htmlFor="target-size-enabled"
                       className="text-xs text-muted-foreground cursor-pointer"
                     >
-                      Enable
+                      {t('tools.compressPdf.enable')}
                     </Label>
                   </div>
                 </div>
@@ -1017,7 +1021,7 @@ function CompressPdfContent() {
                   <div className="flex gap-2 items-center">
                     <Input
                       type="number"
-                      placeholder="Enter size"
+                      placeholder={t('tools.compressPdf.targetSizePlaceholder')}
                       value={targetSizeValue}
                       onChange={(e) => {
                         const value = e.target.value;
@@ -1050,13 +1054,13 @@ function CompressPdfContent() {
                 ) : (
                   <div className="flex items-center">
                     <p className="text-xs text-muted-foreground">
-                      Optional: Set a specific file size target
+                      {t('tools.compressPdf.targetSizeOptionalHint')}
                     </p>
                   </div>
                 )}
                 {targetSizeEnabled && (
                   <p className="text-xs text-muted-foreground">
-                    Quality will auto-adjust to reach target size
+                    {t('tools.compressPdf.targetSizeAutoHint')}
                   </p>
                 )}
               </div>
@@ -1071,8 +1075,8 @@ function CompressPdfContent() {
             >
               <Gauge className="h-5 w-5 mr-2" />
               {isCompressing
-                ? "Compressing..."
-                : `Compress ${selectedFiles.length} PDF Files`}
+                ? t('tools.compressPdf.compressing')
+                : t('tools.compressPdf.compressButton', { count: selectedFiles.length })}
             </Button>
           </CardContent>
         </Card>
@@ -1086,17 +1090,18 @@ function CompressPdfContent() {
               <div>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5" />
-                  Compression Results
+                  {t('tools.compressPdf.resultsTitle')}
                 </CardTitle>
                 <CardDescription>
-                  {compressedResults.filter((r) => r.success).length} PDF(s)
-                  compressed successfully
+                  {t('tools.compressPdf.resultsDescription', {
+                    count: compressedResults.filter((r) => r.success).length,
+                  })}
                 </CardDescription>
               </div>
               <div className="flex flex-col sm:flex-row gap-2">
                 <Button onClick={downloadAll} size="sm" variant="outline">
                   <Download className="h-4 w-4 mr-2" />
-                  Download All
+                  {t('toolCommon.downloadAll')}
                 </Button>
                 <Button 
                   onClick={downloadAllAsZip} 
@@ -1104,7 +1109,7 @@ function CompressPdfContent() {
                   disabled={isCreatingZip}
                 >
                   <Package className="h-4 w-4 mr-2" />
-                  {isCreatingZip ? "Creating ZIP..." : "Download as ZIP"}
+                  {isCreatingZip ? t('tools.compressPdf.creatingZip') : t('tools.compressPdf.downloadAsZip')}
                 </Button>
               </div>
             </div>
@@ -1121,10 +1126,10 @@ function CompressPdfContent() {
                       {result.success ? (
                         <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-muted-foreground">
                           <span>
-                            Original: {formatFileSize(result.originalSize)}
+                            {t('tools.compressPdf.originalLabel')} {formatFileSize(result.originalSize)}
                           </span>
                           <span>
-                            Compressed: {formatFileSize(result.compressedSize)}
+                            {t('tools.compressPdf.compressedLabel')} {formatFileSize(result.compressedSize)}
                           </span>
                           <Badge
                             variant={
@@ -1134,7 +1139,7 @@ function CompressPdfContent() {
                             }
                             className="text-xs"
                           >
-                            {result.compressionRatio}% smaller
+                            {t('tools.compressPdf.smallerBadge', { ratio: result.compressionRatio })}
                           </Badge>
                         </div>
                       ) : (
@@ -1150,7 +1155,7 @@ function CompressPdfContent() {
                         onClick={() => downloadSingle(result)}
                       >
                         <Download className="h-3 w-3 mr-1" />
-                        Download
+                        {t('toolCommon.download')}
                       </Button>
                     )}
                   </div>
@@ -1164,11 +1169,11 @@ function CompressPdfContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isCompressing}
-        title="Compressing PDF Files"
+        title={t('tools.compressPdf.progressTitle')}
         current={compressionProgress.current}
         total={compressionProgress.total}
         currentFile={compressionProgress.file}
-        description="Please wait while we compress your PDF files..."
+        description={t('tools.compressPdf.progressDescription')}
       />
 </div>
   );

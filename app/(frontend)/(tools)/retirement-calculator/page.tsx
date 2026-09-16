@@ -164,7 +164,7 @@ function RetirementCalculatorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8 max-w-4xl">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"

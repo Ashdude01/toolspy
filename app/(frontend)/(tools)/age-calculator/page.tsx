@@ -25,6 +25,7 @@ import {
   RefreshCw,
 } from "lucide-react";
 import { ToolPageWrapper } from "@/components/seo/tool-page-wrapper";
+import { useT } from "@/lib/i18n/use-t";
 
 interface AgeResult {
   years: number;
@@ -42,6 +43,7 @@ interface AgeResult {
 }
 
 function AgeCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [birthDate, setBirthDate] = useState("");
   const [currentDate, setCurrentDate] = useState("");
@@ -155,7 +157,7 @@ function AgeCalculatorContent() {
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">
       {/* Header */}
-      <div className="text-center mb-6 sm:mb-8">
+      <div className="tool-legacy-hero text-center mb-6 sm:mb-8">
         <Badge
           variant="outline"
           className="font-bold text-green-800 dark:text-green-200 bg-green-100 dark:bg-green-900"
@@ -187,7 +189,7 @@ function AgeCalculatorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="birthDate">Birth Date <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="birthDate">{t('tools.ageCalculator.birthDate')} <span className="text-red-500" aria-label="required">*</span></Label>
               <Input
                 id="birthDate"
                 type="date"
@@ -201,7 +203,7 @@ function AgeCalculatorContent() {
               <p id="birth-date-description" className="sr-only">Enter your birth date. This field is required.</p>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="currentDate">Current Date</Label>
+              <Label htmlFor="currentDate">{t('tools.ageCalculator.currentDate')}</Label>
               <Input
                 id="currentDate"
                 type="date"
@@ -221,7 +223,7 @@ function AgeCalculatorContent() {
               aria-label="Calculate age based on birth date and current date"
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
-              Calculate Age
+              {t('tools.ageCalculator.calculateAge')}
             </Button>
             <Button 
               variant="outline" 
@@ -230,7 +232,7 @@ function AgeCalculatorContent() {
               aria-label="Reset calculator and clear all fields"
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
-              Reset
+              {t('tools.ageCalculator.reset')}
             </Button>
           </div>
         </CardContent>
@@ -242,7 +244,7 @@ function AgeCalculatorContent() {
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
               <Gift className="h-5 w-5" />
-              Your Age Details
+              {t('tools.ageCalculator.yourAgeDetails')}
             </CardTitle>
             <CardDescription>
               Detailed breakdown of your age and time lived
@@ -252,10 +254,10 @@ function AgeCalculatorContent() {
             {/* Main Age Display */}
             <div className="text-center mb-8">
               <div className="text-4xl sm:text-5xl font-bold text-primary mb-2">
-                {displayAge.years} Years
+                {t('tools.ageCalculator.years', { count: displayAge.years })}
               </div>
               <div className="text-lg text-muted-foreground">
-                {displayAge.months} months and {displayAge.days} days old
+                {t('tools.ageCalculator.monthsDays', { months: displayAge.months, days: displayAge.days })}
               </div>
             </div>
 
