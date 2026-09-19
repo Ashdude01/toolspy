@@ -15,15 +15,9 @@
  */
 import { usePathname } from 'next/navigation'
 import { translate } from './messages'
-import { ALL_LOCALES, DEFAULT_LOCALE } from './locales'
+import { localeFromPathname } from './pathname-locale'
 
-/** '/de/foo' → 'de', '/foo' → 'en' (default). */
-export function localeFromPathname(pathname: string | null | undefined): string {
-  const segments = (pathname || '/').split('/').filter(Boolean)
-  const first = segments[0]
-  if (first && ALL_LOCALES[first] && first !== DEFAULT_LOCALE) return first
-  return DEFAULT_LOCALE
-}
+export { localeFromPathname } from './pathname-locale'
 
 export function useLocale(): string {
   return localeFromPathname(usePathname())

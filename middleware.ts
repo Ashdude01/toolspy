@@ -1,34 +1,32 @@
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
-import { ALL_LOCALES, DEFAULT_LOCALE } from './lib/i18n/locales'
+import { dirForLocale, localeFromPathname } from './lib/i18n/pathname-locale'
 
 /**
- * Sets request locale for SSR <html lang>/<dir>.
- * Path /de/... → de; otherwise en (root English URLs).
+ * Injects locale into the request so SSR <html lang>/<dir> are correct.
+ * Path /de/... → de; root English URLs → en.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
-  const first = pathname.split('/').filter(Boolean)[0]
-  const locale =
-    first && first !== DEFAULT_LOCALE && ALL_LOCALES[first]
-      ? first
-      : DEFAULT_LOCALE
-  const info = ALL_LOCALES[locale] ?? ALL_LOCALES[DEFAULT_LOCALE]
+  const locale = localeFromPathname(pathname)
+  const dir = dirForLocale(locale)
 
   const requestHeaders = new Headers(request.headers)
+  requestHeaders.set('x-toolspy-pathname', pathname)
   requestHeaders.set('x-toolspy-locale', locale)
-  requestHeaders.set('x-toolspy-dir', info.dir)
+  requestHeaders.set('x-toolspy-dir', dir)
 
-  return NextResponse.next({
+  const response = NextResponse.next({
     request: { headers: requestHeaders },
   })
+  response.headers.set('x-toolspy-locale', locale)
+  response.headers.set('Content-Language', locale)
+
+  return response
 }
 
 export const config = {
   matcher: [
-    /*
-     * Skip admin, API, Next internals, and static assets.
-     */
     '/((?!admin|api|_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico|txt|xml|json)$).*)',
   ],
 }

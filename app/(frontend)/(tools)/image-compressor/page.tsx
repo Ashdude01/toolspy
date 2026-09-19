@@ -633,7 +633,7 @@ function ImageCompressorContent() {
   return (
     <div className="container mx-auto max-w-7xl px-4 py-6 sm:py-8">
       {/* Header */}
-      <div className="mb-6 text-center sm:mb-8">
+      {/* <div className="mb-6 text-center sm:mb-8">
         <Badge
           variant="outline"
           className="pointer-events-none bg-green-100 font-bold text-green-800 dark:bg-green-900 dark:text-green-200"
@@ -648,7 +648,7 @@ function ImageCompressorContent() {
         <p className="mx-auto max-w-2xl text-sm text-muted-foreground sm:text-base">
           Upload images → pick a preset → compress. Runs locally — files never leave your device.
         </p>
-      </div>
+      </div> */}
 
       {/* File Upload */}
       <FileUpload

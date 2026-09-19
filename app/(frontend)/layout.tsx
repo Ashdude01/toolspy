@@ -9,12 +9,21 @@ import { GoogleTagManager, GoogleTagManagerNoScript } from '@/components/analyti
 import { ConsentInitScript } from '@/components/consent/consent-init-script'
 import { ConsentProvider } from '@/components/consent/consent-provider'
 import { CookieConsentBanner } from '@/components/consent/cookie-consent-banner'
+import { HtmlLangSync } from '@/components/i18n/html-lang-sync'
+import { getRequestLocale } from '@/lib/i18n/get-request-locale'
 import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
 
 const headingFontFamily = headingFont({ subsets: ['latin'], variable: '--font-heading' })
 const bodyFontFamily = bodyFont({ subsets: ['latin'], variable: '--font-body' })
+
+/**
+ * Must be request-dynamic: shared layout sits ABOVE [locale], so locale is not in
+ * params. Static prerender would bake lang="en" into /de/... HTML (wrong View Source).
+ */
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
   title: limitTitle(siteConfig.title),
   description: limitDescription(siteConfig.description),
@@ -90,13 +99,7 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // Locale from middleware (x-toolspy-locale / x-toolspy-dir). English root → en.
-  const { headers } = await import('next/headers')
-  const { ALL_LOCALES, DEFAULT_LOCALE } = await import('@/lib/i18n/locales')
-  const h = await headers()
-  const localeHeader = h.get('x-toolspy-locale') || DEFAULT_LOCALE
-  const locale = ALL_LOCALES[localeHeader] ? localeHeader : DEFAULT_LOCALE
-  const dir = h.get('x-toolspy-dir') || ALL_LOCALES[locale]?.dir || 'ltr'
+  const { locale, dir } = await getRequestLocale()
 
   return (
     <html
@@ -124,6 +127,7 @@ export default async function RootLayout({
         <ComprehensiveSchemas />
       </head>
       <body className="antialiased">
+        <HtmlLangSync />
         <GoogleTagManagerNoScript />
         <div className="min-h-screen bg-background dark:bg-slate-950">
           <HeaderWithTheme />
@@ -139,4 +143,4 @@ export default async function RootLayout({
       </body>
     </html>
   )
-} 
+}
