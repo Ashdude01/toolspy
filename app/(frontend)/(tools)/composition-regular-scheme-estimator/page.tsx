@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -62,6 +63,7 @@ const REGULAR_RATES = [
 ];
 
 function CompositionRegularSchemeEstimatorContent() {
+  const t = useT();
   const [totalTurnover, setTotalTurnover] = useState<string>("");
   const [compositionRate, setCompositionRate] = useState<number>(6);
   const [regularRate, setRegularRate] = useState<number>(18);
@@ -185,17 +187,17 @@ Please consult with a tax professional for official scheme selection.`;
                 Scheme Comparison Calculator
               </CardTitle>
               <CardDescription>
-                Compare tax liability under different GST schemes
+                {t("tools.compositionRegularSchemeEstimator.compareTaxLiabilityUnderDifferentGst")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Total Turnover */}
               <div className="space-y-2">
-                <Label htmlFor="turnover">Total Annual Turnover (₹)</Label>
+                <Label htmlFor="turnover">{t("tools.compositionRegularSchemeEstimator.totalAnnualTurnover")}</Label>
                 <Input
                   id="turnover"
                   type="number"
-                  placeholder="Enter total annual turnover"
+                  placeholder={t("tools.compositionRegularSchemeEstimator.enterTotalAnnualTurnover")}
                   value={totalTurnover}
                   onChange={(e) => setTotalTurnover(e.target.value)}
                   className="text-lg"
@@ -204,7 +206,7 @@ Please consult with a tax professional for official scheme selection.`;
 
               {/* Composition Rate */}
               <div className="space-y-2">
-                <Label htmlFor="composition-rate">Composition Scheme Rate (%)</Label>
+                <Label htmlFor="composition-rate">{t("tools.compositionRegularSchemeEstimator.compositionSchemeRate")}</Label>
                 <Select value={compositionRate.toString()} onValueChange={(value) => setCompositionRate(Number(value))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -221,7 +223,7 @@ Please consult with a tax professional for official scheme selection.`;
 
               {/* Regular Rate */}
               <div className="space-y-2">
-                <Label htmlFor="regular-rate">Regular Scheme Rate (%)</Label>
+                <Label htmlFor="regular-rate">{t("tools.compositionRegularSchemeEstimator.regularSchemeRate")}</Label>
                 <Select value={regularRate.toString()} onValueChange={(value) => setRegularRate(Number(value))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -429,7 +431,7 @@ Please consult with a tax professional for official scheme selection.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.compositionRegularSchemeEstimator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

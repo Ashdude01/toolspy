@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -72,6 +73,7 @@ interface ScreenshotSettings {
 }
 
 function WebsiteScreenshotContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [websiteUrl, setWebsiteUrl] = useState("");
   const [screenshotResults, setScreenshotResults] = useState<ScreenshotResult[]>([]);
@@ -196,12 +198,12 @@ function WebsiteScreenshotContent() {
   // Handle screenshot capture
   const handleCapture = async () => {
     if (!websiteUrl.trim()) {
-      showToast("Please enter a website URL", "error");
+      showToast(t("tools.websiteScreenshot.pleaseEnterAWebsiteUrl"), "error");
       return;
     }
 
     if (!validateUrl(websiteUrl)) {
-      showToast("Please enter a valid website URL", "error");
+      showToast(t("tools.websiteScreenshot.pleaseEnterAValidWebsiteUrl"), "error");
       return;
     }
 
@@ -224,7 +226,7 @@ function WebsiteScreenshotContent() {
       };
 
       setScreenshotResults((prev) => [...prev, result]);
-      showToast("Screenshot captured successfully!", "success");
+      showToast(t("tools.websiteScreenshot.screenshotCapturedSuccessfully"), "success");
       scrollToElement(resultsRef);
     } catch (error) {
       let errorMessage = "Failed to capture screenshot. Please try again.";
@@ -251,7 +253,7 @@ function WebsiteScreenshotContent() {
   // Download single screenshot
   const downloadSingle = (result: ScreenshotResult) => {
     downloadFile(result.file, result.file.name);
-    showToast("Screenshot downloaded", "success");
+    showToast(t("tools.websiteScreenshot.screenshotDownloaded"), "success");
   };
 
   // Download all screenshots
@@ -266,7 +268,7 @@ function WebsiteScreenshotContent() {
   const downloadAllAsZip = async () => {
     try {
       if (screenshotResults.length === 0) {
-        showToast("No screenshots available for download", "error");
+        showToast(t("tools.websiteScreenshot.noScreenshotsAvailableForDownload"), "error");
         return;
       }
 
@@ -274,7 +276,7 @@ function WebsiteScreenshotContent() {
       const zipBlob = await createZipFromFiles(files, "website-screenshots.zip");
       const watermark = process.env.NEXT_PUBLIC_FILE_WATERMARK || "toolspy";
       downloadZip(zipBlob, `${watermark}-website-screenshots.zip`);
-      showToast("ZIP file downloaded successfully", "success");
+      showToast(t("tools.websiteScreenshot.zipFileDownloadedSuccessfully"), "success");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to create ZIP file";
@@ -286,7 +288,7 @@ function WebsiteScreenshotContent() {
   const copySingle = async (result: ScreenshotResult) => {
     try {
       await copyImageToClipboard(result.file);
-      showToast("Screenshot copied to clipboard", "success");
+      showToast(t("tools.websiteScreenshot.screenshotCopiedToClipboard"), "success");
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : "Failed to copy screenshot";
@@ -302,7 +304,7 @@ function WebsiteScreenshotContent() {
       URL.revokeObjectURL(prev[index].url);
       return newResults;
     });
-    showToast("Screenshot removed", "info");
+    showToast(t("tools.websiteScreenshot.screenshotRemoved"), "info");
   };
 
   // Clear all screenshots
@@ -311,7 +313,7 @@ function WebsiteScreenshotContent() {
       URL.revokeObjectURL(result.url);
     });
     setScreenshotResults([]);
-    showToast("All screenshots cleared", "info");
+    showToast(t("tools.websiteScreenshot.allScreenshotsCleared"), "info");
   };
 
   const devicePresets = [
@@ -366,9 +368,9 @@ function WebsiteScreenshotContent() {
       {/* URL Input Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Enter Website URL</CardTitle>
+          <CardTitle>{t("tools.websiteScreenshot.enterWebsiteUrl")}</CardTitle>
           <CardDescription>
-            Enter the URL of the website you want to capture
+            {t("tools.websiteScreenshot.enterTheUrlOfTheWebsite")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -414,9 +416,9 @@ function WebsiteScreenshotContent() {
         <CardHeader>
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
             <div>
-              <CardTitle>Screenshot Settings</CardTitle>
+              <CardTitle>{t("tools.websiteScreenshot.screenshotSettings")}</CardTitle>
               <CardDescription>
-                Configure screenshot format, dimensions, and quality
+                {t("tools.websiteScreenshot.configureScreenshotFormatDimensionsAndQuality")}
               </CardDescription>
             </div>
             <Button
@@ -432,7 +434,7 @@ function WebsiteScreenshotContent() {
         <CardContent className="space-y-6">
           {/* Device Presets */}
           <div>
-            <Label className="text-sm font-medium mb-3 block">Device Preset</Label>
+            <Label className="text-sm font-medium mb-3 block">{t("tools.websiteScreenshot.devicePreset")}</Label>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
               {devicePresets.map((preset) => (
                 <Card
@@ -461,7 +463,7 @@ function WebsiteScreenshotContent() {
           {/* Format Selection */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label className="text-sm font-medium">Image Format</Label>
+              <Label className="text-sm font-medium">{t("tools.websiteScreenshot.imageFormat")}</Label>
               <Select
                 value={settings.format}
                 onValueChange={(value: ScreenshotFormat) =>
@@ -472,15 +474,15 @@ function WebsiteScreenshotContent() {
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="png">PNG (High Quality)</SelectItem>
-                  <SelectItem value="jpeg">JPEG (Smaller Size)</SelectItem>
-                  <SelectItem value="webp">WebP (Modern)</SelectItem>
+                  <SelectItem value="png">{t("tools.websiteScreenshot.pngHighQuality")}</SelectItem>
+                  <SelectItem value="jpeg">{t("tools.websiteScreenshot.jpegSmallerSize")}</SelectItem>
+                  <SelectItem value="webp">{t("tools.websiteScreenshot.webpModern")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
 
             <div className="space-y-2">
-              <Label className="text-sm font-medium">Full Page Capture</Label>
+              <Label className="text-sm font-medium">{t("tools.websiteScreenshot.fullPageCapture")}</Label>
               <div className="flex items-center space-x-2 pt-2">
                 <Switch
                   checked={settings.fullPage}
@@ -501,7 +503,7 @@ function WebsiteScreenshotContent() {
               {settings.devicePreset === "custom" && (
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium">Custom Width (px)</Label>
+                    <Label className="text-sm font-medium">{t("tools.websiteScreenshot.customWidthPx")}</Label>
                     <Input
                       type="number"
                       min="100"
@@ -516,7 +518,7 @@ function WebsiteScreenshotContent() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label className="text-sm font-medium">Custom Height (px)</Label>
+                    <Label className="text-sm font-medium">{t("tools.websiteScreenshot.customHeightPx")}</Label>
                     <Input
                       type="number"
                       min="100"
@@ -564,7 +566,7 @@ function WebsiteScreenshotContent() {
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle className="text-lg">Screenshot Results</CardTitle>
+                <CardTitle className="text-lg">{t("tools.websiteScreenshot.screenshotResults")}</CardTitle>
                 <CardDescription>
                   {screenshotResults.length} screenshot(s) captured successfully on{" "}
                   <span className="font-semibold text-primary">Toolspy</span>
@@ -633,7 +635,7 @@ function WebsiteScreenshotContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => copySingle(result)}
-                        title="Copy to clipboard"
+                        title={t("tools.websiteScreenshot.copyToClipboard")}
                       >
                         <Copy className="h-3 w-3 sm:h-4 sm:w-4" />
                         <span className="ml-1 sm:hidden text-xs">Copy</span>
@@ -642,7 +644,7 @@ function WebsiteScreenshotContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => downloadSingle(result)}
-                        title="Download file"
+                        title={t("tools.websiteScreenshot.downloadFile")}
                       >
                         <Download className="h-3 w-3 sm:h-4 sm:w-4" />
                         <span className="ml-1 sm:hidden text-xs">Download</span>
@@ -651,7 +653,7 @@ function WebsiteScreenshotContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => removeScreenshot(index)}
-                        title="Remove screenshot"
+                        title={t("tools.websiteScreenshot.removeScreenshot")}
                       >
                         <X className="h-3 w-3 sm:h-4 sm:w-4" />
                       </Button>

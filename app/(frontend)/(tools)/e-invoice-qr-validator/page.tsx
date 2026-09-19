@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -47,6 +48,7 @@ interface ValidationResult {
 }
 
 function EInvoiceQRValidatorContent() {
+  const t = useT();
   const [qrData, setQrData] = useState<string>("");
   const [validationResult, setValidationResult] = useState<ValidationResult | null>(null);
   const [history, setHistory] = useState<ValidationResult[]>([]);
@@ -160,16 +162,16 @@ Please verify with official GST portal for official validation.`;
                 E-Invoice QR Validator
               </CardTitle>
               <CardDescription>
-                Enter QR code data or scan to validate E-Invoice
+                {t("tools.eInvoiceQrValidator.enterQrCodeDataOrScan")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* QR Data Input */}
               <div className="space-y-2">
-                <Label htmlFor="qr-data">QR Code Data</Label>
+                <Label htmlFor="qr-data">{t("tools.eInvoiceQrValidator.qrCodeData")}</Label>
                 <Textarea
                   id="qr-data"
-                  placeholder="Paste QR code data here or scan QR code..."
+                  placeholder={t("tools.eInvoiceQrValidator.pasteQrCodeDataHereOr")}
                   value={qrData}
                   onChange={(e) => setQrData(e.target.value)}
                   className="min-h-[120px]"
@@ -296,7 +298,7 @@ Please verify with official GST portal for official validation.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.eInvoiceQrValidator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

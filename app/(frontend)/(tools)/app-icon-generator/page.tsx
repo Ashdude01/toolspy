@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -149,6 +150,7 @@ const PLATFORMS = {
 };
 
 function AppIconGeneratorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [appName, setAppName] = useState("");
@@ -201,7 +203,7 @@ function AppIconGeneratorContent() {
   const clearFile = () => {
     setSelectedFile(null);
     setGeneratedIcons([]);
-    showToast("File cleared", "info");
+    showToast(t("tools.appIconGenerator.fileCleared"), "info");
   };
 
   const togglePlatform = (platform: string) => {
@@ -214,12 +216,12 @@ function AppIconGeneratorContent() {
 
   const generateIcons = async () => {
     if (!selectedFile) {
-      showToast("Please select an image file", "error");
+      showToast(t("tools.appIconGenerator.pleaseSelectAnImageFile"), "error");
       return;
     }
 
     if (selectedPlatforms.length === 0) {
-      showToast("Please select at least one platform", "error");
+      showToast(t("tools.appIconGenerator.pleaseSelectAtLeastOnePlatform"), "error");
       return;
     }
 
@@ -373,7 +375,7 @@ function AppIconGeneratorContent() {
 
   const downloadAllIcons = async () => {
     if (generatedIcons.length === 0) {
-      showToast("No icons available for download", "error");
+      showToast(t("tools.appIconGenerator.noIconsAvailableForDownload"), "error");
       return;
     }
 
@@ -405,7 +407,7 @@ function AppIconGeneratorContent() {
         zipBlob,
         `${watermark}-${appName || "app-icons"}-icons.zip`
       );
-      showToast("Icons downloaded successfully!", "success");
+      showToast(t("tools.appIconGenerator.iconsDownloadedSuccessfully"), "success");
     } catch (error) {
       showToast(
         "Download failed: " +
@@ -471,9 +473,9 @@ function AppIconGeneratorContent() {
                 <CardHeader>
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                     <div>
-                      <CardTitle>Selected Image</CardTitle>
+                      <CardTitle>{t("tools.appIconGenerator.selectedImage")}</CardTitle>
                       <CardDescription>
-                        Source image for icon generation
+                        {t("tools.appIconGenerator.sourceImageForIconGeneration")}
                       </CardDescription>
                     </div>
                     <Button variant="outline" onClick={clearFile} size="sm">
@@ -493,9 +495,9 @@ function AppIconGeneratorContent() {
               {/* Platform Selection */}
               <Card className="">
                 <CardHeader>
-                  <CardTitle>Target Platforms</CardTitle>
+                  <CardTitle>{t("tools.appIconGenerator.targetPlatforms")}</CardTitle>
                   <CardDescription>
-                    Select platforms for icon generation
+                    {t("tools.appIconGenerator.selectPlatformsForIconGeneration")}
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -528,39 +530,39 @@ function AppIconGeneratorContent() {
             {/* App Information */}
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle>App Information</CardTitle>
-                <CardDescription>Basic app details</CardDescription>
+                <CardTitle>{t("tools.appIconGenerator.appInformation")}</CardTitle>
+                <CardDescription>{t("tools.appIconGenerator.basicAppDetails")}</CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="app-name">App Name</Label>
+                  <Label htmlFor="app-name">{t("tools.appIconGenerator.appName")}</Label>
                   <Input
                     id="app-name"
-                    placeholder="My App"
+                    placeholder={t("tools.appIconGenerator.myApp")}
                     value={appName}
                     onChange={(e) => setAppName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="app-description">Description</Label>
+                  <Label htmlFor="app-description">{t("tools.appIconGenerator.description")}</Label>
                   <Input
                     id="app-description"
-                    placeholder="App description"
+                    placeholder={t("tools.appIconGenerator.appDescription")}
                     value={appDescription}
                     onChange={(e) => setAppDescription(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="short-name">Short Name</Label>
+                  <Label htmlFor="short-name">{t("tools.appIconGenerator.shortName")}</Label>
                   <Input
                     id="short-name"
-                    placeholder="MyApp"
+                    placeholder={t("tools.appIconGenerator.myapp")}
                     value={shortName}
                     onChange={(e) => setShortName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="start-url">Start URL</Label>
+                  <Label htmlFor="start-url">{t("tools.appIconGenerator.startUrl")}</Label>
                   <Input
                     id="start-url"
                     placeholder="/"
@@ -569,21 +571,21 @@ function AppIconGeneratorContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="display-mode">Display Mode</Label>
+                  <Label htmlFor="display-mode">{t("tools.appIconGenerator.displayMode")}</Label>
                   <Select value={displayMode} onValueChange={setDisplayMode}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="standalone">Standalone</SelectItem>
-                      <SelectItem value="fullscreen">Fullscreen</SelectItem>
-                      <SelectItem value="minimal-ui">Minimal UI</SelectItem>
-                      <SelectItem value="browser">Browser</SelectItem>
+                      <SelectItem value="standalone">{t("tools.appIconGenerator.standalone")}</SelectItem>
+                      <SelectItem value="fullscreen">{t("tools.appIconGenerator.fullscreen")}</SelectItem>
+                      <SelectItem value="minimal-ui">{t("tools.appIconGenerator.minimalUi")}</SelectItem>
+                      <SelectItem value="browser">{t("tools.appIconGenerator.browser")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="theme-color">Theme Color</Label>
+                  <Label htmlFor="theme-color">{t("tools.appIconGenerator.themeColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="theme-color"
@@ -600,20 +602,20 @@ function AppIconGeneratorContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="orientation">Orientation</Label>
+                  <Label htmlFor="orientation">{t("tools.appIconGenerator.orientation")}</Label>
                   <Select value={orientation} onValueChange={setOrientation}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
-                      <SelectItem value="portrait">Portrait</SelectItem>
-                      <SelectItem value="landscape">Landscape</SelectItem>
+                      <SelectItem value="any">{t("tools.appIconGenerator.any")}</SelectItem>
+                      <SelectItem value="portrait">{t("tools.appIconGenerator.portrait")}</SelectItem>
+                      <SelectItem value="landscape">{t("tools.appIconGenerator.landscape")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="scope">Scope</Label>
+                  <Label htmlFor="scope">{t("tools.appIconGenerator.scope")}</Label>
                   <Input
                     id="scope"
                     placeholder="/"
@@ -622,10 +624,10 @@ function AppIconGeneratorContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lang">Language</Label>
+                  <Label htmlFor="lang">{t("tools.appIconGenerator.language")}</Label>
                   <Input
                     id="lang"
-                    placeholder="en"
+                    placeholder={t("tools.appIconGenerator.en")}
                     value={lang}
                     onChange={(e) => setLang(e.target.value)}
                   />
@@ -639,8 +641,8 @@ function AppIconGeneratorContent() {
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Icon Settings</CardTitle>
-                  <CardDescription>Customize icon appearance</CardDescription>
+                  <CardTitle>{t("tools.appIconGenerator.iconSettings")}</CardTitle>
+                  <CardDescription>{t("tools.appIconGenerator.customizeIconAppearance")}</CardDescription>
                 </div>
                 <Button
                   variant="secondary"
@@ -667,7 +669,7 @@ function AppIconGeneratorContent() {
               {/* Basic Settings */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="background-color">Background Color</Label>
+                  <Label htmlFor="background-color">{t("tools.appIconGenerator.backgroundColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="background-color"
@@ -739,7 +741,7 @@ function AppIconGeneratorContent() {
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Generated Icons</CardTitle>
+                <CardTitle>{t("tools.appIconGenerator.generatedIcons")}</CardTitle>
                 <CardDescription>
                   {generatedIcons.length} platform(s) with{" "}
                   {generatedIcons.reduce((sum, p) => sum + p.files.length, 0)}{" "}
@@ -817,7 +819,7 @@ function AppIconGeneratorContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isGenerating}
-        title="Generating App Icons"
+        title={t("tools.appIconGenerator.generatingAppIcons")}
         current={generationProgress.current}
         total={generationProgress.total}
         currentFile={generationProgress.platform}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -77,6 +78,7 @@ interface SearchFilters {
 }
 
 function ExpiredDomainFinderContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<ExpiredDomain[]>([]);
@@ -122,7 +124,7 @@ function ExpiredDomainFinderContent() {
 
   const performSearch = async () => {
     if (!searchQuery.trim()) {
-      showToast("Please enter a search term", "error");
+      showToast(t("tools.expiredDomainFinder.pleaseEnterASearchTerm"), "error");
       return;
     }
 
@@ -149,7 +151,7 @@ function ExpiredDomainFinderContent() {
       setSearchResults(formattedResults);
       showToast(`Found ${formattedResults.length} expired domains`, "success");
     } catch (error) {
-      showToast("Failed to search for expired domains. Please try again.", "error");
+      showToast(t("tools.expiredDomainFinder.failedToSearchForExpiredDomains"), "error");
       console.error("Search error:", error);
     } finally {
       setIsLoading(false);
@@ -159,9 +161,9 @@ function ExpiredDomainFinderContent() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.expiredDomainFinder.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.expiredDomainFinder.failedToCopyToClipboard"), "error");
     }
   };
 
@@ -185,7 +187,7 @@ ${searchResults.map(domain =>
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("Results downloaded", "success");
+    showToast(t("tools.expiredDomainFinder.resultsDownloaded"), "success");
   };
 
   const toggleDomainSelection = (domain: string) => {
@@ -276,23 +278,23 @@ ${searchResults.map(domain =>
       {/* Search Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Find Expired Domains</CardTitle>
+          <CardTitle>{t("tools.expiredDomainFinder.findExpiredDomains")}</CardTitle>
           <CardDescription>
-            Search for expired domains by keyword, category, or criteria
+            {t("tools.expiredDomainFinder.searchForExpiredDomainsByKeyword")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Label htmlFor="search-input" className="text-sm font-medium">
-                Search Keywords
+                {t("tools.expiredDomainFinder.searchKeywords")}
               </Label>
               <div className="relative mt-1">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   id="search-input"
                   type="text"
-                  placeholder="Enter keywords (e.g., tech, health, business)"
+                  placeholder={t("tools.expiredDomainFinder.enterKeywordsEGTechHealth")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && performSearch()}
@@ -342,7 +344,7 @@ ${searchResults.map(domain =>
             <div className="space-y-4 p-4 bg-muted rounded-lg">
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                 <div>
-                  <Label className="text-sm font-medium">Min Domain Age (years)</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.minDomainAgeYears")}</Label>
                   <Input
                     type="number"
                     placeholder="0"
@@ -351,7 +353,7 @@ ${searchResults.map(domain =>
                   />
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Max Domain Age (years)</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.maxDomainAgeYears")}</Label>
                   <Input
                     type="number"
                     placeholder="20"
@@ -360,7 +362,7 @@ ${searchResults.map(domain =>
                   />
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Min Backlinks</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.minBacklinks")}</Label>
                   <Input
                     type="number"
                     placeholder="100"
@@ -369,7 +371,7 @@ ${searchResults.map(domain =>
                   />
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Min Domain Authority</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.minDomainAuthority")}</Label>
                   <Input
                     type="number"
                     placeholder="20"
@@ -380,7 +382,7 @@ ${searchResults.map(domain =>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <Label className="text-sm font-medium">Max Days Expired</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.maxDaysExpired")}</Label>
                   <Input
                     type="number"
                     placeholder="90"
@@ -389,7 +391,7 @@ ${searchResults.map(domain =>
                   />
                 </div>
                 <div>
-                  <Label className="text-sm font-medium">Category</Label>
+                  <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.category")}</Label>
                   <Select
                     value={filters.categories[0] || "all"}
                     onValueChange={(value) => setFilters(prev => ({ 
@@ -398,10 +400,10 @@ ${searchResults.map(domain =>
                     }))}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="All categories" />
+                      <SelectValue placeholder={t("tools.expiredDomainFinder.allCategories")} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All categories</SelectItem>
+                      <SelectItem value="all">{t("tools.expiredDomainFinder.allCategories")}</SelectItem>
                       {categories.map((category) => (
                         <SelectItem key={category} value={category}>
                           {category}
@@ -436,14 +438,14 @@ ${searchResults.map(domain =>
                   size="sm"
                   onClick={selectAllDomains}
                 >
-                  Select All
+                  {t("tools.expiredDomainFinder.selectAll")}
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={clearSelection}
                 >
-                  Clear
+                  {t("tools.expiredDomainFinder.clear")}
                 </Button>
               </div>
               <div className="flex gap-2">
@@ -470,18 +472,18 @@ ${searchResults.map(domain =>
           {/* Sort Controls */}
           <div className="flex flex-col sm:flex-row sm:items-center gap-4">
             <div className="flex items-center gap-2">
-              <Label className="text-sm font-medium">Sort by:</Label>
+              <Label className="text-sm font-medium">{t("tools.expiredDomainFinder.sortBy")}</Label>
               <Select value={sortBy} onValueChange={setSortBy}>
                 <SelectTrigger className="w-40">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="expirationDate">Expiration Date</SelectItem>
-                  <SelectItem value="daysExpired">Days Expired</SelectItem>
-                  <SelectItem value="domainAge">Domain Age</SelectItem>
-                  <SelectItem value="backlinks">Backlinks</SelectItem>
-                  <SelectItem value="domainAuthority">Domain Authority</SelectItem>
-                  <SelectItem value="estimatedValue">Estimated Value</SelectItem>
+                  <SelectItem value="expirationDate">{t("tools.expiredDomainFinder.expirationDate")}</SelectItem>
+                  <SelectItem value="daysExpired">{t("tools.expiredDomainFinder.daysExpired")}</SelectItem>
+                  <SelectItem value="domainAge">{t("tools.expiredDomainFinder.domainAge")}</SelectItem>
+                  <SelectItem value="backlinks">{t("tools.expiredDomainFinder.backlinks")}</SelectItem>
+                  <SelectItem value="domainAuthority">{t("tools.expiredDomainFinder.domainAuthority")}</SelectItem>
+                  <SelectItem value="estimatedValue">{t("tools.expiredDomainFinder.estimatedValue")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -569,7 +571,7 @@ ${searchResults.map(domain =>
                     <div>
                       <div className="flex items-center gap-1 text-muted-foreground">
                         <TrendingUp className="h-3 w-3" />
-                        <span>Backlinks</span>
+                        <span>{t("tools.expiredDomainFinder.backlinks")}</span>
                       </div>
                       <p className="font-medium">{domain.backlinks.toLocaleString()}</p>
                     </div>

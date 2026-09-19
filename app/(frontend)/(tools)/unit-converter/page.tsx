@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -40,6 +41,7 @@ interface ConversionResult {
 }
 
 function UnitConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("1");
   const [category, setCategory] = useState("length");
@@ -147,7 +149,7 @@ function UnitConverterContent() {
   const convertUnits = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid number", "error");
+      showToast(t("tools.unitConverter.pleaseEnterAValidNumber"), "error");
       return;
     }
 
@@ -170,7 +172,7 @@ function UnitConverterContent() {
     };
 
     setResult(conversionResult);
-    showToast("Units converted successfully!", "success");
+    showToast(t("tools.unitConverter.unitsConvertedSuccessfully"), "success");
   };
 
   const convertTemperature = (value: number, from: string, to: string): number => {
@@ -293,11 +295,11 @@ function UnitConverterContent() {
       {/* Category Selection */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Conversion Category</CardTitle>
-          <CardDescription>Choose the type of measurement to convert</CardDescription>
+          <CardTitle>{t("tools.unitConverter.conversionCategory")}</CardTitle>
+          <CardDescription>{t("tools.unitConverter.chooseTheTypeOfMeasurementTo")}</CardDescription>
         </CardHeader>
         <CardContent>
-          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3" role="group" aria-label="Unit conversion category selection">
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-3" role="group" aria-label={t("tools.unitConverter.unitConversionCategorySelection")}>
             {Object.keys(conversionData).map((cat) => (
               <Button
                 key={cat}
@@ -323,13 +325,13 @@ function UnitConverterContent() {
             {category.charAt(0).toUpperCase() + category.slice(1)} Conversion
           </CardTitle>
           <CardDescription>
-            Enter a value and select units to convert
+            {t("tools.unitConverter.enterAValueAndSelectUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.unitConverter.value")} <span className="text-red-500" aria-label={t("tools.unitConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -340,14 +342,14 @@ function UnitConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter value to convert"
+                aria-label={t("tools.unitConverter.enterValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.unitConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
                 <SelectTrigger id="from-unit-select" aria-label={`Select source ${category} unit`}>
                   <SelectValue />
@@ -368,7 +370,7 @@ function UnitConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target units"
+                aria-label={t("tools.unitConverter.swapSourceAndTargetUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -376,7 +378,7 @@ function UnitConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.unitConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
                 <SelectTrigger id="to-unit-select" aria-label={`Select target ${category} unit`}>
                   <SelectValue />
@@ -406,7 +408,7 @@ function UnitConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.unitConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -448,7 +450,7 @@ function UnitConverterContent() {
             {/* Conversion Details */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Conversion Details</CardTitle>
+                <CardTitle className="text-lg">{t("tools.unitConverter.conversionDetails")}</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex justify-between">
@@ -484,9 +486,9 @@ function UnitConverterContent() {
       {/* Quick Access Categories */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Popular Conversions</CardTitle>
+          <CardTitle>{t("tools.unitConverter.popularConversions")}</CardTitle>
           <CardDescription>
-            Quick access to commonly used conversions
+            {t("tools.unitConverter.quickAccessToCommonlyUsedConversions")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -560,9 +562,9 @@ function UnitConverterContent() {
       {/* Conversion Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Unit Conversion Tips</CardTitle>
+          <CardTitle>{t("tools.unitConverter.unitConversionTips")}</CardTitle>
           <CardDescription>
-            Helpful information about unit conversions
+            {t("tools.unitConverter.helpfulInformationAboutUnitConversions")}
           </CardDescription>
         </CardHeader>
         <CardContent>

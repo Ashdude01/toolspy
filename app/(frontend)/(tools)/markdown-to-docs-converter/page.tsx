@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -75,6 +76,7 @@ const DOC_FORMATS = {
 };
 
 function MarkdownToDocsConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [markdownContent, setMarkdownContent] = useState("");
   const [selectedFormats, setSelectedFormats] = useState<string[]>(["html"]);
@@ -120,7 +122,7 @@ function MarkdownToDocsConverterContent() {
         };
         reader.readAsText(file);
       } else {
-        showToast("Please select a Markdown file (.md)", "error");
+        showToast(t("tools.markdownToDocsConverter.pleaseSelectAMarkdownFileMd"), "error");
       }
     }
   };
@@ -132,7 +134,7 @@ function MarkdownToDocsConverterContent() {
   const clearContent = () => {
     setMarkdownContent("");
     setConvertedDocs([]);
-    showToast("Content cleared", "info");
+    showToast(t("tools.markdownToDocsConverter.contentCleared"), "info");
   };
 
   const toggleFormat = (format: string) => {
@@ -145,12 +147,12 @@ function MarkdownToDocsConverterContent() {
 
   const convertToDocs = async () => {
     if (!markdownContent.trim()) {
-      showToast("Please enter Markdown content", "error");
+      showToast(t("tools.markdownToDocsConverter.pleaseEnterMarkdownContent"), "error");
       return;
     }
 
     if (selectedFormats.length === 0) {
-      showToast("Please select at least one format", "error");
+      showToast(t("tools.markdownToDocsConverter.pleaseSelectAtLeastOneFormat"), "error");
       return;
     }
 
@@ -575,7 +577,7 @@ function MarkdownToDocsConverterContent() {
 
   const downloadAllDocs = async () => {
     if (convertedDocs.length === 0) {
-      showToast("No documents available for download", "error");
+      showToast(t("tools.markdownToDocsConverter.noDocumentsAvailableForDownload"), "error");
       return;
     }
 
@@ -653,7 +655,7 @@ Generated on: ${new Date().toLocaleString()}
         maxFiles={1}
         fileTypes={['markdown']}
         className="mb-6 sm:mb-8"
-        title="Drag and drop your Markdown file here"
+        title={t("tools.markdownToDocsConverter.dragAndDropYourMarkdownFile")}
         description="Supports MD, MARKDOWN, MDOWN, MKDN, MKD, MDWN, MDTXT, MDTEXT files"
         showUrlImport={true}
         showPasteFromClipboard={false}
@@ -667,8 +669,8 @@ Generated on: ${new Date().toLocaleString()}
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Markdown Content</CardTitle>
-                  <CardDescription>Enter or paste your Markdown content</CardDescription>
+                  <CardTitle>{t("tools.markdownToDocsConverter.markdownContent")}</CardTitle>
+                  <CardDescription>{t("tools.markdownToDocsConverter.enterOrPasteYourMarkdownContent")}</CardDescription>
                 </div>
                 <Button variant="outline" onClick={clearContent} size="sm">
                   <Trash2 className="h-4 w-4 mr-2" />
@@ -678,7 +680,7 @@ Generated on: ${new Date().toLocaleString()}
             </CardHeader>
             <CardContent>
               <Textarea
-                placeholder="Enter your Markdown content here..."
+                placeholder={t("tools.markdownToDocsConverter.enterYourMarkdownContentHere")}
                 value={markdownContent}
                 onChange={(e) => setMarkdownContent(e.target.value)}
                 className="min-h-[400px] font-mono text-sm"
@@ -689,24 +691,24 @@ Generated on: ${new Date().toLocaleString()}
           {/* Document Settings */}
           <Card className="lg:col-span-1">
             <CardHeader>
-              <CardTitle>Document Settings</CardTitle>
-              <CardDescription>Configure document properties</CardDescription>
+              <CardTitle>{t("tools.markdownToDocsConverter.documentSettings")}</CardTitle>
+              <CardDescription>{t("tools.markdownToDocsConverter.configureDocumentProperties")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="doc-title">Document Title</Label>
+                <Label htmlFor="doc-title">{t("tools.markdownToDocsConverter.documentTitle")}</Label>
                 <Input
                   id="doc-title"
-                  placeholder="My Document"
+                  placeholder={t("tools.markdownToDocsConverter.myDocument")}
                   value={documentTitle}
                   onChange={(e) => setDocumentTitle(e.target.value)}
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="doc-author">Author</Label>
+                <Label htmlFor="doc-author">{t("tools.markdownToDocsConverter.author")}</Label>
                 <Input
                   id="doc-author"
-                  placeholder="Author Name"
+                  placeholder={t("tools.markdownToDocsConverter.authorName")}
                   value={documentAuthor}
                   onChange={(e) => setDocumentAuthor(e.target.value)}
                 />
@@ -716,7 +718,7 @@ Generated on: ${new Date().toLocaleString()}
                   checked={includeTableOfContents}
                   onCheckedChange={setIncludeTableOfContents}
                 />
-                <Label>Include Table of Contents</Label>
+                <Label>{t("tools.markdownToDocsConverter.includeTableOfContents")}</Label>
               </div>
             </CardContent>
           </Card>
@@ -726,8 +728,8 @@ Generated on: ${new Date().toLocaleString()}
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Advanced Settings</CardTitle>
-                  <CardDescription>Fine-tune document appearance</CardDescription>
+                  <CardTitle>{t("tools.markdownToDocsConverter.advancedSettings")}</CardTitle>
+                  <CardDescription>{t("tools.markdownToDocsConverter.fineTuneDocumentAppearance")}</CardDescription>
                 </div>
                 <Button
                   variant="secondary"
@@ -752,17 +754,17 @@ Generated on: ${new Date().toLocaleString()}
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="theme">Theme</Label>
+                <Label htmlFor="theme">{t("tools.markdownToDocsConverter.theme")}</Label>
                 <Select value={theme} onValueChange={setTheme}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="default">Default</SelectItem>
-                    <SelectItem value="github">GitHub</SelectItem>
-                    <SelectItem value="dark">Dark</SelectItem>
-                    <SelectItem value="minimal">Minimal</SelectItem>
-                    <SelectItem value="academic">Academic</SelectItem>
+                    <SelectItem value="default">{t("tools.markdownToDocsConverter.default")}</SelectItem>
+                    <SelectItem value="github">{t("tools.markdownToDocsConverter.github")}</SelectItem>
+                    <SelectItem value="dark">{t("tools.markdownToDocsConverter.dark")}</SelectItem>
+                    <SelectItem value="minimal">{t("tools.markdownToDocsConverter.minimal")}</SelectItem>
+                    <SelectItem value="academic">{t("tools.markdownToDocsConverter.academic")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -792,16 +794,16 @@ Generated on: ${new Date().toLocaleString()}
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="page-size">Page Size</Label>
+                <Label htmlFor="page-size">{t("tools.markdownToDocsConverter.pageSize")}</Label>
                 <Select value={pageSize} onValueChange={setPageSize}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="A4">A4</SelectItem>
-                    <SelectItem value="A3">A3</SelectItem>
-                    <SelectItem value="Letter">Letter</SelectItem>
-                    <SelectItem value="Legal">Legal</SelectItem>
+                    <SelectItem value="A4">{t("tools.markdownToDocsConverter.a4")}</SelectItem>
+                    <SelectItem value="A3">{t("tools.markdownToDocsConverter.a3")}</SelectItem>
+                    <SelectItem value="Letter">{t("tools.markdownToDocsConverter.letter")}</SelectItem>
+                    <SelectItem value="Legal">{t("tools.markdownToDocsConverter.legal")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -811,7 +813,7 @@ Generated on: ${new Date().toLocaleString()}
                   checked={enableSyntaxHighlighting}
                   onCheckedChange={setEnableSyntaxHighlighting}
                 />
-                <Label>Syntax Highlighting</Label>
+                <Label>{t("tools.markdownToDocsConverter.syntaxHighlighting")}</Label>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -819,7 +821,7 @@ Generated on: ${new Date().toLocaleString()}
                   checked={enableMathSupport}
                   onCheckedChange={setEnableMathSupport}
                 />
-                <Label>Math Support (LaTeX)</Label>
+                <Label>{t("tools.markdownToDocsConverter.mathSupportLatex")}</Label>
               </div>
 
               <div className="flex items-center space-x-2">
@@ -827,12 +829,12 @@ Generated on: ${new Date().toLocaleString()}
                   checked={includeHeader}
                   onCheckedChange={setIncludeHeader}
                 />
-                <Label>Include Header</Label>
+                <Label>{t("tools.markdownToDocsConverter.includeHeader")}</Label>
               </div>
 
               {includeHeader && (
                 <div className="space-y-2">
-                  <Label htmlFor="header-text">Header Text</Label>
+                  <Label htmlFor="header-text">{t("tools.markdownToDocsConverter.headerText")}</Label>
                   <Input
                     id="header-text"
                     placeholder="Header text"
@@ -847,12 +849,12 @@ Generated on: ${new Date().toLocaleString()}
                   checked={includeFooter}
                   onCheckedChange={setIncludeFooter}
                 />
-                <Label>Include Footer</Label>
+                <Label>{t("tools.markdownToDocsConverter.includeFooter")}</Label>
               </div>
 
               {includeFooter && (
                 <div className="space-y-2">
-                  <Label htmlFor="footer-text">Footer Text</Label>
+                  <Label htmlFor="footer-text">{t("tools.markdownToDocsConverter.footerText")}</Label>
                   <Input
                     id="footer-text"
                     placeholder="Footer text"
@@ -864,7 +866,7 @@ Generated on: ${new Date().toLocaleString()}
 
               {showAdvanced && (
                 <div className="space-y-2">
-                  <Label htmlFor="custom-css">Custom CSS</Label>
+                  <Label htmlFor="custom-css">{t("tools.markdownToDocsConverter.customCss")}</Label>
                   <Textarea
                     id="custom-css"
                     placeholder="/* Custom CSS styles */"
@@ -881,8 +883,8 @@ Generated on: ${new Date().toLocaleString()}
         {/* Format Selection */}
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Output Formats</CardTitle>
-            <CardDescription>Select formats to convert your Markdown to</CardDescription>
+            <CardTitle>{t("tools.markdownToDocsConverter.outputFormats")}</CardTitle>
+            <CardDescription>{t("tools.markdownToDocsConverter.selectFormatsToConvertYourMarkdown")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -932,7 +934,7 @@ Generated on: ${new Date().toLocaleString()}
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Converted Documents</CardTitle>
+                <CardTitle>{t("tools.markdownToDocsConverter.convertedDocuments")}</CardTitle>
                 <CardDescription>
                   {convertedDocs.length} document(s) converted successfully
                 </CardDescription>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -41,6 +42,7 @@ interface ConversionResult {
 }
 
 function JfifToPdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>([]);
@@ -64,7 +66,7 @@ function JfifToPdfContent() {
     );
     
     if (jfifFiles.length === 0) {
-      showToast("Please select JFIF files only", "error");
+      showToast(t("tools.jfifToPdf.pleaseSelectJfifFilesOnly"), "error");
       return;
     }
     
@@ -86,12 +88,12 @@ function JfifToPdfContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t("tools.jfifToPdf.allFilesCleared"), "info");
   };
 
   const convertToPdf = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select JFIF files to convert", "error");
+      showToast(t("tools.jfifToPdf.pleaseSelectJfifFilesToConvert"), "error");
       return;
     }
 
@@ -233,7 +235,7 @@ function JfifToPdfContent() {
   const downloadSingle = (result: ConversionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("PDF downloaded", "success");
+      showToast(t("tools.jfifToPdf.pdfDownloaded"), "success");
     }
   };
 
@@ -289,7 +291,7 @@ function JfifToPdfContent() {
                       Selected JFIF Files ({selectedFiles.length})
                     </CardTitle>
                     <CardDescription>
-                      Files ready for PDF conversion
+                      {t("tools.jfifToPdf.filesReadyForPdfConversion")}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -320,7 +322,7 @@ function JfifToPdfContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => removeFile(index)}
-                        title="Remove file"
+                        title={t("tools.jfifToPdf.removeFile")}
                       >
                         <Trash2 className="h-3 w-3" />
                       </Button>
@@ -338,56 +340,56 @@ function JfifToPdfContent() {
                   PDF Settings
                 </CardTitle>
                 <CardDescription>
-                  Customize PDF output
+                  {t("tools.jfifToPdf.customizePdfOutput")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Page Size</Label>
+                    <Label>{t("tools.jfifToPdf.pageSize")}</Label>
                     <Select value={pageSize} onValueChange={setPageSize}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="A4">A4 (210×297 mm)</SelectItem>
-                        <SelectItem value="Letter">Letter (8.5×11 in)</SelectItem>
-                        <SelectItem value="Legal">Legal (8.5×14 in)</SelectItem>
+                        <SelectItem value="A4">{t("tools.jfifToPdf.a4210297Mm")}</SelectItem>
+                        <SelectItem value="Letter">{t("tools.jfifToPdf.letter8511In")}</SelectItem>
+                        <SelectItem value="Legal">{t("tools.jfifToPdf.legal8514In")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Orientation</Label>
+                    <Label>{t("tools.jfifToPdf.orientation")}</Label>
                     <Select value={pageOrientation} onValueChange={setPageOrientation}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="auto">Auto (Based on image)</SelectItem>
-                        <SelectItem value="portrait">Portrait</SelectItem>
-                        <SelectItem value="landscape">Landscape</SelectItem>
+                        <SelectItem value="auto">{t("tools.jfifToPdf.autoBasedOnImage")}</SelectItem>
+                        <SelectItem value="portrait">{t("tools.jfifToPdf.portrait")}</SelectItem>
+                        <SelectItem value="landscape">{t("tools.jfifToPdf.landscape")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Image Position</Label>
+                    <Label>{t("tools.jfifToPdf.imagePosition")}</Label>
                     <Select value={imagePosition} onValueChange={setImagePosition}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="center">Center</SelectItem>
-                        <SelectItem value="top-left">Top Left</SelectItem>
-                        <SelectItem value="top-center">Top Center</SelectItem>
-                        <SelectItem value="top-right">Top Right</SelectItem>
+                        <SelectItem value="center">{t("tools.jfifToPdf.center")}</SelectItem>
+                        <SelectItem value="top-left">{t("tools.jfifToPdf.topLeft")}</SelectItem>
+                        <SelectItem value="top-center">{t("tools.jfifToPdf.topCenter")}</SelectItem>
+                        <SelectItem value="top-right">{t("tools.jfifToPdf.topRight")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Margin (mm)</Label>
+                    <Label>{t("tools.jfifToPdf.marginMm")}</Label>
                     <Input
                       type="number"
                       value={margin}
@@ -408,8 +410,8 @@ function JfifToPdfContent() {
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Conversion Settings</CardTitle>
-            <CardDescription>Fine-tune conversion parameters</CardDescription>
+            <CardTitle>{t("tools.jfifToPdf.conversionSettings")}</CardTitle>
+            <CardDescription>{t("tools.jfifToPdf.fineTuneConversionParameters")}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -501,7 +503,7 @@ function JfifToPdfContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isConverting}
-        title="Converting JFIF to PDF"
+        title={t("tools.jfifToPdf.convertingJfifToPdf")}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.file}

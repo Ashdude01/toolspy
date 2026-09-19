@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -35,6 +36,7 @@ interface WritingResult {
 }
 
 const AiWritingToolsContent = () => {
+  const t = useT();
   const [inputText, setInputText] = useState("");
   const [activeTool, setActiveTool] = useState<'paraphraser' | 'summarizer' | 'humanizer' | 'detector'>('paraphraser');
   const [result, setResult] = useState<WritingResult | null>(null);
@@ -44,7 +46,7 @@ const AiWritingToolsContent = () => {
 
   const processText = async () => {
     if (!inputText.trim()) {
-      showToast("Please enter some text to process", "error");
+      showToast(t("tools.aiWritingTools.pleaseEnterSomeTextToProcess"), "error");
       return;
     }
 
@@ -78,22 +80,22 @@ const AiWritingToolsContent = () => {
     });
     
     setIsProcessing(false);
-    showToast("Text processed successfully!", "success");
+    showToast(t("tools.aiWritingTools.textProcessedSuccessfully"), "success");
   };
 
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.aiWritingTools.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.aiWritingTools.failedToCopyToClipboard"), "error");
     }
   };
 
   const clearAll = () => {
     setInputText("");
     setResult(null);
-    showToast("All data cleared", "info");
+    showToast(t("tools.aiWritingTools.allDataCleared"), "info");
   };
 
   const tools = [
@@ -148,9 +150,9 @@ const AiWritingToolsContent = () => {
       {/* Tool Selection */}
       <Card>
         <CardHeader>
-          <CardTitle>Choose Writing Tool</CardTitle>
+          <CardTitle>{t("tools.aiWritingTools.chooseWritingTool")}</CardTitle>
           <CardDescription>
-            Select the AI writing tool you want to use
+            {t("tools.aiWritingTools.selectTheAiWritingToolYou")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -182,14 +184,14 @@ const AiWritingToolsContent = () => {
       {/* Input Section */}
       <Card>
         <CardHeader>
-          <CardTitle>Input Text</CardTitle>
+          <CardTitle>{t("tools.aiWritingTools.inputText")}</CardTitle>
           <CardDescription>
             Enter the text you want to process with {tools.find(t => t.id === activeTool)?.name}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="input-text">Text to Process</Label>
+            <Label htmlFor="input-text">{t("tools.aiWritingTools.textToProcess")}</Label>
             <Textarea
               id="input-text"
               value={inputText}
@@ -226,21 +228,21 @@ const AiWritingToolsContent = () => {
       {result && (
         <Card>
           <CardHeader>
-            <CardTitle>Result</CardTitle>
+            <CardTitle>{t("tools.aiWritingTools.result")}</CardTitle>
             <CardDescription>
               Processed with {tools.find(t => t.id === result.tool)?.name}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label>Original Text</Label>
+              <Label>{t("tools.aiWritingTools.originalText")}</Label>
               <div className="p-3 bg-gray-50 rounded border text-sm">
                 {result.original}
               </div>
             </div>
             
             <div>
-              <Label>Processed Text</Label>
+              <Label>{t("tools.aiWritingTools.processedText")}</Label>
               <div className="p-3 bg-blue-50 rounded border text-sm">
                 {result.processed}
               </div>

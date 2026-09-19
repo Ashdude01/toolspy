@@ -13,12 +13,14 @@ import {
   Tool,
 } from "@/lib/tools-data";
 import { useSearchParams } from "next/navigation";
+import { useT } from "@/lib/i18n/use-t";
 
 interface CategoryToolsClientProps {
   category: ToolCategory;
 }
 
 export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
+  const t = useT();
   // Ensure category exists before proceeding
   if (!toolCategories[category]) {
     return (
@@ -32,6 +34,7 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
   }
 
   const categoryInfo = toolCategories[category];
+  const categoryName = t(`categories.${category}` as "categories.image-tools");
   const allCategoryTools = getToolsByCategory()[category] || [];
 
   // Use client-side URL parsing for search
@@ -71,7 +74,7 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
         {/* Category Header */}
         <div className="text-center mb-10">
           <div className="flex flex-col items-center justify-center mb-6">
-            <h1 className="text-4xl font-bold mb-2">{categoryInfo.name}</h1>
+            <h1 className="text-4xl font-bold mb-2">{categoryName}</h1>
             <p className="text-xl text-muted-foreground">
               {categoryInfo.description}
             </p>

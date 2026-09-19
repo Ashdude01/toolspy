@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import {
   useState,
   useCallback,
@@ -285,10 +286,11 @@ function EnhancementSettingsForm({
   onPresetSelect: (preset: PresetDefinition) => void;
   enhancementModeHints: Record<EnhancementSettings["enhancement"], string>;
 }) {
+  const t = useT();
   return (
     <div className="space-y-6">
       <div>
-        <Label className="text-sm font-medium mb-2 block">Quick presets</Label>
+        <Label className="text-sm font-medium mb-2 block">{t("tools.aiImageEnhancer.quickPresets")}</Label>
         
         <div
           className="grid grid-cols-1 sm:grid-cols-2 gap-2 max-h-60 overflow-y-auto pr-1"
@@ -323,7 +325,7 @@ function EnhancementSettingsForm({
       </div>
 
       <div>
-        <Label htmlFor="enhancement">Enhancement mode</Label>
+        <Label htmlFor="enhancement">{t("tools.aiImageEnhancer.enhancementMode")}</Label>
         
         <Select
           value={settings.enhancement}
@@ -335,12 +337,12 @@ function EnhancementSettingsForm({
             <SelectValue />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="auto">Smart Auto - general purpose</SelectItem>
-            <SelectItem value="upscale">Super resolution (upscale)</SelectItem>
-            <SelectItem value="unblur">Sharpen &amp; deblur</SelectItem>
-            <SelectItem value="restore">Old / faded photo restore</SelectItem>
-            <SelectItem value="colorize">Colorize black &amp; white</SelectItem>
-            <SelectItem value="denoise">Reduce noise &amp; grain</SelectItem>
+            <SelectItem value="auto">{t("tools.aiImageEnhancer.smartAutoGeneralPurpose")}</SelectItem>
+            <SelectItem value="upscale">{t("tools.aiImageEnhancer.superResolutionUpscale")}</SelectItem>
+            <SelectItem value="unblur">{t("tools.aiImageEnhancer.sharpenAmpDeblur")}</SelectItem>
+            <SelectItem value="restore">{t("tools.aiImageEnhancer.oldFadedPhotoRestore")}</SelectItem>
+            <SelectItem value="colorize">{t("tools.aiImageEnhancer.colorizeBlackAmpWhite")}</SelectItem>
+            <SelectItem value="denoise">{t("tools.aiImageEnhancer.reduceNoiseAmpGrain")}</SelectItem>
           </SelectContent>
         </Select>
         <p className="text-xs text-muted-foreground mt-2">
@@ -371,7 +373,7 @@ function EnhancementSettingsForm({
           )}
 
           <div>
-            <Label htmlFor="quality-boost">Exposure / brightness lift</Label>
+            <Label htmlFor="quality-boost">{t("tools.aiImageEnhancer.exposureBrightnessLift")}</Label>
             
             <Slider
               id="quality-boost"
@@ -387,7 +389,7 @@ function EnhancementSettingsForm({
           </div>
 
           <div>
-            <Label htmlFor="color-enhancement">Vibrance &amp; saturation</Label>
+            <Label htmlFor="color-enhancement">{t("tools.aiImageEnhancer.vibranceAmpSaturation")}</Label>
            
             <Slider
               id="color-enhancement"
@@ -403,7 +405,7 @@ function EnhancementSettingsForm({
           </div>
 
           <div>
-            <Label htmlFor="contrast-boost">Contrast &amp; punch</Label>
+            <Label htmlFor="contrast-boost">{t("tools.aiImageEnhancer.contrastAmpPunch")}</Label>
             
             <Slider
               id="contrast-boost"
@@ -419,7 +421,7 @@ function EnhancementSettingsForm({
           </div>
 
           <div>
-            <Label htmlFor="sharpen-amount">Clarity &amp; sharpness</Label>
+            <Label htmlFor="sharpen-amount">{t("tools.aiImageEnhancer.clarityAmpSharpness")}</Label>
             
             <Slider
               id="sharpen-amount"
@@ -435,7 +437,7 @@ function EnhancementSettingsForm({
           </div>
 
           <div>
-            <Label htmlFor="ai-strength">Enhancement strength</Label>
+            <Label htmlFor="ai-strength">{t("tools.aiImageEnhancer.enhancementStrength")}</Label>
             
             <Slider
               id="ai-strength"
@@ -463,7 +465,7 @@ function EnhancementSettingsForm({
         />
         <div>
           <Label htmlFor="preserve-details" className="cursor-pointer">
-            Preserve fine detail (reduce halos)
+            {t("tools.aiImageEnhancer.preserveFineDetailReduceHalos")}
           </Label>
           <p className="text-xs text-muted-foreground mt-1">
             Keeps edges and texture cleaner when pushing sharpness or contrast.
@@ -475,10 +477,11 @@ function EnhancementSettingsForm({
 }
 
 function PostDownloadToolsCard() {
+  const t = useT();
   return (
     <Card className="border-emerald-200/80 dark:border-emerald-900/80 bg-muted/15">
       <CardHeader>
-        <CardTitle className="text-lg">Compress, convert &amp; resize</CardTitle>
+        <CardTitle className="text-lg">{t("tools.aiImageEnhancer.compressConvertAmpResize")}</CardTitle>
         <CardDescription>
           After you export, use these tools on your saved images - each opens a dedicated page on Toolspy.
         </CardDescription>
@@ -528,6 +531,7 @@ function PostDownloadToolsCard() {
 }
 
 function AiImageEnhancerContent() {
+  const t = useT();
   const [uploadedImage, setUploadedImage] = useState<string | null>(null);
   const [result, setResult] = useState<EnhancementResult | null>(null);
   const [comparePosition, setComparePosition] = useState(50);
@@ -651,7 +655,7 @@ function AiImageEnhancerContent() {
       } catch {
         if (!cancelled) {
           setResult(null);
-          showToast("Could not preview enhancement. Try another image.", "error");
+          showToast(t("tools.aiImageEnhancer.couldNotPreviewEnhancementTryAnother"), "error");
         }
       }
     })();
@@ -682,7 +686,7 @@ function AiImageEnhancerContent() {
       } catch {
         if (!cancelled) {
           setBatchEnhanced({});
-          showToast("Could not update batch previews.", "error");
+          showToast(t("tools.aiImageEnhancer.couldNotUpdateBatchPreviews"), "error");
         }
       }
     })();
@@ -696,12 +700,12 @@ function AiImageEnhancerContent() {
     const file = files[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      showToast("Please upload an image file", "error");
+      showToast(t("tools.aiImageEnhancer.pleaseUploadAnImageFile"), "error");
       return;
     }
 
     if (file.size > 50 * 1024 * 1024) { // 50MB limit
-      showToast("File size too large. Please upload an image under 50MB.", "error");
+      showToast(t("tools.aiImageEnhancer.fileSizeTooLargePleaseUpload"), "error");
       return;
     }
 
@@ -709,7 +713,7 @@ function AiImageEnhancerContent() {
     const reader = new FileReader();
     reader.onerror = () => {
       setImageLoading(false);
-      showToast("Failed to read image file", "error");
+      showToast(t("tools.aiImageEnhancer.failedToReadImageFile"), "error");
     };
     reader.onload = async (e) => {
       try {
@@ -717,10 +721,10 @@ function AiImageEnhancerContent() {
         setUploadedImage(imageData);
         setComparePosition(50);
         setImageLoading(false);
-        showToast("Image uploaded. Adjust settings - preview updates live.", "success");
+        showToast(t("tools.aiImageEnhancer.imageUploadedAdjustSettingsPreviewUpdates"), "success");
       } catch (error) {
         setImageLoading(false);
-        showToast("Failed to process image", "error");
+        showToast(t("tools.aiImageEnhancer.failedToProcessImage"), "error");
       }
     };
     reader.readAsDataURL(file);
@@ -729,7 +733,7 @@ function AiImageEnhancerContent() {
   const handleBatchUpload = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) {
-      showToast("Please upload image files", "error");
+      showToast(t("tools.aiImageEnhancer.pleaseUploadImageFiles"), "error");
       return;
     }
 
@@ -753,14 +757,14 @@ function AiImageEnhancerContent() {
         "success"
       );
     } catch {
-      showToast("Failed to read one or more files.", "error");
+      showToast(t("tools.aiImageEnhancer.failedToReadOneOrMore"), "error");
     }
   };
 
   const handleAddMoreBatchImages = async (files: File[]) => {
     const imageFiles = files.filter((file) => file.type.startsWith("image/"));
     if (imageFiles.length === 0) {
-      showToast("Please choose image files.", "error");
+      showToast(t("tools.aiImageEnhancer.pleaseChooseImageFiles"), "error");
       return;
     }
     try {
@@ -781,7 +785,7 @@ function AiImageEnhancerContent() {
         "success"
       );
     } catch {
-      showToast("Failed to read added files.", "error");
+      showToast(t("tools.aiImageEnhancer.failedToReadAddedFiles"), "error");
     }
   };
 
@@ -801,18 +805,18 @@ function AiImageEnhancerContent() {
 
   const downloadBatchZip = async (scope: "all" | "selected") => {
     if (scope === "selected" && batchSelectedIds.length === 0) {
-      showToast("Select one or more thumbnails first.", "error");
+      showToast(t("tools.aiImageEnhancer.selectOneOrMoreThumbnailsFirst"), "error");
       return;
     }
     const ids =
       scope === "selected" ? batchSelectedIds : batchSources.map((s) => s.id);
     const ready = ids.filter((id) => batchEnhanced[id]);
     if (ready.length === 0) {
-      showToast("No enhanced previews ready yet. Wait a moment or adjust settings.", "error");
+      showToast(t("tools.aiImageEnhancer.noEnhancedPreviewsReadyYetWait"), "error");
       return;
     }
     try {
-      showToast("Building ZIP…", "info");
+      showToast(t("tools.aiImageEnhancer.buildingZip"), "info");
       const zip = new JSZip();
       const folder = zip.folder("enhanced");
       ready.forEach((id, index) => {
@@ -832,7 +836,7 @@ function AiImageEnhancerContent() {
       URL.revokeObjectURL(url);
       showToast(`Downloaded ${ready.length} file(s) in ZIP.`, "success");
     } catch {
-      showToast("Could not create ZIP.", "error");
+      showToast(t("tools.aiImageEnhancer.couldNotCreateZip"), "error");
     }
   };
 
@@ -845,7 +849,7 @@ function AiImageEnhancerContent() {
     a.href = data;
     a.download = `${safeDownloadFilename(base)}-enhanced.png`;
     a.click();
-    showToast("Download started.", "success");
+    showToast(t("tools.aiImageEnhancer.downloadStarted"), "success");
   };
 
   const downloadResult = async (format: 'original' | 'enhanced' | 'comparison') => {
@@ -1010,7 +1014,7 @@ function AiImageEnhancerContent() {
               Upload Images for Enhancement
             </CardTitle>
             <CardDescription>
-              Upload JPG, PNG, or WebP images up to 50MB. Choose single image or batch processing.
+              {t("tools.aiImageEnhancer.uploadJpgPngOrWebpImages")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -1082,13 +1086,13 @@ function AiImageEnhancerContent() {
                 <Layers size={48} className="mx-auto text-gray-400 mb-4" />
                 <h3 className="text-lg font-semibold mb-2">Batch Upload</h3>
                 <p className="text-gray-600 mb-4">Upload multiple images for bulk enhancement</p>
-                <Button variant="outline">Choose Images</Button>
+                <Button variant="outline">{t("tools.aiImageEnhancer.chooseImages")}</Button>
               </div>
             </div>
 
             {/* Examples */}
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-3 block">Perfect for:</Label>
+              <Label className="text-sm font-medium mb-3 block">{t("tools.aiImageEnhancer.perfectFor")}</Label>
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 {examples.map((example, index) => (
                   <div key={index} className="text-center p-3 border rounded-lg">
@@ -1114,7 +1118,7 @@ function AiImageEnhancerContent() {
                   Batch · {batchSources.length} images
                 </span>
                 <Button type="button" onClick={exitBatchMode} variant="outline" size="sm">
-                  Exit batch
+                  {t("tools.aiImageEnhancer.exitBatch")}
                 </Button>
               </CardTitle>
               <CardDescription>
@@ -1132,10 +1136,10 @@ function AiImageEnhancerContent() {
               />
               <div className="flex flex-wrap gap-2 pt-2 border-t">
                 <Button type="button" variant="outline" size="sm" onClick={selectAllBatch}>
-                  Select all
+                  {t("tools.aiImageEnhancer.selectAll")}
                 </Button>
                 <Button type="button" variant="outline" size="sm" onClick={clearBatchSelection}>
-                  Clear selection
+                  {t("tools.aiImageEnhancer.clearSelection")}
                 </Button>
                 <span className="text-xs text-muted-foreground self-center">
                   {batchSelectedIds.length} selected
@@ -1159,7 +1163,7 @@ function AiImageEnhancerContent() {
                     Enhanced previews
                   </CardTitle>
                   <CardDescription className="mt-1.5">
-                    Thumbnails only - no comparison slider. Use checkboxes for ZIP selection.
+                    {t("tools.aiImageEnhancer.thumbnailsOnlyNoComparisonSliderUse")}
                   </CardDescription>
                 </div>
                 <div className="flex flex-col gap-2 shrink-0">
@@ -1250,7 +1254,7 @@ function AiImageEnhancerContent() {
               Download exports (batch)
             </CardTitle>
             <CardDescription>
-              All options stay visible here - no scrolling past settings to find them.
+              {t("tools.aiImageEnhancer.allOptionsStayVisibleHereNo")}
             </CardDescription>
           </CardHeader>
           <CardContent className="flex flex-col sm:flex-row flex-wrap gap-3">
@@ -1285,7 +1289,7 @@ function AiImageEnhancerContent() {
                 Enhancement settings
               </CardTitle>
               <CardDescription>
-                Changes apply instantly to the preview - no extra button needed.
+                {t("tools.aiImageEnhancer.changesApplyInstantlyToThePreview")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6 overflow-y-auto flex-1 min-h-0 pr-1">

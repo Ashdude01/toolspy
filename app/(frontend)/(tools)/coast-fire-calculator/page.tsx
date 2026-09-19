@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import * as React from "react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -134,6 +135,7 @@ function Stat({ label, value, sub, tone }: { label: string; value: string; sub?:
 }
 
 function CoastCalculator() {
+  const t = useT();
   const [region, setRegion] = React.useState<Region>("us");
   const [inp, setInp] = React.useState<CoastInputs>(DEFAULTS.us);
   const [showTable, setShowTable] = React.useState(false);
@@ -220,9 +222,9 @@ function CoastCalculator() {
       <CardHeader className="border-b border-border bg-muted/30">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <CardTitle className="text-2xl">Coast FIRE Calculator</CardTitle>
+            <CardTitle className="text-2xl">{t("tools.coastFireCalculator.coastFireCalculator")}</CardTitle>
             <CardDescription>
-              All results are in today&apos;s money - inflation is already accounted for.
+              {t("tools.coastFireCalculator.allResultsAreInTodayApos")}
             </CardDescription>
           </div>
           <div className="flex flex-wrap items-center gap-2">
@@ -467,13 +469,14 @@ function CoastCalculator() {
 }
 
 export default function CoastFireCalculatorPage() {
+  const t = useT();
   return (
     <div className="container mx-auto px-4 py-6 sm:py-8">
       {/* Hero */}
       <div className="mb-6 sm:mb-8 text-center">
 
         <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold mb-4">
-          Coast FIRE Calculator
+          {t("tools.coastFireCalculator.coastFireCalculator")}
         </h1>
         <p className="text-base sm:text-lg text-muted-foreground max-w-5xl mx-auto">
           Find the number that makes saving for retirement <em>optional</em> - when compound growth alone will finish

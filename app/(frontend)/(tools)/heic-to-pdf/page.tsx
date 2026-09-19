@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef } from "react";
 import {
   Card,
@@ -45,6 +46,7 @@ interface ProcessedFile {
 }
 
 function HeicToPdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [files, setFiles] = useState<ProcessedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -99,7 +101,7 @@ function HeicToPdfContent() {
 
   const removeFile = (id: string) => {
     setFiles(prev => prev.filter(file => file.id !== id));
-    showToast("File removed", "success");
+    showToast(t("tools.heicToPdf.fileRemoved"), "success");
   };
 
   const clearAllFiles = () => {
@@ -109,12 +111,12 @@ function HeicToPdfContent() {
       }
     });
     setFiles([]);
-    showToast("All files cleared", "success");
+    showToast(t("tools.heicToPdf.allFilesCleared"), "success");
   };
 
   const convertToPdf = async () => {
     if (files.length === 0) {
-      showToast("Please select HEIC files first", "error");
+      showToast(t("tools.heicToPdf.pleaseSelectHeicFilesFirst"), "error");
       return;
     }
 
@@ -234,11 +236,11 @@ function HeicToPdfContent() {
       }
       
       setProgress(100);
-      showToast("HEIC to PDF conversion completed!", "success");
+      showToast(t("tools.heicToPdf.heicToPdfConversionCompleted"), "success");
       
     } catch (error) {
       console.error('Conversion error:', error);
-      showToast("Conversion failed. Please try again.", "error");
+      showToast(t("tools.heicToPdf.conversionFailedPleaseTryAgain"), "error");
     } finally {
       setIsProcessing(false);
     }
@@ -256,7 +258,7 @@ function HeicToPdfContent() {
     const completedFiles = files.filter(file => file.status === 'completed' && file.pdfUrl);
     
     if (completedFiles.length === 0) {
-      showToast("No converted files to download", "error");
+      showToast(t("tools.heicToPdf.noConvertedFilesToDownload"), "error");
       return;
     }
 
@@ -287,7 +289,7 @@ function HeicToPdfContent() {
         document.body.removeChild(link);
         URL.revokeObjectURL(url);
         
-        showToast("All files downloaded as ZIP", "success");
+        showToast(t("tools.heicToPdf.allFilesDownloadedAsZip"), "success");
       });
     });
   };
@@ -352,7 +354,7 @@ function HeicToPdfContent() {
                       Selected HEIC Files ({files.length})
                     </CardTitle>
                     <CardDescription>
-                      Files ready for PDF conversion
+                      {t("tools.heicToPdf.filesReadyForPdfConversion")}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm" disabled={isProcessing}>
@@ -388,7 +390,7 @@ function HeicToPdfContent() {
                             variant="outline"
                             size="sm"
                             onClick={() => downloadFile(file)}
-                            title="Download PDF"
+                            title={t("tools.heicToPdf.downloadPdf")}
                           >
                             <Download className="h-3 w-3" />
                           </Button>
@@ -398,7 +400,7 @@ function HeicToPdfContent() {
                             variant="outline"
                             size="sm"
                             onClick={() => removeFile(file.id)}
-                            title="Remove file"
+                            title={t("tools.heicToPdf.removeFile")}
                           >
                             <X className="h-3 w-3" />
                           </Button>
@@ -418,64 +420,64 @@ function HeicToPdfContent() {
                   PDF Settings
                 </CardTitle>
                 <CardDescription>
-                  Customize PDF output
+                  {t("tools.heicToPdf.customizePdfOutput")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Page Size</Label>
+                    <Label>{t("tools.heicToPdf.pageSize")}</Label>
                     <Select value={pageSize} onValueChange={setPageSize} disabled={isProcessing}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="a4">A4 (210 × 297 mm)</SelectItem>
-                        <SelectItem value="letter">Letter (8.5 × 11 in)</SelectItem>
-                        <SelectItem value="legal">Legal (8.5 × 14 in)</SelectItem>
-                        <SelectItem value="a3">A3 (297 × 420 mm)</SelectItem>
+                        <SelectItem value="a4">{t("tools.heicToPdf.a4210297Mm")}</SelectItem>
+                        <SelectItem value="letter">{t("tools.heicToPdf.letter8511In")}</SelectItem>
+                        <SelectItem value="legal">{t("tools.heicToPdf.legal8514In")}</SelectItem>
+                        <SelectItem value="a3">{t("tools.heicToPdf.a3297420Mm")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Orientation</Label>
+                    <Label>{t("tools.heicToPdf.orientation")}</Label>
                     <Select value={orientation} onValueChange={setOrientation} disabled={isProcessing}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="auto">Auto (based on image)</SelectItem>
-                        <SelectItem value="portrait">Portrait</SelectItem>
-                        <SelectItem value="landscape">Landscape</SelectItem>
+                        <SelectItem value="auto">{t("tools.heicToPdf.autoBasedOnImage")}</SelectItem>
+                        <SelectItem value="portrait">{t("tools.heicToPdf.portrait")}</SelectItem>
+                        <SelectItem value="landscape">{t("tools.heicToPdf.landscape")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Image Quality</Label>
+                    <Label>{t("tools.heicToPdf.imageQuality")}</Label>
                     <Select value={quality} onValueChange={setQuality} disabled={isProcessing}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="high">High (90%)</SelectItem>
-                        <SelectItem value="medium">Medium (70%)</SelectItem>
-                        <SelectItem value="low">Low (50%)</SelectItem>
+                        <SelectItem value="high">{t("tools.heicToPdf.high90")}</SelectItem>
+                        <SelectItem value="medium">{t("tools.heicToPdf.medium70")}</SelectItem>
+                        <SelectItem value="low">{t("tools.heicToPdf.low50")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Page Margins</Label>
+                    <Label>{t("tools.heicToPdf.pageMargins")}</Label>
                     <Select value={margin} onValueChange={setMargin} disabled={isProcessing}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="small">Small (10mm)</SelectItem>
-                        <SelectItem value="medium">Medium (20mm)</SelectItem>
-                        <SelectItem value="large">Large (30mm)</SelectItem>
+                        <SelectItem value="small">{t("tools.heicToPdf.small10mm")}</SelectItem>
+                        <SelectItem value="medium">{t("tools.heicToPdf.medium20mm")}</SelectItem>
+                        <SelectItem value="large">{t("tools.heicToPdf.large30mm")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -490,8 +492,8 @@ function HeicToPdfContent() {
       {files.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Conversion Settings</CardTitle>
-            <CardDescription>Fine-tune conversion parameters</CardDescription>
+            <CardTitle>{t("tools.heicToPdf.conversionSettings")}</CardTitle>
+            <CardDescription>{t("tools.heicToPdf.fineTuneConversionParameters")}</CardDescription>
           </CardHeader>
           <CardContent>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -517,7 +519,7 @@ function HeicToPdfContent() {
                   {completedCount === 1 ? (
                     <>
                       <Download className="h-5 w-5 mr-2" />
-                      Download PDF
+                      {t("tools.heicToPdf.downloadPdf")}
                     </>
                   ) : (
                     <>
@@ -535,7 +537,7 @@ function HeicToPdfContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isProcessing}
-        title="Converting HEIC to PDF"
+        title={t("tools.heicToPdf.convertingHeicToPdf")}
         current={Math.round(progress)}
         total={100}
         currentFile=""

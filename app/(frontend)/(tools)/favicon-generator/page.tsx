@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -73,6 +74,7 @@ const FAVICON_SIZES = [
 ];
 
 function FaviconGeneratorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [siteName, setSiteName] = useState("");
@@ -107,12 +109,12 @@ function FaviconGeneratorContent() {
   const clearFile = () => {
     setSelectedFile(null);
     setGeneratedFavicons([]);
-    showToast("File cleared", "info");
+    showToast(t("tools.faviconGenerator.fileCleared"), "info");
   };
 
   const generateFavicons = async () => {
     if (!selectedFile) {
-      showToast("Please select an image file", "error");
+      showToast(t("tools.faviconGenerator.pleaseSelectAnImageFile"), "error");
       return;
     }
 
@@ -189,7 +191,7 @@ function FaviconGeneratorContent() {
 
   const downloadAllFavicons = async () => {
     if (generatedFavicons.length === 0) {
-      showToast("No favicons available for download", "error");
+      showToast(t("tools.faviconGenerator.noFaviconsAvailableForDownload"), "error");
       return;
     }
 
@@ -292,8 +294,8 @@ function FaviconGeneratorContent() {
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
-                    <CardTitle>Selected Image</CardTitle>
-                    <CardDescription>Source image for favicon generation</CardDescription>
+                    <CardTitle>{t("tools.faviconGenerator.selectedImage")}</CardTitle>
+                    <CardDescription>{t("tools.faviconGenerator.sourceImageForFaviconGeneration")}</CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearFile} size="sm">
                     <Trash2 className="h-4 w-4 mr-2" />
@@ -312,24 +314,24 @@ function FaviconGeneratorContent() {
             {/* Website Information */}
             <Card className="lg:col-span-1">
               <CardHeader>
-                <CardTitle>Website Information</CardTitle>
-                <CardDescription>Basic website details</CardDescription>
+                <CardTitle>{t("tools.faviconGenerator.websiteInformation")}</CardTitle>
+                <CardDescription>{t("tools.faviconGenerator.basicWebsiteDetails")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="site-name">Site Name</Label>
+                  <Label htmlFor="site-name">{t("tools.faviconGenerator.siteName")}</Label>
                   <Input
                     id="site-name"
-                    placeholder="My Website"
+                    placeholder={t("tools.faviconGenerator.myWebsite")}
                     value={siteName}
                     onChange={(e) => setSiteName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="site-description">Description</Label>
+                  <Label htmlFor="site-description">{t("tools.faviconGenerator.description")}</Label>
                   <Input
                     id="site-description"
-                    placeholder="Website description"
+                    placeholder={t("tools.faviconGenerator.websiteDescription")}
                     value={siteDescription}
                     onChange={(e) => setSiteDescription(e.target.value)}
                   />
@@ -340,12 +342,12 @@ function FaviconGeneratorContent() {
             {/* Website Colors */}
             <Card className="lg:col-span-1">
               <CardHeader>
-                <CardTitle>Website Colors</CardTitle>
-                <CardDescription>Theme and background colors</CardDescription>
+                <CardTitle>{t("tools.faviconGenerator.websiteColors")}</CardTitle>
+                <CardDescription>{t("tools.faviconGenerator.themeAndBackgroundColors")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="theme-color">Theme Color</Label>
+                  <Label htmlFor="theme-color">{t("tools.faviconGenerator.themeColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="theme-color"
@@ -362,7 +364,7 @@ function FaviconGeneratorContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="background-color">Background Color</Label>
+                  <Label htmlFor="background-color">{t("tools.faviconGenerator.backgroundColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="background-color"
@@ -387,8 +389,8 @@ function FaviconGeneratorContent() {
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Favicon Settings</CardTitle>
-                  <CardDescription>Customize favicon appearance</CardDescription>
+                  <CardTitle>{t("tools.faviconGenerator.faviconSettings")}</CardTitle>
+                  <CardDescription>{t("tools.faviconGenerator.customizeFaviconAppearance")}</CardDescription>
                 </div>
                 <Button
                   variant="secondary"
@@ -460,7 +462,7 @@ function FaviconGeneratorContent() {
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Generated Favicons</CardTitle>
+                <CardTitle>{t("tools.faviconGenerator.generatedFavicons")}</CardTitle>
                 <CardDescription>
                   {generatedFavicons.length} favicons with HTML file
                 </CardDescription>
@@ -514,7 +516,7 @@ function FaviconGeneratorContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isGenerating}
-        title="Generating Favicons"
+        title={t("tools.faviconGenerator.generatingFavicons")}
         current={generationProgress.current}
         total={generationProgress.total}
         currentFile={generationProgress.size}

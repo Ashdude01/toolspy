@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useMemo } from "react";
 import {
   Card,
@@ -58,6 +59,7 @@ interface ConversionStats {
 }
 
 function JsonTableConverterContent() {
+  const t = useT();
   const [inputData, setInputData] = useState("");
   const [outputData, setOutputData] = useState("");
   const [conversionMode, setConversionMode] = useState<'json-to-table' | 'table-to-json'>('json-to-table');
@@ -267,7 +269,7 @@ function JsonTableConverterContent() {
   // Handle conversion
   const handleConvert = async () => {
     if (!inputData.trim()) {
-      showToast("Please provide input data", "error");
+      showToast(t("tools.jsonTableConverter.pleaseProvideInputData"), "error");
       return;
     }
 
@@ -307,7 +309,7 @@ function JsonTableConverterContent() {
       });
 
       setConversionStatus('success');
-      showToast("Conversion completed successfully!", "success");
+      showToast(t("tools.jsonTableConverter.conversionCompletedSuccessfully"), "success");
       
     } catch (error: any) {
       setConversionStatus('error');
@@ -334,7 +336,7 @@ function JsonTableConverterContent() {
         setConversionMode('table-to-json');
       }
       
-      showToast("File uploaded successfully", "success");
+      showToast(t("tools.jsonTableConverter.fileUploadedSuccessfully"), "success");
     };
     reader.readAsText(file);
   };
@@ -342,15 +344,15 @@ function JsonTableConverterContent() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.jsonTableConverter.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.jsonTableConverter.failedToCopyToClipboard"), "error");
     }
   };
 
   const downloadFile = () => {
     if (!outputData) {
-      showToast("No data to download", "error");
+      showToast(t("tools.jsonTableConverter.noDataToDownload"), "error");
       return;
     }
     
@@ -366,7 +368,7 @@ function JsonTableConverterContent() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("File downloaded successfully", "success");
+    showToast(t("tools.jsonTableConverter.fileDownloadedSuccessfully"), "success");
   };
 
   const clearAll = () => {
@@ -376,7 +378,7 @@ function JsonTableConverterContent() {
     setStats(null);
     setConversionStatus('idle');
     setErrorMessage("");
-    showToast("Cleared all data", "info");
+    showToast(t("tools.jsonTableConverter.clearedAllData"), "info");
   };
 
   const examples = {
@@ -476,20 +478,20 @@ function JsonTableConverterContent() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="conversion-mode">Conversion Mode</Label>
+              <Label htmlFor="conversion-mode">{t("tools.jsonTableConverter.conversionMode")}</Label>
               <Select value={conversionMode} onValueChange={(value: any) => setConversionMode(value)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="json-to-table">JSON → Table</SelectItem>
-                  <SelectItem value="table-to-json">Table → JSON</SelectItem>
+                  <SelectItem value="json-to-table">{t("tools.jsonTableConverter.jsonTable")}</SelectItem>
+                  <SelectItem value="table-to-json">{t("tools.jsonTableConverter.tableJson")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div>
-              <Label htmlFor="output-format">Output Format</Label>
+              <Label htmlFor="output-format">{t("tools.jsonTableConverter.outputFormat")}</Label>
               <Select value={outputFormat} onValueChange={(value: any) => setOutputFormat(value)}>
                 <SelectTrigger>
                   <SelectValue />
@@ -497,13 +499,13 @@ function JsonTableConverterContent() {
                 <SelectContent>
                   <SelectItem value="csv">CSV</SelectItem>
                   <SelectItem value="json">JSON</SelectItem>
-                  <SelectItem value="xlsx">Excel (XLSX)</SelectItem>
+                  <SelectItem value="xlsx">{t("tools.jsonTableConverter.excelXlsx")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div>
-              <Label htmlFor="delimiter">CSV Delimiter</Label>
+              <Label htmlFor="delimiter">{t("tools.jsonTableConverter.csvDelimiter")}</Label>
               <Input
                 value={customDelimiter}
                 onChange={(e) => setCustomDelimiter(e.target.value)}
@@ -519,7 +521,7 @@ function JsonTableConverterContent() {
                   checked={includeHeaders}
                   onCheckedChange={setIncludeHeaders}
                 />
-                <Label htmlFor="include-headers">Include Headers</Label>
+                <Label htmlFor="include-headers">{t("tools.jsonTableConverter.includeHeaders")}</Label>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -528,7 +530,7 @@ function JsonTableConverterContent() {
                   checked={flattenNested}
                   onCheckedChange={setFlattenNested}
                 />
-                <Label htmlFor="flatten-nested">Flatten Nested</Label>
+                <Label htmlFor="flatten-nested">{t("tools.jsonTableConverter.flattenNested")}</Label>
               </div>
               
               <div className="flex items-center space-x-2">
@@ -537,7 +539,7 @@ function JsonTableConverterContent() {
                   checked={preserveTypes}
                   onCheckedChange={setPreserveTypes}
                 />
-                <Label htmlFor="preserve-types">Preserve Types</Label>
+                <Label htmlFor="preserve-types">{t("tools.jsonTableConverter.preserveTypes")}</Label>
               </div>
             </div>
           </div>
@@ -635,7 +637,7 @@ function JsonTableConverterContent() {
             
             {/* Examples */}
             <div className="mt-4">
-              <Label className="text-sm font-medium">Quick Examples:</Label>
+              <Label className="text-sm font-medium">{t("tools.jsonTableConverter.quickExamples")}</Label>
               <div className="flex flex-wrap gap-2 mt-2">
                 {examples[conversionMode].map((example, index) => (
                   <Button
@@ -665,13 +667,13 @@ function JsonTableConverterContent() {
               value={outputData}
               readOnly
               className="min-h-[400px] font-mono text-sm"
-              placeholder="Converted data will appear here..."
+              placeholder={t("tools.jsonTableConverter.convertedDataWillAppearHere")}
             />
             
             {/* Table Preview */}
             {tableData && tableData.headers.length > 0 && (
               <div className="mt-4">
-                <Label className="text-sm font-medium mb-2 block">Table Preview:</Label>
+                <Label className="text-sm font-medium mb-2 block">{t("tools.jsonTableConverter.tablePreview")}</Label>
                 <div className="border rounded-lg overflow-auto max-h-48">
                   <table className="w-full text-sm">
                     <thead>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -47,6 +48,7 @@ interface ConversionResult {
 type OutputFormat = "csv" | "xls" | "xlsx";
 
 function PdfToExcelContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>(
@@ -65,7 +67,7 @@ function PdfToExcelContent() {
     const pdfFiles = files.filter((file) => file.type === "application/pdf");
 
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t("tools.pdfToExcel.pleaseSelectPdfFilesOnly"), "error");
       return;
     }
 
@@ -91,7 +93,7 @@ function PdfToExcelContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t("tools.pdfToExcel.allFilesCleared"), "info");
   };
 
   // Extract text from PDF with position information for table detection
@@ -377,7 +379,7 @@ function PdfToExcelContent() {
 
   const convertToExcel = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to convert", "error");
+      showToast(t("tools.pdfToExcel.pleaseSelectPdfFilesToConvert"), "error");
       return;
     }
 
@@ -455,7 +457,7 @@ function PdfToExcelContent() {
   const downloadResult = (result: ConversionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("File downloaded", "success");
+      showToast(t("tools.pdfToExcel.fileDownloaded"), "success");
     }
   };
 
@@ -507,7 +509,7 @@ function PdfToExcelContent() {
                       Selected PDF Files ({selectedFiles.length})
                     </CardTitle>
                     <CardDescription>
-                      Files ready for conversion to Excel format
+                      {t("tools.pdfToExcel.filesReadyForConversionToExcel")}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -547,14 +549,14 @@ function PdfToExcelContent() {
 
             <Card className="mb-6 sm:mb-8 w-fit">
               <CardHeader>
-                <CardTitle>Conversion Settings</CardTitle>
+                <CardTitle>{t("tools.pdfToExcel.conversionSettings")}</CardTitle>
                 <CardDescription>
-                  Select the output format for your converted files
+                  {t("tools.pdfToExcel.selectTheOutputFormatForYour")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="output-format">Output Format</Label>
+                  <Label htmlFor="output-format">{t("tools.pdfToExcel.outputFormat")}</Label>
                   <Select
                     value={outputFormat}
                     onValueChange={(value: OutputFormat) =>
@@ -565,7 +567,7 @@ function PdfToExcelContent() {
                       id="output-format"
                       className="w-full sm:w-[300px]"
                     >
-                      <SelectValue placeholder="Select format" />
+                      <SelectValue placeholder={t("tools.pdfToExcel.selectFormat")} />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="xlsx">

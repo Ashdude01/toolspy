@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import React, { useState, useRef, useCallback } from "react";
 import {
   Card,
@@ -101,6 +102,7 @@ interface ConversionSettings {
 type ConversionType = 'video' | 'audio' | 'gif' | 'archive';
 
 function MediaConverterContent() {
+  const t = useT();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [conversionJobs, setConversionJobs] = useState<ConversionJob[]>([]);
   const [selectedType, setSelectedType] = useState<ConversionType>('video');
@@ -258,7 +260,7 @@ function MediaConverterContent() {
 
   const startConversion = async () => {
     if (conversionJobs.length === 0) {
-      showToast("No files to convert", "error");
+      showToast(t("tools.mediaConverter.noFilesToConvert"), "error");
       return;
     }
 
@@ -290,7 +292,7 @@ function MediaConverterContent() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      showToast("File downloaded successfully", "success");
+      showToast(t("tools.mediaConverter.fileDownloadedSuccessfully"), "success");
     }
   };
 
@@ -306,7 +308,7 @@ function MediaConverterContent() {
     setPreviewUrl(null);
     setIsPlaying(false);
     setBatchMode(false);
-    showToast("All files cleared", "info");
+    showToast(t("tools.mediaConverter.allFilesCleared"), "info");
   };
 
   const formatFileSize = (bytes: number) => {
@@ -356,9 +358,9 @@ function MediaConverterContent() {
       {/* Conversion Type Selector */}
       <Card>
         <CardHeader>
-          <CardTitle>Choose Conversion Type</CardTitle>
+          <CardTitle>{t("tools.mediaConverter.chooseConversionType")}</CardTitle>
           <CardDescription>
-            Select the type of media you want to convert
+            {t("tools.mediaConverter.selectTheTypeOfMediaYou")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -523,7 +525,7 @@ function MediaConverterContent() {
             <CardContent className="space-y-6">
               {/* Target Format */}
               <div>
-                <Label htmlFor="format">Output Format</Label>
+                <Label htmlFor="format">{t("tools.mediaConverter.outputFormat")}</Label>
                 <Select value={targetFormat} onValueChange={setTargetFormat}>
                   <SelectTrigger>
                     <SelectValue />
@@ -542,7 +544,7 @@ function MediaConverterContent() {
               {(selectedType === 'video' || selectedType === 'gif') && (
                 <div className="space-y-4">
                   <div>
-                    <Label>Video Quality</Label>
+                    <Label>{t("tools.mediaConverter.videoQuality")}</Label>
                     <Select 
                       value={settings.videoQuality} 
                       onValueChange={(value) => setSettings(prev => ({ 
@@ -597,7 +599,7 @@ function MediaConverterContent() {
               {selectedType === 'audio' && (
                 <div className="space-y-4">
                   <div>
-                    <Label>Audio Quality</Label>
+                    <Label>{t("tools.mediaConverter.audioQuality")}</Label>
                     <Select 
                       value={settings.audioQuality} 
                       onValueChange={(value) => setSettings(prev => ({ 
@@ -620,7 +622,7 @@ function MediaConverterContent() {
                   </div>
 
                   <div>
-                    <Label>Sample Rate</Label>
+                    <Label>{t("tools.mediaConverter.sampleRate")}</Label>
                     <Select 
                       value={settings.sampleRate.toString()} 
                       onValueChange={(value) => setSettings(prev => ({ ...prev, sampleRate: parseInt(value) }))}
@@ -666,13 +668,13 @@ function MediaConverterContent() {
                       checked={settings.enableTrim}
                       onCheckedChange={(checked) => setSettings(prev => ({ ...prev, enableTrim: checked }))}
                     />
-                    <Label htmlFor="trim">Enable trimming</Label>
+                    <Label htmlFor="trim">{t("tools.mediaConverter.enableTrimming")}</Label>
                   </div>
                   
                   {settings.enableTrim && (
                     <div className="grid grid-cols-2 gap-4">
                       <div>
-                        <Label htmlFor="start">Start Time (seconds)</Label>
+                        <Label htmlFor="start">{t("tools.mediaConverter.startTimeSeconds")}</Label>
                         <Input
                           id="start"
                           type="number"
@@ -683,7 +685,7 @@ function MediaConverterContent() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="end">End Time (seconds)</Label>
+                        <Label htmlFor="end">{t("tools.mediaConverter.endTimeSeconds")}</Label>
                         <Input
                           id="end"
                           type="number"

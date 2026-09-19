@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -47,6 +48,7 @@ import {
 } from "@/lib/utils/domain-utils";
 
 function DomainWhoisLookupContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [domain, setDomain] = useState("");
   const [whoisData, setWhoisData] = useState<WhoisData | null>(null);
@@ -82,12 +84,12 @@ function DomainWhoisLookupContent() {
     const cleanDomain = domain.trim().toLowerCase();
     
     if (!cleanDomain) {
-      showToast("Please enter a domain name", "error");
+      showToast(t("tools.domainWhoisLookup.pleaseEnterADomainName"), "error");
       return;
     }
 
     if (!validateDomain(cleanDomain)) {
-      showToast("Please enter a valid domain name", "error");
+      showToast(t("tools.domainWhoisLookup.pleaseEnterAValidDomainName"), "error");
       return;
     }
 
@@ -100,7 +102,7 @@ function DomainWhoisLookupContent() {
       
       setWhoisData(whoisResult);
       saveToHistory(cleanDomain);
-      showToast("WHOIS lookup completed successfully", "success");
+      showToast(t("tools.domainWhoisLookup.whoisLookupCompletedSuccessfully"), "success");
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'Failed to perform WHOIS lookup. Please try again.';
       showToast(errorMessage, "error");
@@ -113,9 +115,9 @@ function DomainWhoisLookupContent() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.domainWhoisLookup.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.domainWhoisLookup.failedToCopyToClipboard"), "error");
     }
   };
 
@@ -136,7 +138,7 @@ ${whoisData.raw}`;
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("WHOIS data downloaded", "success");
+    showToast(t("tools.domainWhoisLookup.whoisDataDownloaded"), "success");
   };
 
   const formatDate = (dateString: string): string => {
@@ -184,23 +186,23 @@ ${whoisData.raw}`;
       {/* Search Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Domain WHOIS Lookup</CardTitle>
+          <CardTitle>{t("tools.domainWhoisLookup.domainWhoisLookup")}</CardTitle>
           <CardDescription>
-            Enter a domain name to get detailed registration information
+            {t("tools.domainWhoisLookup.enterADomainNameToGet")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex-1">
               <Label htmlFor="domain-input" className="text-sm font-medium">
-                Domain Name
+                {t("tools.domainWhoisLookup.domainName")}
               </Label>
               <div className="relative mt-1">
                 <Globe className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground h-4 w-4" />
                 <Input
                   id="domain-input"
                   type="text"
-                  placeholder="example.com"
+                  placeholder={t("tools.domainWhoisLookup.exampleCom")}
                   value={domain}
                   onChange={(e) => setDomain(e.target.value)}
                   onKeyPress={(e) => e.key === "Enter" && handleWhoisLookup()}
@@ -231,7 +233,7 @@ ${whoisData.raw}`;
           {/* Search History */}
           {searchHistory.length > 0 && (
             <div className="space-y-2">
-              <Label className="text-sm font-medium">Recent Searches</Label>
+              <Label className="text-sm font-medium">{t("tools.domainWhoisLookup.recentSearches")}</Label>
               <div className="flex flex-wrap gap-2">
                 {searchHistory.map((histDomain, index) => (
                   <Badge
@@ -262,7 +264,7 @@ ${whoisData.raw}`;
                     {whoisData.domainName}
                   </CardTitle>
                   <CardDescription>
-                    Domain registration information
+                    {t("tools.domainWhoisLookup.domainRegistrationInformation")}
                   </CardDescription>
                 </div>
                 <div className="flex gap-2">
@@ -334,31 +336,31 @@ ${whoisData.raw}`;
               <CardContent className="space-y-3">
                 {whoisData.registrant?.name && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Name</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.name")}</Label>
                     <p className="font-medium">{whoisData.registrant.name}</p>
                   </div>
                 )}
                 {whoisData.registrant?.organization && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Organization</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.organization")}</Label>
                     <p className="font-medium">{whoisData.registrant.organization}</p>
                   </div>
                 )}
                 {whoisData.registrant?.email && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Email</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.email")}</Label>
                     <p className="font-medium">{whoisData.registrant.email}</p>
                   </div>
                 )}
                 {whoisData.registrant?.phone && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Phone</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.phone")}</Label>
                     <p className="font-medium">{whoisData.registrant.phone}</p>
                   </div>
                 )}
                 {whoisData.registrant?.address && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Address</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.address")}</Label>
                     <p className="font-medium">{whoisData.registrant.address}</p>
                   </div>
                 )}
@@ -376,25 +378,25 @@ ${whoisData.raw}`;
               <CardContent className="space-y-3">
                 {whoisData.admin?.name && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Name</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.name")}</Label>
                     <p className="font-medium">{whoisData.admin.name}</p>
                   </div>
                 )}
                 {whoisData.admin?.organization && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Organization</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.organization")}</Label>
                     <p className="font-medium">{whoisData.admin.organization}</p>
                   </div>
                 )}
                 {whoisData.admin?.email && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Email</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.email")}</Label>
                     <p className="font-medium">{whoisData.admin.email}</p>
                   </div>
                 )}
                 {whoisData.admin?.phone && (
                   <div>
-                    <Label className="text-sm text-muted-foreground">Phone</Label>
+                    <Label className="text-sm text-muted-foreground">{t("tools.domainWhoisLookup.phone")}</Label>
                     <p className="font-medium">{whoisData.admin.phone}</p>
                   </div>
                 )}
@@ -432,7 +434,7 @@ ${whoisData.raw}`;
                   Raw WHOIS Data
                 </CardTitle>
                 <CardDescription>
-                  Complete WHOIS response from the registry
+                  {t("tools.domainWhoisLookup.completeWhoisResponseFromTheRegistry")}
                 </CardDescription>
               </CardHeader>
               <CardContent>

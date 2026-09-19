@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect, useCallback } from "react";
 import {
   Card,
@@ -81,6 +82,7 @@ const PERCENTILE_RANGES = [
 ];
 
 function JEEMainRankPredictorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [percentile, setPercentile] = useState<string>("");
   const [category, setCategory] = useState<string>("General");
@@ -150,7 +152,7 @@ function JEEMainRankPredictorContent() {
       setHistory(prev => [newPrediction, ...prev.slice(0, 9)]);
     } catch (error) {
       console.error("Error calculating rank:", error);
-      showToast("Error calculating rank. Please try again.", "error");
+      showToast(t("tools.jeeMainRankPredictor.errorCalculatingRankPleaseTryAgain"), "error");
     }
   }, [percentile, category, examSession, showToast]);
 
@@ -164,7 +166,7 @@ function JEEMainRankPredictorContent() {
 
   const copyResult = async () => {
     if (!prediction) {
-      showToast("No prediction to copy", "error");
+      showToast(t("tools.jeeMainRankPredictor.noPredictionToCopy"), "error");
       return;
     }
     
@@ -183,15 +185,15 @@ ${prediction.collegePredictions.map(tier =>
 ).join('\n')}`;
       
       await navigator.clipboard.writeText(resultText);
-      showToast("Result copied to clipboard!", "success");
+      showToast(t("tools.jeeMainRankPredictor.resultCopiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy result", "error");
+      showToast(t("tools.jeeMainRankPredictor.failedToCopyResult"), "error");
     }
   };
 
   const downloadResult = () => {
     if (!prediction) {
-      showToast("No prediction to download", "error");
+      showToast(t("tools.jeeMainRankPredictor.noPredictionToDownload"), "error");
       return;
     }
     
@@ -224,9 +226,9 @@ Actual ranks may vary based on various factors.`;
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast("Result downloaded successfully!", "success");
+      showToast(t("tools.jeeMainRankPredictor.resultDownloadedSuccessfully"), "success");
     } catch (error) {
-      showToast("Failed to download result", "error");
+      showToast(t("tools.jeeMainRankPredictor.failedToDownloadResult"), "error");
     }
   };
 
@@ -236,7 +238,7 @@ Actual ranks may vary based on various factors.`;
     setExamSession("Combined");
     setPrediction(null);
     setHistory([]);
-    showToast("All fields cleared", "info");
+    showToast(t("tools.jeeMainRankPredictor.allFieldsCleared"), "info");
   };
 
   return (
@@ -293,12 +295,12 @@ Actual ranks may vary based on various factors.`;
               {/* Percentile Input */}
               <div className="space-y-3">
                 <Label htmlFor="percentile" className="text-base font-semibold">
-                  JEE Main Percentile <span className="text-red-500">*</span>
+                  {t("tools.jeeMainRankPredictor.jeeMainPercentile")} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="percentile"
                   type="number"
-                  placeholder="Enter your percentile (0-100)"
+                  placeholder={t("tools.jeeMainRankPredictor.enterYourPercentile0100")}
                   value={percentile}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -319,7 +321,7 @@ Actual ranks may vary based on various factors.`;
               {/* Category Selection */}
               <div className="space-y-3">
                 <Label htmlFor="category" className="text-base font-semibold">
-                  Category <span className="text-red-500">*</span>
+                  {t("tools.jeeMainRankPredictor.category")} <span className="text-red-500">*</span>
                 </Label>
                 <Select value={category} onValueChange={setCategory}>
                   <SelectTrigger className="h-12 border-2">
@@ -344,7 +346,7 @@ Actual ranks may vary based on various factors.`;
               {/* Exam Session */}
               <div className="space-y-3">
                 <Label htmlFor="exam-session" className="text-base font-semibold">
-                  Exam Session <span className="text-red-500">*</span>
+                  {t("tools.jeeMainRankPredictor.examSession")} <span className="text-red-500">*</span>
                 </Label>
                 <Select value={examSession} onValueChange={setExamSession}>
                   <SelectTrigger className="h-12 border-2">
@@ -396,7 +398,7 @@ Actual ranks may vary based on various factors.`;
                   Rank Prediction Result
                 </CardTitle>
                 <CardDescription>
-                  Your predicted rank and college options based on your percentile
+                  {t("tools.jeeMainRankPredictor.yourPredictedRankAndCollegeOptions")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
@@ -495,7 +497,7 @@ Actual ranks may vary based on various factors.`;
                 Percentile Range Guide
               </CardTitle>
               <CardDescription>
-                Understanding percentile ranges and expected ranks
+                {t("tools.jeeMainRankPredictor.understandingPercentileRangesAndExpectedRanks")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -548,7 +550,7 @@ Actual ranks may vary based on various factors.`;
                         <p className="text-xs text-muted-foreground mt-1">{cat.description}</p>
                       </div>
                       {cat.value === category && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.jeeMainRankPredictor.selected")}</Badge>
                       )}
                     </div>
                   </div>
@@ -582,7 +584,7 @@ Actual ranks may vary based on various factors.`;
                         <p className="text-xs text-muted-foreground mt-1">{session.description}</p>
                       </div>
                       {session.value === examSession && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.jeeMainRankPredictor.selected")}</Badge>
                       )}
                     </div>
                   </div>

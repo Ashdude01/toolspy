@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -48,6 +49,7 @@ const GST_RATES = [
 ];
 
 function GSTCalculatorContent() {
+  const t = useT();
   const [amount, setAmount] = useState<string>("");
   const [gstRate, setGstRate] = useState<number>(18);
   const [isInclusive, setIsInclusive] = useState<boolean>(false);
@@ -169,31 +171,31 @@ Please consult with a tax professional for official GST calculations.`;
                 GST Calculator
               </CardTitle>
               <CardDescription>
-                Enter amount and select GST rate to calculate tax
+                {t("tools.gstCalculator.enterAmountAndSelectGstRate")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Amount Input */}
               <div className="space-y-2">
-                <Label htmlFor="amount">Amount (₹) <span className="text-red-500" aria-label="required">*</span></Label>
+                <Label htmlFor="amount">{t("tools.gstCalculator.amount")} <span className="text-red-500" aria-label={t("tools.gstCalculator.required")}>*</span></Label>
                 <Input
                   id="amount"
                   type="number"
-                  placeholder="Enter amount"
+                  placeholder={t("tools.gstCalculator.enterAmount")}
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                   className="text-lg"
                   required
                   aria-required="true"
-                  aria-label="Enter amount for GST calculation"
+                  aria-label={t("tools.gstCalculator.enterAmountForGstCalculation")}
                 />
               </div>
 
               {/* GST Rate Selection */}
               <div className="space-y-2">
-                <Label htmlFor="gst-rate">GST Rate</Label>
+                <Label htmlFor="gst-rate">{t("tools.gstCalculator.gstRate")}</Label>
                 <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
-                  <SelectTrigger id="gst-rate" aria-label="Select GST rate percentage">
+                  <SelectTrigger id="gst-rate" aria-label={t("tools.gstCalculator.selectGstRatePercentage")}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -212,10 +214,10 @@ Please consult with a tax professional for official GST calculations.`;
                   id="calculation-type"
                   checked={isInclusive}
                   onCheckedChange={setIsInclusive}
-                  aria-label="Toggle GST inclusive or exclusive calculation"
+                  aria-label={t("tools.gstCalculator.toggleGstInclusiveOrExclusiveCalculation")}
                 />
                 <Label htmlFor="calculation-type" className="text-sm">
-                  GST Inclusive (GST included in amount)
+                  {t("tools.gstCalculator.gstInclusiveGstIncludedInAmount")}
                 </Label>
               </div>
 
@@ -224,7 +226,7 @@ Please consult with a tax professional for official GST calculations.`;
                 <Button 
                   onClick={calculateGST} 
                   className="flex-1"
-                  aria-label="Calculate GST based on entered amount and selected rate"
+                  aria-label={t("tools.gstCalculator.calculateGstBasedOnEnteredAmount")}
                 >
                   <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
                   Calculate GST
@@ -232,7 +234,7 @@ Please consult with a tax professional for official GST calculations.`;
                 <Button 
                   variant="outline" 
                   onClick={clearAll}
-                  aria-label="Clear all inputs and results"
+                  aria-label={t("tools.gstCalculator.clearAllInputsAndResults")}
                 >
                   <RefreshCw className="h-4 w-4" aria-hidden="true" />
                   <span className="sr-only">Clear</span>
@@ -279,7 +281,7 @@ Please consult with a tax professional for official GST calculations.`;
                     variant="outline" 
                     onClick={copyResult} 
                     className="flex-1"
-                    aria-label="Copy GST calculation result to clipboard"
+                    aria-label={t("tools.gstCalculator.copyGstCalculationResultToClipboard")}
                   >
                     <Copy className="h-4 w-4 mr-2" aria-hidden="true" />
                     Copy Result
@@ -288,7 +290,7 @@ Please consult with a tax professional for official GST calculations.`;
                     variant="outline" 
                     onClick={downloadResult} 
                     className="flex-1"
-                    aria-label="Download GST calculation result as text file"
+                    aria-label={t("tools.gstCalculator.downloadGstCalculationResultAsText")}
                   >
                     <Download className="h-4 w-4 mr-2" aria-hidden="true" />
                     Download
@@ -315,7 +317,7 @@ Please consult with a tax professional for official GST calculations.`;
                   <div key={rate.value} className="flex justify-between items-center p-2 bg-muted rounded">
                     <span className="text-sm">{rate.label}</span>
                     {rate.value === gstRate && (
-                      <Badge variant="default" className="text-xs">Selected</Badge>
+                      <Badge variant="default" className="text-xs">{t("tools.gstCalculator.selected")}</Badge>
                     )}
                   </div>
                 ))}
@@ -358,7 +360,7 @@ Please consult with a tax professional for official GST calculations.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.gstCalculator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

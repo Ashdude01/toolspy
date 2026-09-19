@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -43,6 +44,7 @@ interface BMIResult {
 }
 
 function BmiCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [weight, setWeight] = useState("");
   const [height, setHeight] = useState("");
@@ -54,7 +56,7 @@ function BmiCalculatorContent() {
     const heightNum = parseFloat(height);
 
     if (!weightNum || !heightNum || weightNum <= 0 || heightNum <= 0) {
-      showToast("Please enter valid weight and height values", "error");
+      showToast(t("tools.bmiCalculator.pleaseEnterValidWeightAndHeight"), "error");
       return;
     }
 
@@ -76,7 +78,7 @@ function BmiCalculatorContent() {
 
     const bmiResult = getBMIResult(bmi, unit === "imperial" ? idealWeightMin * 2.205 : idealWeightMin, unit === "imperial" ? idealWeightMax * 2.205 : idealWeightMax);
     setResult(bmiResult);
-    showToast("BMI calculated successfully!", "success");
+    showToast(t("tools.bmiCalculator.bmiCalculatedSuccessfully"), "success");
   };
 
   const getBMIResult = (bmi: number, idealMin: number, idealMax: number): BMIResult => {
@@ -310,19 +312,19 @@ function BmiCalculatorContent() {
             BMI Calculation
           </CardTitle>
           <CardDescription>
-            Enter your weight and height to calculate your BMI
+            {t("tools.bmiCalculator.enterYourWeightAndHeightTo")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="unit-select">Unit System</Label>
+            <Label htmlFor="unit-select">{t("tools.bmiCalculator.unitSystem")}</Label>
             <Select value={unit} onValueChange={setUnit}>
-              <SelectTrigger id="unit-select" aria-label="Select unit system">
+              <SelectTrigger id="unit-select" aria-label={t("tools.bmiCalculator.selectUnitSystem")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="metric">Metric (kg, cm)</SelectItem>
-                <SelectItem value="imperial">Imperial (lbs, inches)</SelectItem>
+                <SelectItem value="metric">{t("tools.bmiCalculator.metricKgCm")}</SelectItem>
+                <SelectItem value="imperial">{t("tools.bmiCalculator.imperialLbsInches")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -330,7 +332,7 @@ function BmiCalculatorContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="weight">
-                Weight {unit === "metric" ? "(kg)" : "(lbs)"} <span className="text-red-500" aria-label="required">*</span>
+                {t("tools.bmiCalculator.weight")} <span className="text-red-500" aria-label={t("tools.bmiCalculator.required")}>*</span>
               </Label>
               <Input
                 id="weight"
@@ -346,7 +348,7 @@ function BmiCalculatorContent() {
             </div>
             <div className="space-y-2">
               <Label htmlFor="height">
-                Height {unit === "metric" ? "(cm)" : "(inches)"} <span className="text-red-500" aria-label="required">*</span>
+                {t("tools.bmiCalculator.height")} <span className="text-red-500" aria-label={t("tools.bmiCalculator.required")}>*</span>
               </Label>
               <Input
                 id="height"
@@ -367,7 +369,7 @@ function BmiCalculatorContent() {
               onClick={calculateBMI} 
               className="flex-1"
               disabled={!weight || !height}
-              aria-label="Calculate BMI based on weight and height"
+              aria-label={t("tools.bmiCalculator.calculateBmiBasedOnWeightAnd")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate BMI
@@ -376,7 +378,7 @@ function BmiCalculatorContent() {
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset calculator and clear all fields"
+              aria-label={t("tools.bmiCalculator.resetCalculatorAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -394,7 +396,7 @@ function BmiCalculatorContent() {
               Your BMI Results
             </CardTitle>
             <CardDescription>
-              Body Mass Index analysis and health insights
+              {t("tools.bmiCalculator.bodyMassIndexAnalysisAndHealth")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -507,9 +509,9 @@ function BmiCalculatorContent() {
       {/* BMI Categories Reference */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>BMI Categories Reference</CardTitle>
+          <CardTitle>{t("tools.bmiCalculator.bmiCategoriesReference")}</CardTitle>
           <CardDescription>
-            Standard BMI categories and their health implications
+            {t("tools.bmiCalculator.standardBmiCategoriesAndTheirHealth")}
           </CardDescription>
         </CardHeader>
         <CardContent>

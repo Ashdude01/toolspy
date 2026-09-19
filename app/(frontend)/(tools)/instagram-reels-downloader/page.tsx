@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ export default function InstagramReelsDownloaderPage() {
 }
 
 function Content() {
+  const t = useT();
   const params = useSearchParams();
   const { showToast } = useToast();
   const [url, setUrl] = useState("");
@@ -49,7 +51,7 @@ function Content() {
 
   const analyze = async () => {
     if (!url.trim()) {
-      showToast('Please paste an Instagram reel URL', 'error');
+      showToast(t("tools.instagramReelsDownloader.pleasePasteAnInstagramReelUrl"), 'error');
       return;
     }
 
@@ -63,7 +65,7 @@ function Content() {
       setReelInfo(result);
 
       if (result.videoUrl) {
-        showToast('Reel extracted successfully!', 'success');
+        showToast(t("tools.instagramReelsDownloader.reelExtractedSuccessfully"), 'success');
       } else {
         showToast(result.error || 'Could not extract reel', 'error');
       }
@@ -79,7 +81,7 @@ function Content() {
   const download = async () => {
     const videoUrl = selectedFormat || reelInfo?.videoUrl;
     if (!videoUrl) {
-      showToast('No video URL available', 'error');
+      showToast(t("tools.instagramReelsDownloader.noVideoUrlAvailable"), 'error');
       return;
     }
 
@@ -108,10 +110,10 @@ function Content() {
       document.body.removeChild(a);
       
       setTimeout(() => URL.revokeObjectURL(url), 1000);
-      showToast("Reel downloaded successfully!", "success");
+      showToast(t("tools.instagramReelsDownloader.reelDownloadedSuccessfully"), "success");
     } catch (error) {
       // Fallback: direct download link
-      showToast("Direct download failed. Opening video in new tab...", "info");
+      showToast(t("tools.instagramReelsDownloader.directDownloadFailedOpeningVideoIn"), "info");
       window.open(videoUrl, '_blank');
     } finally {
       setDownloading(false);
@@ -131,7 +133,7 @@ function Content() {
       {/* Header */}
       <div className="tool-legacy-hero text-center mb-6 sm:mb-8 space-y-3">
         <Badge variant="outline" className="text-xs sm:text-sm">
-          Fast • Free • Secure
+          {t("tools.instagramReelsDownloader.fastFreeSecure")}
         </Badge>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           Instagram Reels Downloader
@@ -144,14 +146,14 @@ function Content() {
       {/* Input Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">Paste Reel URL</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">{t("tools.instagramReelsDownloader.pasteReelUrl")}</CardTitle>
           <CardDescription className="text-xs sm:text-sm">
-            Supports public reels and Instagram video posts
+            {t("tools.instagramReelsDownloader.supportsPublicReelsAndInstagramVideo")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="reel" className="text-sm font-medium">Reel URL</Label>
+            <Label htmlFor="reel" className="text-sm font-medium">{t("tools.instagramReelsDownloader.reelUrl")}</Label>
             <div className="flex flex-col sm:flex-row gap-2">
               <Input
                 id="reel"
@@ -275,7 +277,7 @@ function Content() {
                 className="w-full max-h-[500px]"
                 poster={reelInfo.thumbnail}
                 onError={(e) => {
-                  showToast("Video preview failed. You can still download it.", "warning");
+                  showToast(t("tools.instagramReelsDownloader.videoPreviewFailedYouCanStill"), "warning");
                 }}
               >
                 Your browser does not support the video tag.
@@ -285,10 +287,10 @@ function Content() {
             {/* Format Selection */}
             {reelInfo.formats && reelInfo.formats.length > 1 && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Select Quality</Label>
+                <Label className="text-sm font-medium">{t("tools.instagramReelsDownloader.selectQuality")}</Label>
                 <Select value={selectedFormat} onValueChange={setSelectedFormat}>
                   <SelectTrigger>
-                    <SelectValue placeholder="Select video quality" />
+                    <SelectValue placeholder={t("tools.instagramReelsDownloader.selectVideoQuality")} />
                   </SelectTrigger>
                   <SelectContent>
                     {reelInfo.formats.map((format, idx) => (
@@ -318,13 +320,13 @@ function Content() {
               )}
               {reelInfo.thumbnail && (
                 <div>
-                  <span className="text-muted-foreground block text-xs">Thumbnail</span>
-                  <Badge variant="secondary" className="text-xs">Available</Badge>
+                  <span className="text-muted-foreground block text-xs">{t("tools.instagramReelsDownloader.thumbnail")}</span>
+                  <Badge variant="secondary" className="text-xs">{t("tools.instagramReelsDownloader.available")}</Badge>
                 </div>
               )}
               <div>
                 <span className="text-muted-foreground block text-xs">Status</span>
-                <Badge variant="default" className="text-xs">Ready</Badge>
+                <Badge variant="default" className="text-xs">{t("tools.instagramReelsDownloader.ready")}</Badge>
               </div>
             </div>
 
@@ -362,7 +364,7 @@ function Content() {
             {/* Thumbnail Preview */}
             {reelInfo.thumbnail && (
               <div className="space-y-2">
-                <Label className="text-sm font-medium">Thumbnail</Label>
+                <Label className="text-sm font-medium">{t("tools.instagramReelsDownloader.thumbnail")}</Label>
                 <div className="relative w-full max-w-xs aspect-video rounded-lg overflow-hidden border">
                   <img
                     src={reelInfo.thumbnail}

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -67,6 +68,7 @@ const STATES = [
 ];
 
 function CGSTSGSTIGSTSplitterContent() {
+  const t = useT();
   const [baseAmount, setBaseAmount] = useState<string>("");
   const [gstRate, setGstRate] = useState<number>(18);
   const [fromState, setFromState] = useState<string>("");
@@ -221,17 +223,17 @@ Please consult with a tax professional for official GST calculations.`;
                 CGST/SGST/IGST Splitter
               </CardTitle>
               <CardDescription>
-                Enter amount and select states to calculate GST split
+                {t("tools.cgstSgstIgstSplitter.enterAmountAndSelectStatesTo")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Base Amount Input */}
               <div className="space-y-2">
-                <Label htmlFor="base-amount">Base Amount (₹)</Label>
+                <Label htmlFor="base-amount">{t("tools.cgstSgstIgstSplitter.baseAmount")}</Label>
                 <Input
                   id="base-amount"
                   type="number"
-                  placeholder="Enter base amount"
+                  placeholder={t("tools.cgstSgstIgstSplitter.enterBaseAmount")}
                   value={baseAmount}
                   onChange={(e) => setBaseAmount(e.target.value)}
                   className="text-lg"
@@ -240,7 +242,7 @@ Please consult with a tax professional for official GST calculations.`;
 
               {/* GST Rate Selection */}
               <div className="space-y-2">
-                <Label htmlFor="gst-rate">GST Rate</Label>
+                <Label htmlFor="gst-rate">{t("tools.cgstSgstIgstSplitter.gstRate")}</Label>
                 <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -258,10 +260,10 @@ Please consult with a tax professional for official GST calculations.`;
               {/* State Selection */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="from-state">From State</Label>
+                  <Label htmlFor="from-state">{t("tools.cgstSgstIgstSplitter.fromState")}</Label>
                   <Select value={fromState} onValueChange={setFromState}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select from state" />
+                      <SelectValue placeholder={t("tools.cgstSgstIgstSplitter.selectFromState")} />
                     </SelectTrigger>
                     <SelectContent>
                       {STATES.map((state) => (
@@ -274,10 +276,10 @@ Please consult with a tax professional for official GST calculations.`;
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="to-state">To State</Label>
+                  <Label htmlFor="to-state">{t("tools.cgstSgstIgstSplitter.toState")}</Label>
                   <Select value={toState} onValueChange={setToState}>
                     <SelectTrigger>
-                      <SelectValue placeholder="Select to state" />
+                      <SelectValue placeholder={t("tools.cgstSgstIgstSplitter.selectToState")} />
                     </SelectTrigger>
                     <SelectContent>
                       {STATES.map((state) => (
@@ -407,7 +409,7 @@ Please consult with a tax professional for official GST calculations.`;
                   <div key={rate.value} className="flex justify-between items-center p-2 bg-muted rounded">
                     <span className="text-sm">{rate.label}</span>
                     {rate.value === gstRate && (
-                      <Badge variant="default" className="text-xs">Selected</Badge>
+                      <Badge variant="default" className="text-xs">{t("tools.cgstSgstIgstSplitter.selected")}</Badge>
                     )}
                   </div>
                 ))}
@@ -476,7 +478,7 @@ Please consult with a tax professional for official GST calculations.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.cgstSgstIgstSplitter.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -53,6 +54,7 @@ interface SalaryResult {
 }
 
 function SalaryCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputType, setInputType] = useState("hourly");
   const [inputValue, setInputValue] = useState("");
@@ -68,7 +70,7 @@ function SalaryCalculatorContent() {
     const tax = parseFloat(taxRate) / 100;
 
     if (!value || value <= 0 || hours <= 0 || weeks <= 0) {
-      showToast("Please enter valid salary and working hours", "error");
+      showToast(t("tools.salaryCalculator.pleaseEnterValidSalaryAndWorking"), "error");
       return;
     }
 
@@ -139,7 +141,7 @@ function SalaryCalculatorContent() {
     };
 
     setResult(salaryResult);
-    showToast("Salary calculated successfully!", "success");
+    showToast(t("tools.salaryCalculator.salaryCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -209,27 +211,27 @@ function SalaryCalculatorContent() {
             Salary Information
           </CardTitle>
           <CardDescription>
-            Enter your salary details to calculate all pay periods
+            {t("tools.salaryCalculator.enterYourSalaryDetailsToCalculate")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="salary-type-select">Salary Type</Label>
+              <Label htmlFor="salary-type-select">{t("tools.salaryCalculator.salaryType")}</Label>
               <Select value={inputType} onValueChange={setInputType}>
-                <SelectTrigger id="salary-type-select" aria-label="Select salary input type">
+                <SelectTrigger id="salary-type-select" aria-label={t("tools.salaryCalculator.selectSalaryInputType")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="hourly">Hourly Rate</SelectItem>
-                  <SelectItem value="weekly">Weekly Salary</SelectItem>
-                  <SelectItem value="monthly">Monthly Salary</SelectItem>
-                  <SelectItem value="annual">Annual Salary</SelectItem>
+                  <SelectItem value="hourly">{t("tools.salaryCalculator.hourlyRate")}</SelectItem>
+                  <SelectItem value="weekly">{t("tools.salaryCalculator.weeklySalary")}</SelectItem>
+                  <SelectItem value="monthly">{t("tools.salaryCalculator.monthlySalary")}</SelectItem>
+                  <SelectItem value="annual">{t("tools.salaryCalculator.annualSalary")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="inputValue">{getInputLabel()} <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{getInputLabel()} <span className="text-red-500" aria-label={t("tools.salaryCalculator.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -247,7 +249,7 @@ function SalaryCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="hoursPerWeek">Hours per Week</Label>
+              <Label htmlFor="hoursPerWeek">{t("tools.salaryCalculator.hoursPerWeek")}</Label>
               <Input
                 id="hoursPerWeek"
                 type="number"
@@ -257,11 +259,11 @@ function SalaryCalculatorContent() {
                 step="0.5"
                 min="1"
                 max="80"
-                aria-label="Enter hours worked per week"
+                aria-label={t("tools.salaryCalculator.enterHoursWorkedPerWeek")}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="weeksPerYear">Weeks per Year</Label>
+              <Label htmlFor="weeksPerYear">{t("tools.salaryCalculator.weeksPerYear")}</Label>
               <Input
                 id="weeksPerYear"
                 type="number"
@@ -271,13 +273,13 @@ function SalaryCalculatorContent() {
                 step="1"
                 min="1"
                 max="52"
-                aria-label="Enter number of weeks worked per year"
+                aria-label={t("tools.salaryCalculator.enterNumberOfWeeksWorkedPer")}
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="taxRate">Tax Rate (%) - Optional</Label>
+            <Label htmlFor="taxRate">{t("tools.salaryCalculator.taxRateOptional")}</Label>
             <Input
               id="taxRate"
               type="number"
@@ -287,7 +289,7 @@ function SalaryCalculatorContent() {
               step="0.1"
               min="0"
               max="50"
-              aria-label="Enter tax rate percentage (optional)"
+              aria-label={t("tools.salaryCalculator.enterTaxRatePercentageOptional")}
             />
           </div>
 
@@ -296,7 +298,7 @@ function SalaryCalculatorContent() {
               onClick={calculateSalary} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Calculate salary breakdown based on entered values"
+              aria-label={t("tools.salaryCalculator.calculateSalaryBreakdownBasedOnEntered")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Salary
@@ -305,7 +307,7 @@ function SalaryCalculatorContent() {
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset calculator and clear all fields"
+              aria-label={t("tools.salaryCalculator.resetCalculatorAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -323,7 +325,7 @@ function SalaryCalculatorContent() {
               Salary Breakdown
             </CardTitle>
             <CardDescription>
-              Your salary converted to different pay periods
+              {t("tools.salaryCalculator.yourSalaryConvertedToDifferentPay")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -348,7 +350,7 @@ function SalaryCalculatorContent() {
                   <div className="text-2xl font-bold text-blue-600 mb-1">
                     {formatCurrency(result.hourlyRate)}
                   </div>
-                  <div className="text-sm text-muted-foreground">Hourly Rate</div>
+                  <div className="text-sm text-muted-foreground">{t("tools.salaryCalculator.hourlyRate")}</div>
                 </div>
               </Card>
               <Card className="p-4 bg-green-50 dark:bg-green-900/20">
@@ -467,9 +469,9 @@ function SalaryCalculatorContent() {
       {result && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Salary Comparison</CardTitle>
+            <CardTitle>{t("tools.salaryCalculator.salaryComparison")}</CardTitle>
             <CardDescription>
-              Compare your salary with different scenarios
+              {t("tools.salaryCalculator.compareYourSalaryWithDifferentScenarios")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -524,9 +526,9 @@ function SalaryCalculatorContent() {
       {/* Salary Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Salary Planning Tips</CardTitle>
+          <CardTitle>{t("tools.salaryCalculator.salaryPlanningTips")}</CardTitle>
           <CardDescription>
-            Important considerations for salary and compensation
+            {t("tools.salaryCalculator.importantConsiderationsForSalaryAndCompensation")}
           </CardDescription>
         </CardHeader>
         <CardContent>

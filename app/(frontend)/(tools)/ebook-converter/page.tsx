@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useCallback } from "react";
 import {
   Card,
@@ -95,6 +96,7 @@ interface ConversionSettings {
 }
 
 function EbookConverterContent() {
+  const t = useT();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [conversionJobs, setConversionJobs] = useState<ConversionJob[]>([]);
   const [selectedJob, setSelectedJob] = useState<ConversionJob | null>(null);
@@ -239,7 +241,7 @@ function EbookConverterContent() {
     );
     
     if (validFiles.length === 0) {
-      showToast("Please upload valid e-book files (EPUB, MOBI, PDF, DOCX, TXT, HTML)", "error");
+      showToast(t("tools.ebookConverter.pleaseUploadValidEBookFiles"), "error");
       return;
     }
 
@@ -276,7 +278,7 @@ function EbookConverterContent() {
 
   const startConversion = async () => {
     if (conversionJobs.length === 0) {
-      showToast("No e-books to convert", "error");
+      showToast(t("tools.ebookConverter.noEBooksToConvert"), "error");
       return;
     }
 
@@ -316,7 +318,7 @@ function EbookConverterContent() {
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
-      showToast("E-book downloaded successfully", "success");
+      showToast(t("tools.ebookConverter.eBookDownloadedSuccessfully"), "success");
     }
   };
 
@@ -344,7 +346,7 @@ function EbookConverterContent() {
       rights: 'All Rights Reserved',
       identifier: ''
     });
-    showToast("All e-books cleared", "info");
+    showToast(t("tools.ebookConverter.allEBooksCleared"), "info");
   };
 
   const formatFileSize = (bytes: number) => {
@@ -360,9 +362,9 @@ function EbookConverterContent() {
     if (file) {
       if (file.type.startsWith('image/')) {
         setCurrentMetadata(prev => ({ ...prev, coverImage: file }));
-        showToast("Cover image uploaded", "success");
+        showToast(t("tools.ebookConverter.coverImageUploaded"), "success");
       } else {
-        showToast("Please upload an image file for the cover", "error");
+        showToast(t("tools.ebookConverter.pleaseUploadAnImageFileFor"), "error");
       }
     }
   };
@@ -384,7 +386,7 @@ function EbookConverterContent() {
         description: `A compelling ${prev.genre || 'book'} that captivates readers with its engaging narrative and thought-provoking themes.`
       }));
       
-      showToast("Metadata auto-filled with sample data", "success");
+      showToast(t("tools.ebookConverter.metadataAutoFilledWithSampleData"), "success");
     }
   };
 
@@ -409,9 +411,9 @@ function EbookConverterContent() {
       {/* Format Selection */}
       <Card>
         <CardHeader>
-          <CardTitle>Supported E-book Formats</CardTitle>
+          <CardTitle>{t("tools.ebookConverter.supportedEBookFormats")}</CardTitle>
           <CardDescription>
-            Choose your target format and see compatibility features
+            {t("tools.ebookConverter.chooseYourTargetFormatAndSee")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -460,7 +462,7 @@ function EbookConverterContent() {
               Upload E-books
             </CardTitle>
             <CardDescription>
-              Upload EPUB, MOBI, PDF, DOCX, TXT, or HTML files for conversion
+              {t("tools.ebookConverter.uploadEpubMobiPdfDocxTxt")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -537,7 +539,7 @@ function EbookConverterContent() {
                       checked={settings.preserveFormatting}
                       onCheckedChange={(checked) => setSettings(prev => ({ ...prev, preserveFormatting: checked }))}
                     />
-                    <Label htmlFor="formatting" className="text-sm">Preserve formatting</Label>
+                    <Label htmlFor="formatting" className="text-sm">{t("tools.ebookConverter.preserveFormatting")}</Label>
                   </div>
                   
                   <div className="flex items-center space-x-2">
@@ -546,7 +548,7 @@ function EbookConverterContent() {
                       checked={settings.optimizeImages}
                       onCheckedChange={(checked) => setSettings(prev => ({ ...prev, optimizeImages: checked }))}
                     />
-                    <Label htmlFor="images" className="text-sm">Optimize images</Label>
+                    <Label htmlFor="images" className="text-sm">{t("tools.ebookConverter.optimizeImages")}</Label>
                   </div>
                   
                   <div className="flex items-center space-x-2">
@@ -555,7 +557,7 @@ function EbookConverterContent() {
                       checked={settings.embedFonts}
                       onCheckedChange={(checked) => setSettings(prev => ({ ...prev, embedFonts: checked }))}
                     />
-                    <Label htmlFor="fonts" className="text-sm">Embed fonts</Label>
+                    <Label htmlFor="fonts" className="text-sm">{t("tools.ebookConverter.embedFonts")}</Label>
                   </div>
                   
                   <div className="flex items-center space-x-2">
@@ -564,38 +566,38 @@ function EbookConverterContent() {
                       checked={settings.generateTOC}
                       onCheckedChange={(checked) => setSettings(prev => ({ ...prev, generateTOC: checked }))}
                     />
-                    <Label htmlFor="toc" className="text-sm">Generate TOC</Label>
+                    <Label htmlFor="toc" className="text-sm">{t("tools.ebookConverter.generateToc")}</Label>
                   </div>
                 </div>
 
                 {/* Advanced Settings */}
                 <div className="space-y-3">
                   <div>
-                    <Label>Text Encoding</Label>
+                    <Label>{t("tools.ebookConverter.textEncoding")}</Label>
                     <Select value={settings.textEncoding} onValueChange={(value) => setSettings(prev => ({ ...prev, textEncoding: value }))}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="utf-8">UTF-8</SelectItem>
-                        <SelectItem value="utf-16">UTF-16</SelectItem>
-                        <SelectItem value="iso-8859-1">ISO-8859-1</SelectItem>
+                        <SelectItem value="utf-8">{t("tools.ebookConverter.utf8")}</SelectItem>
+                        <SelectItem value="utf-16">{t("tools.ebookConverter.utf16")}</SelectItem>
+                        <SelectItem value="iso-8859-1">{t("tools.ebookConverter.iso88591")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   {targetFormat === 'pdf' && (
                     <div>
-                      <Label>Page Size</Label>
+                      <Label>{t("tools.ebookConverter.pageSize")}</Label>
                       <Select value={settings.pageSize} onValueChange={(value) => setSettings(prev => ({ ...prev, pageSize: value }))}>
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="A4">A4</SelectItem>
-                          <SelectItem value="A5">A5</SelectItem>
-                          <SelectItem value="Letter">Letter</SelectItem>
-                          <SelectItem value="Legal">Legal</SelectItem>
+                          <SelectItem value="A4">{t("tools.ebookConverter.a4")}</SelectItem>
+                          <SelectItem value="A5">{t("tools.ebookConverter.a5")}</SelectItem>
+                          <SelectItem value="Letter">{t("tools.ebookConverter.letter")}</SelectItem>
+                          <SelectItem value="Legal">{t("tools.ebookConverter.legal")}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -650,37 +652,37 @@ function EbookConverterContent() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="title">Title</Label>
+                    <Label htmlFor="title">{t("tools.ebookConverter.title")}</Label>
                     <Input
                       id="title"
                       value={currentMetadata.title}
                       onChange={(e) => setCurrentMetadata(prev => ({ ...prev, title: e.target.value }))}
-                      placeholder="Book title"
+                      placeholder={t("tools.ebookConverter.bookTitle")}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="author">Author</Label>
+                    <Label htmlFor="author">{t("tools.ebookConverter.author")}</Label>
                     <Input
                       id="author"
                       value={currentMetadata.author}
                       onChange={(e) => setCurrentMetadata(prev => ({ ...prev, author: e.target.value }))}
-                      placeholder="Author name"
+                      placeholder={t("tools.ebookConverter.authorName")}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="publisher">Publisher</Label>
+                    <Label htmlFor="publisher">{t("tools.ebookConverter.publisher")}</Label>
                     <Input
                       id="publisher"
                       value={currentMetadata.publisher}
                       onChange={(e) => setCurrentMetadata(prev => ({ ...prev, publisher: e.target.value }))}
-                      placeholder="Publisher name"
+                      placeholder={t("tools.ebookConverter.publisherName")}
                     />
                   </div>
                   
                   <div>
-                    <Label htmlFor="language">Language</Label>
+                    <Label htmlFor="language">{t("tools.ebookConverter.language")}</Label>
                     <Select value={currentMetadata.language} onValueChange={(value) => setCurrentMetadata(prev => ({ ...prev, language: value }))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -696,10 +698,10 @@ function EbookConverterContent() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="genre">Genre</Label>
+                    <Label htmlFor="genre">{t("tools.ebookConverter.genre")}</Label>
                     <Select value={currentMetadata.genre} onValueChange={(value) => setCurrentMetadata(prev => ({ ...prev, genre: value }))}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select genre" />
+                        <SelectValue placeholder={t("tools.ebookConverter.selectGenre")} />
                       </SelectTrigger>
                       <SelectContent>
                         {genres.map((genre) => (
@@ -712,12 +714,12 @@ function EbookConverterContent() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="publishDate">Publish Date</Label>
+                    <Label htmlFor="publishDate">{t("tools.ebookConverter.publishDate")}</Label>
                     <Input
                       id="publishDate"
                       value={currentMetadata.publishDate}
                       onChange={(e) => setCurrentMetadata(prev => ({ ...prev, publishDate: e.target.value }))}
-                      placeholder="YYYY or YYYY-MM-DD"
+                      placeholder={t("tools.ebookConverter.yyyyOrYyyyMmDd")}
                     />
                   </div>
                   
@@ -732,30 +734,30 @@ function EbookConverterContent() {
                   </div>
                   
                   <div>
-                    <Label htmlFor="rights">Rights</Label>
+                    <Label htmlFor="rights">{t("tools.ebookConverter.rights")}</Label>
                     <Input
                       id="rights"
                       value={currentMetadata.rights}
                       onChange={(e) => setCurrentMetadata(prev => ({ ...prev, rights: e.target.value }))}
-                      placeholder="Copyright information"
+                      placeholder={t("tools.ebookConverter.copyrightInformation")}
                     />
                   </div>
                 </div>
                 
                 <div>
-                  <Label htmlFor="description">Description</Label>
+                  <Label htmlFor="description">{t("tools.ebookConverter.description")}</Label>
                   <Textarea
                     id="description"
                     value={currentMetadata.description}
                     onChange={(e) => setCurrentMetadata(prev => ({ ...prev, description: e.target.value }))}
-                    placeholder="Book description or summary"
+                    placeholder={t("tools.ebookConverter.bookDescriptionOrSummary")}
                     rows={3}
                   />
                 </div>
                 
                 {/* Cover Image Upload */}
                 <div>
-                  <Label>Cover Image</Label>
+                  <Label>{t("tools.ebookConverter.coverImage")}</Label>
                   <div className="mt-2">
                     <input
                       ref={coverInputRef}

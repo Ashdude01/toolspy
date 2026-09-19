@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useMemo, useCallback } from "react";
 import {
   Card,
@@ -73,6 +74,7 @@ interface AIInsight {
 }
 
 function ColorPaletteGeneratorContent() {
+  const t = useT();
   const [baseColor, setBaseColor] = useState("#3B82F6");
   const [paletteType, setPaletteType] = useState<'complementary' | 'triadic' | 'analogous' | 'monochromatic' | 'tetradic' | 'split-complementary'>('complementary');
   const [colorCount, setColorCount] = useState([5]);
@@ -289,9 +291,9 @@ function ColorPaletteGeneratorContent() {
         generateAiInsights(colors);
       }
 
-      showToast("Palette generated successfully!", "success");
+      showToast(t("tools.aiColorPaletteGenerator.paletteGeneratedSuccessfully"), "success");
     } catch (error) {
-      showToast("Error generating palette", "error");
+      showToast(t("tools.aiColorPaletteGenerator.errorGeneratingPalette"), "error");
     } finally {
       setIsGenerating(false);
     }
@@ -350,7 +352,7 @@ function ColorPaletteGeneratorContent() {
       if (colors.length > 0) {
         setBaseColor(colors[0]);
         generatePalette();
-        showToast("Colors extracted from image!", "success");
+        showToast(t("tools.aiColorPaletteGenerator.colorsExtractedFromImage"), "success");
       }
     };
 
@@ -363,7 +365,7 @@ function ColorPaletteGeneratorContent() {
     if (file.type.startsWith('image/')) {
       extractColorsFromImage(file);
     } else {
-      showToast("Please upload an image file", "error");
+      showToast(t("tools.aiColorPaletteGenerator.pleaseUploadAnImageFile"), "error");
     }
   };
 
@@ -371,7 +373,7 @@ function ColorPaletteGeneratorContent() {
     if (!currentPalette) return;
     
     setSavedPalettes(prev => [...prev, currentPalette]);
-    showToast("Palette saved!", "success");
+    showToast(t("tools.aiColorPaletteGenerator.paletteSaved"), "success");
   };
 
   const copyToClipboard = async (text: string, type: string) => {
@@ -379,7 +381,7 @@ function ColorPaletteGeneratorContent() {
       await navigator.clipboard.writeText(text);
       showToast(`${type} copied to clipboard`, "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.aiColorPaletteGenerator.failedToCopyToClipboard"), "error");
     }
   };
 
@@ -462,7 +464,7 @@ function ColorPaletteGeneratorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="base-color">Base Color</Label>
+              <Label htmlFor="base-color">{t("tools.aiColorPaletteGenerator.baseColor")}</Label>
               <div className="flex gap-2">
                 <Input
                   type="color"
@@ -480,18 +482,18 @@ function ColorPaletteGeneratorContent() {
             </div>
             
             <div>
-              <Label htmlFor="palette-type">Harmony Type</Label>
+              <Label htmlFor="palette-type">{t("tools.aiColorPaletteGenerator.harmonyType")}</Label>
               <Select value={paletteType} onValueChange={(value: any) => setPaletteType(value)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="complementary">Complementary</SelectItem>
-                  <SelectItem value="triadic">Triadic</SelectItem>
-                  <SelectItem value="analogous">Analogous</SelectItem>
-                  <SelectItem value="monochromatic">Monochromatic</SelectItem>
-                  <SelectItem value="tetradic">Tetradic</SelectItem>
-                  <SelectItem value="split-complementary">Split Complementary</SelectItem>
+                  <SelectItem value="complementary">{t("tools.aiColorPaletteGenerator.complementary")}</SelectItem>
+                  <SelectItem value="triadic">{t("tools.aiColorPaletteGenerator.triadic")}</SelectItem>
+                  <SelectItem value="analogous">{t("tools.aiColorPaletteGenerator.analogous")}</SelectItem>
+                  <SelectItem value="monochromatic">{t("tools.aiColorPaletteGenerator.monochromatic")}</SelectItem>
+                  <SelectItem value="tetradic">{t("tools.aiColorPaletteGenerator.tetradic")}</SelectItem>
+                  <SelectItem value="split-complementary">{t("tools.aiColorPaletteGenerator.splitComplementary")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -541,7 +543,7 @@ function ColorPaletteGeneratorContent() {
 
           {/* Preset Colors */}
           <div>
-            <Label className="text-sm font-medium mb-2 block">Quick Presets:</Label>
+            <Label className="text-sm font-medium mb-2 block">{t("tools.aiColorPaletteGenerator.quickPresets")}</Label>
             <div className="flex flex-wrap gap-2">
               {presets.map((preset, index) => (
                 <Button
@@ -686,7 +688,7 @@ function ColorPaletteGeneratorContent() {
 
             {/* Export Options */}
             <div className="mt-6 pt-4 border-t">
-              <Label className="text-sm font-medium mb-2 block">Export Options:</Label>
+              <Label className="text-sm font-medium mb-2 block">{t("tools.aiColorPaletteGenerator.exportOptions")}</Label>
               <div className="flex flex-wrap gap-2">
                 <Button size="sm" variant="outline" onClick={() => exportPalette('css')}>
                   CSS Variables
@@ -725,11 +727,11 @@ function ColorPaletteGeneratorContent() {
           <CardContent className="space-y-4">
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <Label className="font-medium text-sm">Mood & Psychology</Label>
+                <Label className="font-medium text-sm">{t("tools.aiColorPaletteGenerator.moodPsychology")}</Label>
                 <p className="text-sm text-gray-600 mt-1">{aiInsights.psychology}</p>
               </div>
               <div>
-                <Label className="font-medium text-sm">Best Used For</Label>
+                <Label className="font-medium text-sm">{t("tools.aiColorPaletteGenerator.bestUsedFor")}</Label>
                 <div className="flex flex-wrap gap-1 mt-1">
                   {aiInsights.usage.map((use, index) => (
                     <Badge key={index} variant="secondary">{use}</Badge>
@@ -739,7 +741,7 @@ function ColorPaletteGeneratorContent() {
             </div>
             
             <div>
-              <Label className="font-medium text-sm">Recommendations</Label>
+              <Label className="font-medium text-sm">{t("tools.aiColorPaletteGenerator.recommendations")}</Label>
               <ul className="text-sm text-gray-600 mt-1 space-y-1">
                 {aiInsights.recommendations.map((rec, index) => (
                   <li key={index} className="flex items-start gap-2">

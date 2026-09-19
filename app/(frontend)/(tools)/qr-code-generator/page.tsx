@@ -479,32 +479,32 @@ function QrCodeGeneratorContent() {
       {/* Info Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>About QR Codes</CardTitle>
+          <CardTitle>{t('tools.qrCodeGenerator.aboutTitle')}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Quick Response</div>
+              <div className="font-medium text-primary">{t('tools.qrCodeGenerator.aboutQuickTitle')}</div>
               <div className="text-muted-foreground">
-                QR codes can be scanned quickly by smartphones and other devices
+                {t('tools.qrCodeGenerator.aboutQuickBody')}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Error Correction</div>
+              <div className="font-medium text-primary">{t('tools.qrCodeGenerator.aboutErrorTitle')}</div>
               <div className="text-muted-foreground">
-                Built-in redundancy allows scanning even when partially damaged
+                {t('tools.qrCodeGenerator.aboutErrorBody')}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">High Capacity</div>
+              <div className="font-medium text-primary">{t('tools.qrCodeGenerator.aboutCapacityTitle')}</div>
               <div className="text-muted-foreground">
-                Can store up to 7,089 numeric or 4,296 alphanumeric characters
+                {t('tools.qrCodeGenerator.aboutCapacityBody')}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Universal Support</div>
+              <div className="font-medium text-primary">{t('tools.qrCodeGenerator.aboutUniversalTitle')}</div>
               <div className="text-muted-foreground">
-                Supported by all modern smartphones and QR code readers
+                {t('tools.qrCodeGenerator.aboutUniversalBody')}
               </div>
             </div>
           </div>

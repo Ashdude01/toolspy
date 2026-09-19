@@ -1,5 +1,6 @@
 import { tools, getToolBySlug } from "@/lib/tools-data";
 import { getT } from "@/lib/i18n/messages";
+import { localizeHref } from "@/lib/i18n/localize-href";
 import Link from "next/link";
 
 interface RelatedToolsProps {
@@ -68,7 +69,9 @@ export function RelatedTools({
   return (
     <section className="">
       <div className="mx-auto w-full max-w-7xl">
-        <label className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:text-blue-400">Related Tools</label>
+        <label className="mb-2 text-xs font-semibold uppercase tracking-widest text-[#1877F2] dark:text-blue-400">
+          {t("relatedTools.kicker")}
+        </label>
         <h2 className="!text-2xl font-extrabold tracking-tight sm:!text-3xl">
           {headingText}
         </h2>
@@ -76,18 +79,18 @@ export function RelatedTools({
           {descriptionText}
         </p>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {relatedTools.map((t) => (
+          {relatedTools.map((tool) => (
             <Link
-              key={t.href}
-              href={t.href}
+              key={tool.href}
+              href={localizeHref(locale, tool.href)}
               className="group flex flex-col gap-2 rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
             >
               <div className="flex items-center justify-between gap-2">
                 <h3 className="font-bold text-foreground group-hover:text-[#1877F2] dark:group-hover:text-blue-400">
-                  {t.name}
+                  {tool.name}
                 </h3>
               </div>
-              <p className="text-[13px] leading-relaxed text-muted-foreground">{t.description}</p>
+              <p className="text-[13px] leading-relaxed text-muted-foreground">{tool.description}</p>
             </Link>
           ))}
         </div>

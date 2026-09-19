@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -62,6 +63,7 @@ const ITC_BLOCKED_CATEGORIES = [
 ];
 
 function ITCCalculatorContent() {
+  const t = useT();
   const [totalInputGST, setTotalInputGST] = useState<string>("");
   const [businessUse, setBusinessUse] = useState<string>("100");
   const [blockedITCAmount, setBlockedITCAmount] = useState<string>("");
@@ -209,17 +211,17 @@ Please consult with a tax professional for official ITC calculations.`;
                 ITC Calculator
               </CardTitle>
               <CardDescription>
-                Calculate claimable and blocked Input Tax Credit
+                {t("tools.itcCalculator.calculateClaimableAndBlockedInputTax")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Total Input GST */}
               <div className="space-y-2">
-                <Label htmlFor="total-gst">Total Input GST (₹)</Label>
+                <Label htmlFor="total-gst">{t("tools.itcCalculator.totalInputGst")}</Label>
                 <Input
                   id="total-gst"
                   type="number"
-                  placeholder="Enter total input GST"
+                  placeholder={t("tools.itcCalculator.enterTotalInputGst")}
                   value={totalInputGST}
                   onChange={(e) => setTotalInputGST(e.target.value)}
                   className="text-lg"
@@ -228,7 +230,7 @@ Please consult with a tax professional for official ITC calculations.`;
 
               {/* Business Use Percentage */}
               <div className="space-y-2">
-                <Label htmlFor="business-use">Business Use Percentage (%)</Label>
+                <Label htmlFor="business-use">{t("tools.itcCalculator.businessUsePercentage")}</Label>
                 <Input
                   id="business-use"
                   type="number"
@@ -246,11 +248,11 @@ Please consult with a tax professional for official ITC calculations.`;
 
               {/* Blocked ITC Amount */}
               <div className="space-y-2">
-                <Label htmlFor="blocked-itc">Blocked ITC Amount (₹)</Label>
+                <Label htmlFor="blocked-itc">{t("tools.itcCalculator.blockedItcAmount")}</Label>
                 <Input
                   id="blocked-itc"
                   type="number"
-                  placeholder="Enter blocked ITC amount"
+                  placeholder={t("tools.itcCalculator.enterBlockedItcAmount")}
                   value={blockedITCAmount}
                   onChange={(e) => setBlockedITCAmount(e.target.value)}
                   className="text-lg"
@@ -373,7 +375,7 @@ Please consult with a tax professional for official ITC calculations.`;
                     </div>
                     <p className="text-xs text-muted-foreground">{item.description}</p>
                     {selectedCategories.includes(item.category) && (
-                      <Badge variant="outline" className="text-xs mt-1">Selected</Badge>
+                      <Badge variant="outline" className="text-xs mt-1">{t("tools.itcCalculator.selected")}</Badge>
                     )}
                   </div>
                 ))}
@@ -413,7 +415,7 @@ Please consult with a tax professional for official ITC calculations.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.itcCalculator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

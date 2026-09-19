@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import * as React from "react";
 import {
   Card,
@@ -39,6 +40,7 @@ import {
 import { buildShareCardSVG, CARD_W, CARD_H } from "./share-card";
 
 function LoveCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [firstName, setFirstName] = React.useState("");
   const [secondName, setSecondName] = React.useState("");
@@ -76,7 +78,7 @@ function LoveCalculatorContent() {
 
   const calculate = () => {
     if (!firstName.trim() || !secondName.trim()) {
-      showToast("Please enter both names", "error");
+      showToast(t("tools.loveCalculator.pleaseEnterBothNames"), "error");
       return;
     }
     const r = computeLove({
@@ -86,7 +88,7 @@ function LoveCalculatorContent() {
       dob2: dob2 || undefined,
     });
     setResult(r);
-    showToast("Love compatibility calculated! 💘", "success");
+    showToast(t("tools.loveCalculator.loveCompatibilityCalculated"), "success");
     setTimeout(
       () => resultRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }),
       120
@@ -172,11 +174,11 @@ function LoveCalculatorContent() {
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto_1fr] gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="firstName">First Person&apos;s Name</Label>
+              <Label htmlFor="firstName">{t("tools.loveCalculator.firstPersonAposSName")}</Label>
               <Input
                 id="firstName"
                 type="text"
-                placeholder="e.g. Alex"
+                placeholder={t("tools.loveCalculator.eGAlex")}
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && canCalc && calculate()}
@@ -189,11 +191,11 @@ function LoveCalculatorContent() {
               </div>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="secondName">Second Person&apos;s Name</Label>
+              <Label htmlFor="secondName">{t("tools.loveCalculator.secondPersonAposSName")}</Label>
               <Input
                 id="secondName"
                 type="text"
-                placeholder="e.g. Sam"
+                placeholder={t("tools.loveCalculator.eGSam")}
                 value={secondName}
                 onChange={(e) => setSecondName(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && canCalc && calculate()}
@@ -275,7 +277,7 @@ function LoveCalculatorContent() {
                     Results for {result.name1} &amp; {result.name2}
                   </CardTitle>
                   <CardDescription>
-                    A fun, name-based compatibility reading.
+                    {t("tools.loveCalculator.aFunNameBasedCompatibilityReading")}
                   </CardDescription>
                 </div>
 
@@ -450,9 +452,9 @@ function LoveCalculatorContent() {
       {/* Fun Facts */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Fun Love Facts</CardTitle>
+          <CardTitle>{t("tools.loveCalculator.funLoveFacts")}</CardTitle>
           <CardDescription>
-            Interesting facts about love and relationships
+            {t("tools.loveCalculator.interestingFactsAboutLoveAndRelationships")}
           </CardDescription>
         </CardHeader>
         <CardContent>

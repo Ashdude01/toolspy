@@ -21,7 +21,8 @@ import {
   FileJson,
   Clock,
 } from 'lucide-react';
-import { Tool, ToolCategory, toolCategories } from '@/lib/tools-data';
+import { Tool, ToolCategory } from '@/lib/tools-data';
+import { useT } from '@/lib/i18n/use-t';
 
 export function getCategoryIcon(category: string, className = 'h-6 w-6') {
   switch (category) {
@@ -96,6 +97,7 @@ export function ToolCard({
   truncateDescription,
   showCategoryBadge = true,
 }: ToolCardProps) {
+  const t = useT();
   const isClickable = tool.status === 'active';
   const description =
     truncateDescription && tool.description.length > truncateDescription
@@ -129,7 +131,7 @@ export function ToolCard({
             </Badge>
           ) : showCategoryBadge ? (
             <Badge variant="outline" className="text-xs">
-              {toolCategories[tool.category]?.name}
+              {t(`categories.${tool.category}` as 'categories.image-tools')}
             </Badge>
           ) : null}
         </div>

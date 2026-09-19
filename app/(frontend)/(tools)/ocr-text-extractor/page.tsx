@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useCallback } from "react";
 import {
   Card,
@@ -85,6 +86,7 @@ interface OcrSettings {
 }
 
 function OcrTextExtractorContent() {
+  const t = useT();
   const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
   const [currentFile, setCurrentFile] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
@@ -169,10 +171,10 @@ function OcrTextExtractorContent() {
       setSelectedResult(result);
       setEditedText(result.extractedText);
       
-      showToast("Text extracted successfully!", "success");
+      showToast(t("tools.ocrTextExtractor.textExtractedSuccessfully"), "success");
       
     } catch (error) {
-      showToast("OCR processing failed. Please try again.", "error");
+      showToast(t("tools.ocrTextExtractor.ocrProcessingFailedPleaseTryAgain"), "error");
     } finally {
       setIsProcessing(false);
       setProcessingProgress(0);
@@ -285,7 +287,7 @@ The integration of AI technologies in OCR systems represents a major advancement
     );
     
     if (validFiles.length === 0) {
-      showToast("Please upload image files (JPG, PNG, GIF) or PDF files", "error");
+      showToast(t("tools.ocrTextExtractor.pleaseUploadImageFilesJpgPng"), "error");
       return;
     }
 
@@ -312,7 +314,7 @@ The integration of AI technologies in OCR systems represents a major advancement
 
   const handleSingleProcess = async () => {
     if (!currentFile) {
-      showToast("Please upload a file first", "error");
+      showToast(t("tools.ocrTextExtractor.pleaseUploadAFileFirst"), "error");
       return;
     }
     
@@ -321,7 +323,7 @@ The integration of AI technologies in OCR systems represents a major advancement
 
   const handleBatchProcess = async () => {
     if (uploadedFiles.length === 0) {
-      showToast("No files to process", "error");
+      showToast(t("tools.ocrTextExtractor.noFilesToProcess"), "error");
       return;
     }
 
@@ -346,9 +348,9 @@ The integration of AI technologies in OCR systems represents a major advancement
   const copyText = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Text copied to clipboard", "success");
+      showToast(t("tools.ocrTextExtractor.textCopiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy text", "error");
+      showToast(t("tools.ocrTextExtractor.failedToCopyText"), "error");
     }
   };
 
@@ -388,7 +390,7 @@ The integration of AI technologies in OCR systems represents a major advancement
       setOcrResults(prev => prev.map(r => r.id === selectedResult.id ? updatedResult : r));
       setSelectedResult(updatedResult);
       setIsEditing(false);
-      showToast("Text saved successfully", "success");
+      showToast(t("tools.ocrTextExtractor.textSavedSuccessfully"), "success");
     }
   };
 
@@ -401,7 +403,7 @@ The integration of AI technologies in OCR systems represents a major advancement
     setEditedText('');
     setIsEditing(false);
     setBatchMode(false);
-    showToast("All data cleared", "info");
+    showToast(t("tools.ocrTextExtractor.allDataCleared"), "info");
   };
 
   const getLanguageName = (code: string) => {
@@ -439,7 +441,7 @@ The integration of AI technologies in OCR systems represents a major advancement
               Upload Documents
             </CardTitle>
             <CardDescription>
-              Upload images (JPG, PNG, GIF) or PDF files for text extraction
+              {t("tools.ocrTextExtractor.uploadImagesJpgPngGifOr")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -474,14 +476,14 @@ The integration of AI technologies in OCR systems represents a major advancement
               <h3 className="text-lg font-semibold mb-2">Drop your files here</h3>
               <p className="text-gray-600 mb-4">or click to browse files</p>
               <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                <Button>Single File</Button>
-                <Button variant="outline">Batch Upload</Button>
+                <Button>{t("tools.ocrTextExtractor.singleFile")}</Button>
+                <Button variant="outline">{t("tools.ocrTextExtractor.batchUpload")}</Button>
               </div>
             </div>
             
             {/* Supported Languages */}
             <div className="mt-6">
-              <Label className="text-sm font-medium mb-3 block">Supported Languages:</Label>
+              <Label className="text-sm font-medium mb-3 block">{t("tools.ocrTextExtractor.supportedLanguages")}</Label>
               <div className="flex flex-wrap gap-2">
                 {languages.slice(1, 8).map((lang) => (
                   <Badge key={lang.code} variant="secondary" className="text-xs">
@@ -507,7 +509,7 @@ The integration of AI technologies in OCR systems represents a major advancement
           <CardContent className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               <div>
-                <Label htmlFor="language">Language</Label>
+                <Label htmlFor="language">{t("tools.ocrTextExtractor.language")}</Label>
                 <Select value={settings.language} onValueChange={(value) => setSettings(prev => ({ ...prev, language: value }))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -541,7 +543,7 @@ The integration of AI technologies in OCR systems represents a major advancement
                     checked={settings.enhanceImage}
                     onCheckedChange={(checked) => setSettings(prev => ({ ...prev, enhanceImage: checked }))}
                   />
-                  <Label htmlFor="enhance" className="text-sm">Enhance image</Label>
+                  <Label htmlFor="enhance" className="text-sm">{t("tools.ocrTextExtractor.enhanceImage")}</Label>
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -550,7 +552,7 @@ The integration of AI technologies in OCR systems represents a major advancement
                     checked={settings.preserveFormatting}
                     onCheckedChange={(checked) => setSettings(prev => ({ ...prev, preserveFormatting: checked }))}
                   />
-                  <Label htmlFor="formatting" className="text-sm">Preserve formatting</Label>
+                  <Label htmlFor="formatting" className="text-sm">{t("tools.ocrTextExtractor.preserveFormatting")}</Label>
                 </div>
               </div>
               
@@ -561,7 +563,7 @@ The integration of AI technologies in OCR systems represents a major advancement
                     checked={settings.detectTables}
                     onCheckedChange={(checked) => setSettings(prev => ({ ...prev, detectTables: checked }))}
                   />
-                  <Label htmlFor="tables" className="text-sm">Detect tables</Label>
+                  <Label htmlFor="tables" className="text-sm">{t("tools.ocrTextExtractor.detectTables")}</Label>
                 </div>
                 
                 <div className="flex items-center space-x-2">
@@ -570,7 +572,7 @@ The integration of AI technologies in OCR systems represents a major advancement
                     checked={settings.autoRotate}
                     onCheckedChange={(checked) => setSettings(prev => ({ ...prev, autoRotate: checked }))}
                   />
-                  <Label htmlFor="rotate" className="text-sm">Auto-rotate</Label>
+                  <Label htmlFor="rotate" className="text-sm">{t("tools.ocrTextExtractor.autoRotate")}</Label>
                 </div>
               </div>
             </div>
@@ -729,7 +731,7 @@ The integration of AI technologies in OCR systems represents a major advancement
                       value={editedText}
                       onChange={(e) => setEditedText(e.target.value)}
                       className="min-h-[300px] font-mono text-sm"
-                      placeholder="Edit extracted text..."
+                      placeholder={t("tools.ocrTextExtractor.editExtractedText")}
                     />
                   ) : (
                     <div className="border rounded-lg p-4 bg-gray-50 max-h-[300px] overflow-y-auto">

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef } from "react";
 import {
   Card,
@@ -46,6 +47,7 @@ interface ProcessedFile {
 }
 
 function ImageOptimizerContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [files, setFiles] = useState<ProcessedFile[]>([]);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -93,7 +95,7 @@ function ImageOptimizerContent() {
 
   const removeFile = (id: string) => {
     setFiles(prev => prev.filter(file => file.id !== id));
-    showToast("File removed", "success");
+    showToast(t("tools.imageOptimizer.fileRemoved"), "success");
   };
 
   const clearAllFiles = () => {
@@ -104,12 +106,12 @@ function ImageOptimizerContent() {
       URL.revokeObjectURL(file.previewUrl);
     });
     setFiles([]);
-    showToast("All files cleared", "success");
+    showToast(t("tools.imageOptimizer.allFilesCleared"), "success");
   };
 
   const optimizeImages = async () => {
     if (files.length === 0) {
-      showToast("Please select images first", "error");
+      showToast(t("tools.imageOptimizer.pleaseSelectImagesFirst"), "error");
       return;
     }
 
@@ -216,11 +218,11 @@ function ImageOptimizerContent() {
         setFiles([...updatedFiles]);
       }
       
-      showToast("Images optimized successfully!", "success");
+      showToast(t("tools.imageOptimizer.imagesOptimizedSuccessfully"), "success");
       
     } catch (error) {
       console.error('Optimization error:', error);
-      showToast("Optimization failed. Please try again.", "error");
+      showToast(t("tools.imageOptimizer.optimizationFailedPleaseTryAgain"), "error");
     } finally {
       setIsProcessing(false);
     }
@@ -250,7 +252,7 @@ function ImageOptimizerContent() {
     const completedFiles = files.filter(file => file.status === 'completed' && file.optimizedUrl);
     
     if (completedFiles.length === 0) {
-      showToast("No optimized images to download", "error");
+      showToast(t("tools.imageOptimizer.noOptimizedImagesToDownload"), "error");
       return;
     }
 
@@ -354,30 +356,30 @@ function ImageOptimizerContent() {
               </div>
 
               <div className="space-y-2">
-                <Label>Output Format</Label>
+                <Label>{t("tools.imageOptimizer.outputFormat")}</Label>
                 <Select value={format} onValueChange={setFormat}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="webp">WebP (Best compression)</SelectItem>
+                    <SelectItem value="webp">{t("tools.imageOptimizer.webpBestCompression")}</SelectItem>
                     <SelectItem value="jpeg">JPEG</SelectItem>
                     <SelectItem value="png">PNG</SelectItem>
-                    <SelectItem value="original">Keep original format</SelectItem>
+                    <SelectItem value="original">{t("tools.imageOptimizer.keepOriginalFormat")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label>Resize Mode</Label>
+                <Label>{t("tools.imageOptimizer.resizeMode")}</Label>
                 <Select value={resizeMode} onValueChange={setResizeMode}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="none">No resizing</SelectItem>
-                    <SelectItem value="fit">Fit within dimensions</SelectItem>
-                    <SelectItem value="cover">Cover dimensions</SelectItem>
+                    <SelectItem value="none">{t("tools.imageOptimizer.noResizing")}</SelectItem>
+                    <SelectItem value="fit">{t("tools.imageOptimizer.fitWithinDimensions")}</SelectItem>
+                    <SelectItem value="cover">{t("tools.imageOptimizer.coverDimensions")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -421,7 +423,7 @@ function ImageOptimizerContent() {
                     onChange={(e) => setProgressive(e.target.checked)}
                     className="h-4 w-4"
                   />
-                  <Label htmlFor="progressive">Progressive JPEG</Label>
+                  <Label htmlFor="progressive">{t("tools.imageOptimizer.progressiveJpeg")}</Label>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Loads images progressively for better perceived performance
@@ -437,7 +439,7 @@ function ImageOptimizerContent() {
                     onChange={(e) => setRemoveMetadata(e.target.checked)}
                     className="h-4 w-4"
                   />
-                  <Label htmlFor="removeMetadata">Remove metadata</Label>
+                  <Label htmlFor="removeMetadata">{t("tools.imageOptimizer.removeMetadata")}</Label>
                 </div>
                 <p className="text-xs text-muted-foreground">
                   Removes EXIF data to reduce file size
@@ -452,7 +454,7 @@ function ImageOptimizerContent() {
       {files.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Images to Optimize</CardTitle>
+            <CardTitle>{t("tools.imageOptimizer.imagesToOptimize")}</CardTitle>
             <CardDescription>
               {files.length} image(s) selected, {completedCount} optimized
               {totalSavings > 0 && (
@@ -577,7 +579,7 @@ function ImageOptimizerContent() {
         isOpen={isProcessing}
         current={currentFile}
         total={files.length}
-        title="Optimizing Images"
+        title={t("tools.imageOptimizer.optimizingImages")}
         description="Processing your images, please wait..."
         currentFile={files[currentFile]?.name}
       />
@@ -585,7 +587,7 @@ function ImageOptimizerContent() {
       {/* Info Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>About Image Optimization</CardTitle>
+          <CardTitle>{t("tools.imageOptimizer.aboutImageOptimization")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
@@ -602,7 +604,7 @@ function ImageOptimizerContent() {
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Progressive JPEG</div>
+              <div className="font-medium text-primary">{t("tools.imageOptimizer.progressiveJpeg")}</div>
               <div className="text-muted-foreground">
                 Loads images in multiple passes for better UX
               </div>

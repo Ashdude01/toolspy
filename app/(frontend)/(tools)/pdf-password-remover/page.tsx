@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -38,6 +39,7 @@ interface RemovalResult {
 }
 
 function PdfPasswordRemoverContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [removalResults, setRemovalResults] = useState<RemovalResult[]>([]);
@@ -53,7 +55,7 @@ function PdfPasswordRemoverContent() {
     const pdfFiles = files.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t("tools.pdfPasswordRemover.pleaseSelectPdfFilesOnly"), "error");
       return;
     }
     
@@ -76,17 +78,17 @@ function PdfPasswordRemoverContent() {
     setSelectedFiles([]);
     setRemovalResults([]);
     setPassword("");
-    showToast("All files cleared", "info");
+    showToast(t("tools.pdfPasswordRemover.allFilesCleared"), "info");
   };
 
   const removePasswords = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to process", "error");
+      showToast(t("tools.pdfPasswordRemover.pleaseSelectPdfFilesToProcess"), "error");
       return;
     }
 
     if (!password.trim()) {
-      showToast("Please enter the password", "error");
+      showToast(t("tools.pdfPasswordRemover.pleaseEnterThePassword"), "error");
       return;
     }
 
@@ -176,7 +178,7 @@ function PdfPasswordRemoverContent() {
   const downloadResult = (result: RemovalResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("File downloaded", "success");
+      showToast(t("tools.pdfPasswordRemover.fileDownloaded"), "success");
     }
   };
 
@@ -225,7 +227,7 @@ function PdfPasswordRemoverContent() {
                   Selected PDF Files ({selectedFiles.length})
                 </CardTitle>
                 <CardDescription>
-                  Files ready for password removal
+                  {t("tools.pdfPasswordRemover.filesReadyForPasswordRemoval")}
                 </CardDescription>
               </div>
               <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -260,11 +262,11 @@ function PdfPasswordRemoverContent() {
 
             <div className="space-y-4">
               <div>
-                <Label htmlFor="password">PDF Password</Label>
+                <Label htmlFor="password">{t("tools.pdfPasswordRemover.pdfPassword")}</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter the password for your protected PDFs"
+                  placeholder={t("tools.pdfPasswordRemover.enterThePasswordForYourProtected")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
@@ -365,7 +367,7 @@ function PdfPasswordRemoverContent() {
 
       <ProgressModal
         isOpen={isRemoving}
-        title="Removing PDF Passwords"
+        title={t("tools.pdfPasswordRemover.removingPdfPasswords")}
         current={removalProgress.current}
         total={removalProgress.total}
         currentFile={removalProgress.file}

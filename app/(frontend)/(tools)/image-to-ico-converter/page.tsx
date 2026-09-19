@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -69,6 +70,7 @@ const ICO_SIZES = [
 ];
 
 function ImageToICOConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [selectedSizes, setSelectedSizes] = useState<string[]>(["16x16", "32x32", "48x48"]);
@@ -101,7 +103,7 @@ function ImageToICOConverterContent() {
   const clearFile = () => {
     setSelectedFile(null);
     setConvertedIcons([]);
-    showToast("File cleared", "info");
+    showToast(t("tools.imageToIcoConverter.fileCleared"), "info");
   };
 
   const toggleSize = (size: string) => {
@@ -114,12 +116,12 @@ function ImageToICOConverterContent() {
 
   const convertToICO = async () => {
     if (!selectedFile) {
-      showToast("Please select an image file", "error");
+      showToast(t("tools.imageToIcoConverter.pleaseSelectAnImageFile"), "error");
       return;
     }
 
     if (selectedSizes.length === 0) {
-      showToast("Please select at least one size", "error");
+      showToast(t("tools.imageToIcoConverter.pleaseSelectAtLeastOneSize"), "error");
       return;
     }
 
@@ -198,7 +200,7 @@ function ImageToICOConverterContent() {
 
   const downloadAllICOs = async () => {
     if (convertedIcons.length === 0) {
-      showToast("No ICO files available for download", "error");
+      showToast(t("tools.imageToIcoConverter.noIcoFilesAvailableForDownload"), "error");
       return;
     }
 
@@ -284,8 +286,8 @@ Generated on: ${new Date().toLocaleString()}
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
-                    <CardTitle>Selected Image</CardTitle>
-                    <CardDescription>Source image for ICO conversion</CardDescription>
+                    <CardTitle>{t("tools.imageToIcoConverter.selectedImage")}</CardTitle>
+                    <CardDescription>{t("tools.imageToIcoConverter.sourceImageForIcoConversion")}</CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearFile} size="sm">
                     <Trash2 className="h-4 w-4 mr-2" />
@@ -304,8 +306,8 @@ Generated on: ${new Date().toLocaleString()}
             {/* ICO Size Selection */}
             <Card className="lg:col-span-2">
               <CardHeader>
-                <CardTitle>ICO Sizes</CardTitle>
-                <CardDescription>Select sizes for ICO conversion</CardDescription>
+                <CardTitle>{t("tools.imageToIcoConverter.icoSizes")}</CardTitle>
+                <CardDescription>{t("tools.imageToIcoConverter.selectSizesForIcoConversion")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
@@ -337,8 +339,8 @@ Generated on: ${new Date().toLocaleString()}
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>ICO Settings</CardTitle>
-                  <CardDescription>Customize ICO appearance</CardDescription>
+                  <CardTitle>{t("tools.imageToIcoConverter.icoSettings")}</CardTitle>
+                  <CardDescription>{t("tools.imageToIcoConverter.customizeIcoAppearance")}</CardDescription>
                 </div>
                 <Button
                   variant="secondary"
@@ -365,7 +367,7 @@ Generated on: ${new Date().toLocaleString()}
               {/* Basic Settings */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="background-color">Background Color</Label>
+                  <Label htmlFor="background-color">{t("tools.imageToIcoConverter.backgroundColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="background-color"
@@ -433,7 +435,7 @@ Generated on: ${new Date().toLocaleString()}
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Converted ICO Files</CardTitle>
+                <CardTitle>{t("tools.imageToIcoConverter.convertedIcoFiles")}</CardTitle>
                 <CardDescription>
                   {convertedIcons.length} ICO file(s) converted successfully
                 </CardDescription>
@@ -488,7 +490,7 @@ Generated on: ${new Date().toLocaleString()}
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isConverting}
-        title="Converting to ICO"
+        title={t("tools.imageToIcoConverter.convertingToIco")}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.size}

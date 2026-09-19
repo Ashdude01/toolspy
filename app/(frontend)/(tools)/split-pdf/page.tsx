@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -39,6 +40,7 @@ interface SplitResult {
 }
 
 function SplitPdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [splitResults, setSplitResults] = useState<SplitResult[]>([]);
@@ -56,12 +58,12 @@ function SplitPdfContent() {
     const pdfFiles = files.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length === 0) {
-      showToast("Please select a PDF file", "error");
+      showToast(t("tools.splitPdf.pleaseSelectAPdfFile"), "error");
       return;
     }
     
     if (pdfFiles.length > 1) {
-      showToast("Please select only one PDF file to split", "warning");
+      showToast(t("tools.splitPdf.pleaseSelectOnlyOnePdfFile"), "warning");
     }
     
     setSelectedFile(pdfFiles[0]);
@@ -78,7 +80,7 @@ function SplitPdfContent() {
 
   const splitPdf = async () => {
     if (!selectedFile) {
-      showToast("Please select a PDF file to split", "error");
+      showToast(t("tools.splitPdf.pleaseSelectAPdfFileTo"), "error");
       return;
     }
 
@@ -103,7 +105,7 @@ function SplitPdfContent() {
       if (splitMode === "page-range") {
         // Parse page ranges (e.g., "1-3,5-7,9")
         if (!pageRanges.trim()) {
-          showToast("Please specify page ranges (e.g., 1-3,5-7,9)", "error");
+          showToast(t("tools.splitPdf.pleaseSpecifyPageRangesEG"), "error");
           setIsSplitting(false);
           return;
         }
@@ -125,7 +127,7 @@ function SplitPdfContent() {
       } else if (splitMode === "pages-per-file") {
         const pagesPerChunk = parseInt(pagesPerFile);
         if (pagesPerChunk < 1) {
-          showToast("Pages per file must be at least 1", "error");
+          showToast(t("tools.splitPdf.pagesPerFileMustBeAt"), "error");
           setIsSplitting(false);
           return;
         }
@@ -145,7 +147,7 @@ function SplitPdfContent() {
       }
 
       if (ranges.length === 0) {
-        showToast("No valid page ranges specified", "error");
+        showToast(t("tools.splitPdf.noValidPageRangesSpecified"), "error");
         setIsSplitting(false);
         return;
       }
@@ -216,7 +218,7 @@ function SplitPdfContent() {
 
   const downloadSingle = (file: File) => {
     downloadFile(file, file.name);
-    showToast("File downloaded", "success");
+    showToast(t("tools.splitPdf.fileDownloaded"), "success");
   };
 
   const downloadAll = async () => {
@@ -228,7 +230,7 @@ function SplitPdfContent() {
         const zipName = `${selectedFile?.name.replace('.pdf', '')}-split.zip`;
         const zipBlob = await createZipFromFiles(files, zipName);
         downloadZip(zipBlob, zipName);
-        showToast("All files downloaded as ZIP", "success");
+        showToast(t("tools.splitPdf.allFilesDownloadedAsZip"), "success");
       }
     }
   };
@@ -271,14 +273,14 @@ function SplitPdfContent() {
                   Selected PDF File
                 </CardTitle>
                 <CardDescription>
-                  Configure how you want to split this PDF document
+                  {t("tools.splitPdf.configureHowYouWantToSplit")}
                 </CardDescription>
               </div>
               <Button 
                 variant="outline" 
                 onClick={removeFile} 
                 size="sm"
-                aria-label="Remove selected PDF file"
+                aria-label={t("tools.splitPdf.removeSelectedPdfFile")}
               >
                 <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                 Remove
@@ -300,26 +302,26 @@ function SplitPdfContent() {
 
             <div className="space-y-6">
               <div>
-                <Label htmlFor="split-mode">Split Mode</Label>
+                <Label htmlFor="split-mode">{t("tools.splitPdf.splitMode")}</Label>
                 <Select value={splitMode} onValueChange={setSplitMode}>
-                  <SelectTrigger id="split-mode" aria-label="Select PDF split mode">
+                  <SelectTrigger id="split-mode" aria-label={t("tools.splitPdf.selectPdfSplitMode")}>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="page-range">Page Ranges</SelectItem>
-                    <SelectItem value="pages-per-file">Pages per File</SelectItem>
-                    <SelectItem value="each-page">Each Page Separate</SelectItem>
+                    <SelectItem value="page-range">{t("tools.splitPdf.pageRanges")}</SelectItem>
+                    <SelectItem value="pages-per-file">{t("tools.splitPdf.pagesPerFile")}</SelectItem>
+                    <SelectItem value="each-page">{t("tools.splitPdf.eachPageSeparate")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               {splitMode === "page-range" && (
                 <div>
-                  <Label htmlFor="page-ranges">Page Ranges <span className="text-red-500" aria-label="required">*</span></Label>
+                  <Label htmlFor="page-ranges">{t("tools.splitPdf.pageRanges")} <span className="text-red-500" aria-label={t("tools.splitPdf.required")}>*</span></Label>
                   <Input
                     id="page-ranges"
                     type="text"
-                    placeholder="e.g., 1-3,5-7,9"
+                    placeholder={t("tools.splitPdf.eG1357")}
                     value={pageRanges}
                     onChange={(e) => setPageRanges(e.target.value)}
                     required={splitMode === "page-range"}
@@ -337,7 +339,7 @@ function SplitPdfContent() {
 
               {splitMode === "pages-per-file" && (
                 <div>
-                  <Label htmlFor="pages-per-file">Pages per File <span className="text-red-500" aria-label="required">*</span></Label>
+                  <Label htmlFor="pages-per-file">{t("tools.splitPdf.pagesPerFile")} <span className="text-red-500" aria-label={t("tools.splitPdf.required")}>*</span></Label>
                   <Input
                     id="pages-per-file"
                     type="number"
@@ -445,7 +447,7 @@ function SplitPdfContent() {
                 <Button 
                   onClick={() => setSplitResults([])} 
                   variant="outline"
-                  aria-label="Try splitting PDF again"
+                  aria-label={t("tools.splitPdf.trySplittingPdfAgain")}
                 >
                   Try Again
                 </Button>
@@ -457,7 +459,7 @@ function SplitPdfContent() {
 
       <ProgressModal
         isOpen={isSplitting}
-        title="Splitting PDF"
+        title={t("tools.splitPdf.splittingPdf")}
         current={splitProgress.current}
         total={splitProgress.total}
         currentFile={splitProgress.file}

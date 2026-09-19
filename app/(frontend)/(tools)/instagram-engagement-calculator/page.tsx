@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -63,6 +64,7 @@ interface CalculationResult {
 }
 
 function InstagramEngagementCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [followerCount, setFollowerCount] = useState("");
   const [metrics, setMetrics] = useState<EngagementMetrics>({
@@ -79,7 +81,7 @@ function InstagramEngagementCalculatorContent() {
 
   const calculateEngagement = () => {
     if (!followerCount || parseInt(followerCount) === 0) {
-      showToast("Please enter your follower count", "error");
+      showToast(t("tools.instagramEngagementCalculator.pleaseEnterYourFollowerCount"), "error");
       return;
     }
 
@@ -142,7 +144,7 @@ function InstagramEngagementCalculatorContent() {
       benchmarkComparison,
     });
 
-    showToast("Engagement rate calculated successfully!", "success");
+    showToast(t("tools.instagramEngagementCalculator.engagementRateCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -156,7 +158,7 @@ function InstagramEngagementCalculatorContent() {
       impressions: 0,
     });
     setResult(null);
-    showToast("Calculator reset", "info");
+    showToast(t("tools.instagramEngagementCalculator.calculatorReset"), "info");
   };
 
   const getEngagementColor = (score: string) => {
@@ -200,18 +202,18 @@ function InstagramEngagementCalculatorContent() {
                 Engagement Calculator
               </CardTitle>
               <CardDescription>
-                Enter your Instagram metrics to calculate engagement rate
+                {t("tools.instagramEngagementCalculator.enterYourInstagramMetricsToCalculate")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Account Information */}
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="followers">Follower Count *</Label>
+                  <Label htmlFor="followers">{t("tools.instagramEngagementCalculator.followerCount")}</Label>
                   <Input
                     id="followers"
                     type="number"
-                    placeholder="Enter your follower count"
+                    placeholder={t("tools.instagramEngagementCalculator.enterYourFollowerCount")}
                     value={followerCount}
                     onChange={(e) => setFollowerCount(e.target.value)}
                     className="mt-1"
@@ -220,31 +222,31 @@ function InstagramEngagementCalculatorContent() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label>Account Type</Label>
+                    <Label>{t("tools.instagramEngagementCalculator.accountType")}</Label>
                     <Select value={accountType} onValueChange={setAccountType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="personal">Personal</SelectItem>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="creator">Creator</SelectItem>
-                        <SelectItem value="influencer">Influencer</SelectItem>
+                        <SelectItem value="personal">{t("tools.instagramEngagementCalculator.personal")}</SelectItem>
+                        <SelectItem value="business">{t("tools.instagramEngagementCalculator.business")}</SelectItem>
+                        <SelectItem value="creator">{t("tools.instagramEngagementCalculator.creator")}</SelectItem>
+                        <SelectItem value="influencer">{t("tools.instagramEngagementCalculator.influencer")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label>Content Type</Label>
+                    <Label>{t("tools.instagramEngagementCalculator.contentType")}</Label>
                     <Select value={contentType} onValueChange={setContentType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="post">Post</SelectItem>
-                        <SelectItem value="reel">Reel</SelectItem>
-                        <SelectItem value="story">Story</SelectItem>
-                        <SelectItem value="carousel">Carousel</SelectItem>
+                        <SelectItem value="post">{t("tools.instagramEngagementCalculator.post")}</SelectItem>
+                        <SelectItem value="reel">{t("tools.instagramEngagementCalculator.reel")}</SelectItem>
+                        <SelectItem value="story">{t("tools.instagramEngagementCalculator.story")}</SelectItem>
+                        <SelectItem value="carousel">{t("tools.instagramEngagementCalculator.carousel")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -357,7 +359,7 @@ function InstagramEngagementCalculatorContent() {
                   Calculate Engagement
                 </Button>
                 <Button onClick={resetCalculator} variant="outline">
-                  Reset
+                  {t("tools.instagramEngagementCalculator.reset")}
                 </Button>
               </div>
             </CardContent>

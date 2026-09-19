@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -48,6 +49,7 @@ interface MortgageResult {
 }
 
 function MortgageCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [homePrice, setHomePrice] = useState("");
   const [downPayment, setDownPayment] = useState("");
@@ -70,13 +72,13 @@ function MortgageCalculatorContent() {
     const debt = parseFloat(monthlyDebt) || 0;
 
     if (!price || !down || !interestRate || price <= 0 || down < 0 || parseFloat(interestRate) <= 0) {
-      showToast("Please enter valid mortgage details", "error");
+      showToast(t("tools.mortgageCalculator.pleaseEnterValidMortgageDetails"), "error");
       return;
     }
 
     const loanAmount = price - down;
     if (loanAmount <= 0) {
-      showToast("Down payment cannot be greater than or equal to home price", "error");
+      showToast(t("tools.mortgageCalculator.downPaymentCannotBeGreaterThan"), "error");
       return;
     }
 
@@ -123,7 +125,7 @@ function MortgageCalculatorContent() {
     };
 
     setResult(mortgageResult);
-    showToast("Mortgage calculated successfully!", "success");
+    showToast(t("tools.mortgageCalculator.mortgageCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -183,13 +185,13 @@ function MortgageCalculatorContent() {
             Mortgage Details
           </CardTitle>
           <CardDescription>
-            Enter your home purchase and loan information
+            {t("tools.mortgageCalculator.enterYourHomePurchaseAndLoan")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="homePrice">Home Price ($)</Label>
+              <Label htmlFor="homePrice">{t("tools.mortgageCalculator.homePrice")}</Label>
               <Input
                 id="homePrice"
                 type="number"
@@ -201,7 +203,7 @@ function MortgageCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="downPayment">Down Payment ($)</Label>
+              <Label htmlFor="downPayment">{t("tools.mortgageCalculator.downPayment")}</Label>
               <Input
                 id="downPayment"
                 type="number"
@@ -216,7 +218,7 @@ function MortgageCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label>Loan Term</Label>
+              <Label>{t("tools.mortgageCalculator.loanTerm")}</Label>
               <Select value={loanTerm} onValueChange={setLoanTerm}>
                 <SelectTrigger>
                   <SelectValue />
@@ -230,7 +232,7 @@ function MortgageCalculatorContent() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="interestRate">Interest Rate (%)</Label>
+              <Label htmlFor="interestRate">{t("tools.mortgageCalculator.interestRate")}</Label>
               <Input
                 id="interestRate"
                 type="number"
@@ -245,7 +247,7 @@ function MortgageCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="propertyTax">Annual Property Tax ($)</Label>
+              <Label htmlFor="propertyTax">{t("tools.mortgageCalculator.annualPropertyTax")}</Label>
               <Input
                 id="propertyTax"
                 type="number"
@@ -257,7 +259,7 @@ function MortgageCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="homeInsurance">Annual Home Insurance ($)</Label>
+              <Label htmlFor="homeInsurance">{t("tools.mortgageCalculator.annualHomeInsurance")}</Label>
               <Input
                 id="homeInsurance"
                 type="number"
@@ -274,7 +276,7 @@ function MortgageCalculatorContent() {
             <h3 className="font-medium mb-4">Affordability Analysis (Optional)</h3>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="monthlyIncome">Monthly Gross Income ($)</Label>
+                <Label htmlFor="monthlyIncome">{t("tools.mortgageCalculator.monthlyGrossIncome")}</Label>
                 <Input
                   id="monthlyIncome"
                   type="number"
@@ -286,7 +288,7 @@ function MortgageCalculatorContent() {
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="monthlyDebt">Monthly Debt Payments ($)</Label>
+                <Label htmlFor="monthlyDebt">{t("tools.mortgageCalculator.monthlyDebtPayments")}</Label>
                 <Input
                   id="monthlyDebt"
                   type="number"
@@ -330,7 +332,7 @@ function MortgageCalculatorContent() {
               Mortgage Payment Breakdown
             </CardTitle>
             <CardDescription>
-              Your monthly mortgage payment details
+              {t("tools.mortgageCalculator.yourMonthlyMortgagePaymentDetails")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -513,9 +515,9 @@ function MortgageCalculatorContent() {
       {/* Mortgage Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Mortgage Tips & Guidelines</CardTitle>
+          <CardTitle>{t("tools.mortgageCalculator.mortgageTipsGuidelines")}</CardTitle>
           <CardDescription>
-            Important considerations for your mortgage decision
+            {t("tools.mortgageCalculator.importantConsiderationsForYourMortgageDecision")}
           </CardDescription>
         </CardHeader>
         <CardContent>

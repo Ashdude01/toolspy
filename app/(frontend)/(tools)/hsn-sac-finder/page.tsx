@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -53,6 +54,7 @@ const SAMPLE_HSN_CODES = [
 ];
 
 function HSNSACFinderContent() {
+  const t = useT();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [searchType, setSearchType] = useState<'all' | 'HSN' | 'SAC'>('all');
   const [searchResults, setSearchResults] = useState<HSNSACCode[]>([]);
@@ -160,17 +162,17 @@ Please verify with official GST portal for latest updates.`;
                 HSN/SAC Code Search
               </CardTitle>
               <CardDescription>
-                Search for HSN or SAC codes by code, description, or category
+                {t("tools.hsnSacFinder.searchForHsnOrSacCodes")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Search Input */}
               <div className="space-y-2">
-                <Label htmlFor="search">Search Query</Label>
+                <Label htmlFor="search">{t("tools.hsnSacFinder.searchQuery")}</Label>
                 <Input
                   id="search"
                   type="text"
-                  placeholder="Enter HSN/SAC code, description, or category"
+                  placeholder={t("tools.hsnSacFinder.enterHsnSacCodeDescriptionOr")}
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="text-lg"
@@ -179,15 +181,15 @@ Please verify with official GST portal for latest updates.`;
 
               {/* Search Type */}
               <div className="space-y-2">
-                <Label htmlFor="search-type">Search Type</Label>
+                <Label htmlFor="search-type">{t("tools.hsnSacFinder.searchType")}</Label>
                 <Select value={searchType} onValueChange={(value: 'all' | 'HSN' | 'SAC') => setSearchType(value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Codes</SelectItem>
-                    <SelectItem value="HSN">HSN Codes Only</SelectItem>
-                    <SelectItem value="SAC">SAC Codes Only</SelectItem>
+                    <SelectItem value="all">{t("tools.hsnSacFinder.allCodes")}</SelectItem>
+                    <SelectItem value="HSN">{t("tools.hsnSacFinder.hsnCodesOnly")}</SelectItem>
+                    <SelectItem value="SAC">{t("tools.hsnSacFinder.sacCodesOnly")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -302,7 +304,7 @@ Please verify with official GST portal for latest updates.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.hsnSacFinder.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
@@ -364,23 +366,23 @@ Please verify with official GST portal for latest updates.`;
               <div className="space-y-2">
                 <div className="flex justify-between items-center p-2 bg-muted rounded">
                   <span className="text-sm">0% (Exempt)</span>
-                  <Badge variant="outline" className="text-xs">Essential</Badge>
+                  <Badge variant="outline" className="text-xs">{t("tools.hsnSacFinder.essential")}</Badge>
                 </div>
                 <div className="flex justify-between items-center p-2 bg-muted rounded">
                   <span className="text-sm">5%</span>
-                  <Badge variant="outline" className="text-xs">Basic</Badge>
+                  <Badge variant="outline" className="text-xs">{t("tools.hsnSacFinder.basic")}</Badge>
                 </div>
                 <div className="flex justify-between items-center p-2 bg-muted rounded">
                   <span className="text-sm">12%</span>
-                  <Badge variant="outline" className="text-xs">Standard</Badge>
+                  <Badge variant="outline" className="text-xs">{t("tools.hsnSacFinder.standard")}</Badge>
                 </div>
                 <div className="flex justify-between items-center p-2 bg-muted rounded">
                   <span className="text-sm">18%</span>
-                  <Badge variant="outline" className="text-xs">Standard</Badge>
+                  <Badge variant="outline" className="text-xs">{t("tools.hsnSacFinder.standard")}</Badge>
                 </div>
                 <div className="flex justify-between items-center p-2 bg-muted rounded">
                   <span className="text-sm">28%</span>
-                  <Badge variant="outline" className="text-xs">Luxury</Badge>
+                  <Badge variant="outline" className="text-xs">{t("tools.hsnSacFinder.luxury")}</Badge>
                 </div>
               </div>
             </CardContent>

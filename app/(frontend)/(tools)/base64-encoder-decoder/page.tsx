@@ -482,32 +482,32 @@ function Base64EncoderDecoderContent() {
       {/* Info Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>About Base64 Encoding</CardTitle>
+          <CardTitle>{t("tools.base64EncoderDecoder.aboutTitle")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">What is Base64?</div>
+              <div className="font-medium text-primary">{t("tools.base64EncoderDecoder.aboutWhatTitle")}</div>
               <div className="text-muted-foreground">
-                Binary-to-text encoding scheme that represents binary data in ASCII
+                {t("tools.base64EncoderDecoder.aboutWhatBody")}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Common Uses</div>
+              <div className="font-medium text-primary">{t("tools.base64EncoderDecoder.aboutUsesTitle")}</div>
               <div className="text-muted-foreground">
-                Email attachments, data URLs, API tokens, configuration files
+                {t("tools.base64EncoderDecoder.aboutUsesBody")}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">URL-Safe</div>
+              <div className="font-medium text-primary">{t("tools.base64EncoderDecoder.aboutUrlSafeTitle")}</div>
               <div className="text-muted-foreground">
-                Replaces + with -, / with _, and removes padding for URLs
+                {t("tools.base64EncoderDecoder.aboutUrlSafeBody")}
               </div>
             </div>
             <div className="p-3 bg-muted rounded-lg">
-              <div className="font-medium text-primary">Size Increase</div>
+              <div className="font-medium text-primary">{t("tools.base64EncoderDecoder.aboutSizeTitle")}</div>
               <div className="text-muted-foreground">
-                Base64 encoded data is approximately 33% larger than original
+                {t("tools.base64EncoderDecoder.aboutSizeBody")}
               </div>
             </div>
           </div>

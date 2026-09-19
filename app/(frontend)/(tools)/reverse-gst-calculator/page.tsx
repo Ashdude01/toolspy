@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -49,6 +50,7 @@ const GST_RATES = [
 ];
 
 function ReverseGSTCalculatorContent() {
+  const t = useT();
   const [totalAmount, setTotalAmount] = useState<string>("");
   const [gstRate, setGstRate] = useState<number>(18);
   const [calculation, setCalculation] = useState<ReverseGSTCalculation | null>(null);
@@ -154,17 +156,17 @@ Please consult with a tax professional for official GST calculations.`;
                 Reverse GST Calculator
               </CardTitle>
               <CardDescription>
-                Enter total amount to find base amount and GST component
+                {t("tools.reverseGstCalculator.enterTotalAmountToFindBase")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Total Amount Input */}
               <div className="space-y-2">
-                <Label htmlFor="total-amount">Total Amount (₹) - GST Inclusive</Label>
+                <Label htmlFor="total-amount">{t("tools.reverseGstCalculator.totalAmountGstInclusive")}</Label>
                 <Input
                   id="total-amount"
                   type="number"
-                  placeholder="Enter total amount (GST included)"
+                  placeholder={t("tools.reverseGstCalculator.enterTotalAmountGstIncluded")}
                   value={totalAmount}
                   onChange={(e) => setTotalAmount(e.target.value)}
                   className="text-lg"
@@ -176,7 +178,7 @@ Please consult with a tax professional for official GST calculations.`;
 
               {/* GST Rate Selection */}
               <div className="space-y-2">
-                <Label htmlFor="gst-rate">GST Rate</Label>
+                <Label htmlFor="gst-rate">{t("tools.reverseGstCalculator.gstRate")}</Label>
                 <Select value={gstRate.toString()} onValueChange={(value) => setGstRate(Number(value))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -282,7 +284,7 @@ Please consult with a tax professional for official GST calculations.`;
                   <div key={rate.value} className="flex justify-between items-center p-2 bg-muted rounded">
                     <span className="text-sm">{rate.label}</span>
                     {rate.value === gstRate && (
-                      <Badge variant="default" className="text-xs">Selected</Badge>
+                      <Badge variant="default" className="text-xs">{t("tools.reverseGstCalculator.selected")}</Badge>
                     )}
                   </div>
                 ))}
@@ -322,7 +324,7 @@ Please consult with a tax professional for official GST calculations.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.reverseGstCalculator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">
@@ -343,7 +345,7 @@ Please consult with a tax professional for official GST calculations.`;
           {/* Use Cases */}
           <Card>
             <CardHeader>
-              <CardTitle>Common Use Cases</CardTitle>
+              <CardTitle>{t("tools.reverseGstCalculator.commonUseCases")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="p-2 bg-muted rounded">

@@ -75,12 +75,7 @@ function Content() {
   };
 
   return (
-    <div id="tool" className="container mx-auto scroll-mt-24 px-4 py-8 max-w-4xl">
-      <div className="text-center mb-8 space-y-3">
-        <Badge variant="outline">{t('tools.youtubeThumbnailDownloader.badge')}</Badge>
-        <h2 className="text-3xl font-bold">{t('tools.youtubeThumbnailDownloader.title')}</h2>
-        <p className="text-muted-foreground">{t('tools.youtubeThumbnailDownloader.subtitle')}</p>
-      </div>
+    <div id="tool" className="container mx-auto scroll-mt-24 px-4 py-8 max-w-7xl">
 
       <Card className="mb-6">
         <CardHeader>

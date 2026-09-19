@@ -17,6 +17,7 @@ import {
   getToolsByCategory,
 } from "@/lib/tools-data";
 import Link from "next/link";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ToolsSectionProps {
   searchQuery?: string;
@@ -25,6 +26,7 @@ interface ToolsSectionProps {
 export function ToolsSection({
   searchQuery: initialSearchQuery,
 }: ToolsSectionProps) {
+  const t = useT();
   const [toolsData] = useState<Tool[]>(tools);
   const [categorizedTools] = useState<Record<ToolCategory, Tool[]>>(
     getToolsByCategory()
@@ -187,7 +189,7 @@ export function ToolsSection({
                 onClick={() => handleCategoryChange(key as ToolCategory)}
                 className="flex-grow-0 transition-all duration-200 hover:scale-105 transform"
               >
-                {category.name}
+                {t(`categories.${key}` as "categories.image-tools")}
               </Button>
             ))}
           </div>

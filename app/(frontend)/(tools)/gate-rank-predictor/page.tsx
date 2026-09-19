@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect, useCallback } from "react";
 import {
   Card,
@@ -91,6 +92,7 @@ const SCORE_RANGES = [
 ];
 
 function GATERankPredictorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [score, setScore] = useState<string>("");
   const [category, setCategory] = useState<string>("General");
@@ -159,7 +161,7 @@ function GATERankPredictorContent() {
       setHistory(prev => [newPrediction, ...prev.slice(0, 9)]);
     } catch (error) {
       console.error("Error calculating rank:", error);
-      showToast("Error calculating rank. Please try again.", "error");
+      showToast(t("tools.gateRankPredictor.errorCalculatingRankPleaseTryAgain"), "error");
     }
   }, [score, category, examYear, subject, showToast]);
 
@@ -173,7 +175,7 @@ function GATERankPredictorContent() {
 
   const copyResult = async () => {
     if (!prediction) {
-      showToast("No prediction to copy", "error");
+      showToast(t("tools.gateRankPredictor.noPredictionToCopy"), "error");
       return;
     }
     
@@ -193,15 +195,15 @@ ${prediction.collegePredictions.map(tier =>
 ).join('\n')}`;
       
       await navigator.clipboard.writeText(resultText);
-      showToast("Result copied to clipboard!", "success");
+      showToast(t("tools.gateRankPredictor.resultCopiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy result", "error");
+      showToast(t("tools.gateRankPredictor.failedToCopyResult"), "error");
     }
   };
 
   const downloadResult = () => {
     if (!prediction) {
-      showToast("No prediction to download", "error");
+      showToast(t("tools.gateRankPredictor.noPredictionToDownload"), "error");
       return;
     }
     
@@ -235,9 +237,9 @@ Actual ranks may vary based on various factors.`;
       a.click();
       document.body.removeChild(a);
       URL.revokeObjectURL(url);
-      showToast("Result downloaded successfully!", "success");
+      showToast(t("tools.gateRankPredictor.resultDownloadedSuccessfully"), "success");
     } catch (error) {
-      showToast("Failed to download result", "error");
+      showToast(t("tools.gateRankPredictor.failedToDownloadResult"), "error");
     }
   };
 
@@ -248,7 +250,7 @@ Actual ranks may vary based on various factors.`;
     setSubject("Computer Science");
     setPrediction(null);
     setHistory([]);
-    showToast("All fields cleared", "info");
+    showToast(t("tools.gateRankPredictor.allFieldsCleared"), "info");
   };
 
   return (
@@ -305,12 +307,12 @@ Actual ranks may vary based on various factors.`;
               {/* Score Input */}
               <div className="space-y-3">
                 <Label htmlFor="score" className="text-base font-semibold">
-                  GATE Score <span className="text-red-500">*</span>
+                  {t("tools.gateRankPredictor.gateScore")} <span className="text-red-500">*</span>
                 </Label>
                 <Input
                   id="score"
                   type="number"
-                  placeholder="Enter your GATE score (0-100)"
+                  placeholder={t("tools.gateRankPredictor.enterYourGateScore0100")}
                   value={score}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -331,7 +333,7 @@ Actual ranks may vary based on various factors.`;
               {/* Subject Selection */}
               <div className="space-y-3">
                 <Label htmlFor="subject" className="text-base font-semibold">
-                  Subject <span className="text-red-500">*</span>
+                  {t("tools.gateRankPredictor.subject")} <span className="text-red-500">*</span>
                 </Label>
                 <Select value={subject} onValueChange={setSubject}>
                   <SelectTrigger className="h-12 border-2">
@@ -356,7 +358,7 @@ Actual ranks may vary based on various factors.`;
               {/* Category Selection */}
               <div className="space-y-3">
                 <Label htmlFor="category" className="text-base font-semibold">
-                  Category <span className="text-red-500">*</span>
+                  {t("tools.gateRankPredictor.category")} <span className="text-red-500">*</span>
                 </Label>
                 <Select value={category} onValueChange={setCategory}>
                   <SelectTrigger className="h-12 border-2">
@@ -381,7 +383,7 @@ Actual ranks may vary based on various factors.`;
               {/* Exam Year */}
               <div className="space-y-3">
                 <Label htmlFor="exam-year" className="text-base font-semibold">
-                  Exam Year <span className="text-red-500">*</span>
+                  {t("tools.gateRankPredictor.examYear")} <span className="text-red-500">*</span>
                 </Label>
                 <Select value={examYear} onValueChange={setExamYear}>
                   <SelectTrigger className="h-12 border-2">
@@ -433,7 +435,7 @@ Actual ranks may vary based on various factors.`;
                   Rank Prediction Result
                 </CardTitle>
                 <CardDescription>
-                  Your predicted rank and college options based on your score and subject
+                  {t("tools.gateRankPredictor.yourPredictedRankAndCollegeOptions")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-6">
@@ -532,7 +534,7 @@ Actual ranks may vary based on various factors.`;
                 Score Range Guide
               </CardTitle>
               <CardDescription>
-                Understanding score ranges and expected ranks
+                {t("tools.gateRankPredictor.understandingScoreRangesAndExpectedRanks")}
               </CardDescription>
             </CardHeader>
             <CardContent>
@@ -585,7 +587,7 @@ Actual ranks may vary based on various factors.`;
                         <p className="text-xs text-muted-foreground mt-1">{sub.description}</p>
                       </div>
                       {sub.value === subject && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.gateRankPredictor.selected")}</Badge>
                       )}
                     </div>
                   </div>
@@ -619,7 +621,7 @@ Actual ranks may vary based on various factors.`;
                         <p className="text-xs text-muted-foreground mt-1">{cat.description}</p>
                       </div>
                       {cat.value === category && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.gateRankPredictor.selected")}</Badge>
                       )}
                     </div>
                   </div>

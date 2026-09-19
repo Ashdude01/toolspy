@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -51,6 +52,7 @@ interface ConversionResult {
 }
 
 function CurrencyConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [amount, setAmount] = useState("1");
   const [fromCurrency, setFromCurrency] = useState("USD");
@@ -79,11 +81,11 @@ function CurrencyConverterContent() {
 
         setRates(currenciesWithRates);
         setLastUpdate(new Date().toLocaleString());
-        showToast("Exchange rates updated successfully!", "success");
+        showToast(t("tools.currencyConverter.exchangeRatesUpdatedSuccessfully"), "success");
       } catch (err) {
         console.error("Failed to load exchange rates:", err);
         setError("Failed to load exchange rates. Using fallback rates.");
-        showToast("Using fallback exchange rates", "info");
+        showToast(t("tools.currencyConverter.usingFallbackExchangeRates"), "info");
         
         // Use fallback rates
         const fallbackRates: CurrencyRate[] = CURRENCIES.map((currency) => ({
@@ -102,7 +104,7 @@ function CurrencyConverterContent() {
   const convertCurrency = async () => {
     const amountNum = parseFloat(amount);
     if (!amountNum || amountNum <= 0) {
-      showToast("Please enter a valid amount", "error");
+      showToast(t("tools.currencyConverter.pleaseEnterAValidAmount"), "error");
       return;
     }
 
@@ -123,11 +125,11 @@ function CurrencyConverterContent() {
       };
 
       setResult(conversionResult);
-      showToast("Currency converted successfully!", "success");
+      showToast(t("tools.currencyConverter.currencyConvertedSuccessfully"), "success");
     } catch (err) {
       console.error("Conversion error:", err);
       setError("Failed to convert currency. Please try again.");
-      showToast("Conversion failed. Please try again.", "error");
+      showToast(t("tools.currencyConverter.conversionFailedPleaseTryAgain"), "error");
     } finally {
       setLoading(false);
     }
@@ -147,11 +149,11 @@ function CurrencyConverterContent() {
 
       setRates(currenciesWithRates);
       setLastUpdate(new Date().toLocaleString());
-      showToast("Exchange rates refreshed!", "success");
+      showToast(t("tools.currencyConverter.exchangeRatesRefreshed"), "success");
     } catch (err) {
       console.error("Failed to refresh rates:", err);
       setError("Failed to refresh rates. Using cached rates.");
-      showToast("Failed to refresh rates", "error");
+      showToast(t("tools.currencyConverter.failedToRefreshRates"), "error");
     } finally {
       setFetchingRates(false);
     }
@@ -212,7 +214,7 @@ function CurrencyConverterContent() {
             Currency Conversion
           </CardTitle>
           <CardDescription>
-            Enter amount and select currencies to convert
+            {t("tools.currencyConverter.enterAmountAndSelectCurrenciesTo")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
@@ -225,7 +227,7 @@ function CurrencyConverterContent() {
 
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="amount">Amount <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="amount">{t("tools.currencyConverter.amount")} <span className="text-red-500" aria-label={t("tools.currencyConverter.required")}>*</span></Label>
               <Input
                 id="amount"
                 type="number"
@@ -237,16 +239,16 @@ function CurrencyConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter amount to convert"
+                aria-label={t("tools.currencyConverter.enterAmountToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-currency-select">From Currency</Label>
+              <Label htmlFor="from-currency-select">{t("tools.currencyConverter.fromCurrency")}</Label>
               <Select value={fromCurrency} onValueChange={setFromCurrency}>
-                <SelectTrigger id="from-currency-select" aria-label="Select source currency">
+                <SelectTrigger id="from-currency-select" aria-label={t("tools.currencyConverter.selectSourceCurrency")}>
                   <SelectValue>
                     {getCurrencyInfo(fromCurrency) && (
                       <div className="flex items-center gap-2">
@@ -291,7 +293,7 @@ function CurrencyConverterContent() {
                 size="icon"
                 onClick={swapCurrencies}
                 className="h-10 w-10"
-                aria-label="Swap source and target currencies"
+                aria-label={t("tools.currencyConverter.swapSourceAndTargetCurrencies")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap currencies</span>
@@ -299,9 +301,9 @@ function CurrencyConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-currency-select">To Currency</Label>
+              <Label htmlFor="to-currency-select">{t("tools.currencyConverter.toCurrency")}</Label>
               <Select value={toCurrency} onValueChange={setToCurrency}>
-                <SelectTrigger id="to-currency-select" aria-label="Select target currency">
+                <SelectTrigger id="to-currency-select" aria-label={t("tools.currencyConverter.selectTargetCurrency")}>
                   <SelectValue>
                     {getCurrencyInfo(toCurrency) && (
                       <div className="flex items-center gap-2">
@@ -346,7 +348,7 @@ function CurrencyConverterContent() {
               onClick={convertCurrency} 
               className="flex-1"
               disabled={loading || !amount || fetchingRates}
-              aria-label="Convert currency based on entered amount and selected currencies"
+              aria-label={t("tools.currencyConverter.convertCurrencyBasedOnEnteredAmount")}
             >
               {loading ? (
                 <RefreshCw className="h-4 w-4 mr-2 animate-spin" aria-hidden="true" />
@@ -359,7 +361,7 @@ function CurrencyConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.currencyConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -369,7 +371,7 @@ function CurrencyConverterContent() {
               onClick={refreshRates}
               disabled={fetchingRates}
               className="flex-1 sm:flex-initial"
-              aria-label="Refresh exchange rates"
+              aria-label={t("tools.currencyConverter.refreshExchangeRates")}
             >
               <RefreshCw className={`h-4 w-4 mr-2 ${fetchingRates ? 'animate-spin' : ''}`} aria-hidden="true" />
               Refresh Rates
@@ -387,7 +389,7 @@ function CurrencyConverterContent() {
               Conversion Result
             </CardTitle>
             <CardDescription>
-              Currency conversion with current exchange rate
+              {t("tools.currencyConverter.currencyConversionWithCurrentExchangeRate")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -498,9 +500,9 @@ function CurrencyConverterContent() {
       {/* Popular Currencies */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Popular Currencies</CardTitle>
+          <CardTitle>{t("tools.currencyConverter.popularCurrencies")}</CardTitle>
           <CardDescription>
-            Exchange rates relative to USD
+            {t("tools.currencyConverter.exchangeRatesRelativeToUsd")}
           </CardDescription>
         </CardHeader>
         <CardContent>

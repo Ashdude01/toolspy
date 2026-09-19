@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import {
@@ -75,6 +76,7 @@ const PWA_ICON_SIZES = [
 ];
 
 function PWAIconGeneratorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [appName, setAppName] = useState("");
@@ -119,12 +121,12 @@ function PWAIconGeneratorContent() {
   const clearFile = () => {
     setSelectedFile(null);
     setGeneratedIcons([]);
-    showToast("File cleared", "info");
+    showToast(t("tools.pwaIconGenerator.fileCleared"), "info");
   };
 
   const generateIcons = async () => {
     if (!selectedFile) {
-      showToast("Please select an image file", "error");
+      showToast(t("tools.pwaIconGenerator.pleaseSelectAnImageFile"), "error");
       return;
     }
 
@@ -201,7 +203,7 @@ function PWAIconGeneratorContent() {
 
   const downloadAllIcons = async () => {
     if (generatedIcons.length === 0) {
-      showToast("No icons available for download", "error");
+      showToast(t("tools.pwaIconGenerator.noIconsAvailableForDownload"), "error");
       return;
     }
 
@@ -252,7 +254,7 @@ function PWAIconGeneratorContent() {
       // Download the ZIP file
       const watermark = process.env.NEXT_PUBLIC_FILE_WATERMARK || "toolspy";
       downloadIconZip(zipBlob, `${watermark}-pwa-icons.zip`);
-      showToast("PWA icons downloaded successfully!", "success");
+      showToast(t("tools.pwaIconGenerator.pwaIconsDownloadedSuccessfully"), "success");
     } catch (error) {
       showToast(`ZIP Error: ${error instanceof Error ? error.message : "Failed to create ZIP file"}`, "error");
     }
@@ -303,8 +305,8 @@ function PWAIconGeneratorContent() {
               <CardHeader>
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div>
-                    <CardTitle>Selected Image</CardTitle>
-                    <CardDescription>Source image for PWA icon generation</CardDescription>
+                    <CardTitle>{t("tools.pwaIconGenerator.selectedImage")}</CardTitle>
+                    <CardDescription>{t("tools.pwaIconGenerator.sourceImageForPwaIconGeneration")}</CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearFile} size="sm">
                     <Trash2 className="h-4 w-4 mr-2" />
@@ -323,12 +325,12 @@ function PWAIconGeneratorContent() {
             {/* PWA Colors */}
             <Card className="">
               <CardHeader>
-                <CardTitle>PWA Colors</CardTitle>
-                <CardDescription>Theme and background colors</CardDescription>
+                <CardTitle>{t("tools.pwaIconGenerator.pwaColors")}</CardTitle>
+                <CardDescription>{t("tools.pwaIconGenerator.themeAndBackgroundColors")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="theme-color">Theme Color</Label>
+                  <Label htmlFor="theme-color">{t("tools.pwaIconGenerator.themeColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="theme-color"
@@ -345,7 +347,7 @@ function PWAIconGeneratorContent() {
                   </div>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="background-color">Background Color</Label>
+                  <Label htmlFor="background-color">{t("tools.pwaIconGenerator.backgroundColor")}</Label>
                   <div className="flex items-center space-x-2">
                     <Input
                       id="background-color"
@@ -369,21 +371,21 @@ function PWAIconGeneratorContent() {
             {/* PWA Information */}
             <Card className="md:col-span-2">
               <CardHeader>
-                <CardTitle>PWA Information</CardTitle>
-                <CardDescription>Basic PWA details</CardDescription>
+                <CardTitle>{t("tools.pwaIconGenerator.pwaInformation")}</CardTitle>
+                <CardDescription>{t("tools.pwaIconGenerator.basicPwaDetails")}</CardDescription>
               </CardHeader>
               <CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
-                  <Label htmlFor="app-name">App Name</Label>
+                  <Label htmlFor="app-name">{t("tools.pwaIconGenerator.appName")}</Label>
                   <Input
                     id="app-name"
-                    placeholder="My PWA App"
+                    placeholder={t("tools.pwaIconGenerator.myPwaApp")}
                     value={appName}
                     onChange={(e) => setAppName(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="app-short-name">Short Name</Label>
+                  <Label htmlFor="app-short-name">{t("tools.pwaIconGenerator.shortName")}</Label>
                   <Input
                     id="app-short-name"
                     placeholder="PWA"
@@ -392,16 +394,16 @@ function PWAIconGeneratorContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="app-description">Description</Label>
+                  <Label htmlFor="app-description">{t("tools.pwaIconGenerator.description")}</Label>
                   <Input
                     id="app-description"
-                    placeholder="PWA description"
+                    placeholder={t("tools.pwaIconGenerator.pwaDescription")}
                     value={appDescription}
                     onChange={(e) => setAppDescription(e.target.value)}
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="start-url">Start URL</Label>
+                  <Label htmlFor="start-url">{t("tools.pwaIconGenerator.startUrl")}</Label>
                   <Input
                     id="start-url"
                     placeholder="/"
@@ -410,34 +412,34 @@ function PWAIconGeneratorContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="display-mode">Display Mode</Label>
+                  <Label htmlFor="display-mode">{t("tools.pwaIconGenerator.displayMode")}</Label>
                   <Select value={displayMode} onValueChange={setDisplayMode}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="standalone">Standalone</SelectItem>
-                      <SelectItem value="fullscreen">Fullscreen</SelectItem>
-                      <SelectItem value="minimal-ui">Minimal UI</SelectItem>
-                      <SelectItem value="browser">Browser</SelectItem>
+                      <SelectItem value="standalone">{t("tools.pwaIconGenerator.standalone")}</SelectItem>
+                      <SelectItem value="fullscreen">{t("tools.pwaIconGenerator.fullscreen")}</SelectItem>
+                      <SelectItem value="minimal-ui">{t("tools.pwaIconGenerator.minimalUi")}</SelectItem>
+                      <SelectItem value="browser">{t("tools.pwaIconGenerator.browser")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="orientation">Orientation</Label>
+                  <Label htmlFor="orientation">{t("tools.pwaIconGenerator.orientation")}</Label>
                   <Select value={orientation} onValueChange={setOrientation}>
                     <SelectTrigger>
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="any">Any</SelectItem>
-                      <SelectItem value="portrait">Portrait</SelectItem>
-                      <SelectItem value="landscape">Landscape</SelectItem>
+                      <SelectItem value="any">{t("tools.pwaIconGenerator.any")}</SelectItem>
+                      <SelectItem value="portrait">{t("tools.pwaIconGenerator.portrait")}</SelectItem>
+                      <SelectItem value="landscape">{t("tools.pwaIconGenerator.landscape")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="scope">Scope</Label>
+                  <Label htmlFor="scope">{t("tools.pwaIconGenerator.scope")}</Label>
                   <Input
                     id="scope"
                     placeholder="/"
@@ -446,10 +448,10 @@ function PWAIconGeneratorContent() {
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="lang">Language</Label>
+                  <Label htmlFor="lang">{t("tools.pwaIconGenerator.language")}</Label>
                   <Input
                     id="lang"
-                    placeholder="en"
+                    placeholder={t("tools.pwaIconGenerator.en")}
                     value={lang}
                     onChange={(e) => setLang(e.target.value)}
                   />
@@ -464,8 +466,8 @@ function PWAIconGeneratorContent() {
             <CardHeader>
               <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                 <div>
-                  <CardTitle>Icon Settings</CardTitle>
-                  <CardDescription>Customize icon appearance</CardDescription>
+                  <CardTitle>{t("tools.pwaIconGenerator.iconSettings")}</CardTitle>
+                  <CardDescription>{t("tools.pwaIconGenerator.customizeIconAppearance")}</CardDescription>
                 </div>
                 <Button
                   variant="secondary"
@@ -537,7 +539,7 @@ function PWAIconGeneratorContent() {
           <CardHeader>
             <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <CardTitle>Generated PWA Icons</CardTitle>
+                <CardTitle>{t("tools.pwaIconGenerator.generatedPwaIcons")}</CardTitle>
                 <CardDescription>
                   {generatedIcons.length} PWA icons with manifest file
                 </CardDescription>
@@ -591,7 +593,7 @@ function PWAIconGeneratorContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isGenerating}
-        title="Generating PWA Icons"
+        title={t("tools.pwaIconGenerator.generatingPwaIcons")}
         current={generationProgress.current}
         total={generationProgress.total}
         currentFile={generationProgress.size}

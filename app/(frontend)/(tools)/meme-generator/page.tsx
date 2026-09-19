@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useCallback, useEffect } from "react";
 import {
   Card,
@@ -92,6 +93,7 @@ interface AiSuggestion {
 }
 
 function MemeGeneratorContent() {
+  const t = useT();
   const [selectedTemplate, setSelectedTemplate] = useState<MemeTemplate | null>(null);
   const [customImage, setCustomImage] = useState<string | null>(null);
   const [textBoxes, setTextBoxes] = useState<TextBox[]>([]);
@@ -225,9 +227,9 @@ function MemeGeneratorContent() {
       ];
 
       setAiSuggestions(suggestions);
-      showToast("AI suggestions generated!", "success");
+      showToast(t("tools.memeGenerator.aiSuggestionsGenerated"), "success");
     } catch (error) {
-      showToast("Failed to generate suggestions", "error");
+      showToast(t("tools.memeGenerator.failedToGenerateSuggestions"), "error");
     } finally {
       setIsGeneratingAi(false);
     }
@@ -242,7 +244,7 @@ function MemeGeneratorContent() {
     const file = files[0];
     if (!file) return;
     if (!file.type.startsWith('image/')) {
-      showToast("Please upload an image file", "error");
+      showToast(t("tools.memeGenerator.pleaseUploadAnImageFile"), "error");
       return;
     }
 
@@ -274,7 +276,7 @@ function MemeGeneratorContent() {
       setTextBoxes([defaultBox]);
       setSelectedTextBox(defaultBox.id);
       
-      showToast("Custom image uploaded!", "success");
+      showToast(t("tools.memeGenerator.customImageUploaded"), "success");
     };
     reader.readAsDataURL(file);
   };
@@ -318,7 +320,7 @@ function MemeGeneratorContent() {
   const applySuggestion = (suggestion: AiSuggestion) => {
     if (selectedTextBox) {
       updateTextBox(selectedTextBox, { text: suggestion.text });
-      showToast("Suggestion applied!", "success");
+      showToast(t("tools.memeGenerator.suggestionApplied"), "success");
     }
   };
 
@@ -397,7 +399,7 @@ function MemeGeneratorContent() {
   const downloadMeme = () => {
     const canvas = canvasRef.current;
     if (!canvas) {
-      showToast("No meme to download", "error");
+      showToast(t("tools.memeGenerator.noMemeToDownload"), "error");
       return;
     }
 
@@ -408,7 +410,7 @@ function MemeGeneratorContent() {
     link.click();
     document.body.removeChild(link);
     
-    showToast("Meme downloaded successfully!", "success");
+    showToast(t("tools.memeGenerator.memeDownloadedSuccessfully"), "success");
   };
 
   const shareToSocial = (platform: string) => {
@@ -427,7 +429,7 @@ function MemeGeneratorContent() {
           ]);
           showToast(`Meme copied for ${platform}!`, "success");
         } catch (error) {
-          showToast("Failed to copy meme", "error");
+          showToast(t("tools.memeGenerator.failedToCopyMeme"), "error");
         }
       }
     });
@@ -439,7 +441,7 @@ function MemeGeneratorContent() {
     setTextBoxes([]);
     setSelectedTextBox(null);
     setAiSuggestions([]);
-    showToast("All data cleared", "info");
+    showToast(t("tools.memeGenerator.allDataCleared"), "info");
   };
 
   const trendingTemplates = memeTemplates.sort((a, b) => b.popularity - a.popularity).slice(0, 3);
@@ -471,13 +473,13 @@ function MemeGeneratorContent() {
             Choose Template or Upload Image
           </CardTitle>
           <CardDescription>
-            Select from trending meme templates or upload your own image
+            {t("tools.memeGenerator.selectFromTrendingMemeTemplatesOr")}
           </CardDescription>
         </CardHeader>
         <CardContent>
           {/* Trending Templates */}
           <div className="mb-6">
-            <Label className="text-sm font-medium mb-3 block">🔥 Trending Templates</Label>
+            <Label className="text-sm font-medium mb-3 block">{t("tools.memeGenerator.trendingTemplates")}</Label>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {trendingTemplates.map((template) => (
                 <div
@@ -504,7 +506,7 @@ function MemeGeneratorContent() {
 
           {/* All Templates */}
           <div className="mb-6">
-            <Label className="text-sm font-medium mb-3 block">All Templates</Label>
+            <Label className="text-sm font-medium mb-3 block">{t("tools.memeGenerator.allTemplates")}</Label>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
               {memeTemplates.map((template) => (
                 <div
@@ -527,7 +529,7 @@ function MemeGeneratorContent() {
 
           {/* Custom Upload */}
           <div>
-            <Label className="text-sm font-medium mb-3 block">Upload Custom Image</Label>
+            <Label className="text-sm font-medium mb-3 block">{t("tools.memeGenerator.uploadCustomImage")}</Label>
             <div
               className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-orange-400 transition-colors cursor-pointer"
               onClick={() => document.getElementById('meme-file-input')?.click()}
@@ -613,7 +615,7 @@ function MemeGeneratorContent() {
                     Text Boxes
                   </span>
                   <Button onClick={addTextBox} size="sm">
-                    Add Text
+                    {t("tools.memeGenerator.addText")}
                   </Button>
                 </CardTitle>
               </CardHeader>
@@ -642,7 +644,7 @@ function MemeGeneratorContent() {
                     <Textarea
                       value={box.text}
                       onChange={(e) => updateTextBox(box.id, { text: e.target.value })}
-                      placeholder="Enter meme text..."
+                      placeholder={t("tools.memeGenerator.enterMemeText")}
                       className="text-sm"
                       rows={2}
                     />
@@ -689,7 +691,7 @@ function MemeGeneratorContent() {
 
                   <div className="grid grid-cols-2 gap-3">
                     <div>
-                      <Label htmlFor="text-color">Text Color</Label>
+                      <Label htmlFor="text-color">{t("tools.memeGenerator.textColor")}</Label>
                       <Input
                         type="color"
                         value={selectedTextBoxData.color}
@@ -699,7 +701,7 @@ function MemeGeneratorContent() {
                     </div>
                     
                     <div>
-                      <Label htmlFor="stroke-color">Stroke Color</Label>
+                      <Label htmlFor="stroke-color">{t("tools.memeGenerator.strokeColor")}</Label>
                       <Input
                         type="color"
                         value={selectedTextBoxData.strokeColor}
@@ -710,7 +712,7 @@ function MemeGeneratorContent() {
                   </div>
 
                   <div>
-                    <Label htmlFor="font-family">Font</Label>
+                    <Label htmlFor="font-family">{t("tools.memeGenerator.font")}</Label>
                     <Select
                       value={selectedTextBoxData.fontFamily}
                       onValueChange={(value) => updateTextBox(selectedTextBoxData.id, { fontFamily: value })}
@@ -719,17 +721,17 @@ function MemeGeneratorContent() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="Impact">Impact</SelectItem>
-                        <SelectItem value="Arial">Arial</SelectItem>
-                        <SelectItem value="Comic Sans MS">Comic Sans</SelectItem>
-                        <SelectItem value="Times New Roman">Times</SelectItem>
-                        <SelectItem value="Helvetica">Helvetica</SelectItem>
+                        <SelectItem value="Impact">{t("tools.memeGenerator.impact")}</SelectItem>
+                        <SelectItem value="Arial">{t("tools.memeGenerator.arial")}</SelectItem>
+                        <SelectItem value="Comic Sans MS">{t("tools.memeGenerator.comicSans")}</SelectItem>
+                        <SelectItem value="Times New Roman">{t("tools.memeGenerator.times")}</SelectItem>
+                        <SelectItem value="Helvetica">{t("tools.memeGenerator.helvetica")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label htmlFor="text-align">Alignment</Label>
+                    <Label htmlFor="text-align">{t("tools.memeGenerator.alignment")}</Label>
                     <Select
                       value={selectedTextBoxData.textAlign}
                       onValueChange={(value: any) => updateTextBox(selectedTextBoxData.id, { textAlign: value })}
@@ -738,9 +740,9 @@ function MemeGeneratorContent() {
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="left">Left</SelectItem>
-                        <SelectItem value="center">Center</SelectItem>
-                        <SelectItem value="right">Right</SelectItem>
+                        <SelectItem value="left">{t("tools.memeGenerator.left")}</SelectItem>
+                        <SelectItem value="center">{t("tools.memeGenerator.center")}</SelectItem>
+                        <SelectItem value="right">{t("tools.memeGenerator.right")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -46,6 +47,7 @@ interface RetirementResult {
 }
 
 function RetirementCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [currentAge, setCurrentAge] = useState("");
   const [retirementAge, setRetirementAge] = useState("");
@@ -69,7 +71,7 @@ function RetirementCalculatorContent() {
 
     if (!age || !retAge || !income || !expectedReturn || !inflationRate || 
         age <= 0 || retAge <= age || income <= 0 || returnRate <= 0) {
-      showToast("Please enter valid retirement planning details", "error");
+      showToast(t("tools.retirementCalculator.pleaseEnterValidRetirementPlanningDetails"), "error");
       return;
     }
 
@@ -131,7 +133,7 @@ function RetirementCalculatorContent() {
     };
 
     setResult(retirementResult);
-    showToast("Retirement plan calculated successfully!", "success");
+    showToast(t("tools.retirementCalculator.retirementPlanCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -190,13 +192,13 @@ function RetirementCalculatorContent() {
             Retirement Planning Details
           </CardTitle>
           <CardDescription>
-            Enter your current situation and retirement goals
+            {t("tools.retirementCalculator.enterYourCurrentSituationAndRetirement")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="currentAge">Current Age</Label>
+              <Label htmlFor="currentAge">{t("tools.retirementCalculator.currentAge")}</Label>
               <Input
                 id="currentAge"
                 type="number"
@@ -209,7 +211,7 @@ function RetirementCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="retirementAge">Retirement Age</Label>
+              <Label htmlFor="retirementAge">{t("tools.retirementCalculator.retirementAge")}</Label>
               <Input
                 id="retirementAge"
                 type="number"
@@ -225,7 +227,7 @@ function RetirementCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="currentIncome">Current Annual Income ($)</Label>
+              <Label htmlFor="currentIncome">{t("tools.retirementCalculator.currentAnnualIncome")}</Label>
               <Input
                 id="currentIncome"
                 type="number"
@@ -237,7 +239,7 @@ function RetirementCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="currentSavings">Current Retirement Savings ($)</Label>
+              <Label htmlFor="currentSavings">{t("tools.retirementCalculator.currentRetirementSavings")}</Label>
               <Input
                 id="currentSavings"
                 type="number"
@@ -252,7 +254,7 @@ function RetirementCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="monthlyContribution">Monthly Contribution ($)</Label>
+              <Label htmlFor="monthlyContribution">{t("tools.retirementCalculator.monthlyContribution")}</Label>
               <Input
                 id="monthlyContribution"
                 type="number"
@@ -264,7 +266,7 @@ function RetirementCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="expectedReturn">Expected Annual Return (%)</Label>
+              <Label htmlFor="expectedReturn">{t("tools.retirementCalculator.expectedAnnualReturn")}</Label>
               <Input
                 id="expectedReturn"
                 type="number"
@@ -280,7 +282,7 @@ function RetirementCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inflationRate">Inflation Rate (%)</Label>
+              <Label htmlFor="inflationRate">{t("tools.retirementCalculator.inflationRate")}</Label>
               <Input
                 id="inflationRate"
                 type="number"
@@ -293,7 +295,7 @@ function RetirementCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label>Income Replacement Ratio</Label>
+              <Label>{t("tools.retirementCalculator.incomeReplacementRatio")}</Label>
               <Select value={incomeReplacement} onValueChange={setIncomeReplacement}>
                 <SelectTrigger>
                   <SelectValue />
@@ -339,7 +341,7 @@ function RetirementCalculatorContent() {
               Retirement Plan Analysis
             </CardTitle>
             <CardDescription>
-              Your retirement savings projection and recommendations
+              {t("tools.retirementCalculator.yourRetirementSavingsProjectionAndRecommendations")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -473,7 +475,7 @@ function RetirementCalculatorContent() {
                   Savings Projection by Year
                 </CardTitle>
                 <CardDescription>
-                  Annual breakdown of your retirement savings growth
+                  {t("tools.retirementCalculator.annualBreakdownOfYourRetirementSavings")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -513,9 +515,9 @@ function RetirementCalculatorContent() {
       {/* Retirement Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Retirement Planning Tips</CardTitle>
+          <CardTitle>{t("tools.retirementCalculator.retirementPlanningTips")}</CardTitle>
           <CardDescription>
-            Key strategies for successful retirement planning
+            {t("tools.retirementCalculator.keyStrategiesForSuccessfulRetirementPlanning")}
           </CardDescription>
         </CardHeader>
         <CardContent>

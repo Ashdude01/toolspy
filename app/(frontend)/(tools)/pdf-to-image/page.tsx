@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -39,6 +40,7 @@ interface ConversionResult {
 }
 
 function PdfToImageContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>([]);
@@ -58,7 +60,7 @@ function PdfToImageContent() {
     const pdfFiles = files.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t("tools.pdfToImage.pleaseSelectPdfFilesOnly"), "error");
       return;
     }
     
@@ -80,12 +82,12 @@ function PdfToImageContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t("tools.pdfToImage.allFilesCleared"), "info");
   };
 
   const convertToImages = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to convert", "error");
+      showToast(t("tools.pdfToImage.pleaseSelectPdfFilesToConvert"), "error");
       return;
     }
 
@@ -233,14 +235,14 @@ function PdfToImageContent() {
 
     if (allFiles.length === 1) {
       downloadFile(allFiles[0], allFiles[0].name);
-      showToast("Image downloaded", "success");
+      showToast(t("tools.pdfToImage.imageDownloaded"), "success");
     } else {
       try {
         const zipBlob = await createZipFromFiles(allFiles, "converted-images.zip");
         downloadZip(zipBlob, "converted-images.zip");
         showToast(`Downloaded ${allFiles.length} images as ZIP`, "success");
       } catch (error) {
-        showToast("Failed to create ZIP file", "error");
+        showToast(t("tools.pdfToImage.failedToCreateZipFile"), "error");
       }
     }
   };
@@ -248,7 +250,7 @@ function PdfToImageContent() {
   const downloadSingle = (files: File[]) => {
     if (files.length === 1) {
       downloadFile(files[0], files[0].name);
-      showToast("Image downloaded", "success");
+      showToast(t("tools.pdfToImage.imageDownloaded"), "success");
     } else {
       files.forEach(file => {
         downloadFile(file, file.name);
@@ -302,7 +304,7 @@ function PdfToImageContent() {
                       Selected PDF Files ({selectedFiles.length})
                     </CardTitle>
                     <CardDescription>
-                      Files ready for image conversion
+                      {t("tools.pdfToImage.filesReadyForImageConversion")}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -333,7 +335,7 @@ function PdfToImageContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => removeFile(index)}
-                        title="Remove file"
+                        title={t("tools.pdfToImage.removeFile")}
                       >
                         <Trash2 className="h-3 w-3" />
                       </Button>
@@ -351,13 +353,13 @@ function PdfToImageContent() {
                   Output Format
                 </CardTitle>
                 <CardDescription>
-                  Choose conversion format
+                  {t("tools.pdfToImage.chooseConversionFormat")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Format</Label>
+                    <Label>{t("tools.pdfToImage.format")}</Label>
                     <Select value={outputFormat} onValueChange={setOutputFormat}>
                       <SelectTrigger>
                         <SelectValue />
@@ -386,7 +388,7 @@ function PdfToImageContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Image Quality (DPI)</Label>
+                    <Label>{t("tools.pdfToImage.imageQualityDpi")}</Label>
                     <Select value={imageQuality} onValueChange={setImageQuality}>
                       <SelectTrigger>
                         <SelectValue />
@@ -400,24 +402,24 @@ function PdfToImageContent() {
                   </div>
 
                   <div className="space-y-2">
-                    <Label>Pages to Convert</Label>
+                    <Label>{t("tools.pdfToImage.pagesToConvert")}</Label>
                     <Select value={pageRange} onValueChange={setPageRange}>
                       <SelectTrigger>
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="all">All Pages</SelectItem>
-                        <SelectItem value="first">First Page Only</SelectItem>
-                        <SelectItem value="custom">Custom Range</SelectItem>
+                        <SelectItem value="all">{t("tools.pdfToImage.allPages")}</SelectItem>
+                        <SelectItem value="first">{t("tools.pdfToImage.firstPageOnly")}</SelectItem>
+                        <SelectItem value="custom">{t("tools.pdfToImage.customRange")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   {pageRange === "custom" && (
                     <div className="space-y-2">
-                      <Label>Custom Pages</Label>
+                      <Label>{t("tools.pdfToImage.customPages")}</Label>
                       <Input
-                        placeholder="e.g., 1,3,5-7"
+                        placeholder={t("tools.pdfToImage.eG1357")}
                         value={customPages}
                         onChange={(e) => setCustomPages(e.target.value)}
                       />
@@ -434,8 +436,8 @@ function PdfToImageContent() {
       {selectedFiles.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Conversion Settings</CardTitle>
-            <CardDescription>Fine-tune conversion parameters</CardDescription>
+            <CardTitle>{t("tools.pdfToImage.conversionSettings")}</CardTitle>
+            <CardDescription>{t("tools.pdfToImage.fineTuneConversionParameters")}</CardDescription>
           </CardHeader>
           <CardContent>
             <Button
@@ -526,7 +528,7 @@ function PdfToImageContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isConverting}
-        title="Converting PDF to Images"
+        title={t("tools.pdfToImage.convertingPdfToImages")}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.file}

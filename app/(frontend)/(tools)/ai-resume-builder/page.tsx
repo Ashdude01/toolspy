@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useCallback } from "react";
 import {
   Card,
@@ -116,6 +117,7 @@ interface AIJobMatch {
 }
 
 function AiResumeBuilderContent() {
+  const t = useT();
   const [resumeData, setResumeData] = useState<ResumeData>({
     personalInfo: {
       firstName: '',
@@ -475,7 +477,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
         <div className="lg:col-span-1">
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg">Resume Sections</CardTitle>
+              <CardTitle className="text-lg">{t("tools.aiResumeBuilder.resumeSections")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
               {sections.map((section) => (
@@ -509,7 +511,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="target-job">Target Job Title</Label>
+                <Label htmlFor="target-job">{t("tools.aiResumeBuilder.targetJobTitle")}</Label>
                 <Input
                   value={targetJobTitle}
                   onChange={(e) => setTargetJobTitle(e.target.value)}
@@ -518,18 +520,18 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
               </div>
               
               <div className="space-y-2">
-                <Label htmlFor="target-industry">Industry</Label>
+                <Label htmlFor="target-industry">{t("tools.aiResumeBuilder.industry")}</Label>
                 <Select value={targetIndustry} onValueChange={setTargetIndustry}>
                   <SelectTrigger>
                     <SelectValue placeholder="Select industry" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="Technology">Technology</SelectItem>
-                    <SelectItem value="Healthcare">Healthcare</SelectItem>
-                    <SelectItem value="Finance">Finance</SelectItem>
-                    <SelectItem value="Education">Education</SelectItem>
-                    <SelectItem value="Marketing">Marketing</SelectItem>
-                    <SelectItem value="Sales">Sales</SelectItem>
+                    <SelectItem value="Technology">{t("tools.aiResumeBuilder.technology")}</SelectItem>
+                    <SelectItem value="Healthcare">{t("tools.aiResumeBuilder.healthcare")}</SelectItem>
+                    <SelectItem value="Finance">{t("tools.aiResumeBuilder.finance")}</SelectItem>
+                    <SelectItem value="Education">{t("tools.aiResumeBuilder.education")}</SelectItem>
+                    <SelectItem value="Marketing">{t("tools.aiResumeBuilder.marketing")}</SelectItem>
+                    <SelectItem value="Sales">{t("tools.aiResumeBuilder.sales")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -567,7 +569,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="firstName">First Name *</Label>
+                    <Label htmlFor="firstName">{t("tools.aiResumeBuilder.firstName")}</Label>
                     <Input
                       value={resumeData.personalInfo.firstName}
                       onChange={(e) => setResumeData(prev => ({
@@ -578,7 +580,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="lastName">Last Name *</Label>
+                    <Label htmlFor="lastName">{t("tools.aiResumeBuilder.lastName")}</Label>
                     <Input
                       value={resumeData.personalInfo.lastName}
                       onChange={(e) => setResumeData(prev => ({
@@ -589,7 +591,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="email">Email *</Label>
+                    <Label htmlFor="email">{t("tools.aiResumeBuilder.email")}</Label>
                     <Input
                       type="email"
                       value={resumeData.personalInfo.email}
@@ -601,7 +603,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone</Label>
+                    <Label htmlFor="phone">{t("tools.aiResumeBuilder.phone")}</Label>
                     <Input
                       value={resumeData.personalInfo.phone}
                       onChange={(e) => setResumeData(prev => ({
@@ -612,7 +614,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="location">Location</Label>
+                    <Label htmlFor="location">{t("tools.aiResumeBuilder.location")}</Label>
                     <Input
                       value={resumeData.personalInfo.location}
                       onChange={(e) => setResumeData(prev => ({
@@ -623,7 +625,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     />
                   </div>
                   <div>
-                    <Label htmlFor="linkedin">LinkedIn</Label>
+                    <Label htmlFor="linkedin">{t("tools.aiResumeBuilder.linkedin")}</Label>
                     <Input
                       value={resumeData.personalInfo.linkedin}
                       onChange={(e) => setResumeData(prev => ({
@@ -636,7 +638,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                 </div>
 
                 <div>
-                  <Label htmlFor="summary">Professional Summary</Label>
+                  <Label htmlFor="summary">{t("tools.aiResumeBuilder.professionalSummary")}</Label>
                   <Textarea
                     value={resumeData.personalInfo.summary}
                     onChange={(e) => setResumeData(prev => ({
@@ -648,7 +650,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                   />
                   {aiSuggestions.summary && (
                     <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                      <Label className="text-sm font-medium text-blue-800">AI Suggestion:</Label>
+                      <Label className="text-sm font-medium text-blue-800">{t("tools.aiResumeBuilder.aiSuggestion")}</Label>
                       <p className="text-sm text-blue-700 mt-1">{aiSuggestions.summary}</p>
                       <Button 
                         size="sm" 
@@ -673,7 +675,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                     <Briefcase size={20} />
                     Work Experience
                   </span>
-                  <Button onClick={addExperience}>Add Experience</Button>
+                  <Button onClick={addExperience}>{t("tools.aiResumeBuilder.addExperience")}</Button>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -688,7 +690,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                       <CardContent className="pt-6 space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <Label>Company *</Label>
+                            <Label>{t("tools.aiResumeBuilder.company")}</Label>
                             <Input
                               value={exp.company}
                               onChange={(e) => updateExperience(exp.id, 'company', e.target.value)}
@@ -696,7 +698,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>Position *</Label>
+                            <Label>{t("tools.aiResumeBuilder.position")}</Label>
                             <Input
                               value={exp.position}
                               onChange={(e) => updateExperience(exp.id, 'position', e.target.value)}
@@ -704,7 +706,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>Start Date</Label>
+                            <Label>{t("tools.aiResumeBuilder.startDate")}</Label>
                             <Input
                               type="month"
                               value={exp.startDate}
@@ -712,7 +714,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>End Date</Label>
+                            <Label>{t("tools.aiResumeBuilder.endDate")}</Label>
                             <Input
                               type="month"
                               value={exp.endDate}
@@ -724,13 +726,13 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                                 checked={exp.current}
                                 onCheckedChange={(checked) => updateExperience(exp.id, 'current', checked)}
                               />
-                              <Label className="text-sm">Current position</Label>
+                              <Label className="text-sm">{t("tools.aiResumeBuilder.currentPosition")}</Label>
                             </div>
                           </div>
                         </div>
                         
                         <div>
-                          <Label>Description</Label>
+                          <Label>{t("tools.aiResumeBuilder.description")}</Label>
                           <Textarea
                             value={exp.description}
                             onChange={(e) => updateExperience(exp.id, 'description', e.target.value)}
@@ -746,7 +748,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                 {aiSuggestions.achievements && aiSuggestions.achievements.length > 0 && (
                   <Card className="border border-blue-200 bg-blue-50">
                     <CardHeader>
-                      <CardTitle className="text-blue-800">AI Achievement Suggestions</CardTitle>
+                      <CardTitle className="text-blue-800">{t("tools.aiResumeBuilder.aiAchievementSuggestions")}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <ul className="space-y-2">
@@ -771,9 +773,9 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                 <CardTitle className="flex items-center justify-between">
                   <span className="flex items-center gap-2">
                     <GraduationCap size={20} />
-                    Education
+                    {t("tools.aiResumeBuilder.education")}
                   </span>
-                  <Button onClick={addEducation}>Add Education</Button>
+                  <Button onClick={addEducation}>{t("tools.aiResumeBuilder.addEducation")}</Button>
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -788,7 +790,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                       <CardContent className="pt-6 space-y-4">
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                           <div>
-                            <Label>Institution *</Label>
+                            <Label>{t("tools.aiResumeBuilder.institution")}</Label>
                             <Input
                               value={edu.institution}
                               onChange={(e) => setResumeData(prev => ({
@@ -801,7 +803,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>Degree *</Label>
+                            <Label>{t("tools.aiResumeBuilder.degree")}</Label>
                             <Input
                               value={edu.degree}
                               onChange={(e) => setResumeData(prev => ({
@@ -814,7 +816,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>Field of Study</Label>
+                            <Label>{t("tools.aiResumeBuilder.fieldOfStudy")}</Label>
                             <Input
                               value={edu.field}
                               onChange={(e) => setResumeData(prev => ({
@@ -827,7 +829,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                             />
                           </div>
                           <div>
-                            <Label>Graduation Date</Label>
+                            <Label>{t("tools.aiResumeBuilder.graduationDate")}</Label>
                             <Input
                               type="month"
                               value={edu.graduationDate}
@@ -865,10 +867,10 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="Beginner">Beginner</SelectItem>
-                      <SelectItem value="Intermediate">Intermediate</SelectItem>
-                      <SelectItem value="Advanced">Advanced</SelectItem>
-                      <SelectItem value="Expert">Expert</SelectItem>
+                      <SelectItem value="Beginner">{t("tools.aiResumeBuilder.beginner")}</SelectItem>
+                      <SelectItem value="Intermediate">{t("tools.aiResumeBuilder.intermediate")}</SelectItem>
+                      <SelectItem value="Advanced">{t("tools.aiResumeBuilder.advanced")}</SelectItem>
+                      <SelectItem value="Expert">{t("tools.aiResumeBuilder.expert")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Button onClick={() => {
@@ -895,7 +897,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                 {aiSuggestions.skills && aiSuggestions.skills.length > 0 && (
                   <Card className="border border-green-200 bg-green-50">
                     <CardHeader>
-                      <CardTitle className="text-green-800">AI Skill Suggestions</CardTitle>
+                      <CardTitle className="text-green-800">{t("tools.aiResumeBuilder.aiSkillSuggestions")}</CardTitle>
                     </CardHeader>
                     <CardContent>
                       <div className="flex flex-wrap gap-2">
@@ -924,7 +926,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
               {/* Template Selection */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Choose Template</CardTitle>
+                  <CardTitle>{t("tools.aiResumeBuilder.chooseTemplate")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -952,7 +954,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
               {/* Download Options */}
               <Card>
                 <CardHeader>
-                  <CardTitle>Download Resume</CardTitle>
+                  <CardTitle>{t("tools.aiResumeBuilder.downloadResume")}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-3">
@@ -1004,7 +1006,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                         
                         <div className="grid md:grid-cols-2 gap-4 text-sm">
                           <div>
-                            <Label className="font-medium text-green-600">Matching Skills</Label>
+                            <Label className="font-medium text-green-600">{t("tools.aiResumeBuilder.matchingSkills")}</Label>
                             <div className="flex flex-wrap gap-1 mt-1">
                               {match.keywordMatches.map((keyword, idx) => (
                                 <Badge key={idx} variant="secondary" className="text-xs">
@@ -1015,7 +1017,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                           </div>
                           
                           <div>
-                            <Label className="font-medium text-orange-600">Missing Skills</Label>
+                            <Label className="font-medium text-orange-600">{t("tools.aiResumeBuilder.missingSkills")}</Label>
                             <div className="flex flex-wrap gap-1 mt-1">
                               {match.missingSkills.map((skill, idx) => (
                                 <Badge key={idx} variant="outline" className="text-xs">
@@ -1027,7 +1029,7 @@ ${skills.map(skill => `• ${skill.name} (${skill.level})`).join('\n')}
                         </div>
                         
                         <div className="mt-3">
-                          <Label className="font-medium text-blue-600">Recommendations</Label>
+                          <Label className="font-medium text-blue-600">{t("tools.aiResumeBuilder.recommendations")}</Label>
                           <ul className="text-sm text-gray-600 mt-1">
                             {match.recommendations.map((rec, idx) => (
                               <li key={idx} className="flex items-start gap-2">

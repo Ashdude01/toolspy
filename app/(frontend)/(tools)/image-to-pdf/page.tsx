@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState, useEffect, useCallback } from "react";
 import {
   Card,
@@ -62,6 +63,7 @@ const ACCEPT =
   "image/jpeg,image/jpg,image/png,image/webp,image/bmp,image/gif,.jpg,.jpeg,.png,.webp,.bmp,.gif";
 
 function ImageToPdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [images, setImages] = useState<ImageItem[]>([]);
   const [pageSize, setPageSize] = useState<PageSize>("a4");
@@ -129,7 +131,7 @@ function ImageToPdfContent() {
     setImages([]);
     setResultBlob(null);
     setUploadCollapsed(false);
-    showToast("All images cleared", "info");
+    showToast(t("tools.imageToPdf.allImagesCleared"), "info");
   };
 
   const moveImage = (id: string, direction: "up" | "down") => {
@@ -147,14 +149,14 @@ function ImageToPdfContent() {
 
   const convertToPdf = async () => {
     if (images.length === 0) {
-      showToast("Please add at least one image", "error");
+      showToast(t("tools.imageToPdf.pleaseAddAtLeastOneImage"), "error");
       return;
     }
 
     if (marginPreset === "custom") {
       const mm = parseFloat(customMarginMm);
       if (Number.isNaN(mm) || mm < 0) {
-        showToast("Enter a valid custom margin in mm", "error");
+        showToast(t("tools.imageToPdf.enterAValidCustomMarginIn"), "error");
         return;
       }
     }
@@ -178,7 +180,7 @@ function ImageToPdfContent() {
         }
       );
       setResultBlob(blob);
-      showToast("PDF created successfully", "success");
+      showToast(t("tools.imageToPdf.pdfCreatedSuccessfully"), "success");
     } catch (error) {
       showToast(
         error instanceof Error ? error.message : "Conversion failed",
@@ -196,7 +198,7 @@ function ImageToPdfContent() {
         ? images[0].file.name.replace(/\.[^.]+$/, "") + ".pdf"
         : "images.pdf";
     downloadFile(resultBlob, name);
-    showToast("PDF downloaded", "success");
+    showToast(t("tools.imageToPdf.pdfDownloaded"), "success");
   };
 
   const progressPercent =
@@ -251,7 +253,7 @@ function ImageToPdfContent() {
                       Images ({images.length})
                     </CardTitle>
                     <CardDescription>
-                      Pages appear in this order. Use arrows to reorder.
+                      {t("tools.imageToPdf.pagesAppearInThisOrderUse")}
                     </CardDescription>
                   </div>
                   <div className="flex flex-wrap gap-2">
@@ -322,7 +324,7 @@ function ImageToPdfContent() {
                           size="sm"
                           onClick={() => moveImage(item.id, "up")}
                           disabled={index === 0 || isConverting}
-                          title="Move up one row"
+                          title={t("tools.imageToPdf.moveUpOneRow")}
                           aria-label={`Move ${item.file.name} up`}
                         >
                           <ChevronUp className="h-4 w-4" aria-hidden />
@@ -334,7 +336,7 @@ function ImageToPdfContent() {
                           disabled={
                             index === images.length - 1 || isConverting
                           }
-                          title="Move down one row"
+                          title={t("tools.imageToPdf.moveDownOneRow")}
                           aria-label={`Move ${item.file.name} down`}
                         >
                           <ChevronDown className="h-4 w-4" aria-hidden />
@@ -344,7 +346,7 @@ function ImageToPdfContent() {
                           size="sm"
                           onClick={() => removeImage(item.id)}
                           disabled={isConverting}
-                          title="Remove"
+                          title={t("tools.imageToPdf.remove")}
                           aria-label={`Remove ${item.file.name}`}
                         >
                           <Trash2 className="h-3 w-3" />
@@ -362,11 +364,11 @@ function ImageToPdfContent() {
                   <Settings className="h-5 w-5" />
                   PDF settings
                 </CardTitle>
-                <CardDescription>Page layout for your document</CardDescription>
+                <CardDescription>{t("tools.imageToPdf.pageLayoutForYourDocument")}</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="space-y-2">
-                  <Label>Page size</Label>
+                  <Label>{t("tools.imageToPdf.pageSize")}</Label>
                   <Select
                     value={pageSize}
                     onValueChange={(v) => setPageSize(v as PageSize)}
@@ -386,7 +388,7 @@ function ImageToPdfContent() {
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Orientation</Label>
+                  <Label>{t("tools.imageToPdf.orientation")}</Label>
                   <Select
                     value={orientation}
                     onValueChange={(v) => setOrientation(v as Orientation)}
@@ -396,14 +398,14 @@ function ImageToPdfContent() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="portrait">Portrait</SelectItem>
-                      <SelectItem value="landscape">Landscape</SelectItem>
+                      <SelectItem value="portrait">{t("tools.imageToPdf.portrait")}</SelectItem>
+                      <SelectItem value="landscape">{t("tools.imageToPdf.landscape")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 <div className="space-y-2">
-                  <Label>Margin</Label>
+                  <Label>{t("tools.imageToPdf.margin")}</Label>
                   <Select
                     value={marginPreset}
                     onValueChange={(v) => setMarginPreset(v as MarginPreset)}
@@ -413,18 +415,18 @@ function ImageToPdfContent() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="none">None</SelectItem>
-                      <SelectItem value="small">Small (10 mm)</SelectItem>
-                      <SelectItem value="medium">Medium (20 mm)</SelectItem>
-                      <SelectItem value="large">Large (30 mm)</SelectItem>
-                      <SelectItem value="custom">Custom (mm)</SelectItem>
+                      <SelectItem value="none">{t("tools.imageToPdf.none")}</SelectItem>
+                      <SelectItem value="small">{t("tools.imageToPdf.small10Mm")}</SelectItem>
+                      <SelectItem value="medium">{t("tools.imageToPdf.medium20Mm")}</SelectItem>
+                      <SelectItem value="large">{t("tools.imageToPdf.large30Mm")}</SelectItem>
+                      <SelectItem value="custom">{t("tools.imageToPdf.customMm")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
 
                 {marginPreset === "custom" && (
                   <div className="space-y-2">
-                    <Label htmlFor="custom-margin">Custom margin (mm)</Label>
+                    <Label htmlFor="custom-margin">{t("tools.imageToPdf.customMarginMm")}</Label>
                     <Input
                       id="custom-margin"
                       type="number"
@@ -433,7 +435,7 @@ function ImageToPdfContent() {
                       value={customMarginMm}
                       onChange={(e) => setCustomMarginMm(e.target.value)}
                       disabled={isConverting}
-                      placeholder="e.g. 15"
+                      placeholder={t("tools.imageToPdf.eG15")}
                     />
                   </div>
                 )}
@@ -485,7 +487,7 @@ function ImageToPdfContent() {
 
       <ProgressModal
         isOpen={isConverting}
-        title="Creating PDF"
+        title={t("tools.imageToPdf.creatingPdf")}
         current={progressPercent}
         total={100}
         currentFile={progress.file}

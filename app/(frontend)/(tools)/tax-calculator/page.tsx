@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -48,6 +49,7 @@ interface TaxResult {
 }
 
 function TaxCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [grossIncome, setGrossIncome] = useState("");
   const [filingStatus, setFilingStatus] = useState("single");
@@ -99,7 +101,7 @@ function TaxCalculatorContent() {
     const numDependents = parseInt(dependents) || 0;
 
     if (!income || income <= 0) {
-      showToast("Please enter a valid gross income", "error");
+      showToast(t("tools.taxCalculator.pleaseEnterAValidGrossIncome"), "error");
       return;
     }
 
@@ -158,7 +160,7 @@ function TaxCalculatorContent() {
     };
 
     setResult(taxResult);
-    showToast("Tax calculation completed!", "success");
+    showToast(t("tools.taxCalculator.taxCalculationCompleted"), "success");
   };
 
   const resetCalculator = () => {
@@ -228,13 +230,13 @@ function TaxCalculatorContent() {
             Tax Information
           </CardTitle>
           <CardDescription>
-            Enter your income and tax details for 2024
+            {t("tools.taxCalculator.enterYourIncomeAndTaxDetails")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="grossIncome">Annual Gross Income ($) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="grossIncome">{t("tools.taxCalculator.annualGrossIncome")} <span className="text-red-500" aria-label={t("tools.taxCalculator.required")}>*</span></Label>
               <Input
                 id="grossIncome"
                 type="number"
@@ -245,20 +247,20 @@ function TaxCalculatorContent() {
                 min="0"
                 required
                 aria-required="true"
-                aria-label="Enter annual gross income"
+                aria-label={t("tools.taxCalculator.enterAnnualGrossIncome")}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="filing-status-select">Filing Status</Label>
+              <Label htmlFor="filing-status-select">{t("tools.taxCalculator.filingStatus")}</Label>
               <Select value={filingStatus} onValueChange={setFilingStatus}>
-                <SelectTrigger id="filing-status-select" aria-label="Select tax filing status">
+                <SelectTrigger id="filing-status-select" aria-label={t("tools.taxCalculator.selectTaxFilingStatus")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="single">Single</SelectItem>
-                  <SelectItem value="marriedJoint">Married Filing Jointly</SelectItem>
-                  <SelectItem value="marriedSeparate">Married Filing Separately</SelectItem>
-                  <SelectItem value="headOfHousehold">Head of Household</SelectItem>
+                  <SelectItem value="single">{t("tools.taxCalculator.single")}</SelectItem>
+                  <SelectItem value="marriedJoint">{t("tools.taxCalculator.marriedFilingJointly")}</SelectItem>
+                  <SelectItem value="marriedSeparate">{t("tools.taxCalculator.marriedFilingSeparately")}</SelectItem>
+                  <SelectItem value="headOfHousehold">{t("tools.taxCalculator.headOfHousehold")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -266,9 +268,9 @@ function TaxCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="state-select">State</Label>
+              <Label htmlFor="state-select">{t("tools.taxCalculator.state")}</Label>
               <Select value={state} onValueChange={setState}>
-                <SelectTrigger id="state-select" aria-label="Select state for state tax calculation">
+                <SelectTrigger id="state-select" aria-label={t("tools.taxCalculator.selectStateForStateTaxCalculation")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -279,7 +281,7 @@ function TaxCalculatorContent() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="deductions">Itemized Deductions ($) - Optional</Label>
+              <Label htmlFor="deductions">{t("tools.taxCalculator.itemizedDeductionsOptional")}</Label>
               <Input
                 id="deductions"
                 type="number"
@@ -288,14 +290,14 @@ function TaxCalculatorContent() {
                 onChange={(e) => setDeductions(e.target.value)}
                 step="100"
                 min="0"
-                aria-label="Enter itemized deductions amount (optional)"
+                aria-label={t("tools.taxCalculator.enterItemizedDeductionsAmountOptional")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="dependents">Number of Dependents</Label>
+              <Label htmlFor="dependents">{t("tools.taxCalculator.numberOfDependents")}</Label>
               <Input
                 id="dependents"
                 type="number"
@@ -305,12 +307,12 @@ function TaxCalculatorContent() {
                 step="1"
                 min="0"
                 max="10"
-                aria-label="Enter number of dependents"
+                aria-label={t("tools.taxCalculator.enterNumberOfDependents")}
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="tax-year-display" className="text-sm text-muted-foreground">Tax Year</Label>
-              <div id="tax-year-display" className="flex items-center h-10 px-3 border rounded-md bg-muted" aria-label="Tax year: 2024">
+              <Label htmlFor="tax-year-display" className="text-sm text-muted-foreground">{t("tools.taxCalculator.taxYear")}</Label>
+              <div id="tax-year-display" className="flex items-center h-10 px-3 border rounded-md bg-muted" aria-label={t("tools.taxCalculator.taxYear2024")}>
                 <span className="text-sm">2024</span>
               </div>
             </div>
@@ -321,7 +323,7 @@ function TaxCalculatorContent() {
               onClick={calculateTax} 
               className="flex-1"
               disabled={!grossIncome}
-              aria-label="Calculate tax based on entered income and tax details"
+              aria-label={t("tools.taxCalculator.calculateTaxBasedOnEnteredIncome")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Tax
@@ -330,7 +332,7 @@ function TaxCalculatorContent() {
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset calculator and clear all fields"
+              aria-label={t("tools.taxCalculator.resetCalculatorAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -348,7 +350,7 @@ function TaxCalculatorContent() {
               Tax Calculation Results
             </CardTitle>
             <CardDescription>
-              Your tax breakdown and take-home pay analysis
+              {t("tools.taxCalculator.yourTaxBreakdownAndTakeHome")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -498,9 +500,9 @@ function TaxCalculatorContent() {
       {/* Tax Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Tax Planning Tips</CardTitle>
+          <CardTitle>{t("tools.taxCalculator.taxPlanningTips")}</CardTitle>
           <CardDescription>
-            Strategies to optimize your tax situation
+            {t("tools.taxCalculator.strategiesToOptimizeYourTaxSituation")}
           </CardDescription>
         </CardHeader>
         <CardContent>

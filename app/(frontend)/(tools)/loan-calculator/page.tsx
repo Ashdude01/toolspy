@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -44,6 +45,7 @@ interface LoanResult {
 }
 
 function LoanCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [loanAmount, setLoanAmount] = useState("");
   const [interestRate, setInterestRate] = useState("");
@@ -60,14 +62,14 @@ function LoanCalculatorContent() {
     const down = parseFloat(downPayment) || 0;
 
     if (!principal || !interestRate || !loanTerm || principal <= 0 || parseFloat(interestRate) <= 0 || parseFloat(loanTerm) <= 0) {
-      showToast("Please enter valid loan details", "error");
+      showToast(t("tools.loanCalculator.pleaseEnterValidLoanDetails"), "error");
       return;
     }
 
     const actualLoanAmount = principal - down;
 
     if (actualLoanAmount <= 0) {
-      showToast("Loan amount must be greater than down payment", "error");
+      showToast(t("tools.loanCalculator.loanAmountMustBeGreaterThan"), "error");
       return;
     }
 
@@ -110,7 +112,7 @@ function LoanCalculatorContent() {
     };
 
     setResult(loanResult);
-    showToast("Loan calculated successfully!", "success");
+    showToast(t("tools.loanCalculator.loanCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -159,29 +161,29 @@ function LoanCalculatorContent() {
             Loan Details
           </CardTitle>
           <CardDescription>
-            Enter your loan information to calculate monthly payments
+            {t("tools.loanCalculator.enterYourLoanInformationToCalculate")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-2">
-            <Label htmlFor="loan-type-select">Loan Type</Label>
+            <Label htmlFor="loan-type-select">{t("tools.loanCalculator.loanType")}</Label>
             <Select value={loanType} onValueChange={setLoanType}>
-              <SelectTrigger id="loan-type-select" aria-label="Select loan type">
+              <SelectTrigger id="loan-type-select" aria-label={t("tools.loanCalculator.selectLoanType")}>
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="personal">Personal Loan</SelectItem>
-                <SelectItem value="auto">Auto Loan</SelectItem>
-                <SelectItem value="home">Home/Mortgage</SelectItem>
-                <SelectItem value="student">Student Loan</SelectItem>
-                <SelectItem value="business">Business Loan</SelectItem>
+                <SelectItem value="personal">{t("tools.loanCalculator.personalLoan")}</SelectItem>
+                <SelectItem value="auto">{t("tools.loanCalculator.autoLoan")}</SelectItem>
+                <SelectItem value="home">{t("tools.loanCalculator.homeMortgage")}</SelectItem>
+                <SelectItem value="student">{t("tools.loanCalculator.studentLoan")}</SelectItem>
+                <SelectItem value="business">{t("tools.loanCalculator.businessLoan")}</SelectItem>
               </SelectContent>
             </Select>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="loanAmount">Loan Amount ($) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="loanAmount">{t("tools.loanCalculator.loanAmount")} <span className="text-red-500" aria-label={t("tools.loanCalculator.required")}>*</span></Label>
               <Input
                 id="loanAmount"
                 type="number"
@@ -195,7 +197,7 @@ function LoanCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="interestRate">Interest Rate (%) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="interestRate">{t("tools.loanCalculator.interestRate")} <span className="text-red-500" aria-label={t("tools.loanCalculator.required")}>*</span></Label>
               <Input
                 id="interestRate"
                 type="number"
@@ -212,7 +214,7 @@ function LoanCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="loanTerm">Loan Term (years) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="loanTerm">{t("tools.loanCalculator.loanTermYears")} <span className="text-red-500" aria-label={t("tools.loanCalculator.required")}>*</span></Label>
               <Input
                 id="loanTerm"
                 type="number"
@@ -226,7 +228,7 @@ function LoanCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="downPayment">Down Payment ($) - Optional</Label>
+              <Label htmlFor="downPayment">{t("tools.loanCalculator.downPaymentOptional")}</Label>
               <Input
                 id="downPayment"
                 type="number"
@@ -244,7 +246,7 @@ function LoanCalculatorContent() {
               onClick={calculateLoan} 
               className="flex-1"
               disabled={!loanAmount || !interestRate || !loanTerm}
-              aria-label="Calculate loan payment based on entered details"
+              aria-label={t("tools.loanCalculator.calculateLoanPaymentBasedOnEntered")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Loan
@@ -253,7 +255,7 @@ function LoanCalculatorContent() {
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset calculator and clear all fields"
+              aria-label={t("tools.loanCalculator.resetCalculatorAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -271,7 +273,7 @@ function LoanCalculatorContent() {
               Loan Calculation Results
             </CardTitle>
             <CardDescription>
-              Your loan payment breakdown and schedule
+              {t("tools.loanCalculator.yourLoanPaymentBreakdownAndSchedule")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -388,7 +390,7 @@ function LoanCalculatorContent() {
                   Amortization Schedule
                 </CardTitle>
                 <CardDescription>
-                  Monthly payment breakdown over the loan term
+                  {t("tools.loanCalculator.monthlyPaymentBreakdownOverTheLoan")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -445,9 +447,9 @@ function LoanCalculatorContent() {
       {/* Loan Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Loan Tips & Information</CardTitle>
+          <CardTitle>{t("tools.loanCalculator.loanTipsInformation")}</CardTitle>
           <CardDescription>
-            Important considerations for your loan decision
+            {t("tools.loanCalculator.importantConsiderationsForYourLoanDecision")}
           </CardDescription>
         </CardHeader>
         <CardContent>

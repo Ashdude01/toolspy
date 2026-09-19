@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useCallback } from "react";
 import {
   Card,
@@ -64,6 +65,7 @@ interface ProgressStats {
 }
 
 function GoogleIndexingApiContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [serviceAccount, setServiceAccount] = useState<ServiceAccount | null>(null);
   const [urls, setUrls] = useState<string>('');
@@ -89,7 +91,7 @@ function GoogleIndexingApiContent() {
     if (!file) return;
 
     if (file.type !== 'application/json') {
-      showToast("Please upload a valid JSON file", "error");
+      showToast(t("tools.googleIndexingApi.pleaseUploadAValidJsonFile"), "error");
       return;
     }
 
@@ -108,9 +110,9 @@ function GoogleIndexingApiContent() {
         }
 
         setServiceAccount(jsonData);
-        showToast("Service account JSON loaded successfully", "success");
+        showToast(t("tools.googleIndexingApi.serviceAccountJsonLoadedSuccessfully"), "success");
       } catch (error) {
-        showToast("Invalid JSON file format", "error");
+        showToast(t("tools.googleIndexingApi.invalidJsonFileFormat"), "error");
       }
     };
     reader.readAsText(file);
@@ -190,7 +192,7 @@ function GoogleIndexingApiContent() {
   // Extract URLs from sitemap (client-side)
   const fetchSitemapUrls = async () => {
     if (!sitemapUrl.trim()) {
-      showToast("Please enter a sitemap URL", "error");
+      showToast(t("tools.googleIndexingApi.pleaseEnterASitemapUrl"), "error");
       return;
     }
 
@@ -200,11 +202,11 @@ function GoogleIndexingApiContent() {
       try {
         url = new URL(sitemapUrl.trim());
       } catch {
-        showToast("Invalid sitemap URL format", "error");
+        showToast(t("tools.googleIndexingApi.invalidSitemapUrlFormat"), "error");
         return;
       }
 
-      showToast("Fetching sitemap...", "info");
+      showToast(t("tools.googleIndexingApi.fetchingSitemap"), "info");
 
       // Fetch the sitemap directly from client
       const response = await fetch(sitemapUrl.trim(), {
@@ -287,7 +289,7 @@ function GoogleIndexingApiContent() {
         .slice(0, 1000);
 
       if (validUrls.length === 0) {
-        showToast("No valid URLs found in sitemap", "error");
+        showToast(t("tools.googleIndexingApi.noValidUrlsFoundInSitemap"), "error");
         return;
       }
 
@@ -304,7 +306,7 @@ function GoogleIndexingApiContent() {
   // Submit URLs to Google Indexing API
   const submitUrls = async () => {
     if (!serviceAccount) {
-      showToast("Please upload a service account JSON file first", "error");
+      showToast(t("tools.googleIndexingApi.pleaseUploadAServiceAccountJson"), "error");
       return;
     }
 
@@ -314,7 +316,7 @@ function GoogleIndexingApiContent() {
       .filter(url => url && isValidUrl(url));
 
     if (urlList.length === 0) {
-      showToast("Please enter valid URLs to submit", "error");
+      showToast(t("tools.googleIndexingApi.pleaseEnterValidUrlsToSubmit"), "error");
       return;
     }
 
@@ -360,7 +362,7 @@ function GoogleIndexingApiContent() {
       }
 
       if (!isPaused && !abortControllerRef.current?.signal.aborted) {
-        showToast("URL submission completed", "success");
+        showToast(t("tools.googleIndexingApi.urlSubmissionCompleted"), "success");
       }
     } catch (error) {
       showToast("Failed to submit URLs: " + (error as Error).message, "error");
@@ -445,7 +447,7 @@ function GoogleIndexingApiContent() {
   // Export results to CSV
   const exportResults = () => {
     if (results.length === 0) {
-      showToast("No results to export", "error");
+      showToast(t("tools.googleIndexingApi.noResultsToExport"), "error");
       return;
     }
 
@@ -467,7 +469,7 @@ function GoogleIndexingApiContent() {
     link.click();
     URL.revokeObjectURL(url);
 
-    showToast("Results exported to CSV", "success");
+    showToast(t("tools.googleIndexingApi.resultsExportedToCsv"), "success");
   };
 
   // Clear all data
@@ -489,7 +491,7 @@ function GoogleIndexingApiContent() {
     if (fileInputRef.current) {
       fileInputRef.current.value = '';
     }
-    showToast("All data cleared", "success");
+    showToast(t("tools.googleIndexingApi.allDataCleared"), "success");
   };
 
   const getStatusIcon = (status: string) => {
@@ -563,7 +565,7 @@ function GoogleIndexingApiContent() {
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="space-y-3">
-            <Label className="text-base font-medium">Service Account JSON File</Label>
+            <Label className="text-base font-medium">{t("tools.googleIndexingApi.serviceAccountJsonFile")}</Label>
             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4">
               <input
                 ref={fileInputRef}
@@ -650,7 +652,7 @@ function GoogleIndexingApiContent() {
               
               <div className="mt-4 text-center">
                 <Badge className="bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200">
-                  📹 Detailed video tutorial available in our setup guide below
+                  {t("tools.googleIndexingApi.detailedVideoTutorialAvailableInOur")}
                 </Badge>
               </div>
             </div>
@@ -668,7 +670,7 @@ function GoogleIndexingApiContent() {
             URLs to Submit
           </CardTitle>
           <CardDescription className="text-base">
-            Add URLs manually or extract them automatically from your sitemap. 
+            {t("tools.googleIndexingApi.addUrlsManuallyOrExtractThem")} 
             <span className="font-medium text-primary">Both methods work seamlessly together.</span>
           </CardDescription>
         </CardHeader>
@@ -676,9 +678,9 @@ function GoogleIndexingApiContent() {
           {/* Sitemap URL Input */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <Label className="text-base font-medium">Quick Import from Sitemap</Label>
+              <Label className="text-base font-medium">{t("tools.googleIndexingApi.quickImportFromSitemap")}</Label>
               <Badge variant="secondary" className="text-xs">
-                ⚡ Fastest Method
+                {t("tools.googleIndexingApi.fastestMethod")}
               </Badge>
             </div>
             <div className="flex flex-col sm:flex-row gap-3">
@@ -712,9 +714,9 @@ function GoogleIndexingApiContent() {
           {/* Manual URL Input */}
           <div className="space-y-3">
             <div className="flex items-center gap-2">
-              <Label className="text-base font-medium">Manual URL Entry</Label>
+              <Label className="text-base font-medium">{t("tools.googleIndexingApi.manualUrlEntry")}</Label>
               <Badge variant="secondary" className="text-xs">
-                🎯 Precise Control
+                {t("tools.googleIndexingApi.preciseControl")}
               </Badge>
             </div>
             <Textarea
@@ -752,7 +754,7 @@ function GoogleIndexingApiContent() {
             Submit to Google Indexing API
           </CardTitle>
           <CardDescription className="text-base">
-            Ready to index your URLs? Click the button below to start the submission process.
+            {t("tools.googleIndexingApi.readyToIndexYourUrlsClick")}
             <span className="font-medium text-primary"> You can pause or stop anytime.</span>
           </CardDescription>
         </CardHeader>
@@ -957,7 +959,7 @@ function GoogleIndexingApiContent() {
       {results.length > 0 && (
         <Card className="mb-6 sm:mb-8">
           <CardHeader>
-            <CardTitle>Submission Results</CardTitle>
+            <CardTitle>{t("tools.googleIndexingApi.submissionResults")}</CardTitle>
             <CardDescription>
               {results.length} URL(s) processed
             </CardDescription>
@@ -991,7 +993,7 @@ function GoogleIndexingApiContent() {
       {/* Important Notes */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Important Notes</CardTitle>
+          <CardTitle>{t("tools.googleIndexingApi.importantNotes")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="space-y-3 text-sm">

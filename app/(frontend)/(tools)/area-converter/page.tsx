@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -49,6 +50,7 @@ interface AreaResult {
 }
 
 function AreaConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("1");
   const [inputUnit, setInputUnit] = useState("squareMeters");
@@ -85,7 +87,7 @@ function AreaConverterContent() {
   const convertArea = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid area", "error");
+      showToast(t("tools.areaConverter.pleaseEnterAValidArea"), "error");
       return;
     }
 
@@ -117,7 +119,7 @@ function AreaConverterContent() {
     };
 
     setResult(areaResult);
-    showToast("Area converted successfully!", "success");
+    showToast(t("tools.areaConverter.areaConvertedSuccessfully"), "success");
   };
 
   const swapUnits = () => {
@@ -207,13 +209,13 @@ function AreaConverterContent() {
             Area Conversion
           </CardTitle>
           <CardDescription>
-            Enter an area value and select units to convert
+            {t("tools.areaConverter.enterAnAreaValueAndSelect")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Area Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.areaConverter.areaValue")} <span className="text-red-500" aria-label={t("tools.areaConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -224,29 +226,29 @@ function AreaConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter area value to convert"
+                aria-label={t("tools.areaConverter.enterAreaValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.areaConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger id="from-unit-select" aria-label="Select source area unit">
+                <SelectTrigger id="from-unit-select" aria-label={t("tools.areaConverter.selectSourceAreaUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="squareMillimeters">Square Millimeters (mm²)</SelectItem>
-                  <SelectItem value="squareCentimeters">Square Centimeters (cm²)</SelectItem>
-                  <SelectItem value="squareMeters">Square Meters (m²)</SelectItem>
-                  <SelectItem value="hectares">Hectares (ha)</SelectItem>
-                  <SelectItem value="squareKilometers">Square Kilometers (km²)</SelectItem>
-                  <SelectItem value="squareInches">Square Inches (in²)</SelectItem>
-                  <SelectItem value="squareFeet">Square Feet (ft²)</SelectItem>
-                  <SelectItem value="squareYards">Square Yards (yd²)</SelectItem>
-                  <SelectItem value="acres">Acres (acre)</SelectItem>
-                  <SelectItem value="squareMiles">Square Miles (mi²)</SelectItem>
+                  <SelectItem value="squareMillimeters">{t("tools.areaConverter.squareMillimetersMm")}</SelectItem>
+                  <SelectItem value="squareCentimeters">{t("tools.areaConverter.squareCentimetersCm")}</SelectItem>
+                  <SelectItem value="squareMeters">{t("tools.areaConverter.squareMetersM")}</SelectItem>
+                  <SelectItem value="hectares">{t("tools.areaConverter.hectaresHa")}</SelectItem>
+                  <SelectItem value="squareKilometers">{t("tools.areaConverter.squareKilometersKm")}</SelectItem>
+                  <SelectItem value="squareInches">{t("tools.areaConverter.squareInchesIn")}</SelectItem>
+                  <SelectItem value="squareFeet">{t("tools.areaConverter.squareFeetFt")}</SelectItem>
+                  <SelectItem value="squareYards">{t("tools.areaConverter.squareYardsYd")}</SelectItem>
+                  <SelectItem value="acres">{t("tools.areaConverter.acresAcre")}</SelectItem>
+                  <SelectItem value="squareMiles">{t("tools.areaConverter.squareMilesMi")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -257,7 +259,7 @@ function AreaConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target area units"
+                aria-label={t("tools.areaConverter.swapSourceAndTargetAreaUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -265,22 +267,22 @@ function AreaConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.areaConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger id="to-unit-select" aria-label="Select target area unit">
+                <SelectTrigger id="to-unit-select" aria-label={t("tools.areaConverter.selectTargetAreaUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="squareMillimeters">Square Millimeters (mm²)</SelectItem>
-                  <SelectItem value="squareCentimeters">Square Centimeters (cm²)</SelectItem>
-                  <SelectItem value="squareMeters">Square Meters (m²)</SelectItem>
-                  <SelectItem value="hectares">Hectares (ha)</SelectItem>
-                  <SelectItem value="squareKilometers">Square Kilometers (km²)</SelectItem>
-                  <SelectItem value="squareInches">Square Inches (in²)</SelectItem>
-                  <SelectItem value="squareFeet">Square Feet (ft²)</SelectItem>
-                  <SelectItem value="squareYards">Square Yards (yd²)</SelectItem>
-                  <SelectItem value="acres">Acres (acre)</SelectItem>
-                  <SelectItem value="squareMiles">Square Miles (mi²)</SelectItem>
+                  <SelectItem value="squareMillimeters">{t("tools.areaConverter.squareMillimetersMm")}</SelectItem>
+                  <SelectItem value="squareCentimeters">{t("tools.areaConverter.squareCentimetersCm")}</SelectItem>
+                  <SelectItem value="squareMeters">{t("tools.areaConverter.squareMetersM")}</SelectItem>
+                  <SelectItem value="hectares">{t("tools.areaConverter.hectaresHa")}</SelectItem>
+                  <SelectItem value="squareKilometers">{t("tools.areaConverter.squareKilometersKm")}</SelectItem>
+                  <SelectItem value="squareInches">{t("tools.areaConverter.squareInchesIn")}</SelectItem>
+                  <SelectItem value="squareFeet">{t("tools.areaConverter.squareFeetFt")}</SelectItem>
+                  <SelectItem value="squareYards">{t("tools.areaConverter.squareYardsYd")}</SelectItem>
+                  <SelectItem value="acres">{t("tools.areaConverter.acresAcre")}</SelectItem>
+                  <SelectItem value="squareMiles">{t("tools.areaConverter.squareMilesMi")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -291,7 +293,7 @@ function AreaConverterContent() {
               onClick={convertArea} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Convert area based on entered value and selected units"
+              aria-label={t("tools.areaConverter.convertAreaBasedOnEnteredValue")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Area
@@ -300,7 +302,7 @@ function AreaConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.areaConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -318,7 +320,7 @@ function AreaConverterContent() {
               Area Conversion Results
             </CardTitle>
             <CardDescription>
-              Comprehensive conversion to all supported units
+              {t("tools.areaConverter.comprehensiveConversionToAllSupportedUnits")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -445,9 +447,9 @@ function AreaConverterContent() {
       {/* Area Reference Table */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Area Conversion Reference</CardTitle>
+          <CardTitle>{t("tools.areaConverter.areaConversionReference")}</CardTitle>
           <CardDescription>
-            Common area conversions for quick reference
+            {t("tools.areaConverter.commonAreaConversionsForQuickReference")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -521,9 +523,9 @@ function AreaConverterContent() {
       {/* Area Measurement Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Area Measurement Tips</CardTitle>
+          <CardTitle>{t("tools.areaConverter.areaMeasurementTips")}</CardTitle>
           <CardDescription>
-            Useful information about different area units
+            {t("tools.areaConverter.usefulInformationAboutDifferentAreaUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent>

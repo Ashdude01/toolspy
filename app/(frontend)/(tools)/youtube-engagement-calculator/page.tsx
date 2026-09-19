@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -68,6 +69,7 @@ interface CalculationResult {
 }
 
 function YouTubeEngagementCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [subscriberCount, setSubscriberCount] = useState("");
   const [metrics, setMetrics] = useState<EngagementMetrics>({
@@ -86,7 +88,7 @@ function YouTubeEngagementCalculatorContent() {
 
   const calculateEngagement = () => {
     if (!subscriberCount || parseInt(subscriberCount) === 0) {
-      showToast("Please enter your subscriber count", "error");
+      showToast(t("tools.youtubeEngagementCalculator.pleaseEnterYourSubscriberCount"), "error");
       return;
     }
 
@@ -163,7 +165,7 @@ function YouTubeEngagementCalculatorContent() {
       benchmarkComparison,
     });
 
-    showToast("Engagement rate calculated successfully!", "success");
+    showToast(t("tools.youtubeEngagementCalculator.engagementRateCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -179,7 +181,7 @@ function YouTubeEngagementCalculatorContent() {
       clickThroughRate: 0,
     });
     setResult(null);
-    showToast("Calculator reset", "info");
+    showToast(t("tools.youtubeEngagementCalculator.calculatorReset"), "info");
   };
 
   const getEngagementColor = (score: string) => {
@@ -223,18 +225,18 @@ function YouTubeEngagementCalculatorContent() {
                 Engagement Calculator
               </CardTitle>
               <CardDescription>
-                Enter your YouTube metrics to calculate engagement rate
+                {t("tools.youtubeEngagementCalculator.enterYourYoutubeMetricsToCalculate")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Account Information */}
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="subscribers">Subscriber Count *</Label>
+                  <Label htmlFor="subscribers">{t("tools.youtubeEngagementCalculator.subscriberCount")}</Label>
                   <Input
                     id="subscribers"
                     type="number"
-                    placeholder="Enter your subscriber count"
+                    placeholder={t("tools.youtubeEngagementCalculator.enterYourSubscriberCount")}
                     value={subscriberCount}
                     onChange={(e) => setSubscriberCount(e.target.value)}
                     className="mt-1"
@@ -243,31 +245,31 @@ function YouTubeEngagementCalculatorContent() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label>Channel Type</Label>
+                    <Label>{t("tools.youtubeEngagementCalculator.channelType")}</Label>
                     <Select value={channelType} onValueChange={setChannelType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="personal">Personal</SelectItem>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="creator">Creator</SelectItem>
-                        <SelectItem value="influencer">Influencer</SelectItem>
+                        <SelectItem value="personal">{t("tools.youtubeEngagementCalculator.personal")}</SelectItem>
+                        <SelectItem value="business">{t("tools.youtubeEngagementCalculator.business")}</SelectItem>
+                        <SelectItem value="creator">{t("tools.youtubeEngagementCalculator.creator")}</SelectItem>
+                        <SelectItem value="influencer">{t("tools.youtubeEngagementCalculator.influencer")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label>Content Type</Label>
+                    <Label>{t("tools.youtubeEngagementCalculator.contentType")}</Label>
                     <Select value={contentType} onValueChange={setContentType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="video">Video</SelectItem>
-                        <SelectItem value="short">Short</SelectItem>
-                        <SelectItem value="live">Live Stream</SelectItem>
-                        <SelectItem value="premiere">Premiere</SelectItem>
+                        <SelectItem value="video">{t("tools.youtubeEngagementCalculator.video")}</SelectItem>
+                        <SelectItem value="short">{t("tools.youtubeEngagementCalculator.short")}</SelectItem>
+                        <SelectItem value="live">{t("tools.youtubeEngagementCalculator.liveStream")}</SelectItem>
+                        <SelectItem value="premiere">{t("tools.youtubeEngagementCalculator.premiere")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -395,7 +397,7 @@ function YouTubeEngagementCalculatorContent() {
                   Calculate Engagement
                 </Button>
                 <Button onClick={resetCalculator} variant="outline">
-                  Reset
+                  {t("tools.youtubeEngagementCalculator.reset")}
                 </Button>
               </div>
             </CardContent>

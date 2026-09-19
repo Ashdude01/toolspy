@@ -418,7 +418,7 @@ function Base64ToImageContent() {
       {/* Help Section */}
       <Card className="mt-6 sm:mt-8">
         <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">How to Use</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">{t("tools.base64ToImage.howToTitle")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-3 text-xs sm:text-sm">
           <div className="flex items-start space-x-3">
@@ -426,9 +426,8 @@ function Base64ToImageContent() {
               1
             </div>
             <div>
-              <strong>Paste Base64 String:</strong> Paste your Base64 string
-              into the textarea. Supports both data URLs
-              (data:image/png;base64,...) and raw Base64 strings.
+              <strong>{t("tools.base64ToImage.howToStep1Title")}</strong>{" "}
+              {t("tools.base64ToImage.howToStep1Body")}
             </div>
           </div>
           <div className="flex items-start space-x-3">
@@ -436,8 +435,8 @@ function Base64ToImageContent() {
               2
             </div>
             <div>
-              <strong>Decode:</strong> Click "Decode to Image" to convert the
-              Base64 string back to an image. Format detection is automatic.
+              <strong>{t("tools.base64ToImage.howToStep2Title")}</strong>{" "}
+              {t("tools.base64ToImage.howToStep2Body")}
             </div>
           </div>
           <div className="flex items-start space-x-3">
@@ -445,8 +444,8 @@ function Base64ToImageContent() {
               3
             </div>
             <div>
-              <strong>Download or Copy:</strong> Save the decoded image to your
-              device or copy it to your clipboard for use in other applications.
+              <strong>{t("tools.base64ToImage.howToStep3Title")}</strong>{" "}
+              {t("tools.base64ToImage.howToStep3Body")}
             </div>
           </div>
         </CardContent>

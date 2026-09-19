@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useRef, useState } from "react";
 import {
   Card,
@@ -45,6 +46,7 @@ interface ConversionResult {
 }
 
 function JfifToJpgContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>(
@@ -68,7 +70,7 @@ function JfifToJpgContent() {
     );
 
     if (jfifFiles.length === 0) {
-      showToast("Please select JFIF files only", "error");
+      showToast(t("tools.jfifToJpg.pleaseSelectJfifFilesOnly"), "error");
       return;
     }
 
@@ -94,12 +96,12 @@ function JfifToJpgContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t("tools.jfifToJpg.allFilesCleared"), "info");
   };
 
   const convertToJpg = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select JFIF files to convert", "error");
+      showToast(t("tools.jfifToJpg.pleaseSelectJfifFilesToConvert"), "error");
       return;
     }
 
@@ -215,7 +217,7 @@ function JfifToJpgContent() {
   const downloadSingle = (result: ConversionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("JPG file downloaded", "success");
+      showToast(t("tools.jfifToJpg.jpgFileDownloaded"), "success");
     }
   };
 
@@ -235,7 +237,7 @@ function JfifToJpgContent() {
           "success"
         );
       } catch (error) {
-        showToast("Failed to create ZIP file", "error");
+        showToast(t("tools.jfifToJpg.failedToCreateZipFile"), "error");
       }
     }
   };
@@ -284,7 +286,7 @@ function JfifToJpgContent() {
                       Selected JFIF Files ({selectedFiles.length})
                     </CardTitle>
                     <CardDescription>
-                      Files ready for JPG conversion
+                      {t("tools.jfifToJpg.filesReadyForJpgConversion")}
                     </CardDescription>
                   </div>
                   <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -315,7 +317,7 @@ function JfifToJpgContent() {
                   Conversion Settings
                 </CardTitle>
                 <CardDescription>
-                  Customize the quality of your JPG output
+                  {t("tools.jfifToJpg.customizeTheQualityOfYourJpg")}
                 </CardDescription>
               </CardHeader>
               <CardContent className="space-y-6">
@@ -437,7 +439,7 @@ function JfifToJpgContent() {
                         variant="outline"
                         size="sm"
                         onClick={() => downloadSingle(result)}
-                        title="Download JPG"
+                        title={t("tools.jfifToJpg.downloadJpg")}
                       >
                         <Download className="h-3 w-3 sm:h-4 sm:w-4" />
                         <span className="ml-1 sm:hidden text-xs">Download</span>
@@ -454,7 +456,7 @@ function JfifToJpgContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isConverting}
-        title="Converting JFIF to JPG"
+        title={t("tools.jfifToJpg.convertingJfifToJpg")}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.file}

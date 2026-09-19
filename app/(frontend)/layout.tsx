@@ -85,14 +85,23 @@ export const metadata: Metadata = {
   },
 }
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
+  // Locale from middleware (x-toolspy-locale / x-toolspy-dir). English root → en.
+  const { headers } = await import('next/headers')
+  const { ALL_LOCALES, DEFAULT_LOCALE } = await import('@/lib/i18n/locales')
+  const h = await headers()
+  const localeHeader = h.get('x-toolspy-locale') || DEFAULT_LOCALE
+  const locale = ALL_LOCALES[localeHeader] ? localeHeader : DEFAULT_LOCALE
+  const dir = h.get('x-toolspy-dir') || ALL_LOCALES[locale]?.dir || 'ltr'
+
   return (
     <html
-      lang="en"
+      lang={locale}
+      dir={dir}
       className={`${bodyFontFamily.variable} ${headingFontFamily.variable}`}
       suppressHydrationWarning
     >

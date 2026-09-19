@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ export default function InstagramDPViewerPage() {
 }
 
 function Content() {
+  const t = useT();
   const params = useSearchParams();
   const { showToast } = useToast();
   const [username, setUsername] = useState("");
@@ -31,14 +33,14 @@ function Content() {
 
   const fetchDP = async () => {
     if (!username.trim()) {
-      showToast('Enter an Instagram username', 'error');
+      showToast(t("tools.instagramDpViewer.enterAnInstagramUsername"), 'error');
       return;
     }
     // Public DP URL pattern (best-effort): https://www.instagram.com/<user>/?__a=1 is blocked now.
     // We provide a pragmatic approach: try common CDN pattern by size hints (may not work for private)
     const tentative = `https://www.instagram.com/${username}/profilepic`;
     setDpUrl(tentative);
-    showToast('If the preview does not load, the account may be private or restricted.', 'info');
+    showToast(t("tools.instagramDpViewer.ifThePreviewDoesNotLoad"), 'info');
   };
 
   const download = async () => {
@@ -55,27 +57,27 @@ function Content() {
       a.remove();
       setTimeout(() => URL.revokeObjectURL(a.href), 1500);
     } catch {
-      showToast('Unable to download due to CORS. Open image in new tab and save manually.', 'error');
+      showToast(t("tools.instagramDpViewer.unableToDownloadDueToCors"), 'error');
     }
   };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-3xl">
       <div className="text-center mb-8 space-y-3">
-        <Badge variant="outline">DP Only • Privacy‑friendly</Badge>
+        <Badge variant="outline">{t("tools.instagramDpViewer.dpOnlyPrivacyFriendly")}</Badge>
         <h2 className="text-3xl font-bold">Instagram Profile Picture Viewer</h2>
         <p className="text-muted-foreground">View and download Instagram profile pictures in full size. For private accounts, only DP may be accessible when allowed.</p>
       </div>
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Enter Username</CardTitle>
-          <CardDescription>Use public accounts for best compatibility</CardDescription>
+          <CardTitle>{t("tools.instagramDpViewer.enterUsername")}</CardTitle>
+          <CardDescription>{t("tools.instagramDpViewer.usePublicAccountsForBestCompatibility")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-3">
-          <Label htmlFor="username">Instagram Username</Label>
+          <Label htmlFor="username">{t("tools.instagramDpViewer.instagramUsername")}</Label>
           <div className="flex gap-2">
-            <Input id="username" placeholder="e.g. @natgeo" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <Input id="username" placeholder={t("tools.instagramDpViewer.eGNatgeo")} value={username} onChange={(e) => setUsername(e.target.value)} />
             <Button onClick={fetchDP}><Search className="h-4 w-4 mr-2"/>View</Button>
           </div>
         </CardContent>
@@ -84,7 +86,7 @@ function Content() {
       {dpUrl && (
         <Card>
           <CardHeader>
-            <CardTitle>Profile Picture</CardTitle>
+            <CardTitle>{t("tools.instagramDpViewer.profilePicture")}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div className="flex items-center gap-4">

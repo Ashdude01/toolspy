@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -52,6 +53,7 @@ interface VolumeResult {
 }
 
 function VolumeConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("1");
   const [inputUnit, setInputUnit] = useState("liters");
@@ -94,7 +96,7 @@ function VolumeConverterContent() {
   const convertVolume = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid volume", "error");
+      showToast(t("tools.volumeConverter.pleaseEnterAValidVolume"), "error");
       return;
     }
 
@@ -129,7 +131,7 @@ function VolumeConverterContent() {
     };
 
     setResult(volumeResult);
-    showToast("Volume converted successfully!", "success");
+    showToast(t("tools.volumeConverter.volumeConvertedSuccessfully"), "success");
   };
 
   const swapUnits = () => {
@@ -221,13 +223,13 @@ function VolumeConverterContent() {
             Volume Conversion
           </CardTitle>
           <CardDescription>
-            Enter a volume value and select units to convert
+            {t("tools.volumeConverter.enterAVolumeValueAndSelect")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Volume Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.volumeConverter.volumeValue")} <span className="text-red-500" aria-label={t("tools.volumeConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -238,32 +240,32 @@ function VolumeConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter volume value to convert"
+                aria-label={t("tools.volumeConverter.enterVolumeValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.volumeConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger id="from-unit-select" aria-label="Select source volume unit">
+                <SelectTrigger id="from-unit-select" aria-label={t("tools.volumeConverter.selectSourceVolumeUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="milliliters">Milliliters (ml)</SelectItem>
-                  <SelectItem value="liters">Liters (L)</SelectItem>
-                  <SelectItem value="cubicMeters">Cubic Meters (m³)</SelectItem>
-                  <SelectItem value="fluidOuncesUS">Fluid Ounces US (fl oz)</SelectItem>
-                  <SelectItem value="cupsUS">Cups US (cup)</SelectItem>
-                  <SelectItem value="pintsUS">Pints US (pt)</SelectItem>
-                  <SelectItem value="quartsUS">Quarts US (qt)</SelectItem>
-                  <SelectItem value="gallonsUS">Gallons US (gal)</SelectItem>
-                  <SelectItem value="fluidOuncesUK">Fluid Ounces UK (fl oz)</SelectItem>
-                  <SelectItem value="pintsUK">Pints UK (pt)</SelectItem>
-                  <SelectItem value="gallonsUK">Gallons UK (gal)</SelectItem>
-                  <SelectItem value="cubicInches">Cubic Inches (in³)</SelectItem>
-                  <SelectItem value="cubicFeet">Cubic Feet (ft³)</SelectItem>
+                  <SelectItem value="milliliters">{t("tools.volumeConverter.millilitersMl")}</SelectItem>
+                  <SelectItem value="liters">{t("tools.volumeConverter.litersL")}</SelectItem>
+                  <SelectItem value="cubicMeters">{t("tools.volumeConverter.cubicMetersM")}</SelectItem>
+                  <SelectItem value="fluidOuncesUS">{t("tools.volumeConverter.fluidOuncesUsFlOz")}</SelectItem>
+                  <SelectItem value="cupsUS">{t("tools.volumeConverter.cupsUsCup")}</SelectItem>
+                  <SelectItem value="pintsUS">{t("tools.volumeConverter.pintsUsPt")}</SelectItem>
+                  <SelectItem value="quartsUS">{t("tools.volumeConverter.quartsUsQt")}</SelectItem>
+                  <SelectItem value="gallonsUS">{t("tools.volumeConverter.gallonsUsGal")}</SelectItem>
+                  <SelectItem value="fluidOuncesUK">{t("tools.volumeConverter.fluidOuncesUkFlOz")}</SelectItem>
+                  <SelectItem value="pintsUK">{t("tools.volumeConverter.pintsUkPt")}</SelectItem>
+                  <SelectItem value="gallonsUK">{t("tools.volumeConverter.gallonsUkGal")}</SelectItem>
+                  <SelectItem value="cubicInches">{t("tools.volumeConverter.cubicInchesIn")}</SelectItem>
+                  <SelectItem value="cubicFeet">{t("tools.volumeConverter.cubicFeetFt")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -274,7 +276,7 @@ function VolumeConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target volume units"
+                aria-label={t("tools.volumeConverter.swapSourceAndTargetVolumeUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -282,25 +284,25 @@ function VolumeConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.volumeConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger id="to-unit-select" aria-label="Select target volume unit">
+                <SelectTrigger id="to-unit-select" aria-label={t("tools.volumeConverter.selectTargetVolumeUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="milliliters">Milliliters (ml)</SelectItem>
-                  <SelectItem value="liters">Liters (L)</SelectItem>
-                  <SelectItem value="cubicMeters">Cubic Meters (m³)</SelectItem>
-                  <SelectItem value="fluidOuncesUS">Fluid Ounces US (fl oz)</SelectItem>
-                  <SelectItem value="cupsUS">Cups US (cup)</SelectItem>
-                  <SelectItem value="pintsUS">Pints US (pt)</SelectItem>
-                  <SelectItem value="quartsUS">Quarts US (qt)</SelectItem>
-                  <SelectItem value="gallonsUS">Gallons US (gal)</SelectItem>
-                  <SelectItem value="fluidOuncesUK">Fluid Ounces UK (fl oz)</SelectItem>
-                  <SelectItem value="pintsUK">Pints UK (pt)</SelectItem>
-                  <SelectItem value="gallonsUK">Gallons UK (gal)</SelectItem>
-                  <SelectItem value="cubicInches">Cubic Inches (in³)</SelectItem>
-                  <SelectItem value="cubicFeet">Cubic Feet (ft³)</SelectItem>
+                  <SelectItem value="milliliters">{t("tools.volumeConverter.millilitersMl")}</SelectItem>
+                  <SelectItem value="liters">{t("tools.volumeConverter.litersL")}</SelectItem>
+                  <SelectItem value="cubicMeters">{t("tools.volumeConverter.cubicMetersM")}</SelectItem>
+                  <SelectItem value="fluidOuncesUS">{t("tools.volumeConverter.fluidOuncesUsFlOz")}</SelectItem>
+                  <SelectItem value="cupsUS">{t("tools.volumeConverter.cupsUsCup")}</SelectItem>
+                  <SelectItem value="pintsUS">{t("tools.volumeConverter.pintsUsPt")}</SelectItem>
+                  <SelectItem value="quartsUS">{t("tools.volumeConverter.quartsUsQt")}</SelectItem>
+                  <SelectItem value="gallonsUS">{t("tools.volumeConverter.gallonsUsGal")}</SelectItem>
+                  <SelectItem value="fluidOuncesUK">{t("tools.volumeConverter.fluidOuncesUkFlOz")}</SelectItem>
+                  <SelectItem value="pintsUK">{t("tools.volumeConverter.pintsUkPt")}</SelectItem>
+                  <SelectItem value="gallonsUK">{t("tools.volumeConverter.gallonsUkGal")}</SelectItem>
+                  <SelectItem value="cubicInches">{t("tools.volumeConverter.cubicInchesIn")}</SelectItem>
+                  <SelectItem value="cubicFeet">{t("tools.volumeConverter.cubicFeetFt")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -311,7 +313,7 @@ function VolumeConverterContent() {
               onClick={convertVolume} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Convert volume based on entered value and selected units"
+              aria-label={t("tools.volumeConverter.convertVolumeBasedOnEnteredValue")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Volume
@@ -320,7 +322,7 @@ function VolumeConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.volumeConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -338,7 +340,7 @@ function VolumeConverterContent() {
               Volume Conversion Results
             </CardTitle>
             <CardDescription>
-              Comprehensive conversion to all supported units
+              {t("tools.volumeConverter.comprehensiveConversionToAllSupportedUnits")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -371,7 +373,7 @@ function VolumeConverterContent() {
                     <div className="text-xl font-bold text-blue-600 mb-1">
                       {formatValue(result.allConversions.milliliters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Milliliters (ml)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.volumeConverter.millilitersMl")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-green-50 dark:bg-green-900/20">
@@ -379,7 +381,7 @@ function VolumeConverterContent() {
                     <div className="text-xl font-bold text-green-600 mb-1">
                       {formatValue(result.allConversions.liters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Liters (L)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.volumeConverter.litersL")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-purple-50 dark:bg-purple-900/20">
@@ -387,7 +389,7 @@ function VolumeConverterContent() {
                     <div className="text-xl font-bold text-purple-600 mb-1">
                       {formatValue(result.allConversions.cubicMeters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Cubic Meters (m³)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.volumeConverter.cubicMetersM")}</div>
                   </div>
                 </Card>
               </div>
@@ -475,7 +477,7 @@ function VolumeConverterContent() {
                       <div className="text-xl font-bold text-violet-600 mb-1">
                         {formatValue(result.allConversions.cubicInches)}
                       </div>
-                      <div className="text-sm text-muted-foreground">Cubic Inches (in³)</div>
+                      <div className="text-sm text-muted-foreground">{t("tools.volumeConverter.cubicInchesIn")}</div>
                     </div>
                   </Card>
                   <Card className="p-4 bg-cyan-50 dark:bg-cyan-900/20">
@@ -483,7 +485,7 @@ function VolumeConverterContent() {
                       <div className="text-xl font-bold text-cyan-600 mb-1">
                         {formatValue(result.allConversions.cubicFeet)}
                       </div>
-                      <div className="text-sm text-muted-foreground">Cubic Feet (ft³)</div>
+                      <div className="text-sm text-muted-foreground">{t("tools.volumeConverter.cubicFeetFt")}</div>
                     </div>
                   </Card>
                 </div>
@@ -496,9 +498,9 @@ function VolumeConverterContent() {
       {/* Volume Reference Table */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Volume Conversion Reference</CardTitle>
+          <CardTitle>{t("tools.volumeConverter.volumeConversionReference")}</CardTitle>
           <CardDescription>
-            Common volume conversions for quick reference
+            {t("tools.volumeConverter.commonVolumeConversionsForQuickReference")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -572,9 +574,9 @@ function VolumeConverterContent() {
       {/* Volume Measurement Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Volume Measurement Tips</CardTitle>
+          <CardTitle>{t("tools.volumeConverter.volumeMeasurementTips")}</CardTitle>
           <CardDescription>
-            Useful information about different volume units
+            {t("tools.volumeConverter.usefulInformationAboutDifferentVolumeUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent>

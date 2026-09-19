@@ -246,7 +246,7 @@ export function Header({ onSearch }: HeaderProps) {
                             className="block px-3 py-2 text-sm font-medium text-primary hover:bg-accent rounded-md"
                             onClick={closeDesktopDropdown}
                           >
-                            {category.icon} {category.name}
+                            {category.icon} {t(`categories.${categoryKey}` as 'categories.image-tools')}
                           </Link>
                           <div className="ml-4 space-y-1">
                             {toolsByCategory[categoryKey]?.map((tool) =>
@@ -427,7 +427,7 @@ export function Header({ onSearch }: HeaderProps) {
                             onClick={closeMenu}
                           >
                             <span className="mr-2">{category.icon}</span>
-                            {category.name}
+                            {t(`categories.${categoryKey}` as 'categories.image-tools')}
                           </Link>
                           <Button
                             variant="ghost"
@@ -435,7 +435,7 @@ export function Header({ onSearch }: HeaderProps) {
                             className="h-8 w-8 p-0"
                             onClick={() => toggleCategory(categoryKey)}
                             aria-expanded={expandedCategories.has(categoryKey)}
-                            aria-label={`${expandedCategories.has(categoryKey) ? 'Collapse' : 'Expand'} ${category.name} tools`}
+                            aria-label={`${expandedCategories.has(categoryKey) ? 'Collapse' : 'Expand'} ${t(`categories.${categoryKey}` as 'categories.image-tools')} tools`}
                           >
                             <ChevronRight
                               className={`h-3 w-3 transition-transform duration-200 ${

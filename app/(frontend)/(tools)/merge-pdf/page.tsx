@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -43,6 +44,7 @@ interface MergeResult {
 }
 
 function MergePdfContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<PdfFile[]>([]);
   const [mergeResult, setMergeResult] = useState<MergeResult | null>(null);
@@ -58,7 +60,7 @@ function MergePdfContent() {
     const pdfFiles = files.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t("tools.mergePdf.pleaseSelectPdfFilesOnly"), "error");
       return;
     }
     
@@ -87,7 +89,7 @@ function MergePdfContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setMergeResult(null);
-    showToast("All files cleared", "info");
+    showToast(t("tools.mergePdf.allFilesCleared"), "info");
   };
 
   const moveFile = (id: string, direction: 'up' | 'down') => {
@@ -106,7 +108,7 @@ function MergePdfContent() {
 
   const mergePdfs = async () => {
     if (selectedFiles.length < 2) {
-      showToast("Please select at least 2 PDF files to merge", "error");
+      showToast(t("tools.mergePdf.pleaseSelectAtLeast2Pdf"), "error");
       return;
     }
 
@@ -188,7 +190,7 @@ function MergePdfContent() {
   const downloadMergedPdf = () => {
     if (mergeResult && mergeResult.success) {
       downloadFile(mergeResult.file, mergeResult.file.name);
-      showToast("Merged PDF downloaded", "success");
+      showToast(t("tools.mergePdf.mergedPdfDownloaded"), "success");
     }
   };
 
@@ -234,14 +236,14 @@ function MergePdfContent() {
                   Selected PDF Files ({selectedFiles.length})
                 </CardTitle>
                 <CardDescription>
-                  Files will be merged in the order shown below. Use arrows to reorder.
+                  {t("tools.mergePdf.filesWillBeMergedInThe")}
                 </CardDescription>
               </div>
               <Button 
                 variant="outline" 
                 onClick={clearAllFiles} 
                 size="sm"
-                aria-label="Clear all selected PDF files"
+                aria-label={t("tools.mergePdf.clearAllSelectedPdfFiles")}
               >
                 <Trash2 className="h-4 w-4 mr-2" aria-hidden="true" />
                 Clear All
@@ -274,28 +276,28 @@ function MergePdfContent() {
                       size="sm"
                       onClick={() => moveFile(pdfFile.id, 'up')}
                       disabled={index === 0}
-                      title="Move up"
+                      title={t("tools.mergePdf.moveUp")}
                       aria-label={`Move ${pdfFile.name} up in merge order`}
                     >
                       <ArrowUpDown className="h-3 w-3 rotate-180" aria-hidden="true" />
-                      <span className="sr-only">Move up</span>
+                      <span className="sr-only">{t("tools.mergePdf.moveUp")}</span>
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => moveFile(pdfFile.id, 'down')}
                       disabled={index === selectedFiles.length - 1}
-                      title="Move down"
+                      title={t("tools.mergePdf.moveDown")}
                       aria-label={`Move ${pdfFile.name} down in merge order`}
                     >
                       <ArrowUpDown className="h-3 w-3" aria-hidden="true" />
-                      <span className="sr-only">Move down</span>
+                      <span className="sr-only">{t("tools.mergePdf.moveDown")}</span>
                     </Button>
                     <Button
                       variant="outline"
                       size="sm"
                       onClick={() => removeFile(pdfFile.id)}
-                      title="Remove file"
+                      title={t("tools.mergePdf.removeFile")}
                       aria-label={`Remove ${pdfFile.name}`}
                     >
                       <Trash2 className="h-3 w-3" aria-hidden="true" />
@@ -370,7 +372,7 @@ function MergePdfContent() {
                   <Button 
                     onClick={downloadMergedPdf} 
                     size="lg"
-                    aria-label="Download merged PDF file"
+                    aria-label={t("tools.mergePdf.downloadMergedPdfFile")}
                   >
                     <Download className="h-5 w-5 mr-2" aria-hidden="true" />
                     Download Merged PDF
@@ -385,7 +387,7 @@ function MergePdfContent() {
                 <Button 
                   onClick={() => setMergeResult(null)} 
                   variant="outline"
-                  aria-label="Try merging PDFs again"
+                  aria-label={t("tools.mergePdf.tryMergingPdfsAgain")}
                 >
                   Try Again
                 </Button>
@@ -398,7 +400,7 @@ function MergePdfContent() {
       {/* Progress Modal */}
       <ProgressModal
         isOpen={isMerging}
-        title="Merging PDF Files"
+        title={t("tools.mergePdf.mergingPdfFiles")}
         current={mergeProgress.current}
         total={mergeProgress.total}
         currentFile={mergeProgress.file}

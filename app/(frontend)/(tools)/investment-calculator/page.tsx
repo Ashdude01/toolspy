@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -45,6 +46,7 @@ interface InvestmentResult {
 }
 
 function InvestmentCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [initialAmount, setInitialAmount] = useState("");
   const [monthlyContribution, setMonthlyContribution] = useState("");
@@ -65,7 +67,7 @@ function InvestmentCalculatorContent() {
     const goal = parseFloat(investmentGoal) || 0;
 
     if ((!initial && !monthly) || !rate || !years || rate < 0 || years <= 0) {
-      showToast("Please enter valid investment details", "error");
+      showToast(t("tools.investmentCalculator.pleaseEnterValidInvestmentDetails"), "error");
       return;
     }
 
@@ -128,7 +130,7 @@ function InvestmentCalculatorContent() {
     };
 
     setResult(investmentResult);
-    showToast("Investment calculated successfully!", "success");
+    showToast(t("tools.investmentCalculator.investmentCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -178,18 +180,18 @@ function InvestmentCalculatorContent() {
       {/* Calculator Type Selection */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Calculation Type</CardTitle>
-          <CardDescription>Choose what you want to calculate</CardDescription>
+          <CardTitle>{t("tools.investmentCalculator.calculationType")}</CardTitle>
+          <CardDescription>{t("tools.investmentCalculator.chooseWhatYouWantToCalculate")}</CardDescription>
         </CardHeader>
         <CardContent>
           <Select value={calculationType} onValueChange={setCalculationType}>
-            <SelectTrigger id="calculation-type-select" aria-label="Select calculation type">
+            <SelectTrigger id="calculation-type-select" aria-label={t("tools.investmentCalculator.selectCalculationType")}>
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="growth">Investment Growth</SelectItem>
-              <SelectItem value="goal">Reach Investment Goal</SelectItem>
-              <SelectItem value="time">Time to Reach Goal</SelectItem>
+              <SelectItem value="growth">{t("tools.investmentCalculator.investmentGrowth")}</SelectItem>
+              <SelectItem value="goal">{t("tools.investmentCalculator.reachInvestmentGoal")}</SelectItem>
+              <SelectItem value="time">{t("tools.investmentCalculator.timeToReachGoal")}</SelectItem>
             </SelectContent>
           </Select>
         </CardContent>
@@ -203,13 +205,13 @@ function InvestmentCalculatorContent() {
             Investment Parameters
           </CardTitle>
           <CardDescription>
-            Enter your investment details to calculate growth
+            {t("tools.investmentCalculator.enterYourInvestmentDetailsToCalculate")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="initialAmount">Initial Investment ($)</Label>
+              <Label htmlFor="initialAmount">{t("tools.investmentCalculator.initialInvestment")}</Label>
               <Input
                 id="initialAmount"
                 type="number"
@@ -221,7 +223,7 @@ function InvestmentCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="monthlyContribution">Monthly Contribution ($)</Label>
+              <Label htmlFor="monthlyContribution">{t("tools.investmentCalculator.monthlyContribution")}</Label>
               <Input
                 id="monthlyContribution"
                 type="number"
@@ -236,7 +238,7 @@ function InvestmentCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="annualReturn">Expected Annual Return (%) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="annualReturn">{t("tools.investmentCalculator.expectedAnnualReturn")} <span className="text-red-500" aria-label={t("tools.investmentCalculator.required")}>*</span></Label>
               <Input
                 id="annualReturn"
                 type="number"
@@ -251,7 +253,7 @@ function InvestmentCalculatorContent() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="timeHorizon">Time Horizon (years) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="timeHorizon">{t("tools.investmentCalculator.timeHorizonYears")} <span className="text-red-500" aria-label={t("tools.investmentCalculator.required")}>*</span></Label>
               <Input
                 id="timeHorizon"
                 type="number"
@@ -269,20 +271,20 @@ function InvestmentCalculatorContent() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="compound-frequency-select">Compounding Frequency</Label>
+              <Label htmlFor="compound-frequency-select">{t("tools.investmentCalculator.compoundingFrequency")}</Label>
               <Select value={compoundFrequency} onValueChange={setCompoundFrequency}>
-                <SelectTrigger id="compound-frequency-select" aria-label="Select compounding frequency">
+                <SelectTrigger id="compound-frequency-select" aria-label={t("tools.investmentCalculator.selectCompoundingFrequency")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="monthly">Monthly</SelectItem>
-                  <SelectItem value="quarterly">Quarterly</SelectItem>
-                  <SelectItem value="annual">Annually</SelectItem>
+                  <SelectItem value="monthly">{t("tools.investmentCalculator.monthly")}</SelectItem>
+                  <SelectItem value="quarterly">{t("tools.investmentCalculator.quarterly")}</SelectItem>
+                  <SelectItem value="annual">{t("tools.investmentCalculator.annually")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="inflationRate">Inflation Rate (%) - Optional</Label>
+              <Label htmlFor="inflationRate">{t("tools.investmentCalculator.inflationRateOptional")}</Label>
               <Input
                 id="inflationRate"
                 type="number"
@@ -298,7 +300,7 @@ function InvestmentCalculatorContent() {
 
           {(calculationType === "goal" || calculationType === "time") && (
             <div className="space-y-2">
-              <Label htmlFor="investmentGoal">Investment Goal ($) <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="investmentGoal">{t("tools.investmentCalculator.investmentGoal")} <span className="text-red-500" aria-label={t("tools.investmentCalculator.required")}>*</span></Label>
               <Input
                 id="investmentGoal"
                 type="number"
@@ -318,7 +320,7 @@ function InvestmentCalculatorContent() {
               onClick={calculateInvestment} 
               className="flex-1"
               disabled={!annualReturn || !timeHorizon}
-              aria-label="Calculate investment growth based on entered parameters"
+              aria-label={t("tools.investmentCalculator.calculateInvestmentGrowthBasedOnEntered")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Calculate Investment
@@ -327,7 +329,7 @@ function InvestmentCalculatorContent() {
               variant="outline" 
               onClick={resetCalculator}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset calculator and clear all fields"
+              aria-label={t("tools.investmentCalculator.resetCalculatorAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -345,7 +347,7 @@ function InvestmentCalculatorContent() {
               Investment Projection Results
             </CardTitle>
             <CardDescription>
-              Your investment growth analysis and projections
+              {t("tools.investmentCalculator.yourInvestmentGrowthAnalysisAndProjections")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -372,7 +374,7 @@ function InvestmentCalculatorContent() {
                   <div className="text-2xl font-bold text-purple-600 mb-1">
                     {formatCurrency(result.totalGrowth)}
                   </div>
-                  <div className="text-sm text-muted-foreground">Investment Growth</div>
+                  <div className="text-sm text-muted-foreground">{t("tools.investmentCalculator.investmentGrowth")}</div>
                 </div>
               </Card>
             </div>
@@ -442,7 +444,7 @@ function InvestmentCalculatorContent() {
                     </div>
                     <div>
                       <div className="flex justify-between mb-1">
-                        <span>Investment Growth</span>
+                        <span>{t("tools.investmentCalculator.investmentGrowth")}</span>
                         <span className="font-semibold">{formatPercent((result.totalGrowth / result.finalValue) * 100)}</span>
                       </div>
                       <div className="w-full bg-gray-200 rounded-full h-2">
@@ -496,7 +498,7 @@ function InvestmentCalculatorContent() {
                   Yearly Growth Projection
                 </CardTitle>
                 <CardDescription>
-                  Annual breakdown of your investment growth
+                  {t("tools.investmentCalculator.annualBreakdownOfYourInvestmentGrowth")}
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -536,9 +538,9 @@ function InvestmentCalculatorContent() {
       {/* Investment Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Investment Tips & Strategies</CardTitle>
+          <CardTitle>{t("tools.investmentCalculator.investmentTipsStrategies")}</CardTitle>
           <CardDescription>
-            Key principles for successful investing
+            {t("tools.investmentCalculator.keyPrinciplesForSuccessfulInvesting")}
           </CardDescription>
         </CardHeader>
         <CardContent>

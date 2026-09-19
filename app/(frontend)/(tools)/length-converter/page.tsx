@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -49,6 +50,7 @@ interface LengthResult {
 }
 
 function LengthConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("1");
   const [inputUnit, setInputUnit] = useState("meters");
@@ -85,7 +87,7 @@ function LengthConverterContent() {
   const convertLength = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid length", "error");
+      showToast(t("tools.lengthConverter.pleaseEnterAValidLength"), "error");
       return;
     }
 
@@ -117,7 +119,7 @@ function LengthConverterContent() {
     };
 
     setResult(lengthResult);
-    showToast("Length converted successfully!", "success");
+    showToast(t("tools.lengthConverter.lengthConvertedSuccessfully"), "success");
   };
 
   const swapUnits = () => {
@@ -206,13 +208,13 @@ function LengthConverterContent() {
             Length Conversion
           </CardTitle>
           <CardDescription>
-            Enter a length value and select units to convert
+            {t("tools.lengthConverter.enterALengthValueAndSelect")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Length Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.lengthConverter.lengthValue")} <span className="text-red-500" aria-label={t("tools.lengthConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -223,29 +225,29 @@ function LengthConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter length value to convert"
+                aria-label={t("tools.lengthConverter.enterLengthValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.lengthConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger id="from-unit-select" aria-label="Select source length unit">
+                <SelectTrigger id="from-unit-select" aria-label={t("tools.lengthConverter.selectSourceLengthUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="millimeters">Millimeters (mm)</SelectItem>
-                  <SelectItem value="centimeters">Centimeters (cm)</SelectItem>
-                  <SelectItem value="meters">Meters (m)</SelectItem>
-                  <SelectItem value="kilometers">Kilometers (km)</SelectItem>
-                  <SelectItem value="inches">Inches (in)</SelectItem>
-                  <SelectItem value="feet">Feet (ft)</SelectItem>
-                  <SelectItem value="yards">Yards (yd)</SelectItem>
-                  <SelectItem value="miles">Miles (mi)</SelectItem>
-                  <SelectItem value="nauticalMiles">Nautical Miles (nmi)</SelectItem>
-                  <SelectItem value="lightYears">Light Years (ly)</SelectItem>
+                  <SelectItem value="millimeters">{t("tools.lengthConverter.millimetersMm")}</SelectItem>
+                  <SelectItem value="centimeters">{t("tools.lengthConverter.centimetersCm")}</SelectItem>
+                  <SelectItem value="meters">{t("tools.lengthConverter.metersM")}</SelectItem>
+                  <SelectItem value="kilometers">{t("tools.lengthConverter.kilometersKm")}</SelectItem>
+                  <SelectItem value="inches">{t("tools.lengthConverter.inchesIn")}</SelectItem>
+                  <SelectItem value="feet">{t("tools.lengthConverter.feetFt")}</SelectItem>
+                  <SelectItem value="yards">{t("tools.lengthConverter.yardsYd")}</SelectItem>
+                  <SelectItem value="miles">{t("tools.lengthConverter.milesMi")}</SelectItem>
+                  <SelectItem value="nauticalMiles">{t("tools.lengthConverter.nauticalMilesNmi")}</SelectItem>
+                  <SelectItem value="lightYears">{t("tools.lengthConverter.lightYearsLy")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -256,7 +258,7 @@ function LengthConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target length units"
+                aria-label={t("tools.lengthConverter.swapSourceAndTargetLengthUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -264,22 +266,22 @@ function LengthConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.lengthConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger id="to-unit-select" aria-label="Select target length unit">
+                <SelectTrigger id="to-unit-select" aria-label={t("tools.lengthConverter.selectTargetLengthUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="millimeters">Millimeters (mm)</SelectItem>
-                  <SelectItem value="centimeters">Centimeters (cm)</SelectItem>
-                  <SelectItem value="meters">Meters (m)</SelectItem>
-                  <SelectItem value="kilometers">Kilometers (km)</SelectItem>
-                  <SelectItem value="inches">Inches (in)</SelectItem>
-                  <SelectItem value="feet">Feet (ft)</SelectItem>
-                  <SelectItem value="yards">Yards (yd)</SelectItem>
-                  <SelectItem value="miles">Miles (mi)</SelectItem>
-                  <SelectItem value="nauticalMiles">Nautical Miles (nmi)</SelectItem>
-                  <SelectItem value="lightYears">Light Years (ly)</SelectItem>
+                  <SelectItem value="millimeters">{t("tools.lengthConverter.millimetersMm")}</SelectItem>
+                  <SelectItem value="centimeters">{t("tools.lengthConverter.centimetersCm")}</SelectItem>
+                  <SelectItem value="meters">{t("tools.lengthConverter.metersM")}</SelectItem>
+                  <SelectItem value="kilometers">{t("tools.lengthConverter.kilometersKm")}</SelectItem>
+                  <SelectItem value="inches">{t("tools.lengthConverter.inchesIn")}</SelectItem>
+                  <SelectItem value="feet">{t("tools.lengthConverter.feetFt")}</SelectItem>
+                  <SelectItem value="yards">{t("tools.lengthConverter.yardsYd")}</SelectItem>
+                  <SelectItem value="miles">{t("tools.lengthConverter.milesMi")}</SelectItem>
+                  <SelectItem value="nauticalMiles">{t("tools.lengthConverter.nauticalMilesNmi")}</SelectItem>
+                  <SelectItem value="lightYears">{t("tools.lengthConverter.lightYearsLy")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -290,7 +292,7 @@ function LengthConverterContent() {
               onClick={convertLength} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Convert length based on entered value and selected units"
+              aria-label={t("tools.lengthConverter.convertLengthBasedOnEnteredValue")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Length
@@ -299,7 +301,7 @@ function LengthConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.lengthConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -317,7 +319,7 @@ function LengthConverterContent() {
               Length Conversion Results
             </CardTitle>
             <CardDescription>
-              Comprehensive conversion to all supported units
+              {t("tools.lengthConverter.comprehensiveConversionToAllSupportedUnits")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -347,7 +349,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-blue-600 mb-1">
                       {formatValue(result.allConversions.millimeters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Millimeters (mm)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.millimetersMm")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-green-50 dark:bg-green-900/20">
@@ -355,7 +357,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-green-600 mb-1">
                       {formatValue(result.allConversions.centimeters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Centimeters (cm)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.centimetersCm")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-purple-50 dark:bg-purple-900/20">
@@ -363,7 +365,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-purple-600 mb-1">
                       {formatValue(result.allConversions.meters)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Meters (m)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.metersM")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-orange-50 dark:bg-orange-900/20">
@@ -371,7 +373,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-orange-600 mb-1">
                       {formatValue(result.allConversions.kilometers)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Kilometers (km)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.kilometersKm")}</div>
                   </div>
                 </Card>
               </div>
@@ -389,7 +391,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-red-600 mb-1">
                       {formatValue(result.allConversions.inches)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Inches (in)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.inchesIn")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-yellow-50 dark:bg-yellow-900/20">
@@ -397,7 +399,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-yellow-600 mb-1">
                       {formatValue(result.allConversions.feet)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Feet (ft)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.feetFt")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-indigo-50 dark:bg-indigo-900/20">
@@ -405,7 +407,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-indigo-600 mb-1">
                       {formatValue(result.allConversions.yards)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Yards (yd)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.yardsYd")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-pink-50 dark:bg-pink-900/20">
@@ -413,7 +415,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-pink-600 mb-1">
                       {formatValue(result.allConversions.miles)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Miles (mi)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.milesMi")}</div>
                   </div>
                 </Card>
               </div>
@@ -428,7 +430,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-cyan-600 mb-1">
                       {formatValue(result.allConversions.nauticalMiles)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Nautical Miles (nmi)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.nauticalMilesNmi")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-violet-50 dark:bg-violet-900/20">
@@ -436,7 +438,7 @@ function LengthConverterContent() {
                     <div className="text-xl font-bold text-violet-600 mb-1">
                       {formatValue(result.allConversions.lightYears)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Light Years (ly)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.lengthConverter.lightYearsLy")}</div>
                   </div>
                 </Card>
               </div>
@@ -448,9 +450,9 @@ function LengthConverterContent() {
       {/* Quick Reference Table */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Length Conversion Reference</CardTitle>
+          <CardTitle>{t("tools.lengthConverter.lengthConversionReference")}</CardTitle>
           <CardDescription>
-            Common length conversions for quick reference
+            {t("tools.lengthConverter.commonLengthConversionsForQuickReference")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -531,9 +533,9 @@ function LengthConverterContent() {
       {/* Measurement Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Length Measurement Tips</CardTitle>
+          <CardTitle>{t("tools.lengthConverter.lengthMeasurementTips")}</CardTitle>
           <CardDescription>
-            Useful information about different length units
+            {t("tools.lengthConverter.usefulInformationAboutDifferentLengthUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent>

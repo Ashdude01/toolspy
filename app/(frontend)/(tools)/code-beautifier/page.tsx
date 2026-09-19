@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useMemo } from "react";
 import {
   Card,
@@ -63,6 +64,7 @@ interface SyntaxError {
 }
 
 function CodeBeautifierContent() {
+  const t = useT();
   const [inputCode, setInputCode] = useState("");
   const [outputCode, setOutputCode] = useState("");
   const [language, setLanguage] = useState<'javascript' | 'css' | 'html' | 'json' | 'xml'>('javascript');
@@ -301,7 +303,7 @@ function CodeBeautifierContent() {
 
   const processCode = async () => {
     if (!inputCode.trim()) {
-      showToast("Please provide code to process", "error");
+      showToast(t("tools.codeBeautifier.pleaseProvideCodeToProcess"), "error");
       return;
     }
 
@@ -416,7 +418,7 @@ This code follows ${language === 'javascript' ? 'modern JavaScript' : language.t
       else if (extension === 'json') setLanguage('json');
       else if (extension === 'xml') setLanguage('xml');
       
-      showToast("File uploaded successfully", "success");
+      showToast(t("tools.codeBeautifier.fileUploadedSuccessfully"), "success");
     };
     reader.readAsText(file);
   };
@@ -424,15 +426,15 @@ This code follows ${language === 'javascript' ? 'modern JavaScript' : language.t
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.codeBeautifier.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.codeBeautifier.failedToCopyToClipboard"), "error");
     }
   };
 
   const downloadCode = () => {
     if (!outputCode) {
-      showToast("No code to download", "error");
+      showToast(t("tools.codeBeautifier.noCodeToDownload"), "error");
       return;
     }
     
@@ -456,7 +458,7 @@ This code follows ${language === 'javascript' ? 'modern JavaScript' : language.t
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("Code downloaded successfully", "success");
+    showToast(t("tools.codeBeautifier.codeDownloadedSuccessfully"), "success");
   };
 
   const clearAll = () => {
@@ -466,7 +468,7 @@ This code follows ${language === 'javascript' ? 'modern JavaScript' : language.t
     setSyntaxErrors([]);
     setExplanation("");
     setShowExplanation(false);
-    showToast("Cleared all data", "info");
+    showToast(t("tools.codeBeautifier.clearedAllData"), "info");
   };
 
   const examples: Record<string, string> = {
@@ -556,13 +558,13 @@ throw new Error('Invalid parameters');
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="language">Language</Label>
+              <Label htmlFor="language">{t("tools.codeBeautifier.language")}</Label>
               <Select value={language} onValueChange={(value: any) => setLanguage(value)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="javascript">JavaScript</SelectItem>
+                  <SelectItem value="javascript">{t("tools.codeBeautifier.javascript")}</SelectItem>
                   <SelectItem value="css">CSS</SelectItem>
                   <SelectItem value="html">HTML</SelectItem>
                   <SelectItem value="json">JSON</SelectItem>
@@ -572,7 +574,7 @@ throw new Error('Invalid parameters');
             </div>
             
             <div>
-              <Label htmlFor="mode">Mode</Label>
+              <Label htmlFor="mode">{t("tools.codeBeautifier.mode")}</Label>
               <Select value={mode} onValueChange={(value: any) => setMode(value)}>
                 <SelectTrigger>
                   <SelectValue />
@@ -595,7 +597,7 @@ throw new Error('Invalid parameters');
             </div>
             
             <div>
-              <Label htmlFor="indent-size">Indent Size</Label>
+              <Label htmlFor="indent-size">{t("tools.codeBeautifier.indentSize")}</Label>
               <Select value={indentSize.toString()} onValueChange={(value) => setIndentSize(parseInt(value))}>
                 <SelectTrigger>
                   <SelectValue />
@@ -609,14 +611,14 @@ throw new Error('Invalid parameters');
             </div>
             
             <div>
-              <Label htmlFor="indent-type">Indent Type</Label>
+              <Label htmlFor="indent-type">{t("tools.codeBeautifier.indentType")}</Label>
               <Select value={indentType} onValueChange={(value: any) => setIndentType(value)}>
                 <SelectTrigger>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="spaces">Spaces</SelectItem>
-                  <SelectItem value="tabs">Tabs</SelectItem>
+                  <SelectItem value="spaces">{t("tools.codeBeautifier.spaces")}</SelectItem>
+                  <SelectItem value="tabs">{t("tools.codeBeautifier.tabs")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -630,7 +632,7 @@ throw new Error('Invalid parameters');
                 checked={preserveComments}
                 onCheckedChange={setPreserveComments}
               />
-              <Label htmlFor="preserve-comments">Preserve Comments</Label>
+              <Label htmlFor="preserve-comments">{t("tools.codeBeautifier.preserveComments")}</Label>
             </div>
             
             <div className="flex items-center space-x-2">
@@ -639,7 +641,7 @@ throw new Error('Invalid parameters');
                 checked={wrapLines}
                 onCheckedChange={setWrapLines}
               />
-              <Label htmlFor="wrap-lines">Wrap Lines</Label>
+              <Label htmlFor="wrap-lines">{t("tools.codeBeautifier.wrapLines")}</Label>
             </div>
             
             {language === 'javascript' && (
@@ -649,20 +651,20 @@ throw new Error('Invalid parameters');
                   checked={semicolons}
                   onCheckedChange={setSemicolons}
                 />
-                <Label htmlFor="semicolons">Semicolons</Label>
+                <Label htmlFor="semicolons">{t("tools.codeBeautifier.semicolons")}</Label>
               </div>
             )}
             
             {language === 'javascript' && (
               <div>
-                <Label htmlFor="quotes">Quote Style</Label>
+                <Label htmlFor="quotes">{t("tools.codeBeautifier.quoteStyle")}</Label>
                 <Select value={quotes} onValueChange={(value: any) => setQuotes(value)}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="single">Single</SelectItem>
-                    <SelectItem value="double">Double</SelectItem>
+                    <SelectItem value="single">{t("tools.codeBeautifier.single")}</SelectItem>
+                    <SelectItem value="double">{t("tools.codeBeautifier.double")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -754,7 +756,7 @@ throw new Error('Invalid parameters');
             
             {/* Examples */}
             <div className="mt-4">
-              <Label className="text-sm font-medium">Quick Example:</Label>
+              <Label className="text-sm font-medium">{t("tools.codeBeautifier.quickExample")}</Label>
               <div className="mt-2">
                 <Button
                   variant="outline"

@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useEffect } from "react";
 import {
   Card,
@@ -39,6 +40,7 @@ interface ColorHistory {
 }
 
 function ColorPickerContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [currentColor, setCurrentColor] = useState('#3B82F6');
   const [colorHistory, setColorHistory] = useState<ColorHistory[]>([]);
@@ -200,7 +202,7 @@ function ColorPickerContent() {
       await navigator.clipboard.writeText(value);
       showToast(`${format} value copied to clipboard`, "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.colorPicker.failedToCopyToClipboard"), "error");
     }
   };
 
@@ -213,12 +215,12 @@ function ColorPickerContent() {
         const color = result.sRGBHex;
         updateColor(color);
         addToHistory(color);
-        showToast("Color picked successfully", "success");
+        showToast(t("tools.colorPicker.colorPickedSuccessfully"), "success");
       } catch (error) {
-        showToast("Eyedropper cancelled", "info");
+        showToast(t("tools.colorPicker.eyedropperCancelled"), "info");
       }
     } else {
-      showToast("Eyedropper not supported in this browser", "error");
+      showToast(t("tools.colorPicker.eyedropperNotSupportedInThisBrowser"), "error");
     }
   };
 
@@ -312,7 +314,7 @@ function ColorPickerContent() {
 
   const clearHistory = () => {
     setColorHistory([]);
-    showToast("Color history cleared", "success");
+    showToast(t("tools.colorPicker.colorHistoryCleared"), "success");
   };
 
   const exportPalette = () => {
@@ -332,7 +334,7 @@ function ColorPickerContent() {
     document.body.removeChild(link);
     URL.revokeObjectURL(url);
 
-    showToast("Color palette exported", "success");
+    showToast(t("tools.colorPicker.colorPaletteExported"), "success");
   };
 
   return (
@@ -376,7 +378,7 @@ function ColorPickerContent() {
           {/* Color Input Methods */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="space-y-2">
-              <Label>HEX Color</Label>
+              <Label>{t("tools.colorPicker.hexColor")}</Label>
               <div className="flex gap-2">
                 <Input
                   value={hexInput}
@@ -394,7 +396,7 @@ function ColorPickerContent() {
             </div>
 
             <div className="space-y-2">
-              <Label>RGB Color</Label>
+              <Label>{t("tools.colorPicker.rgbColor")}</Label>
               <div className="flex gap-1">
                 <Input
                   type="number"
@@ -442,7 +444,7 @@ function ColorPickerContent() {
             </div>
 
             <div className="space-y-2">
-              <Label>HSL Color</Label>
+              <Label>{t("tools.colorPicker.hslColor")}</Label>
               <div className="flex gap-1">
                 <Input
                   type="number"
@@ -513,7 +515,7 @@ function ColorPickerContent() {
               variant="outline"
               onClick={() => {
                 addToHistory(currentColor);
-                showToast("Color added to history", "success");
+                showToast(t("tools.colorPicker.colorAddedToHistory"), "success");
               }}
             >
               <History className="h-4 w-4 mr-2" />
@@ -534,7 +536,7 @@ function ColorPickerContent() {
       {/* Color Palettes */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Color Palettes</CardTitle>
+          <CardTitle>{t("tools.colorPicker.colorPalettes")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
           {Object.entries(colorPalettes).map(([name, colors]) => (
@@ -562,9 +564,9 @@ function ColorPickerContent() {
       {/* Color Variations */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Color Variations</CardTitle>
+          <CardTitle>{t("tools.colorPicker.colorVariations")}</CardTitle>
           <CardDescription>
-            Lighter, darker, and harmonious color variations
+            {t("tools.colorPicker.lighterDarkerAndHarmoniousColorVariations")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -640,7 +642,7 @@ function ColorPickerContent() {
       {/* Info Section */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>About Color Formats</CardTitle>
+          <CardTitle>{t("tools.colorPicker.aboutColorFormats")}</CardTitle>
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">

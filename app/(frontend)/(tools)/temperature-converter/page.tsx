@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -41,6 +42,7 @@ interface TemperatureResult {
 }
 
 function TemperatureConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("25");
   const [inputUnit, setInputUnit] = useState("celsius");
@@ -50,7 +52,7 @@ function TemperatureConverterContent() {
   const convertTemperature = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid temperature", "error");
+      showToast(t("tools.temperatureConverter.pleaseEnterAValidTemperature"), "error");
       return;
     }
 
@@ -95,7 +97,7 @@ function TemperatureConverterContent() {
     };
 
     setResult(temperatureResult);
-    showToast("Temperature converted successfully!", "success");
+    showToast(t("tools.temperatureConverter.temperatureConvertedSuccessfully"), "success");
   };
 
   const getTemperatureDescription = (celsius: number) => {
@@ -219,13 +221,13 @@ function TemperatureConverterContent() {
             Temperature Conversion
           </CardTitle>
           <CardDescription>
-            Enter a temperature and select units to convert
+            {t("tools.temperatureConverter.enterATemperatureAndSelectUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Temperature Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.temperatureConverter.temperatureValue")} <span className="text-red-500" aria-label={t("tools.temperatureConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -236,23 +238,23 @@ function TemperatureConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter temperature value to convert"
+                aria-label={t("tools.temperatureConverter.enterTemperatureValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.temperatureConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger id="from-unit-select" aria-label="Select source temperature unit">
+                <SelectTrigger id="from-unit-select" aria-label={t("tools.temperatureConverter.selectSourceTemperatureUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="celsius">Celsius (°C)</SelectItem>
-                  <SelectItem value="fahrenheit">Fahrenheit (°F)</SelectItem>
-                  <SelectItem value="kelvin">Kelvin (K)</SelectItem>
-                  <SelectItem value="rankine">Rankine (°R)</SelectItem>
+                  <SelectItem value="celsius">{t("tools.temperatureConverter.celsiusC")}</SelectItem>
+                  <SelectItem value="fahrenheit">{t("tools.temperatureConverter.fahrenheitF")}</SelectItem>
+                  <SelectItem value="kelvin">{t("tools.temperatureConverter.kelvinK")}</SelectItem>
+                  <SelectItem value="rankine">{t("tools.temperatureConverter.rankineR")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -263,7 +265,7 @@ function TemperatureConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target temperature units"
+                aria-label={t("tools.temperatureConverter.swapSourceAndTargetTemperatureUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -271,16 +273,16 @@ function TemperatureConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.temperatureConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger id="to-unit-select" aria-label="Select target temperature unit">
+                <SelectTrigger id="to-unit-select" aria-label={t("tools.temperatureConverter.selectTargetTemperatureUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="celsius">Celsius (°C)</SelectItem>
-                  <SelectItem value="fahrenheit">Fahrenheit (°F)</SelectItem>
-                  <SelectItem value="kelvin">Kelvin (K)</SelectItem>
-                  <SelectItem value="rankine">Rankine (°R)</SelectItem>
+                  <SelectItem value="celsius">{t("tools.temperatureConverter.celsiusC")}</SelectItem>
+                  <SelectItem value="fahrenheit">{t("tools.temperatureConverter.fahrenheitF")}</SelectItem>
+                  <SelectItem value="kelvin">{t("tools.temperatureConverter.kelvinK")}</SelectItem>
+                  <SelectItem value="rankine">{t("tools.temperatureConverter.rankineR")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -291,7 +293,7 @@ function TemperatureConverterContent() {
               onClick={convertTemperature} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Convert temperature based on entered value and selected units"
+              aria-label={t("tools.temperatureConverter.convertTemperatureBasedOnEnteredValue")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Temperature
@@ -300,7 +302,7 @@ function TemperatureConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.temperatureConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -318,7 +320,7 @@ function TemperatureConverterContent() {
               Temperature Conversion Results
             </CardTitle>
             <CardDescription>
-              All temperature scales with contextual information
+              {t("tools.temperatureConverter.allTemperatureScalesWithContextualInformation")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -437,7 +439,7 @@ function TemperatureConverterContent() {
             Temperature Reference Table
           </CardTitle>
           <CardDescription>
-            Common temperature points in different scales
+            {t("tools.temperatureConverter.commonTemperaturePointsInDifferentScales")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -446,9 +448,9 @@ function TemperatureConverterContent() {
               <thead>
                 <tr className="border-b">
                   <th className="text-left p-2">Description</th>
-                  <th className="text-right p-2">Celsius (°C)</th>
-                  <th className="text-right p-2">Fahrenheit (°F)</th>
-                  <th className="text-right p-2">Kelvin (K)</th>
+                  <th className="text-right p-2">{t("tools.temperatureConverter.celsiusC")}</th>
+                  <th className="text-right p-2">{t("tools.temperatureConverter.fahrenheitF")}</th>
+                  <th className="text-right p-2">{t("tools.temperatureConverter.kelvinK")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -497,9 +499,9 @@ function TemperatureConverterContent() {
       {/* Conversion Formulas */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Temperature Conversion Formulas</CardTitle>
+          <CardTitle>{t("tools.temperatureConverter.temperatureConversionFormulas")}</CardTitle>
           <CardDescription>
-            Mathematical formulas for temperature conversions
+            {t("tools.temperatureConverter.mathematicalFormulasForTemperatureConversions")}
           </CardDescription>
         </CardHeader>
         <CardContent>

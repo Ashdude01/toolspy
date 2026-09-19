@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -62,6 +63,7 @@ const INTEREST_RATES = [
 ];
 
 function PenaltyLateFeeCalculatorContent() {
+  const t = useT();
   const [returnType, setReturnType] = useState<string>("GSTR-3B");
   const [dueDate, setDueDate] = useState<string>("");
   const [filingDate, setFilingDate] = useState<string>("");
@@ -203,13 +205,13 @@ Please verify with official GST portal for official penalty calculations.`;
                 Penalty/Late Fee Calculator
               </CardTitle>
               <CardDescription>
-                Calculate late fees and interest for GSTR filing delays
+                {t("tools.penaltyLateFeeCalculator.calculateLateFeesAndInterestFor")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Return Type */}
               <div className="space-y-2">
-                <Label htmlFor="return-type">Return Type</Label>
+                <Label htmlFor="return-type">{t("tools.penaltyLateFeeCalculator.returnType")}</Label>
                 <Select value={returnType} onValueChange={setReturnType}>
                   <SelectTrigger>
                     <SelectValue />
@@ -226,7 +228,7 @@ Please verify with official GST portal for official penalty calculations.`;
 
               {/* Due Date */}
               <div className="space-y-2">
-                <Label htmlFor="due-date">Due Date</Label>
+                <Label htmlFor="due-date">{t("tools.penaltyLateFeeCalculator.dueDate")}</Label>
                 <Input
                   id="due-date"
                   type="date"
@@ -238,7 +240,7 @@ Please verify with official GST portal for official penalty calculations.`;
 
               {/* Filing Date */}
               <div className="space-y-2">
-                <Label htmlFor="filing-date">Filing Date</Label>
+                <Label htmlFor="filing-date">{t("tools.penaltyLateFeeCalculator.filingDate")}</Label>
                 <Input
                   id="filing-date"
                   type="date"
@@ -250,11 +252,11 @@ Please verify with official GST portal for official penalty calculations.`;
 
               {/* Tax Amount */}
               <div className="space-y-2">
-                <Label htmlFor="tax-amount">Tax Amount (₹)</Label>
+                <Label htmlFor="tax-amount">{t("tools.penaltyLateFeeCalculator.taxAmount")}</Label>
                 <Input
                   id="tax-amount"
                   type="number"
-                  placeholder="Enter tax amount"
+                  placeholder={t("tools.penaltyLateFeeCalculator.enterTaxAmount")}
                   value={taxAmount}
                   onChange={(e) => setTaxAmount(e.target.value)}
                   className="text-lg"
@@ -263,7 +265,7 @@ Please verify with official GST portal for official penalty calculations.`;
 
               {/* Interest Rate */}
               <div className="space-y-2">
-                <Label htmlFor="interest-rate">Interest Rate (% p.a.)</Label>
+                <Label htmlFor="interest-rate">{t("tools.penaltyLateFeeCalculator.interestRatePA")}</Label>
                 <Select value={interestRate.toString()} onValueChange={(value) => setInterestRate(Number(value))}>
                   <SelectTrigger>
                     <SelectValue />
@@ -378,7 +380,7 @@ Please verify with official GST portal for official penalty calculations.`;
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-medium text-sm">{type.type}</span>
                       {type.type === returnType && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.penaltyLateFeeCalculator.selected")}</Badge>
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground">{type.description}</p>
@@ -404,7 +406,7 @@ Please verify with official GST portal for official penalty calculations.`;
                     <div className="flex justify-between items-center mb-1">
                       <span className="font-medium text-sm">{rate.rate}% p.a.</span>
                       {rate.rate === interestRate && (
-                        <Badge variant="default" className="text-xs">Selected</Badge>
+                        <Badge variant="default" className="text-xs">{t("tools.penaltyLateFeeCalculator.selected")}</Badge>
                       )}
                     </div>
                     <p className="text-xs text-muted-foreground">{rate.description}</p>
@@ -446,7 +448,7 @@ Please verify with official GST portal for official penalty calculations.`;
           {/* Quick Tips */}
           <Card>
             <CardHeader>
-              <CardTitle>Quick Tips</CardTitle>
+              <CardTitle>{t("tools.penaltyLateFeeCalculator.quickTips")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex items-start gap-2">

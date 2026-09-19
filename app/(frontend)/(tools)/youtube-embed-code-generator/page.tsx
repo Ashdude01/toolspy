@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useEffect, useMemo, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -25,6 +26,7 @@ export default function YouTubeEmbedCodeGeneratorPage() {
 }
 
 function Content() {
+  const t = useT();
   const { showToast } = useToast();
   const params = useSearchParams();
   const [input, setInput] = useState("");
@@ -64,31 +66,31 @@ function Content() {
 
   const code = useMemo(() => {
     if (!embedSrc) return '';
-    return `<div style="position:relative;width:100%;padding-top:${paddingTop}"><iframe src="${embedSrc}" title="YouTube video" style="position:absolute;inset:0;width:100%;height:100%" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>`;
+    return `<div style="position:relative;width:100%;padding-top:${paddingTop}"><iframe src="${embedSrc}" title={t("tools.youtubeEmbedCodeGenerator.youtubeVideo")} style="position:absolute;inset:0;width:100%;height:100%" frameborder="0" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen></iframe></div>`;
   }, [embedSrc, paddingTop]);
 
   const copy = async () => {
     if (!code) return;
     await navigator.clipboard.writeText(code);
-    showToast('Embed code copied!', 'success');
+    showToast(t("tools.youtubeEmbedCodeGenerator.embedCodeCopied"), 'success');
   };
 
   return (
     <div className="container mx-auto px-4 py-8 max-w-4xl">
       <div className="text-center mb-8 space-y-3">
-        <Badge variant="outline">Responsive • Clean HTML</Badge>
+        <Badge variant="outline">{t("tools.youtubeEmbedCodeGenerator.responsiveCleanHtml")}</Badge>
         <h2 className="text-3xl font-bold">YouTube Embed Code Generator</h2>
         <p className="text-muted-foreground">Create responsive embeds with customizable options. Copy and paste directly into your page.</p>
       </div>
 
       <Card className="mb-6">
         <CardHeader>
-          <CardTitle>Video & Options</CardTitle>
-          <CardDescription>Paste a video URL/ID and set preferences</CardDescription>
+          <CardTitle>{t("tools.youtubeEmbedCodeGenerator.videoOptions")}</CardTitle>
+          <CardDescription>{t("tools.youtubeEmbedCodeGenerator.pasteAVideoUrlIdAnd")}</CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div>
-            <Label htmlFor="yt">YouTube URL/ID</Label>
+            <Label htmlFor="yt">{t("tools.youtubeEmbedCodeGenerator.youtubeUrlId")}</Label>
             <Input id="yt" placeholder="https://youtu.be/VIDEO_ID" value={input} onChange={(e) => setInput(e.target.value)} />
           </div>
           <div className="grid sm:grid-cols-2 gap-4">
@@ -96,7 +98,7 @@ function Content() {
             <div className="flex items-center gap-2"><input type="checkbox" checked={controls} onChange={(e) => setControls(e.target.checked)} /><span>Show Controls</span></div>
             <div className="flex items-center gap-2"><input type="checkbox" checked={loop} onChange={(e) => setLoop(e.target.checked)} /><span>Loop</span></div>
             <div>
-              <Label>Aspect Ratio</Label>
+              <Label>{t("tools.youtubeEmbedCodeGenerator.aspectRatio")}</Label>
               <select className="w-full border rounded h-10 px-3" value={ratio} onChange={(e) => setRatio(e.target.value as any)}>
                 <option>16:9</option>
                 <option>4:3</option>
@@ -111,12 +113,12 @@ function Content() {
       {embedSrc && (
         <Card>
           <CardHeader>
-            <CardTitle>Preview</CardTitle>
-            <CardDescription>Responsive container with your options</CardDescription>
+            <CardTitle>{t("tools.youtubeEmbedCodeGenerator.preview")}</CardTitle>
+            <CardDescription>{t("tools.youtubeEmbedCodeGenerator.responsiveContainerWithYourOptions")}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <div style={{ position:'relative', width:'100%', paddingTop }}>
-              <iframe src={embedSrc} title="YouTube video" style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+              <iframe src={embedSrc} title={t("tools.youtubeEmbedCodeGenerator.youtubeVideo")} style={{ position:'absolute', inset:0, width:'100%', height:'100%' }} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
             </div>
             <div className="flex items-center gap-2">
               <Button onClick={copy}><Copy className="h-4 w-4 mr-2"/>Copy Embed Code</Button>

@@ -357,41 +357,31 @@ function ImageToBase64Content() {
       {/* Help Section */}
       <Card className="mt-6 sm:mt-8">
         <CardHeader>
-          <CardTitle className="text-lg sm:text-xl">About Base64 Encoding</CardTitle>
+          <CardTitle className="text-lg sm:text-xl">{t("tools.imageToBase64.aboutTitle")}</CardTitle>
         </CardHeader>
         <CardContent className="space-y-4 text-xs sm:text-sm">
           <div>
-            <strong>What is Base64?</strong> Base64 is a binary-to-text encoding
-            scheme that represents binary data in an ASCII string format. It's
-            commonly used to embed images directly in HTML, CSS, or JSON.
+            <strong>{t("tools.imageToBase64.whatIsBase64")}</strong>{" "}
+            {t("tools.imageToBase64.whatIsBase64Body")}
           </div>
 
           <div>
-            <strong>Use Cases:</strong>
+            <strong>{t("tools.imageToBase64.useCases")}</strong>
             <ul className="list-disc list-inside mt-2 space-y-1 text-muted-foreground">
-              <li>
-                Embedding small images in HTML/CSS to reduce HTTP requests
-              </li>
-              <li>Storing images in databases or JSON APIs</li>
-              <li>Email attachments and data transfer</li>
-              <li>Creating self-contained HTML files</li>
+              <li>{t("tools.imageToBase64.useCase1")}</li>
+              <li>{t("tools.imageToBase64.useCase2")}</li>
+              <li>{t("tools.imageToBase64.useCase3")}</li>
+              <li>{t("tools.imageToBase64.useCase4")}</li>
             </ul>
           </div>
 
           <div>
-            <strong>Important Notes:</strong>
+            <strong>{t("tools.imageToBase64.importantNotes")}</strong>
             <ul className="list-disc list-inside mt-2 space-y-1 text-muted-foreground">
-              <li>Base64 encoding increases file size by approximately 33%</li>
-              <li>
-                Best for small images (icons, logos) rather than large photos
-              </li>
-              <li>
-                Cannot be cached separately by browsers like regular image files
-              </li>
-              <li>
-                All processing happens locally - your images never leave your
-                device
-              </li>
+              <li>{t("tools.imageToBase64.note1")}</li>
+              <li>{t("tools.imageToBase64.note2")}</li>
+              <li>{t("tools.imageToBase64.note3")}</li>
+              <li>{t("tools.imageToBase64.note4")}</li>
             </ul>
           </div>
         </CardContent>

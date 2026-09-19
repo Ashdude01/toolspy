@@ -43,6 +43,7 @@ import React from "react";
 import Link from "next/link";
 import { TypewriterText } from "@/components/ui/typewriter-text";
 import { ToolCard } from "@/components/tools/tool-card";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ToolsGridProps {
   searchQuery: string;
@@ -56,6 +57,7 @@ export function ToolsGrid({
   onSearchChange,
   popularTools: popularToolsProp,
 }: ToolsGridProps) {
+  const t = useT();
   const [selectedCategory, setSelectedCategory] = useState<
     ToolCategory | "all"
   >("all");
@@ -360,7 +362,7 @@ export function ToolsGrid({
                 onClick={() => setSelectedCategory(key as ToolCategory)}
                 className="hover:border-slate-400 shadow-none text-xs sm:text-sm"
               >
-                {category.name}
+                {t(`categories.${key}` as "categories.image-tools")}
               </Button>
             ))}
           </div>

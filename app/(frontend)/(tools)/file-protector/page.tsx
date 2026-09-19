@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -38,6 +39,7 @@ interface ProtectionResult {
 }
 
 function FileProtectorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [protectionResults, setProtectionResults] = useState<ProtectionResult[]>([]);
@@ -67,27 +69,27 @@ function FileProtectorContent() {
     setProtectionResults([]);
     setPassword("");
     setConfirmPassword("");
-    showToast("All files cleared", "info");
+    showToast(t("tools.fileProtector.allFilesCleared"), "info");
   };
 
   const protectFiles = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select files to protect", "error");
+      showToast(t("tools.fileProtector.pleaseSelectFilesToProtect"), "error");
       return;
     }
 
     if (!password.trim()) {
-      showToast("Please enter a password", "error");
+      showToast(t("tools.fileProtector.pleaseEnterAPassword"), "error");
       return;
     }
 
     if (password !== confirmPassword) {
-      showToast("Passwords do not match", "error");
+      showToast(t("tools.fileProtector.passwordsDoNotMatch"), "error");
       return;
     }
 
     if (password.length < 6) {
-      showToast("Password must be at least 6 characters long", "error");
+      showToast(t("tools.fileProtector.passwordMustBeAtLeast6"), "error");
       return;
     }
 
@@ -186,7 +188,7 @@ function FileProtectorContent() {
   const downloadResult = (result: ProtectionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("Protected file downloaded", "success");
+      showToast(t("tools.fileProtector.protectedFileDownloaded"), "success");
     }
   };
 
@@ -235,7 +237,7 @@ function FileProtectorContent() {
                   Selected Files ({selectedFiles.length})
                 </CardTitle>
                 <CardDescription>
-                  Files ready for password protection
+                  {t("tools.fileProtector.filesReadyForPasswordProtection")}
                 </CardDescription>
               </div>
               <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -270,21 +272,21 @@ function FileProtectorContent() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("tools.fileProtector.password")}</Label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter a strong password"
+                  placeholder={t("tools.fileProtector.enterAStrongPassword")}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
-                <Label htmlFor="confirm-password">Confirm Password</Label>
+                <Label htmlFor="confirm-password">{t("tools.fileProtector.confirmPassword")}</Label>
                 <Input
                   id="confirm-password"
                   type="password"
-                  placeholder="Confirm your password"
+                  placeholder={t("tools.fileProtector.confirmYourPassword")}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                 />
@@ -313,7 +315,7 @@ function FileProtectorContent() {
             </Button>
             {password.trim() && password !== confirmPassword && (
               <p className="text-sm text-red-500 text-center mt-2">
-                Passwords do not match
+                {t("tools.fileProtector.passwordsDoNotMatch")}
               </p>
             )}
           </CardContent>
@@ -384,7 +386,7 @@ function FileProtectorContent() {
 
       <ProgressModal
         isOpen={isProtecting}
-        title="Protecting Files"
+        title={t("tools.fileProtector.protectingFiles")}
         current={protectionProgress.current}
         total={protectionProgress.total}
         currentFile={protectionProgress.file}

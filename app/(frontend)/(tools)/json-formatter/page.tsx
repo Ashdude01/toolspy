@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useRef, useMemo } from "react";
 import {
   Card,
@@ -61,6 +62,7 @@ interface ValidationError {
 }
 
 function JsonFormatterContent() {
+  const t = useT();
   const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [viewMode, setViewMode] = useState<'formatted' | 'tree' | 'minified'>('formatted');
@@ -262,7 +264,7 @@ function JsonFormatterContent() {
     reader.onload = (e) => {
       const content = e.target?.result as string;
       handleInputChange(content);
-      showToast("File uploaded successfully", "success");
+      showToast(t("tools.jsonFormatter.fileUploadedSuccessfully"), "success");
     };
     reader.readAsText(file);
   };
@@ -270,15 +272,15 @@ function JsonFormatterContent() {
   const copyToClipboard = async (text: string) => {
     try {
       await navigator.clipboard.writeText(text);
-      showToast("Copied to clipboard", "success");
+      showToast(t("tools.jsonFormatter.copiedToClipboard"), "success");
     } catch (error) {
-      showToast("Failed to copy to clipboard", "error");
+      showToast(t("tools.jsonFormatter.failedToCopyToClipboard"), "error");
     }
   };
 
   const downloadJson = () => {
     if (!output) {
-      showToast("No valid JSON to download", "error");
+      showToast(t("tools.jsonFormatter.noValidJsonToDownload"), "error");
       return;
     }
     
@@ -291,7 +293,7 @@ function JsonFormatterContent() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    showToast("JSON downloaded successfully", "success");
+    showToast(t("tools.jsonFormatter.jsonDownloadedSuccessfully"), "success");
   };
 
   const clearAll = () => {
@@ -301,7 +303,7 @@ function JsonFormatterContent() {
     setValidationErrors([]);
     setIsValid(null);
     setStats(null);
-    showToast("Cleared all data", "info");
+    showToast(t("tools.jsonFormatter.clearedAllData"), "info");
   };
 
   const examples = [
@@ -434,23 +436,23 @@ function JsonFormatterContent() {
         <CardContent className="space-y-4">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
-              <Label htmlFor="view-mode">View Mode</Label>
+              <Label htmlFor="view-mode">{t("tools.jsonFormatter.viewMode")}</Label>
               <Select value={viewMode} onValueChange={(value: any) => setViewMode(value)}>
-                <SelectTrigger id="view-mode" aria-label="Select JSON view mode">
+                <SelectTrigger id="view-mode" aria-label={t("tools.jsonFormatter.selectJsonViewMode")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="formatted">Formatted</SelectItem>
-                  <SelectItem value="tree">Tree View</SelectItem>
-                  <SelectItem value="minified">Minified</SelectItem>
+                  <SelectItem value="formatted">{t("tools.jsonFormatter.formatted")}</SelectItem>
+                  <SelectItem value="tree">{t("tools.jsonFormatter.treeView")}</SelectItem>
+                  <SelectItem value="minified">{t("tools.jsonFormatter.minified")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
             
             <div>
-              <Label htmlFor="indent">Indent Size</Label>
+              <Label htmlFor="indent">{t("tools.jsonFormatter.indentSize")}</Label>
               <Select value={indentSize.toString()} onValueChange={(value) => setIndentSize(parseInt(value))}>
-                <SelectTrigger id="indent" aria-label="Select indentation size">
+                <SelectTrigger id="indent" aria-label={t("tools.jsonFormatter.selectIndentationSize")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -467,7 +469,7 @@ function JsonFormatterContent() {
                 checked={sortKeys}
                 onCheckedChange={setSortKeys}
               />
-              <Label htmlFor="sort-keys">Sort Keys</Label>
+              <Label htmlFor="sort-keys">{t("tools.jsonFormatter.sortKeys")}</Label>
             </div>
             
             <div className="flex items-center space-x-2">
@@ -476,7 +478,7 @@ function JsonFormatterContent() {
                 checked={removeComments}
                 onCheckedChange={setRemoveComments}
               />
-              <Label htmlFor="remove-comments">Remove Comments</Label>
+              <Label htmlFor="remove-comments">{t("tools.jsonFormatter.removeComments")}</Label>
             </div>
           </div>
           
@@ -484,7 +486,7 @@ function JsonFormatterContent() {
             <Button 
               onClick={() => handleInputChange(input)} 
               variant="outline"
-              aria-label="Reformat JSON input"
+              aria-label={t("tools.jsonFormatter.reformatJsonInput")}
             >
               <Zap size={16} className="mr-2" aria-hidden="true" />
               Reformat
@@ -492,7 +494,7 @@ function JsonFormatterContent() {
             <Button 
               onClick={clearAll} 
               variant="outline"
-              aria-label="Clear all input and output"
+              aria-label={t("tools.jsonFormatter.clearAllInputAndOutput")}
             >
               <Trash2 size={16} className="mr-2" aria-hidden="true" />
               Clear All
@@ -501,7 +503,7 @@ function JsonFormatterContent() {
               onClick={() => copyToClipboard(output)} 
               variant="outline" 
               disabled={!output}
-              aria-label="Copy formatted JSON to clipboard"
+              aria-label={t("tools.jsonFormatter.copyFormattedJsonToClipboard")}
             >
               <Copy size={16} className="mr-2" aria-hidden="true" />
               Copy Result
@@ -510,7 +512,7 @@ function JsonFormatterContent() {
               onClick={downloadJson} 
               variant="outline" 
               disabled={!output}
-              aria-label="Download formatted JSON as file"
+              aria-label={t("tools.jsonFormatter.downloadFormattedJsonAsFile")}
             >
               <Download size={16} className="mr-2" aria-hidden="true" />
               Download
@@ -544,7 +546,7 @@ function JsonFormatterContent() {
                 }}
                 role="button"
                 tabIndex={0}
-                aria-label="Upload JSON file. Drag and drop or click to select"
+                aria-label={t("tools.jsonFormatter.uploadJsonFileDragAndDrop")}
                 onKeyDown={(e) => {
                   if (e.key === 'Enter' || e.key === ' ') {
                     e.preventDefault();
@@ -563,12 +565,12 @@ function JsonFormatterContent() {
                     }
                   }}
                   className="hidden"
-                  aria-label="Select JSON file to upload"
+                  aria-label={t("tools.jsonFormatter.selectJsonFileToUpload")}
                 />
                 <FileText size={48} className="mx-auto text-gray-400 mb-4" aria-hidden="true" />
                 <h3 className="text-lg font-semibold mb-2">Drop your JSON file here</h3>
                 <p className="text-gray-600 mb-4">or click to browse files</p>
-                <Button variant="outline" aria-label="Choose JSON file">
+                <Button variant="outline" aria-label={t("tools.jsonFormatter.chooseJsonFile")}>
                   <Upload size={16} className="mr-2" aria-hidden="true" />
                   Choose File
                 </Button>
@@ -577,11 +579,11 @@ function JsonFormatterContent() {
           </CardHeader>
           <CardContent>
             <Label htmlFor="json-input-textarea" className="sr-only">
-              JSON input
+              {t("tools.jsonFormatter.jsonInput")}
             </Label>
             <Textarea
               id="json-input-textarea"
-              placeholder="Paste your JSON here or upload a file..."
+              placeholder={t("tools.jsonFormatter.pasteYourJsonHereOrUpload")}
               value={input}
               onChange={(e) => handleInputChange(e.target.value)}
               className="min-h-[400px] font-mono text-sm"
@@ -593,7 +595,7 @@ function JsonFormatterContent() {
             
             {/* Examples */}
             <div className="mt-4">
-              <Label className="text-sm font-medium">Quick Examples:</Label>
+              <Label className="text-sm font-medium">{t("tools.jsonFormatter.quickExamples")}</Label>
               <div className="flex flex-wrap gap-2 mt-2">
                 {examples.map((example, index) => (
                   <Button
@@ -627,15 +629,15 @@ function JsonFormatterContent() {
             ) : (
               <>
                 <Label htmlFor="json-output-textarea" className="sr-only">
-                  Formatted JSON output
+                  {t("tools.jsonFormatter.formattedJsonOutput")}
                 </Label>
                 <Textarea
                   id="json-output-textarea"
                   value={output}
                   readOnly
                   className="min-h-[400px] font-mono text-sm"
-                  placeholder="Formatted JSON will appear here..."
-                  aria-label="Formatted JSON output"
+                  placeholder={t("tools.jsonFormatter.formattedJsonWillAppearHere")}
+                  aria-label={t("tools.jsonFormatter.formattedJsonOutput")}
                   aria-describedby="json-output-description"
                 />
                 <div id="json-output-description" className="sr-only">

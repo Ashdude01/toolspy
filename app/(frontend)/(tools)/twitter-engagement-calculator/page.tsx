@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -65,6 +66,7 @@ interface CalculationResult {
 }
 
 function TwitterEngagementCalculatorContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [followerCount, setFollowerCount] = useState("");
   const [metrics, setMetrics] = useState<EngagementMetrics>({
@@ -82,7 +84,7 @@ function TwitterEngagementCalculatorContent() {
 
   const calculateEngagement = () => {
     if (!followerCount || parseInt(followerCount) === 0) {
-      showToast("Please enter your follower count", "error");
+      showToast(t("tools.twitterEngagementCalculator.pleaseEnterYourFollowerCount"), "error");
       return;
     }
 
@@ -151,7 +153,7 @@ function TwitterEngagementCalculatorContent() {
       benchmarkComparison,
     });
 
-    showToast("Engagement rate calculated successfully!", "success");
+    showToast(t("tools.twitterEngagementCalculator.engagementRateCalculatedSuccessfully"), "success");
   };
 
   const resetCalculator = () => {
@@ -166,7 +168,7 @@ function TwitterEngagementCalculatorContent() {
       profileVisits: 0,
     });
     setResult(null);
-    showToast("Calculator reset", "info");
+    showToast(t("tools.twitterEngagementCalculator.calculatorReset"), "info");
   };
 
   const getEngagementColor = (score: string) => {
@@ -210,18 +212,18 @@ function TwitterEngagementCalculatorContent() {
                 Engagement Calculator
               </CardTitle>
               <CardDescription>
-                Enter your Twitter metrics to calculate engagement rate
+                {t("tools.twitterEngagementCalculator.enterYourTwitterMetricsToCalculate")}
               </CardDescription>
             </CardHeader>
             <CardContent className="space-y-6">
               {/* Account Information */}
               <div className="space-y-4">
                 <div>
-                  <Label htmlFor="followers">Follower Count *</Label>
+                  <Label htmlFor="followers">{t("tools.twitterEngagementCalculator.followerCount")}</Label>
                   <Input
                     id="followers"
                     type="number"
-                    placeholder="Enter your follower count"
+                    placeholder={t("tools.twitterEngagementCalculator.enterYourFollowerCount")}
                     value={followerCount}
                     onChange={(e) => setFollowerCount(e.target.value)}
                     className="mt-1"
@@ -230,31 +232,31 @@ function TwitterEngagementCalculatorContent() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <Label>Account Type</Label>
+                    <Label>{t("tools.twitterEngagementCalculator.accountType")}</Label>
                     <Select value={accountType} onValueChange={setAccountType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="personal">Personal</SelectItem>
-                        <SelectItem value="business">Business</SelectItem>
-                        <SelectItem value="creator">Creator</SelectItem>
-                        <SelectItem value="influencer">Influencer</SelectItem>
+                        <SelectItem value="personal">{t("tools.twitterEngagementCalculator.personal")}</SelectItem>
+                        <SelectItem value="business">{t("tools.twitterEngagementCalculator.business")}</SelectItem>
+                        <SelectItem value="creator">{t("tools.twitterEngagementCalculator.creator")}</SelectItem>
+                        <SelectItem value="influencer">{t("tools.twitterEngagementCalculator.influencer")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
 
                   <div>
-                    <Label>Content Type</Label>
+                    <Label>{t("tools.twitterEngagementCalculator.contentType")}</Label>
                     <Select value={contentType} onValueChange={setContentType}>
                       <SelectTrigger className="mt-1">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="tweet">Tweet</SelectItem>
-                        <SelectItem value="thread">Thread</SelectItem>
-                        <SelectItem value="poll">Poll</SelectItem>
-                        <SelectItem value="spaces">Spaces</SelectItem>
+                        <SelectItem value="tweet">{t("tools.twitterEngagementCalculator.tweet")}</SelectItem>
+                        <SelectItem value="thread">{t("tools.twitterEngagementCalculator.thread")}</SelectItem>
+                        <SelectItem value="poll">{t("tools.twitterEngagementCalculator.poll")}</SelectItem>
+                        <SelectItem value="spaces">{t("tools.twitterEngagementCalculator.spaces")}</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
@@ -382,7 +384,7 @@ function TwitterEngagementCalculatorContent() {
                   Calculate Engagement
                 </Button>
                 <Button onClick={resetCalculator} variant="outline">
-                  Reset
+                  {t("tools.twitterEngagementCalculator.reset")}
                 </Button>
               </div>
             </CardContent>

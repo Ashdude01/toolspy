@@ -90,22 +90,22 @@ export function Footer() {
 {
   title: t("footer.sections.toolCategories"),
   links: [
-    { href: "/tools/image-tools", label: "Image Tools" },
-    { href: "/tools/pdf-tools", label: "PDF Tools" },
-    { href: "/tools/calculators", label: "Calculators" },
-    { href: "/tools/base64-tools", label: "Base64 Tools" },
-    { href: "/tools/json-tools", label: "JSON Tools" },
-    { href: "/tools/ai-tools", label: "AI Tools" }
+    { href: "/tools/image-tools", label: t("categories.image-tools") },
+    { href: "/tools/pdf-tools", label: t("categories.pdf-tools") },
+    { href: "/tools/calculators", label: t("categories.calculators") },
+    { href: "/tools/base64-tools", label: t("categories.base64-tools") },
+    { href: "/tools/json-tools", label: t("categories.json-tools") },
+    { href: "/tools/ai-tools", label: t("categories.ai-tools") }
   ]
 },
 {
   title: t("footer.sections.moreCategories"),
   links: [
-    { href: "/tools/code-tools", label: "Code Tools" },
-    { href: "/tools/conversion-tools", label: "Conversion Tools" },
-    { href: "/tools/gst-tools", label: "GST Tools" },
-    { href: "/tools/exam-tools", label: "Exam Tools" },
-    { href: "/tools/misc-tools", label: "Miscellaneous Tools" }
+    { href: "/tools/code-tools", label: t("categories.code-tools") },
+    { href: "/tools/conversion-tools", label: t("categories.conversion-tools") },
+    { href: "/tools/gst-tools", label: t("categories.gst-tools") },
+    { href: "/tools/exam-tools", label: t("categories.exam-tools") },
+    { href: "/tools/misc-tools", label: t("categories.misc-tools") }
   ]
 }
   ]

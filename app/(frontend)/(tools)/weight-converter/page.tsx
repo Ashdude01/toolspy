@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState, useEffect } from "react";
 import {
   Card,
@@ -49,6 +50,7 @@ interface WeightResult {
 }
 
 function WeightConverterContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [inputValue, setInputValue] = useState("1");
   const [inputUnit, setInputUnit] = useState("kilograms");
@@ -85,7 +87,7 @@ function WeightConverterContent() {
   const convertWeight = () => {
     const value = parseFloat(inputValue);
     if (isNaN(value)) {
-      showToast("Please enter a valid weight", "error");
+      showToast(t("tools.weightConverter.pleaseEnterAValidWeight"), "error");
       return;
     }
 
@@ -117,7 +119,7 @@ function WeightConverterContent() {
     };
 
     setResult(weightResult);
-    showToast("Weight converted successfully!", "success");
+    showToast(t("tools.weightConverter.weightConvertedSuccessfully"), "success");
   };
 
   const swapUnits = () => {
@@ -205,13 +207,13 @@ function WeightConverterContent() {
             Weight Conversion
           </CardTitle>
           <CardDescription>
-            Enter a weight value and select units to convert
+            {t("tools.weightConverter.enterAWeightValueAndSelect")}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-6">
           <div className="grid grid-cols-1 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="inputValue">Weight Value <span className="text-red-500" aria-label="required">*</span></Label>
+              <Label htmlFor="inputValue">{t("tools.weightConverter.weightValue")} <span className="text-red-500" aria-label={t("tools.weightConverter.required")}>*</span></Label>
               <Input
                 id="inputValue"
                 type="number"
@@ -222,29 +224,29 @@ function WeightConverterContent() {
                 className="text-lg"
                 required
                 aria-required="true"
-                aria-label="Enter weight value to convert"
+                aria-label={t("tools.weightConverter.enterWeightValueToConvert")}
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">
             <div className="space-y-2">
-              <Label htmlFor="from-unit-select">From Unit</Label>
+              <Label htmlFor="from-unit-select">{t("tools.weightConverter.fromUnit")}</Label>
               <Select value={inputUnit} onValueChange={setInputUnit}>
-                <SelectTrigger id="from-unit-select" aria-label="Select source weight unit">
+                <SelectTrigger id="from-unit-select" aria-label={t("tools.weightConverter.selectSourceWeightUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="milligrams">Milligrams (mg)</SelectItem>
-                  <SelectItem value="grams">Grams (g)</SelectItem>
-                  <SelectItem value="kilograms">Kilograms (kg)</SelectItem>
-                  <SelectItem value="tonnes">Tonnes (t)</SelectItem>
-                  <SelectItem value="ounces">Ounces (oz)</SelectItem>
-                  <SelectItem value="pounds">Pounds (lb)</SelectItem>
-                  <SelectItem value="stones">Stones (st)</SelectItem>
-                  <SelectItem value="shortTons">Short Tons (US)</SelectItem>
-                  <SelectItem value="longTons">Long Tons (Imperial)</SelectItem>
-                  <SelectItem value="carats">Carats (ct)</SelectItem>
+                  <SelectItem value="milligrams">{t("tools.weightConverter.milligramsMg")}</SelectItem>
+                  <SelectItem value="grams">{t("tools.weightConverter.gramsG")}</SelectItem>
+                  <SelectItem value="kilograms">{t("tools.weightConverter.kilogramsKg")}</SelectItem>
+                  <SelectItem value="tonnes">{t("tools.weightConverter.tonnesT")}</SelectItem>
+                  <SelectItem value="ounces">{t("tools.weightConverter.ouncesOz")}</SelectItem>
+                  <SelectItem value="pounds">{t("tools.weightConverter.poundsLb")}</SelectItem>
+                  <SelectItem value="stones">{t("tools.weightConverter.stonesSt")}</SelectItem>
+                  <SelectItem value="shortTons">{t("tools.weightConverter.shortTonsUs")}</SelectItem>
+                  <SelectItem value="longTons">{t("tools.weightConverter.longTonsImperial")}</SelectItem>
+                  <SelectItem value="carats">{t("tools.weightConverter.caratsCt")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -255,7 +257,7 @@ function WeightConverterContent() {
                 size="icon"
                 onClick={swapUnits}
                 className="h-10 w-10"
-                aria-label="Swap source and target weight units"
+                aria-label={t("tools.weightConverter.swapSourceAndTargetWeightUnits")}
               >
                 <ArrowUpDown className="h-4 w-4" aria-hidden="true" />
                 <span className="sr-only">Swap units</span>
@@ -263,22 +265,22 @@ function WeightConverterContent() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="to-unit-select">To Unit</Label>
+              <Label htmlFor="to-unit-select">{t("tools.weightConverter.toUnit")}</Label>
               <Select value={outputUnit} onValueChange={setOutputUnit}>
-                <SelectTrigger id="to-unit-select" aria-label="Select target weight unit">
+                <SelectTrigger id="to-unit-select" aria-label={t("tools.weightConverter.selectTargetWeightUnit")}>
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="milligrams">Milligrams (mg)</SelectItem>
-                  <SelectItem value="grams">Grams (g)</SelectItem>
-                  <SelectItem value="kilograms">Kilograms (kg)</SelectItem>
-                  <SelectItem value="tonnes">Tonnes (t)</SelectItem>
-                  <SelectItem value="ounces">Ounces (oz)</SelectItem>
-                  <SelectItem value="pounds">Pounds (lb)</SelectItem>
-                  <SelectItem value="stones">Stones (st)</SelectItem>
-                  <SelectItem value="shortTons">Short Tons (US)</SelectItem>
-                  <SelectItem value="longTons">Long Tons (Imperial)</SelectItem>
-                  <SelectItem value="carats">Carats (ct)</SelectItem>
+                  <SelectItem value="milligrams">{t("tools.weightConverter.milligramsMg")}</SelectItem>
+                  <SelectItem value="grams">{t("tools.weightConverter.gramsG")}</SelectItem>
+                  <SelectItem value="kilograms">{t("tools.weightConverter.kilogramsKg")}</SelectItem>
+                  <SelectItem value="tonnes">{t("tools.weightConverter.tonnesT")}</SelectItem>
+                  <SelectItem value="ounces">{t("tools.weightConverter.ouncesOz")}</SelectItem>
+                  <SelectItem value="pounds">{t("tools.weightConverter.poundsLb")}</SelectItem>
+                  <SelectItem value="stones">{t("tools.weightConverter.stonesSt")}</SelectItem>
+                  <SelectItem value="shortTons">{t("tools.weightConverter.shortTonsUs")}</SelectItem>
+                  <SelectItem value="longTons">{t("tools.weightConverter.longTonsImperial")}</SelectItem>
+                  <SelectItem value="carats">{t("tools.weightConverter.caratsCt")}</SelectItem>
                 </SelectContent>
               </Select>
             </div>
@@ -289,7 +291,7 @@ function WeightConverterContent() {
               onClick={convertWeight} 
               className="flex-1"
               disabled={!inputValue}
-              aria-label="Convert weight based on entered value and selected units"
+              aria-label={t("tools.weightConverter.convertWeightBasedOnEnteredValue")}
             >
               <Calculator className="h-4 w-4 mr-2" aria-hidden="true" />
               Convert Weight
@@ -298,7 +300,7 @@ function WeightConverterContent() {
               variant="outline" 
               onClick={resetConverter}
               className="flex-1 sm:flex-initial"
-              aria-label="Reset converter and clear all fields"
+              aria-label={t("tools.weightConverter.resetConverterAndClearAllFields")}
             >
               <RefreshCw className="h-4 w-4 mr-2" aria-hidden="true" />
               Reset
@@ -316,7 +318,7 @@ function WeightConverterContent() {
               Weight Conversion Results
             </CardTitle>
             <CardDescription>
-              Comprehensive conversion to all supported units
+              {t("tools.weightConverter.comprehensiveConversionToAllSupportedUnits")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -349,7 +351,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-blue-600 mb-1">
                       {formatValue(result.allConversions.milligrams)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Milligrams (mg)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.milligramsMg")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-green-50 dark:bg-green-900/20">
@@ -357,7 +359,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-green-600 mb-1">
                       {formatValue(result.allConversions.grams)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Grams (g)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.gramsG")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-purple-50 dark:bg-purple-900/20">
@@ -365,7 +367,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-purple-600 mb-1">
                       {formatValue(result.allConversions.kilograms)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Kilograms (kg)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.kilogramsKg")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-orange-50 dark:bg-orange-900/20">
@@ -373,7 +375,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-orange-600 mb-1">
                       {formatValue(result.allConversions.tonnes)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Tonnes (t)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.tonnesT")}</div>
                   </div>
                 </Card>
               </div>
@@ -391,7 +393,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-red-600 mb-1">
                       {formatValue(result.allConversions.ounces)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Ounces (oz)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.ouncesOz")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-yellow-50 dark:bg-yellow-900/20">
@@ -399,7 +401,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-yellow-600 mb-1">
                       {formatValue(result.allConversions.pounds)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Pounds (lb)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.poundsLb")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-indigo-50 dark:bg-indigo-900/20">
@@ -407,7 +409,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-indigo-600 mb-1">
                       {formatValue(result.allConversions.stones)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Stones (st)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.stonesSt")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-pink-50 dark:bg-pink-900/20">
@@ -415,7 +417,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-pink-600 mb-1">
                       {formatValue(result.allConversions.shortTons)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Short Tons (US)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.shortTonsUs")}</div>
                   </div>
                 </Card>
               </div>
@@ -430,7 +432,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-cyan-600 mb-1">
                       {formatValue(result.allConversions.longTons)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Long Tons (Imperial)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.longTonsImperial")}</div>
                   </div>
                 </Card>
                 <Card className="p-4 bg-violet-50 dark:bg-violet-900/20">
@@ -438,7 +440,7 @@ function WeightConverterContent() {
                     <div className="text-xl font-bold text-violet-600 mb-1">
                       {formatValue(result.allConversions.carats)}
                     </div>
-                    <div className="text-sm text-muted-foreground">Carats (ct)</div>
+                    <div className="text-sm text-muted-foreground">{t("tools.weightConverter.caratsCt")}</div>
                   </div>
                 </Card>
               </div>
@@ -450,9 +452,9 @@ function WeightConverterContent() {
       {/* Weight Reference Table */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Weight Conversion Reference</CardTitle>
+          <CardTitle>{t("tools.weightConverter.weightConversionReference")}</CardTitle>
           <CardDescription>
-            Common weight conversions for quick reference
+            {t("tools.weightConverter.commonWeightConversionsForQuickReference")}
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -526,9 +528,9 @@ function WeightConverterContent() {
       {/* Weight Measurement Tips */}
       <Card className="mb-6 sm:mb-8">
         <CardHeader>
-          <CardTitle>Weight Measurement Tips</CardTitle>
+          <CardTitle>{t("tools.weightConverter.weightMeasurementTips")}</CardTitle>
           <CardDescription>
-            Useful information about different weight units
+            {t("tools.weightConverter.usefulInformationAboutDifferentWeightUnits")}
           </CardDescription>
         </CardHeader>
         <CardContent>

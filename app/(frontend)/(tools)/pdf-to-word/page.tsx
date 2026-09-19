@@ -1,5 +1,6 @@
 "use client";
 
+import { useT } from "@/lib/i18n/use-t";
 import { useState } from "react";
 import {
   Card,
@@ -35,6 +36,7 @@ interface ConversionResult {
 }
 
 function PdfToWordContent() {
+  const t = useT();
   const { showToast } = useToast();
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [convertedResults, setConvertedResults] = useState<ConversionResult[]>([]);
@@ -49,7 +51,7 @@ function PdfToWordContent() {
     const pdfFiles = files.filter(file => file.type === 'application/pdf');
     
     if (pdfFiles.length === 0) {
-      showToast("Please select PDF files only", "error");
+      showToast(t("tools.pdfToWord.pleaseSelectPdfFilesOnly"), "error");
       return;
     }
     
@@ -71,12 +73,12 @@ function PdfToWordContent() {
   const clearAllFiles = () => {
     setSelectedFiles([]);
     setConvertedResults([]);
-    showToast("All files cleared", "info");
+    showToast(t("tools.pdfToWord.allFilesCleared"), "info");
   };
 
   const convertToWord = async () => {
     if (selectedFiles.length === 0) {
-      showToast("Please select PDF files to convert", "error");
+      showToast(t("tools.pdfToWord.pleaseSelectPdfFilesToConvert"), "error");
       return;
     }
 
@@ -147,7 +149,7 @@ function PdfToWordContent() {
   const downloadResult = (result: ConversionResult) => {
     if (result.success) {
       downloadFile(result.file, result.file.name);
-      showToast("File downloaded", "success");
+      showToast(t("tools.pdfToWord.fileDownloaded"), "success");
     }
   };
 
@@ -196,7 +198,7 @@ function PdfToWordContent() {
                   Selected PDF Files ({selectedFiles.length})
                 </CardTitle>
                 <CardDescription>
-                  Files ready for conversion to Word format
+                  {t("tools.pdfToWord.filesReadyForConversionToWord")}
                 </CardDescription>
               </div>
               <Button variant="outline" onClick={clearAllFiles} size="sm">
@@ -314,7 +316,7 @@ function PdfToWordContent() {
 
       <ProgressModal
         isOpen={isConverting}
-        title="Converting PDF to Word"
+        title={t("tools.pdfToWord.convertingPdfToWord")}
         current={conversionProgress.current}
         total={conversionProgress.total}
         currentFile={conversionProgress.file}
