@@ -28,7 +28,7 @@ function basePath(locale: string): string {
   return locale && locale !== 'en' ? `/${locale}` : ''
 }
 
-/** Locale-aware metadata (robots caller decide karta hai — localized wrapper noindex karta hai). */
+/** Locale-aware metadata (robots decided by caller via isPublishedLocale). */
 export async function buildBlogPostMetadata(slug: string, locale = 'en'): Promise<Metadata> {
   const post = await getPublishedBlogPostBySlug(slug, locale)
   if (!post) {
@@ -210,6 +210,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
                   publishedAt={post.publishedAt}
                   updatedAt={post.updatedAt}
                   readingTimeMinutes={post.readingTimeMinutes}
+                  locale={locale}
                 />
                 <SocialShare url={url} title={post.title} />
               </div>
@@ -330,7 +331,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
                 </section>
               ) : null}
 
-              <EditorialBox post={post} />
+              <EditorialBox post={post} locale={locale} />
 
               <div className="flex flex-col gap-4 border-t pt-6 sm:flex-row sm:items-center sm:justify-between">
                 <p className="text-sm text-muted-foreground">
@@ -346,7 +347,7 @@ export async function BlogPostView({ slug, locale = 'en' }: { slug: string; loca
                 <SocialShare url={url} title={post.title} />
               </div>
 
-              <AuthorCard author={post.author} />
+              <AuthorCard author={post.author} locale={locale} />
 
               {related.length > 0 && (
                 <section className="space-y-4">

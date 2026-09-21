@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "이미지 최적화 안내",
+    "allFilesCleared": "모든 파일이 지워졌습니다",
+    "coverDimensions": "치수 채우기",
+    "fileRemoved": "파일 제거됨",
+    "fitWithinDimensions": "치수 안에 맞추기",
+    "imagesOptimizedSuccessfully": "이미지가 성공적으로 최적화되었습니다!",
+    "imagesToOptimize": "최적화할 이미지",
+    "keepOriginalFormat": "원본 형식 유지",
+    "noOptimizedImagesToDownload": "다운로드할 최적화된 이미지가 없습니다",
+    "noResizing": "크기 조정 없음",
+    "optimizationFailedPleaseTryAgain": "최적화에 실패했습니다. 다시 시도해 주세요.",
+    "optimizingImages": "이미지 최적화 중",
+    "outputFormat": "출력 형식",
+    "pleaseSelectImagesFirst": "먼저 이미지를 선택하세요",
+    "progressiveJpeg": "프로그레시브 JPEG",
+    "removeMetadata": "메타데이터 제거",
+    "resizeMode": "크기 조정 모드",
+    "webpBestCompression": "WebP (최고 압축)"
+  }
+}

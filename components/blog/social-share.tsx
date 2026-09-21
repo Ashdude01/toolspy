@@ -28,22 +28,22 @@ export function SocialShare({ url, title, className = '' }: SocialShareProps) {
 
   const links = [
     {
-      name: 'Share on X',
+      name: t('blog.shareOnX'),
       href: `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`,
       icon: <XIcon className="h-4 w-4" />,
     },
     {
-      name: 'Share on Facebook',
+      name: t('blog.shareOnFacebook'),
       href: `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`,
       icon: <Facebook className="h-4 w-4" />,
     },
     {
-      name: 'Share on LinkedIn',
+      name: t('blog.shareOnLinkedIn'),
       href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
       icon: <Linkedin className="h-4 w-4" />,
     },
     {
-      name: 'Share by email',
+      name: t('blog.shareByEmail'),
       href: `mailto:?subject=${encodedTitle}&body=${encodedUrl}`,
       icon: <Mail className="h-4 w-4" />,
     },

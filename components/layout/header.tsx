@@ -14,6 +14,7 @@ import { useTheme } from "next-themes";
 import { LanguageSwitcher } from "@/components/i18n/language-switcher";
 import { useT, useLocale } from "@/lib/i18n/use-t";
 import { localizeHref } from "@/lib/i18n/localize-href";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 import {
   toolCategories,
   getToolsByCategory,
@@ -258,7 +259,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   className="block px-3 py-1 text-xs rounded-md text-muted-foreground/60 cursor-not-allowed"
                                   title={t("common.comingSoon")}
                                 >
-                                  {tool.icon} {tool.name}
+                                  {tool.icon} {getToolCopy(tool.slug, locale).name}
                                 </span>
                               ) : (
                                 <Link
@@ -267,7 +268,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   className="block px-3 py-1 text-xs hover:bg-accent rounded-md transition-colors text-foreground hover:text-foreground"
                                   onClick={closeDesktopDropdown}
                                 >
-                                  {tool.icon} {tool.name}
+                                  {tool.icon} {getToolCopy(tool.slug, locale).name}
                                 </Link>
                               )
                             )}
@@ -296,7 +297,7 @@ export function Header({ onSearch }: HeaderProps) {
 
             {/* Right Side Actions */}
             <div className="flex items-center space-x-2">
-              {/* Language Switcher — tab dikhta hai jab pehla locale PUBLISHED ho */}
+              {/* Language Switcher */}
               <LanguageSwitcher />
               {/* Theme Toggle */}
               <Button
@@ -460,7 +461,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   title={t("common.comingSoon")}
                                 >
                                   <span className="mr-2">{tool.icon}</span>
-                                  {tool.name}
+                                  {getToolCopy(tool.slug, locale).name}
                                 </span>
                               ) : (
                                 <Link
@@ -470,7 +471,7 @@ export function Header({ onSearch }: HeaderProps) {
                                   onClick={closeMenu}
                                 >
                                   <span className="mr-2">{tool.icon}</span>
-                                  {tool.name}
+                                  {getToolCopy(tool.slug, locale).name}
                                   {tool.status === "beta" && (
                                     <span className="ml-2 text-xs text-blue-500">
                                       ({t("common.beta")})

@@ -17,6 +17,10 @@
  * rehna standard hai. Sirf generic UI labels translate hote hain.
  */
 
+import { uiChromeLocales } from './ui-chrome-locales'
+import { toolsLocales } from './tools-locales'
+import { blogExtraLocales } from './blog-extra-locales'
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Dict = { [key: string]: string | Dict }
 
@@ -50,10 +54,23 @@ export const en = {
     switchToLight: 'Switch to Light Mode',
     switchToDark: 'Switch to Dark Mode',
     toggleTheme: 'Toggle theme',
+    selectLanguage: 'Select language',
   },
   common: {
     beta: 'Beta',
     comingSoon: 'Coming soon',
+  },
+  share: {
+    share: 'Share',
+    linkCopied: 'Link copied',
+    copyShareableLink: 'Copy shareable link',
+    shareVia: 'Share via…',
+    downloadAsImage: 'Download as image (PNG)',
+    downloadAsPdf: 'Download as PDF',
+    generatingImage: 'Generating image…',
+    generatingPdf: 'Generating PDF…',
+    imageFailed: 'Sorry - the image could not be generated.',
+    pdfFailed: 'Sorry - the PDF could not be generated.',
   },
   footer: {
     tagline:
@@ -125,6 +142,36 @@ export const en = {
     home: 'Home',
     open: 'Open {name}',
     aboutPrefix: 'About',
+    minRead: '{count} min read',
+    writtenBy: 'Written by',
+    atToolspy: 'at Toolspy',
+    viewAllArticlesBy: 'View all articles by {name}',
+    updatedOn: 'Updated on {date}',
+    editorialReview: 'Editorial review',
+    reviewedByPrefix: 'Reviewed by',
+    onDate: 'on {date}',
+    teamToolspy: 'Team Toolspy',
+    indexMetaTitle: 'Blog – Guides for Exams, GST & Online Tools | Toolspy',
+    indexMetaDescription:
+      'Practical guides from Toolspy: exam rank analysis, GST rules, and tool how-tos.',
+    shareOnX: 'Share on X',
+    shareOnFacebook: 'Share on Facebook',
+    shareOnLinkedIn: 'Share on LinkedIn',
+    shareByEmail: 'Share by email',
+    authors: 'Authors',
+    authorsMetaTitle: 'Authors | Toolspy Blog',
+    authorsMetaDescription:
+      'Meet the Toolspy editorial team behind exam, GST, and online-tool guides. Read author bios and their published articles.',
+    authorsSubtitle:
+      'Guides on Toolspy are written and reviewed by our editorial team. Visit a profile for bio, review role, and published articles.',
+    articleCount: '{count} article',
+    articleCountPlural: '{count} articles',
+    articlesHeading: 'Articles',
+    articlesHeadingCount: 'Articles ({count})',
+    noArticles: 'No published articles for this author yet.',
+    editorialReviewerOn: 'Editorial reviewer on this article',
+    aboutToolspy: 'About Toolspy',
+    authorFallbackBio: '{name} writes and reviews practical guides on Toolspy.',
   },
   toolCommon: {
     dropImagesHere: 'Drop images here',
@@ -2373,8 +2420,38 @@ export type Messages = typeof en
 
 /**
  * Locale → messages. `en` complete; baaki DeepPartial (missing keys → en fallback).
- * Priority order me German pehle — iske baad fr/es/etc. add karte jaana.
+ * Shared chrome → ui-chrome-locales.ts; tool strings → tools-locales/
  */
+function withTools(
+  chrome: (typeof uiChromeLocales)[keyof typeof uiChromeLocales],
+  tools: Record<string, unknown>,
+  blogExtra?: { blog?: Record<string, string> },
+): DeepPartial<Messages> {
+  return {
+    ...(chrome as DeepPartial<Messages>),
+    ...(blogExtra
+      ? {
+          blog: {
+            ...(chrome as { blog?: Record<string, string> }).blog,
+            ...blogExtra.blog,
+          },
+        }
+      : {}),
+    tools: tools as DeepPartial<Messages>['tools'],
+  }
+}
+
+const chromeLocalesWithTools = Object.fromEntries(
+  (Object.keys(uiChromeLocales) as (keyof typeof uiChromeLocales)[]).map((code) => [
+    code,
+    withTools(
+      uiChromeLocales[code],
+      toolsLocales[code] ?? {},
+      blogExtraLocales[code as keyof typeof blogExtraLocales],
+    ),
+  ]),
+) as Record<string, DeepPartial<Messages>>
+
 export const messages: Record<string, DeepPartial<Messages>> = {
   en,
   de: {
@@ -2394,10 +2471,23 @@ export const messages: Record<string, DeepPartial<Messages>> = {
       switchToLight: 'Zum hellen Modus wechseln',
       switchToDark: 'Zum dunklen Modus wechseln',
       toggleTheme: 'Design umschalten',
+      selectLanguage: 'Sprache auswählen',
     },
     common: {
       beta: 'Beta',
       comingSoon: 'Demnächst',
+    },
+    share: {
+      share: 'Teilen',
+      linkCopied: 'Link kopiert',
+      copyShareableLink: 'Teilbaren Link kopieren',
+      shareVia: 'Teilen über…',
+      downloadAsImage: 'Als Bild herunterladen (PNG)',
+      downloadAsPdf: 'Als PDF herunterladen',
+      generatingImage: 'Bild wird erstellt…',
+      generatingPdf: 'PDF wird erstellt…',
+      imageFailed: 'Entschuldigung – das Bild konnte nicht erstellt werden.',
+      pdfFailed: 'Entschuldigung – das PDF konnte nicht erstellt werden.',
     },
     footer: {
       tagline:
@@ -2469,6 +2559,36 @@ export const messages: Record<string, DeepPartial<Messages>> = {
       home: 'Startseite',
       open: '{name} öffnen',
       aboutPrefix: 'Über',
+      minRead: '{count} Min. Lesezeit',
+      writtenBy: 'Geschrieben von',
+      atToolspy: 'bei Toolspy',
+      viewAllArticlesBy: 'Alle Artikel von {name} ansehen',
+      updatedOn: 'Aktualisiert am {date}',
+      editorialReview: 'Redaktionelle Prüfung',
+      reviewedByPrefix: 'Geprüft von',
+      onDate: 'am {date}',
+      teamToolspy: 'Team Toolspy',
+      indexMetaTitle: 'Blog – Guides zu Prüfungen, GST & Online-Tools | Toolspy',
+      indexMetaDescription:
+        'Praktische Guides von Toolspy: Prüfungs-Rank-Analysen, GST-Regeln und Tool-Anleitungen.',
+      shareOnX: 'Auf X teilen',
+      shareOnFacebook: 'Auf Facebook teilen',
+      shareOnLinkedIn: 'Auf LinkedIn teilen',
+      shareByEmail: 'Per E-Mail teilen',
+      authors: 'Autoren',
+      authorsMetaTitle: 'Autoren | Toolspy Blog',
+      authorsMetaDescription:
+        'Lerne das Toolspy-Redaktionsteam hinter Prüfungs-, GST- und Online-Tool-Guides kennen. Lies Autor-Bios und ihre veröffentlichten Artikel.',
+      authorsSubtitle:
+        'Guides auf Toolspy werden von unserem Redaktionsteam geschrieben und geprüft. Besuche ein Profil für Bio, Review-Rolle und veröffentlichte Artikel.',
+      articleCount: '{count} Artikel',
+      articleCountPlural: '{count} Artikel',
+      articlesHeading: 'Artikel',
+      articlesHeadingCount: 'Artikel ({count})',
+      noArticles: 'Für diesen Autor sind noch keine Artikel veröffentlicht.',
+      editorialReviewerOn: 'Redaktionelle Prüfung für diesen Artikel',
+      aboutToolspy: 'Über Toolspy',
+      authorFallbackBio: '{name} schreibt und prüft praktische Guides auf Toolspy.',
     },
     toolCommon: {
       dropImagesHere: 'Bilder hier ablegen',
@@ -4726,6 +4846,7 @@ export const messages: Record<string, DeepPartial<Messages>> = {
       },
     },
   },
+  ...chromeLocalesWithTools,
 }
 
 function getPath(dict: Dict | DeepPartial<Messages> | undefined, key: string): string | undefined {

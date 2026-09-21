@@ -52,6 +52,22 @@ const nextConfig = {
         destination: '/instagram-dp-viewer/',
         permanent: true,
       },
+      // Legacy Next generateSitemaps numeric IDs → named child sitemaps
+      {
+        source: '/sitemap/0.xml',
+        destination: '/sitemap/pages.xml',
+        permanent: true,
+      },
+      {
+        source: '/sitemap/1.xml',
+        destination: '/sitemap/tools.xml',
+        permanent: true,
+      },
+      {
+        source: '/sitemap/2.xml',
+        destination: '/sitemap/blog.xml',
+        permanent: true,
+      },
     ]
   },
 

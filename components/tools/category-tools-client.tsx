@@ -13,7 +13,8 @@ import {
   Tool,
 } from "@/lib/tools-data";
 import { useSearchParams } from "next/navigation";
-import { useT } from "@/lib/i18n/use-t";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 interface CategoryToolsClientProps {
   category: ToolCategory;
@@ -21,6 +22,7 @@ interface CategoryToolsClientProps {
 
 export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
   const t = useT();
+  const locale = useLocale();
   // Ensure category exists before proceeding
   if (!toolCategories[category]) {
     return (
@@ -49,17 +51,21 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
 
     if (searchTerm.trim()) {
       const lowercaseQuery = searchTerm.toLowerCase();
-      const filtered = categoryTools.filter(
-        (tool) =>
+      const filtered = categoryTools.filter((tool) => {
+        const copy = getToolCopy(tool.slug, locale);
+        return (
           tool.name.toLowerCase().includes(lowercaseQuery) ||
+          copy.name.toLowerCase().includes(lowercaseQuery) ||
           tool.description.toLowerCase().includes(lowercaseQuery) ||
+          copy.description.toLowerCase().includes(lowercaseQuery) ||
           tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-      );
+        );
+      });
       setFilteredTools(filtered);
     } else {
       setFilteredTools(categoryTools);
     }
-  }, [category, searchTerm]);
+  }, [category, searchTerm, locale]);
 
   // Update search term from URL on component mount
   useEffect(() => {

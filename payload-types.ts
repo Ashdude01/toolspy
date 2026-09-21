@@ -98,15 +98,15 @@ export interface Config {
     | ('false' | 'none' | 'null')
     | false
     | null
-    | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi')
-    | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi')[];
+    | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar')
+    | ('en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar')[];
   globals: {
     homepage: Homepage;
   };
   globalsSelect: {
     homepage: HomepageSelect<false> | HomepageSelect<true>;
   };
-  locale: 'en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'da' | 'no' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar' | 'hi';
+  locale: 'en' | 'de' | 'fr' | 'es' | 'ja' | 'nl' | 'sv' | 'it' | 'ru' | 'id' | 'ko' | 'tr' | 'ar';
   widgets: {
     collections: CollectionsWidget;
   };

@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "이미지 압축기",
+    "description": "Toolspy의 고급 엔진으로 이미지를 압축해 품질을 유지하면서 파일 크기를 줄이세요"
+  },
+  "online-image-cropper": {
+    "name": "온라인 이미지 자르기",
+    "description": "자유 선택, 종횡비, 또는 원/다각형 같은 사전 설정 도형으로 이미지를 자르세요 — 브라우저에서 바로 실행됩니다."
+  },
+  "image-converter": {
+    "name": "이미지 변환기",
+    "description": "이미지를 다양한 형식으로 변환하세요 (PNG, JPG, WebP, SVG 등)"
+  },
+  "image-resizer": {
+    "name": "이미지 크기 조절",
+    "description": "이미지를 지정한 픽셀 크기 또는 퍼센트로 리사이즈하세요"
+  },
+  "image-optimizer": {
+    "name": "이미지 최적화",
+    "description": "더 빠른 로딩과 더 나은 성능을 위해 이미지를 최적화하세요"
+  },
+  "jfif-to-jpg": {
+    "name": "JFIF → JPG 변환기",
+    "description": "JFIF 이미지를 JPG/JPEG 형식으로 변환하면서 고품질을 유지합니다"
+  },
+  "base64-to-image": {
+    "name": "Base64 → 이미지 변환기",
+    "description": "Base64로 인코딩된 문자열을 이미지 파일로 되돌리는 Toolspy 보안 변환기"
+  },
+  "image-to-base64": {
+    "name": "이미지 → Base64 인코더",
+    "description": "Toolspy의 전문 인코더로 이미지를 Base64 문자열로 변환해 손쉽게 임베드하세요"
+  },
+  "base64-encoder-decoder": {
+    "name": "Base64 인코더/디코더",
+    "description": "텍스트를 Base64로 인코딩하거나 Base64에서 디코딩하세요"
+  },
+  "pdf-converter": {
+    "name": "PDF 변환기",
+    "description": "PDF를 다양한 형식으로 변환하거나 반대로 변환하세요"
+  },
+  "pdf-to-word": {
+    "name": "PDF → Word",
+    "description": "PDF 문서를 편집 가능한 Word 파일로 변환하세요"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF → JPG",
+    "description": "PDF 페이지를 JPG 이미지로 변환하세요"
+  },
+  "jfif-to-pdf": {
+    "name": "JFIF → PDF 변환기",
+    "description": "JFIF 이미지를 전문가급 품질의 PDF 문서로 변환하세요"
+  },
+  "merge-pdf": {
+    "name": "PDF 파일 병합",
+    "description": "여러 PDF 파일을 하나의 문서로 합치세요"
+  },
+  "pdf-to-image": {
+    "name": "PDF → 이미지 변환기",
+    "description": "PDF 페이지를 다양한 이미지 형식으로 변환하세요 (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "PDF 압축",
+    "description": "품질을 유지하면서 PDF 파일 용량을 줄이세요"
+  },
+  "heic-to-pdf": {
+    "name": "HEIC → PDF 변환기",
+    "description": "HEIC 이미지를 고품질 PDF 문서로 변환하세요"
+  },
+  "image-to-pdf": {
+    "name": "이미지 → PDF 변환기",
+    "description": "JPG, PNG, WebP 등 여러 이미지를 온라인에서 하나의 PDF로 변환하세요"
+  },
+  "split-pdf": {
+    "name": "PDF 파일 분할",
+    "description": "큰 PDF 문서를 페이지 범위별로 더 작은 파일로 분할하세요"
+  },
+  "pdf-password-remover": {
+    "name": "PDF 비밀번호 제거",
+    "description": "PDF 파일의 비밀번호 보호를 즉시 해제하세요"
+  },
+  "pdf-to-excel": {
+    "name": "PDF → Excel 변환기",
+    "description": "PDF 문서를 데이터 분석을 위한 Excel 스프레드시트로 변환하세요"
+  },
+  "pdf-to-csv": {
+    "name": "PDF → CSV 변환기",
+    "description": "PDF 문서에서 표 데이터를 CSV 형식으로 추출하세요"
+  },
+  "file-protector": {
+    "name": "파일 보호",
+    "description": "보안을 강화하기 위해 파일에 비밀번호 보호를 추가하세요"
+  },
+  "percentage-calculator": {
+    "name": "퍼센트 계산기",
+    "description": "퍼센트, 퍼센트 증가, 퍼센트 감소를 계산하세요"
+  },
+  "age-calculator": {
+    "name": "나이 계산기",
+    "description": "나이를 연, 월, 일, 시간, 분 단위로 정확히 계산하세요"
+  },
+  "love-calculator": {
+    "name": "사랑 계산기",
+    "description": "두 사람의 사랑 궁합 퍼센트를 계산하세요"
+  },
+  "bmi-calculator": {
+    "name": "BMI 계산기",
+    "description": "체질량지수(BMI)와 건강 상태를 계산하세요"
+  },
+  "loan-calculator": {
+    "name": "대출 계산기",
+    "description": "월 상환액, 이자, 총 비용을 계산하세요"
+  },
+  "mortgage-calculator": {
+    "name": "모기지 계산기",
+    "description": "모기지 상환액, 이자율, 상환(Amortization) 일정을 계산하세요"
+  },
+  "retirement-calculator": {
+    "name": "은퇴 계산기",
+    "description": "필요 은퇴 자금과 투자 전망을 계산하세요"
+  },
+  "investment-calculator": {
+    "name": "투자 계산기",
+    "description": "복리 이자와 투자 성장률을 기간별로 계산하세요"
+  },
+  "coast-fire-calculator": {
+    "name": "Coast FIRE 계산기",
+    "description": "복리 성장만으로 은퇴 자금을 충당할 수 있는 시점을 찾아보세요"
+  },
+  "tax-calculator": {
+    "name": "세금 계산기",
+    "description": "소득세, 세율 구간, 실수령액을 계산하세요"
+  },
+  "salary-calculator": {
+    "name": "급여 계산기",
+    "description": "시급, 월급, 연봉을 서로 변환하세요"
+  },
+  "unit-converter": {
+    "name": "단위 변환기",
+    "description": "다양한 측정 단위를 서로 변환하세요"
+  },
+  "currency-converter": {
+    "name": "환율 변환기",
+    "description": "실시간 환율로 다양한 통화를 변환하세요"
+  },
+  "temperature-converter": {
+    "name": "온도 변환기",
+    "description": "섭씨, 화씨, 켈빈 간 온도를 변환하세요"
+  },
+  "length-converter": {
+    "name": "길이 변환기",
+    "description": "길이 및 거리 단위를 변환하세요"
+  },
+  "weight-converter": {
+    "name": "무게 변환기",
+    "description": "무게 및 질량 단위를 변환하세요"
+  },
+  "volume-converter": {
+    "name": "부피 변환기",
+    "description": "부피 및 용량 단위를 변환하세요"
+  },
+  "area-converter": {
+    "name": "면적 변환기",
+    "description": "면적 및 표면 측정 단위를 변환하세요"
+  },
+  "qr-code-generator": {
+    "name": "QR 코드 생성기",
+    "description": "텍스트, URL 등으로 QR 코드를 생성하세요"
+  },
+  "color-picker": {
+    "name": "컬러 피커",
+    "description": "색상을 선택하고 Hex, RGB, HSL 값을 확인하세요"
+  },
+  "color-palette-generator": {
+    "name": "컬러 팔레트 생성기",
+    "description": "드래그 앤 드롭으로 순서를 바꾸고 색상을 잠그며, 여러 형식으로 내보낼 수 있는 아름다운 팔레트를 생성하세요"
+  },
+  "google-indexing-api": {
+    "name": "Google Indexing API 도구",
+    "description": "Google Indexing API로 웹사이트 URL을 제출해 더 빠른 인덱싱과 검색 가시성 향상을 노리세요"
+  },
+  "json-formatter": {
+    "name": "JSON 포매터 & 검증기",
+    "description": "고급 트리 뷰, 오류 감지, 내보내기 옵션으로 JSON 데이터를 포맷/검증/시각화하세요"
+  },
+  "json-table-converter": {
+    "name": "JSON 테이블 변환기",
+    "description": "고급 미리보기, 배치 처리, 지능형 데이터 매핑으로 JSON을 CSV/Excel로(또는 반대로) 변환하세요"
+  },
+  "code-beautifier": {
+    "name": "코드 정리 & 미니파이",
+    "description": "문법 하이라이트, 오류 감지, AI 설명과 함께 JavaScript, CSS, HTML 코드를 포맷/미니파이/분석하세요"
+  },
+  "ai-color-palette-generator": {
+    "name": "AI 컬러 팔레트 생성기",
+    "description": "AI 추천, 접근성 검사, 전문가용 내보내기 옵션으로 멋진 컬러 팔레트를 생성하세요"
+  },
+  "ai-background-remover": {
+    "name": "AI 배경 제거",
+    "description": "AI로 이미지 배경을 즉시 제거하세요. 보정용 매직 브러시, 배치 처리, 전문가용 내보내기 옵션을 제공합니다"
+  },
+  "meme-generator": {
+    "name": "AI 밈 생성기",
+    "description": "트렌딩 템플릿, AI 캡션 추천, 소셜 미디어용 전문가 편집 도구로 바이럴 밈을 만들어 보세요"
+  },
+  "ai-writing-tools": {
+    "name": "AI 글쓰기 도구 모음",
+    "description": "완전한 AI 글쓰기 툴킷: 패러프레이저, 요약기, 휴머나이저, AI 감지기 — 고급 커스터마이징 옵션 포함"
+  },
+  "ai-image-enhancer": {
+    "name": "AI 이미지 향상",
+    "description": "AI로 사진을 향상하세요: 해상도 업스케일, 흐림 제거, 오래된 사진 복원, 흑백 사진 컬러라이즈"
+  },
+  "ai-resume-builder": {
+    "name": "AI 이력서 빌더",
+    "description": "AI 기반 제안, ATS 최적화, 직무 매칭, 전문가 템플릿으로 전문적인 이력서를 작성하세요"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook 이미지 다운로더",
+    "description": "공개 게시물용 무료 Facebook 이미지 다운로더. 링크를 붙여넣고 Facebook 사진, 프로필 사진(DP), 커버 사진을 HD로 다운로드하세요 — 앱/로그인 없이 브라우저에서 바로."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube 썸네일 다운로더",
+    "description": "YouTube 영상 썸네일을 최대 해상도(4K/HD)로 받아보세요. 영상 링크 또는 ID를 입력하면 즉시 다운로드됩니다."
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels 다운로더",
+    "description": "Instagram Reels와 짧은 영상을 고화질로 저장하세요. Reel URL을 붙여넣고 빠르게 다운로드하세요."
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP 뷰어",
+    "description": "공개 Instagram 프로필 사진을 원본 크기로 보고 다운로드하세요. 공개로 볼 수 있는 DP만 지원합니다."
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube 임베드 코드 생성기",
+    "description": "반응형 YouTube 임베드 코드를 생성하세요. 종횡비, 자동재생, 컨트롤을 설정하고 깔끔한 HTML을 복사하세요."
+  },
+  "ocr-text-extractor": {
+    "name": "OCR 텍스트 추출기",
+    "description": "고급 OCR 기술로 이미지와 PDF에서 텍스트를 추출하세요. 12개+ 언어, 배치 처리, 편집 가능한 결과 지원"
+  },
+  "media-converter": {
+    "name": "미디어 변환기",
+    "description": "동영상, 오디오, 아카이브 파일을 형식 간 변환하세요. 배치 처리, 품질 프리셋, 고급 설정 지원"
+  },
+  "ebook-converter": {
+    "name": "전자책 변환기",
+    "description": "EPUB, MOBI, PDF, DOCX 형식 간 전자책을 변환하고, 전문 메타데이터 편집과 표지 이미지도 지원합니다"
+  },
+  "font-converter": {
+    "name": "폰트 변환기",
+    "description": "라이브 미리보기, AI 폰트 페어링, 웹 최적화 기능과 함께 TTF, OTF, WOFF, WOFF2 간 폰트를 변환하세요"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram 참여도",
+    "description": "고급 알고리즘, 업계 벤치마크, 개인화 추천으로 Instagram 참여도(engagement rate)를 계산해 소셜 성과를 높이세요"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook 참여도",
+    "description": "고급 알고리즘, 업계 벤치마크, 개인화 추천으로 Facebook 참여도(engagement rate)를 계산해 소셜 성과를 높이세요"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter 참여도",
+    "description": "고급 알고리즘, 업계 벤치마크, 개인화 추천으로 Twitter 참여도(engagement rate)를 계산해 소셜 성과를 높이세요"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube 참여도",
+    "description": "고급 알고리즘, 업계 벤치마크, 개인화 추천으로 YouTube 참여도(engagement rate)를 계산해 영상 성과를 높이세요"
+  },
+  "domain-whois-lookup": {
+    "name": "도메인 WHOIS 조회",
+    "description": "무료 WHOIS 조회 도구로 도메인 등록 정보를 자세히 확인하세요. 소유자, 등록 날짜, 연락처 정보를 즉시 확인할 수 있습니다."
+  },
+  "expired-domain-finder": {
+    "name": "만료 도메인 찾기",
+    "description": "종합 검색 도구로 가치 있는 만료 도메인을 찾아보세요. 도메인 권위 점수, 백링크 데이터, 추정 가치에 즉시 접근할 수 있습니다."
+  },
+  "app-icon-generator": {
+    "name": "앱 아이콘 생성기",
+    "description": "Toolspy의 고급 아이콘 생성기로 모든 플랫폼용 앱 아이콘을 전문적으로 제작하세요. Android, iOS, Windows, macOS, Linux, Web 지원."
+  },
+  "pwa-icon-generator": {
+    "name": "PWA 아이콘 생성기",
+    "description": "완전한 개인정보 보호와 함께 Progressive Web Apps용 PWA 아이콘과 manifest 파일을 생성하세요."
+  },
+  "favicon-generator": {
+    "name": "파비콘 생성기",
+    "description": "Toolspy로 웹사이트 파비콘을 생성하세요. 모든 기기와 브라우저용 파비콘을 만들 수 있습니다."
+  },
+  "image-to-ico-converter": {
+    "name": "이미지 → ICO 변환기",
+    "description": "Toolspy의 고급 변환기로 이미지를 ICO 형식으로 변환하세요. Windows 앱과 웹에 사용할 ICO 파일을 만듭니다."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Markdown → 문서 변환기",
+    "description": "Toolspy의 고급 변환기로 Markdown을 문서로 변환하세요. HTML, PDF, Word, plain text 문서를 만들 수 있습니다."
+  },
+  "gst-calculator": {
+    "name": "GST 계산기",
+    "description": "GST(Goods and Services Tax)를 inclusive/exclusive 모드로 계산하세요. 모든 GST 세율(0%, 5%, 12%, 18%, 28%) 지원"
+  },
+  "reverse-gst-calculator": {
+    "name": "Reverse GST 계산기",
+    "description": "총액에서 기본 금액과 GST 구성 요소를 계산하세요. 모든 GST 세율에서 인보이스 분석 및 세금 분해에 적합합니다"
+  },
+  "hsn-sac-finder": {
+    "name": "HSN/SAC 코드 찾기",
+    "description": "GST 세율과 함께 HSN(Harmonized System of Nomenclature) 및 SAC(Services Accounting Code) 코드를 찾아보세요. 자동 추천, 참조 링크가 있는 빠른 검색"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "CGST/SGST/IGST 분할기",
+    "description": "intra-state vs inter-state 거래 기준으로 GST를 CGST, SGST, IGST로 자동 분할합니다. 주(States) 간 GST 분배를 이해하는 데 적합합니다"
+  },
+  "itc-calculator": {
+    "name": "Input Tax Credit(ITC) 계산기",
+    "description": "전문 ITC 계산기로 청구 가능한 크레딧과 차단된 크레딧을 추적하세요. ITC 자격 및 컴플라이언스를 이해하는 데 적합합니다"
+  },
+  "e-invoice-qr-validator": {
+    "name": "E-Invoice/QR 코드 검증기",
+    "description": "E-Invoice QR 코드를 업로드/스캔해 인보이스 상태를 검증하고 정보를 추출하세요. 인보이스 검증 및 컴플라이언스 확인에 적합합니다"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Composition vs Regular 스킴 추정기",
+    "description": "Composition 및 Regular GST 스킴에서의 세금 부담을 비교하세요. 비즈니스에 최적의 스킴을 선택하는 데 적합합니다"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "벌금/연체료 계산기",
+    "description": "전문 계산기로 GSTR 제출 연체료와 이자를 자동 계산하세요. 벌금 영향 파악 및 컴플라이언스 계획에 적합합니다"
+  },
+  "jee-main-rank-predictor": {
+    "name": "JEE Main 등수 예측기",
+    "description": "퍼센타일 기반으로 JEE Main 등수와 대학 옵션을 예측하세요. 합격 가능성을 이해하고 공학 진로를 계획하는 데 적합합니다"
+  },
+  "neet-rank-predictor": {
+    "name": "NEET 등수 예측기",
+    "description": "점수 기반으로 NEET 등수와 의대 옵션을 예측하세요. 합격 가능성을 이해하고 의학 진로를 계획하는 데 적합합니다"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "JEE Advanced 등수 예측기",
+    "description": "점수 기반으로 JEE Advanced 등수와 IIT 옵션을 예측하세요. 합격 가능성을 이해하고 IIT 진로를 계획하는 데 적합합니다"
+  },
+  "gate-rank-predictor": {
+    "name": "GATE 등수 예측기",
+    "description": "점수와 과목 기반으로 GATE 등수와 대학 옵션을 예측하세요. 합격 가능성을 이해하고 대학원 진로를 계획하는 데 적합합니다"
+  },
+  "cat-percentile-predictor": {
+    "name": "CAT 퍼센타일 예측기",
+    "description": "섹션별 점수 기반으로 CAT 퍼센타일과 MBA 대학 옵션을 예측하세요. 합격 가능성을 이해하고 MBA 진로를 계획하는 데 적합합니다"
+  },
+  "upsc-rank-predictor": {
+    "name": "UPSC 등수 예측기",
+    "description": "시험 점수 기반으로 UPSC 등수와 공무원 서비스 옵션을 예측하세요. 서비스 배정 이해 및 공직 커리어 계획에 적합합니다"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "SSC CGL 등수 예측기",
+    "description": "시험 점수 기반으로 SSC CGL 등수와 정부 일자리 옵션을 예측하세요. 직위 배정 이해 및 공공부문 커리어 계획에 적합합니다"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Bank PO 등수 예측기",
+    "description": "시험 점수 기반으로 Bank PO 등수와 은행 직무 옵션을 예측하세요. 은행 배정 이해 및 금융 커리어 계획에 적합합니다"
+  },
+  "website-screenshot": {
+    "name": "웹사이트 스크린샷",
+    "description": "어떤 웹사이트든 다양한 형식과 크기로 고품질 스크린샷을 캡처하세요. 전체 페이지 캡처, 여러 기기 프리셋, 즉시 다운로드 지원"
+  }
+}

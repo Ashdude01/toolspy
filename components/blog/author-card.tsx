@@ -1,10 +1,21 @@
 import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import type { BlogAuthor } from '@/lib/blog-data'
+import { getT } from '@/lib/i18n/messages'
+import { localizeHref } from '@/lib/i18n/localize-href'
 
 /** Author bio card shown near the end of an article (smallpdf-style). */
-export function AuthorCard({ author }: { author?: BlogAuthor | null }) {
+export function AuthorCard({
+  author,
+  locale = 'en',
+}: {
+  author?: BlogAuthor | null
+  locale?: string
+}) {
   if (!author) return null
+  const t = getT(locale)
+  const href = localizeHref(locale, `/blog/author/${author.slug}/`)
+  const firstName = author.name.split(' ')[0]
 
   return (
     <section className="rounded-2xl border bg-muted/30 p-6 sm:p-8">
@@ -26,27 +37,26 @@ export function AuthorCard({ author }: { author?: BlogAuthor | null }) {
 
         <div className="min-w-0 space-y-2">
           <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            Written by
+            {t('blog.writtenBy')}
           </p>
           <h3 className="text-lg font-bold tracking-tight">
-            <Link
-              href={`/blog/author/${author.slug}/`}
-              className="hover:text-primary transition-colors"
-            >
+            <Link href={href} className="hover:text-primary transition-colors">
               {author.name}
             </Link>
           </h3>
           {author.role ? (
-            <p className="text-sm text-muted-foreground">{author.role} at Toolspy</p>
+            <p className="text-sm text-muted-foreground">
+              {author.role} {t('blog.atToolspy')}
+            </p>
           ) : null}
           {author.bio ? (
             <p className="text-sm leading-relaxed text-muted-foreground">{author.bio}</p>
           ) : null}
           <Link
-            href={`/blog/author/${author.slug}/`}
+            href={href}
             className="inline-flex items-center gap-1 pt-1 text-sm font-medium text-primary hover:underline"
           >
-            View all articles by {author.name.split(' ')[0]}
+            {t('blog.viewAllArticlesBy', { name: firstName })}
             <ArrowRight className="h-3.5 w-3.5" />
           </Link>
         </div>

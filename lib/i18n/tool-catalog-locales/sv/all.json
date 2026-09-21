@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "Bildkomprimerare",
+    "description": "Komprimera bilder med Toolspy's avancerade motor för mindre filstorlek med bibehållen kvalitet"
+  },
+  "online-image-cropper": {
+    "name": "Online bildbeskärare",
+    "description": "Beskär bilder med fri markering, bildförhållande eller fördefinierade former som cirkel och polygoner — körs i din webbläsare."
+  },
+  "image-converter": {
+    "name": "Bildkonverterare",
+    "description": "Konvertera bilder mellan olika format (PNG, JPG, WebP, SVG, m.fl.)"
+  },
+  "image-resizer": {
+    "name": "Ändra bildstorlek",
+    "description": "Ändra storlek på bilder till specifika dimensioner eller procent"
+  },
+  "image-optimizer": {
+    "name": "Bildoptimerare",
+    "description": "Optimera bilder för snabbare laddning och bättre prestanda"
+  },
+  "jfif-to-jpg": {
+    "name": "JFIF till JPG-konverterare",
+    "description": "Konvertera JFIF-bilder till JPG/JPEG med hög kvalitet"
+  },
+  "base64-to-image": {
+    "name": "Base64 till bild-konverterare",
+    "description": "Konvertera Base64-kodade strängar tillbaka till bildfiler med Toolspy's säkra konverterare"
+  },
+  "image-to-base64": {
+    "name": "Bild till Base64-kodare",
+    "description": "Konvertera bilder till Base64-strängar för inbäddning med Toolspy's professionella kodare"
+  },
+  "base64-encoder-decoder": {
+    "name": "Base64-kodare/avkodare",
+    "description": "Koda och avkoda text till/från Base64-format"
+  },
+  "pdf-converter": {
+    "name": "PDF-konverterare",
+    "description": "Konvertera PDF:er till olika format och vice versa"
+  },
+  "pdf-to-word": {
+    "name": "PDF till Word",
+    "description": "Konvertera PDF-dokument till redigerbara Word-filer"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF till JPG",
+    "description": "Konvertera PDF-sidor till JPG-bilder"
+  },
+  "jfif-to-pdf": {
+    "name": "JFIF till PDF-konverterare",
+    "description": "Konvertera JFIF-bilder till PDF-dokument med professionell kvalitet"
+  },
+  "merge-pdf": {
+    "name": "Slå ihop PDF-filer",
+    "description": "Kombinera flera PDF-filer till ett enda dokument"
+  },
+  "pdf-to-image": {
+    "name": "PDF till bild-konverterare",
+    "description": "Konvertera PDF-sidor till olika bildformat (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "PDF-komprimerare",
+    "description": "Komprimera PDF-filer för mindre filstorlek med bibehållen kvalitet"
+  },
+  "heic-to-pdf": {
+    "name": "HEIC till PDF-konverterare",
+    "description": "Konvertera HEIC-bilder till PDF-dokument med hög kvalitet"
+  },
+  "image-to-pdf": {
+    "name": "Bild till PDF-konverterare",
+    "description": "Konvertera JPG, PNG, WebP och andra bilder till en enda PDF online"
+  },
+  "split-pdf": {
+    "name": "Dela PDF-filer",
+    "description": "Dela stora PDF-dokument i mindre filer efter sidintervall"
+  },
+  "pdf-password-remover": {
+    "name": "Ta bort PDF-lösenord",
+    "description": "Ta bort lösenordsskydd från PDF-filer direkt"
+  },
+  "pdf-to-excel": {
+    "name": "PDF till Excel-konverterare",
+    "description": "Konvertera PDF-dokument till Excel-kalkylblad för dataanalys"
+  },
+  "pdf-to-csv": {
+    "name": "PDF till CSV-konverterare",
+    "description": "Extrahera tabell data från PDF-dokument till CSV-format"
+  },
+  "file-protector": {
+    "name": "Filskydd",
+    "description": "Lägg till lösenordsskydd på dina filer för ökad säkerhet"
+  },
+  "percentage-calculator": {
+    "name": "Procenträknare",
+    "description": "Beräkna procent, procentuell ökning och minskning"
+  },
+  "age-calculator": {
+    "name": "Åldersräknare",
+    "description": "Beräkna din exakta ålder i år, månader, dagar, timmar och minuter"
+  },
+  "love-calculator": {
+    "name": "Kärlekskalkylator",
+    "description": "Beräkna kärlekskompatibilitet i procent mellan två personer"
+  },
+  "bmi-calculator": {
+    "name": "BMI-kalkylator",
+    "description": "Beräkna Body Mass Index (BMI) och hälsostatus"
+  },
+  "loan-calculator": {
+    "name": "Lånekalkylator",
+    "description": "Beräkna månatliga lånebetalningar, ränta och totalkostnad"
+  },
+  "mortgage-calculator": {
+    "name": "Bolånekalkylator",
+    "description": "Beräkna bolånebetalningar, räntesatser och amortering"
+  },
+  "retirement-calculator": {
+    "name": "Pensionskalkylator",
+    "description": "Beräkna pensionssparande och investeringsprognoser"
+  },
+  "investment-calculator": {
+    "name": "Investeringskalkylator",
+    "description": "Beräkna ränta-på-ränta och investeringsutveckling över tid"
+  },
+  "coast-fire-calculator": {
+    "name": "Coast FIRE-kalkylator",
+    "description": "Ta reda på när ränta-på-ränta ensam kan finansiera din pension"
+  },
+  "tax-calculator": {
+    "name": "Skattekalkylator",
+    "description": "Beräkna inkomstskatt, skattesatser och nettolön"
+  },
+  "salary-calculator": {
+    "name": "Löneomräknare",
+    "description": "Omvandla mellan tim-, månads- och årslön"
+  },
+  "unit-converter": {
+    "name": "Enhetsomvandlare",
+    "description": "Omvandla mellan olika måttenheter"
+  },
+  "currency-converter": {
+    "name": "Valutaomvandlare",
+    "description": "Omvandla mellan valutor med live växelkurser"
+  },
+  "temperature-converter": {
+    "name": "Temperaturomvandlare",
+    "description": "Omvandla mellan Celsius, Fahrenheit och Kelvin"
+  },
+  "length-converter": {
+    "name": "Längdomvandlare",
+    "description": "Omvandla mellan olika enheter för längd och avstånd"
+  },
+  "weight-converter": {
+    "name": "Viktomvandlare",
+    "description": "Omvandla mellan olika enheter för vikt och massa"
+  },
+  "volume-converter": {
+    "name": "Volymomvandlare",
+    "description": "Omvandla mellan olika enheter för volym och kapacitet"
+  },
+  "area-converter": {
+    "name": "Areaomvandlare",
+    "description": "Omvandla mellan olika enheter för area och ytmätning"
+  },
+  "qr-code-generator": {
+    "name": "QR-kodgenerator",
+    "description": "Skapa QR-koder för text, URL:er och mer"
+  },
+  "color-picker": {
+    "name": "Färgväljare",
+    "description": "Välj färger och få hex-, RGB- och HSL-värden"
+  },
+  "color-palette-generator": {
+    "name": "Färgpalettgenerator",
+    "description": "Skapa snygga färgpaletter med dra-och-släpp, lås färger och exportera i flera format"
+  },
+  "google-indexing-api": {
+    "name": "Google Indexing API-verktyg",
+    "description": "Skicka in webbplats-URL:er till Google Indexing API för snabbare indexering och bättre synlighet i sökresultat"
+  },
+  "json-formatter": {
+    "name": "JSON-formaterare och validerare",
+    "description": "Formatera, validera och visualisera JSON-data med avancerad trädvy, feldetektering och exportalternativ"
+  },
+  "json-table-converter": {
+    "name": "JSON-tabellkonverterare",
+    "description": "Konvertera JSON till CSV/Excel och vice versa med avancerad förhandsvisning, batchbearbetning och smart datamappning"
+  },
+  "code-beautifier": {
+    "name": "Kodformaterare och minifierare",
+    "description": "Formatera, minifiera och analysera JavaScript-, CSS- och HTML-kod med syntaxmarkering, feldetektering och AI-förklaringar"
+  },
+  "ai-color-palette-generator": {
+    "name": "AI-färgpalettgenerator",
+    "description": "Skapa vackra färgpaletter med AI-förslag, tillgänglighetskontroll och professionella exportalternativ"
+  },
+  "ai-background-remover": {
+    "name": "AI-bakgrundsborttagare",
+    "description": "Ta bort bildbakgrunder direkt med AI. Inkluderar magisk pensel för retusch, batchbearbetning och professionella exportalternativ"
+  },
+  "meme-generator": {
+    "name": "AI-memgenerator",
+    "description": "Skapa virala memes med trendande mallar, AI-textförslag och professionella redigeringsverktyg för sociala medier"
+  },
+  "ai-writing-tools": {
+    "name": "AI-skrivverktygssvit",
+    "description": "Komplett skrivverktyg med AI: parafraserare, sammanfattare, humanizer och AI-detektor med avancerade anpassningar"
+  },
+  "ai-image-enhancer": {
+    "name": "AI-bildförbättrare",
+    "description": "Förbättra foton med AI: skala upp upplösning, minska oskärpa, återställ gamla foton och färglägg svartvita bilder"
+  },
+  "ai-resume-builder": {
+    "name": "AI-CV-byggare",
+    "description": "Skapa professionella CV:n med AI-förslag, ATS-optimering, job matching och expertmallar"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook-bildnedladdare",
+    "description": "Gratis Facebook-bildnedladdare för offentliga inlägg. Klistra in en länk för att ladda ner Facebook-foton, profilbilder (DP) och omslagsbilder i HD — ingen app, ingen inloggning, direkt i webbläsaren."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube-miniatyrnedladdare",
+    "description": "Hämta YouTube-miniatyrer i maxupplösning (4K/HD). Ange videolänk eller ID och ladda ner direkt."
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels-nedladdare",
+    "description": "Spara Instagram Reels och korta videor i hög kvalitet. Klistra in en reel-URL och ladda ner snabbt."
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP-visare",
+    "description": "Visa och ladda ner offentliga Instagram-profilbilder i full storlek. Fungerar endast för offentligt synliga DP:n."
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube-inbäddningskodgenerator",
+    "description": "Skapa responsiva YouTube-inbäddningskoder. Anpassa bildförhållande, autoplay och kontroller och kopiera ren HTML."
+  },
+  "ocr-text-extractor": {
+    "name": "OCR-textextraktor",
+    "description": "Extrahera text från bilder och PDF:er med avancerad OCR-teknik. Stöd för 12+ språk, batchbearbetning och redigerbara resultat"
+  },
+  "media-converter": {
+    "name": "Mediekonverterare",
+    "description": "Konvertera video-, ljud- och arkivfiler mellan format. Stöd för batchbearbetning, kvalitetsförinställningar och avancerade inställningar"
+  },
+  "ebook-converter": {
+    "name": "E-bokkonverterare",
+    "description": "Konvertera e-böcker mellan EPUB, MOBI, PDF och DOCX med professionell metadataredigering och stöd för omslagsbilder"
+  },
+  "font-converter": {
+    "name": "Typsnittskonverterare",
+    "description": "Konvertera typsnitt mellan TTF, OTF, WOFF och WOFF2 med liveförhandsvisning, AI-typsnittsparningar och weboptimering"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram-engagemang",
+    "description": "Beräkna engagemangsgrad på Instagram med avancerade algoritmer, branschbenchmark och personliga rekommendationer för sociala medier"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook-engagemang",
+    "description": "Beräkna engagemangsgrad på Facebook med avancerade algoritmer, branschbenchmark och personliga rekommendationer för sociala medier"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter-engagemang",
+    "description": "Beräkna engagemangsgrad på Twitter med avancerade algoritmer, branschbenchmark och personliga rekommendationer för sociala medier"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube-engagemang",
+    "description": "Beräkna engagemangsgrad på YouTube med avancerade algoritmer, branschbenchmark och personliga rekommendationer för video"
+  },
+  "domain-whois-lookup": {
+    "name": "WHOIS-uppslagning för domän",
+    "description": "Få omfattande registreringsinformation med vårt gratis WHOIS-verktyg. Kontrollera ägare, registreringsdatum och kontaktuppgifter direkt."
+  },
+  "expired-domain-finder": {
+    "name": "Hitta utgångna domäner",
+    "description": "Upptäck värdefulla utgångna domäner med vårt omfattande sökverktyg. Få omedelbar tillgång till domain authority-poäng, backlinkdata och uppskattade värden."
+  },
+  "app-icon-generator": {
+    "name": "Appikon-generator",
+    "description": "Skapa professionella appikoner för alla plattformar med Toolspy's avancerade generator. Ikoner för Android, iOS, Windows, macOS, Linux och webben."
+  },
+  "pwa-icon-generator": {
+    "name": "PWA-ikon-generator",
+    "description": "Skapa PWA-ikoner och manifestfil för Progressive Web Apps med fullständigt integritetsskydd."
+  },
+  "favicon-generator": {
+    "name": "Favicon-generator",
+    "description": "Skapa favicons för din webbplats med Toolspy. Skapa favicons för alla enheter och webbläsare."
+  },
+  "image-to-ico-converter": {
+    "name": "Bild till ICO-konverterare",
+    "description": "Konvertera bilder till ICO-format med Toolspy's avancerade konverterare. Skapa ICO-filer för Windows-appar och webben."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Markdown till Docs-konverterare",
+    "description": "Konvertera Markdown till dokument med Toolspy's avancerade konverterare. Skapa HTML, PDF, Word och ren text."
+  },
+  "gst-calculator": {
+    "name": "GST-kalkylator",
+    "description": "Beräkna GST (Goods and Services Tax) med inklusive- och exklusive-läge. Stöd för alla GST-satser (0%, 5%, 12%, 18%, 28%)"
+  },
+  "reverse-gst-calculator": {
+    "name": "Omvänd GST-kalkylator",
+    "description": "Beräkna grundbelopp och GST-del från totalbelopp. Perfekt för fakturaanalys och skatteuppdelning med alla GST-satser"
+  },
+  "hsn-sac-finder": {
+    "name": "HSN/SAC-kodsökare",
+    "description": "Hitta HSN (Harmonized System of Nomenclature) och SAC (Services Accounting Code)-koder med GST-satser. Snabbsök med autosuggest och referenslänkar"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "CGST/SGST/IGST-uppdelare",
+    "description": "Dela upp GST automatiskt i CGST, SGST och IGST baserat på intra-state vs inter-state transaktioner. Perfekt för att förstå hur GST fördelas mellan stater"
+  },
+  "itc-calculator": {
+    "name": "Input Tax Credit (ITC)-kalkylator",
+    "description": "Följ upp avdragsgilla krediter vs blockerade krediter med en professionell ITC-kalkylator. Perfekt för att förstå ITC-berättigande och efterlevnad"
+  },
+  "e-invoice-qr-validator": {
+    "name": "E-Invoice/QR-kodvaliderare",
+    "description": "Ladda upp/skanna E-Invoice QR-koder för att validera fakturastatus och extrahera information. Perfekt för fakturaverifiering och efterlevnad"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Uppskattare: Composition vs Regular",
+    "description": "Jämför skatteskuld under Composition och Regular GST-scheman. Perfekt för att välja optimalt schema för ditt företag"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "Förseningsavgift/straffavgiftskalkylator",
+    "description": "Beräkna automatiskt sena avgifter och ränta för GSTR-inlämning. Perfekt för att förstå konsekvenser och planera efterlevnad"
+  },
+  "jee-main-rank-predictor": {
+    "name": "JEE Main rank predictor",
+    "description": "Förutsäg din JEE Main-rank och collegealternativ baserat på percentil. Perfekt för att förstå antagningschanser och planera din ingenjörsresa"
+  },
+  "neet-rank-predictor": {
+    "name": "NEET rank predictor",
+    "description": "Förutsäg din NEET-rank och medicinska collegealternativ baserat på poäng. Perfekt för att förstå antagningschanser och planera din medicinska resa"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "JEE Advanced rank predictor",
+    "description": "Förutsäg din JEE Advanced-rank och IIT-alternativ baserat på poäng. Perfekt för att förstå antagningschanser och planera din IIT-resa"
+  },
+  "gate-rank-predictor": {
+    "name": "GATE rank predictor",
+    "description": "Förutsäg din GATE-rank och collegealternativ baserat på poäng och ämne. Perfekt för att förstå antagningschanser och planera din postgraduate-resa"
+  },
+  "cat-percentile-predictor": {
+    "name": "CAT percentile predictor",
+    "description": "Förutsäg din CAT-percentil och MBA-alternativ baserat på delpoäng. Perfekt för att förstå antagningschanser och planera din MBA-resa"
+  },
+  "upsc-rank-predictor": {
+    "name": "UPSC rank predictor",
+    "description": "Förutsäg din UPSC-rank och civil service-alternativ baserat på provpoäng. Perfekt för att förstå tjänstefördelning och planera din karriär"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "SSC CGL rank predictor",
+    "description": "Förutsäg din SSC CGL-rank och myndighetsjobb baserat på provpoäng. Perfekt för att förstå postfördelning och planera din karriär"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Bank PO rank predictor",
+    "description": "Förutsäg din Bank PO-rank och bankjobb baserat på provpoäng. Perfekt för att förstå bankfördelning och planera din bankkarriär"
+  },
+  "website-screenshot": {
+    "name": "Webbplatsskärmdump",
+    "description": "Ta högkvalitativa skärmdumpar av valfri webbplats i olika format och storlekar. Hel sida, flera enhetsförinställningar och omedelbara nedladdningar"
+  }
+}

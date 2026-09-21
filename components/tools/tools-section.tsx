@@ -17,7 +17,8 @@ import {
   getToolsByCategory,
 } from "@/lib/tools-data";
 import Link from "next/link";
-import { useT } from "@/lib/i18n/use-t";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 interface ToolsSectionProps {
   searchQuery?: string;
@@ -27,6 +28,7 @@ export function ToolsSection({
   searchQuery: initialSearchQuery,
 }: ToolsSectionProps) {
   const t = useT();
+  const locale = useLocale();
   const [toolsData] = useState<Tool[]>(tools);
   const [categorizedTools] = useState<Record<ToolCategory, Tool[]>>(
     getToolsByCategory()
@@ -51,7 +53,7 @@ export function ToolsSection({
   // Filter tools when search query or category changes
   useEffect(() => {
     filterTools();
-  }, [searchQuery, selectedCategory, toolsData]);
+  }, [searchQuery, selectedCategory, toolsData, locale]);
 
   // Update search query from props
   useEffect(() => {
@@ -89,12 +91,16 @@ export function ToolsSection({
     // Filter by search query
     if (searchQuery.trim()) {
       const lowercaseQuery = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (tool) =>
+      filtered = filtered.filter((tool) => {
+        const copy = getToolCopy(tool.slug, locale);
+        return (
           tool.name.toLowerCase().includes(lowercaseQuery) ||
+          copy.name.toLowerCase().includes(lowercaseQuery) ||
           tool.description.toLowerCase().includes(lowercaseQuery) ||
+          copy.description.toLowerCase().includes(lowercaseQuery) ||
           tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-      );
+        );
+      });
     }
 
     setFilteredTools(filtered);

@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "Об оптимизации изображений",
+    "allFilesCleared": "Все файлы очищены",
+    "coverDimensions": "Заполнить размеры",
+    "fileRemoved": "Файл удалён",
+    "fitWithinDimensions": "Вписать в размеры",
+    "imagesOptimizedSuccessfully": "Изображения успешно оптимизированы!",
+    "imagesToOptimize": "Изображения для оптимизации",
+    "keepOriginalFormat": "Сохранить исходный формат",
+    "noOptimizedImagesToDownload": "Нет оптимизированных изображений для скачивания",
+    "noResizing": "Без изменения размера",
+    "optimizationFailedPleaseTryAgain": "Ошибка оптимизации. Попробуйте ещё раз.",
+    "optimizingImages": "Оптимизация изображений",
+    "outputFormat": "Формат вывода",
+    "pleaseSelectImagesFirst": "Сначала выберите изображения",
+    "progressiveJpeg": "Прогрессивный JPEG",
+    "removeMetadata": "Удалить метаданные",
+    "resizeMode": "Режим изменения размера",
+    "webpBestCompression": "WebP (лучшее сжатие)"
+  }
+}

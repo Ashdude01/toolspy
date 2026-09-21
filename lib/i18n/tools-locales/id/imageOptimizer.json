@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "Tentang optimasi gambar",
+    "allFilesCleared": "Semua file dihapus",
+    "coverDimensions": "Tutupi dimensi",
+    "fileRemoved": "File dihapus",
+    "fitWithinDimensions": "Sesuaikan dalam dimensi",
+    "imagesOptimizedSuccessfully": "Gambar berhasil dioptimalkan!",
+    "imagesToOptimize": "Gambar untuk dioptimalkan",
+    "keepOriginalFormat": "Pertahankan format asli",
+    "noOptimizedImagesToDownload": "Tidak ada gambar yang dioptimalkan untuk diunduh",
+    "noResizing": "Tanpa ubah ukuran",
+    "optimizationFailedPleaseTryAgain": "Optimasi gagal. Silakan coba lagi.",
+    "optimizingImages": "Mengoptimalkan gambar",
+    "outputFormat": "Format keluaran",
+    "pleaseSelectImagesFirst": "Pilih gambar terlebih dahulu",
+    "progressiveJpeg": "JPEG progresif",
+    "removeMetadata": "Hapus metadata",
+    "resizeMode": "Mode ubah ukuran",
+    "webpBestCompression": "WebP (kompresi terbaik)"
+  }
+}

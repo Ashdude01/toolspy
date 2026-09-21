@@ -108,6 +108,11 @@ dist
 tmp/
 temp/
 
+# i18n / translation scratch (do not commit)
+tmp-*.json
+tmp-tool-batches/
+tmp-translate-cache.json
+
 # macOS
 .DS_Store
 

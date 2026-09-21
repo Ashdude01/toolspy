@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "ضاغط الصور",
+    "description": "اضغط الصور بمحرك Toolspy المتقدم لتقليل حجم الملف مع الحفاظ على الجودة"
+  },
+  "online-image-cropper": {
+    "name": "أداة قصّ الصور عبر الإنترنت",
+    "description": "قصّ الصور بتحديد حر أو بنسبة أبعاد أو بأشكال جاهزة مثل الدائرة والمضلعات — تعمل داخل متصفحك."
+  },
+  "image-converter": {
+    "name": "محوّل الصور",
+    "description": "حوّل الصور بين صيغ مختلفة (PNG، JPG، WebP، SVG، وغيرها)"
+  },
+  "image-resizer": {
+    "name": "مغيّر حجم الصور",
+    "description": "غيّر حجم الصور إلى أبعاد محددة أو كنِسَب مئوية"
+  },
+  "image-optimizer": {
+    "name": "محسّن الصور",
+    "description": "حسّن الصور لسرعة تحميل أعلى وأداء أفضل"
+  },
+  "jfif-to-jpg": {
+    "name": "محوّل JFIF إلى JPG",
+    "description": "حوّل صور JFIF إلى صيغة JPG/JPEG مع الحفاظ على جودة عالية"
+  },
+  "base64-to-image": {
+    "name": "محوّل Base64 إلى صورة",
+    "description": "حوّل سلاسل Base64 المشفّرة إلى ملفات صور باستخدام محوّل Toolspy الآمن"
+  },
+  "image-to-base64": {
+    "name": "مشفّر صورة إلى Base64",
+    "description": "حوّل الصور إلى سلاسل Base64 لسهولة التضمين باستخدام مشفّر Toolspy الاحترافي"
+  },
+  "base64-encoder-decoder": {
+    "name": "مشفّر/مفكّك Base64",
+    "description": "شفّر النص إلى Base64 وفكّ تشفيره منه"
+  },
+  "pdf-converter": {
+    "name": "محوّل PDF",
+    "description": "حوّل ملفات PDF إلى صيغ متعددة والعكس"
+  },
+  "pdf-to-word": {
+    "name": "PDF إلى Word",
+    "description": "حوّل مستندات PDF إلى ملفات Word قابلة للتحرير"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF إلى JPG",
+    "description": "حوّل صفحات PDF إلى صور JPG"
+  },
+  "jfif-to-pdf": {
+    "name": "محوّل JFIF إلى PDF",
+    "description": "حوّل صور JFIF إلى مستندات PDF بجودة احترافية"
+  },
+  "merge-pdf": {
+    "name": "دمج ملفات PDF",
+    "description": "اجمع عدة ملفات PDF في مستند واحد"
+  },
+  "pdf-to-image": {
+    "name": "محوّل PDF إلى صورة",
+    "description": "حوّل صفحات PDF إلى صيغ صور مختلفة (PNG، JPG، WebP)"
+  },
+  "compress-pdf": {
+    "name": "ضاغط PDF",
+    "description": "اضغط ملفات PDF لتقليل حجمها مع الحفاظ على الجودة"
+  },
+  "heic-to-pdf": {
+    "name": "محوّل HEIC إلى PDF",
+    "description": "حوّل صور HEIC إلى مستندات PDF بجودة عالية"
+  },
+  "image-to-pdf": {
+    "name": "محوّل صورة إلى PDF",
+    "description": "حوّل JPG وPNG وWebP وغيرها من الصور إلى PDF واحد عبر الإنترنت"
+  },
+  "split-pdf": {
+    "name": "تقسيم ملفات PDF",
+    "description": "قسّم مستندات PDF الكبيرة إلى ملفات أصغر حسب نطاقات الصفحات"
+  },
+  "pdf-password-remover": {
+    "name": "إزالة كلمة مرور PDF",
+    "description": "أزل حماية كلمة المرور من ملفات PDF فورًا"
+  },
+  "pdf-to-excel": {
+    "name": "محوّل PDF إلى Excel",
+    "description": "حوّل مستندات PDF إلى جداول Excel لتحليل البيانات"
+  },
+  "pdf-to-csv": {
+    "name": "محوّل PDF إلى CSV",
+    "description": "استخرج البيانات الجدولية من مستندات PDF إلى صيغة CSV"
+  },
+  "file-protector": {
+    "name": "حماية الملفات",
+    "description": "أضف حماية بكلمة مرور لملفاتك لتعزيز الأمان"
+  },
+  "percentage-calculator": {
+    "name": "حاسبة النِسب المئوية",
+    "description": "احسب النِسب المئوية وزياداتها وانخفاضاتها"
+  },
+  "age-calculator": {
+    "name": "حاسبة العمر",
+    "description": "احسب عمرك بدقة بالسنوات والأشهر والأيام والساعات والدقائق"
+  },
+  "love-calculator": {
+    "name": "حاسبة التوافق العاطفي",
+    "description": "احسب نسبة التوافق العاطفي بين شخصين"
+  },
+  "bmi-calculator": {
+    "name": "حاسبة BMI",
+    "description": "احسب مؤشر كتلة الجسم (BMI) وحالة الصحة"
+  },
+  "loan-calculator": {
+    "name": "حاسبة القرض",
+    "description": "احسب الدفعات الشهرية والفائدة والتكلفة الإجمالية للقرض"
+  },
+  "mortgage-calculator": {
+    "name": "حاسبة الرهن العقاري",
+    "description": "احسب دفعات الرهن العقاري ومعدلات الفائدة وجدول الاستهلاك"
+  },
+  "retirement-calculator": {
+    "name": "حاسبة التقاعد",
+    "description": "احسب مدخرات التقاعد المطلوبة وتوقعات الاستثمار"
+  },
+  "investment-calculator": {
+    "name": "حاسبة الاستثمار",
+    "description": "احسب الفائدة المركبة ونمو الاستثمار عبر الزمن"
+  },
+  "coast-fire-calculator": {
+    "name": "حاسبة Coast FIRE",
+    "description": "اعرف متى يصبح النمو المركّب وحده قادرًا على تمويل تقاعدك"
+  },
+  "tax-calculator": {
+    "name": "حاسبة الضرائب",
+    "description": "احسب ضريبة الدخل وشرائح الضرائب وصافي الدخل"
+  },
+  "salary-calculator": {
+    "name": "حاسبة الراتب",
+    "description": "حوّل بين الأجر بالساعة والراتب الشهري والسنوي"
+  },
+  "unit-converter": {
+    "name": "محوّل الوحدات",
+    "description": "حوّل بين وحدات قياس مختلفة"
+  },
+  "currency-converter": {
+    "name": "محوّل العملات",
+    "description": "حوّل بين عملات مختلفة مع أسعار صرف مباشرة"
+  },
+  "temperature-converter": {
+    "name": "محوّل درجة الحرارة",
+    "description": "حوّل بين Celsius وFahrenheit وKelvin"
+  },
+  "length-converter": {
+    "name": "محوّل الطول",
+    "description": "حوّل بين وحدات الطول والمسافة"
+  },
+  "weight-converter": {
+    "name": "محوّل الوزن",
+    "description": "حوّل بين وحدات الوزن والكتلة"
+  },
+  "volume-converter": {
+    "name": "محوّل الحجم",
+    "description": "حوّل بين وحدات الحجم والسعة"
+  },
+  "area-converter": {
+    "name": "محوّل المساحة",
+    "description": "حوّل بين وحدات المساحة وقياس السطح"
+  },
+  "qr-code-generator": {
+    "name": "مولّد QR",
+    "description": "أنشئ رموز QR للنصوص وURL وغيرها"
+  },
+  "color-picker": {
+    "name": "منتقي الألوان",
+    "description": "اختر الألوان واحصل على قيم hex وRGB وHSL"
+  },
+  "color-palette-generator": {
+    "name": "مولّد لوحات الألوان",
+    "description": "أنشئ لوحات ألوان جميلة مع إعادة ترتيب بالسحب والإفلات وقفل الألوان وتصدير بعدة صيغ"
+  },
+  "google-indexing-api": {
+    "name": "أداة Google Indexing API",
+    "description": "أرسل URL لموقعك إلى Google Indexing API لفهرسة أسرع وتحسين الظهور في البحث"
+  },
+  "json-formatter": {
+    "name": "مُنسّق JSON ومُدقّق الصحة",
+    "description": "نسّق JSON وتحقق من صحته واعرضه بصريًا مع عرض شجري متقدم واكتشاف الأخطاء وخيارات التصدير"
+  },
+  "json-table-converter": {
+    "name": "محوّل JSON إلى جدول",
+    "description": "حوّل JSON إلى CSV/Excel والعكس مع معاينة متقدمة ومعالجة دفعات وربط بيانات ذكي"
+  },
+  "code-beautifier": {
+    "name": "مُحسّن/مُصغّر الكود",
+    "description": "نسّق وصغّر وحلّل كود JavaScript وCSS وHTML مع تمييز الصياغة واكتشاف الأخطاء وشرح بالـ AI"
+  },
+  "ai-color-palette-generator": {
+    "name": "مولّد لوحات ألوان بالـ AI",
+    "description": "أنشئ لوحات ألوان جميلة باقتراحات AI وفحص إمكانية الوصول وخيارات تصدير احترافية"
+  },
+  "ai-background-remover": {
+    "name": "مزيل الخلفية بالـ AI",
+    "description": "أزل خلفيات الصور فورًا باستخدام AI. يتضمن فرشاة سحرية للتنقيح ومعالجة دفعات وخيارات تصدير احترافية"
+  },
+  "meme-generator": {
+    "name": "مولّد الميمات بالـ AI",
+    "description": "أنشئ ميمات قابلة للانتشار مع قوالب رائجة واقتراحات تعليق بالـ AI وأدوات تحرير احترافية لوسائل التواصل"
+  },
+  "ai-writing-tools": {
+    "name": "حزمة أدوات الكتابة بالـ AI",
+    "description": "مجموعة كتابة متكاملة بالـ AI: Paraphraser وSummarizer وHumanizer وAI Detector مع خيارات تخصيص متقدمة"
+  },
+  "ai-image-enhancer": {
+    "name": "محسّن الصور بالـ AI",
+    "description": "حسّن الصور بالـ AI: رفع الدقة وإزالة الضبابية وترميم الصور القديمة وتلوين الصور بالأبيض والأسود"
+  },
+  "ai-resume-builder": {
+    "name": "منشئ السيرة الذاتية بالـ AI",
+    "description": "أنشئ سيرًا ذاتية احترافية باقتراحات مدعومة بالـ AI وتحسين ATS ومطابقة الوظائف وقوالب خبيرة"
+  },
+  "facebook-image-downloader": {
+    "name": "محمّل صور Facebook",
+    "description": "محمّل مجاني لصور Facebook للمنشورات العامة. الصق رابطًا لتنزيل صور Facebook وصور الملف الشخصي (DP) وصور الغلاف بجودة HD — بلا تطبيق وبلا تسجيل دخول، مباشرة في المتصفح."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "محمّل صور YouTube المصغّرة",
+    "description": "احصل على الصور المصغّرة لفيديوهات YouTube بأعلى دقة (4K/HD). أدخل رابط الفيديو أو ID ونزّل فورًا."
+  },
+  "instagram-reels-downloader": {
+    "name": "محمّل Instagram Reels",
+    "description": "احفظ Instagram Reels والفيديوهات القصيرة بجودة عالية. الصق URL للريل ونزّل بسرعة."
+  },
+  "instagram-dp-viewer": {
+    "name": "عارض Instagram DP",
+    "description": "اعرض ونزّل صور الملف الشخصي العامة في Instagram بالحجم الكامل. يعمل فقط مع DPs المتاحة للعامة."
+  },
+  "youtube-embed-code-generator": {
+    "name": "مولّد كود تضمين YouTube",
+    "description": "أنشئ أكواد تضمين YouTube متجاوبة. خصّص نسبة الأبعاد والتشغيل التلقائي وعناصر التحكم وانسخ HTML نظيفًا."
+  },
+  "ocr-text-extractor": {
+    "name": "مستخرج النص OCR",
+    "description": "استخرج النص من الصور وملفات PDF بتقنية OCR متقدمة. دعم لأكثر من 12 لغة ومعالجة دفعات ونتائج قابلة للتحرير"
+  },
+  "media-converter": {
+    "name": "محوّل الوسائط",
+    "description": "حوّل الفيديو والصوت وملفات الأرشيف بين الصيغ. دعم للمعالجة على دفعات وإعدادات جودة جاهزة وخيارات متقدمة"
+  },
+  "ebook-converter": {
+    "name": "محوّل الكتب الإلكترونية",
+    "description": "حوّل الكتب الإلكترونية بين EPUB وMOBI وPDF وDOCX مع تحرير بيانات وصفية احترافي ودعم لصورة الغلاف"
+  },
+  "font-converter": {
+    "name": "محوّل الخطوط",
+    "description": "حوّل الخطوط بين TTF وOTF وWOFF وWOFF2 مع معاينة مباشرة واقترانات خطوط بالـ AI وميزات تحسين للويب"
+  },
+  "instagram-engagement-calculator": {
+    "name": "تفاعل Instagram",
+    "description": "احسب معدل تفاعل Instagram بخوارزميات متقدمة ومعايير قطاعية وتوصيات مخصصة لنجاحك على وسائل التواصل"
+  },
+  "facebook-engagement-calculator": {
+    "name": "تفاعل Facebook",
+    "description": "احسب معدل تفاعل Facebook بخوارزميات متقدمة ومعايير قطاعية وتوصيات مخصصة لنجاحك على وسائل التواصل"
+  },
+  "twitter-engagement-calculator": {
+    "name": "تفاعل Twitter",
+    "description": "احسب معدل تفاعل Twitter بخوارزميات متقدمة ومعايير قطاعية وتوصيات مخصصة لنجاحك على وسائل التواصل"
+  },
+  "youtube-engagement-calculator": {
+    "name": "تفاعل YouTube",
+    "description": "احسب معدل تفاعل YouTube بخوارزميات متقدمة ومعايير قطاعية وتوصيات مخصصة لنجاح الفيديو"
+  },
+  "domain-whois-lookup": {
+    "name": "بحث WHOIS للنطاق",
+    "description": "احصل على معلومات تسجيل النطاق بشكل شامل عبر أداة WHOIS المجانية. تحقق من ملكية النطاق وتواريخ التسجيل وتفاصيل الاتصال فورًا."
+  },
+  "expired-domain-finder": {
+    "name": "باحث النطاقات المنتهية",
+    "description": "اكتشف نطاقات منتهية قيّمة عبر أداة بحث شاملة. احصل على درجات قوة النطاق وبيانات الروابط الخلفية والقيم التقديرية فورًا."
+  },
+  "app-icon-generator": {
+    "name": "مولّد أيقونات التطبيقات",
+    "description": "أنشئ أيقونات تطبيقات احترافية لجميع المنصات باستخدام مولّد الأيقونات المتقدم من Toolspy. أنشئ أيقونات لـ Android وiOS وWindows وmacOS وLinux والويب."
+  },
+  "pwa-icon-generator": {
+    "name": "مولّد أيقونات PWA",
+    "description": "أنشئ أيقونات PWA وملف manifest لتطبيقات Progressive Web Apps مع حماية خصوصية كاملة."
+  },
+  "favicon-generator": {
+    "name": "مولّد Favicon",
+    "description": "أنشئ favicons لموقعك باستخدام Toolspy. أنشئ favicons لكل الأجهزة والمتصفحات."
+  },
+  "image-to-ico-converter": {
+    "name": "محوّل صورة إلى ICO",
+    "description": "حوّل الصور إلى صيغة ICO باستخدام محوّل Toolspy المتقدم. أنشئ ملفات ICO لتطبيقات Windows والويب."
+  },
+  "markdown-to-docs-converter": {
+    "name": "محوّل Markdown إلى مستندات",
+    "description": "حوّل Markdown إلى مستندات باستخدام محوّل Toolspy المتقدم. أنشئ مستندات HTML وPDF وWord ونصًا عاديًا."
+  },
+  "gst-calculator": {
+    "name": "حاسبة GST",
+    "description": "احسب GST (Goods and Services Tax) بوضعَي الشامل وغير الشامل. دعم لجميع نسب GST (0% و5% و12% و18% و28%)"
+  },
+  "reverse-gst-calculator": {
+    "name": "حاسبة Reverse GST",
+    "description": "احسب المبلغ الأساسي ومكوّن GST من إجمالي المبلغ. مثالية لتحليل الفواتير وتفصيل الضريبة مع جميع نسب GST"
+  },
+  "hsn-sac-finder": {
+    "name": "باحث رموز HSN/SAC",
+    "description": "اعثر على رموز HSN (Harmonized System of Nomenclature) وSAC (Services Accounting Code) مع نسب GST. بحث سريع مع اقتراحات تلقائية وروابط مرجعية"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "مقسّم CGST/SGST/IGST",
+    "description": "قسّم GST تلقائيًا إلى CGST وSGST وIGST حسب المعاملات داخل الولاية أو بين الولايات. مثالي لفهم توزيع GST عبر الولايات"
+  },
+  "itc-calculator": {
+    "name": "حاسبة Input Tax Credit (ITC)",
+    "description": "تتبّع الأرصدة القابلة للمطالبة مقابل الأرصدة المحظورة باستخدام حاسبة ITC احترافية. مثالية لفهم أهلية ITC والامتثال"
+  },
+  "e-invoice-qr-validator": {
+    "name": "مدقق E-Invoice/QR",
+    "description": "ارفع/امسح رموز QR الخاصة بـ E-Invoice للتحقق من حالة الفاتورة واستخراج المعلومات. مثالي للتحقق من الفواتير والامتثال"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "مقارن Composition مقابل Regular",
+    "description": "قارن الالتزام الضريبي ضمن نظامَي Composition وRegular في GST. مثالي لاختيار النظام الأنسب لعملك"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "حاسبة الغرامات/رسوم التأخير",
+    "description": "احسب تلقائيًا رسوم التأخير والفائدة لتقديم GSTR باستخدام حاسبة احترافية. مثالية لفهم أثر الغرامات وتخطيط الامتثال"
+  },
+  "jee-main-rank-predictor": {
+    "name": "متنبئ ترتيب JEE Main",
+    "description": "تنبأ بترتيب JEE Main وخيارات الكليات بناءً على النسبة المئوية. مثالي لفهم فرص القبول وتخطيط مسارك الهندسي"
+  },
+  "neet-rank-predictor": {
+    "name": "متنبئ ترتيب NEET",
+    "description": "تنبأ بترتيب NEET وخيارات كليات الطب بناءً على الدرجة. مثالي لفهم فرص القبول وتخطيط مسارك الطبي"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "متنبئ ترتيب JEE Advanced",
+    "description": "تنبأ بترتيب JEE Advanced وخيارات IIT بناءً على الدرجة. مثالي لفهم فرص القبول وتخطيط رحلتك إلى IIT"
+  },
+  "gate-rank-predictor": {
+    "name": "متنبئ ترتيب GATE",
+    "description": "تنبأ بترتيب GATE وخيارات الكليات بناءً على الدرجة والتخصص. مثالي لفهم فرص القبول وتخطيط دراساتك العليا"
+  },
+  "cat-percentile-predictor": {
+    "name": "متنبئ Percentile لـ CAT",
+    "description": "تنبأ بالنسبة المئوية في CAT وخيارات كليات MBA بناءً على درجات الأقسام. مثالي لفهم فرص القبول وتخطيط MBA"
+  },
+  "upsc-rank-predictor": {
+    "name": "متنبئ ترتيب UPSC",
+    "description": "تنبأ بترتيب UPSC وخيارات الخدمة المدنية بناءً على درجات الامتحان. مثالي لفهم توزيع الخدمات وتخطيط مسارك المهني"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "متنبئ ترتيب SSC CGL",
+    "description": "تنبأ بترتيب SSC CGL وخيارات الوظائف الحكومية بناءً على درجات الامتحان. مثالي لفهم توزيع المناصب وتخطيط مسارك الحكومي"
+  },
+  "bank-po-rank-predictor": {
+    "name": "متنبئ ترتيب Bank PO",
+    "description": "تنبأ بترتيب Bank PO وخيارات وظائف البنوك بناءً على درجات الامتحان. مثالي لفهم توزيع البنوك وتخطيط مسارك المصرفي"
+  },
+  "website-screenshot": {
+    "name": "لقطة شاشة للموقع",
+    "description": "التقط لقطات شاشة عالية الجودة لأي موقع بأحجام وصيغ مختلفة. التقاط كامل الصفحة وإعدادات أجهزة متعددة وتنزيلات فورية"
+  }
+}

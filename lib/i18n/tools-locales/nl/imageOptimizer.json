@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "Over afbeeldingsoptimalisatie",
+    "allFilesCleared": "Alle bestanden gewist",
+    "coverDimensions": "Afmetingen bedekken",
+    "fileRemoved": "Bestand verwijderd",
+    "fitWithinDimensions": "Binnen afmetingen passen",
+    "imagesOptimizedSuccessfully": "Afbeeldingen succesvol geoptimaliseerd!",
+    "imagesToOptimize": "Afbeeldingen om te optimaliseren",
+    "keepOriginalFormat": "Origineel formaat behouden",
+    "noOptimizedImagesToDownload": "Geen geoptimaliseerde afbeeldingen om te downloaden",
+    "noResizing": "Niet verkleinen",
+    "optimizationFailedPleaseTryAgain": "Optimalisatie mislukt. Probeer het opnieuw.",
+    "optimizingImages": "Afbeeldingen optimaliseren",
+    "outputFormat": "Uitvoerformaat",
+    "pleaseSelectImagesFirst": "Selecteer eerst afbeeldingen",
+    "progressiveJpeg": "Progressieve JPEG",
+    "removeMetadata": "Metadata verwijderen",
+    "resizeMode": "Formaatwijzigingsmodus",
+    "webpBestCompression": "WebP (beste compressie)"
+  }
+}

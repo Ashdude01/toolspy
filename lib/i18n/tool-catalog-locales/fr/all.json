@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "Compresseur d’images",
+    "description": "Compressez des images avec le moteur avancé de Toolspy pour réduire la taille du fichier tout en préservant la qualité"
+  },
+  "online-image-cropper": {
+    "name": "Recadrage d’images en ligne",
+    "description": "Recadrez des images par sélection libre, ratio d’aspect ou formes prédéfinies (cercle, polygones) — directement dans votre navigateur."
+  },
+  "image-converter": {
+    "name": "Convertisseur d’images",
+    "description": "Convertissez des images entre différents formats (PNG, JPG, WebP, SVG, etc.)"
+  },
+  "image-resizer": {
+    "name": "Redimensionneur d’images",
+    "description": "Redimensionnez des images à des dimensions précises ou en pourcentage"
+  },
+  "image-optimizer": {
+    "name": "Optimiseur d’images",
+    "description": "Optimisez les images pour un chargement plus rapide et de meilleures performances"
+  },
+  "jfif-to-jpg": {
+    "name": "Convertisseur JFIF en JPG",
+    "description": "Convertissez des images JFIF au format JPG/JPEG avec une excellente préservation de la qualité"
+  },
+  "base64-to-image": {
+    "name": "Convertisseur Base64 en image",
+    "description": "Convertissez des chaînes encodées en Base64 en fichiers image grâce au convertisseur sécurisé de Toolspy"
+  },
+  "image-to-base64": {
+    "name": "Encodeur image en Base64",
+    "description": "Convertissez des images en chaînes Base64 à intégrer avec l’encodeur professionnel de Toolspy"
+  },
+  "base64-encoder-decoder": {
+    "name": "Encodeur/Décodeur Base64",
+    "description": "Encodez et décodez du texte vers/depuis le format Base64"
+  },
+  "pdf-converter": {
+    "name": "Convertisseur PDF",
+    "description": "Convertissez des PDF vers divers formats et inversement"
+  },
+  "pdf-to-word": {
+    "name": "PDF vers Word",
+    "description": "Convertissez des documents PDF en fichiers Word modifiables"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF vers JPG",
+    "description": "Convertissez des pages PDF en images JPG"
+  },
+  "jfif-to-pdf": {
+    "name": "Convertisseur JFIF en PDF",
+    "description": "Convertissez des images JFIF en documents PDF avec une qualité professionnelle"
+  },
+  "merge-pdf": {
+    "name": "Fusionner des fichiers PDF",
+    "description": "Combinez plusieurs fichiers PDF en un seul document"
+  },
+  "pdf-to-image": {
+    "name": "Convertisseur PDF en image",
+    "description": "Convertissez des pages PDF vers divers formats d’image (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "Compresseur PDF",
+    "description": "Compressez des fichiers PDF pour réduire la taille tout en préservant la qualité"
+  },
+  "heic-to-pdf": {
+    "name": "Convertisseur HEIC en PDF",
+    "description": "Convertissez des images HEIC en documents PDF en haute qualité"
+  },
+  "image-to-pdf": {
+    "name": "Convertisseur image en PDF",
+    "description": "Convertissez des images JPG, PNG, WebP et autres en un seul PDF en ligne"
+  },
+  "split-pdf": {
+    "name": "Diviser des fichiers PDF",
+    "description": "Divisez de gros documents PDF en fichiers plus petits par plages de pages"
+  },
+  "pdf-password-remover": {
+    "name": "Suppresseur de mot de passe PDF",
+    "description": "Supprimez instantanément la protection par mot de passe des fichiers PDF"
+  },
+  "pdf-to-excel": {
+    "name": "Convertisseur PDF vers Excel",
+    "description": "Convertissez des documents PDF en feuilles de calcul Excel pour l’analyse de données"
+  },
+  "pdf-to-csv": {
+    "name": "Convertisseur PDF vers CSV",
+    "description": "Extrayez des données tabulaires de documents PDF vers le format CSV"
+  },
+  "file-protector": {
+    "name": "Protecteur de fichiers",
+    "description": "Ajoutez une protection par mot de passe à vos fichiers pour une sécurité renforcée"
+  },
+  "percentage-calculator": {
+    "name": "Calculateur de pourcentage",
+    "description": "Calculez des pourcentages, des augmentations et des diminutions en pourcentage"
+  },
+  "age-calculator": {
+    "name": "Calculateur d’âge",
+    "description": "Calculez votre âge exact en années, mois, jours, heures et minutes"
+  },
+  "love-calculator": {
+    "name": "Calculateur de compatibilité amoureuse",
+    "description": "Calculez le pourcentage de compatibilité amoureuse entre deux personnes"
+  },
+  "bmi-calculator": {
+    "name": "Calculateur d’IMC",
+    "description": "Calculez l’Indice de masse corporelle (IMC) et l’état de santé"
+  },
+  "loan-calculator": {
+    "name": "Calculateur de prêt",
+    "description": "Calculez les mensualités, les intérêts et le coût total d’un prêt"
+  },
+  "mortgage-calculator": {
+    "name": "Calculateur d’hypothèque",
+    "description": "Calculez les paiements hypothécaires, les taux d’intérêt et l’amortissement"
+  },
+  "retirement-calculator": {
+    "name": "Calculateur de retraite",
+    "description": "Calculez l’épargne retraite nécessaire et les projections d’investissement"
+  },
+  "investment-calculator": {
+    "name": "Calculateur d’investissement",
+    "description": "Calculez les intérêts composés et la croissance de vos investissements au fil du temps"
+  },
+  "coast-fire-calculator": {
+    "name": "Calculateur Coast FIRE",
+    "description": "Découvrez quand la croissance composée seule peut financer votre retraite"
+  },
+  "tax-calculator": {
+    "name": "Calculateur d’impôts",
+    "description": "Calculez l’impôt sur le revenu, les tranches et le salaire net"
+  },
+  "salary-calculator": {
+    "name": "Calculateur de salaire",
+    "description": "Convertissez entre taux horaires, mensuels et annuels"
+  },
+  "unit-converter": {
+    "name": "Convertisseur d’unités",
+    "description": "Convertissez entre différentes unités de mesure"
+  },
+  "currency-converter": {
+    "name": "Convertisseur de devises",
+    "description": "Convertissez entre différentes devises avec des taux de change en direct"
+  },
+  "temperature-converter": {
+    "name": "Convertisseur de température",
+    "description": "Convertissez entre les températures Celsius, Fahrenheit et Kelvin"
+  },
+  "length-converter": {
+    "name": "Convertisseur de longueur",
+    "description": "Convertissez entre différentes unités de longueur et de distance"
+  },
+  "weight-converter": {
+    "name": "Convertisseur de poids",
+    "description": "Convertissez entre différentes unités de poids et de masse"
+  },
+  "volume-converter": {
+    "name": "Convertisseur de volume",
+    "description": "Convertissez entre différentes unités de volume et de capacité"
+  },
+  "area-converter": {
+    "name": "Convertisseur de surface",
+    "description": "Convertissez entre différentes unités de surface et de mesure de superficie"
+  },
+  "qr-code-generator": {
+    "name": "Générateur de QR code",
+    "description": "Générez des QR codes pour du texte, des URL et plus encore"
+  },
+  "color-picker": {
+    "name": "Sélecteur de couleurs",
+    "description": "Choisissez des couleurs et obtenez les valeurs hex, RGB, HSL"
+  },
+  "color-palette-generator": {
+    "name": "Générateur de palettes de couleurs",
+    "description": "Générez de superbes palettes avec réorganisation par glisser-déposer, verrouillage des couleurs et export en plusieurs formats"
+  },
+  "google-indexing-api": {
+    "name": "Outil Google Indexing API",
+    "description": "Soumettez des URL de site web à la Google Indexing API pour une indexation plus rapide et une meilleure visibilité dans les recherches"
+  },
+  "json-formatter": {
+    "name": "Formateur & validateur JSON",
+    "description": "Formatez, validez et visualisez des données JSON avec une vue arborescente avancée, la détection d’erreurs et des options d’export"
+  },
+  "json-table-converter": {
+    "name": "Convertisseur JSON en tableau",
+    "description": "Convertissez JSON en CSV/Excel et inversement avec aperçu avancé, traitement par lots et cartographie intelligente des données"
+  },
+  "code-beautifier": {
+    "name": "Beautificateur & minificateur de code",
+    "description": "Formatez, minifiez et analysez du code JavaScript, CSS et HTML avec surlignage syntaxique, détection d’erreurs et explications IA"
+  },
+  "ai-color-palette-generator": {
+    "name": "Générateur de palettes de couleurs IA",
+    "description": "Générez de superbes palettes avec des suggestions IA, la vérification d’accessibilité et des options d’export professionnelles"
+  },
+  "ai-background-remover": {
+    "name": "Suppresseur d’arrière-plan IA",
+    "description": "Supprimez instantanément les arrière-plans d’images grâce à l’IA. Inclut un pinceau magique pour les retouches, le traitement par lots et des options d’export professionnelles"
+  },
+  "meme-generator": {
+    "name": "Générateur de mèmes IA",
+    "description": "Créez des mèmes viraux avec des modèles tendance, des suggestions de légendes par IA et des outils d’édition pro pour les réseaux sociaux"
+  },
+  "ai-writing-tools": {
+    "name": "Suite d’outils d’écriture IA",
+    "description": "Boîte à outils complète d’écriture IA : paraphraseur, résumeur, humaniseur et détecteur IA avec options de personnalisation avancées"
+  },
+  "ai-image-enhancer": {
+    "name": "Améliorateur d’images IA",
+    "description": "Améliorez vos photos avec l’IA : suréchantillonnage de la résolution, défloutage, restauration de vieilles photos et colorisation du noir et blanc"
+  },
+  "ai-resume-builder": {
+    "name": "Créateur de CV IA",
+    "description": "Créez des CV professionnels avec des suggestions IA, l’optimisation ATS, l’adéquation aux offres et des modèles d’experts"
+  },
+  "facebook-image-downloader": {
+    "name": "Téléchargeur d’images Facebook",
+    "description": "Téléchargeur gratuit d’images Facebook pour les publications publiques. Collez un lien pour télécharger des photos Facebook, des photos de profil (DP) et des photos de couverture en HD — sans appli, sans connexion, directement dans votre navigateur."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "Téléchargeur de miniatures YouTube",
+    "description": "Récupérez les miniatures YouTube en résolution maximale (4K/HD). Entrez un lien ou un ID de vidéo et téléchargez instantanément."
+  },
+  "instagram-reels-downloader": {
+    "name": "Téléchargeur de Reels Instagram",
+    "description": "Enregistrez des Reels Instagram et des courtes vidéos en haute qualité. Collez l’URL du reel et téléchargez rapidement."
+  },
+  "instagram-dp-viewer": {
+    "name": "Visionneuse de DP Instagram",
+    "description": "Affichez et téléchargez des photos de profil Instagram publiques en taille réelle. Fonctionne uniquement avec des DP visibles publiquement."
+  },
+  "youtube-embed-code-generator": {
+    "name": "Générateur de code d’intégration YouTube",
+    "description": "Créez des codes d’intégration YouTube responsives. Personnalisez le ratio, l’autoplay, les contrôles et copiez du HTML propre."
+  },
+  "ocr-text-extractor": {
+    "name": "Extracteur de texte OCR",
+    "description": "Extrayez du texte depuis des images et des PDF avec une technologie OCR avancée. Prise en charge de 12+ langues, traitement par lots et résultats modifiables"
+  },
+  "media-converter": {
+    "name": "Convertisseur multimédia",
+    "description": "Convertissez des vidéos, des fichiers audio et des archives entre formats. Prise en charge du traitement par lots, des préréglages de qualité et des réglages avancés"
+  },
+  "ebook-converter": {
+    "name": "Convertisseur d’e-books",
+    "description": "Convertissez des e-books entre les formats EPUB, MOBI, PDF et DOCX avec édition professionnelle des métadonnées et prise en charge des couvertures"
+  },
+  "font-converter": {
+    "name": "Convertisseur de polices",
+    "description": "Convertissez des polices entre TTF, OTF, WOFF et WOFF2 avec aperçu en direct, associations de polices par IA et options d’optimisation web"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Calculateur d’engagement Instagram",
+    "description": "Calculez le taux d’engagement Instagram avec des algorithmes avancés, des benchmarks sectoriels et des recommandations personnalisées pour réussir sur les réseaux sociaux"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Calculateur d’engagement Facebook",
+    "description": "Calculez le taux d’engagement Facebook avec des algorithmes avancés, des benchmarks sectoriels et des recommandations personnalisées pour réussir sur les réseaux sociaux"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Calculateur d’engagement Twitter",
+    "description": "Calculez le taux d’engagement Twitter avec des algorithmes avancés, des benchmarks sectoriels et des recommandations personnalisées pour réussir sur les réseaux sociaux"
+  },
+  "youtube-engagement-calculator": {
+    "name": "Calculateur d’engagement YouTube",
+    "description": "Calculez le taux d’engagement YouTube avec des algorithmes avancés, des benchmarks sectoriels et des recommandations personnalisées pour réussir vos vidéos"
+  },
+  "domain-whois-lookup": {
+    "name": "Recherche WHOIS de domaine",
+    "description": "Obtenez des informations complètes d’enregistrement de domaine avec notre outil WHOIS gratuit. Vérifiez instantanément le propriétaire, les dates d’enregistrement et les coordonnées."
+  },
+  "expired-domain-finder": {
+    "name": "Recherche de domaines expirés",
+    "description": "Découvrez des domaines expirés de valeur avec notre outil de recherche complet. Accédez instantanément aux scores d’autorité, aux données de backlinks et aux valeurs estimées."
+  },
+  "app-icon-generator": {
+    "name": "Générateur d’icônes d’application",
+    "description": "Générez des icônes d’app professionnelles pour toutes les plateformes avec le générateur avancé de Toolspy. Créez des icônes pour Android, iOS, Windows, macOS, Linux et le Web."
+  },
+  "pwa-icon-generator": {
+    "name": "Générateur d’icônes PWA",
+    "description": "Générez des icônes PWA et un fichier manifest pour les Progressive Web Apps, avec une protection totale de la confidentialité."
+  },
+  "favicon-generator": {
+    "name": "Générateur de favicon",
+    "description": "Générez des favicons pour votre site avec Toolspy. Créez des favicons pour tous les appareils et navigateurs."
+  },
+  "image-to-ico-converter": {
+    "name": "Convertisseur image en ICO",
+    "description": "Convertissez des images au format ICO avec le convertisseur avancé de Toolspy. Créez des fichiers ICO pour des applications Windows et le web."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Convertisseur Markdown en documents",
+    "description": "Convertissez du Markdown en documents avec le convertisseur avancé de Toolspy. Créez des documents HTML, PDF, Word et texte brut."
+  },
+  "gst-calculator": {
+    "name": "Calculateur GST",
+    "description": "Calculez la GST (Goods and Services Tax) en mode inclusif ou exclusif. Prise en charge de tous les taux de GST (0 %, 5 %, 12 %, 18 %, 28 %)"
+  },
+  "reverse-gst-calculator": {
+    "name": "Calculateur GST inversée",
+    "description": "Calculez le montant de base et la part de GST à partir du total. Idéal pour l’analyse de factures et la ventilation fiscale avec tous les taux de GST"
+  },
+  "hsn-sac-finder": {
+    "name": "Recherche de codes HSN/SAC",
+    "description": "Trouvez les codes HSN (Harmonized System of Nomenclature) et SAC (Services Accounting Code) avec les taux de GST. Recherche rapide avec auto-suggestion et liens de référence"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "Répartiteur CGST/SGST/IGST",
+    "description": "Répartissez automatiquement la GST en CGST, SGST et IGST selon les transactions intra-État vs inter-États. Idéal pour comprendre la répartition de la GST entre États"
+  },
+  "itc-calculator": {
+    "name": "Calculateur de crédit de taxe en amont (ITC)",
+    "description": "Suivez les crédits réclamables vs bloqués avec un calculateur ITC professionnel. Idéal pour comprendre l’éligibilité ITC et la conformité"
+  },
+  "e-invoice-qr-validator": {
+    "name": "Validateur E-Invoice/QR code",
+    "description": "Téléversez/scannez des QR codes E-Invoice pour valider le statut d’une facture et extraire les informations. Idéal pour la vérification des factures et les contrôles de conformité"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Estimateur Composition vs Regular Scheme",
+    "description": "Comparez la charge fiscale entre les régimes GST Composition et Regular. Idéal pour choisir le schéma optimal pour votre entreprise"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "Calculateur de pénalités/frais de retard",
+    "description": "Calculez automatiquement les frais de retard et les intérêts de dépôt GSTR avec un calculateur professionnel. Idéal pour comprendre l’impact des pénalités et planifier la conformité"
+  },
+  "jee-main-rank-predictor": {
+    "name": "Prédicteur de rang JEE Main",
+    "description": "Prédisez votre rang JEE Main et vos options d’universités selon le percentile. Idéal pour estimer vos chances d’admission et planifier votre parcours d’ingénierie"
+  },
+  "neet-rank-predictor": {
+    "name": "Prédicteur de rang NEET",
+    "description": "Prédisez votre rang NEET et vos options de facultés de médecine selon le score. Idéal pour estimer vos chances d’admission et planifier votre parcours médical"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "Prédicteur de rang JEE Advanced",
+    "description": "Prédisez votre rang JEE Advanced et vos options IIT selon le score. Idéal pour estimer vos chances d’admission et planifier votre parcours IIT"
+  },
+  "gate-rank-predictor": {
+    "name": "Prédicteur de rang GATE",
+    "description": "Prédisez votre rang GATE et vos options d’établissements selon le score et la matière. Idéal pour estimer vos chances d’admission et planifier votre parcours de troisième cycle"
+  },
+  "cat-percentile-predictor": {
+    "name": "Prédicteur de percentile CAT",
+    "description": "Prédisez votre percentile CAT et vos options d’écoles MBA selon les scores par section. Idéal pour estimer vos chances d’admission et planifier votre parcours MBA"
+  },
+  "upsc-rank-predictor": {
+    "name": "Prédicteur de rang UPSC",
+    "description": "Prédisez votre rang UPSC et vos options de services civils selon les scores. Idéal pour comprendre l’affectation des services et planifier votre carrière dans la fonction publique"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "Prédicteur de rang SSC CGL",
+    "description": "Prédisez votre rang SSC CGL et vos options d’emplois publics selon les scores. Idéal pour comprendre l’affectation des postes et planifier votre carrière dans le secteur public"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Prédicteur de rang Bank PO",
+    "description": "Prédisez votre rang Bank PO et vos options d’emplois bancaires selon les scores. Idéal pour comprendre l’affectation des banques et planifier votre carrière bancaire"
+  },
+  "website-screenshot": {
+    "name": "Capture d’écran de site web",
+    "description": "Capturez des captures d’écran de haute qualité de n’importe quel site web, dans différents formats et tailles. Capture pleine page, préréglages multi-appareils et téléchargements instantanés"
+  }
+}

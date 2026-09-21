@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "Kompres Gambar",
+    "description": "Kompres gambar dengan mesin canggih Toolspy untuk mengecilkan ukuran file tanpa mengorbankan kualitas"
+  },
+  "online-image-cropper": {
+    "name": "Crop Gambar Online",
+    "description": "Crop gambar dengan seleksi bebas, rasio aspek, atau bentuk preset seperti lingkaran dan poligon — berjalan langsung di browser Anda."
+  },
+  "image-converter": {
+    "name": "Konverter Gambar",
+    "description": "Konversi gambar antar format (PNG, JPG, WebP, SVG, dll.)"
+  },
+  "image-resizer": {
+    "name": "Ubah Ukuran Gambar",
+    "description": "Ubah ukuran gambar ke dimensi tertentu atau berdasarkan persentase"
+  },
+  "image-optimizer": {
+    "name": "Optimasi Gambar",
+    "description": "Optimalkan gambar untuk loading lebih cepat dan performa lebih baik"
+  },
+  "jfif-to-jpg": {
+    "name": "Konverter JFIF ke JPG",
+    "description": "Konversi gambar JFIF ke format JPG/JPEG dengan kualitas tinggi tetap terjaga"
+  },
+  "base64-to-image": {
+    "name": "Konverter Base64 ke Gambar",
+    "description": "Ubah string ber-encode Base64 kembali menjadi file gambar dengan konverter aman Toolspy"
+  },
+  "image-to-base64": {
+    "name": "Encoder Gambar ke Base64",
+    "description": "Ubah gambar menjadi string Base64 untuk embedding dengan encoder profesional Toolspy"
+  },
+  "base64-encoder-decoder": {
+    "name": "Encoder/Decoder Base64",
+    "description": "Encode dan decode teks ke/dari format Base64"
+  },
+  "pdf-converter": {
+    "name": "Konverter PDF",
+    "description": "Konversi PDF ke berbagai format dan sebaliknya"
+  },
+  "pdf-to-word": {
+    "name": "PDF ke Word",
+    "description": "Konversi dokumen PDF menjadi file Word yang dapat diedit"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF ke JPG",
+    "description": "Konversi halaman PDF menjadi gambar JPG"
+  },
+  "jfif-to-pdf": {
+    "name": "Konverter JFIF ke PDF",
+    "description": "Konversi gambar JFIF menjadi dokumen PDF dengan kualitas profesional"
+  },
+  "merge-pdf": {
+    "name": "Gabungkan File PDF",
+    "description": "Gabungkan beberapa file PDF menjadi satu dokumen"
+  },
+  "pdf-to-image": {
+    "name": "Konverter PDF ke Gambar",
+    "description": "Konversi halaman PDF ke berbagai format gambar (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "Kompres PDF",
+    "description": "Kompres file PDF untuk mengurangi ukuran file sambil mempertahankan kualitas"
+  },
+  "heic-to-pdf": {
+    "name": "Konverter HEIC ke PDF",
+    "description": "Konversi gambar HEIC menjadi dokumen PDF dengan kualitas tinggi"
+  },
+  "image-to-pdf": {
+    "name": "Konverter Gambar ke PDF",
+    "description": "Konversi JPG, PNG, WebP, dan gambar lain menjadi satu PDF online"
+  },
+  "split-pdf": {
+    "name": "Pisahkan File PDF",
+    "description": "Pisahkan dokumen PDF besar menjadi file yang lebih kecil berdasarkan rentang halaman"
+  },
+  "pdf-password-remover": {
+    "name": "Penghapus Password PDF",
+    "description": "Hapus proteksi password dari file PDF secara instan"
+  },
+  "pdf-to-excel": {
+    "name": "Konverter PDF ke Excel",
+    "description": "Konversi dokumen PDF menjadi spreadsheet Excel untuk analisis data"
+  },
+  "pdf-to-csv": {
+    "name": "Konverter PDF ke CSV",
+    "description": "Ekstrak data tabel dari dokumen PDF ke format CSV"
+  },
+  "file-protector": {
+    "name": "Pelindung File",
+    "description": "Tambahkan proteksi password pada file Anda untuk keamanan yang lebih baik"
+  },
+  "percentage-calculator": {
+    "name": "Kalkulator Persentase",
+    "description": "Hitung persentase, kenaikan persentase, dan penurunan persentase"
+  },
+  "age-calculator": {
+    "name": "Kalkulator Usia",
+    "description": "Hitung usia Anda secara tepat dalam tahun, bulan, hari, jam, dan menit"
+  },
+  "love-calculator": {
+    "name": "Kalkulator Cinta",
+    "description": "Hitung persentase kecocokan cinta antara dua orang"
+  },
+  "bmi-calculator": {
+    "name": "Kalkulator BMI",
+    "description": "Hitung Body Mass Index (BMI) dan status kesehatan"
+  },
+  "loan-calculator": {
+    "name": "Kalkulator Pinjaman",
+    "description": "Hitung cicilan bulanan, bunga, dan total biaya pinjaman"
+  },
+  "mortgage-calculator": {
+    "name": "Kalkulator KPR",
+    "description": "Hitung pembayaran KPR, suku bunga, dan amortisasi"
+  },
+  "retirement-calculator": {
+    "name": "Kalkulator Pensiun",
+    "description": "Hitung kebutuhan tabungan pensiun dan proyeksi investasi"
+  },
+  "investment-calculator": {
+    "name": "Kalkulator Investasi",
+    "description": "Hitung bunga majemuk dan pertumbuhan investasi dari waktu ke waktu"
+  },
+  "coast-fire-calculator": {
+    "name": "Kalkulator Coast FIRE",
+    "description": "Cari tahu kapan pertumbuhan majemuk saja sudah cukup untuk membiayai pensiun Anda"
+  },
+  "tax-calculator": {
+    "name": "Kalkulator Pajak",
+    "description": "Hitung pajak penghasilan, bracket pajak, dan take-home pay"
+  },
+  "salary-calculator": {
+    "name": "Kalkulator Gaji",
+    "description": "Konversi gaji per jam, per bulan, dan per tahun"
+  },
+  "unit-converter": {
+    "name": "Konverter Satuan",
+    "description": "Konversi berbagai satuan pengukuran"
+  },
+  "currency-converter": {
+    "name": "Konverter Mata Uang",
+    "description": "Konversi antar mata uang dengan kurs live"
+  },
+  "temperature-converter": {
+    "name": "Konverter Suhu",
+    "description": "Konversi suhu antara Celsius, Fahrenheit, dan Kelvin"
+  },
+  "length-converter": {
+    "name": "Konverter Panjang",
+    "description": "Konversi satuan panjang dan jarak"
+  },
+  "weight-converter": {
+    "name": "Konverter Berat",
+    "description": "Konversi satuan berat dan massa"
+  },
+  "volume-converter": {
+    "name": "Konverter Volume",
+    "description": "Konversi satuan volume dan kapasitas"
+  },
+  "area-converter": {
+    "name": "Konverter Luas",
+    "description": "Konversi satuan luas dan pengukuran permukaan"
+  },
+  "qr-code-generator": {
+    "name": "Generator QR Code",
+    "description": "Buat QR code untuk teks, URL, dan lainnya"
+  },
+  "color-picker": {
+    "name": "Color Picker",
+    "description": "Pilih warna dan dapatkan nilai hex, RGB, HSL"
+  },
+  "color-palette-generator": {
+    "name": "Generator Palet Warna",
+    "description": "Buat palet warna yang indah dengan reordering drag-and-drop, kunci warna, dan ekspor dalam berbagai format"
+  },
+  "google-indexing-api": {
+    "name": "Tool Google Indexing API",
+    "description": "Kirim URL website ke Google Indexing API untuk indexing lebih cepat dan visibilitas pencarian yang lebih baik"
+  },
+  "json-formatter": {
+    "name": "JSON Formatter & Validator",
+    "description": "Format, validasi, dan visualisasikan data JSON dengan tree view canggih, deteksi error, dan opsi ekspor"
+  },
+  "json-table-converter": {
+    "name": "Konverter Tabel JSON",
+    "description": "Konversi JSON ke CSV/Excel dan sebaliknya dengan preview canggih, pemrosesan batch, dan pemetaan data cerdas"
+  },
+  "code-beautifier": {
+    "name": "Beautifier & Minifier Kode",
+    "description": "Format, minify, dan analisis kode JavaScript, CSS, HTML dengan syntax highlighting, deteksi error, dan penjelasan AI"
+  },
+  "ai-color-palette-generator": {
+    "name": "Generator Palet Warna AI",
+    "description": "Buat palet warna yang indah dengan saran AI, pengecekan aksesibilitas, dan opsi ekspor profesional"
+  },
+  "ai-background-remover": {
+    "name": "Penghapus Background AI",
+    "description": "Hapus background gambar secara instan dengan AI. Fitur magic brush untuk retouch, pemrosesan batch, dan opsi ekspor profesional"
+  },
+  "meme-generator": {
+    "name": "Generator Meme AI",
+    "description": "Buat meme viral dengan template trending, saran caption AI, dan alat editing profesional untuk media sosial"
+  },
+  "ai-writing-tools": {
+    "name": "Suite AI Writing Tools",
+    "description": "Toolkit menulis AI lengkap: Paraphraser, Summarizer, Humanizer, dan AI Detector dengan opsi kustomisasi lanjutan"
+  },
+  "ai-image-enhancer": {
+    "name": "AI Image Enhancer",
+    "description": "Tingkatkan foto dengan AI: upscale resolusi, hilangkan blur, pulihkan foto lama, dan warnai foto hitam-putih"
+  },
+  "ai-resume-builder": {
+    "name": "AI Resume Builder",
+    "description": "Buat resume profesional dengan saran berbasis AI, optimasi ATS, job matching, dan template ahli"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook Image Downloader",
+    "description": "Downloader gambar Facebook gratis untuk posting publik. Tempel link untuk mengunduh foto Facebook, foto profil (DP), dan cover photo dalam HD — tanpa app, tanpa login, langsung di browser."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube Thumbnail Downloader",
+    "description": "Dapatkan thumbnail YouTube dengan resolusi maksimum (4K/HD). Masukkan link video atau ID dan unduh instan."
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels Downloader",
+    "description": "Simpan Instagram Reels dan video pendek dengan kualitas tinggi. Tempel URL reel dan unduh cepat."
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP Viewer",
+    "description": "Lihat dan unduh foto profil Instagram publik dalam ukuran penuh. Hanya berfungsi untuk DP yang dapat dilihat publik."
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube Embed Code Generator",
+    "description": "Buat kode embed YouTube yang responsif. Kustomisasi rasio aspek, autoplay, kontrol, dan salin HTML yang bersih."
+  },
+  "ocr-text-extractor": {
+    "name": "OCR Text Extractor",
+    "description": "Ekstrak teks dari gambar dan PDF dengan teknologi OCR canggih. Mendukung 12+ bahasa, pemrosesan batch, dan hasil yang dapat diedit"
+  },
+  "media-converter": {
+    "name": "Media Converter",
+    "description": "Konversi video, audio, dan arsip antar format. Mendukung pemrosesan batch, preset kualitas, dan pengaturan lanjutan"
+  },
+  "ebook-converter": {
+    "name": "Konverter E-book",
+    "description": "Konversi e-book antara format EPUB, MOBI, PDF, DOCX dengan editing metadata profesional dan dukungan cover image"
+  },
+  "font-converter": {
+    "name": "Font Converter",
+    "description": "Konversi font antara TTF, OTF, WOFF, WOFF2 dengan live preview, AI font pairings, dan fitur optimasi web"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram Engagement",
+    "description": "Hitung engagement rate Instagram dengan algoritma canggih, benchmark industri, dan rekomendasi personal untuk sukses di media sosial"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook Engagement",
+    "description": "Hitung engagement rate Facebook dengan algoritma canggih, benchmark industri, dan rekomendasi personal untuk sukses di media sosial"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter Engagement",
+    "description": "Hitung engagement rate Twitter dengan algoritma canggih, benchmark industri, dan rekomendasi personal untuk sukses di media sosial"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube Engagement",
+    "description": "Hitung engagement rate YouTube dengan algoritma canggih, benchmark industri, dan rekomendasi personal untuk sukses video"
+  },
+  "domain-whois-lookup": {
+    "name": "Domain WHOIS Lookup",
+    "description": "Dapatkan info pendaftaran domain secara lengkap dengan tool WHOIS gratis kami. Cek kepemilikan domain, tanggal registrasi, dan detail kontak secara instan."
+  },
+  "expired-domain-finder": {
+    "name": "Expired Domain Finder",
+    "description": "Temukan expired domain yang bernilai dengan tool pencarian komprehensif. Akses instan ke skor domain authority, data backlink, dan perkiraan nilai."
+  },
+  "app-icon-generator": {
+    "name": "App Icon Generator",
+    "description": "Buat ikon aplikasi profesional untuk semua platform dengan generator ikon canggih Toolspy. Buat ikon untuk Android, iOS, Windows, macOS, Linux, dan Web."
+  },
+  "pwa-icon-generator": {
+    "name": "PWA Icon Generator",
+    "description": "Buat ikon PWA dan file manifest untuk Progressive Web Apps dengan perlindungan privasi penuh."
+  },
+  "favicon-generator": {
+    "name": "Favicon Generator",
+    "description": "Buat favicon untuk website Anda dengan Toolspy. Buat favicon untuk semua perangkat dan browser."
+  },
+  "image-to-ico-converter": {
+    "name": "Konverter Gambar ke ICO",
+    "description": "Konversi gambar ke format ICO dengan konverter canggih Toolspy. Buat file ICO untuk aplikasi Windows dan web."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Konverter Markdown ke Dokumen",
+    "description": "Konversi Markdown menjadi dokumen dengan konverter canggih Toolspy. Buat dokumen HTML, PDF, Word, dan plain text."
+  },
+  "gst-calculator": {
+    "name": "Kalkulator GST",
+    "description": "Hitung GST (Goods and Services Tax) dengan mode inclusive dan exclusive. Mendukung semua tarif GST (0%, 5%, 12%, 18%, 28%)"
+  },
+  "reverse-gst-calculator": {
+    "name": "Kalkulator Reverse GST",
+    "description": "Hitung base amount dan komponen GST dari total amount. Cocok untuk analisis invoice dan breakdown pajak untuk semua tarif GST"
+  },
+  "hsn-sac-finder": {
+    "name": "Pencari Kode HSN/SAC",
+    "description": "Temukan kode HSN (Harmonized System of Nomenclature) dan SAC (Services Accounting Code) beserta tarif GST. Pencarian cepat dengan auto-suggest dan link referensi"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "Splitter CGST/SGST/IGST",
+    "description": "Otomatis membagi GST menjadi CGST, SGST, dan IGST berdasarkan transaksi intra-state vs inter-state. Cocok untuk memahami distribusi GST antar negara bagian"
+  },
+  "itc-calculator": {
+    "name": "Kalkulator Input Tax Credit (ITC)",
+    "description": "Lacak kredit yang bisa diklaim vs kredit yang diblokir dengan kalkulator ITC profesional. Cocok untuk memahami kelayakan ITC dan compliance"
+  },
+  "e-invoice-qr-validator": {
+    "name": "Validator E-Invoice/QR Code",
+    "description": "Upload/scan QR code E-Invoice untuk memvalidasi status invoice dan mengekstrak informasi. Cocok untuk verifikasi invoice dan pengecekan compliance"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Estimator Skema Composition vs Regular",
+    "description": "Bandingkan kewajiban pajak di skema Composition dan Regular GST. Cocok untuk memilih skema paling optimal untuk bisnis Anda"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "Kalkulator Denda/Late Fee",
+    "description": "Hitung otomatis late fee dan bunga keterlambatan filing GSTR dengan kalkulator profesional. Cocok untuk memahami dampak denda dan perencanaan compliance"
+  },
+  "jee-main-rank-predictor": {
+    "name": "Prediktor Peringkat JEE Main",
+    "description": "Prediksi peringkat JEE Main dan opsi kampus berdasarkan persentil. Cocok untuk memahami peluang masuk dan merencanakan perjalanan engineering Anda"
+  },
+  "neet-rank-predictor": {
+    "name": "Prediktor Peringkat NEET",
+    "description": "Prediksi peringkat NEET dan opsi kampus kedokteran berdasarkan skor. Cocok untuk memahami peluang masuk dan merencanakan perjalanan medis Anda"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "Prediktor Peringkat JEE Advanced",
+    "description": "Prediksi peringkat JEE Advanced dan opsi IIT berdasarkan skor. Cocok untuk memahami peluang masuk dan merencanakan perjalanan IIT Anda"
+  },
+  "gate-rank-predictor": {
+    "name": "Prediktor Peringkat GATE",
+    "description": "Prediksi peringkat GATE dan opsi kampus berdasarkan skor dan subject. Cocok untuk memahami peluang masuk dan merencanakan studi pascasarjana Anda"
+  },
+  "cat-percentile-predictor": {
+    "name": "Prediktor Persentil CAT",
+    "description": "Prediksi persentil CAT dan opsi kampus MBA berdasarkan skor per seksi. Cocok untuk memahami peluang masuk dan merencanakan perjalanan MBA Anda"
+  },
+  "upsc-rank-predictor": {
+    "name": "Prediktor Peringkat UPSC",
+    "description": "Prediksi peringkat UPSC dan opsi civil service berdasarkan skor ujian. Cocok untuk memahami alokasi layanan dan merencanakan karier civil service Anda"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "Prediktor Peringkat SSC CGL",
+    "description": "Prediksi peringkat SSC CGL dan opsi pekerjaan pemerintah berdasarkan skor ujian. Cocok untuk memahami alokasi pos dan merencanakan karier pemerintahan Anda"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Prediktor Peringkat Bank PO",
+    "description": "Prediksi peringkat Bank PO dan opsi pekerjaan perbankan berdasarkan skor ujian. Cocok untuk memahami alokasi bank dan merencanakan karier perbankan Anda"
+  },
+  "website-screenshot": {
+    "name": "Screenshot Website",
+    "description": "Ambil screenshot berkualitas tinggi dari website apa pun dalam berbagai format dan ukuran. Capture full-page, preset perangkat, dan unduhan instan"
+  }
+}

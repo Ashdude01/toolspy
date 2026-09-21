@@ -43,7 +43,8 @@ import React from "react";
 import Link from "next/link";
 import { TypewriterText } from "@/components/ui/typewriter-text";
 import { ToolCard } from "@/components/tools/tool-card";
-import { useT } from "@/lib/i18n/use-t";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 interface ToolsGridProps {
   searchQuery: string;
@@ -58,6 +59,7 @@ export function ToolsGrid({
   popularTools: popularToolsProp,
 }: ToolsGridProps) {
   const t = useT();
+  const locale = useLocale();
   const [selectedCategory, setSelectedCategory] = useState<
     ToolCategory | "all"
   >("all");
@@ -84,12 +86,16 @@ export function ToolsGrid({
 
     if (searchQuery.trim()) {
       const lowercaseQuery = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (tool) =>
+      filtered = filtered.filter((tool) => {
+        const copy = getToolCopy(tool.slug, locale);
+        return (
           tool.name.toLowerCase().includes(lowercaseQuery) ||
+          copy.name.toLowerCase().includes(lowercaseQuery) ||
           tool.description.toLowerCase().includes(lowercaseQuery) ||
+          copy.description.toLowerCase().includes(lowercaseQuery) ||
           tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-      );
+        );
+      });
     }
 
     setFilteredTools(filtered);
@@ -98,7 +104,7 @@ export function ToolsGrid({
   // Trigger filter when search or category changes
   React.useEffect(() => {
     filterTools();
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, locale]);
 
   const hasFilters = searchQuery.trim() || selectedCategory !== "all";
 

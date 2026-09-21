@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "Görsel Sıkıştırıcı",
+    "description": "Toolspy’nin gelişmiş motoruyla görselleri kaliteyi koruyarak sıkıştırın ve dosya boyutunu küçültün"
+  },
+  "online-image-cropper": {
+    "name": "Online Görsel Kırpıcı",
+    "description": "Serbest seçim, en-boy oranı veya daire/çokgen gibi hazır şekillerle görsel kırpın — tarayıcınızda çalışır."
+  },
+  "image-converter": {
+    "name": "Görsel Dönüştürücü",
+    "description": "Görselleri farklı formatlar arasında dönüştürün (PNG, JPG, WebP, SVG vb.)"
+  },
+  "image-resizer": {
+    "name": "Görsel Boyutlandırıcı",
+    "description": "Görselleri belirli ölçülere veya yüzdelere göre yeniden boyutlandırın"
+  },
+  "image-optimizer": {
+    "name": "Görsel Optimize Edici",
+    "description": "Daha hızlı yükleme ve daha iyi performans için görselleri optimize edin"
+  },
+  "jfif-to-jpg": {
+    "name": "JFIF → JPG Dönüştürücü",
+    "description": "JFIF görsellerini, yüksek kaliteyi koruyarak JPG/JPEG formatına dönüştürün"
+  },
+  "base64-to-image": {
+    "name": "Base64 → Görsel Dönüştürücü",
+    "description": "Base64 kodlu dizeleri Toolspy’nin güvenli dönüştürücüsüyle tekrar görsel dosyalarına çevirin"
+  },
+  "image-to-base64": {
+    "name": "Görsel → Base64 Kodlayıcı",
+    "description": "Görselleri, gömme amaçlı Base64 kodlu dizelere Toolspy’nin profesyonel encoder’ı ile dönüştürün"
+  },
+  "base64-encoder-decoder": {
+    "name": "Base64 Kodlayıcı/Çözücü",
+    "description": "Metni Base64 formatına kodlayın ve Base64’ten çözün"
+  },
+  "pdf-converter": {
+    "name": "PDF Dönüştürücü",
+    "description": "PDF’leri farklı formatlara dönüştürün ve tersini yapın"
+  },
+  "pdf-to-word": {
+    "name": "PDF → Word",
+    "description": "PDF belgelerini düzenlenebilir Word dosyalarına dönüştürün"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF → JPG",
+    "description": "PDF sayfalarını JPG görsellerine dönüştürün"
+  },
+  "jfif-to-pdf": {
+    "name": "JFIF → PDF Dönüştürücü",
+    "description": "JFIF görsellerini profesyonel kalitede PDF belgelerine dönüştürün"
+  },
+  "merge-pdf": {
+    "name": "PDF Dosyalarını Birleştir",
+    "description": "Birden fazla PDF dosyasını tek bir belgede birleştirin"
+  },
+  "pdf-to-image": {
+    "name": "PDF → Görsel Dönüştürücü",
+    "description": "PDF sayfalarını farklı görsel formatlarına dönüştürün (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "PDF Sıkıştırıcı",
+    "description": "Kaliteyi koruyarak PDF dosyalarının boyutunu küçültün"
+  },
+  "heic-to-pdf": {
+    "name": "HEIC → PDF Dönüştürücü",
+    "description": "HEIC görsellerini yüksek kaliteyle PDF belgelerine dönüştürün"
+  },
+  "image-to-pdf": {
+    "name": "Görsel → PDF Dönüştürücü",
+    "description": "JPG, PNG, WebP ve diğer görselleri tek bir PDF içinde çevrim içi birleştirin"
+  },
+  "split-pdf": {
+    "name": "PDF Dosyalarını Böl",
+    "description": "Büyük PDF belgelerini sayfa aralıklarına göre daha küçük dosyalara bölün"
+  },
+  "pdf-password-remover": {
+    "name": "PDF Parola Kaldırıcı",
+    "description": "PDF dosyalarındaki parola korumasını anında kaldırın"
+  },
+  "pdf-to-excel": {
+    "name": "PDF → Excel Dönüştürücü",
+    "description": "PDF belgelerini veri analizi için Excel tablolarına dönüştürün"
+  },
+  "pdf-to-csv": {
+    "name": "PDF → CSV Dönüştürücü",
+    "description": "PDF belgelerinden tablo verilerini CSV formatına çıkarın"
+  },
+  "file-protector": {
+    "name": "Dosya Koruyucu",
+    "description": "Daha güçlü güvenlik için dosyalarınıza parola koruması ekleyin"
+  },
+  "percentage-calculator": {
+    "name": "Yüzde Hesaplayıcı",
+    "description": "Yüzdeleri, yüzde artışlarını ve azalışlarını hesaplayın"
+  },
+  "age-calculator": {
+    "name": "Yaş Hesaplayıcı",
+    "description": "Yaşınızı yıl, ay, gün, saat ve dakika olarak tam hesaplayın"
+  },
+  "love-calculator": {
+    "name": "Aşk Uyumu Hesaplayıcı",
+    "description": "İki kişi arasındaki aşk uyumu yüzdesini hesaplayın"
+  },
+  "bmi-calculator": {
+    "name": "BMI Hesaplayıcı",
+    "description": "Vücut Kitle İndeksi (BMI) ve sağlık durumunu hesaplayın"
+  },
+  "loan-calculator": {
+    "name": "Kredi Hesaplayıcı",
+    "description": "Aylık kredi taksitlerini, faizi ve toplam maliyeti hesaplayın"
+  },
+  "mortgage-calculator": {
+    "name": "Konut Kredisi Hesaplayıcı",
+    "description": "Konut kredisi taksitlerini, faiz oranlarını ve amortismanı hesaplayın"
+  },
+  "retirement-calculator": {
+    "name": "Emeklilik Hesaplayıcı",
+    "description": "Gerekli emeklilik birikimini ve yatırım projeksiyonlarını hesaplayın"
+  },
+  "investment-calculator": {
+    "name": "Yatırım Hesaplayıcı",
+    "description": "Bileşik faizi ve zaman içindeki yatırım büyümesini hesaplayın"
+  },
+  "coast-fire-calculator": {
+    "name": "Coast FIRE Hesaplayıcı",
+    "description": "Yalnızca bileşik büyümenin emekliliğinizi finanse edebileceği zamanı bulun"
+  },
+  "tax-calculator": {
+    "name": "Vergi Hesaplayıcı",
+    "description": "Gelir vergisini, vergi dilimlerini ve ele geçen net ücreti hesaplayın"
+  },
+  "salary-calculator": {
+    "name": "Maaş Hesaplayıcı",
+    "description": "Saatlik, aylık ve yıllık maaş oranları arasında dönüşüm yapın"
+  },
+  "unit-converter": {
+    "name": "Birim Dönüştürücü",
+    "description": "Farklı ölçüm birimleri arasında dönüşüm yapın"
+  },
+  "currency-converter": {
+    "name": "Döviz Dönüştürücü",
+    "description": "Canlı kur bilgileriyle farklı para birimleri arasında dönüşüm yapın"
+  },
+  "temperature-converter": {
+    "name": "Sıcaklık Dönüştürücü",
+    "description": "Celsius, Fahrenheit ve Kelvin arasında sıcaklık dönüştürün"
+  },
+  "length-converter": {
+    "name": "Uzunluk Dönüştürücü",
+    "description": "Uzunluk ve mesafe birimleri arasında dönüşüm yapın"
+  },
+  "weight-converter": {
+    "name": "Ağırlık Dönüştürücü",
+    "description": "Ağırlık ve kütle birimleri arasında dönüşüm yapın"
+  },
+  "volume-converter": {
+    "name": "Hacim Dönüştürücü",
+    "description": "Hacim ve kapasite birimleri arasında dönüşüm yapın"
+  },
+  "area-converter": {
+    "name": "Alan Dönüştürücü",
+    "description": "Alan ve yüzey ölçümü birimleri arasında dönüşüm yapın"
+  },
+  "qr-code-generator": {
+    "name": "QR Kod Oluşturucu",
+    "description": "Metin, URL ve daha fazlası için QR kodları oluşturun"
+  },
+  "color-picker": {
+    "name": "Renk Seçici",
+    "description": "Renk seçin ve hex, RGB, HSL değerlerini alın"
+  },
+  "color-palette-generator": {
+    "name": "Renk Paleti Oluşturucu",
+    "description": "Sürükle-bırak sıralama, renk kilitleme ve çoklu format dışa aktarma ile şık renk paletleri oluşturun"
+  },
+  "google-indexing-api": {
+    "name": "Google Indexing API Aracı",
+    "description": "Daha hızlı indeksleme ve daha iyi arama görünürlüğü için web sitesi URL’lerini Google Indexing API’ye gönderin"
+  },
+  "json-formatter": {
+    "name": "JSON Biçimlendirici ve Doğrulayıcı",
+    "description": "Gelişmiş ağaç görünümü, hata tespiti ve dışa aktarma seçenekleriyle JSON verisini biçimlendirin, doğrulayın ve görselleştirin"
+  },
+  "json-table-converter": {
+    "name": "JSON Tablo Dönüştürücü",
+    "description": "Gelişmiş önizleme, toplu işlem ve akıllı veri eşleme ile JSON’u CSV/Excel’e (ve tersini) dönüştürün"
+  },
+  "code-beautifier": {
+    "name": "Kod Biçimlendirici ve Küçültücü",
+    "description": "Sözdizimi vurgulama, hata tespiti ve AI açıklamalarıyla JavaScript, CSS ve HTML kodunu biçimlendirin, küçültün ve analiz edin"
+  },
+  "ai-color-palette-generator": {
+    "name": "AI Renk Paleti Oluşturucu",
+    "description": "AI önerileri, erişilebilirlik kontrolü ve profesyonel dışa aktarma seçenekleriyle güzel renk paletleri üretin"
+  },
+  "ai-background-remover": {
+    "name": "AI Arka Plan Kaldırıcı",
+    "description": "AI ile görsel arka planlarını anında kaldırın. Rötuş için sihirli fırça, toplu işleme ve profesyonel dışa aktarma seçenekleri içerir"
+  },
+  "meme-generator": {
+    "name": "AI Meme Oluşturucu",
+    "description": "Trend şablonlar, AI başlık önerileri ve sosyal medya için profesyonel düzenleme araçlarıyla viral memeler oluşturun"
+  },
+  "ai-writing-tools": {
+    "name": "AI Yazma Araçları Paketi",
+    "description": "Tam AI yazma araç seti: Paraphraser, Summarizer, Humanizer ve AI Detector — gelişmiş özelleştirme seçenekleriyle"
+  },
+  "ai-image-enhancer": {
+    "name": "AI Görsel İyileştirici",
+    "description": "AI ile fotoğrafları iyileştirin: çözünürlüğü yükseltin, bulanıklığı giderin, eski fotoğrafları onarın ve siyah-beyaz görselleri renklendirin"
+  },
+  "ai-resume-builder": {
+    "name": "AI CV Oluşturucu",
+    "description": "AI destekli öneriler, ATS optimizasyonu, iş eşleştirme ve uzman şablonlarla profesyonel CV’ler hazırlayın"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook Görsel İndirici",
+    "description": "Herkese açık gönderiler için ücretsiz Facebook görsel indirici. Bağlantıyı yapıştırın; Facebook fotoğraflarını, profil fotoğraflarını (DP) ve kapak görsellerini HD olarak indirin — uygulama yok, giriş yok, tarayıcınızda."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube Küçük Resim İndirici",
+    "description": "YouTube video küçük resimlerini en yüksek çözünürlükte (4K/HD) alın. Video bağlantısını veya ID’yi girin ve anında indirin."
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels İndirici",
+    "description": "Instagram Reels ve kısa videoları yüksek kalitede kaydedin. Reels URL’sini yapıştırın ve hızlıca indirin."
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP Görüntüleyici",
+    "description": "Herkese açık Instagram profil fotoğraflarını tam boyutta görüntüleyin ve indirin. Yalnızca herkese açık DPlar için çalışır."
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube Gömme Kodu Oluşturucu",
+    "description": "Duyarlı YouTube gömme kodları oluşturun. En-boy oranı, otomatik oynatma ve kontrolleri özelleştirin; temiz HTML’yi kopyalayın."
+  },
+  "ocr-text-extractor": {
+    "name": "OCR Metin Çıkarıcı",
+    "description": "Gelişmiş OCR teknolojisiyle görsellerden ve PDF’lerden metin çıkarın. 12+ dil desteği, toplu işlem ve düzenlenebilir sonuçlar"
+  },
+  "media-converter": {
+    "name": "Medya Dönüştürücü",
+    "description": "Video, ses dosyaları ve arşivleri formatlar arasında dönüştürün. Toplu işlem, kalite ön ayarları ve gelişmiş ayarlar desteği"
+  },
+  "ebook-converter": {
+    "name": "E-kitap Dönüştürücü",
+    "description": "E-kitapları EPUB, MOBI, PDF, DOCX formatları arasında dönüştürün; profesyonel meta veri düzenleme ve kapak görseli desteği"
+  },
+  "font-converter": {
+    "name": "Yazı Tipi Dönüştürücü",
+    "description": "Yazı tiplerini TTF, OTF, WOFF, WOFF2 arasında dönüştürün; canlı önizleme, AI yazı tipi eşleştirmeleri ve web optimizasyonu özellikleri"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram Etkileşim",
+    "description": "Gelişmiş algoritmalar, sektör kıyasları ve sosyal medya başarısı için kişiselleştirilmiş önerilerle Instagram etkileşim oranını hesaplayın"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook Etkileşim",
+    "description": "Gelişmiş algoritmalar, sektör kıyasları ve sosyal medya başarısı için kişiselleştirilmiş önerilerle Facebook etkileşim oranını hesaplayın"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter Etkileşim",
+    "description": "Gelişmiş algoritmalar, sektör kıyasları ve sosyal medya başarısı için kişiselleştirilmiş önerilerle Twitter etkileşim oranını hesaplayın"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube Etkileşim",
+    "description": "Gelişmiş algoritmalar, sektör kıyasları ve video başarısı için kişiselleştirilmiş önerilerle YouTube etkileşim oranını hesaplayın"
+  },
+  "domain-whois-lookup": {
+    "name": "Alan Adı WHOIS Sorgulama",
+    "description": "Ücretsiz WHOIS sorgu aracımızla alan adı kayıt bilgilerini kapsamlı şekilde alın. Sahiplik, kayıt tarihleri ve iletişim detaylarını anında kontrol edin."
+  },
+  "expired-domain-finder": {
+    "name": "Süresi Dolmuş Alan Adı Bulucu",
+    "description": "Kapsamlı arama aracımızla değerli süresi dolmuş alan adlarını keşfedin. Alan adı otorite skorları, backlink verisi ve tahmini değerlere anında erişin."
+  },
+  "app-icon-generator": {
+    "name": "Uygulama İkonu Oluşturucu",
+    "description": "Toolspy’nin gelişmiş ikon oluşturucusuyla tüm platformlar için profesyonel uygulama ikonları üretin. Android, iOS, Windows, macOS, Linux ve Web için ikonlar oluşturun."
+  },
+  "pwa-icon-generator": {
+    "name": "PWA İkonu Oluşturucu",
+    "description": "Progressive Web Apps için tam gizlilik korumasıyla PWA ikonları ve manifest dosyası oluşturun."
+  },
+  "favicon-generator": {
+    "name": "Favicon Oluşturucu",
+    "description": "Toolspy ile web siteniz için favicon’lar oluşturun. Tüm cihazlar ve tarayıcılar için favicon üretin."
+  },
+  "image-to-ico-converter": {
+    "name": "Görsel → ICO Dönüştürücü",
+    "description": "Görselleri Toolspy’nin gelişmiş dönüştürücüsüyle ICO formatına çevirin. Windows uygulamaları ve web için ICO dosyaları oluşturun."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Markdown → Doküman Dönüştürücü",
+    "description": "Markdown’ı Toolspy’nin gelişmiş dönüştürücüsüyle dokümanlara çevirin. HTML, PDF, Word ve düz metin belgeleri oluşturun."
+  },
+  "gst-calculator": {
+    "name": "GST Hesaplayıcı",
+    "description": "GST’yi (Goods and Services Tax) dahil ve hariç modlarla hesaplayın. Tüm GST oranları desteği (0%, 5%, 12%, 18%, 28%)"
+  },
+  "reverse-gst-calculator": {
+    "name": "Ters GST Hesaplayıcı",
+    "description": "Toplam tutardan ana tutarı ve GST bileşenini hesaplayın. Fatura analizi ve vergi dökümü için ideal — tüm GST oranlarıyla"
+  },
+  "hsn-sac-finder": {
+    "name": "HSN/SAC Kod Bulucu",
+    "description": "GST oranlarıyla HSN (Harmonized System of Nomenclature) ve SAC (Services Accounting Code) kodlarını bulun. Otomatik öneri ve referans bağlantılarıyla hızlı arama"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "CGST/SGST/IGST Ayırıcı",
+    "description": "Eyalet içi / eyaletler arası işlemlere göre GST’yi CGST, SGST ve IGST olarak otomatik ayırın. GST dağılımını anlamak için ideal"
+  },
+  "itc-calculator": {
+    "name": "Input Tax Credit (ITC) Hesaplayıcı",
+    "description": "Profesyonel ITC hesaplayıcıyla talep edilebilir kredileri ve engellenen kredileri takip edin. ITC uygunluğu ve uyumluluğunu anlamak için ideal"
+  },
+  "e-invoice-qr-validator": {
+    "name": "E-Fatura/QR Kod Doğrulayıcı",
+    "description": "E-Fatura QR kodlarını yükleyin/tarayıp fatura durumunu doğrulayın ve bilgileri çıkarın. Fatura doğrulama ve uyumluluk kontrolü için ideal"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Kompozisyon vs Normal Rejim Tahminleyici",
+    "description": "Kompozisyon ve Normal GST rejimlerinde vergi yükümlülüğünü karşılaştırın. İşiniz için en uygun rejimi seçmek için ideal"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "Ceza/Gecikme Ücreti Hesaplayıcı",
+    "description": "Profesyonel hesaplayıcıyla GSTR beyan gecikme ücretleri ve faizi otomatik hesaplayın. Ceza etkilerini anlamak ve uyumluluk planlamak için ideal"
+  },
+  "jee-main-rank-predictor": {
+    "name": "JEE Main Sıralama Tahmincisi",
+    "description": "Yüzdelik diliminize göre JEE Main sıralamanızı ve üniversite seçeneklerinizi tahmin edin. Kabul şansını anlamak ve planlamak için ideal"
+  },
+  "neet-rank-predictor": {
+    "name": "NEET Sıralama Tahmincisi",
+    "description": "Puanınıza göre NEET sıralamanızı ve tıp fakültesi seçeneklerinizi tahmin edin. Kabul şansını anlamak ve planlamak için ideal"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "JEE Advanced Sıralama Tahmincisi",
+    "description": "Puanınıza göre JEE Advanced sıralamanızı ve IIT seçeneklerinizi tahmin edin. Kabul şansını anlamak ve IIT yolculuğunuzu planlamak için ideal"
+  },
+  "gate-rank-predictor": {
+    "name": "GATE Sıralama Tahmincisi",
+    "description": "Puan ve alana göre GATE sıralamanızı ve üniversite seçeneklerinizi tahmin edin. Kabul şansını anlamak ve lisansüstü planlamak için ideal"
+  },
+  "cat-percentile-predictor": {
+    "name": "CAT Yüzdelik Tahmincisi",
+    "description": "Bölüm puanlarınıza göre CAT yüzdelik diliminizi ve MBA seçeneklerinizi tahmin edin. Kabul şansını anlamak ve MBA planlamak için ideal"
+  },
+  "upsc-rank-predictor": {
+    "name": "UPSC Sıralama Tahmincisi",
+    "description": "Sınav puanlarına göre UPSC sıralamanızı ve sivil hizmet seçeneklerinizi tahmin edin. Hizmet dağılımını anlamak ve kariyer planlamak için ideal"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "SSC CGL Sıralama Tahmincisi",
+    "description": "Sınav puanlarına göre SSC CGL sıralamanızı ve kamu işi seçeneklerinizi tahmin edin. Kadro dağılımını anlamak ve kariyer planlamak için ideal"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Bank PO Sıralama Tahmincisi",
+    "description": "Sınav puanlarına göre Bank PO sıralamanızı ve bankacılık işi seçeneklerinizi tahmin edin. Banka dağılımını anlamak ve kariyer planlamak için ideal"
+  },
+  "website-screenshot": {
+    "name": "Web Sitesi Ekran Görüntüsü",
+    "description": "Herhangi bir web sitesinin yüksek kaliteli ekran görüntülerini farklı format ve boyutlarda alın. Tam sayfa yakalama, çoklu cihaz ön ayarları ve anında indirme"
+  }
+}

@@ -27,12 +27,12 @@ export async function BlogIndexView({ locale = 'en' }: { locale?: string }) {
   return (
     <>
       <WebPageSchema
-        title="Blog – Guides for Exams, GST & Online Tools | Toolspy"
-        description="Practical guides from Toolspy: exam rank analysis, GST rules, and tool how-tos."
+        title={t('blog.indexMetaTitle')}
+        description={t('blog.indexMetaDescription')}
         url={`${siteConfig.url}${base}/blog/`}
         breadcrumbs={[
-          { name: 'Home', url: `${siteConfig.url}${base}/` },
-          { name: 'Blog', url: `${siteConfig.url}${base}/blog/` },
+          { name: t('blog.home'), url: `${siteConfig.url}${base}/` },
+          { name: t('nav.blog'), url: `${siteConfig.url}${base}/blog/` },
         ]}
       />
       <div className="container mx-auto px-4 py-12 max-w-6xl space-y-10">
@@ -72,14 +72,14 @@ export async function BlogIndexView({ locale = 'en' }: { locale?: string }) {
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <Badge variant="outline">{post.category}</Badge>
                     <span className="text-xs text-muted-foreground">
-                      {post.readingTimeMinutes} min read
+                      {t('blog.minRead', { count: post.readingTimeMinutes })}
                     </span>
                   </div>
                   <CardTitle className="text-lg leading-snug group-hover:text-primary transition-colors">
                     {post.title}
                   </CardTitle>
                   <CardDescription className="text-xs">
-                    {formatBlogDate(post.updatedAt || post.publishedAt)}
+                    {formatBlogDate(post.updatedAt || post.publishedAt, locale)}
                     {post.author ? ` · ${post.author.name}` : ''}
                   </CardDescription>
                 </CardHeader>
