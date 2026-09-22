@@ -1287,7 +1287,7 @@ export const tools: Tool[] = [
     id: 'instagram-dp-viewer',
     name: 'Instagram DP Viewer',
     slug: 'instagram-dp-viewer',
-    description: 'View and download public Instagram profile pictures in full size. Works with publicly viewable DPs only.',
+    description: 'View and download public Instagram profile pictures. Paste a username or profile link — free, no login.',
     category: 'conversion-tools',
     icon: '🖼️',
     tags: ['instagram', 'profile', 'dp', 'avatar', 'download'],

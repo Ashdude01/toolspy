@@ -85,12 +85,12 @@ export function InstagramDPViewerSEOContent() {
     >
       <section id="intro" className="space-y-8">
         <div className="space-y-3">
-          <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
-            Instagram DP Downloader (Profile Picture)
-          </h1>
+          <h2 className="text-center text-2xl sm:text-3xl font-bold tracking-tight">
+            How Instagram DP download works
+          </h2>
           <p className="text-start md:text-center text-muted-foreground">
-            View and download an Instagram profile picture (DP) when it’s publicly accessible. This
-            tool does not provide access to private posts, stories, or private account content.
+            Public profile pictures only — no private posts, stories, or account bypass.
+            Paste a username or profile link above to view and save the best available size.
           </p>
         </div>
 
