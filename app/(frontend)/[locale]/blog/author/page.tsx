@@ -5,8 +5,10 @@ import {
   isPublishedLocale,
   DEFAULT_LOCALE,
 } from '@/lib/i18n/locales'
-import { BlogAuthorsIndexView } from '@/components/blog/blog-authors-index-view'
-import { buildAuthorsIndexMetadata } from '@/app/(frontend)/blog/author/page'
+import {
+  BlogAuthorsIndexView,
+  buildAuthorsIndexMetadata,
+} from '@/components/blog/blog-authors-index-view'
 
 /** Localized blog authors index — /de/blog/author/ */
 export const dynamicParams = true

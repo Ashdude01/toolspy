@@ -78,7 +78,7 @@ export function FeaturesSection() {
   ]
 
   return (
-    <section id="features" className="py-16 px-4 overflow-x-hidden w-full">
+    <section id="features" className="py-16 overflow-x-hidden w-full">
       <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
@@ -90,7 +90,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Main Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16 px-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 mb-16">
           {features.map((feature, index) => (
             <div key={index} className="text-center group">
               <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-2xl flex items-center justify-center text-white mx-auto mb-6 group-hover:scale-105 transition-transform duration-200 shadow-md transform-gpu`}>
@@ -137,7 +137,7 @@ export function FeaturesSection() {
         </div>
 
         {/* Stats Section */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 px-2">
+        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
           <div className="text-center p-6 bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-950/20 dark:to-blue-900/20 rounded-2xl border border-blue-200 dark:border-blue-800">
             <div className="text-4xl font-bold text-blue-600 mb-2">80+</div>
             <div className="text-slate-600 dark:text-slate-300">Professional Tools</div>

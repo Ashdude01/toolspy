@@ -122,7 +122,7 @@ export const en = {
     'code-tools': 'Coding Tools',
     'conversion-tools': 'File Conversion',
     'gst-tools': 'GST/MSME Toolkit',
-    'exam-tools': 'Exam Rank/Cutoff Predictors',
+    'exam-tools': 'Exam Tools',
   },
   blog: {
     latestArticles: 'Latest Articles',
@@ -2539,7 +2539,7 @@ export const messages: Record<string, DeepPartial<Messages>> = {
       'code-tools': 'Coding-Tools',
       'conversion-tools': 'Dateikonvertierung',
       'gst-tools': 'GST/MSME-Toolkit',
-      'exam-tools': 'Prüfungs-Rank/Cutoff-Prognosen',
+      'exam-tools': 'Prüfungs-Tools',
     },
     blog: {
       latestArticles: 'Neueste Artikel',

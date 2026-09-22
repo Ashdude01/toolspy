@@ -96,7 +96,7 @@ export function BrowseCategoriesSection() {
   };
 
   return (
-    <section className="py-16 px-4 overflow-x-hidden w-full">
+    <section className="py-16 overflow-x-hidden w-full">
       <div className="container mx-auto px-0">
         <div className="text-center mb-12">
           <Badge
@@ -118,7 +118,7 @@ export function BrowseCategoriesSection() {
         </div>
 
         {/* Categories Grid */}
-        <div className="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 px-2">
+        <div className="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {Object.entries(toolCategories).map(
             ([categoryKey, category], index) => {
               const categoryType = categoryKey as ToolCategory;
@@ -196,7 +196,7 @@ export function BrowseCategoriesSection() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="text-center mt-12 px-2">
+        <div className="text-center mt-12">
           <div className="inline-flex flex-col sm:flex-row items-center gap-4 bg-white dark:bg-slate-800 rounded-2xl px-4 sm:px-8 py-4 border border-slate-200 dark:border-slate-700 w-full sm:w-auto">
             <div className="text-center sm:text-left">
               <div className="font-semibold text-slate-800 dark:text-slate-200 text-sm sm:text-base">

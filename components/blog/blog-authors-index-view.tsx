@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { WebPageSchema } from '@/components/seo/comprehensive-schemas'
@@ -8,6 +9,17 @@ import { getT } from '@/lib/i18n/messages'
 
 function basePath(locale: string): string {
   return locale && locale !== 'en' ? `/${locale}` : ''
+}
+
+/** Shared metadata builder for /blog/author and localized wrappers. */
+export function buildAuthorsIndexMetadata(locale: string): Metadata {
+  const t = getT(locale)
+  const base = basePath(locale)
+  return {
+    title: t('blog.authorsMetaTitle'),
+    description: t('blog.authorsMetaDescription'),
+    alternates: { canonical: `${siteConfig.url}${base}/blog/author/` },
+  }
 }
 
 /** Locale-aware authors index — used by /blog/author and /[locale]/blog/author. */

@@ -96,7 +96,7 @@ interface ToolCardProps {
 export function ToolCard({
   tool,
   className,
-  truncateDescription,
+  truncateDescription = 60,
   showCategoryBadge = true,
 }: ToolCardProps) {
   const t = useT();
@@ -105,12 +105,12 @@ export function ToolCard({
   const isClickable = tool.status === 'active';
   const description =
     truncateDescription && copy.description.length > truncateDescription
-      ? `${copy.description.slice(0, truncateDescription)}...`
+      ? `${copy.description.slice(0, truncateDescription)}..`
       : copy.description;
 
   const cardInner = (
     <div
-      className={`relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 transition-shadow duration-200 p-6 ${
+      className={`relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 transition-shadow duration-200 p-5 md:p-6 ${
         isClickable
           ? 'hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg'
           : 'opacity-75'
@@ -145,7 +145,7 @@ export function ToolCard({
           <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
             {copy.name}
           </h3>
-          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm leading-relaxed">
             {description}
           </p>
         </div>

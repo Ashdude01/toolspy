@@ -90,7 +90,7 @@ export const uiChromeLocales = {
       'code-tools': 'Outils de code',
       'conversion-tools': 'Conversion de fichiers',
       'gst-tools': 'Boîte à outils GST/MSME',
-      'exam-tools': 'Prédicteurs de rang/cutoff',
+      'exam-tools': 'Outils examen',
     },
     blog: {
       latestArticles: 'Derniers articles',
@@ -254,7 +254,7 @@ export const uiChromeLocales = {
       'code-tools': 'Herramientas de código',
       'conversion-tools': 'Conversión de archivos',
       'gst-tools': 'Kit GST/MSME',
-      'exam-tools': 'Predictores de rango/corte',
+      'exam-tools': 'Herramientas de examen',
     },
     blog: {
       latestArticles: 'Últimos artículos',
@@ -418,7 +418,7 @@ export const uiChromeLocales = {
       'code-tools': 'コーディングツール',
       'conversion-tools': 'ファイル変換',
       'gst-tools': 'GST/MSMEツールキット',
-      'exam-tools': '試験ランク/カットオフ予測',
+      'exam-tools': '試験ツール',
     },
     blog: {
       latestArticles: '最新記事',
@@ -579,7 +579,7 @@ export const uiChromeLocales = {
       'code-tools': 'Coding-tools',
       'conversion-tools': 'Bestandsconversie',
       'gst-tools': 'GST/MSME-toolkit',
-      'exam-tools': 'Examenrang-/cutoffvoorspellers',
+      'exam-tools': 'Examentools',
     },
     blog: {
       latestArticles: 'Nieuwste artikelen',
@@ -743,7 +743,7 @@ export const uiChromeLocales = {
       'code-tools': 'Kodverktyg',
       'conversion-tools': 'Filkonvertering',
       'gst-tools': 'GST/MSME-verktyg',
-      'exam-tools': 'Examensrank/cutoff-prediktorer',
+      'exam-tools': 'Examensverktyg',
     },
     blog: {
       latestArticles: 'Senaste artiklarna',
@@ -907,7 +907,7 @@ export const uiChromeLocales = {
       'code-tools': 'Strumenti di codice',
       'conversion-tools': 'Conversione file',
       'gst-tools': 'Toolkit GST/MSME',
-      'exam-tools': 'Predictor di rango/cutoff',
+      'exam-tools': 'Strumenti esame',
     },
     blog: {
       latestArticles: 'Ultimi articoli',
@@ -1071,7 +1071,7 @@ export const uiChromeLocales = {
       'code-tools': 'Инструменты для кода',
       'conversion-tools': 'Конвертация файлов',
       'gst-tools': 'Набор GST/MSME',
-      'exam-tools': 'Прогнозы ранга/проходного балла',
+      'exam-tools': 'Инструменты для экзаменов',
     },
     blog: {
       latestArticles: 'Последние статьи',
@@ -1235,7 +1235,7 @@ export const uiChromeLocales = {
       'code-tools': 'Alat coding',
       'conversion-tools': 'Konversi file',
       'gst-tools': 'Toolkit GST/MSME',
-      'exam-tools': 'Prediktor peringkat/cutoff ujian',
+      'exam-tools': 'Alat ujian',
     },
     blog: {
       latestArticles: 'Artikel terbaru',
@@ -1399,7 +1399,7 @@ export const uiChromeLocales = {
       'code-tools': '코딩 도구',
       'conversion-tools': '파일 변환',
       'gst-tools': 'GST/MSME 툴킷',
-      'exam-tools': '시험 순위/커트라인 예측',
+      'exam-tools': '시험 도구',
     },
     blog: {
       latestArticles: '최신 글',
@@ -1561,7 +1561,7 @@ export const uiChromeLocales = {
       'code-tools': 'Kod araçları',
       'conversion-tools': 'Dosya dönüştürme',
       'gst-tools': 'GST/MSME araç seti',
-      'exam-tools': 'Sınav sıra/kesme puanı tahminleri',
+      'exam-tools': 'Sınav araçları',
     },
     blog: {
       latestArticles: 'Son yazılar',
@@ -1725,7 +1725,7 @@ export const uiChromeLocales = {
       'code-tools': 'أدوات البرمجة',
       'conversion-tools': 'تحويل الملفات',
       'gst-tools': 'مجموعة أدوات GST/MSME',
-      'exam-tools': 'متنبئات الرتبة/الحد الأدنى للاختبارات',
+      'exam-tools': 'أدوات الامتحانات',
     },
     blog: {
       latestArticles: 'أحدث المقالات',

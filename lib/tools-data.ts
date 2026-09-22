@@ -117,7 +117,7 @@ export const toolCategories: Record<ToolCategory, { name: string; description: s
     icon: '💰'
   },
   'exam-tools': {
-    name: 'Exam Rank/Cutoff Predictors',
+    name: 'Exam Tools',
     description: 'JEE, NEET, and other exam rank prediction tools',
     icon: '🎓'
   }

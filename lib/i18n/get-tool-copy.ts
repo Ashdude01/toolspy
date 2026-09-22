@@ -15,6 +15,8 @@ const enCatalog: Record<string, ToolCopy> = Object.fromEntries(
   tools.map((t) => [t.slug, { name: t.name, description: t.description }]),
 )
 
+const catalogs = toolCatalogLocales as Record<string, Record<string, ToolCopy>>
+
 /**
  * Locale-aware name/description for a tool slug.
  * Missing locale/key → English from tools-data. Path/URL never changes.
@@ -22,7 +24,7 @@ const enCatalog: Record<string, ToolCopy> = Object.fromEntries(
 export function getToolCopy(slug: string, locale: string = DEFAULT_LOCALE): ToolCopy {
   const fallback = enCatalog[slug] ?? { name: slug, description: '' }
   if (locale === DEFAULT_LOCALE) return fallback
-  const localized = toolCatalogLocales[locale]?.[slug]
+  const localized = catalogs[locale]?.[slug]
   return {
     name: localized?.name ?? fallback.name,
     description: localized?.description ?? fallback.description,

@@ -38,6 +38,7 @@ export function toUrlSetXml(entries: MetadataRoute.Sitemap): string {
       const langs = entry.alternates?.languages
       if (langs) {
         for (const [hreflang, href] of Object.entries(langs)) {
+          if (typeof href !== 'string') continue
           parts.push(
             `    <xhtml:link rel="alternate" hreflang="${escapeXml(hreflang)}" href="${escapeXml(href)}" />`,
           )
