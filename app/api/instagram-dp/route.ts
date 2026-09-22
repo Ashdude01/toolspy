@@ -55,25 +55,42 @@ async function fetchWebProfileInfo(username: string): Promise<InstagramDpResult 
   return extractDpFromWebProfileInfo(data, username)
 }
 
-/** Crawler UA returns public profile og:image (works without login). */
+/** Crawler UAs get public og:image on many networks; Vercel/cloud IPs are often blocked. */
 async function fetchProfileViaCrawler(username: string): Promise<InstagramDpResult | null> {
   const url = `https://www.instagram.com/${encodeURIComponent(username)}/`
-  const res = await fetch(url, {
-    headers: {
-      'User-Agent': INSTAGRAM_CRAWLER_UA,
-      Accept: 'text/html,application/xhtml+xml',
-      'Accept-Language': 'en-US,en;q=0.9',
-    },
-    redirect: 'follow',
-    signal: AbortSignal.timeout(20000),
-    cache: 'no-store',
-  })
+  const userAgents = [
+    INSTAGRAM_CRAWLER_UA,
+    'Twitterbot/1.0',
+    'WhatsApp/2.0',
+    'Slackbot-LinkExpanding 1.0 (+https://api.slack.com/robots)',
+    'Googlebot/2.1 (+http://www.google.com/bot.html)',
+  ]
 
-  if (res.status === 404) return null
-  if (!res.ok) return null
+  for (const ua of userAgents) {
+    try {
+      const res = await fetch(url, {
+        headers: {
+          'User-Agent': ua,
+          Accept: 'text/html,application/xhtml+xml',
+          'Accept-Language': 'en-US,en;q=0.9',
+        },
+        redirect: 'follow',
+        signal: AbortSignal.timeout(15000),
+        cache: 'no-store',
+      })
 
-  const html = await res.text()
-  return extractDpFromHtml(html, username)
+      if (res.status === 404) return null
+      if (!res.ok) continue
+
+      const html = await res.text()
+      const parsed = extractDpFromHtml(html, username)
+      if (parsed?.profilePicUrl) return parsed
+    } catch {
+      // try next UA
+    }
+  }
+
+  return null
 }
 
 async function fetchViaDownloaderApi(username: string): Promise<InstagramDpResult | null> {
@@ -148,22 +165,24 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    // 1) Official-ish JSON (best HD) — needs session cookie on many hosts
-    let result = await fetchWebProfileInfo(username)
+    // Prefer crawler first: works without login on many residential IPs.
+    // web_profile_info often 401s from cloud hosts unless INSTAGRAM_SESSION_COOKIE is set.
+    let result = await fetchProfileViaCrawler(username)
 
-    // 2) Optional RapidAPI / downloader
+    if (!result?.profilePicUrl) {
+      result = await fetchWebProfileInfo(username)
+    }
+
     if (!result?.profilePicUrl) {
       result = await fetchViaDownloaderApi(username)
     }
 
-    // 3) Social-crawler HTML (reliable public og:image without login)
     if (!result?.profilePicUrl) {
-      result = await fetchProfileViaCrawler(username)
-    }
-
-    if (!result?.profilePicUrl) {
+      const hasSession = Boolean(sessionCookie())
       return jsonError(
-        'Could not load this profile picture. The account may be private, removed, or temporarily blocked. You can also paste a direct image URL.',
+        hasSession
+          ? 'Could not load this profile picture. The username may be wrong, the account removed, or Instagram is rate-limiting this server. Try again shortly or paste a direct image URL.'
+          : 'Could not load this profile picture from the production server (Instagram often blocks cloud IPs). Set INSTAGRAM_SESSION_COOKIE in Vercel env for reliable lookups, or paste a direct image URL. This is usually not because the account is private.',
         404,
       )
     }

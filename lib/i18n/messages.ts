@@ -1100,7 +1100,7 @@ export const en = {
       inputPlaceholder: '@natgeo or https://instagram.com/natgeo',
       viewDp: 'View DP',
       loading: 'Fetching…',
-      lookupFailed: 'Could not load this profile picture. Try again or use a public account.',
+      lookupFailed: 'Could not load this profile picture. On production, Instagram often blocks cloud servers — set INSTAGRAM_SESSION_COOKIE or paste a direct image URL.',
       dpLoaded: 'Profile picture loaded',
       downloadStarted: 'Download started',
       downloadHd: 'Download HD',
