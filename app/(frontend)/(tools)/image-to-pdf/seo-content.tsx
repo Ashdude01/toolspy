@@ -5,7 +5,6 @@
 import { ScrollToTopButton } from "@/components/ui/scroll-to-top-button";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
 import { getToolBySlug } from "@/lib/tools-data";
@@ -20,15 +19,7 @@ export function ImageToPdfSEOContent() {
       aria-label="Guide and SEO content"
     >
 
-<nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="image-to-pdf"
-          title="Similar Tools You Might Like"
-          description="Other PDF and image utilities."
-        />
-      </nav>
-      
-      {/* Page copy from job.md (lines 31–65, 76–77); FAQ matches job.md Q&A */}
+{/* Page copy from job.md (lines 31–65, 76–77); FAQ matches job.md Q&A */}
       <section id="intro" className="space-y-8">
         <h1 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
           Convert Image to PDF – Free & Fast

@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { getToolBySlug } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
@@ -79,15 +78,6 @@ export function MortgageCalculatorSEOContent() {
           )}
         </div>
       </section>
-
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="mortgage-calculator"
-          title="Similar Tools You Might Like"
-          description="Other money calculators to pair with home planning."
-        />
-      </nav>
 
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">

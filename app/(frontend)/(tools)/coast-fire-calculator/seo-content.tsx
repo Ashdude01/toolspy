@@ -2,7 +2,6 @@
  * Server-only SEO content for this tool page.
  * No "use client" - all markup is server-rendered so view-source and crawlers see full HTML.
  */
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { Toc, type TocItem } from "@/components/ui/toc";
@@ -34,14 +33,6 @@ const TOC: TocItem[] = [
 export function CoastFireCalculatorSEOContent() {
   return (
     <>
-      <nav aria-label="Similar tools" className="mb-12">
-        <RelatedTools
-          currentToolSlug="coast-fire-calculator"
-          title="Similar Tools You Might Like"
-          description="Other calculators that pair well with retirement planning."
-        />
-      </nav>
-
       <div className="lg:mt-20 grid gap-10 lg:gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside>
           <Toc items={TOC} />

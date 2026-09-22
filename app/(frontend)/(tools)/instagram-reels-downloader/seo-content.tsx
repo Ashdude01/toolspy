@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -127,14 +126,6 @@ export function InstagramReelsDownloaderSEOContent() {
           )}
         </div>
       </section>
-
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="instagram-reels-downloader"
-          title="Similar Tools You Might Like"
-          description="Other tools for working with social media content."
-        />
-      </nav>
 
       <section className="space-y-6" id="how-to-use">
         <SectionHeader

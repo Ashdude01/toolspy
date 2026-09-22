@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -109,15 +108,6 @@ export function ImageToBase64SEOContent() {
       className="mx-auto max-w-7xl space-y-14 mt-16 text-base sm:text-[17px] leading-relaxed"
       aria-label="Guide and SEO content"
     >
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="image-to-base64"
-          title="Similar Tools You Might Like"
-          description="Other Base64 and image utilities that pair well."
-        />
-      </nav>
-
       {/* Intro (H1) */}
       <section id="intro" className="space-y-8">
         <div className="space-y-3">
@@ -160,8 +150,6 @@ export function ImageToBase64SEOContent() {
           )}
         </div>
       </section>
-
-
 
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">

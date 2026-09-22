@@ -21,7 +21,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -129,14 +128,6 @@ export function FontConverterSEOContent() {
           )}
         </div>
       </section>
-
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="font-converter"
-          title="Similar Tools You Might Like"
-          description="Other conversion tools for files and documents."
-        />
-      </nav>
 
       <section className="space-y-6" id="how-to-use">
         <SectionHeader

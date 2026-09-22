@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -116,15 +115,6 @@ export function ImageToICOConverterSEOContent() {
           )}
         </div>
       </section>
-
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="image-to-ico-converter"
-          title="Similar Tools You Might Like"
-          description="Related image converters and icon utilities."
-        />
-      </nav>
 
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">

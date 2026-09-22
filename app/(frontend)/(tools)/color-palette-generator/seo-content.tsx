@@ -26,7 +26,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -137,14 +136,6 @@ export function ColorPaletteGeneratorSEOContent() {
           ))}
         </div>
       </section>
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="color-palette-generator"
-          title="Similar Tools You Might Like"
-        />
-      </nav>
-
       {/* Intro (H1 - the tool UI above has no heading of its own) */}
       <section id="intro" className="space-y-8">
         <div className=" space-y-3">
@@ -187,7 +178,6 @@ export function ColorPaletteGeneratorSEOContent() {
         </div>
       </section>
 
-
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">
         <SectionHeader
@@ -223,8 +213,6 @@ export function ColorPaletteGeneratorSEOContent() {
           </Card>
         </div>
       </section>
-
-
 
       {/* Generate from a seed color - answers "generate color palette from color" intent */}
       <section className="space-y-4" id="from-color">

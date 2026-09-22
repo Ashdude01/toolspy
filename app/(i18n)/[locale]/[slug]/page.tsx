@@ -13,12 +13,12 @@ import {
 } from '@/lib/i18n/locales'
 import { siteConfig } from '@/lib/config'
 import { getToolContent } from '@/lib/payload/get-tool-content'
-import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
 import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
-import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
 import { DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
+import { RelatedTools } from '@/components/tools/related-tools'
 
 /**
  * Localized single-segment pages — /de/image-compressor/, /de/about/, /de/tools/ ...
@@ -179,6 +179,7 @@ export default async function LocalizedPage({ params }: { params: Params }) {
   const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0
 
   // Locale-aware hero + hide English page hero. SEO: CMS template or switch.
+  // RelatedTools always below the tool — independent of CMS/code SEO content.
   return (
     <DynamicToolLayout toolSlug={slug}>
       <CmsToolHero slug={slug} locale={locale} />
@@ -189,11 +190,12 @@ export default async function LocalizedPage({ params }: { params: Params }) {
         </Suspense>
       </div>
       <div className="container mx-auto max-w-7xl px-4 py-6 sm:py-8">
+        <nav aria-label="Similar tools" className="mb-12">
+          <RelatedTools currentToolSlug={slug} locale={locale} />
+        </nav>
         {cmsActive && doc ? (
           <ToolSeoContentTemplate slug={slug} doc={doc} locale={locale} />
-        ) : (
-          <ToolContentSwitch slug={slug} locale={locale} codeFallback={null} />
-        )}
+        ) : null}
       </div>
     </DynamicToolLayout>
   )

@@ -11,7 +11,6 @@ import {
 } from "@/components/ui/card";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
 import { getToolBySlug } from "@/lib/tools-data";
@@ -130,15 +129,6 @@ export function OnlineImageCropperSEOContent() {
           )}
         </div>
       </section>
-
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="online-image-cropper"
-          title="Similar Tools You Might Like"
-          description="Other image tools that pair well with cropping."
-        />
-      </nav>
 
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">

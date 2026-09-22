@@ -1,8 +1,9 @@
 /**
- * ToolSeoContentTemplate — CMS SEO body (sections / FAQ / related).
+ * ToolSeoContentTemplate — CMS SEO body (sections / FAQ).
+ * RelatedTools parent (ToolContentSwitch / locale page) render karta hai —
+ * content na ho tab bhi widget dikhe, isliye yahan nahi.
  * Page H1 + intro ab CmsToolHero me hain — yahan dubara nahi.
  */
-import { RelatedTools } from '@/components/tools/related-tools'
 import { FAQ } from '@/components/ui/faq'
 import { Toc, type TocItem } from '@/components/ui/toc'
 import { FAQSchema } from '@/components/seo/comprehensive-schemas'
@@ -18,6 +19,8 @@ export function ToolSeoContentTemplate({
   doc: ToolContentDoc
   locale?: string
 }) {
+  void slug
+  void locale
   const sections = doc.sections ?? []
   const faqs = doc.faqs ?? []
 
@@ -29,10 +32,6 @@ export function ToolSeoContentTemplate({
   return (
     <>
       {faqs.length > 0 && <FAQSchema faqs={faqs} />}
-
-      <nav aria-label="Similar tools" className="mb-12">
-        <RelatedTools currentToolSlug={slug} locale={locale} />
-      </nav>
 
       <div className="lg:mt-20 grid gap-10 lg:gap-8 lg:grid-cols-[280px_minmax(0,1fr)]">
         <aside>

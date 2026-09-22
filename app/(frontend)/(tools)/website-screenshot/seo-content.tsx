@@ -31,7 +31,6 @@ import {
   Palette,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
 // Import FAQ function from server-side loader
@@ -223,17 +222,6 @@ export function WebsiteScreenshotSEOContent() {
 
   return (
     <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="website-screenshot"
-        title="Similar Tools You Might Like"
-        description="Check out our other web and optimization tools that work great with website screenshots and web development projects."
-      />
-
-      </nav>
-
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">

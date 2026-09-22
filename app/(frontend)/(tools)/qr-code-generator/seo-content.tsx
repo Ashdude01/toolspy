@@ -29,7 +29,6 @@ import {
   BarChart3,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
@@ -219,17 +218,6 @@ export function QrCodeGeneratorSEOContent() {
 
   return (
     <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="qr-code-generator"
-        title="Similar Tools You Might Like"
-        description="Check out our other generation and utility tools that work great with QR code planning."
-      />
-
-      </nav>
-
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">

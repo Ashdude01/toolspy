@@ -22,7 +22,6 @@ import {
 } from "lucide-react";
 import NextImage from "next/image";
 import Link from "next/link";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { SectionHeader } from "@/components/seo/section-header";
@@ -136,15 +135,6 @@ export function AIBackgroundRemoverSEOContent() {
           )}
         </div>
       </section>
-
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-        <RelatedTools
-          currentToolSlug="ai-background-remover"
-          title="Similar Tools You Might Like"
-          description="Other image and AI utilities that pair well."
-        />
-      </nav>
 
       {/* How to use */}
       <section className="space-y-6" id="how-to-use">

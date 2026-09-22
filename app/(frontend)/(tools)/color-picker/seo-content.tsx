@@ -29,7 +29,6 @@ import {
   TextCursor,
 } from "lucide-react";
 import { getToolBySlug } from "@/lib/tools-data";
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import NextImage from "next/image";
@@ -211,17 +210,6 @@ export function ColorPickerSEOContent() {
 
   return (
     <article className="space-y-12 mt-16" aria-label="Guide and SEO content" itemScope itemType="https://schema.org/Article">
-      {/* Related Tools */}
-      <nav aria-label="Similar tools">
-
-      <RelatedTools
-        currentToolSlug="color-picker"
-        title="Similar Tools You Might Like"
-        description="Check out our other design and color tools that work great with color selection and design projects."
-      />
-
-      </nav>
-
       {/* Introduction Section */}
       <section className="space-y-8">
         <div className="text-center">

@@ -2,7 +2,6 @@
  * Server-only SEO content for this tool page.
  * No "use client" — all markup is server-rendered so view-source and crawlers see full HTML.
  */
-import { RelatedTools } from "@/components/tools/related-tools";
 import { registerToolFAQ } from "@/components/seo/faq-types";
 import { FAQ } from "@/components/ui/faq";
 import { Toc, type TocItem } from "@/components/ui/toc";
@@ -24,14 +23,6 @@ const TOC: TocItem[] = [
 export function AIImageEnhancerSEOContent() {
   return (
     <>
-      <nav aria-label="Similar tools" className="mb-12">
-        <RelatedTools
-          currentToolSlug="ai-image-enhancer"
-          title="Similar Tools You Might Like"
-          description="Other image tools that pair well with enhancement."
-        />
-      </nav>
-
       <div className="grid min-w-0 gap-10 lg:mt-20 lg:grid-cols-[280px_minmax(0,1fr)] lg:gap-8">
         <aside className="min-w-0">
           <Toc items={TOC} />
