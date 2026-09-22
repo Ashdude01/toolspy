@@ -1,9 +1,8 @@
 'use client'
 
 /**
- * Keeps <html lang>/<dir> in sync on client navigations.
- * Root layout does not remount when switching / ↔ /de/…, so SSR lang alone is not enough for the live DOM.
- * View Source still comes from SSR (middleware + getRequestLocale).
+ * Keeps <html lang>/<dir> in sync on client navigations within the same tree.
+ * EN and localized trees use separate root layouts (correct SSR lang in View Source).
  */
 import { useEffect } from 'react'
 import { useLocale } from '@/lib/i18n/use-t'

@@ -1,11 +1,12 @@
+/**
+ * @deprecated Prefer layout params / localeFromPathname.
+ * Kept for rare request-time reads. Calling headers() opts the route into dynamic rendering —
+ * do not use from ISR page/layout trees.
+ */
 import { headers } from 'next/headers'
 import { ALL_LOCALES, DEFAULT_LOCALE } from './locales'
 import { dirForLocale, localeFromPathname } from './pathname-locale'
 
-/**
- * SSR locale for <html lang>/<dir>.
- * Prefer pathname from middleware — reliable for /de/... View Source.
- */
 export async function getRequestLocale(): Promise<{ locale: string; dir: 'ltr' | 'rtl' }> {
   const h = await headers()
   const pathname = h.get('x-toolspy-pathname') || ''
@@ -17,7 +18,6 @@ export async function getRequestLocale(): Promise<{ locale: string; dir: 'ltr' |
       ? headerLocale
       : DEFAULT_LOCALE
 
-  // If pathname parse said en but middleware explicitly set another locale, trust header
   if (
     locale === DEFAULT_LOCALE &&
     headerLocale &&

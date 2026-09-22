@@ -83,11 +83,18 @@ export const Authors: CollectionConfig = {
       async ({ doc }) => {
         try {
           const { revalidatePath, revalidateTag } = await import('next/cache')
+          const { ROUTABLE_LOCALES, DEFAULT_LOCALE } = await import('../lib/i18n/locales')
           revalidateTag('authors')
           revalidateTag('posts')
           revalidatePath('/blog/')
           revalidatePath('/blog/author/')
           if (doc?.slug) revalidatePath(`/blog/author/${doc.slug}/`)
+          for (const locale of ROUTABLE_LOCALES) {
+            if (locale === DEFAULT_LOCALE) continue
+            revalidatePath(`/${locale}/blog/`)
+            revalidatePath(`/${locale}/blog/author/`)
+            if (doc?.slug) revalidatePath(`/${locale}/blog/author/${doc.slug}/`)
+          }
         } catch (err) {
           console.warn('[authors] revalidate failed:', err)
         }

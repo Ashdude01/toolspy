@@ -307,7 +307,7 @@ export default function FacebookImageDownloaderPage() {
       />
 
       {/* Hero — title/description from CmsToolHero in layout; widget stays here */}
-      <section className="border-b border-border bg-gradient-to-b from-muted/60 to-background">
+      <section className="border-b border-border">
         <div className={cn(CONTAINER, "py-12 text-center sm:py-16")}>
           <div className="tool-legacy-hero">
             <h1 className="mx-auto mt-5 max-w-3xl !pb-0 !text-[2rem] font-extrabold leading-tight tracking-tight sm:!text-4xl lg:!text-5xl">
@@ -319,7 +319,7 @@ export default function FacebookImageDownloaderPage() {
             </p>
           </div>
 
-          <div className="mt-8 w-full">
+          <div className="w-full">
             <Downloader />
           </div>
 

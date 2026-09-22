@@ -3,23 +3,17 @@ import type { NextRequest } from 'next/server'
 import { dirForLocale, localeFromPathname } from './lib/i18n/pathname-locale'
 
 /**
- * Injects locale into the request so SSR <html lang>/<dir> are correct.
- * Path /de/... → de; root English URLs → en.
+ * Injects locale response headers for SEO (Content-Language).
+ * HTML lang/dir come from ISR layouts (params), not from these headers.
  */
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   const locale = localeFromPathname(pathname)
   const dir = dirForLocale(locale)
 
-  const requestHeaders = new Headers(request.headers)
-  requestHeaders.set('x-toolspy-pathname', pathname)
-  requestHeaders.set('x-toolspy-locale', locale)
-  requestHeaders.set('x-toolspy-dir', dir)
-
-  const response = NextResponse.next({
-    request: { headers: requestHeaders },
-  })
+  const response = NextResponse.next()
   response.headers.set('x-toolspy-locale', locale)
+  response.headers.set('x-toolspy-dir', dir)
   response.headers.set('Content-Language', locale)
 
   return response

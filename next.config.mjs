@@ -35,7 +35,7 @@ const nextConfig = {
     // WHOIS API (apilayer.com)
     NEXT_PUBLIC_WHOIS_API_KEY: process.env.NEXT_PUBLIC_WHOIS_API_KEY || '',
   },
-  // SSR: server har request pe full HTML (body + text) bhejta hai - View Source / crawlers ko content milta hai.
+  // ISR: HTML build/revalidate pe cache; View Source me full content. CMS publish → on-demand revalidate.
   trailingSlash: true,
 
   // 301 redirects - policy-safe slugs. "private-viewer" URL AdSense/platform-policy

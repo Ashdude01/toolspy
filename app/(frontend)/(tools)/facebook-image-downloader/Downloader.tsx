@@ -346,7 +346,7 @@ function DownloaderInner() {
                   onClick={pasteFromClipboard}
                   disabled={status === "loading"}
                   aria-label="Paste link from clipboard"
-                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-border bg-slate-100 px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50 sm:flex-none sm:px-5"
+                  className="inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-md border border-border bg-slate-100 dark:bg-slate-800 px-4 text-sm font-semibold text-foreground transition-colors hover:bg-muted disabled:pointer-events-none disabled:opacity-50 sm:flex-none sm:px-5"
                 >
                   <ClipboardPaste className="h-4 w-4" aria-hidden />
                   {t('toolCommon.paste')}

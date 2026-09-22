@@ -9,7 +9,7 @@
  *
  * SYNC NOTE (zaroori): ye do list neeche ke source se derive hoti hain —
  *   - ROUTABLE_TOOL_SLUGS  = Object.keys(toolRegistry)  (lib/i18n/tool-registry.ts)
- *   - ROUTABLE_STATIC_SLUGS = app/(frontend)/[locale]/[slug]/page.tsx ka STATIC_PAGES
+ *   - ROUTABLE_STATIC_SLUGS = app/(i18n)/[locale]/[slug]/page.tsx ka STATIC_PAGES
  * Naya tool/static page add karo to yahan bhi ek line add kar dena.
  * (Galti se koi slug chhoot bhi jaaye to sirf itna hoga ki us link pe locale-prefix
  *  nahi lagega — English page khulega, KOI 404 nahi.)
