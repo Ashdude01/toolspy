@@ -27,6 +27,7 @@ import {
   TooltipTrigger,
   TooltipProvider,
 } from "@/components/ui/tooltip";
+import { useT } from "@/lib/i18n/use-t";
 
 interface ColorCardProps {
   color: ColorItem;
@@ -61,6 +62,7 @@ export const ColorCard = ({
   onAddBetween,
   isFirst,
 }: ColorCardProps) => {
+  const t = useT();
   const [copied, setCopied] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [editValue, setEditValue] = useState(color.hex);
@@ -232,7 +234,7 @@ export const ColorCard = ({
                 <Plus className="w-5 h-5 sm:w-4 sm:h-4 text-gray-700" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Add color</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.addColor')}</TooltipContent>
           </Tooltip>
         )}
 
@@ -273,7 +275,7 @@ export const ColorCard = ({
                 "h-6 w-6 sm:h-8 sm:w-8 rounded-full flex justify-center items-center",
                 buttonStyles
               )}
-              aria-label="Close shades"
+              aria-label={t('tools.colorPaletteGenerator.closeShades')}
             >
               <X className="w-3 h-3 sm:w-4 sm:h-4" />
             </button>
@@ -296,7 +298,7 @@ export const ColorCard = ({
                   <X className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent className="">Remove</TooltipContent>
+              <TooltipContent className="">{t('tools.colorPaletteGenerator.remove')}</TooltipContent>
             </Tooltip>
           )}
 
@@ -312,7 +314,7 @@ export const ColorCard = ({
                 <GripVertical className="w-4 h-4 sm:w-5 sm:h-5" />
               </div>
             </TooltipTrigger>
-            <TooltipContent>Move</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.move')}</TooltipContent>
           </Tooltip>
           <Tooltip>
             <TooltipTrigger asChild>
@@ -332,7 +334,7 @@ export const ColorCard = ({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Copy HEX</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.copyHex')}</TooltipContent>
           </Tooltip>
           <Popover>
             <PopoverTrigger asChild>
@@ -350,7 +352,7 @@ export const ColorCard = ({
             <PopoverContent className="w-64 p-4" sideOffset={8}>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Pick a color</label>
+                  <label className="text-sm font-medium">{t('tools.colorPaletteGenerator.pickColor')}</label>
                   <Input
                     type="color"
                     value={color.hex}
@@ -359,7 +361,7 @@ export const ColorCard = ({
                   />
                 </div>
                 <div className="space-y-2">
-                  <label className="text-sm font-medium">Or enter HEX</label>
+                  <label className="text-sm font-medium">{t('tools.colorPaletteGenerator.enterHex')}</label>
                   <Input
                     value={color.hex}
                     onChange={(e) => onUpdateColor(e.target.value)}
@@ -385,7 +387,7 @@ export const ColorCard = ({
                 <Layers className="w-5 h-5" />
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Shades</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.shades')}</TooltipContent>
           </Tooltip>
         </div>
         <Tooltip>
@@ -411,7 +413,7 @@ export const ColorCard = ({
               )}
             </Button>
           </TooltipTrigger>
-          <TooltipContent>Lock</TooltipContent>
+          <TooltipContent>{t('tools.colorPaletteGenerator.lock')}</TooltipContent>
         </Tooltip>
 
         {color.locked && (
@@ -449,7 +451,7 @@ export const ColorCard = ({
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Copy</TooltipContent>
+                <TooltipContent>{t('toolCommon.copy')}</TooltipContent>
               </Tooltip>
               <Popover>
                 <PopoverTrigger asChild>
@@ -468,7 +470,7 @@ export const ColorCard = ({
                   <div className="space-y-3">
                     <div className="space-y-2">
                       <label className="text-xs font-medium">
-                        Pick a color
+                        {t('tools.colorPaletteGenerator.pickColor')}
                       </label>
                       <Input
                         type="color"
@@ -479,7 +481,7 @@ export const ColorCard = ({
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-medium">
-                        Or enter HEX
+                        {t('tools.colorPaletteGenerator.enterHex')}
                       </label>
                       <Input
                         value={color.hex}
@@ -506,7 +508,7 @@ export const ColorCard = ({
                     <Layers className="w-3 h-3" />
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Show shades</TooltipContent>
+                <TooltipContent>{t('tools.colorPaletteGenerator.showShades')}</TooltipContent>
               </Tooltip>
             </div>
 
@@ -559,7 +561,7 @@ export const ColorCard = ({
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Lock</TooltipContent>
+                <TooltipContent>{t('tools.colorPaletteGenerator.lock')}</TooltipContent>
               </Tooltip>
               <Tooltip>
                 <TooltipTrigger asChild>
@@ -573,7 +575,7 @@ export const ColorCard = ({
                     <GripVertical className="w-4 h-4 sm:w-5 sm:h-5" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>Move</TooltipContent>
+                <TooltipContent>{t('tools.colorPaletteGenerator.move')}</TooltipContent>
               </Tooltip>
               {canRemove && (
             <Tooltip>
@@ -590,7 +592,7 @@ export const ColorCard = ({
                   <X className="w-3 h-3 sm:w-4 sm:h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent className="">Remove</TooltipContent>
+              <TooltipContent className="">{t('tools.colorPaletteGenerator.remove')}</TooltipContent>
             </Tooltip>
           )}
              
@@ -681,7 +683,7 @@ export const ColorCard = ({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Copy</TooltipContent>
+            <TooltipContent>{t('toolCommon.copy')}</TooltipContent>
           </Tooltip>
 
           <Tooltip>
@@ -704,7 +706,7 @@ export const ColorCard = ({
                 )}
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Lock</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.lock')}</TooltipContent>
           </Tooltip>
         </div> */}
       </div>

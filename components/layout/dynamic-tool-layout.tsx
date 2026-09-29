@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { getToolBySlug } from '@/lib/tools-data'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 import { ToolSchemas } from '../seo/schema-manager'
-import { createFullUrl } from '@/lib/utils/metadata'
+import { ALL_LOCALES, PUBLISHED_LOCALES } from '@/lib/i18n/locales'
 
 // Generate dynamic metadata for any tool
 export function generateToolMetadata(toolSlug: string): Metadata {
@@ -57,46 +57,58 @@ export function generateToolMetadata(toolSlug: string): Metadata {
     },
     alternates: {
       canonical: tool.seo.canonicalUrl,
+      // hreflang — sirf jab locales publish hon (dono taraf ka pairing zaroori hai)
+      ...(PUBLISHED_LOCALES.length > 0
+        ? {
+            languages: {
+              'x-default': tool.seo.canonicalUrl,
+              en: tool.seo.canonicalUrl,
+              ...Object.fromEntries(
+                PUBLISHED_LOCALES.flatMap((code) => {
+                  const info = ALL_LOCALES[code]
+                  // tool.slug me kabhi leading slash hota hai kabhi nahi —
+                  // normalize karke hamesha /de/<slug>/ banao
+                  const cleanSlug = tool.slug.replace(/^\/+/, '')
+                  return info
+                    ? [[info.hreflang, `https://toolspy.net/${code}/${cleanSlug}/`]]
+                    : []
+                })
+              ),
+            },
+          }
+        : {}),
     },
   }
 }
 
-// Dynamic tool layout component with enhanced schema support
-export function DynamicToolLayout({ 
-  toolSlug, 
+// Dynamic tool layout component with automatic schema support.
+//
+// IMPORTANT (client-safety): ye component 84 tool `page.tsx` files (jo "use client"
+// hain) me `ToolPageWrapper` ke through render hota hai. Isliye ye SYNC + client-safe
+// hona ZAROORI hai — yahan Payload/DB (getToolContent) import karte hi poora Payload
+// node SDK client bundle me chala jata tha aur `Can't resolve 'fs'` (webpack
+// "Cannot read properties of undefined (reading 'call')") se saara client JS toot
+// jata tha (search dead, admin lexical skeleton).
+//
+// CMS ka custom JSON-LD ab SERVER-ONLY path se aata hai (ToolCustomSchema, jo sirf
+// server layouts/pages me use hota hai) — yahan sirf automatic schema.
+export function DynamicToolLayout({
+  toolSlug,
   children,
-  faqs,
-  reviews
-}: { 
+}: {
   toolSlug: string
-  children: React.ReactNode 
-  faqs?: Array<{
-    question: string
-    answer: string
-  }>
-  reviews?: Array<{
-    author: string
-    rating: number
-    text: string
-  }>
+  children: React.ReactNode
 }) {
   const tool = getToolBySlug(toolSlug)
 
   if (!tool) {
-    return children
+    return <>{children}</>
   }
 
   return (
     <>
-      {/* Enhanced Schema Markup */}
-      <ToolSchemas 
-        tool={tool}
-        includeReviews={true}
-        includeFAQ={true}
-      />
+      <ToolSchemas tool={tool} includeReviews={true} includeFAQ={true} />
       {children}
     </>
   )
 }
-
-// Component is already exported above 

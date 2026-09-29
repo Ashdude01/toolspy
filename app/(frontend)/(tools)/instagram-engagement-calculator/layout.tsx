@@ -1,0 +1,39 @@
+import type { Metadata } from 'next'
+import { Suspense } from 'react'
+import { generateToolMetadata, DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
+import { InstagramEngagementCalculatorSEOContent } from './seo-content'
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
+
+// Generate metadata dynamically for this tool
+export const metadata: Metadata = generateToolMetadata('instagram-engagement-calculator')
+/** Force static generation so this route is pre-rendered at build time. */
+export const dynamic = 'force-static'
+
+function InstagramEngagementCalculatorPageFallback() {
+  return null
+}
+
+export default function InstagramEngagementCalculatorLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <DynamicToolLayout toolSlug="instagram-engagement-calculator">
+      <CmsToolHero slug="instagram-engagement-calculator" locale="en" />
+      {/* Wrap page in Suspense so useSearchParams in page.tsx does not deopt the whole route. */}
+
+      <div className="contents [&_.tool-legacy-hero]:hidden">
+        <Suspense fallback={<InstagramEngagementCalculatorPageFallback />}>
+
+        {children}
+
+      </Suspense>
+      </div>
+      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+        <ToolContentSwitch slug="instagram-engagement-calculator" locale="en" codeFallback={<InstagramEngagementCalculatorSEOContent />} />
+      </div>
+    </DynamicToolLayout>
+  )
+}

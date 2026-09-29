@@ -25,6 +25,7 @@ import {
   copyToClipboard,
   type CardSize,
 } from "@/lib/share-export";
+import { useT } from "@/lib/i18n/use-t";
 
 export interface ShareMenuProps {
   /** Returns the shareable URL to copy / native-share (encodes tool state). */
@@ -64,6 +65,7 @@ export function ShareMenu({
   pdfOrientation = "landscape",
   cardBackground = "#ffffff",
 }: ShareMenuProps) {
+  const t = useT();
   const [open, setOpen] = React.useState(false);
   const [copied, setCopied] = React.useState(false);
   const [busy, setBusy] = React.useState<null | "img" | "pdf">(null);
@@ -125,9 +127,7 @@ export function ShareMenu({
       }
     } catch {
       window.alert(
-        kind === "img"
-          ? "Sorry - the image could not be generated."
-          : "Sorry - the PDF could not be generated."
+        kind === "img" ? t("share.imageFailed") : t("share.pdfFailed")
       );
     } finally {
       setBusy(null);
@@ -149,11 +149,11 @@ export function ShareMenu({
       >
         {copied ? (
           <>
-            <Check className="mr-1.5 h-4 w-4" /> Link copied
+            <Check className="mr-1.5 h-4 w-4" /> {t("share.linkCopied")}
           </>
         ) : (
           <>
-            <Share2 className="mr-1.5 h-3.5 w-3.5" /> Share
+            <Share2 className="mr-1.5 h-3.5 w-3.5" /> {t("share.share")}
             <span className="ml-1 opacity-70">▾</span>
           </>
         )}
@@ -167,11 +167,11 @@ export function ShareMenu({
           }
         >
           <button type="button" role="menuitem" onClick={copyLink} className={itemClass}>
-            <Link2 className="h-4 w-4 text-muted-foreground" /> Copy shareable link
+            <Link2 className="h-4 w-4 text-muted-foreground" /> {t("share.copyShareableLink")}
           </button>
           {canNativeShare && (
             <button type="button" role="menuitem" onClick={nativeShare} className={itemClass}>
-              <Share2 className="h-4 w-4 text-muted-foreground" /> Share via…
+              <Share2 className="h-4 w-4 text-muted-foreground" /> {t("share.shareVia")}
             </button>
           )}
           <button
@@ -182,7 +182,7 @@ export function ShareMenu({
             className={itemClass}
           >
             <ImageDown className="h-4 w-4 text-muted-foreground" />
-            {busy === "img" ? "Generating image…" : "Download as image (PNG)"}
+            {busy === "img" ? t("share.generatingImage") : t("share.downloadAsImage")}
           </button>
           <button
             type="button"
@@ -192,7 +192,7 @@ export function ShareMenu({
             className={itemClass}
           >
             <FileDown className="h-4 w-4 text-muted-foreground" />
-            {busy === "pdf" ? "Generating PDF…" : "Download as PDF"}
+            {busy === "pdf" ? t("share.generatingPdf") : t("share.downloadAsPdf")}
           </button>
         </div>
       )}

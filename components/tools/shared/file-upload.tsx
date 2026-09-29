@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Card } from '@/components/ui/card';
 import { UploadCloud, Link, ChevronDown, ChevronUp } from 'lucide-react';
 import { validateImageFile, loadImageFromUrl, pasteImageFromClipboard, isValidUrl } from '@/lib/utils/file-utils';
+import { useT } from '@/lib/i18n/use-t';
 import { BrandedUploadModal } from './branded-upload-modal';
 
 interface FileUploadProps {
@@ -54,6 +55,7 @@ export function FileUpload({
   adSlotLeft,
   adSlotRight
 }: FileUploadProps) {
+  const t = useT();
   const [isDragOver, setIsDragOver] = useState(false);
   const [urlInput, setUrlInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -250,8 +252,8 @@ export function FileUpload({
                 <UploadCloud className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="text-sm font-semibold">Add More Images</h3>
-                <p className="text-xs text-muted-foreground">Click to upload or drag and drop</p>
+                <h3 className="text-sm font-semibold">{t('toolCommon.addMoreImages')}</h3>
+                <p className="text-xs text-muted-foreground">{t('toolCommon.clickOrDrag')}</p>
               </div>
             </div>
             {(onToggleCollapse || (autoCollapse && externalCollapsed === undefined)) && (
@@ -291,45 +293,46 @@ export function FileUpload({
             </div>
           </div>
 
-          {/* Main Text */}
-          <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-gray-100">
-            Drag and drop your image{multiple ? 's' : ''} here
+          <h3 className="mb-2 text-xl font-semibold text-gray-900 dark:text-gray-100">
+            {t('toolCommon.dropImagesHere')}
           </h3>
+          <p className="mb-5 text-sm text-muted-foreground">
+            {t('toolCommon.filesStayLocal')}
+          </p>
 
-          {/* Action Buttons */}
-          <div className="flex items-center justify-center gap-2 mb-6">
+          {/* Action Buttons — stopPropagation so nested controls aren't dead-click traps */}
+          <div className="mb-6 flex flex-wrap items-center justify-center gap-2">
             <Button 
-              variant="secondary" 
-              className="h-auto text-blue-600 hover:text-blue-700 text-xs sm:text-sm"
+              className="h-11 min-w-[140px] text-sm font-semibold sm:text-base"
               onClick={(e) => {
                 e.stopPropagation();
                 document.getElementById('file-input')?.click();
               }}
             >
-              Browse Files
+              {t('toolCommon.chooseImages')}
             </Button>
-            <span className="text-muted-foreground">•</span>
             <Button 
-              variant="secondary" 
-              className="h-auto text-purple-600 hover:text-purple-700 text-xs sm:text-sm"
+              variant="outline" 
+              className="h-11 text-sm sm:text-base"
               onClick={(e) => {
                 e.stopPropagation();
                 handlePaste();
               }}
               disabled={isLoading}
             >
-              {isLoading ? 'Pasting...' : 'Paste from Clipboard'}
+              {isLoading ? t('toolCommon.pasting') : t('toolCommon.pasteImage')}
             </Button>
           </div>
 
           {/* Supported Formats */}
           <p className="text-sm text-muted-foreground">
-            Supports JPG, PNG, GIF, WebP, SVG, AVIF, HEIC, BMP, TIFF, ICO • JFIF{multiple ? ` • Up to ${maxFiles} files` : ''}
+            {t('toolCommon.supportsFormats')}
+            {multiple ? ` • ${t('toolCommon.upToFiles', { count: maxFiles })}` : ''}
           </p>
 
           {/* Keyboard Shortcut Hint */}
           <p className="text-xs text-muted-foreground mt-2">
-            Press <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">Ctrl</kbd> + <kbd className="px-1.5 py-0.5 text-xs font-semibold text-gray-800 bg-gray-200 border border-gray-300 rounded dark:bg-gray-600 dark:text-gray-100 dark:border-gray-500">V</kbd> to paste image
+            {t('toolCommon.pasteShortcut')}
           </p>
           
           {/* URL Import */}
@@ -338,7 +341,7 @@ export function FileUpload({
           <div className="flex items-center space-x-2">
             <Link className="h-5 w-5 text-muted-foreground" />
             <Input
-              placeholder="Enter image URL..."
+              placeholder={t('toolCommon.enterImageUrl')}
               value={urlInput}
               onChange={(e) => setUrlInput(e.target.value)}
               onKeyPress={(e) => e.key === 'Enter' && handleUrlImport()}
@@ -349,7 +352,7 @@ export function FileUpload({
               disabled={!urlInput.trim() || isLoading}
               size="sm"
             >
-              {isLoading ? 'Loading...' : 'Import'}
+              {isLoading ? t('toolCommon.loading') : t('toolCommon.import')}
             </Button>
           </div>
           {/* <div className="text-xs text-muted-foreground">

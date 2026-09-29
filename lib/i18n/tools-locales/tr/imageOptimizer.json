@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "Görüntü optimizasyonu hakkında",
+    "allFilesCleared": "Tüm dosyalar temizlendi",
+    "coverDimensions": "Boyutları kapla",
+    "fileRemoved": "Dosya kaldırıldı",
+    "fitWithinDimensions": "Boyutlara sığdır",
+    "imagesOptimizedSuccessfully": "Görüntüler başarıyla optimize edildi!",
+    "imagesToOptimize": "Optimize edilecek görüntüler",
+    "keepOriginalFormat": "Orijinal formatı koru",
+    "noOptimizedImagesToDownload": "İndirilecek optimize edilmiş görüntü yok",
+    "noResizing": "Yeniden boyutlandırma yok",
+    "optimizationFailedPleaseTryAgain": "Optimizasyon başarısız. Lütfen tekrar deneyin.",
+    "optimizingImages": "Görüntüler optimize ediliyor",
+    "outputFormat": "Çıktı formatı",
+    "pleaseSelectImagesFirst": "Lütfen önce görüntü seçin",
+    "progressiveJpeg": "Aşamalı JPEG",
+    "removeMetadata": "Meta verileri kaldır",
+    "resizeMode": "Yeniden boyutlandırma modu",
+    "webpBestCompression": "WebP (en iyi sıkıştırma)"
+  }
+}

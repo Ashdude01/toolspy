@@ -233,7 +233,7 @@ function getCategoryDisplayName(category: ToolCategory): string {
     'code-tools': 'Code Tools',
     'conversion-tools': 'Conversion Tools',
     'gst-tools': 'GST/MSME Toolkit',
-    'exam-tools': 'Exam Rank/Cutoff Predictors'
+    'exam-tools': 'Exam Tools'
   };
   
   return displayNames[category] || category

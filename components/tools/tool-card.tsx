@@ -21,7 +21,10 @@ import {
   FileJson,
   Clock,
 } from 'lucide-react';
-import { Tool, ToolCategory, toolCategories } from '@/lib/tools-data';
+import { Tool, ToolCategory } from '@/lib/tools-data';
+import { useT, useLocale } from '@/lib/i18n/use-t';
+import { getToolCopy } from '@/lib/i18n/get-tool-copy';
+import { localizeHref } from '@/lib/i18n/localize-href';
 
 export function getCategoryIcon(category: string, className = 'h-6 w-6') {
   switch (category) {
@@ -93,18 +96,21 @@ interface ToolCardProps {
 export function ToolCard({
   tool,
   className,
-  truncateDescription,
+  truncateDescription = 60,
   showCategoryBadge = true,
 }: ToolCardProps) {
+  const t = useT();
+  const locale = useLocale();
+  const copy = getToolCopy(tool.slug, locale);
   const isClickable = tool.status === 'active';
   const description =
-    truncateDescription && tool.description.length > truncateDescription
-      ? `${tool.description.slice(0, truncateDescription)}...`
-      : tool.description;
+    truncateDescription && copy.description.length > truncateDescription
+      ? `${copy.description.slice(0, truncateDescription)}..`
+      : copy.description;
 
   const cardInner = (
     <div
-      className={`relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 transition-shadow duration-200 p-6 ${
+      className={`relative h-full bg-white dark:bg-slate-900 rounded-xl border border-slate-300 dark:border-slate-700 transition-shadow duration-200 p-5 md:p-6 ${
         isClickable
           ? 'hover:border-blue-300 dark:hover:border-blue-600 hover:shadow-lg'
           : 'opacity-75'
@@ -124,12 +130,12 @@ export function ToolCard({
             <Badge variant="outline" className="text-xs">
               <span className="inline-flex items-center">
                 <Clock className="w-3 h-3 mr-1" />
-                Coming Soon
+                {t('common.comingSoon')}
               </span>
             </Badge>
           ) : showCategoryBadge ? (
             <Badge variant="outline" className="text-xs">
-              {toolCategories[tool.category]?.name}
+              {t(`categories.${tool.category}` as 'categories.image-tools')}
             </Badge>
           ) : null}
         </div>
@@ -137,9 +143,9 @@ export function ToolCard({
         {/* Content */}
         <div>
           <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-            {tool.name}
+            {copy.name}
           </h3>
-          <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
+          <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm leading-relaxed">
             {description}
           </p>
         </div>
@@ -171,14 +177,14 @@ export function ToolCard({
 
   if (!isClickable) {
     return (
-      <div className={`group block h-full cursor-not-allowed ${className || ''}`} title="Coming soon">
+      <div className={`group block h-full cursor-not-allowed ${className || ''}`} title={t('common.comingSoon')}>
         {cardInner}
       </div>
     );
   }
 
   return (
-    <Link href={tool.path} className={`group block h-full ${className || ''}`}>
+    <Link href={localizeHref(locale, tool.path)} className={`group block h-full ${className || ''}`}>
       {cardInner}
     </Link>
   );

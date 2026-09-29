@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "Afbeeldingscompressor",
+    "description": "Comprimeer afbeeldingen met Toolspy's geavanceerde engine om de bestandsgrootte te verkleinen met behoud van kwaliteit"
+  },
+  "online-image-cropper": {
+    "name": "Online afbeelding bijsnijden",
+    "description": "Snijd afbeeldingen bij met vrije selectie, beeldverhouding of vooraf ingestelde vormen zoals cirkel en polygonen — draait in je browser."
+  },
+  "image-converter": {
+    "name": "Afbeeldingsconverter",
+    "description": "Converteer afbeeldingen tussen verschillende formaten (PNG, JPG, WebP, SVG, enz.)"
+  },
+  "image-resizer": {
+    "name": "Afbeeldingsresizer",
+    "description": "Wijzig de grootte van afbeeldingen naar specifieke afmetingen of percentages"
+  },
+  "image-optimizer": {
+    "name": "Afbeeldingsoptimalisatie",
+    "description": "Optimaliseer afbeeldingen voor sneller laden en betere prestaties"
+  },
+  "jfif-to-jpg": {
+    "name": "JFIF naar JPG-converter",
+    "description": "Converteer JFIF-afbeeldingen naar JPG/JPEG met hoogwaardige kwaliteitsbehoud"
+  },
+  "base64-to-image": {
+    "name": "Base64 naar afbeelding-converter",
+    "description": "Zet Base64-gecodeerde strings terug om naar afbeeldingsbestanden met Toolspy's veilige converter"
+  },
+  "image-to-base64": {
+    "name": "Afbeelding naar Base64-encoder",
+    "description": "Converteer afbeeldingen naar Base64-strings om in te sluiten met Toolspy's professionele encoder"
+  },
+  "base64-encoder-decoder": {
+    "name": "Base64-encoder/decoder",
+    "description": "Codeer en decodeer tekst naar/van Base64-formaat"
+  },
+  "pdf-converter": {
+    "name": "PDF-converter",
+    "description": "Converteer PDF's naar verschillende formaten en vice versa"
+  },
+  "pdf-to-word": {
+    "name": "PDF naar Word",
+    "description": "Converteer PDF-documenten naar bewerkbare Word-bestanden"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF naar JPG",
+    "description": "Converteer PDF-pagina's naar JPG-afbeeldingen"
+  },
+  "jfif-to-pdf": {
+    "name": "JFIF naar PDF-converter",
+    "description": "Converteer JFIF-afbeeldingen naar PDF-documenten met professionele kwaliteit"
+  },
+  "merge-pdf": {
+    "name": "PDF-bestanden samenvoegen",
+    "description": "Combineer meerdere PDF-bestanden tot één document"
+  },
+  "pdf-to-image": {
+    "name": "PDF naar afbeelding-converter",
+    "description": "Converteer PDF-pagina's naar verschillende afbeeldingsformaten (PNG, JPG, WebP)"
+  },
+  "compress-pdf": {
+    "name": "PDF-compressor",
+    "description": "Comprimeer PDF-bestanden om de grootte te verkleinen met behoud van kwaliteit"
+  },
+  "heic-to-pdf": {
+    "name": "HEIC naar PDF-converter",
+    "description": "Converteer HEIC-afbeeldingen naar PDF-documenten met hoge kwaliteit"
+  },
+  "image-to-pdf": {
+    "name": "Afbeelding naar PDF-converter",
+    "description": "Converteer JPG, PNG, WebP en andere afbeeldingen online naar één PDF"
+  },
+  "split-pdf": {
+    "name": "PDF-bestanden splitsen",
+    "description": "Splits grote PDF-documenten in kleinere bestanden op paginabereiken"
+  },
+  "pdf-password-remover": {
+    "name": "PDF-wachtwoord verwijderen",
+    "description": "Verwijder wachtwoordbeveiliging van PDF-bestanden direct"
+  },
+  "pdf-to-excel": {
+    "name": "PDF naar Excel-converter",
+    "description": "Converteer PDF-documenten naar Excel-spreadsheets voor data-analyse"
+  },
+  "pdf-to-csv": {
+    "name": "PDF naar CSV-converter",
+    "description": "Extraheer tabelgegevens uit PDF-documenten naar CSV-formaat"
+  },
+  "file-protector": {
+    "name": "Bestandsbeveiliger",
+    "description": "Voeg wachtwoordbeveiliging toe aan je bestanden voor extra veiligheid"
+  },
+  "percentage-calculator": {
+    "name": "Percentagecalculator",
+    "description": "Bereken percentages, procentuele stijgingen en dalingen"
+  },
+  "age-calculator": {
+    "name": "Leeftijdscalculator",
+    "description": "Bereken je exacte leeftijd in jaren, maanden, dagen, uren en minuten"
+  },
+  "love-calculator": {
+    "name": "Liefdescalculator",
+    "description": "Bereken het liefdescompatibiliteitspercentage tussen twee personen"
+  },
+  "bmi-calculator": {
+    "name": "BMI-calculator",
+    "description": "Bereken Body Mass Index (BMI) en gezondheidsstatus"
+  },
+  "loan-calculator": {
+    "name": "Leningcalculator",
+    "description": "Bereken maandelijkse aflossing, rente en totale kosten van een lening"
+  },
+  "mortgage-calculator": {
+    "name": "Hypotheekcalculator",
+    "description": "Bereken hypotheeklasten, rentetarieven en aflossingsschema"
+  },
+  "retirement-calculator": {
+    "name": "Pensioencalculator",
+    "description": "Bereken benodigde pensioenspaarbedragen en investeringsprognoses"
+  },
+  "investment-calculator": {
+    "name": "Beleggingscalculator",
+    "description": "Bereken samengestelde rente en groei van je belegging over tijd"
+  },
+  "coast-fire-calculator": {
+    "name": "Coast FIRE-calculator",
+    "description": "Ontdek wanneer samengestelde groei alleen je pensioen kan financieren"
+  },
+  "tax-calculator": {
+    "name": "Belastingcalculator",
+    "description": "Bereken inkomstenbelasting, belastingschijven en nettoloon"
+  },
+  "salary-calculator": {
+    "name": "Salariscalculator",
+    "description": "Converteer tussen uur-, maand- en jaarsalaris"
+  },
+  "unit-converter": {
+    "name": "Eenhedenconverter",
+    "description": "Converteer tussen verschillende meeteenheden"
+  },
+  "currency-converter": {
+    "name": "Valutaconverter",
+    "description": "Converteer tussen valuta met live wisselkoersen"
+  },
+  "temperature-converter": {
+    "name": "Temperatuurconverter",
+    "description": "Converteer tussen Celsius, Fahrenheit en Kelvin"
+  },
+  "length-converter": {
+    "name": "Lengteconverter",
+    "description": "Converteer tussen verschillende eenheden van lengte en afstand"
+  },
+  "weight-converter": {
+    "name": "Gewichtsconverter",
+    "description": "Converteer tussen verschillende eenheden van gewicht en massa"
+  },
+  "volume-converter": {
+    "name": "Volumeconverter",
+    "description": "Converteer tussen verschillende eenheden van volume en capaciteit"
+  },
+  "area-converter": {
+    "name": "Oppervlakteconverter",
+    "description": "Converteer tussen verschillende eenheden van oppervlakte en vlaktemeting"
+  },
+  "qr-code-generator": {
+    "name": "QR-codegenerator",
+    "description": "Genereer QR-codes voor tekst, URL's en meer"
+  },
+  "color-picker": {
+    "name": "Kleurenkiezer",
+    "description": "Kies kleuren en krijg hex-, RGB- en HSL-waarden"
+  },
+  "color-palette-generator": {
+    "name": "Kleurenpaletgenerator",
+    "description": "Genereer prachtige kleurenpaletten met slepen-en-neerzetten, kleuren vergrendelen en export in meerdere formaten"
+  },
+  "google-indexing-api": {
+    "name": "Google Indexing API-tool",
+    "description": "Dien website-URL's in bij de Google Indexing API voor snellere indexering en betere zichtbaarheid in zoekresultaten"
+  },
+  "json-formatter": {
+    "name": "JSON-formatter & validator",
+    "description": "Formatteer, valideer en visualiseer JSON-data met geavanceerde boomweergave, foutdetectie en exportopties"
+  },
+  "json-table-converter": {
+    "name": "JSON-tabelconverter",
+    "description": "Converteer JSON naar CSV/Excel en vice versa met geavanceerde preview, batchverwerking en slimme datamapping"
+  },
+  "code-beautifier": {
+    "name": "Code formatter & minifier",
+    "description": "Formatteer, minify en analyseer JavaScript-, CSS- en HTML-code met syntax highlighting, foutdetectie en AI-uitleg"
+  },
+  "ai-color-palette-generator": {
+    "name": "AI-kleurenpaletgenerator",
+    "description": "Genereer prachtige kleurenpaletten met AI-suggesties, toegankelijkheidscontrole en professionele exportopties"
+  },
+  "ai-background-remover": {
+    "name": "AI-achtergrondverwijderaar",
+    "description": "Verwijder achtergronden van afbeeldingen direct met AI. Inclusief magische borstel voor retouches, batchverwerking en professionele exportopties"
+  },
+  "meme-generator": {
+    "name": "AI-memegenerator",
+    "description": "Maak virale memes met trending templates, AI-captionsuggesties en professionele bewerkingstools voor social media"
+  },
+  "ai-writing-tools": {
+    "name": "AI-schrijftools-suite",
+    "description": "Complete AI-schrijftoolkit: parafraseerder, samenvatter, humanizer en AI-detector met geavanceerde aanpassingsopties"
+  },
+  "ai-image-enhancer": {
+    "name": "AI-afbeeldingsverbeteraar",
+    "description": "Verbeter foto's met AI: resolutie opschalen, onscherpte verminderen, oude foto's herstellen en zwart-wit foto's inkleuren"
+  },
+  "ai-resume-builder": {
+    "name": "AI-cv-maker",
+    "description": "Maak professionele cv's met AI-suggesties, ATS-optimalisatie, job matching en expert-sjablonen"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook-afbeeldingsdownloader",
+    "description": "Gratis Facebook-afbeeldingsdownloader voor openbare posts. Plak een link om Facebook-foto's, profielfoto's (DP) en coverfoto's in HD te downloaden — geen app, geen login, gewoon in je browser."
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube-thumbnaildownloader",
+    "description": "Download YouTube-thumbnails in maximale resolutie (4K/HD). Voer een videolink of ID in en download direct."
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels-downloader",
+    "description": "Sla Instagram Reels en korte video's op in hoge kwaliteit. Plak een reel-URL en download snel."
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP-viewer",
+    "description": "Bekijk en download openbare Instagram-profielfoto's in volledige grootte. Werkt alleen met publiek zichtbare DP's."
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube-embedcodegenerator",
+    "description": "Maak responsieve YouTube-embedcodes. Pas beeldverhouding, autoplay en bediening aan en kopieer schone HTML."
+  },
+  "ocr-text-extractor": {
+    "name": "OCR-tekstextractor",
+    "description": "Extraheer tekst uit afbeeldingen en PDF's met geavanceerde OCR-technologie. Ondersteuning voor 12+ talen, batchverwerking en bewerkbare resultaten"
+  },
+  "media-converter": {
+    "name": "Mediaconverter",
+    "description": "Converteer video-, audio- en archiefbestanden tussen formaten. Ondersteunt batchverwerking, kwaliteitspresets en geavanceerde instellingen"
+  },
+  "ebook-converter": {
+    "name": "E-bookconverter",
+    "description": "Converteer e-books tussen EPUB, MOBI, PDF en DOCX met professionele metadata-bewerking en ondersteuning voor coverafbeeldingen"
+  },
+  "font-converter": {
+    "name": "Lettertypeconverter",
+    "description": "Converteer fonts tussen TTF, OTF, WOFF en WOFF2 met live preview, AI-lettertypecombinaties en weboptimalisatie"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram-engagement",
+    "description": "Bereken Instagram-engagementrate met geavanceerde algoritmes, branchebenchmarks en persoonlijke aanbevelingen voor social media-succes"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook-engagement",
+    "description": "Bereken Facebook-engagementrate met geavanceerde algoritmes, branchebenchmarks en persoonlijke aanbevelingen voor social media-succes"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter-engagement",
+    "description": "Bereken Twitter-engagementrate met geavanceerde algoritmes, branchebenchmarks en persoonlijke aanbevelingen voor social media-succes"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube-engagement",
+    "description": "Bereken YouTube-engagementrate met geavanceerde algoritmes, branchebenchmarks en persoonlijke aanbevelingen voor videosucces"
+  },
+  "domain-whois-lookup": {
+    "name": "Domein WHOIS-lookup",
+    "description": "Krijg uitgebreide domeinregistratie-informatie met onze gratis WHOIS-lookup. Check eigenaarschap, registratiedata en contactgegevens direct."
+  },
+  "expired-domain-finder": {
+    "name": "Zoeker voor verlopen domeinen",
+    "description": "Ontdek waardevolle verlopen domeinen met onze uitgebreide zoektool. Krijg direct toegang tot domain authority-scores, backlinkdata en geschatte waardes."
+  },
+  "app-icon-generator": {
+    "name": "App-icongenerator",
+    "description": "Genereer professionele app-iconen voor alle platforms met Toolspy's geavanceerde generator. Maak iconen voor Android, iOS, Windows, macOS, Linux en web."
+  },
+  "pwa-icon-generator": {
+    "name": "PWA-icongenerator",
+    "description": "Genereer PWA-iconen en een manifest-bestand voor Progressive Web Apps met volledige privacybescherming."
+  },
+  "favicon-generator": {
+    "name": "Favicon-generator",
+    "description": "Genereer favicons voor je website met Toolspy. Maak favicons voor alle apparaten en browsers."
+  },
+  "image-to-ico-converter": {
+    "name": "Afbeelding naar ICO-converter",
+    "description": "Converteer afbeeldingen naar ICO-formaat met Toolspy's geavanceerde converter. Maak ICO-bestanden voor Windows-apps en web."
+  },
+  "markdown-to-docs-converter": {
+    "name": "Markdown naar Docs-converter",
+    "description": "Converteer Markdown naar documenten met Toolspy's geavanceerde converter. Maak HTML, PDF, Word en platte-tekstdocumenten."
+  },
+  "gst-calculator": {
+    "name": "GST-calculator",
+    "description": "Bereken GST (Goods and Services Tax) met inclusief- en exclusiefmodus. Ondersteuning voor alle GST-tarieven (0%, 5%, 12%, 18%, 28%)"
+  },
+  "reverse-gst-calculator": {
+    "name": "Reverse GST-calculator",
+    "description": "Bereken basisbedrag en GST-component uit het totaalbedrag. Perfect voor factuuranalyse en belastingopdeling met alle GST-tarieven"
+  },
+  "hsn-sac-finder": {
+    "name": "HSN/SAC-codezoeker",
+    "description": "Vind HSN (Harmonized System of Nomenclature) en SAC (Services Accounting Code)-codes met GST-tarieven. Snel zoeken met autosuggest en referentielinks"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "CGST/SGST/IGST-splitser",
+    "description": "Splits GST automatisch in CGST, SGST en IGST op basis van intra-state versus inter-state transacties. Perfect om GST-verdeling tussen staten te begrijpen"
+  },
+  "itc-calculator": {
+    "name": "Input Tax Credit (ITC)-calculator",
+    "description": "Houd claimbare credits vs geblokkeerde credits bij met een professionele ITC-calculator. Perfect om ITC-geschiktheid en compliance te begrijpen"
+  },
+  "e-invoice-qr-validator": {
+    "name": "E-Invoice/QR-codevalidator",
+    "description": "Upload/scan E-Invoice QR-codes om factuurstatus te valideren en informatie te extracten. Perfect voor factuurverificatie en compliance-checks"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Schatting: Composition vs Regular Scheme",
+    "description": "Vergelijk belastingplicht onder Composition- en Regular GST-schemes. Perfect om het optimale scheme voor je bedrijf te kiezen"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "Boete-/te-laat-feecalculator",
+    "description": "Bereken automatisch late fees en rente voor GSTR-aangifte met een professionele calculator. Perfect om boete-implicaties te begrijpen en compliance te plannen"
+  },
+  "jee-main-rank-predictor": {
+    "name": "JEE Main rangvoorspeller",
+    "description": "Voorspel je JEE Main-rang en college-opties op basis van percentile. Perfect om toelatingskansen te begrijpen en je engineeringreis te plannen"
+  },
+  "neet-rank-predictor": {
+    "name": "NEET rangvoorspeller",
+    "description": "Voorspel je NEET-rang en medische college-opties op basis van score. Perfect om toelatingskansen te begrijpen en je medische reis te plannen"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "JEE Advanced rangvoorspeller",
+    "description": "Voorspel je JEE Advanced-rang en IIT-opties op basis van score. Perfect om toelatingskansen te begrijpen en je IIT-reis te plannen"
+  },
+  "gate-rank-predictor": {
+    "name": "GATE rangvoorspeller",
+    "description": "Voorspel je GATE-rang en college-opties op basis van score en vak. Perfect om toelatingskansen te begrijpen en je postgraduele reis te plannen"
+  },
+  "cat-percentile-predictor": {
+    "name": "CAT percentile-voorspeller",
+    "description": "Voorspel je CAT-percentile en MBA-college-opties op basis van sectiescores. Perfect om toelatingskansen te begrijpen en je MBA-reis te plannen"
+  },
+  "upsc-rank-predictor": {
+    "name": "UPSC rangvoorspeller",
+    "description": "Voorspel je UPSC-rang en civil service-opties op basis van examenscores. Perfect om service-allocatie te begrijpen en je carrière te plannen"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "SSC CGL rangvoorspeller",
+    "description": "Voorspel je SSC CGL-rang en overheid-jobopties op basis van examenscores. Perfect om post-allocatie te begrijpen en je overheidscarrière te plannen"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Bank PO rangvoorspeller",
+    "description": "Voorspel je Bank PO-rang en bankjobopties op basis van examenscores. Perfect om bank-allocatie te begrijpen en je bankcarrière te plannen"
+  },
+  "website-screenshot": {
+    "name": "Website-screenshot",
+    "description": "Maak screenshots van hoge kwaliteit van elke website in verschillende formaten en groottes. Full-page capture, meerdere apparaatpresets en directe downloads"
+  }
+}

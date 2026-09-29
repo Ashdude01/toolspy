@@ -54,5 +54,8 @@ Allow: /
 User-agent: Applebot-Extended
 Allow: /
 
-# Sitemaps
+# Sitemaps (named children — pages / tools / blog)
 Sitemap: https://toolspy.net/sitemap.xml
+Sitemap: https://toolspy.net/sitemap/pages.xml
+Sitemap: https://toolspy.net/sitemap/tools.xml
+Sitemap: https://toolspy.net/sitemap/blog.xml

@@ -6,6 +6,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/u
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { ColorItem } from '@/hooks/useColorPalette';
+import { useT } from '@/lib/i18n/use-t';
 
 interface ExportDialogProps {
   open: boolean;
@@ -14,6 +15,7 @@ interface ExportDialogProps {
 }
 
 export const ExportDialog = ({ open, onOpenChange, colors }: ExportDialogProps) => {
+  const t = useT();
   const [copied, setCopied] = useState<string | null>(null);
 
   const hexArray = colors.map(c => c.hex);
@@ -64,7 +66,7 @@ export const ExportDialog = ({ open, onOpenChange, colors }: ExportDialogProps) 
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
             <Download className="w-5 h-5" />
-            Export Palette
+            {t('tools.colorPaletteGenerator.exportDialogTitle')}
           </DialogTitle>
         </DialogHeader>
 
@@ -109,7 +111,7 @@ export const ExportDialog = ({ open, onOpenChange, colors }: ExportDialogProps) 
         <div className="flex gap-2 mt-4">
           <Button onClick={downloadPNG} className="flex-1">
             <Download className="w-4 h-4 mr-2" />
-            Download PNG
+            {t('tools.colorPaletteGenerator.downloadPng')}
           </Button>
           <Button 
             variant="outline" 
@@ -117,7 +119,7 @@ export const ExportDialog = ({ open, onOpenChange, colors }: ExportDialogProps) 
             className="flex-1"
           >
             {copied === 'url' ? <Check className="w-4 h-4 mr-2" /> : <Copy className="w-4 h-4 mr-2" />}
-            Copy URL
+            {t('tools.colorPaletteGenerator.copyUrl')}
           </Button>
         </div>
       </DialogContent>

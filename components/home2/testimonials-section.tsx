@@ -54,7 +54,7 @@ export function TestimonialsSection() {
   ]
 
   const facts = [
-    { value: "80+", label: "Free tools" },
+    { value: "100+", label: "Free tools" },
     { value: "100%", label: "Free to use" },
     { value: "No", label: "Sign-up needed" },
     { value: "In-browser", label: "Private by design" },

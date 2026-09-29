@@ -4,6 +4,7 @@ import { Undo2, Redo2, Download, Share2, Moon, Sun, Sparkles } from 'lucide-reac
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
 import { cn, scrollToElement } from '@/lib/utils';
+import { useT } from '@/lib/i18n/use-t';
 
 interface ToolbarProps {
   onGenerate: () => void;
@@ -24,6 +25,8 @@ export const Toolbar = ({
   canUndo,
   canRedo,
 }: ToolbarProps) => {
+  const t = useT();
+
   return (
     <TooltipProvider>
       <div className="fixed bottom-7 left-1/2 -translate-x-1/2 z-50">
@@ -47,7 +50,7 @@ export const Toolbar = ({
                   <Undo2 className="w-4 h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Undo (Ctrl+Z)</TooltipContent>
+              <TooltipContent>{t('tools.colorPaletteGenerator.undoTooltip')}</TooltipContent>
             </Tooltip>
 
             <Tooltip>
@@ -62,7 +65,7 @@ export const Toolbar = ({
                   <Redo2 className="w-4 h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Redo (Ctrl+Shift+Z)</TooltipContent>
+              <TooltipContent>{t('tools.colorPaletteGenerator.redoTooltip')}</TooltipContent>
             </Tooltip>
           </div>
 
@@ -82,11 +85,11 @@ export const Toolbar = ({
                 )}
               >
                 <Sparkles className="w-4 h-4 md:w-5 md:h-5 mr-1.5 md:mr-2 group-hover:animate-spin" />
-                <span className="hidden sm:inline">Generate</span>
+                <span className="hidden sm:inline">{t('tools.colorPaletteGenerator.generate')}</span>
                 <span className="hidden lg:inline ml-2 text-xs opacity-70 font-normal">Space</span>
               </Button>
             </TooltipTrigger>
-            <TooltipContent>Press Spacebar to generate new colors</TooltipContent>
+            <TooltipContent>{t('tools.colorPaletteGenerator.generateTooltip')}</TooltipContent>
           </Tooltip>
 
           <div className="w-px h-6 bg-border/50 mx-1" />
@@ -98,7 +101,7 @@ export const Toolbar = ({
                   <Download className="w-4 h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Export palette</TooltipContent>
+              <TooltipContent>{t('tools.colorPaletteGenerator.exportTooltip')}</TooltipContent>
             </Tooltip>
 
             <Tooltip>
@@ -107,7 +110,7 @@ export const Toolbar = ({
                   <Share2 className="w-4 h-4" />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Share palette</TooltipContent>
+              <TooltipContent>{t('tools.colorPaletteGenerator.shareTooltip')}</TooltipContent>
             </Tooltip>
           </div>
         </div>

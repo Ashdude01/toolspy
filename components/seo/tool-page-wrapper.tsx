@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { DynamicToolLayout } from '@/components/layout/dynamic-tool-layout';
 
 interface ToolPageWrapperProps {
   toolSlug: string;
@@ -7,13 +6,10 @@ interface ToolPageWrapperProps {
 }
 
 /**
- * Wrapper component for tool pages that provides schema and layout functionality
- * This is a compatibility component for tools that haven't been migrated to the new layout system
+ * Legacy wrapper kept for client tool pages.
+ * Schema + layout shell live in each tool's server layout.tsx (DynamicToolLayout).
+ * This component must stay client-safe — no server/Payload imports.
  */
-export function ToolPageWrapper({ toolSlug, children }: ToolPageWrapperProps) {
-  return (
-    <DynamicToolLayout toolSlug={toolSlug}>
-      {children}
-    </DynamicToolLayout>
-  );
+export function ToolPageWrapper({ children }: ToolPageWrapperProps) {
+  return <>{children}</>;
 }

@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "حول تحسين الصور",
+    "allFilesCleared": "تم مسح جميع الملفات",
+    "coverDimensions": "تغطية الأبعاد",
+    "fileRemoved": "تمت إزالة الملف",
+    "fitWithinDimensions": "ملاءمة ضمن الأبعاد",
+    "imagesOptimizedSuccessfully": "تم تحسين الصور بنجاح!",
+    "imagesToOptimize": "صور للتحسين",
+    "keepOriginalFormat": "الاحتفاظ بالتنسيق الأصلي",
+    "noOptimizedImagesToDownload": "لا توجد صور محسّنة للتنزيل",
+    "noResizing": "بدون تغيير الحجم",
+    "optimizationFailedPleaseTryAgain": "فشل التحسين. يرجى المحاولة مرة أخرى.",
+    "optimizingImages": "جارٍ تحسين الصور",
+    "outputFormat": "صيغة الإخراج",
+    "pleaseSelectImagesFirst": "يرجى اختيار الصور أولاً",
+    "progressiveJpeg": "JPEG تدريجي",
+    "removeMetadata": "إزالة البيانات الوصفية",
+    "resizeMode": "وضع تغيير الحجم",
+    "webpBestCompression": "WebP (أفضل ضغط)"
+  }
+}

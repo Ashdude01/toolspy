@@ -23,4 +23,3 @@ print('\nFeatured Tools:')
 featured_tools = df[df['Featured'] == 'Yes']['Tool Name'].tolist()
 for i, tool in enumerate(featured_tools, 1):
     print(f'  {i}. {tool}')
-

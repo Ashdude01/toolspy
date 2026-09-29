@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "À propos de l'optimisation d'images",
+    "allFilesCleared": "Tous les fichiers ont été effacés",
+    "coverDimensions": "Couvrir les dimensions",
+    "fileRemoved": "Fichier supprimé",
+    "fitWithinDimensions": "Ajuster dans les dimensions",
+    "imagesOptimizedSuccessfully": "Images optimisées avec succès !",
+    "imagesToOptimize": "Images à optimiser",
+    "keepOriginalFormat": "Conserver le format d'origine",
+    "noOptimizedImagesToDownload": "Aucune image optimisée à télécharger",
+    "noResizing": "Aucun redimensionnement",
+    "optimizationFailedPleaseTryAgain": "Échec de l'optimisation. Veuillez réessayer.",
+    "optimizingImages": "Optimisation des images",
+    "outputFormat": "Format de sortie",
+    "pleaseSelectImagesFirst": "Veuillez d'abord sélectionner des images",
+    "progressiveJpeg": "JPEG progressif",
+    "removeMetadata": "Supprimer les métadonnées",
+    "resizeMode": "Mode de redimensionnement",
+    "webpBestCompression": "WebP (meilleure compression)"
+  }
+}

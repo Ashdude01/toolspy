@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import {
   Card,
   CardContent,
@@ -19,6 +20,9 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { getT } from "@/lib/i18n/messages";
+import { localizeHref } from "@/lib/i18n/localize-href";
+import { siteConfig } from "@/lib/config";
 
 export interface HomeFAQItem {
   question: string;
@@ -121,28 +125,41 @@ const CHECKLIST = [
   { feature: "Tool-to-tool navigation", value: "Yes", note: "Related links to finish workflows." },
 ];
 
-export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
+export function HomeSeoContent({
+  faqData,
+  locale = "en",
+  beforeFaq,
+  hideBuiltinArticle = false,
+}: {
+  faqData: HomeFAQItem[];
+  locale?: string;
+  /** CMS rich text, rendered immediately above the existing FAQ when that locale has CMS content. */
+  beforeFaq?: ReactNode;
+  /** When CMS content is present, skip the built-in article so it does not repeat the CMS block. FAQ stays. */
+  hideBuiltinArticle?: boolean;
+}) {
+  const t = getT(locale);
+  const href = (path: string) => localizeHref(locale, path);
   return (
     <article className="mx-auto max-w-7xl space-y-14 my-16 px-4 text-base sm:text-[17px] leading-relaxed">
-      {/* Intro */}
+      {!hideBuiltinArticle && (
+      <>
       <section id="intro" className="space-y-8">
-        <div className="space-y-3">
-          <h2 className="text-center text-3xl sm:text-4xl font-bold tracking-tight">
+        
+
+        <div className="grid md:grid-cols-2 gap-5 items-center">
+          <div className="space-y-4 text-muted-foreground leading-relaxed">
+          <h2 className="text-3xl sm:text-4xl font-bold tracking-tight">
             Toolspy: free online tools for everyday work
           </h2>
-          <p className="text-start md:text-center text-muted-foreground">
+          <p className="text-start text-muted-foreground">
             Toolspy is a collection of browser-based utilities for common tasks like compressing
             images, working with PDFs, formatting data, and running quick calculations. Pick a tool,
             enter your inputs, and get the result - fast.
           </p>
-        </div>
-
-        <div className="grid md:grid-cols-2 gap-5 items-center">
-          <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
               Instead of hunting for a different site every time you need to resize an image, merge
-              PDFs, or calculate a percentage, you can keep one toolbox bookmarked. Each tool page
-              includes a short guide, common pitfalls, and links to related tools.
+              PDFs, or calculate a percentage, you can keep one toolbox bookmarked. 
             </p>
             <p>
               If you’re new, start with the{" "}
@@ -169,7 +186,6 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
       {/* Quick start */}
       <section className="space-y-6" id="quick-start">
         <SectionHeader
-          eyebrow="Quick start"
           icon={Sparkles}
           title="How to use Toolspy"
           lead="Three steps for most tools."
@@ -187,7 +203,6 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
       {/* Categories */}
       <section className="space-y-6" id="categories">
         <SectionHeader
-          eyebrow="Browse"
           icon={Folder}
           title="Popular categories"
           lead="A few common starting points."
@@ -213,10 +228,76 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
         </div>
       </section>
 
+      <section className="space-y-4" id="choose-a-tool">
+      <SectionHeader
+          icon={Folder}
+          title={t("homeLanding.guideTitle")}
+          lead={t("homeLanding.guideLead")}
+        />
+        <p className="text-muted-foreground">
+          {t("homeLanding.guideImage")}{" "}
+          <Link href={href("/image-compressor")} className="underline underline-offset-4 text-foreground">
+            Image Compressor
+          </Link>
+          ,{" "}
+          <Link href={href("/image-converter")} className="underline underline-offset-4 text-foreground">
+            Image Converter
+          </Link>
+          ,{" "}
+          <Link href={href("/image-resizer")} className="underline underline-offset-4 text-foreground">
+            Image Resizer
+          </Link>
+          .
+        </p>
+        <p className="text-muted-foreground">
+          {t("homeLanding.guidePdf")}{" "}
+          <Link href={href("/merge-pdf")} className="underline underline-offset-4 text-foreground">
+            Merge PDF
+          </Link>
+          ,{" "}
+          <Link href={href("/split-pdf")} className="underline underline-offset-4 text-foreground">
+            Split PDF
+          </Link>
+          ,{" "}
+          <Link href={href("/compress-pdf")} className="underline underline-offset-4 text-foreground">
+            Compress PDF
+          </Link>
+          .
+        </p>
+        <p className="text-muted-foreground">
+          {t("homeLanding.guideCalc")}{" "}
+          <Link href={href("/gst-calculator")} className="underline underline-offset-4 text-foreground">
+            GST Calculator
+          </Link>
+          ,{" "}
+          <Link href={href("/reverse-gst-calculator")} className="underline underline-offset-4 text-foreground">
+            Reverse GST Calculator
+          </Link>
+          .
+        </p>
+        <p className="text-muted-foreground">
+          {t("homeLanding.guideData")}{" "}
+          <Link href={href("/json-formatter")} className="underline underline-offset-4 text-foreground">
+            JSON Formatter
+          </Link>
+          ,{" "}
+          <Link href={href("/base64-encoder-decoder")} className="underline underline-offset-4 text-foreground">
+            Base64 Encoder/Decoder
+          </Link>
+          .
+        </p>
+        <p className="text-muted-foreground">
+          {t("homeLanding.guideFree")}{" "}
+          <Link href={href("/privacy")} className="underline underline-offset-4 text-foreground">
+            {t("homeLanding.guidePrivacyLink")}
+          </Link>
+          .
+        </p>
+      </section>
+
       {/* Quality notes */}
       <section className="space-y-6" id="quality">
         <SectionHeader
-          eyebrow="Quality"
           icon={Shield}
           title="Notes on privacy and content quality"
           lead="Clear expectations, less surprise."
@@ -233,7 +314,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
 
       {/* Common pitfalls */}
       <section className="space-y-6" id="pitfalls">
-        <SectionHeader eyebrow="Heads up" icon={Lightbulb} title="Common pitfalls" />
+        <SectionHeader icon={Lightbulb} title="Common pitfalls" />
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {PITFALLS.map((p) => (
             <Card key={p.title} className="p-5">
@@ -246,7 +327,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
 
       {/* Feature checklist */}
       <section className="space-y-6" id="features">
-        <SectionHeader eyebrow="Overview" icon={ListChecks} title="What you can expect" />
+        <SectionHeader icon={ListChecks} title="What you can expect" />
         <Card>
           <CardHeader>
             <CardTitle>Feature checklist</CardTitle>
@@ -283,8 +364,12 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
           </CardContent>
         </Card>
       </section>
+      </>
+      )}
 
-      {/* FAQ */}
+      {beforeFaq}
+
+      {/* FAQ — existing questions stay; CMS block sits immediately above when present */}
       <section className="space-y-6" id="faq">
         <FAQ
           title="Frequently asked questions"
@@ -295,7 +380,7 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
 
       {/* Feedback */}
       <section className="space-y-6" id="feedback">
-        <SectionHeader eyebrow="Help us improve" icon={MessagesSquare} title="Feedback" />
+        <SectionHeader  icon={MessagesSquare} title="Feedback" />
         <Card className="p-5">
           <div className="space-y-3 text-muted-foreground">
             <p>
@@ -312,12 +397,15 @@ export function HomeSeoContent({ faqData }: { faqData: HomeFAQItem[] }) {
 
       {/* Final CTA */}
       <section>
-        <div className="text-center p-8 rounded-2xl bg-gradient-to-r from-primary/10 to-primary/5 space-y-4">
-          <h3 className="text-2xl font-bold tracking-tight">Ready to find your tool?</h3>
-          <p className="text-muted-foreground">
-            Browse categories or search - most tools take less than a minute.
-          </p>
-          <ScrollToTopButton>Explore tools →</ScrollToTopButton>
+        <div
+          className="text-center p-8 rounded-2xl space-y-4 text-white"
+          style={{ backgroundColor: siteConfig.brandColorSecondary }}
+        >
+          <h3 className="text-2xl font-bold tracking-tight">{t("homeLanding.ctaTitle")}</h3>
+          <p className="text-blue-100">{t("homeLanding.ctaBody")}</p>
+          <ScrollToTopButton className="bg-white text-slate-900 hover:bg-slate-100">
+            {t("homeLanding.ctaButton")}
+          </ScrollToTopButton>
         </div>
       </section>
     </article>

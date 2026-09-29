@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "画像最適化について",
+    "allFilesCleared": "すべてのファイルをクリアしました",
+    "coverDimensions": "寸法をカバー",
+    "fileRemoved": "ファイルを削除しました",
+    "fitWithinDimensions": "寸法内に収める",
+    "imagesOptimizedSuccessfully": "画像の最適化が完了しました！",
+    "imagesToOptimize": "最適化する画像",
+    "keepOriginalFormat": "元の形式を維持",
+    "noOptimizedImagesToDownload": "ダウンロードする最適化済み画像がありません",
+    "noResizing": "リサイズなし",
+    "optimizationFailedPleaseTryAgain": "最適化に失敗しました。もう一度お試しください。",
+    "optimizingImages": "画像を最適化中",
+    "outputFormat": "出力形式",
+    "pleaseSelectImagesFirst": "先に画像を選択してください",
+    "progressiveJpeg": "プログレッシブJPEG",
+    "removeMetadata": "メタデータを削除",
+    "resizeMode": "リサイズモード",
+    "webpBestCompression": "WebP（最高圧縮）"
+  }
+}

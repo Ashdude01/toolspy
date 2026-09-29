@@ -13,12 +13,16 @@ import {
   Tool,
 } from "@/lib/tools-data";
 import { useSearchParams } from "next/navigation";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 interface CategoryToolsClientProps {
   category: ToolCategory;
 }
 
 export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
+  const t = useT();
+  const locale = useLocale();
   // Ensure category exists before proceeding
   if (!toolCategories[category]) {
     return (
@@ -32,6 +36,7 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
   }
 
   const categoryInfo = toolCategories[category];
+  const categoryName = t(`categories.${category}` as "categories.image-tools");
   const allCategoryTools = getToolsByCategory()[category] || [];
 
   // Use client-side URL parsing for search
@@ -46,17 +51,21 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
 
     if (searchTerm.trim()) {
       const lowercaseQuery = searchTerm.toLowerCase();
-      const filtered = categoryTools.filter(
-        (tool) =>
+      const filtered = categoryTools.filter((tool) => {
+        const copy = getToolCopy(tool.slug, locale);
+        return (
           tool.name.toLowerCase().includes(lowercaseQuery) ||
+          copy.name.toLowerCase().includes(lowercaseQuery) ||
           tool.description.toLowerCase().includes(lowercaseQuery) ||
+          copy.description.toLowerCase().includes(lowercaseQuery) ||
           tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-      );
+        );
+      });
       setFilteredTools(filtered);
     } else {
       setFilteredTools(categoryTools);
     }
-  }, [category, searchTerm]);
+  }, [category, searchTerm, locale]);
 
   // Update search term from URL on component mount
   useEffect(() => {
@@ -71,7 +80,7 @@ export function CategoryToolsClient({ category }: CategoryToolsClientProps) {
         {/* Category Header */}
         <div className="text-center mb-10">
           <div className="flex flex-col items-center justify-center mb-6">
-            <h1 className="text-4xl font-bold mb-2">{categoryInfo.name}</h1>
+            <h1 className="text-4xl font-bold mb-2">{categoryName}</h1>
             <p className="text-xl text-muted-foreground">
               {categoryInfo.description}
             </p>

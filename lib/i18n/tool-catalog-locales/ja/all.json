@@ -1,0 +1,366 @@
+{
+  "image-compressor": {
+    "name": "画像圧縮",
+    "description": "Toolspy の高度なエンジンで画像を圧縮し、画質を保ったままファイルサイズを削減します"
+  },
+  "online-image-cropper": {
+    "name": "オンライン画像トリミング",
+    "description": "自由選択・アスペクト比・円や多角形などの定型形状で画像をトリミング。ブラウザ上で動作します。"
+  },
+  "image-converter": {
+    "name": "画像コンバーター",
+    "description": "画像をさまざまな形式（PNG, JPG, WebP, SVG など）に変換します"
+  },
+  "image-resizer": {
+    "name": "画像リサイズ",
+    "description": "画像を指定のサイズまたは割合でリサイズします"
+  },
+  "image-optimizer": {
+    "name": "画像最適化",
+    "description": "高速表示とパフォーマンス向上のために画像を最適化します"
+  },
+  "jfif-to-jpg": {
+    "name": "JFIF→JPG 変換",
+    "description": "JFIF 画像を高品質を保ったまま JPG/JPEG 形式に変換します"
+  },
+  "base64-to-image": {
+    "name": "Base64→画像 変換",
+    "description": "Base64 エンコード文字列を Toolspy の安全なコンバーターで画像ファイルに戻します"
+  },
+  "image-to-base64": {
+    "name": "画像→Base64 エンコーダー",
+    "description": "画像を Base64 文字列に変換して埋め込みに使えます（Toolspy のプロ仕様エンコーダー）"
+  },
+  "base64-encoder-decoder": {
+    "name": "Base64 エンコーダー/デコーダー",
+    "description": "テキストを Base64 にエンコード/デコードします"
+  },
+  "pdf-converter": {
+    "name": "PDF コンバーター",
+    "description": "PDF をさまざまな形式に変換（またはその逆）します"
+  },
+  "pdf-to-word": {
+    "name": "PDF→Word",
+    "description": "PDF ドキュメントを編集可能な Word ファイルに変換します"
+  },
+  "pdf-to-jpg": {
+    "name": "PDF→JPG",
+    "description": "PDF ページを JPG 画像に変換します"
+  },
+  "jfif-to-pdf": {
+    "name": "JFIF→PDF 変換",
+    "description": "JFIF 画像をプロ品質で PDF ドキュメントに変換します"
+  },
+  "merge-pdf": {
+    "name": "PDF を結合",
+    "description": "複数の PDF を 1 つのドキュメントに結合します"
+  },
+  "pdf-to-image": {
+    "name": "PDF→画像 コンバーター",
+    "description": "PDF ページを各種画像形式（PNG, JPG, WebP）に変換します"
+  },
+  "compress-pdf": {
+    "name": "PDF 圧縮",
+    "description": "画質を保ちながら PDF のファイルサイズを圧縮します"
+  },
+  "heic-to-pdf": {
+    "name": "HEIC→PDF 変換",
+    "description": "HEIC 画像を高品質で PDF ドキュメントに変換します"
+  },
+  "image-to-pdf": {
+    "name": "画像→PDF 変換",
+    "description": "JPG, PNG, WebP などの画像をオンラインで 1 つの PDF にまとめます"
+  },
+  "split-pdf": {
+    "name": "PDF を分割",
+    "description": "大きな PDF をページ範囲で小さなファイルに分割します"
+  },
+  "pdf-password-remover": {
+    "name": "PDF パスワード解除",
+    "description": "PDF のパスワード保護をすぐに解除します"
+  },
+  "pdf-to-excel": {
+    "name": "PDF→Excel 変換",
+    "description": "PDF ドキュメントをデータ分析用の Excel スプレッドシートに変換します"
+  },
+  "pdf-to-csv": {
+    "name": "PDF→CSV 変換",
+    "description": "PDF ドキュメントから表データを抽出して CSV 形式にします"
+  },
+  "file-protector": {
+    "name": "ファイル保護",
+    "description": "セキュリティ強化のためにファイルにパスワード保護を追加します"
+  },
+  "percentage-calculator": {
+    "name": "割合計算機",
+    "description": "割合、増加率、減少率を計算します"
+  },
+  "age-calculator": {
+    "name": "年齢計算機",
+    "description": "年・月・日・時間・分で正確な年齢を計算します"
+  },
+  "love-calculator": {
+    "name": "恋愛相性計算機",
+    "description": "2 人の相性（ラブ度）をパーセンテージで計算します"
+  },
+  "bmi-calculator": {
+    "name": "BMI 計算機",
+    "description": "Body Mass Index（BMI）と健康状態を計算します"
+  },
+  "loan-calculator": {
+    "name": "ローン計算機",
+    "description": "毎月の返済額、利息、総支払額を計算します"
+  },
+  "mortgage-calculator": {
+    "name": "住宅ローン計算機",
+    "description": "住宅ローンの返済額、金利、返済スケジュールを計算します"
+  },
+  "retirement-calculator": {
+    "name": "退職資金計算機",
+    "description": "必要な退職資金と投資の予測を計算します"
+  },
+  "investment-calculator": {
+    "name": "投資計算機",
+    "description": "複利と投資の成長を期間別に計算します"
+  },
+  "coast-fire-calculator": {
+    "name": "Coast FIRE 計算機",
+    "description": "複利の成長だけで退職資金を賄える時期を算出します"
+  },
+  "tax-calculator": {
+    "name": "税金計算機",
+    "description": "所得税、税率区分、手取り額を計算します"
+  },
+  "salary-calculator": {
+    "name": "給与計算機",
+    "description": "時給・月給・年収を相互に換算します"
+  },
+  "unit-converter": {
+    "name": "単位変換",
+    "description": "さまざまな測定単位を変換します"
+  },
+  "currency-converter": {
+    "name": "通貨換算",
+    "description": "ライブ為替レートで通貨を換算します"
+  },
+  "temperature-converter": {
+    "name": "温度変換",
+    "description": "摂氏、華氏、ケルビンを相互に変換します"
+  },
+  "length-converter": {
+    "name": "長さ変換",
+    "description": "長さ・距離の単位を変換します"
+  },
+  "weight-converter": {
+    "name": "重量変換",
+    "description": "重量・質量の単位を変換します"
+  },
+  "volume-converter": {
+    "name": "体積変換",
+    "description": "体積・容量の単位を変換します"
+  },
+  "area-converter": {
+    "name": "面積変換",
+    "description": "面積・表面積の単位を変換します"
+  },
+  "qr-code-generator": {
+    "name": "QR コード生成",
+    "description": "テキスト、URL などの QR コードを生成します"
+  },
+  "color-picker": {
+    "name": "カラーピッカー",
+    "description": "色を選択して HEX、RGB、HSL の値を取得します"
+  },
+  "color-palette-generator": {
+    "name": "カラーパレット生成",
+    "description": "ドラッグ&ドロップで並べ替え、色のロック、複数形式での書き出しに対応した美しいパレットを生成します"
+  },
+  "google-indexing-api": {
+    "name": "Google Indexing API ツール",
+    "description": "Web サイトの URL を Google Indexing API に送信して、より早いインデックス登録と検索での可視性向上を支援します"
+  },
+  "json-formatter": {
+    "name": "JSON フォーマッター＆バリデーター",
+    "description": "高度なツリービュー、エラー検出、エクスポート機能で JSON を整形・検証・可視化します"
+  },
+  "json-table-converter": {
+    "name": "JSON テーブル変換",
+    "description": "高度なプレビュー、バッチ処理、賢いデータマッピングで JSON↔CSV/Excel を相互変換します"
+  },
+  "code-beautifier": {
+    "name": "コード整形＆ミニファイ",
+    "description": "シンタックスハイライト、エラー検出、AI 解説付きで JavaScript/CSS/HTML を整形・圧縮・解析します"
+  },
+  "ai-color-palette-generator": {
+    "name": "AI カラーパレット生成",
+    "description": "AI の提案、アクセシビリティチェック、プロ向けの書き出しオプションで美しいパレットを生成します"
+  },
+  "ai-background-remover": {
+    "name": "AI 背景除去",
+    "description": "AI で画像の背景を瞬時に削除。マジックブラシでの微調整、バッチ処理、プロ向け書き出しに対応"
+  },
+  "meme-generator": {
+    "name": "AI ミーム生成",
+    "description": "トレンドのテンプレート、AI キャプション提案、SNS 向けの編集ツールでバズるミームを作成します"
+  },
+  "ai-writing-tools": {
+    "name": "AI ライティングツール スイート",
+    "description": "パラフレーズ、要約、Humanizer、AI Detector を含む完全な AI ライティングツールキット（高度なカスタマイズ対応）"
+  },
+  "ai-image-enhancer": {
+    "name": "AI 画像補正",
+    "description": "AI で写真を強化：解像度アップ、ブレ補正、古い写真の復元、白黒写真のカラー化"
+  },
+  "ai-resume-builder": {
+    "name": "AI 履歴書ビルダー",
+    "description": "AI の提案、ATS 最適化、求人マッチング、専門テンプレートでプロ品質の履歴書を作成します"
+  },
+  "facebook-image-downloader": {
+    "name": "Facebook 画像ダウンローダー",
+    "description": "公開投稿向けの無料 Facebook 画像ダウンローダー。リンクを貼り付けて Facebook 写真、プロフィール写真（DP）、カバー写真を HD でダウンロード。アプリ不要・ログイン不要、ブラウザで完結。"
+  },
+  "youtube-thumbnail-downloader": {
+    "name": "YouTube サムネイルダウンローダー",
+    "description": "YouTube 動画のサムネイルを最大解像度（4K/HD）で取得。動画リンクまたは ID を入力してすぐにダウンロード。"
+  },
+  "instagram-reels-downloader": {
+    "name": "Instagram Reels ダウンローダー",
+    "description": "Instagram Reels と短い動画を高画質で保存。Reel の URL を貼り付けて高速ダウンロード。"
+  },
+  "instagram-dp-viewer": {
+    "name": "Instagram DP ビューア",
+    "description": "公開 Instagram アカウントのプロフィール写真をフルサイズで表示・ダウンロード。公開されている DP のみ対応。"
+  },
+  "youtube-embed-code-generator": {
+    "name": "YouTube 埋め込みコード生成",
+    "description": "レスポンシブな YouTube 埋め込みコードを作成。アスペクト比、オートプレイ、コントロールをカスタマイズし、クリーンな HTML をコピーできます。"
+  },
+  "ocr-text-extractor": {
+    "name": "OCR テキスト抽出",
+    "description": "高度な OCR で画像や PDF からテキストを抽出。12+ 言語対応、バッチ処理、編集可能な結果"
+  },
+  "media-converter": {
+    "name": "メディアコンバーター",
+    "description": "動画・音声・アーカイブを形式変換。バッチ処理、品質プリセット、詳細設定に対応"
+  },
+  "ebook-converter": {
+    "name": "電子書籍コンバーター",
+    "description": "EPUB, MOBI, PDF, DOCX 間で電子書籍を変換。メタデータ編集と表紙画像のサポート付き"
+  },
+  "font-converter": {
+    "name": "フォントコンバーター",
+    "description": "TTF, OTF, WOFF, WOFF2 間でフォントを変換。ライブプレビュー、AI フォントペアリング、Web 最適化機能付き"
+  },
+  "instagram-engagement-calculator": {
+    "name": "Instagram エンゲージメント",
+    "description": "高度なアルゴリズム、業界ベンチマーク、個別の提案で Instagram のエンゲージメント率を計算します"
+  },
+  "facebook-engagement-calculator": {
+    "name": "Facebook エンゲージメント",
+    "description": "高度なアルゴリズム、業界ベンチマーク、個別の提案で Facebook のエンゲージメント率を計算します"
+  },
+  "twitter-engagement-calculator": {
+    "name": "Twitter エンゲージメント",
+    "description": "高度なアルゴリズム、業界ベンチマーク、個別の提案で Twitter のエンゲージメント率を計算します"
+  },
+  "youtube-engagement-calculator": {
+    "name": "YouTube エンゲージメント",
+    "description": "高度なアルゴリズム、業界ベンチマーク、個別の提案で YouTube のエンゲージメント率を計算します"
+  },
+  "domain-whois-lookup": {
+    "name": "ドメイン WHOIS ルックアップ",
+    "description": "無料 WHOIS ルックアップでドメイン登録情報を包括的に取得。所有者、登録日、連絡先などを即時に確認できます。"
+  },
+  "expired-domain-finder": {
+    "name": "期限切れドメイン検索",
+    "description": "包括的な検索で価値ある期限切れドメインを発見。ドメインオーソリティ、被リンクデータ、推定価値にすぐアクセスできます。"
+  },
+  "app-icon-generator": {
+    "name": "アプリアイコン生成",
+    "description": "Toolspy の高度なアイコンジェネレーターで、Android、iOS、Windows、macOS、Linux、Web 向けのプロ品質アプリアイコンを生成します。"
+  },
+  "pwa-icon-generator": {
+    "name": "PWA アイコン生成",
+    "description": "プライバシーを完全に保護しながら、Progressive Web Apps 用の PWA アイコンと manifest ファイルを生成します。"
+  },
+  "favicon-generator": {
+    "name": "ファビコン生成",
+    "description": "Toolspy で Web サイト用のファビコンを生成。あらゆるデバイスとブラウザ向けに作成できます。"
+  },
+  "image-to-ico-converter": {
+    "name": "画像→ICO 変換",
+    "description": "Toolspy の高度なコンバーターで画像を ICO 形式に変換。Windows アプリや Web 用の ICO を作成できます。"
+  },
+  "markdown-to-docs-converter": {
+    "name": "Markdown→ドキュメント変換",
+    "description": "Toolspy の高度なコンバーターで Markdown をドキュメントに変換。HTML、PDF、Word、プレーンテキストを作成できます。"
+  },
+  "gst-calculator": {
+    "name": "GST 計算機",
+    "description": "内税/外税モードで GST（Goods and Services Tax）を計算。GST 率（0%、5%、12%、18%、28%）すべてに対応"
+  },
+  "reverse-gst-calculator": {
+    "name": "逆算 GST 計算機",
+    "description": "合計金額から本体金額と GST を逆算。請求書分析や税内訳に最適（すべての GST 率に対応）"
+  },
+  "hsn-sac-finder": {
+    "name": "HSN/SAC コード検索",
+    "description": "GST 率付きで HSN（Harmonized System of Nomenclature）と SAC（Services Accounting Code）コードを検索。オートサジェストと参照リンクで素早く検索"
+  },
+  "cgst-sgst-igst-splitter": {
+    "name": "CGST/SGST/IGST 分割",
+    "description": "州内/州間取引に基づき、GST を CGST、SGST、IGST に自動分割。州別の GST 配分を理解するのに最適"
+  },
+  "itc-calculator": {
+    "name": "Input Tax Credit（ITC）計算機",
+    "description": "請求可能なクレジットとブロックされたクレジットを追跡できるプロ仕様 ITC 計算機。ITC の適格性とコンプライアンス理解に最適"
+  },
+  "e-invoice-qr-validator": {
+    "name": "E-Invoice/QR コード検証",
+    "description": "E-Invoice の QR コードをアップロード/スキャンしてステータスを検証し、情報を抽出。請求書の検証とコンプライアンス確認に最適"
+  },
+  "composition-regular-scheme-estimator": {
+    "name": "Composition vs Regular スキーム比較",
+    "description": "Composition と Regular の GST スキームで税負担を比較。ビジネスに最適なスキーム選択に最適"
+  },
+  "penalty-late-fee-calculator": {
+    "name": "罰金/遅延料 計算機",
+    "description": "GSTR 申告の遅延料と利息をプロ仕様計算機で自動計算。罰金の影響把握とコンプライアンス計画に最適"
+  },
+  "jee-main-rank-predictor": {
+    "name": "JEE Main ランク予測",
+    "description": "パーセンタイルに基づいて JEE Main のランクと進学先候補を予測。合格可能性の把握と工学進路計画に最適"
+  },
+  "neet-rank-predictor": {
+    "name": "NEET ランク予測",
+    "description": "スコアに基づいて NEET のランクと医学部候補を予測。合格可能性の把握と医学進路計画に最適"
+  },
+  "jee-advanced-rank-predictor": {
+    "name": "JEE Advanced ランク予測",
+    "description": "スコアに基づいて JEE Advanced のランクと IIT 候補を予測。合格可能性の把握と IIT 進路計画に最適"
+  },
+  "gate-rank-predictor": {
+    "name": "GATE ランク予測",
+    "description": "スコアと科目に基づいて GATE のランクと進学先候補を予測。合格可能性の把握と大学院進路計画に最適"
+  },
+  "cat-percentile-predictor": {
+    "name": "CAT パーセンタイル予測",
+    "description": "セクション別スコアに基づいて CAT のパーセンタイルと MBA 校候補を予測。合格可能性の把握と MBA 進路計画に最適"
+  },
+  "upsc-rank-predictor": {
+    "name": "UPSC ランク予測",
+    "description": "試験スコアに基づいて UPSC のランクと公務員配属候補を予測。配属の把握と公務員キャリア計画に最適"
+  },
+  "ssc-cgl-rank-predictor": {
+    "name": "SSC CGL ランク予測",
+    "description": "試験スコアに基づいて SSC CGL のランクと政府職の配属候補を予測。ポスト配属の把握と公務キャリア計画に最適"
+  },
+  "bank-po-rank-predictor": {
+    "name": "Bank PO ランク予測",
+    "description": "試験スコアに基づいて Bank PO のランクと銀行職の配属候補を予測。配属先の把握と銀行キャリア計画に最適"
+  },
+  "website-screenshot": {
+    "name": "Webサイト スクリーンショット",
+    "description": "任意の Web サイトを高品質でスクリーンショット保存。フルページ、複数デバイスプリセット、即時ダウンロードに対応"
+  }
+}

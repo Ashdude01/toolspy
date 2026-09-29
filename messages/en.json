@@ -1,0 +1,33 @@
+{
+  "common": {
+    "home": "Home",
+    "tools": "Tools",
+    "allTools": "All Tools",
+    "blog": "Blog",
+    "about": "About",
+    "contact": "Contact",
+    "search": "Search",
+    "language": "Language"
+  },
+  "toolPage": {
+    "howToUse": "How to Use",
+    "faq": "Frequently Asked Questions",
+    "features": "Features",
+    "relatedTools": "Related Tools",
+    "free": "Free",
+    "noSignup": "No signup required",
+    "privacyNote": "Your files are processed in your browser and never uploaded to our servers."
+  },
+  "actions": {
+    "download": "Download",
+    "upload": "Upload",
+    "convert": "Convert",
+    "compress": "Compress",
+    "copy": "Copy",
+    "copied": "Copied!",
+    "reset": "Reset",
+    "calculate": "Calculate",
+    "generate": "Generate",
+    "share": "Share"
+  }
+}

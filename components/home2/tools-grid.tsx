@@ -43,13 +43,23 @@ import React from "react";
 import Link from "next/link";
 import { TypewriterText } from "@/components/ui/typewriter-text";
 import { ToolCard } from "@/components/tools/tool-card";
+import { useT, useLocale } from "@/lib/i18n/use-t";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 interface ToolsGridProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  /** CMS-ordered popular tools; falls back to featured if omitted/empty */
+  popularTools?: Tool[];
 }
 
-export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
+export function ToolsGrid({
+  searchQuery,
+  onSearchChange,
+  popularTools: popularToolsProp,
+}: ToolsGridProps) {
+  const t = useT();
+  const locale = useLocale();
   const [selectedCategory, setSelectedCategory] = useState<
     ToolCategory | "all"
   >("all");
@@ -61,7 +71,10 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   useEffect(() => {
     setIsVisible(true);
   }, []);
-  const popularTools = tools.filter((tool) => tool.featured);
+  const popularTools =
+    popularToolsProp && popularToolsProp.length > 0
+      ? popularToolsProp
+      : tools.filter((tool) => tool.featured);
 
   // Filter tools based on search and category
   const filterTools = () => {
@@ -73,12 +86,16 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
     if (searchQuery.trim()) {
       const lowercaseQuery = searchQuery.toLowerCase();
-      filtered = filtered.filter(
-        (tool) =>
+      filtered = filtered.filter((tool) => {
+        const copy = getToolCopy(tool.slug, locale);
+        return (
           tool.name.toLowerCase().includes(lowercaseQuery) ||
+          copy.name.toLowerCase().includes(lowercaseQuery) ||
           tool.description.toLowerCase().includes(lowercaseQuery) ||
+          copy.description.toLowerCase().includes(lowercaseQuery) ||
           tool.tags.some((tag) => tag.toLowerCase().includes(lowercaseQuery))
-      );
+        );
+      });
     }
 
     setFilteredTools(filtered);
@@ -87,7 +104,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   // Trigger filter when search or category changes
   React.useEffect(() => {
     filterTools();
-  }, [searchQuery, selectedCategory]);
+  }, [searchQuery, selectedCategory, locale]);
 
   const hasFilters = searchQuery.trim() || selectedCategory !== "all";
 
@@ -164,7 +181,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   const stats = [
     {
       label: "Professional Tools",
-      value: "80+",
+      value: "100+",
       icon: <Target className="h-5 w-5" />,
     },
     {
@@ -181,7 +198,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
   ];
 
   return (
-    <section id="tools" className="pt-8 pb-12 dark:bg-slate-950 px-4 w-full">
+    <section id="tools" className="pt-8 pb-12 dark:bg-slate-950 w-full">
       <div className="container mx-auto px-0">
         {/* Background Elements */}
 
@@ -200,7 +217,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
               Privacy-First • No Data Collection • Free
             </Badge>
 
-            <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-10 lg:flex-row text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out px-2">
+            <h1 className="flex flex-col items-center lg:gap-4 justify-center leading-10 lg:flex-row text-black dark:text-white text-4xl md:text-5xl lg:text-7xl font-bold tracking-tight mb-6 transform transition-all duration-500 ease-out">
               {/* Complete, crawlable H1 text (screen-reader + SEO). The animated
                   typewriter below is decorative only (aria-hidden), so crawlers
                   and assistive tech always get the full heading. */}
@@ -259,7 +276,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
         </div>
 
         {/* Search and Filter Section */}
-        <div className="max-w-7xl mx-auto mb-8 w-full px-2">
+        <div className="max-w-7xl mx-auto mb-8 w-full">
           {/* Enhanced Search Bar */}
           <div className="mx-auto mb-8 transition-all duration-1000 delay-300 opacity-100 translate-y-0 w-full">
             <div className="relative group w-full">
@@ -304,19 +321,19 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                     </span>
                     <Link
                       href="/image-compressor"
-                      className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full"
+                      className="text-xs bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 py-1 rounded-full"
                     >
                       image compressor
                     </Link>
                     <Link
                       href="/pdf-converter"
-                      className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 px-2 py-1 rounded-full"
+                      className="text-xs bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 py-1 rounded-full"
                     >
                       PDF converter
                     </Link>
                     <Link
                       href="/base64-encoder-decoder"
-                      className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-2 py-1 rounded-full"
+                      className="text-xs bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 py-1 rounded-full"
                     >
                       base64 encoder
                     </Link>
@@ -328,7 +345,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
           {/* Category Filters */}
           <div
-            className="flex flex-wrap justify-center gap-2 sm:gap-3 px-2"
+            className="flex flex-wrap justify-center gap-2 sm:gap-3"
             style={{
               scrollbarWidth: "thin",
               scrollBehavior: "smooth",
@@ -351,7 +368,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
                 onClick={() => setSelectedCategory(key as ToolCategory)}
                 className="hover:border-slate-400 shadow-none text-xs sm:text-sm"
               >
-                {category.name}
+                {t(`categories.${key}` as "categories.image-tools")}
               </Button>
             ))}
           </div>
@@ -359,7 +376,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         {/* Popular Tools Grid */}
         {!hasFilters && (
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5 mb-12 px-2">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5 mb-12">
             {popularTools.map((tool) => (
               <ToolCard key={tool.id} tool={tool} />
             ))}
@@ -368,7 +385,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
 
         {/* Search Results */}
         {hasFilters && (
-          <div className="max-w-6xl mx-auto w-full px-2">
+          <div className="max-w-6xl mx-auto w-full">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-4">
               <div>
                 <h3 className="text-2xl font-semibold text-slate-800 dark:text-slate-200">
@@ -396,7 +413,7 @@ export function ToolsGrid({ searchQuery, onSearchChange }: ToolsGridProps) {
             </div>
 
             {filteredTools.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5">
+              <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 sm:gap-5">
                 {filteredTools.map((tool) => (
                   <ToolCard key={tool.id} tool={tool} truncateDescription={60} />
                 ))}

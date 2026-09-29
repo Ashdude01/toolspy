@@ -1,0 +1,22 @@
+{
+  "imageOptimizer": {
+    "aboutImageOptimization": "Om bildoptimering",
+    "allFilesCleared": "Alla filer rensade",
+    "coverDimensions": "Täck dimensioner",
+    "fileRemoved": "Fil borttagen",
+    "fitWithinDimensions": "Passa inom dimensionerna",
+    "imagesOptimizedSuccessfully": "Bilderna optimerades!",
+    "imagesToOptimize": "Bilder att optimera",
+    "keepOriginalFormat": "Behåll originalformat",
+    "noOptimizedImagesToDownload": "Inga optimerade bilder att ladda ner",
+    "noResizing": "Ingen storleksändring",
+    "optimizationFailedPleaseTryAgain": "Optimeringen misslyckades. Försök igen.",
+    "optimizingImages": "Optimerar bilder",
+    "outputFormat": "Utdataformat",
+    "pleaseSelectImagesFirst": "Välj bilder först",
+    "progressiveJpeg": "Progressiv JPEG",
+    "removeMetadata": "Ta bort metadata",
+    "resizeMode": "Ändra storleksläge",
+    "webpBestCompression": "WebP (bästa komprimering)"
+  }
+}

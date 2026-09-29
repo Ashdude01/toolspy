@@ -17,7 +17,7 @@ const toolsWithFAQ = [
 
 // Function to add FAQ export and registration to seo-content files
 function addFAQRegistration(toolSlug) {
-  const seoContentPath = path.join(__dirname, `../app/(tools)/${toolSlug}/seo-content.tsx`);
+  const seoContentPath = path.join(__dirname, `../app/(frontend)/(tools)/${toolSlug}/seo-content.tsx`);
   
   if (!fs.existsSync(seoContentPath)) {
     console.log(`❌ SEO content file not found for ${toolSlug}`);

@@ -28,6 +28,14 @@ export interface BlogFAQ {
 
 export type BlogCategory = 'Exams' | 'GST & Finance' | 'Tools & Guides';
 
+export interface BlogAuthor {
+  slug: string;
+  name: string;
+  role?: string;
+  bio?: string;
+  photoUrl?: string | null;
+}
+
 export interface BlogPost {
   slug: string;
   title: string;
@@ -44,6 +52,19 @@ export interface BlogPost {
   };
   sections: BlogSection[];
   faqs: BlogFAQ[];
+  /** Payload Lexical JSON — preferred body when present. */
+  content?: unknown | null;
+  featuredImageUrl?: string | null;
+  featuredImageAlt?: string | null;
+  ogImageUrl?: string | null;
+  ogTitle?: string | null;
+  ogDescription?: string | null;
+  twitterTitle?: string | null;
+  twitterDescription?: string | null;
+  author?: BlogAuthor | null;
+  reviewedBy?: BlogAuthor | null;
+  reviewedAt?: string | null;
+  editorialNote?: string | null;
 }
 
 export const blogCategories: BlogCategory[] = ['Exams', 'GST & Finance', 'Tools & Guides'];

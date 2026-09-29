@@ -67,8 +67,8 @@ export function FacebookPhotoExtensionCta({
             <p className="text-xs sm:text-sm text-muted-foreground">
               Free extension: scan the Facebook tab, pick images, download or ZIP.
             </p>
-            <Button asChild size="sm" className="w-full sm:w-auto mt-1 min-h-11">
-              <Link href={FACEBOOK_PHOTO_EXTENSION_PAGE}>Download free extension</Link>
+            <Button asChild size="sm" className="mt-1 min-h-11 w-full bg-[#1877F2] text-white hover:bg-[#166FE5] sm:w-auto">
+              <Link href={FACEBOOK_PHOTO_EXTENSION_PAGE}>Get free extension — works on Facebook</Link>
             </Button>
           </div>
         </div>
