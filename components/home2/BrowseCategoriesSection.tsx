@@ -3,7 +3,6 @@
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
-  ArrowRight,
   FileImage,
   FileText,
   Calculator,
@@ -25,9 +24,14 @@ import {
   type ToolCategory,
 } from "@/lib/tools-data";
 import Link from "next/link";
+import { useLocale, useT } from "@/lib/i18n/use-t";
+import { localizeHref } from "@/lib/i18n/localize-href";
+import { getToolCopy } from "@/lib/i18n/get-tool-copy";
 
 export function BrowseCategoriesSection() {
   const categorizedTools = getToolsByCategory();
+  const locale = useLocale();
+  const t = useT();
 
   const getCategoryIcon = (category: ToolCategory) => {
     switch (category) {
@@ -107,8 +111,8 @@ export function BrowseCategoriesSection() {
             Browse by Category
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-           Explore Tools by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-               Category
+            Explore Tools by <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Category
             </span>
           </h2>
           <p className="text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto">
@@ -120,76 +124,80 @@ export function BrowseCategoriesSection() {
         {/* Categories Grid */}
         <div className="category-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {Object.entries(toolCategories).map(
-            ([categoryKey, category], index) => {
+            ([categoryKey, category]) => {
               const categoryType = categoryKey as ToolCategory;
               const stats = getCategoryStats(categoryType);
+              const sampleTools = (categorizedTools[categoryType] || []).slice(0, 4);
 
               return (
-                <Link key={categoryKey} href={`/tools/${categoryKey}`}>
-                  <div className="group relative cursor-pointer transform-gpu">
-                    {/* Main card */}
-                    <div className="relative bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md group-hover:shadow-lg transition-shadow duration-200 overflow-hidden h-full">
-
-                      <div className="relative p-6 h-full flex flex-col">
-                        {/* Header with icon */}
-                        <div className="flex items-center justify-between mb-4">
-                          <div
-                            className={`w-16 h-16 bg-gradient-to-br ${getCategoryColor(
-                              categoryType
-                            )} rounded-2xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
-                          >
-                            {getCategoryIcon(categoryType)}
-                          </div>
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-slate-800 dark:text-slate-200">
-                              {stats.count}
-                            </div>
-                            <div className="text-xs text-slate-500 dark:text-slate-400">
-                              tools
-                            </div>
-                          </div>
+                <div key={categoryKey} className="group relative h-full">
+                  <Link
+                    href={`/tools/${categoryKey}`}
+                    className="absolute inset-0 z-0 rounded-3xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
+                    aria-label={t(`categories.${categoryKey}`)}
+                  />
+                  <div className="relative z-10 pointer-events-none h-full bg-white dark:bg-slate-800 rounded-3xl border border-slate-200 dark:border-slate-700 shadow-md group-hover:shadow-lg transition-shadow duration-200 overflow-hidden">
+                    <div className="relative p-6 h-full flex flex-col">
+                      <div className="absolute top-0 right-0 p-2 pb-3 pl-3 bg-foreground/5 rounded-bl-3xl">
+                        <div className="text-lg font-bold text-slate-800 dark:text-slate-200">
+                          {stats.count}
                         </div>
-
-                        {/* Content */}
-                        <div className="flex-1">
-                          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
-                            {category.name}
+                      </div>
+                      <div className="flex justify-between mb-2 gap-3">
+                        <div
+                          className={`w-20 h-20 h-fit p-3 bg-gradient-to-br ${getCategoryColor(
+                            categoryType
+                          )} rounded-2xl flex items-center justify-center text-white shadow-md group-hover:scale-105 transition-transform duration-200 transform-gpu`}
+                        >
+                          {getCategoryIcon(categoryType)}
+                        </div>
+                        <div className="">
+                          <h3 className="text-lg font-bold text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors duration-200">
+                            {t(`categories.${categoryKey}`)}
                           </h3>
                           <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
                             {category.description}
                           </p>
 
-                          {/* Stats */}
-                          <div className="flex items-center gap-4 mb-4">
-                            <div className="flex items-center gap-1">
-                              <TrendingUp className="h-4 w-4 text-green-500" />
-                              <span className="text-xs text-slate-500 dark:text-slate-400">
-                                {stats.featured} featured
-                              </span>
-                            </div>
-                            <div className="flex items-center gap-1">
-                              <Users className="h-4 w-4 text-blue-500" />
-                              <span className="text-xs text-slate-500 dark:text-slate-400">
-                                Popular
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Action button */}
-                        <div className="mt-auto">
-                          <Button className="w-full h-10 bg-gradient-to-r from-slate-100 to-slate-200 dark:from-slate-700 dark:to-slate-600 hover:from-blue-600 hover:to-purple-600 text-slate-700 dark:text-slate-200 hover:text-white border-0 rounded-xl shadow-md hover:shadow-lg transition-all duration-200 transform-gpu">
-                            <span className="font-semibold text-sm">
-                              Explore Category
-                            </span>
-                            <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                          </Button>
                         </div>
                       </div>
 
+                      {/* <div className="flex-1"> */}
+
+
+                        {/* <div className="flex items-center gap-4 mb-4">
+                          <div className="flex items-center gap-1">
+                            <TrendingUp className="h-4 w-4 text-green-500" aria-hidden />
+                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                              {t('homeCategories.featured', { count: stats.featured })}
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1">
+                            <Users className="h-4 w-4 text-blue-500" aria-hidden />
+                            <span className="text-xs text-slate-500 dark:text-slate-400">
+                              {t('homeCategories.popular')}
+                            </span>
+                          </div>
+                        </div>*/}
+                      {/* </div> */}
+
+                      {sampleTools.length > 0 && (
+                        <ul className="flex flex-wrap gap-2 pointer-events-auto">
+                          {sampleTools.map((tool) => (
+                            <li key={tool.slug}>
+                              <Link
+                                href={localizeHref(locale, tool.path.endsWith('/') ? tool.path : `${tool.path}/`)}
+                                className="relative z-20 inline-flex rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-xs font-medium text-slate-700 hover:border-blue-300 hover:text-blue-700 dark:border-slate-600 dark:bg-slate-900 dark:text-slate-200 dark:hover:text-blue-300"
+                              >
+                                {getToolCopy(tool.slug, locale).name}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      )}
                     </div>
                   </div>
-                </Link>
+                </div>
               );
             }
           )}

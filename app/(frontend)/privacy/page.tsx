@@ -5,7 +5,7 @@ import { WebPageSchema } from '@/components/seo/comprehensive-schemas';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy - Toolspy Online Tools',
-  description: 'Read Toolspy\'s privacy policy. Learn how we protect your data with client-side processing and our commitment to zero data collection.',
+  description: 'How Toolspy handles files, accounts, and advertising cookies from Google AdSense and Ezoic.',
   keywords: ['privacy policy', 'data protection', 'client-side processing', 'security', 'toolspy privacy'],
   alternates: {
     canonical: 'https://toolspy.net/privacy',
@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPage() {
-  const lastUpdated = 'January 1, 2025';
+  const lastUpdated = 'September 29, 2026';
 
   const privacyFeatures = [
     {
@@ -22,13 +22,13 @@ export default function PrivacyPage() {
       icon: <Lock className="h-6 w-6" />
     },
     {
-      title: 'Zero Data Collection',
-      description: 'We don\'t collect, store, or analyze your personal information or usage patterns.',
+      title: 'No account required',
+      description: 'You can run a tool without giving your name or email address.',
       icon: <Database className="h-6 w-6" />
     },
     {
-      title: 'No Tracking',
-      description: 'No cookies, no analytics, no tracking pixels. Your browsing remains completely private.',
+      title: 'Advertising cookies',
+      description: 'Ad partners such as Google AdSense and Ezoic may set cookies. The section below explains what they collect and how to opt out.',
       icon: <Eye className="h-6 w-6" />
     },
     {
@@ -42,7 +42,7 @@ export default function PrivacyPage() {
     <>
       <WebPageSchema
         title="Privacy Policy - Toolspy Online Tools"
-        description="Read Toolspy's privacy policy. Learn how we protect your data with client-side processing and our commitment to zero data collection."
+        description="How Toolspy handles files, accounts, and advertising cookies from Google AdSense and Ezoic."
         url="https://toolspy.net/privacy"
         breadcrumbs={[
           { name: "Home", url: "https://toolspy.net" },
@@ -94,8 +94,8 @@ export default function PrivacyPage() {
             <div>
               <h4 className="font-semibold mb-2">Personal Information</h4>
               <p className="text-sm text-muted-foreground">
-                We do not collect any personal information. We don't require registration, email addresses, 
-                or any form of personal identification to use our tools.
+                Toolspy does not ask you to create an account or give an email address to use a tool.
+                Advertising and analytics partners may still collect browsing data, as described below.
               </p>
             </div>
             <div>
@@ -147,8 +147,8 @@ export default function PrivacyPage() {
             <div>
               <h4 className="font-semibold mb-2">No Data Storage</h4>
               <p className="text-sm text-muted-foreground">
-                Since we don't collect data, there's nothing to store or secure. This eliminates the risk 
-                of data breaches, leaks, or unauthorized access to your information.
+                Files processed by local tools are not stored on Toolspy servers. Advertising and analytics
+                partners may store their own cookie data, which is described in the advertising section below.
               </p>
             </div>
           </CardContent>

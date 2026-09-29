@@ -181,7 +181,7 @@ export function ToolsGrid({
   const stats = [
     {
       label: "Professional Tools",
-      value: "80+",
+      value: "100+",
       icon: <Target className="h-5 w-5" />,
     },
     {

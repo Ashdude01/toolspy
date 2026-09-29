@@ -4,11 +4,13 @@ import { HomeSeoContent } from '@/components/sections/home-seo-content'
 import { WebPageSchema, FAQSchema } from '@/components/seo/comprehensive-schemas'
 import { siteConfig } from '@/lib/config'
 import { HomePageClient } from '@/components/home2/home-page-client'
+import { HomePrivacySections } from '@/components/home2/home-privacy-sections'
 import { homeFaqData } from '@/lib/home-faq-data'
 import { getHomepagePopularTools, getHomepageContent } from '@/lib/payload/get-homepage'
 import { RenderRichText } from '@/components/richtext/render-rich-text'
 import { hasLexicalContent } from '@/lib/blog/lexical-from-sections'
 import { ALL_LOCALES, PUBLISHED_LOCALES } from '@/lib/i18n/locales'
+import { getT } from '@/lib/i18n/messages'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 /**
@@ -31,10 +33,19 @@ export async function buildHomepageMetadata(locale = 'en'): Promise<Metadata> {
   const content = await getHomepageContent(locale)
   const cms = content?.contentSource === 'cms'
   const canonical = homeUrl(locale)
+  const t = getT(locale)
+  const description =
+    cms && content?.metaDescription
+      ? limitDescription(content.metaDescription)
+      : limitDescription(t('homeLanding.metaDescription'))
 
-  const meta: Metadata = { alternates: { canonical } }
+  const meta: Metadata = {
+    description,
+    openGraph: { description, url: canonical },
+    twitter: { description },
+    alternates: { canonical },
+  }
   if (cms && content?.metaTitle) meta.title = limitTitle(content.metaTitle)
-  if (cms && content?.metaDescription) meta.description = limitDescription(content.metaDescription)
 
   if (PUBLISHED_LOCALES.length > 0) {
     const languages: Record<string, string> = {
@@ -57,32 +68,38 @@ export async function HomePageView({ locale = 'en' }: { locale?: string }) {
   ])
   const cmsActive =
     homeContent?.contentSource === 'cms' && hasLexicalContent(homeContent.content)
+  const description = limitDescription(getT(locale)('homeLanding.metaDescription'))
 
   return (
     <>
       <WebPageSchema
         title={siteConfig.title}
-        description={siteConfig.description}
+        description={description}
         url={homeUrl(locale)}
         breadcrumbs={[{ name: 'Home', url: homeUrl(locale) }]}
       />
-      {/* FAQ schema sirf code content ke saath (CMS content apna khud ka block hai) */}
-      {!cmsActive && <FAQSchema faqs={[...homeFaqData]} />}
+      {/* FAQ stays even when CMS content is shown above it */}
+      <FAQSchema faqs={[...homeFaqData]} />
 
       <div className="min-h-screen bg-slate-50 dark:bg-slate-950 overflow-x-hidden w-full">
         <HomePageClient popularTools={popularTools} />
-
-        {cmsActive ? (
-          <section className="container mx-auto px-4 py-10 max-w-5xl">
-            <div className="article min-w-0 max-w-full overflow-x-hidden">
-              <RenderRichText data={homeContent?.content} />
-            </div>
-          </section>
-        ) : (
-          <HomeSeoContent faqData={[...homeFaqData]} />
-        )}
-
+        <HomePrivacySections locale={locale} />
         <TestimonialsSection />
+
+        <HomeSeoContent
+          faqData={[...homeFaqData]}
+          locale={locale}
+          beforeFaq={
+            cmsActive ? (
+              <section className="container mx-auto max-w-5xl px-0" aria-label="Homepage content">
+                <div className="article min-w-0 max-w-full overflow-x-hidden">
+                  <RenderRichText data={homeContent?.content} />
+                </div>
+              </section>
+            ) : null
+          }
+          hideBuiltinArticle={cmsActive}
+        />
       </div>
     </>
   )

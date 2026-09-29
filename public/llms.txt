@@ -1,6 +1,6 @@
 # Toolspy
 
-> Toolspy (https://toolspy.net) is a free, privacy-first platform of 80+ browser-based tools: image and PDF utilities, India-specific GST/tax calculators, exam rank predictors (JEE, NEET, CAT, SSC CGL, UPSC), converters, and developer tools. Everything is free, requires no signup, and processes files client-side in the user's browser - files are never uploaded to a server.
+> Toolspy (https://toolspy.net) is a free, privacy-first platform of 100+ browser-based tools: image and PDF utilities, India-specific GST/tax calculators, exam rank predictors (JEE, NEET, CAT, SSC CGL, UPSC), converters, and developer tools. Everything is free, requires no signup, and processes files client-side in the user's browser - files are never uploaded to a server.
 
 Last updated: 2026-07-03
 
@@ -35,7 +35,7 @@ Last updated: 2026-07-03
 
 ## Main pages
 
-- [Home](https://toolspy.net/): Overview of all 80+ free browser-based tools.
+- [Home](https://toolspy.net/): Overview of all 100+ free browser-based tools.
 - [All Tools](https://toolspy.net/tools/): Searchable directory of every tool, grouped into 11 categories.
 - [Blog](https://toolspy.net/blog/): Data-backed guides on exams (marks vs rank, percentile formulas), GST rules with worked examples, and file-tool how-tos. Each guide pairs with a free tool.
 - [About](https://toolspy.net/about/): Mission and the privacy-first, client-side processing approach.

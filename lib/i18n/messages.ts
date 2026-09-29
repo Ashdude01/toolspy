@@ -20,6 +20,7 @@
 import { uiChromeLocales } from './ui-chrome-locales'
 import { toolsLocales } from './tools-locales'
 import { blogExtraLocales } from './blog-extra-locales'
+import { homeLandingLocales } from './home-landing-locales'
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type Dict = { [key: string]: string | Dict }
@@ -105,6 +106,78 @@ export const en = {
     copyright: 'All rights reserved.',
     systemsOperational: 'All systems operational',
     scrollToTop: 'Scroll to top',
+  },
+  homeCategories: {
+    tools: 'tools',
+    featured: '{count} featured',
+    popular: 'Popular',
+  },
+  homeLanding: {
+    comparisonEyebrow: 'Under the hood',
+    comparisonTitle: 'Why client-side computing matters',
+    comparisonLead:
+      'Traditional converter sites upload your private documents to a remote queue. Most Toolspy tools run in your browser, and heavier ones can use WebAssembly on your device.',
+    cloudTitle: 'Standard cloud converters',
+    cloudBadge: 'Upload-based sites',
+    cloud1Title: 'Remote uploads required',
+    cloud1Body: 'The file crosses the internet to a third-party server before anything happens.',
+    cloud2Title: 'Data retention risk',
+    cloud2Body: 'Uploaded files can sit in temporary storage you do not control.',
+    cloud3Title: 'Shared queues',
+    cloud3Body: 'You wait on network speed and how busy that server is.',
+    cloud4Title: 'Limits and prompts',
+    cloud4Body: 'Many sites add daily caps, accounts, or upgrade prompts.',
+    cloudFoot: 'A poor fit for confidential files, customer lists, and financial documents.',
+    localTitle: 'Toolspy on your device',
+    localBadge: 'Runs in the browser',
+    local1Title: 'No upload for local tools',
+    local1Body: 'Your browser does the work. Those tools do not send the file to Toolspy.',
+    local2Title: 'Stays with you',
+    local2Body: 'Practical for invoices, forms, and private files that should not leave the machine.',
+    local3Title: 'No shared queue',
+    local3Body: 'There is no upload line. Speed depends on your device, not a remote worker.',
+    local4Title: 'No account wall',
+    local4Body: 'Open the tool and use it. The free local tools do not ask for a subscription.',
+    localFoot: 'Local tools keep the file on your device. A page that must look something up on the public web says so.',
+    flowEyebrow: 'Private processing',
+    flowTitle: 'What happens to your file',
+    step1Title: '1. Your device',
+    step1Body: 'The file opens in your browser. It is not sent to Toolspy.',
+    step1Arrow: '0 KB sent',
+    step2Title: '2. Browser engine',
+    step2Body: 'The tool runs in your browser, and your file stays on your device.',
+    step2Arrow: 'Direct save',
+    step3Title: '3. Immediate output',
+    step3Body: 'The result is saved straight to your device.',
+    privacyEyebrow: 'Why it matters',
+    privacyTitle: 'Built so the file does not have to leave',
+    privacyLead:
+      'Image, PDF, and data tools are meant for quick local work. A few lookups that need the public web (such as a profile URL) still talk to a server — those pages say so.',
+    privacy1Title: 'No account wall',
+    privacy1Body: 'Open a tool and use it. There is no signup step before the result.',
+    privacy2Title: 'Same tools on phone and desktop',
+    privacy2Body: 'If your browser can run the page, you do not install an app.',
+    privacy3Title: 'Clear limits',
+    privacy3Body: 'Each tool page says what it accepts and what it does not. Calculators are estimates, not official results.',
+    ctaTitle: 'Ready to find your tool?',
+    ctaBody: 'Browse categories or search — most tools take less than a minute.',
+    ctaButton: 'Explore tools',
+    metaDescription:
+      'Free tools to compress images, edit PDFs, format data, and run GST or exam calculators in your browser. Most files stay on your device.',
+    guideTitle: 'Which tool to open',
+    guideLead:
+      'Search at the top, or start from the job. Each tool page says which formats it accepts and what it will not do.',
+    guideImage:
+      'When a photo is too big for an email or a form, compress it. When you need another format, convert it. When you need an exact width and height, resize it.',
+    guidePdf:
+      'Join several PDFs into one file, split one PDF into separate pages, or make a PDF smaller before you send it.',
+    guideCalc:
+      'For an Indian invoice, calculate GST or reverse GST from a total that already includes it. JEE, NEET, and other rank tools estimate a rank from the numbers you type. They are not an official result.',
+    guideData:
+      'Use a JSON formatter when a payload is hard to read, and a Base64 tool when you need to encode or decode text.',
+    guideFree:
+      'The tools do not ask for an account. This site may show ads, and ad partners may set cookies. Those cookies are separate from the file a local tool processes. The privacy policy explains the cookies and how to opt out.',
+    guidePrivacyLink: 'Privacy policy',
   },
   relatedTools: {
     kicker: 'Related Tools',
@@ -4923,7 +4996,9 @@ export function translate(
   key: string,
   vars?: Record<string, string | number>,
 ): string {
-  const localized = getPath(messages[locale], key)
+  const localized =
+    getPath(messages[locale], key) ??
+    getPath(homeLandingLocales[locale] as Dict | undefined, key)
   const fallback = getPath(en as unknown as Dict, key)
   let out = localized ?? fallback ?? key
   if (vars) {
