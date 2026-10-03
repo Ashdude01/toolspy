@@ -2,6 +2,14 @@
   "version": 2,
   "trailingSlash": true,
   "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www.toolspy.net" }],
+      "destination": "https://toolspy.net/:path*",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

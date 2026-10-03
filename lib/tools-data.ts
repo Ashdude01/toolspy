@@ -50,11 +50,12 @@ function generateSEO(tool: {
   const metaDescription = tool.description.length > 161 
     ? tool.description.substring(0, 157) + '...' 
     : tool.description;
+  const path = tool.slug.startsWith('/') ? tool.slug : `/${tool.slug}`;
   
   return {
     metaTitle,
     metaDescription,
-    canonicalUrl: `${baseUrl}${tool.slug}`,
+    canonicalUrl: `${baseUrl}${path.endsWith('/') ? path : `${path}/`}`,
     keywords: tool.tags,
     ogTitle: metaTitle,
     ogDescription: metaDescription,

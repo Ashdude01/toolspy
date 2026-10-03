@@ -250,6 +250,37 @@ export interface ToolContent {
    * Comma-separated meta keywords (optional)
    */
   keywords?: string | null;
+  /**
+   * Main article body. H2 headings drive the TOC.
+   */
+  content?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  /**
+   * On = H3 also appears nested in TOC. Off = H2 only.
+   */
+  tocIncludeH3?: boolean | null;
+  /**
+   * Optional heading slug ids to hide from TOC (heading still renders on the page).
+   */
+  tocExclude?:
+    | {
+        anchorId: string;
+        id?: string | null;
+      }[]
+    | null;
   sections?:
     | {
         /**
@@ -612,6 +643,14 @@ export interface ToolContentSelect<T extends boolean = true> {
   metaTitle?: T;
   metaDescription?: T;
   keywords?: T;
+  content?: T;
+  tocIncludeH3?: T;
+  tocExclude?:
+    | T
+    | {
+        anchorId?: T;
+        id?: T;
+      };
   sections?:
     | T
     | {

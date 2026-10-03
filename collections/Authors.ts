@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { canonicalizeSiteUrl } from '@/lib/site-url'
 
 /**
  * Public blog authors — E-E-A-T profile pages at /blog/author/<slug>/.
@@ -21,7 +22,7 @@ export const Authors: CollectionConfig = {
       },
     },
     preview: ({ doc }) => {
-      const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.net').replace(/\/$/, '')
+      const base = canonicalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
       const data = doc as { slug?: unknown } | null | undefined
       const slug = typeof data?.slug === 'string' ? data.slug : null
       return slug ? `${base}/blog/author/${slug}/` : null

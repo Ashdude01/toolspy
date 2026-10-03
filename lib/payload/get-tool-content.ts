@@ -17,6 +17,11 @@ export interface ToolContentDoc {
   heroDescription?: string | null
   metaTitle?: string | null
   metaDescription?: string | null
+  /** Single-article Lexical body (preferred). H2 headings drive the TOC. */
+  content?: unknown
+  tocIncludeH3?: boolean | null
+  tocExclude?: Array<{ anchorId?: string | null }> | null
+  /** Legacy multi-section editor — used only when `content` is empty. */
   sections?: Array<{
     anchorId: string
     heading: string

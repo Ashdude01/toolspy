@@ -1,10 +1,13 @@
+import { canonicalizeSiteDomain, canonicalizeSiteUrl, CANONICAL_SITE_DOMAIN } from './site-url'
+
 // Site Configuration
+// Canonical host is always https://toolspy.net (never www) — sitemaps, canonicals, OG.
 export const siteConfig = {
   name: process.env.NEXT_PUBLIC_SITE_NAME || 'Toolspy',
   title: 'Toolspy – Free Online Calculators, Converters & File Tools',
   description: process.env.NEXT_PUBLIC_SITE_DESCRIPTION || 'Professional Online Tools Hub',
-  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.net',
-  domain: process.env.NEXT_PUBLIC_SITE_DOMAIN || 'toolspy.net',
+  url: canonicalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL),
+  domain: canonicalizeSiteDomain(process.env.NEXT_PUBLIC_SITE_DOMAIN || CANONICAL_SITE_DOMAIN),
   
   // Branding
   brandColor: process.env.NEXT_PUBLIC_BRAND_COLOR || '#3b82f6',
@@ -30,7 +33,7 @@ export const siteConfig = {
   ezoic: {
     enabled: process.env.NEXT_PUBLIC_EZOIC_ENABLED === 'true',
     publisherId: process.env.NEXT_PUBLIC_EZOIC_PUBLISHER_ID || '19390',
-    adsTxtManagerUrl: `https://srv.adstxtmanager.com/${process.env.NEXT_PUBLIC_EZOIC_PUBLISHER_ID || '19390'}/${process.env.NEXT_PUBLIC_SITE_DOMAIN || 'toolspy.net'}`,
+    adsTxtManagerUrl: `https://srv.adstxtmanager.com/${process.env.NEXT_PUBLIC_EZOIC_PUBLISHER_ID || '19390'}/${canonicalizeSiteDomain(process.env.NEXT_PUBLIC_SITE_DOMAIN || CANONICAL_SITE_DOMAIN)}`,
   },
   
   // SEO

@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { canonicalizeSiteUrl } from '@/lib/site-url'
 
 /**
  * Blog posts — CMS owns published content; frontend hybrid with lib/blog-data.ts fallback.
@@ -15,7 +16,7 @@ export const Posts: CollectionConfig = {
       },
     },
     preview: ({ doc }) => {
-      const base = (process.env.NEXT_PUBLIC_SITE_URL || 'https://toolspy.net').replace(/\/$/, '')
+      const base = canonicalizeSiteUrl(process.env.NEXT_PUBLIC_SITE_URL)
       const data = doc as { slug?: unknown } | null | undefined
       const slug = typeof data?.slug === 'string' ? data.slug : null
       return slug ? `${base}/blog/${slug}/` : null

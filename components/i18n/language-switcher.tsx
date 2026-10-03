@@ -78,6 +78,17 @@ export function LanguageSwitcher() {
     }
   }, [])
 
+  // Phone pe panel open hone par background scroll lock
+  useEffect(() => {
+    if (!open) return
+    const prev = document.body.style.overflow
+    const isNarrow = window.matchMedia('(max-width: 639px)').matches
+    if (isNarrow) document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [open])
+
   // Agar 2 se kam locales hain to switcher render mat karo
   if (SWITCHER_LOCALES.length < 2) return null
 
@@ -117,49 +128,64 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div
-          role="menu"
-          className="absolute right-0 z-50 mt-2 w-[min(92vw,380px)] rounded-xl border bg-popover p-2 shadow-lg"
-        >
-          <p className="px-2 pb-2 pt-1 text-xs font-semibold uppercase tracking-wide text-muted-foreground">
-            {t('header.selectLanguage')}
-          </p>
-          <ul className="grid max-h-[60vh] grid-cols-2 gap-1 overflow-y-auto">
-            {SWITCHER_LOCALES.map((code) => {
-              const info = ALL_LOCALES[code]
-              if (!info) return null
-              const active = code === currentLocale
-              return (
-                <li key={code} role="none">
-                  <Link
-                    role="menuitem"
-                    href={localePath(code, basePath || '/')}
-                    onClick={() => setOpen(false)}
-                    dir={info.dir}
-                    hrefLang={info.hreflang}
-                    aria-current={active ? 'true' : undefined}
-                    className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
-                      active
-                        ? 'bg-primary/10 font-semibold text-primary'
-                        : 'hover:bg-accent hover:text-accent-foreground'
-                    }`}
-                  >
-                    <LocaleFlag flagCode={info.flagCode} country={info.country} />
-                    <span className="min-w-0 flex-1 flex flex-col leading-tight">
-                      <span className="truncate">{info.nativeName}</span>
-                      <span className="truncate text-[11px] font-normal text-muted-foreground">
-                        {info.country}
+        <>
+          {/* Mobile: dimmed backdrop so the centered panel reads as a modal */}
+          <button
+            type="button"
+            aria-label="Close language menu"
+            className="fixed inset-0 z-40 bg-black/40 sm:hidden"
+            onClick={() => setOpen(false)}
+          />
+          <div
+            role="menu"
+            className={[
+              'z-50 rounded-xl border bg-popover p-2 shadow-lg',
+              // Phone: viewport-centered modal (not clipped by header edge)
+              'fixed left-1/2 top-64 w-[min(92vw,380px)] -translate-x-1/2 -translate-y-1/2',
+              // Desktop: dropdown under the trigger, right-aligned
+              'sm:absolute sm:left-auto sm:right-0 sm:top-auto sm:mt-2 sm:translate-x-0 sm:translate-y-0',
+            ].join(' ')}
+          >
+            <p className="px-2 pb-2 pt-1 text-center text-xs font-semibold uppercase tracking-wide text-muted-foreground sm:text-start">
+              {t('header.selectLanguage')}
+            </p>
+            <ul className="grid max-h-[min(60vh,420px)] grid-cols-2 gap-1 overflow-y-auto">
+              {SWITCHER_LOCALES.map((code) => {
+                const info = ALL_LOCALES[code]
+                if (!info) return null
+                const active = code === currentLocale
+                return (
+                  <li key={code} role="none">
+                    <Link
+                      role="menuitem"
+                      href={localePath(code, basePath || '/')}
+                      onClick={() => setOpen(false)}
+                      dir={info.dir}
+                      hrefLang={info.hreflang}
+                      aria-current={active ? 'true' : undefined}
+                      className={`flex items-center gap-2.5 rounded-lg px-2.5 py-2 text-sm transition-colors ${
+                        active
+                          ? 'bg-primary/10 font-semibold text-primary'
+                          : 'hover:bg-accent hover:text-accent-foreground'
+                      }`}
+                    >
+                      <LocaleFlag flagCode={info.flagCode} country={info.country} />
+                      <span className="min-w-0 flex-1 flex flex-col leading-tight">
+                        <span className="truncate">{info.nativeName}</span>
+                        <span className="truncate text-[11px] font-normal text-muted-foreground">
+                          {info.country}
+                        </span>
                       </span>
-                    </span>
-                    {active && (
-                      <Check className="h-4 w-4 shrink-0" aria-hidden />
-                    )}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </div>
+                      {active && (
+                        <Check className="h-4 w-4 shrink-0" aria-hidden />
+                      )}
+                    </Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        </>
       )}
     </div>
   )
