@@ -1,15 +1,13 @@
 import type { Metadata } from 'next'
-import { SiteDocument } from '@/components/layout/site-document'
 import { siteConfig } from '@/lib/config'
-import { DEFAULT_LOCALE } from '@/lib/i18n/locales'
-import { dirForLocale } from '@/lib/i18n/pathname-locale'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 /**
  * English (unprefixed) site tree — /bmi-calculator/, /blog/, …
  *
- * ISR: no headers()/cookies() here. Locale is known (DEFAULT_LOCALE).
- * Localized URLs live under app/(i18n)/[locale] with their own <html lang>.
+ * Chrome (<html>, header, footer) app/(site)/layout.tsx me hai — yahi layout
+ * localized routes ke saath share hota hai, isliye language switch full reload nahi.
+ * ISR: no headers()/cookies() here.
  */
 export const revalidate = 3600
 
@@ -84,9 +82,5 @@ export const metadata: Metadata = {
 }
 
 export default function EnglishLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <SiteDocument locale={DEFAULT_LOCALE} dir={dirForLocale(DEFAULT_LOCALE)}>
-      {children}
-    </SiteDocument>
-  )
+  return children
 }

@@ -35,26 +35,32 @@ import { RelatedTools } from '@/components/tools/related-tools'
  * Baaki sab → notFound() (site-layout 404).
  */
 
+/**
+ * ISR with on-demand tags (`tool-content:<slug>`). force-static stops this
+ * dispatcher from falling through to per-request SSR on language switch.
+ */
+export const dynamic = 'force-static'
+export const revalidate = 3600
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string; slug: string }>
 
 /** Static pages jinke localized routes chahiye (English content + noindex). */
 const STATIC_PAGES: Record<string, () => Promise<{ default: ComponentType }>> = {
-  tools: () => import('@/app/(frontend)/tools/page'),
-  about: () => import('@/app/(frontend)/about/page'),
-  contact: () => import('@/app/(frontend)/contact/page'),
-  careers: () => import('@/app/(frontend)/careers/page'),
-  help: () => import('@/app/(frontend)/help/page'),
-  feedback: () => import('@/app/(frontend)/feedback/page'),
-  'bug-report': () => import('@/app/(frontend)/bug-report/page'),
-  'digital-marketing': () => import('@/app/(frontend)/digital-marketing/page'),
-  privacy: () => import('@/app/(frontend)/privacy/page'),
-  terms: () => import('@/app/(frontend)/terms/page'),
-  disclaimer: () => import('@/app/(frontend)/disclaimer/page'),
-  dmca: () => import('@/app/(frontend)/dmca/page'),
-  'cookie-policy': () => import('@/app/(frontend)/cookie-policy/page'),
-  'gdpr-ccpa': () => import('@/app/(frontend)/gdpr-ccpa/page'),
+  tools: () => import('@/app/(site)/(frontend)/tools/page'),
+  about: () => import('@/app/(site)/(frontend)/about/page'),
+  contact: () => import('@/app/(site)/(frontend)/contact/page'),
+  careers: () => import('@/app/(site)/(frontend)/careers/page'),
+  help: () => import('@/app/(site)/(frontend)/help/page'),
+  feedback: () => import('@/app/(site)/(frontend)/feedback/page'),
+  'bug-report': () => import('@/app/(site)/(frontend)/bug-report/page'),
+  'digital-marketing': () => import('@/app/(site)/(frontend)/digital-marketing/page'),
+  privacy: () => import('@/app/(site)/(frontend)/privacy/page'),
+  terms: () => import('@/app/(site)/(frontend)/terms/page'),
+  disclaimer: () => import('@/app/(site)/(frontend)/disclaimer/page'),
+  dmca: () => import('@/app/(site)/(frontend)/dmca/page'),
+  'cookie-policy': () => import('@/app/(site)/(frontend)/cookie-policy/page'),
+  'gdpr-ccpa': () => import('@/app/(site)/(frontend)/gdpr-ccpa/page'),
 }
 const STATIC_PAGE_SLUGS = Object.keys(STATIC_PAGES)
 

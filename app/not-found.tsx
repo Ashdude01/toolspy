@@ -3,8 +3,8 @@ import type { Metadata } from 'next'
 /**
  * ROOT 404 — sirf last-resort fallback. NORMALLY KABHI RENDER NAHI HOTA.
  *
- * Har unmatched URL ab `app/(frontend)/[...notfound]/page.tsx` (catch-all) pakadta
- * hai → `notFound()` → `app/(frontend)/not-found.tsx` jo POORE site layout
+ * Har unmatched URL ab `app/(site)/(frontend)/[...notfound]/page.tsx` (catch-all) pakadta
+ * hai → `notFound()` → `app/(site)/(frontend)/not-found.tsx` jo POORE site layout
  * (header/footer/theme) ke saath aata hai. Wahi asli 404 page hai.
  *
  * Ye file sirf tab use hoti hai jab `notFound()` kisi aise scope me throw ho jo

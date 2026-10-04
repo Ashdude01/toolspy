@@ -1,6 +1,6 @@
 'use client'
 
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { useState, useRef, useEffect } from 'react'
 import { Check, ChevronDown } from 'lucide-react'
@@ -59,6 +59,7 @@ function LocaleFlag({
  */
 export function LanguageSwitcher() {
   const pathname = usePathname() || '/'
+  const router = useRouter()
   const t = useT()
   const [open, setOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -105,11 +106,20 @@ export function LanguageSwitcher() {
 
   const current = ALL_LOCALES[currentLocale] ?? ALL_LOCALES[DEFAULT_LOCALE]
 
+  function prefetchLocales() {
+    for (const code of SWITCHER_LOCALES) {
+      if (code === currentLocale) continue
+      router.prefetch(localePath(code, basePath || '/'))
+    }
+  }
+
   return (
     <div ref={ref} className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
+        onMouseEnter={prefetchLocales}
+        onFocus={prefetchLocales}
         aria-haspopup="menu"
         aria-expanded={open}
         aria-label="Change language"
@@ -159,7 +169,12 @@ export function LanguageSwitcher() {
                     <Link
                       role="menuitem"
                       href={localePath(code, basePath || '/')}
-                      onClick={() => setOpen(false)}
+                      prefetch
+                      onClick={() => {
+                        document.documentElement.lang = code
+                        document.documentElement.dir = info.dir
+                        setOpen(false)
+                      }}
                       dir={info.dir}
                       hrefLang={info.hreflang}
                       aria-current={active ? 'true' : undefined}

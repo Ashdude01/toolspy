@@ -1,5 +1,5 @@
 /**
- * Codemod: saare English tool layouts (app/(frontend)/(tools)/<slug>/layout.tsx)
+ * Codemod: saare English tool layouts (app/(site)/(frontend)/(tools)/<slug>/layout.tsx)
  * ko CMS-aware banata hai — taaki admin me contentSource='cms' karne par
  * updated content main website par bhi dikhe (warna existing hardcoded content).
  *
@@ -11,7 +11,7 @@
 const fs = require('fs')
 const path = require('path')
 
-const TOOLS_DIR = path.join(process.cwd(), 'app', '(frontend)', '(tools)')
+const TOOLS_DIR = path.join(process.cwd(), 'app', '(site)', '(frontend)', '(tools)')
 
 if (!fs.existsSync(TOOLS_DIR)) {
   console.error('NOT FOUND:', TOOLS_DIR, '\nRepo root se chalao (jahan app/ folder hai).')

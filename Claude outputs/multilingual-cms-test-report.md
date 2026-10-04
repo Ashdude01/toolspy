@@ -67,7 +67,7 @@ Teeno CMS areas (tool-content, homepage, posts) me multilingual round-trip 100% 
 **OBS-2 — RTL locales (jaise Arabic) me root `<html dir="rtl">` set nahi hota**
 - **Kya:** Arabic (`/ar/...`) pe content sahi render hota hai aur `dir="rtl"` **inner `[locale]` div** pe lagta hai (via `<div lang={locale} dir={info.dir}>`), lekin root `<html>` tag `lang="en"` (fixed) rehta hai — usme `dir` attribute nahi aata.
 - **Severity:** Minor (SEO/accessibility — visually RTL theek dikhta hai).
-- **Kyun known:** Ye pehle se code me documented hai (`app/(frontend)/[locale]/layout.tsx` comment: "Phase 4 me fix hoga"). Root layout minimal Payload-pattern hai isliye `<html>` static hai.
+- **Kyun known:** Ye pehle se code me documented hai (`app/(site)/(frontend)/[locale]/layout.tsx` comment: "Phase 4 me fix hoga"). Root layout minimal Payload-pattern hai isliye `<html>` static hai.
 - **Action:** Sirf tab priority jab aap actually RTL languages (Arabic/Hebrew/Urdu) production me publish karna chaho. Abhi `PUBLISHED_LOCALES = []` hai to sab noindex hai — koi SEO nuksan nahi.
 
 ---

@@ -6,7 +6,9 @@ import { siteConfig } from '@/lib/config'
  *
  * Ye <html>/<body> ya koi site-chrome render NAHI karta. Kyun?
  *  - Frontend ka poora chrome (header, footer, fonts, globals.css, GTM, consent)
- *    ab app/(frontend)/layout.tsx me hai — sirf website ke pages par lagta hai.
+ *    ab app/(site)/layout.tsx me hai — sirf website ke pages par lagta hai.
+ *    English + localized routes ek hi <html> share karte hain, taaki language
+ *    switch client navigation rahe (full reload / SSR wait nahi).
  *  - Payload admin (app/(payload)/layout.tsx) apna alag <html>/<body> render karta
  *    hai — bina site ke header/footer/PWA-button/theme ke.
  *

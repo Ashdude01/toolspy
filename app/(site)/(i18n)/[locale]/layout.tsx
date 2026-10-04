@@ -1,14 +1,14 @@
 /**
  * Localized site tree — /de/..., /fr/..., …
  *
- * Own <html lang>/<dir> from params (not headers) so ISR/Full Route Cache works.
- * English unprefixed URLs stay under app/(frontend).
+ * <html> parent app/(site)/layout.tsx me hai (English ke saath shared) taaki
+ * language switch client-side ho. lang/dir headers() se NAHI aata — wo SSR
+ * force karta. Sync script + HtmlLangSync pathname se set karte hain.
+ * English unprefixed URLs stay under app/(site)/(frontend).
  */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { SiteDocument } from '@/components/layout/site-document'
 import {
-  ALL_LOCALES,
   DEFAULT_LOCALE,
   ROUTABLE_LOCALES,
   isRoutableLocale,
@@ -45,11 +45,5 @@ export default async function LocaleLayout({
     notFound()
   }
 
-  const info = ALL_LOCALES[locale]
-
-  return (
-    <SiteDocument locale={locale} dir={info.dir}>
-      {children}
-    </SiteDocument>
-  )
+  return children
 }

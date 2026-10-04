@@ -1,5 +1,5 @@
 import fs from 'fs'
-const s = fs.readFileSync('app/(frontend)/(tools)/bmi-calculator/page.tsx', 'utf8')
+const s = fs.readFileSync('app/(site)/(frontend)/(tools)/bmi-calculator/page.tsx', 'utf8')
 console.log('has useT', s.includes('useT'))
 console.log('t calls', (s.match(/t\(/g) || []).length)
 const m = s.match(/t\("tools\.bmiCalculator\.[^"]+"\)/g)
