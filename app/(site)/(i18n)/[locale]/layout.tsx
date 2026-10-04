@@ -1,14 +1,17 @@
 /**
- * Localized site tree — /de/..., /fr/..., …
+ * Localized site tree — /de/..., /ja/..., /ar/..., …
  *
- * <html> parent app/(site)/layout.tsx me hai (English ke saath shared) taaki
- * language switch client-side ho. lang/dir headers() se NAHI aata — wo SSR
- * force karta. Sync script + HtmlLangSync pathname se set karte hain.
+ * Owns <html lang>/<dir> from route params (NOT headers), so:
+ *   - View Source shows lang="ja" on /ja/... (SEO-correct)
+ *   - Route stays ISR / force-static (headers() would force SSR)
+ *
  * English unprefixed URLs stay under app/(site)/(frontend).
  */
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { SiteDocument } from '@/components/layout/site-document'
 import {
+  ALL_LOCALES,
   DEFAULT_LOCALE,
   ROUTABLE_LOCALES,
   isRoutableLocale,
@@ -17,12 +20,12 @@ import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
 export const revalidate = 3600
+export const dynamic = 'force-static'
+export const dynamicParams = false
 
 export function generateStaticParams() {
   return ROUTABLE_LOCALES.filter((l) => l !== DEFAULT_LOCALE).map((locale) => ({ locale }))
 }
-
-export const dynamicParams = false
 
 export const metadata: Metadata = {
   title: limitTitle(siteConfig.title),
@@ -30,6 +33,11 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   applicationName: 'Toolspy',
   manifest: '/manifest.json',
+}
+
+/** Throws 404 while keeping the parent SiteDocument wrapper (correct <html>). */
+async function ForceNotFound() {
+  notFound()
 }
 
 export default async function LocaleLayout({
@@ -40,10 +48,22 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  const info = ALL_LOCALES[locale]
+  const valid =
+    Boolean(info) && locale !== DEFAULT_LOCALE && isRoutableLocale(locale)
 
-  if (locale === DEFAULT_LOCALE || !isRoutableLocale(locale)) {
-    notFound()
+  if (!valid) {
+    // Still emit <html> so View Source / crawlers never get a fragment document.
+    return (
+      <SiteDocument locale={DEFAULT_LOCALE} dir={ALL_LOCALES[DEFAULT_LOCALE].dir}>
+        <ForceNotFound />
+      </SiteDocument>
+    )
   }
 
-  return children
+  return (
+    <SiteDocument locale={locale} dir={info.dir}>
+      {children}
+    </SiteDocument>
+  )
 }

@@ -11,7 +11,6 @@ import { ConsentProvider } from '@/components/consent/consent-provider'
 import { CookieConsentBanner } from '@/components/consent/cookie-consent-banner'
 import { HtmlLangSync } from '@/components/i18n/html-lang-sync'
 import { ComprehensiveSchemas } from '@/components/seo/comprehensive-schemas'
-import { ALL_LOCALES, DEFAULT_LOCALE } from '@/lib/i18n/locales'
 
 const headingFontFamily = headingFont({ subsets: ['latin'], variable: '--font-heading' })
 const bodyFontFamily = bodyFont({ subsets: ['latin'], variable: '--font-body' })
@@ -19,16 +18,9 @@ const bodyFontFamily = bodyFont({ subsets: ['latin'], variable: '--font-body' })
 /**
  * Shared <html>/<body> chrome for EN + localized route trees.
  *
- * SSR lang defaults to English. A blocking head script corrects lang/dir from
- * the URL before paint. headers() is intentionally not used — it would force
- * every page onto SSR and make language switching wait on the server.
+ * Locale/dir MUST come from the owning layout (params), never from headers() —
+ * so pages stay ISR and View Source shows the correct lang (e.g. lang="ja").
  */
-function localeBootScript(): string {
-  const dirs = Object.fromEntries(
-    Object.entries(ALL_LOCALES).map(([code, info]) => [code, info.dir])
-  )
-  return `(function(){try{var d=${JSON.stringify(dirs)};var s=(location.pathname.split("/").filter(Boolean)[0]||"");var l=d[s]&&s!==${JSON.stringify(DEFAULT_LOCALE)}?s:${JSON.stringify(DEFAULT_LOCALE)};document.documentElement.lang=l;document.documentElement.dir=d[l]||"ltr";}catch(e){}})();`
-}
 export function SiteDocument({
   locale,
   dir,
@@ -60,7 +52,6 @@ export function SiteDocument({
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#3b82f6" />
-        <script dangerouslySetInnerHTML={{ __html: localeBootScript() }} />
         <ConsentInitScript />
         <GoogleTagManager />
         <ComprehensiveSchemas />

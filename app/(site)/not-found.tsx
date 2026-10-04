@@ -2,9 +2,8 @@ import type { Metadata } from 'next'
 import { NotFoundContent } from '@/components/seo/not-found-content'
 
 /**
- * 404 inside the shared site chrome. Used when notFound() is thrown from a
- * localized layout/page (no closer not-found.tsx). Must NOT render <html> —
- * app/(site)/layout.tsx already does.
+ * Fallback 404 body under app/(site). Prefer branch not-found files when a
+ * SiteDocument parent already wraps the tree. Do not emit a second <html>.
  */
 export const metadata: Metadata = {
   title: 'Page Not Found (404) | Toolspy',

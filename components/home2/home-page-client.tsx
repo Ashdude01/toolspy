@@ -17,7 +17,7 @@ export function HomePageClient({
 }) {
   const [searchQuery, setSearchQuery] = useState("");
   return (
-    <>
+    <> 
       <ToolsGrid
         searchQuery={searchQuery}
         onSearchChange={setSearchQuery}

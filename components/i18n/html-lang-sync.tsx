@@ -1,9 +1,8 @@
 'use client'
 
 /**
- * Keeps <html lang>/<dir> in sync on client navigations.
- * English and localized routes share one root layout, so this runs before paint
- * (useLayoutEffect) instead of waiting on a full document reload.
+ * Keeps <html lang>/<dir> in sync on client navigations within a locale tree.
+ * SSR already emits the correct lang from layout params (View Source / SEO).
  */
 import { useLayoutEffect } from 'react'
 import { useLocale } from '@/lib/i18n/use-t'

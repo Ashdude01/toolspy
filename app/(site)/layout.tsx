@@ -1,23 +1,16 @@
-import { SiteDocument } from '@/components/layout/site-document'
-import { DEFAULT_LOCALE } from '@/lib/i18n/locales'
-import { dirForLocale } from '@/lib/i18n/pathname-locale'
-
 /**
- * Shared website root — English (/) and localized (/de/, /fr/, …).
+ * Shared site route-group shell (English + localized).
  *
- * ONE <html> so a language switch is a client navigation of the cached ISR
- * page. Separate root layouts made Next.js do a full document load, which
- * waited on a fresh server render every time.
+ * Deliberately pass-through — NO <html> here. Each branch owns its document:
+ *   - (frontend)/layout.tsx → lang="en"
+ *   - (i18n)/[locale]/layout.tsx → lang={locale} from params (View Source correct)
  *
- * Do not call headers() or cookies() here. That opts every public page into SSR.
- * lang/dir come from the pathname (boot script + HtmlLangSync), not the request.
+ * Putting one shared <html lang="en"> made every /ja/... page show lang="en"
+ * in View Source, which is wrong for SEO. headers() is also banned here — it
+ * would force SSR on every public page.
  */
 export const revalidate = 3600
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <SiteDocument locale={DEFAULT_LOCALE} dir={dirForLocale(DEFAULT_LOCALE)}>
-      {children}
-    </SiteDocument>
-  )
+  return children
 }
