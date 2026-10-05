@@ -8,8 +8,9 @@ import { limitTitle, limitDescription } from '@/lib/utils/seo'
 /**
  * English (unprefixed) site tree — /bmi-calculator/, /blog/, …
  *
- * ISR: no headers()/cookies() here. Locale is known (DEFAULT_LOCALE).
- * Localized URLs live under app/(i18n)/[locale] with their own <html lang>.
+ * Owns <html lang="en"> so View Source is SEO-correct.
+ * Localized URLs live under (i18n)/[locale] with their own <html lang>.
+ * ISR: no headers()/cookies() here.
  */
 export const revalidate = 3600
 

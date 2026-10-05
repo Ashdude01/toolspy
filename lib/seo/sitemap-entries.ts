@@ -5,8 +5,10 @@ import { defaultBlogAuthor, defaultBlogReviewer } from '@/lib/blog/defaults'
 import { getPublishedBlogPosts } from '@/lib/payload/get-posts'
 import { getPublishedAuthors } from '@/lib/payload/get-authors'
 import { PUBLISHED_LOCALES, ALL_LOCALES } from '@/lib/i18n/locales'
+import { CANONICAL_SITE_ORIGIN } from '@/lib/site-url'
 
-export const SITEMAP_BASE_URL = 'https://toolspy.net'
+/** Always apex — never www. Matches siteConfig.url / robots.txt. */
+export const SITEMAP_BASE_URL = CANONICAL_SITE_ORIGIN
 
 /** Child sitemap URLs (named — not 0/1/2). */
 export const SITEMAP_CHILDREN = [
@@ -17,15 +19,32 @@ export const SITEMAP_CHILDREN = [
 
 export type SitemapEntry = MetadataRoute.Sitemap[number]
 
+/** Match Next trailingSlash: true — every page loc ends with /. */
+function sitemapPath(path: string): string {
+  if (!path || path === '/') return '/'
+  const p = path.startsWith('/') ? path : `/${path}`
+  return p.endsWith('/') ? p : `${p}/`
+}
+
+function absoluteUrl(path: string): string {
+  const p = sitemapPath(path)
+  return p === '/' ? `${SITEMAP_BASE_URL}/` : `${SITEMAP_BASE_URL}${p}`
+}
+
+function absoluteLocaleUrl(locale: string, path: string): string {
+  const p = sitemapPath(path)
+  return p === '/' ? `${SITEMAP_BASE_URL}/${locale}/` : `${SITEMAP_BASE_URL}/${locale}${p}`
+}
+
 function languagesFor(path: string): Record<string, string> | undefined {
   if (PUBLISHED_LOCALES.length === 0) return undefined
   const langs: Record<string, string> = {
-    'x-default': `${SITEMAP_BASE_URL}${path}`,
-    en: `${SITEMAP_BASE_URL}${path}`,
+    'x-default': absoluteUrl(path),
+    en: absoluteUrl(path),
   }
   for (const loc of PUBLISHED_LOCALES) {
     const info = ALL_LOCALES[loc]
-    if (info) langs[info.hreflang] = `${SITEMAP_BASE_URL}/${loc}${path}`
+    if (info) langs[info.hreflang] = absoluteLocaleUrl(loc, path)
   }
   return langs
 }
@@ -44,12 +63,12 @@ export function withLocales(
   const languages = localize ? languagesFor(path) : undefined
   const alt = languages ? { alternates: { languages } } : {}
   const entries: MetadataRoute.Sitemap = [
-    { url: `${SITEMAP_BASE_URL}${path}`, lastModified, changeFrequency, priority, ...alt },
+    { url: absoluteUrl(path), lastModified, changeFrequency, priority, ...alt },
   ]
   if (localize) {
     for (const loc of PUBLISHED_LOCALES) {
       entries.push({
-        url: `${SITEMAP_BASE_URL}/${loc}${path}`,
+        url: absoluteLocaleUrl(loc, path),
         lastModified,
         changeFrequency,
         priority: Math.max(0.1, priority - 0.05),
@@ -96,7 +115,7 @@ export function buildPagesSitemap(): MetadataRoute.Sitemap {
     'image-downloader',
     'facebook-photo-downloader',
   ].map((slug) => ({
-    url: `${SITEMAP_BASE_URL}/extensions/${slug}`,
+    url: absoluteUrl(`/extensions/${slug}`),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.75,
@@ -111,7 +130,7 @@ export function buildToolsSitemap(): MetadataRoute.Sitemap {
     .flatMap((tool) => withLocales(tool.path, { changeFrequency: 'weekly', priority: 0.9 }))
 
   const categoryPages: MetadataRoute.Sitemap = Object.keys(toolCategories).map((category) => ({
-    url: `${SITEMAP_BASE_URL}/tools/${category}`,
+    url: absoluteUrl(`/tools/${category}`),
     lastModified: new Date(),
     changeFrequency: 'weekly' as const,
     priority: 0.8,

@@ -9,7 +9,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const ROOT = path.resolve('app/(frontend)/(tools)')
+const ROOT = path.resolve('app/(site)/(frontend)/(tools)')
 const tools = fs
   .readdirSync(ROOT, { withFileTypes: true })
   .filter((d) => d.isDirectory())

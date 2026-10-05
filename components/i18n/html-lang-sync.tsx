@@ -1,17 +1,17 @@
 'use client'
 
 /**
- * Keeps <html lang>/<dir> in sync on client navigations within the same tree.
- * EN and localized trees use separate root layouts (correct SSR lang in View Source).
+ * Keeps <html lang>/<dir> in sync on client navigations within a locale tree.
+ * SSR already emits the correct lang from layout params (View Source / SEO).
  */
-import { useEffect } from 'react'
+import { useLayoutEffect } from 'react'
 import { useLocale } from '@/lib/i18n/use-t'
 import { dirForLocale } from '@/lib/i18n/pathname-locale'
 
 export function HtmlLangSync() {
   const locale = useLocale()
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = document.documentElement
     root.lang = locale
     root.dir = dirForLocale(locale)

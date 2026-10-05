@@ -13,6 +13,9 @@ import { HomePageView, buildHomepageMetadata } from '@/components/home2/home-pag
  * HomePageView(locale): layout code se; SEO content block CMS/code toggle se
  * (per-language). Jab tak locale PUBLISHED na ho → noindex.
  */
+/** ISR — language switch serves the cached page, it does not SSR on each click. */
+export const dynamic = 'force-static'
+export const revalidate = 3600
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string }>

@@ -4,9 +4,8 @@
  * useT() — client-side translation hook for chrome/widgets (header, footer, …).
  *
  * Locale current URL se nikalta hai (bilkul LanguageSwitcher jaisa) — kyunki
- * ye components shared `(frontend)/layout.tsx` me render hote hain jo `[locale]`
- * segment ke UPAR hai, isliye server se locale prop nahi milta. usePathname()
- * hi single source hai.
+ * ye components site chrome layouts me render hote hain; locale URL pathname
+ * se aata hai (server prop nahi). usePathname() hi single source hai.
  *
  * Usage:
  *   const t = useT()

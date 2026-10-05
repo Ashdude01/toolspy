@@ -13,8 +13,10 @@ import {
 } from '@/lib/i18n/locales'
 import { siteConfig } from '@/lib/config'
 import { getToolContent } from '@/lib/payload/get-tool-content'
+import { isToolCmsContentActive } from '@/lib/payload/tool-cms-content'
 import { CmsToolHero } from '@/components/i18n/cms-tool-hero'
 import { ToolSeoContentTemplate } from '@/components/i18n/tool-seo-content-template'
+import { loadHardcodedToolSeoContent } from '@/lib/i18n/tool-seo-content-loaders'
 import { DynamicToolLayout } from '@/components/layout/dynamic-tool-layout'
 import { ToolCustomSchema } from '@/components/seo/tool-custom-schema'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
@@ -33,26 +35,32 @@ import { RelatedTools } from '@/components/tools/related-tools'
  * Baaki sab → notFound() (site-layout 404).
  */
 
+/**
+ * ISR with on-demand tags (`tool-content:<slug>`). force-static stops this
+ * dispatcher from falling through to per-request SSR on language switch.
+ */
+export const dynamic = 'force-static'
+export const revalidate = 3600
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string; slug: string }>
 
 /** Static pages jinke localized routes chahiye (English content + noindex). */
 const STATIC_PAGES: Record<string, () => Promise<{ default: ComponentType }>> = {
-  tools: () => import('@/app/(frontend)/tools/page'),
-  about: () => import('@/app/(frontend)/about/page'),
-  contact: () => import('@/app/(frontend)/contact/page'),
-  careers: () => import('@/app/(frontend)/careers/page'),
-  help: () => import('@/app/(frontend)/help/page'),
-  feedback: () => import('@/app/(frontend)/feedback/page'),
-  'bug-report': () => import('@/app/(frontend)/bug-report/page'),
-  'digital-marketing': () => import('@/app/(frontend)/digital-marketing/page'),
-  privacy: () => import('@/app/(frontend)/privacy/page'),
-  terms: () => import('@/app/(frontend)/terms/page'),
-  disclaimer: () => import('@/app/(frontend)/disclaimer/page'),
-  dmca: () => import('@/app/(frontend)/dmca/page'),
-  'cookie-policy': () => import('@/app/(frontend)/cookie-policy/page'),
-  'gdpr-ccpa': () => import('@/app/(frontend)/gdpr-ccpa/page'),
+  tools: () => import('@/app/(site)/(frontend)/tools/page'),
+  about: () => import('@/app/(site)/(frontend)/about/page'),
+  contact: () => import('@/app/(site)/(frontend)/contact/page'),
+  careers: () => import('@/app/(site)/(frontend)/careers/page'),
+  help: () => import('@/app/(site)/(frontend)/help/page'),
+  feedback: () => import('@/app/(site)/(frontend)/feedback/page'),
+  'bug-report': () => import('@/app/(site)/(frontend)/bug-report/page'),
+  'digital-marketing': () => import('@/app/(site)/(frontend)/digital-marketing/page'),
+  privacy: () => import('@/app/(site)/(frontend)/privacy/page'),
+  terms: () => import('@/app/(site)/(frontend)/terms/page'),
+  disclaimer: () => import('@/app/(site)/(frontend)/disclaimer/page'),
+  dmca: () => import('@/app/(site)/(frontend)/dmca/page'),
+  'cookie-policy': () => import('@/app/(site)/(frontend)/cookie-policy/page'),
+  'gdpr-ccpa': () => import('@/app/(site)/(frontend)/gdpr-ccpa/page'),
 }
 const STATIC_PAGE_SLUGS = Object.keys(STATIC_PAGES)
 
@@ -172,13 +180,19 @@ export default async function LocalizedPage({ params }: { params: Params }) {
   }
 
   // ---- TOOL (hybrid CMS/code) ----
-  const [pageMod, doc] = await Promise.all([entry.page(), getToolContent(slug, locale)])
+  // contentSource === 'cms' → CMS template; otherwise English hardcoded seo-content
+  // (same as EN ToolContentSwitch). Language switch must never blank the article.
+  const [pageMod, doc, HardcodedSeo] = await Promise.all([
+    entry.page(),
+    getToolContent(slug, locale),
+    loadHardcodedToolSeoContent(slug),
+  ])
   const ToolPage = pageMod.default
   if (!ToolPage) notFound()
 
-  const cmsActive = doc?.contentSource === 'cms' && (doc.sections?.length ?? 0) > 0
+  const cmsActive = isToolCmsContentActive(doc)
 
-  // Locale-aware hero + hide English page hero. SEO: CMS template or switch.
+  // Locale-aware hero + hide English page hero.
   // RelatedTools always below the tool — independent of CMS/code SEO content.
   return (
     <DynamicToolLayout toolSlug={slug}>
@@ -195,6 +209,8 @@ export default async function LocalizedPage({ params }: { params: Params }) {
         </nav>
         {cmsActive && doc ? (
           <ToolSeoContentTemplate slug={slug} doc={doc} locale={locale} />
+        ) : HardcodedSeo ? (
+          <HardcodedSeo />
         ) : null}
       </div>
     </DynamicToolLayout>

@@ -17,7 +17,7 @@ export const metadata: Metadata = {
  * se match NAHI karta, wo yahan aata hai aur `notFound()` throw karta hai.
  *
  * Kyun zaroori: ye route `(frontend)` group ke ANDAR hai, isliye iska notFound()
- * `app/(frontend)/not-found.tsx` render karta hai — jo `app/(frontend)/layout.tsx`
+ * `app/(site)/(frontend)/not-found.tsx` render karta hai — jo `app/(site)/(frontend)/layout.tsx`
  * ke saath aata hai = POORA site layout (header, footer, theme toggle) + Tailwind
  * theme. Isse ab har 404 website jaisa dikhta hai, alag document nahi.
  *

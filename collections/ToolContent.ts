@@ -9,6 +9,9 @@ import { toolSearchKey } from '../lib/i18n/tool-labels'
  *
  * SAFETY: contentSource default 'code' hai — jab tak aap khud 'cms' na karo,
  * page par existing seo-content.tsx hi render hota hai, CMS entry ignore hoti hai.
+ *
+ * Preferred body: localized `content` richText (H2 → TOC). Legacy `sections[]`
+ * still works when `content` is empty.
  */
 export const ToolContent: CollectionConfig = {
   slug: 'tool-content',
@@ -142,9 +145,54 @@ export const ToolContent: CollectionConfig = {
           ],
         },
         {
-          label: 'Sections',
+          label: 'Article',
           description:
-            'Har section = ek h2 heading + body. TOC (left sidebar) in headings se automatic banta hai.',
+            'Poora article ek rich text me. H2 headings se left TOC automatic banta hai. Paste once, done.',
+          fields: [
+            {
+              name: 'content',
+              type: 'richText',
+              localized: true,
+              admin: {
+                description:
+                  'Main article body. Toolbar se Heading → H2 = TOC item. H3 = subheading (TOC me nahi, jab tak neeche "Include H3" on na ho). Lists, links, tables, images, video supported.',
+              },
+            },
+            {
+              name: 'tocIncludeH3',
+              type: 'checkbox',
+              defaultValue: false,
+              admin: {
+                description:
+                  'On = H3 bhi TOC me nested dikhe. Off (default) = sirf H2 TOC me.',
+              },
+            },
+            {
+              name: 'tocExclude',
+              type: 'array',
+              labels: { singular: 'Hidden TOC heading', plural: 'Hidden TOC headings' },
+              admin: {
+                description:
+                  'Optional: jin H2/H3 ko TOC se hide karna hai unka auto-slug yahan daalo (e.g. "how-it-works"). Page par heading dikhegi, TOC link nahi.',
+                initCollapsed: true,
+              },
+              fields: [
+                {
+                  name: 'anchorId',
+                  type: 'text',
+                  required: true,
+                  admin: {
+                    description: 'Slugified heading id (lowercase-hyphens), same as URL #anchor',
+                  },
+                },
+              ],
+            },
+          ],
+        },
+        {
+          label: 'Legacy sections',
+          description:
+            'Purana multi-section editor. Naye content ke liye "Article" tab use karo. Agar Article khali hai to ye sections fallback ke taur par render hote hain.',
           fields: [
             {
               name: 'sections',
@@ -152,7 +200,7 @@ export const ToolContent: CollectionConfig = {
               localized: true,
               labels: { singular: 'Section', plural: 'Sections' },
               admin: {
-                initCollapsed: false,
+                initCollapsed: true,
               },
               fields: [
                 {

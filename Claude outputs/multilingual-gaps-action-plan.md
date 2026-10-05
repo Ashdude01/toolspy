@@ -17,7 +17,7 @@ Ye document aapke do naye points ka **code review + analysis + phased action pla
 | **Above-tool hero** (label / heading / para) | Har tool ke `page.tsx` me hardcoded English | ❌ Nahi |
 | **Related tools** (heading + card names) | `related-tools.tsx` default props + `tools-data` registry (English) | ❌ Nahi |
 
-**Root cause (ek line me):** `app/(frontend)/layout.tsx` — jo `<html lang="en">` + `<Header/>` + `<Footer/>` render karta hai — wo `[locale]` route ke **upar** baithta hai, isliye usko pata hi nahi chalta ki kaunsi language active hai. Header/footer bilkul static English strings hain, aur unke andar ke links bhi English root paths (`/about`, `/privacy`) pe jaate hain — locale prefix (`/de/...`) carry nahi karte.
+**Root cause (ek line me):** `app/(site)/(frontend)/layout.tsx` — jo `<html lang="en">` + `<Header/>` + `<Footer/>` render karta hai — wo `[locale]` route ke **upar** baithta hai, isliye usko pata hi nahi chalta ki kaunsi language active hai. Header/footer bilkul static English strings hain, aur unke andar ke links bhi English root paths (`/about`, `/privacy`) pe jaate hain — locale prefix (`/de/...`) carry nahi karte.
 
 ---
 

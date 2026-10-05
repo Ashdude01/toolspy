@@ -17,8 +17,9 @@ const bodyFontFamily = bodyFont({ subsets: ['latin'], variable: '--font-body' })
 
 /**
  * Shared <html>/<body> chrome for EN + localized route trees.
- * Locale comes from the owning layout (params), never from headers() —
- * so pages can ISR / Full Route Cache without force-dynamic.
+ *
+ * Locale/dir MUST come from the owning layout (params), never from headers() —
+ * so pages stay ISR and View Source shows the correct lang (e.g. lang="ja").
  */
 export function SiteDocument({
   locale,

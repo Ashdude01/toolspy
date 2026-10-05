@@ -16,7 +16,7 @@ Sections ke body editor me ab: **Table, Image (upload), Video embed (YouTube/Vim
 node scripts/make-tools-cms-aware.cjs
 ```
 
-Ye saare `app/(frontend)/(tools)/*/layout.tsx` me 2-line change karta hai (idempotent — dobara chalana safe). Output me "changed: 89" dikhega. facebook-image-downloader + instagram-private-viewer skip honge (wo code par hi rahenge — sahi hai).
+Ye saare `app/(site)/(frontend)/(tools)/*/layout.tsx` me 2-line change karta hai (idempotent — dobara chalana safe). Output me "changed: 89" dikhega. facebook-image-downloader + instagram-private-viewer skip honge (wo code par hi rahenge — sahi hai).
 
 ## STEP 2 — Schema sync + importMap (naye Media collection + editor features ke liye)
 

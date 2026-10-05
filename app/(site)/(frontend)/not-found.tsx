@@ -7,7 +7,7 @@ import { NotFoundContent } from '@/components/seo/not-found-content'
  *
  * Ye tab render hota hai jab frontend routes ke andar `notFound()` throw ho
  * (e.g. blog post na mile, invalid locale, unknown tool). Site chrome
- * (header/footer) app/(frontend)/layout.tsx se automatically aata hai.
+ * (header/footer) app/(site)/(frontend)/layout.tsx se automatically aata hai.
  *
  * Next.js is response ko HTTP 404 status deta hai (SEO-correct). robots noindex
  * belt-and-suspenders hai; follow:true taaki internal links crawl hote rahein.

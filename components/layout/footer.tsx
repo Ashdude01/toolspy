@@ -225,7 +225,7 @@ export function Footer() {
               variant="outline"
               size="sm"
               onClick={scrollToTop}
-              className="border-slate-600 text-slate-300 hover:bg-slate-800 hover:text-white"
+              className="border-slate-600 text-slate-300 bg-slate-800 hover:bg-slate-700 hover:text-white"
               aria-label={t("footer.scrollToTop")}
             >
               <ArrowUp className="h-4 w-4" />

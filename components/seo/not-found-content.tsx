@@ -5,8 +5,10 @@ import { Search, Home, Wrench, ArrowRight, FileText, Mail, LifeBuoy } from 'luci
  * NotFoundContent — shared 404 body (SERVER component).
  *
  * Dono jagah use hota hai:
- *   - app/(frontend)/not-found.tsx  → site chrome (header/footer) ke andar
- *   - app/not-found.tsx (root)      → self-contained <html> ke andar (unmatched URLs)
+ *   - app/(site)/(frontend)/not-found.tsx           → English chrome
+ *   - app/(site)/(i18n)/[locale]/not-found.tsx     → localized chrome (correct lang)
+ *   - app/(site)/not-found.tsx                      → fallback SiteDocument (invalid locale)
+ *   - app/not-found.tsx (root)                      → self-contained <html> (last resort)
  *
  * SEO/UX:
  *   - Pure server-rendered: saara content + internal links initial HTML me (crawlable).

@@ -7,7 +7,7 @@ import fs from 'fs'
 import path from 'path'
 
 const DRY = process.argv.includes('--dry')
-const ROOT = 'app/(frontend)/(tools)'
+const ROOT = 'app/(site)/(frontend)/(tools)'
 const reUseT = /@\/lib\/i18n\/use-t|useT\s*\(/
 
 /** Exact string → toolCommon key (JSX text / quoted literals). */

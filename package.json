@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/migrate-tool-content-article.mjs && next build",
+    "migrate:tool-article": "node --env-file=.env scripts/migrate-tool-content-article.mjs",
     "start": "next start",
     "lint": "next lint",
     "office": "next dev --hostname 192.168.1.4 -p 3000",
@@ -62,6 +63,7 @@
     "payload": "3.86.0",
     "pdf-lib": "^1.17.1",
     "pdfjs-dist": "^5.3.93",
+    "pg": "8.20.0",
     "qrcode": "^1.5.4",
     "react": "19.2.7",
     "react-dom": "19.2.7",

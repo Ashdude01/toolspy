@@ -8,7 +8,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const ROOT = 'app/(frontend)/(tools)'
+const ROOT = 'app/(site)/(frontend)/(tools)'
 let n = 0
 
 for (const slug of fs.readdirSync(ROOT)) {

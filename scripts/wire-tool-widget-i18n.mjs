@@ -10,7 +10,7 @@ import path from 'path'
 const DRY = process.argv.includes('--dry')
 const slugsArg = process.argv.find((a) => a.startsWith('--slugs='))
 const ONLY = slugsArg ? new Set(slugsArg.slice(8).split(',').map((s) => s.trim()).filter(Boolean)) : null
-const ROOT = 'app/(frontend)/(tools)'
+const ROOT = 'app/(site)/(frontend)/(tools)'
 const MESSAGES = 'lib/i18n/messages.ts'
 const reUseT = /@\/lib\/i18n\/use-t/
 

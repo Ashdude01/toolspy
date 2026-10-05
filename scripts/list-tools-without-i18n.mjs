@@ -1,7 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
-const ROOT = 'app/(frontend)/(tools)'
+const ROOT = 'app/(site)/(frontend)/(tools)'
 const re = /@\/lib\/i18n\/use-t|useT\s*\(/
 const withI18n = []
 const without = []

@@ -5,8 +5,9 @@ import { siteConfig } from '@/lib/config'
  * ROOT layout — deliberately MINIMAL (Payload + Next.js pattern).
  *
  * Ye <html>/<body> ya koi site-chrome render NAHI karta. Kyun?
- *  - Frontend ka poora chrome (header, footer, fonts, globals.css, GTM, consent)
- *    ab app/(frontend)/layout.tsx me hai — sirf website ke pages par lagta hai.
+ *  - Frontend chrome (header, footer, fonts, globals.css, GTM, consent) lives in
+ *    English `app/(site)/(frontend)/layout.tsx` and localized
+ *    `app/(site)/(i18n)/[locale]/layout.tsx` — each owns <html lang> for SEO.
  *  - Payload admin (app/(payload)/layout.tsx) apna alag <html>/<body> render karta
  *    hai — bina site ke header/footer/PWA-button/theme ke.
  *
