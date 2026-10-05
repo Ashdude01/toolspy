@@ -158,3 +158,5 @@ uploads/
 new-tool.md
 public/ads.txt
 public/ads.txt
+.vercel
+.env*
