@@ -22,7 +22,7 @@ export async function generateStaticParams() {
 
 /** New CMS slugs after deploy must still resolve (old `false` caused 404). */
 export const dynamicParams = true
-export const revalidate = 3600
+export const revalidate = 86400
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
   const { slug } = await params

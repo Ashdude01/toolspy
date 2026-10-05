@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 }
 
 export const dynamic = 'force-static'
-export const revalidate = 3600
+export const revalidate = 86400
 
 export default async function BlogAuthorsIndexPage() {
   return <BlogAuthorsIndexView locale="en" />

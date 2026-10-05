@@ -19,7 +19,7 @@ import {
 import { siteConfig } from '@/lib/config'
 import { limitTitle, limitDescription } from '@/lib/utils/seo'
 
-export const revalidate = 3600
+export const revalidate = 86400
 export const dynamic = 'force-static'
 export const dynamicParams = false
 
@@ -35,8 +35,13 @@ export const metadata: Metadata = {
   manifest: '/manifest.json',
 }
 
-/** Throws 404 while keeping the parent SiteDocument wrapper (correct <html>). */
-async function ForceNotFound() {
+/**
+ * Throws 404 while keeping the parent SiteDocument wrapper (correct <html>).
+ * Sync on purpose: an async function that only calls notFound() is typed as
+ * Promise<void>, which React 19 rejects as a component. notFound() still
+ * throws during this child's render, after <html lang> is already committed.
+ */
+function ForceNotFound(): React.ReactNode {
   notFound()
 }
 

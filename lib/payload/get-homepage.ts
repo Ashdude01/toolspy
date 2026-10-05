@@ -37,7 +37,7 @@ export function getHomepagePopularTools(): Promise<Tool[]> {
       }
     },
     ['homepage-popular-tools'],
-    { tags: ['homepage'], revalidate: 3600 }
+    { tags: ['homepage'], revalidate: 86400 }
   )()
 }
 
@@ -91,6 +91,6 @@ export function getHomepageContent(locale: string = 'en'): Promise<HomepageConte
       }
     },
     [`homepage-content-${locale}`],
-    { tags: ['homepage'], revalidate: 3600 }
+    { tags: ['homepage'], revalidate: 86400 }
   )()
 }

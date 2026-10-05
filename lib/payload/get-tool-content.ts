@@ -87,8 +87,8 @@ export function getToolContent(
     [`tool-content-${slug}-${locale}-d2`],
     {
       tags: [`tool-content:${slug}`],
-      // Production ISR cache — pehli hit ke baad 1h tak fast static serve
-      revalidate: 3600,
+      // Time fallback only. CMS publish busts this immediately via revalidateTag.
+      revalidate: 86400,
     }
   )()
 }

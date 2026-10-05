@@ -27,7 +27,7 @@ export const metadata: Metadata = {
 
 /** Pre-rendered at build time; CMS updates revalidate via posts afterChange. */
 export const dynamic = 'force-static'
-export const revalidate = 3600
+export const revalidate = 86400
 
 export default function BlogIndexPage() {
   return <BlogIndexView locale="en" />

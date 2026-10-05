@@ -12,7 +12,7 @@ import { limitTitle, limitDescription } from '@/lib/utils/seo'
  * Localized URLs live under (i18n)/[locale] with their own <html lang>.
  * ISR: no headers()/cookies() here.
  */
-export const revalidate = 3600
+export const revalidate = 86400
 
 export const metadata: Metadata = {
   title: limitTitle(siteConfig.title),

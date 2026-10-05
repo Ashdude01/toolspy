@@ -67,7 +67,7 @@ export function getPublishedAuthors(): Promise<BlogAuthor[]> {
       }
     },
     ['authors-all-v1'],
-    { tags: ['authors'], revalidate: 3600 }
+    { tags: ['authors'], revalidate: 86400 }
   )()
 }
 
@@ -95,6 +95,6 @@ export function getAuthorBySlug(slug: string): Promise<BlogAuthor | null> {
       return FALLBACK_AUTHORS.find((a) => a.slug === slug) ?? null
     },
     [`author-${slug}-v1`],
-    { tags: ['authors'], revalidate: 3600 }
+    { tags: ['authors'], revalidate: 86400 }
   )()
 }

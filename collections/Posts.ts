@@ -235,6 +235,8 @@ export const Posts: CollectionConfig = {
           revalidateTag('authors')
           revalidatePath('/blog/')
           revalidatePath('/blog/author/')
+          revalidatePath('/sitemap.xml')
+          revalidatePath('/sitemap/blog.xml')
           if (doc?.slug) {
             revalidatePath(`/blog/${doc.slug}/`)
             revalidateTag(`post:${doc.slug}`)

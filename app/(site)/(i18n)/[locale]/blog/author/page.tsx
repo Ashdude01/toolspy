@@ -12,7 +12,7 @@ import {
 
 /** Localized blog authors index — /de/blog/author/ */
 export const dynamicParams = true
-export const revalidate = 3600
+export const revalidate = 86400
 
 type Params = Promise<{ locale: string }>
 

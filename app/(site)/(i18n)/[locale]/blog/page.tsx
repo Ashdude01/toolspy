@@ -14,7 +14,7 @@ import { BlogIndexView } from '@/components/blog/blog-index-view'
  * Indexable when locale is in PUBLISHED_LOCALES.
  */
 export const dynamicParams = true
-export const revalidate = 3600
+export const revalidate = 86400
 
 type Params = Promise<{ locale: string }>
 

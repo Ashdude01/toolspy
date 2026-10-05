@@ -15,7 +15,7 @@ import { HomePageView, buildHomepageMetadata } from '@/components/home2/home-pag
  */
 /** ISR — language switch serves the cached page, it does not SSR on each click. */
 export const dynamic = 'force-static'
-export const revalidate = 3600
+export const revalidate = 86400
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string }>

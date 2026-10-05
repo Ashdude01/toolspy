@@ -9,7 +9,7 @@
  * in View Source, which is wrong for SEO. headers() is also banned here — it
  * would force SSR on every public page.
  */
-export const revalidate = 3600
+export const revalidate = 86400
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return children

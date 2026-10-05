@@ -40,7 +40,7 @@ import { RelatedTools } from '@/components/tools/related-tools'
  * dispatcher from falling through to per-request SSR on language switch.
  */
 export const dynamic = 'force-static'
-export const revalidate = 3600
+export const revalidate = 86400
 export const dynamicParams = false
 
 type Params = Promise<{ locale: string; slug: string }>

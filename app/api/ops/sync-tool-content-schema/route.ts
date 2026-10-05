@@ -28,7 +28,18 @@ export async function POST(req: Request) {
     }
 
     const require = createRequire(import.meta.url)
-    const pg = require('pg') as typeof import('pg')
+    // pg ships no types; avoid `typeof import('pg')` so the build does not need @types/pg.
+    const pg = require('pg') as {
+      Client: new (config: {
+        connectionString: string
+        connectionTimeoutMillis?: number
+        ssl?: { rejectUnauthorized: boolean }
+      }) => {
+        connect(): Promise<void>
+        query(sql: string): Promise<{ rows: unknown[] }>
+        end(): Promise<void>
+      }
+    }
     const client = new pg.Client({
       connectionString: url,
       connectionTimeoutMillis: 15000,

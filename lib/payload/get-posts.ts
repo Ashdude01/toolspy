@@ -206,7 +206,7 @@ async function fetchPublishedPosts(locale: string): Promise<BlogPost[]> {
 export function getPublishedBlogPosts(locale: string = DEFAULT_POST_LOCALE): Promise<BlogPost[]> {
   return unstable_cache(() => fetchPublishedPosts(locale), [`posts-all-${locale}-v3`], {
     tags: ['posts'],
-    revalidate: 3600,
+    revalidate: 86400,
   })()
 }
 
@@ -248,7 +248,7 @@ export function getPublishedBlogPostBySlug(
       return fromCode ? enrichCodePost(fromCode) : null
     },
     [`post-${slug}-${locale}-v3`],
-    { tags: ['posts', `post:${slug}`], revalidate: 3600 }
+    { tags: ['posts', `post:${slug}`], revalidate: 86400 }
   )()
 }
 
