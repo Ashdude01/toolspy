@@ -52,7 +52,7 @@ export function FAQ({
             className="group rounded-xl border border-border bg-card shadow-sm"
           >
             <summary className="flex cursor-pointer list-none items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-foreground [&::-webkit-details-marker]:hidden">
-              <span>{faq.question}</span>
+              <h3>{faq.question}</h3>
               <span className="relative h-4 w-4 shrink-0 text-indigo-600 dark:text-indigo-400">
                 <span className="absolute left-0 top-1/2 h-0.5 w-4 -translate-y-1/2 rounded bg-current" />
                 <span className="absolute left-1/2 top-0 h-4 w-0.5 -translate-x-1/2 rounded bg-current transition-transform group-open:rotate-90" />

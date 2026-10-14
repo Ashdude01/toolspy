@@ -251,7 +251,7 @@ export interface ToolContent {
    */
   keywords?: string | null;
   /**
-   * Main article body. H2 headings drive the TOC.
+   * Main article body. Toolbar se Heading → H2 = TOC item. H3 = subheading (TOC me nahi, jab tak neeche "Include H3" on na ho). Lists, links, tables, images, video supported.
    */
   content?: {
     root: {
@@ -269,14 +269,17 @@ export interface ToolContent {
     [k: string]: unknown;
   } | null;
   /**
-   * On = H3 also appears nested in TOC. Off = H2 only.
+   * On = H3 bhi TOC me nested dikhe. Off (default) = sirf H2 TOC me.
    */
   tocIncludeH3?: boolean | null;
   /**
-   * Optional heading slug ids to hide from TOC (heading still renders on the page).
+   * Optional: jin H2/H3 ko TOC se hide karna hai unka auto-slug yahan daalo (e.g. "how-it-works"). Page par heading dikhegi, TOC link nahi.
    */
   tocExclude?:
     | {
+        /**
+         * Slugified heading id (lowercase-hyphens), same as URL #anchor
+         */
         anchorId: string;
         id?: string | null;
       }[]
