@@ -1,3 +1,4 @@
+import './scripts/polyfill-file.cjs'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 /**

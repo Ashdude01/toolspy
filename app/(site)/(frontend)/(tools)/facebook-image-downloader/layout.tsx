@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 import { generateToolMetadata, DynamicToolLayout } from "@/components/layout/dynamic-tool-layout"
 import { CmsToolHero } from '@/components/i18n/cms-tool-hero';
+import { ToolContentSwitch } from '@/components/i18n/tool-content-switch'
+import { FacebookImageDownloaderSEOContent } from './seo-content'
 import "./faq-loader";
 
 export const metadata: Metadata = generateToolMetadata("facebook-image-downloader");
@@ -21,6 +23,9 @@ export default function FacebookImageDownloaderLayout({
       <CmsToolHero slug="facebook-image-downloader" locale="en" />
       <div className="contents [&_.tool-legacy-hero]:hidden">
         <Suspense fallback={<FacebookImageDownloaderPageFallback />}>{children}</Suspense>
+      </div>
+      <div className="container mx-auto px-4 py-6 sm:py-8 max-w-7xl">
+        <ToolContentSwitch slug="facebook-image-downloader" locale="en" codeFallback={<FacebookImageDownloaderSEOContent />} />
       </div>
     </DynamicToolLayout>
   );

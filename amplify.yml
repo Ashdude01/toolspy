@@ -1,0 +1,28 @@
+# Next.js 15 SSR (Amplify WEB_COMPUTE). baseDirectory must stay .next.
+version: 1
+frontend:
+  phases:
+    preBuild:
+      commands:
+        - nvm install 20
+        - nvm alias default 20
+        - nvm use 20
+        - node --version
+        - npm install -g pnpm@9
+        - pnpm config set store-dir .pnpm-store
+        # Hoisted linker so Amplify's SSR compute can resolve packages from node_modules.
+        - pnpm config set node-linker hoisted
+        - pnpm install --frozen-lockfile
+    build:
+      commands:
+        - nvm use 20
+        - NODE_OPTIONS=--max-old-space-size=4096 pnpm run build
+  artifacts:
+    baseDirectory: .next
+    files:
+      - '**/*'
+  cache:
+    paths:
+      - .pnpm-store/**/*
+      - node_modules/**/*
+      - .next/cache/**/*

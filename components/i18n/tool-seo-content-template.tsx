@@ -8,7 +8,7 @@ import { FAQ } from '@/components/ui/faq'
 import { Toc, type TocItem } from '@/components/ui/toc'
 import { FAQSchema } from '@/components/seo/comprehensive-schemas'
 import { RenderRichText } from '@/components/richtext/render-rich-text'
-import { getTocFromLexical } from '@/lib/blog/toc'
+import { getTocFromLexical, splitLeadingHeading } from '@/lib/blog/toc'
 import { hasLexicalContent } from '@/lib/blog/lexical-from-sections'
 import type { ToolContentDoc } from '@/lib/payload/get-tool-content'
 
@@ -25,6 +25,9 @@ export function ToolSeoContentTemplate({
   void locale
   const faqs = doc.faqs ?? []
   const useArticle = hasLexicalContent(doc.content)
+  const promoted =
+    useArticle && !doc.heroHeading?.trim() ? splitLeadingHeading(doc.content) : null
+  const articleContent = promoted?.heading ? promoted.content : doc.content
   const sections = doc.sections ?? []
 
   const excluded = new Set(
@@ -34,7 +37,7 @@ export function ToolSeoContentTemplate({
   )
 
   const fromArticle: TocItem[] = useArticle
-    ? getTocFromLexical(doc.content)
+    ? getTocFromLexical(articleContent)
         .filter((item) => item.id.length > 0)
         .filter((item) => (doc.tocIncludeH3 ? true : item.level === 2))
         .filter((item) => !excluded.has(item.id.toLowerCase()))
@@ -62,7 +65,7 @@ export function ToolSeoContentTemplate({
         <div className="min-w-0 max-w-full">
           <article className="article min-w-0 max-w-full overflow-x-hidden">
             {useArticle ? (
-              <RenderRichText data={doc.content} />
+              <RenderRichText data={articleContent} />
             ) : (
               sections.map((s) => (
                 <section key={s.anchorId}>

@@ -6,9 +6,9 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "node scripts/migrate-tool-content-article.mjs && next build",
+    "build": "node scripts/migrate-tool-content-article.mjs && node scripts/next-with-file-polyfill.cjs build",
     "migrate:tool-article": "node --env-file=.env scripts/migrate-tool-content-article.mjs",
-    "start": "next start",
+    "start": "node scripts/next-with-file-polyfill.cjs start",
     "lint": "next lint",
     "office": "next dev --hostname 192.168.1.4 -p 3000",
     "home": "next dev --hostname 192.168.177.244 -p 3000",
@@ -89,6 +89,9 @@
     "typescript": "5.6.3"
   },
   "engines": {
-    "node": ">=18.18.0"
+    "node": ">=20"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": ["esbuild", "sharp", "unrs-resolver"]
   }
 }

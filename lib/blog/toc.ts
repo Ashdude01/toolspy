@@ -32,6 +32,29 @@ export function lexicalNodeText(node: LexNode | undefined | null): string {
   return ''
 }
 
+/**
+ * First block heading in a lexical article, plus the same document without that heading.
+ * Used when a locale has an article but no separate hero heading.
+ */
+export function splitLeadingHeading(data: unknown): { heading: string | null; content: unknown } {
+  if (!data || typeof data !== 'object') return { heading: null, content: data }
+  const root = (data as { root?: { children?: LexNode[] } }).root
+  if (!root || !Array.isArray(root.children) || root.children.length === 0) {
+    return { heading: null, content: data }
+  }
+  const first = root.children[0]
+  if (first?.type !== 'heading') return { heading: null, content: data }
+  const heading = lexicalNodeText(first).trim()
+  if (!heading) return { heading: null, content: data }
+  return {
+    heading,
+    content: {
+      ...(data as object),
+      root: { ...root, children: root.children.slice(1) },
+    },
+  }
+}
+
 /** Extract H2/H3 headings from Payload lexical JSON for a table of contents. */
 export function getTocFromLexical(data: unknown): TocItem[] {
   if (!data || typeof data !== 'object') return []

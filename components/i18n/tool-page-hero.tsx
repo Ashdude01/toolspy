@@ -8,6 +8,7 @@
  * server `page.tsx` se children ke through compose kar sakte hain.
  */
 import type { ReactNode } from 'react'
+import { splitLeadingHeading } from '@/lib/blog/toc'
 import { getToolContent } from '@/lib/payload/get-tool-content'
 import { cn } from '@/lib/utils'
 
@@ -34,9 +35,13 @@ export async function ToolPageHero({
   headingAs?: 'h1' | 'h2'
 }) {
   const doc = await getToolContent(slug, locale)
-  const title = doc?.heroHeading?.trim() || fallbackTitle
+  const articleHeading =
+    doc?.contentSource === 'cms' && !doc.heroHeading?.trim()
+      ? splitLeadingHeading(doc.content).heading
+      : null
+  const title = doc?.heroHeading?.trim() || articleHeading || fallbackTitle
   const description =
-    doc?.heroDescription?.trim() || fallbackDescription?.trim() || ''
+    doc?.heroDescription?.trim() || (articleHeading ? '' : fallbackDescription?.trim() || '')
 
   return (
     <div className={cn('text-center space-y-4', className)}>
