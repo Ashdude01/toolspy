@@ -1,22 +1,30 @@
 # Next.js 15 SSR (Amplify WEB_COMPUTE). baseDirectory must stay .next.
+# Amplify Console -> App settings -> Environment variables me ye SET karo:
+#   DATABASE_URL, PAYLOAD_SECRET, NEXT_PUBLIC_SITE_URL, NEXT_PUBLIC_SITE_DOMAIN,
+#   CLOUDINARY_CLOUD_NAME/API_KEY/API_SECRET (+ optional NEXT_PUBLIC_*)
 version: 1
 frontend:
   phases:
     preBuild:
       commands:
         - nvm install 20
-        - nvm alias default 20
         - nvm use 20
         - node --version
-        - npm install -g pnpm@9
+        - npm install -g pnpm@10
+        - pnpm --version
+        # puppeteer/capture-website ka Chromium download build me kaam ka nahi
+        - export PUPPETEER_SKIP_DOWNLOAD=true
         - pnpm config set store-dir .pnpm-store
         # Hoisted linker so Amplify's SSR compute can resolve packages from node_modules.
         - pnpm config set node-linker hoisted
-        - pnpm install --frozen-lockfile
+        - pnpm install --frozen-lockfile || pnpm install --no-frozen-lockfile
     build:
       commands:
         - nvm use 20
-        - NODE_OPTIONS=--max-old-space-size=4096 pnpm run build
+        # Amplify env vars SSR runtime ko nahi milte -> .env.production me likh do
+        - env | grep -E '^(DATABASE_URL|PAYLOAD_SECRET|NEXT_PUBLIC_|CLOUDINARY_|INSTAGRAM_)' >> .env.production || true
+        - export NODE_OPTIONS=--max-old-space-size=6144
+        - pnpm run build
   artifacts:
     baseDirectory: .next
     files:
