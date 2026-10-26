@@ -22,6 +22,15 @@ try {
   pg = require(path.join(root, 'node_modules/.pnpm/pg@8.20.0/node_modules/pg'))
 }
 
+// Build ko DB errors (quota, network, etc.) pe fail nahi hona chahiye —
+// migration idempotent hai, next deploy/run pe dobara try ho jayegi.
+const softFail = (err) => {
+  console.warn('[migrate-tool-article] skipped (non-fatal):', err && err.message ? err.message : err)
+  process.exit(0)
+}
+process.on('uncaughtException', softFail)
+process.on('unhandledRejection', softFail)
+
 const url = process.env.DATABASE_URL
 if (!url) {
   console.warn('[migrate-tool-article] DATABASE_URL missing — skip')
