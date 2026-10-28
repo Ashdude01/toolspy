@@ -80,6 +80,13 @@ const nextConfig = {
   },
   compress: true,
 
+  // Static generation ke workers limit: har worker apna DB pool kholta hai,
+  // zyada workers = Supabase pooler "max clients reached" error.
+  experimental: {
+    cpus: Number(process.env.NEXT_BUILD_CPUS) || 2,
+    staticGenerationMaxConcurrency: 4,
+  },
+
   // Sharp is a native module — keep it external and force Vercel NFT to include
   // libvips binaries (sharp 0.34/0.35 fail on Vercel without this + pinned version).
   serverExternalPackages: [

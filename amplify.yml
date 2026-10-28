@@ -24,6 +24,10 @@ frontend:
         # Amplify env vars SSR runtime ko nahi milte -> .env.production me likh do
         - env | grep -E '^(DATABASE_URL|PAYLOAD_SECRET|NEXT_PUBLIC_|CLOUDINARY_|INSTAGRAM_)' >> .env.production || true
         - export NODE_OPTIONS=--max-old-space-size=6144
+        # Supabase pooler limit: kam workers + chhota pool + lamba connect timeout (sirf build)
+        - export DB_POOL_MAX=2
+        - export DB_CONNECT_TIMEOUT_MS=30000
+        - export NEXT_BUILD_CPUS=2
         - pnpm run build
   artifacts:
     baseDirectory: .next

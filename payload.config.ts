@@ -141,9 +141,11 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URL || '',
       // Vercel/serverless: Neon cold-start pe infinite hang mat karo
-      connectionTimeoutMillis: 4000,
+      // Build me (Amplify) DB_POOL_MAX/DB_CONNECT_TIMEOUT_MS set hote hain taaki
+      // Supabase pooler ki connection limit cross na ho. Runtime defaults same.
+      connectionTimeoutMillis: Number(process.env.DB_CONNECT_TIMEOUT_MS) || 4000,
       idleTimeoutMillis: 10000,
-      max: 5,
+      max: Number(process.env.DB_POOL_MAX) || 5,
     },
   }),
   localization: {
